@@ -1,0 +1,15 @@
+{
+ "dataset": "gqa_large",
+ "metric": "gqa",
+ "order": "importance",
+ "calib_questions": 1,
+ "skip": 1,
+ "questions_per_image": 3,
+ "budgets": "0.25,0.5",
+ "sparsevlm_ratio": 0.25,
+ "selectors": "sparsevlm,static_diverse_chunk",
+ "shard_size": 80,
+ "n_images": 395,
+ "n_shards": 5,
+ "index": "/home/dblab/hj/mllm_v2/data/gqa_large/index.json"
+}

@@ -1,0 +1,1735 @@
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/01_build_store.py --out /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n282436,n350766,n6908,n363445,n571179,n344136,n518912,n410289,n336443,n501951,n486200,n508641,n250821,n335542,n367944,n574498,n126891,n296467,n100991,n65230,n570181,n39114,n49438,n124651,n274905,n489190,n71728,n567860,n520071,n148872,n206785,n566028,n494677,n62458,n314171,n513429,n497658,n25275,n260521,n471866,n526228,n483840,n24526,n305495,n429883,n494918,n432591,n164272,n216553,n194179,n466319,n382416,n172618,n355567,n208458,n290409,n538684,n357784,n79078,n501609,n536256,n437192,n507149,n500209,n497789,n525901,n560243,n234722,n546884,n23181,n186491,n417401,n146522,n184385,n393305,n410476,n88366,n249639,n406334,n579928
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:05,  2.60s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:05<00:02,  2.58s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:07<00:00,  2.35s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:07<00:00,  2.42s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/80] n282436: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[2/80] n350766: v_num=2144 chunks=34 1.12GB+0.05 (1.2s)
+[3/80] n6908: v_num=2160 chunks=34 1.13GB+0.05 (1.2s)
+[4/80] n363445: v_num=2340 chunks=37 1.23GB+0.06 (1.4s)
+[5/80] n571179: v_num=2438 chunks=39 1.28GB+0.06 (1.6s)
+[6/80] n344136: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[7/80] n518912: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[8/80] n410289: v_num=2352 chunks=37 1.23GB+0.06 (1.3s)
+[9/80] n336443: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[10/80] n501951: v_num=1850 chunks=29 0.97GB+0.05 (1.0s)
+[11/80] n486200: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[12/80] n508641: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[13/80] n250821: v_num=2352 chunks=37 1.23GB+0.06 (1.2s)
+[14/80] n335542: v_num=2438 chunks=39 1.28GB+0.06 (1.5s)
+[15/80] n367944: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[16/80] n574498: v_num=2256 chunks=36 1.18GB+0.06 (1.2s)
+[17/80] n126891: v_num=1704 chunks=27 0.89GB+0.04 (0.9s)
+[18/80] n296467: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[19/80] n100991: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[20/80] n65230: v_num=2352 chunks=37 1.23GB+0.06 (1.2s)
+[21/80] n570181: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[22/80] n39114: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[23/80] n49438: v_num=2928 chunks=46 1.54GB+0.07 (1.8s)
+[24/80] n124651: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[25/80] n274905: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[26/80] n489190: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[27/80] n71728: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[28/80] n567860: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[29/80] n520071: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[30/80] n148872: v_num=2352 chunks=37 1.23GB+0.06 (1.2s)
+[31/80] n206785: v_num=2144 chunks=34 1.12GB+0.05 (1.2s)
+[32/80] n566028: v_num=1948 chunks=31 1.02GB+0.05 (0.9s)
+[33/80] n494677: v_num=1948 chunks=31 1.02GB+0.05 (1.3s)
+[34/80] n62458: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[35/80] n314171: v_num=2160 chunks=34 1.13GB+0.05 (1.5s)
+[36/80] n513429: v_num=2340 chunks=37 1.23GB+0.06 (1.7s)
+[37/80] n497658: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[38/80] n25275: v_num=2144 chunks=34 1.12GB+0.05 (1.6s)
+[39/80] n260521: v_num=2144 chunks=34 1.12GB+0.05 (1.2s)
+[40/80] n471866: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[41/80] n526228: v_num=1948 chunks=31 1.02GB+0.05 (1.0s)
+[42/80] n483840: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[43/80] n24526: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[44/80] n305495: v_num=2160 chunks=34 1.13GB+0.05 (1.8s)
+[45/80] n429883: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[46/80] n494918: v_num=2352 chunks=37 1.23GB+0.06 (1.5s)
+[47/80] n432591: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[48/80] n164272: v_num=2340 chunks=37 1.23GB+0.06 (2.1s)
+[49/80] n216553: v_num=2144 chunks=34 1.12GB+0.05 (2.1s)
+[50/80] n194179: v_num=1968 chunks=31 1.03GB+0.05 (1.9s)
+[51/80] n466319: v_num=2340 chunks=37 1.23GB+0.06 (2.3s)
+[52/80] n382416: v_num=2352 chunks=37 1.23GB+0.06 (2.2s)
+[53/80] n172618: v_num=2340 chunks=37 1.23GB+0.06 (2.2s)
+[54/80] n355567: v_num=2144 chunks=34 1.12GB+0.05 (2.3s)
+[55/80] n208458: v_num=1464 chunks=23 0.77GB+0.04 (1.6s)
+[56/80] n290409: v_num=2340 chunks=37 1.23GB+0.06 (2.5s)
+[57/80] n538684: v_num=2144 chunks=34 1.12GB+0.05 (2.1s)
+[58/80] n357784: v_num=2340 chunks=37 1.23GB+0.06 (2.4s)
+[59/80] n79078: v_num=2352 chunks=37 1.23GB+0.06 (2.5s)
+[60/80] n501609: v_num=2144 chunks=34 1.12GB+0.05 (2.2s)
+[61/80] n536256: v_num=2340 chunks=37 1.23GB+0.06 (2.1s)
+[62/80] n437192: v_num=2160 chunks=34 1.13GB+0.05 (2.3s)
+[63/80] n507149: v_num=2144 chunks=34 1.12GB+0.05 (2.2s)
+[64/80] n500209: v_num=2160 chunks=34 1.13GB+0.05 (2.0s)
+[65/80] n497789: v_num=2340 chunks=37 1.23GB+0.06 (2.0s)
+[66/80] n525901: v_num=2340 chunks=37 1.23GB+0.06 (2.0s)
+[67/80] n560243: v_num=2340 chunks=37 1.23GB+0.06 (2.4s)
+[68/80] n234722: v_num=2340 chunks=37 1.23GB+0.06 (2.2s)
+[69/80] n546884: v_num=2340 chunks=37 1.23GB+0.06 (2.1s)
+[70/80] n23181: v_num=1458 chunks=23 0.76GB+0.04 (1.4s)
+[71/80] n186491: v_num=2340 chunks=37 1.23GB+0.06 (2.4s)
+[72/80] n417401: v_num=2352 chunks=37 1.23GB+0.06 (2.5s)
+[73/80] n146522: v_num=2144 chunks=34 1.12GB+0.05 (2.2s)
+[74/80] n184385: v_num=2340 chunks=37 1.23GB+0.06 (2.5s)
+[75/80] n393305: v_num=2352 chunks=37 1.23GB+0.06 (2.4s)
+[76/80] n410476: v_num=2160 chunks=34 1.13GB+0.05 (2.2s)
+[77/80] n88366: v_num=1948 chunks=31 1.02GB+0.05 (2.0s)
+[78/80] n249639: v_num=2160 chunks=34 1.13GB+0.05 (2.4s)
+[79/80] n406334: v_num=2144 chunks=34 1.12GB+0.05 (2.3s)
+[80/80] n579928: v_num=2732 chunks=43 1.43GB+0.07 (3.0s)
+store: 93.1 GB visual KV in /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/02_reorder.py --order importance --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --calib-questions 4
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.50s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.48s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.25s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.31s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/395] n282436: importance order (per-layer) (9.8s)
+[2/395] n350766: importance order (per-layer) (10.0s)
+[3/395] n6908: importance order (per-layer) (5.1s)
+[4/395] n363445: importance order (per-layer) (3.0s)
+[5/395] n571179: importance order (per-layer) (3.1s)
+[6/395] n344136: importance order (per-layer) (3.0s)
+[7/395] n518912: importance order (per-layer) (3.5s)
+[8/395] n410289: importance order (per-layer) (3.3s)
+[9/395] n336443: importance order (per-layer) (2.5s)
+[10/395] n501951: importance order (per-layer) (2.8s)
+[11/395] n486200: importance order (per-layer) (2.7s)
+[12/395] n508641: importance order (per-layer) (2.6s)
+[13/395] n250821: importance order (per-layer) (3.0s)
+[14/395] n335542: importance order (per-layer) (3.0s)
+[15/395] n367944: importance order (per-layer) (5.2s)
+[16/395] n574498: importance order (per-layer) (2.5s)
+[17/395] n126891: importance order (per-layer) (2.7s)
+[18/395] n296467: importance order (per-layer) (2.7s)
+[19/395] n100991: importance order (per-layer) (2.7s)
+[20/395] n65230: importance order (per-layer) (2.7s)
+[21/395] n570181: importance order (per-layer) (2.6s)
+[22/395] n39114: importance order (per-layer) (2.4s)
+[23/395] n49438: importance order (per-layer) (3.9s)
+[24/395] n124651: importance order (per-layer) (3.7s)
+[25/395] n274905: importance order (per-layer) (6.2s)
+[26/395] n489190: importance order (per-layer) (4.0s)
+[27/395] n71728: importance order (per-layer) (2.4s)
+[28/395] n567860: importance order (per-layer) (2.7s)
+[29/395] n520071: importance order (per-layer) (2.9s)
+[30/395] n148872: importance order (per-layer) (3.3s)
+[31/395] n206785: importance order (per-layer) (2.5s)
+[32/395] n566028: importance order (per-layer) (2.4s)
+[33/395] n494677: importance order (per-layer) (3.5s)
+[34/395] n62458: importance order (per-layer) (2.6s)
+[35/395] n314171: importance order (per-layer) (3.4s)
+[36/395] n513429: importance order (per-layer) (2.6s)
+[37/395] n497658: importance order (per-layer) (2.9s)
+[38/395] n25275: importance order (per-layer) (3.2s)
+[39/395] n260521: importance order (per-layer) (2.8s)
+[40/395] n471866: importance order (per-layer) (2.3s)
+[41/395] n526228: importance order (per-layer) (2.6s)
+[42/395] n483840: importance order (per-layer) (4.0s)
+[43/395] n24526: importance order (per-layer) (2.6s)
+[44/395] n305495: importance order (per-layer) (2.8s)
+[45/395] n429883: importance order (per-layer) (3.8s)
+[46/395] n494918: importance order (per-layer) (7.1s)
+[47/395] n432591: importance order (per-layer) (5.9s)
+[48/395] n164272: importance order (per-layer) (2.9s)
+[49/395] n216553: importance order (per-layer) (2.7s)
+[50/395] n194179: importance order (per-layer) (2.5s)
+[51/395] n466319: importance order (per-layer) (3.1s)
+[52/395] n382416: importance order (per-layer) (4.8s)
+[53/395] n172618: importance order (per-layer) (2.8s)
+[54/395] n355567: importance order (per-layer) (3.7s)
+[55/395] n208458: importance order (per-layer) (1.9s)
+[56/395] n290409: importance order (per-layer) (2.6s)
+[57/395] n538684: importance order (per-layer) (3.4s)
+[58/395] n357784: importance order (per-layer) (3.3s)
+[59/395] n79078: importance order (per-layer) (3.7s)
+[60/395] n501609: importance order (per-layer) (2.5s)
+[61/395] n536256: importance order (per-layer) (3.0s)
+[62/395] n437192: importance order (per-layer) (4.0s)
+[63/395] n507149: importance order (per-layer) (5.0s)
+[64/395] n500209: importance order (per-layer) (4.8s)
+[65/395] n497789: importance order (per-layer) (2.8s)
+[66/395] n525901: importance order (per-layer) (2.7s)
+[67/395] n560243: importance order (per-layer) (3.3s)
+[68/395] n234722: importance order (per-layer) (3.1s)
+[69/395] n546884: importance order (per-layer) (2.7s)
+[70/395] n23181: importance order (per-layer) (1.9s)
+[71/395] n186491: importance order (per-layer) (3.0s)
+[72/395] n417401: importance order (per-layer) (3.2s)
+[73/395] n146522: importance order (per-layer) (2.9s)
+[74/395] n184385: importance order (per-layer) (4.9s)
+[75/395] n393305: importance order (per-layer) (2.8s)
+[76/395] n410476: importance order (per-layer) (2.6s)
+[77/395] n88366: importance order (per-layer) (2.6s)
+[78/395] n249639: importance order (per-layer) (3.0s)
+[79/395] n406334: importance order (per-layer) (2.9s)
+[80/395] n579928: importance order (per-layer) (3.3s)
+reorder done
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/06_build_static.py --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n282436,n350766,n6908,n363445,n571179,n344136,n518912,n410289,n336443,n501951,n486200,n508641,n250821,n335542,n367944,n574498,n126891,n296467,n100991,n65230,n570181,n39114,n49438,n124651,n274905,n489190,n71728,n567860,n520071,n148872,n206785,n566028,n494677,n62458,n314171,n513429,n497658,n25275,n260521,n471866,n526228,n483840,n24526,n305495,n429883,n494918,n432591,n164272,n216553,n194179,n466319,n382416,n172618,n355567,n208458,n290409,n538684,n357784,n79078,n501609,n536256,n437192,n507149,n500209,n497789,n525901,n560243,n234722,n546884,n23181,n186491,n417401,n146522,n184385,n393305,n410476,n88366,n249639,n406334,n579928
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.43s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.45s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.19s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.26s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/80] n282436: CLIP 297 ms + metadata 671 ms, 28.6 MB, sep chunks 12.4/37
+[2/80] n350766: CLIP 42 ms + metadata 657 ms, 25.7 MB, sep chunks 12.5/34
+[3/80] n6908: CLIP 42 ms + metadata 684 ms, 34.1 MB, sep chunks 16.9/34
+[4/80] n363445: CLIP 43 ms + metadata 3441 ms, 28.6 MB, sep chunks 13.9/37
+[5/80] n571179: CLIP 42 ms + metadata 1251 ms, 30.2 MB, sep chunks 15.4/39
+[6/80] n344136: CLIP 42 ms + metadata 507 ms, 25.7 MB, sep chunks 11.9/34
+[7/80] n518912: CLIP 41 ms + metadata 645 ms, 28.6 MB, sep chunks 13.2/37
+[8/80] n410289: CLIP 40 ms + metadata 711 ms, 34.9 MB, sep chunks 17.3/37
+[9/80] n336443: CLIP 42 ms + metadata 572 ms, 25.7 MB, sep chunks 10.3/34
+[10/80] n501951: CLIP 42 ms + metadata 531 ms, 21.2 MB, sep chunks 7.9/29
+[11/80] n486200: CLIP 42 ms + metadata 537 ms, 25.7 MB, sep chunks 11.1/34
+[12/80] n508641: CLIP 42 ms + metadata 644 ms, 28.6 MB, sep chunks 12.9/37
+[13/80] n250821: CLIP 43 ms + metadata 2432 ms, 34.9 MB, sep chunks 17.3/37
+[14/80] n335542: CLIP 43 ms + metadata 733 ms, 30.2 MB, sep chunks 15.0/39
+[15/80] n367944: CLIP 42 ms + metadata 541 ms, 28.6 MB, sep chunks 12.8/37
+[16/80] n574498: CLIP 42 ms + metadata 504 ms, 34.6 MB, sep chunks 14.9/36
+[17/80] n126891: CLIP 25 ms + metadata 457 ms, 19.7 MB, sep chunks 8.4/27
+[18/80] n296467: CLIP 42 ms + metadata 641 ms, 28.6 MB, sep chunks 15.2/37
+[19/80] n100991: CLIP 42 ms + metadata 566 ms, 28.6 MB, sep chunks 13.9/37
+[20/80] n65230: CLIP 42 ms + metadata 565 ms, 34.9 MB, sep chunks 17.8/37
+[21/80] n570181: CLIP 42 ms + metadata 522 ms, 25.7 MB, sep chunks 9.0/34
+[22/80] n39114: CLIP 42 ms + metadata 740 ms, 34.1 MB, sep chunks 15.3/34
+[23/80] n49438: CLIP 42 ms + metadata 670 ms, 37.2 MB, sep chunks 17.3/46
+[24/80] n124651: CLIP 42 ms + metadata 488 ms, 25.7 MB, sep chunks 11.0/34
+[25/80] n274905: CLIP 42 ms + metadata 525 ms, 25.7 MB, sep chunks 11.4/34
+[26/80] n489190: CLIP 42 ms + metadata 525 ms, 25.7 MB, sep chunks 11.0/34
+[27/80] n71728: CLIP 43 ms + metadata 513 ms, 25.7 MB, sep chunks 12.2/34
+[28/80] n567860: CLIP 42 ms + metadata 642 ms, 28.6 MB, sep chunks 13.2/37
+[29/80] n520071: CLIP 42 ms + metadata 524 ms, 28.6 MB, sep chunks 14.0/37
+[30/80] n148872: CLIP 40 ms + metadata 513 ms, 34.9 MB, sep chunks 17.0/37
+[31/80] n206785: CLIP 40 ms + metadata 450 ms, 25.7 MB, sep chunks 11.1/34
+[32/80] n566028: CLIP 40 ms + metadata 431 ms, 22.8 MB, sep chunks 9.4/31
+[33/80] n494677: CLIP 40 ms + metadata 489 ms, 22.8 MB, sep chunks 8.2/31
+[34/80] n62458: CLIP 40 ms + metadata 473 ms, 25.7 MB, sep chunks 12.1/34
+[35/80] n314171: CLIP 40 ms + metadata 455 ms, 34.1 MB, sep chunks 15.7/34
+[36/80] n513429: CLIP 41 ms + metadata 547 ms, 28.6 MB, sep chunks 14.2/37
+[37/80] n497658: CLIP 42 ms + metadata 484 ms, 25.7 MB, sep chunks 9.9/34
+[38/80] n25275: CLIP 42 ms + metadata 457 ms, 25.7 MB, sep chunks 10.5/34
+[39/80] n260521: CLIP 40 ms + metadata 470 ms, 25.7 MB, sep chunks 11.0/34
+[40/80] n471866: CLIP 41 ms + metadata 496 ms, 25.7 MB, sep chunks 12.3/34
+[41/80] n526228: CLIP 41 ms + metadata 498 ms, 22.8 MB, sep chunks 9.0/31
+[42/80] n483840: CLIP 42 ms + metadata 585 ms, 28.6 MB, sep chunks 13.0/37
+[43/80] n24526: CLIP 43 ms + metadata 505 ms, 25.7 MB, sep chunks 12.0/34
+[44/80] n305495: CLIP 42 ms + metadata 544 ms, 34.1 MB, sep chunks 15.1/34
+[45/80] n429883: CLIP 42 ms + metadata 677 ms, 28.6 MB, sep chunks 13.3/37
+[46/80] n494918: CLIP 42 ms + metadata 565 ms, 34.9 MB, sep chunks 15.6/37
+[47/80] n432591: CLIP 43 ms + metadata 527 ms, 28.6 MB, sep chunks 12.7/37
+[48/80] n164272: CLIP 41 ms + metadata 548 ms, 28.6 MB, sep chunks 12.4/37
+[49/80] n216553: CLIP 40 ms + metadata 510 ms, 25.7 MB, sep chunks 11.3/34
+[50/80] n194179: CLIP 40 ms + metadata 573 ms, 33.3 MB, sep chunks 14.6/31
+[51/80] n466319: CLIP 41 ms + metadata 509 ms, 28.6 MB, sep chunks 12.4/37
+[52/80] n382416: CLIP 40 ms + metadata 739 ms, 34.9 MB, sep chunks 18.0/37
+[53/80] n172618: CLIP 42 ms + metadata 645 ms, 28.6 MB, sep chunks 13.4/37
+[54/80] n355567: CLIP 42 ms + metadata 522 ms, 25.7 MB, sep chunks 10.3/34
+[55/80] n208458: CLIP 24 ms + metadata 435 ms, 18.6 MB, sep chunks 6.6/23
+[56/80] n290409: CLIP 42 ms + metadata 513 ms, 28.6 MB, sep chunks 12.7/37
+[57/80] n538684: CLIP 43 ms + metadata 485 ms, 25.7 MB, sep chunks 10.4/34
+[58/80] n357784: CLIP 42 ms + metadata 601 ms, 28.6 MB, sep chunks 13.8/37
+[59/80] n79078: CLIP 42 ms + metadata 759 ms, 34.9 MB, sep chunks 17.7/37
+[60/80] n501609: CLIP 42 ms + metadata 655 ms, 25.7 MB, sep chunks 12.0/34
+[61/80] n536256: CLIP 42 ms + metadata 535 ms, 28.6 MB, sep chunks 12.8/37
+[62/80] n437192: CLIP 42 ms + metadata 479 ms, 34.1 MB, sep chunks 14.8/34
+[63/80] n507149: CLIP 42 ms + metadata 508 ms, 25.7 MB, sep chunks 10.4/34
+[64/80] n500209: CLIP 42 ms + metadata 539 ms, 34.1 MB, sep chunks 17.6/34
+[65/80] n497789: CLIP 42 ms + metadata 584 ms, 28.6 MB, sep chunks 10.8/37
+[66/80] n525901: CLIP 42 ms + metadata 543 ms, 28.6 MB, sep chunks 14.5/37
+[67/80] n560243: CLIP 42 ms + metadata 573 ms, 28.6 MB, sep chunks 13.0/37
+[68/80] n234722: CLIP 40 ms + metadata 598 ms, 28.6 MB, sep chunks 13.2/37
+[69/80] n546884: CLIP 40 ms + metadata 531 ms, 28.6 MB, sep chunks 13.8/37
+[70/80] n23181: CLIP 23 ms + metadata 455 ms, 15.5 MB, sep chunks 5.1/23
+[71/80] n186491: CLIP 42 ms + metadata 496 ms, 28.6 MB, sep chunks 13.7/37
+[72/80] n417401: CLIP 42 ms + metadata 555 ms, 34.9 MB, sep chunks 16.0/37
+[73/80] n146522: CLIP 42 ms + metadata 497 ms, 25.7 MB, sep chunks 11.2/34
+[74/80] n184385: CLIP 43 ms + metadata 567 ms, 28.6 MB, sep chunks 13.0/37
+[75/80] n393305: CLIP 42 ms + metadata 557 ms, 34.9 MB, sep chunks 17.7/37
+[76/80] n410476: CLIP 42 ms + metadata 491 ms, 34.1 MB, sep chunks 14.1/34
+[77/80] n88366: CLIP 43 ms + metadata 461 ms, 22.8 MB, sep chunks 9.8/31
+[78/80] n249639: CLIP 42 ms + metadata 498 ms, 34.1 MB, sep chunks 17.6/34
+[79/80] n406334: CLIP 42 ms + metadata 474 ms, 25.7 MB, sep chunks 12.1/34
+[80/80] n579928: CLIP 41 ms + metadata 630 ms, 34.4 MB, sep chunks 17.6/43
+
+first-use per image: CLIP 44 ms + metadata 621 ms = 665 ms
+amortised over 5.0 questions/image: 133.0 ms/question
+sidecar 28.6 MB/image
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/04_eval.py --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n282436,n350766,n6908,n363445,n571179,n344136,n518912,n410289,n336443,n501951,n486200,n508641,n250821,n335542,n367944,n574498,n126891,n296467,n100991,n65230,n570181,n39114,n49438,n124651,n274905,n489190,n71728,n567860,n520071,n148872,n206785,n566028,n494677,n62458,n314171,n513429,n497658,n25275,n260521,n471866,n526228,n483840,n24526,n305495,n429883,n494918,n432591,n164272,n216553,n194179,n466319,n382416,n172618,n355567,n208458,n290409,n538684,n357784,n79078,n501609,n536256,n437192,n507149,n500209,n497789,n525901,n560243,n234722,n546884,n23181,n186491,n417401,n146522,n184385,n393305,n410476,n88366,n249639,n406334,n579928 --metric gqa --dataset gqa_large_calib4 --questions 1 --skip 4 --ratio 0.25 --budgets 0.25,0.5 --selectors sparsevlm,static_diverse_chunk --out /home/dblab/hj/mllm_v2/results/gqa_large_calib4/shard_000.json --no-recompute
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.37s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.32s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.11s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.17s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/80] n282436 n=1 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (3s)
+[2/80] n350766 n=2 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (6s)
+[3/80] n6908 n=3 fullload=0.667  sparsevlm=0.667  static_di=0.667  static_di=0.667  (8s)
+[4/80] n363445 n=4 fullload=0.500  sparsevlm=0.500  static_di=0.500  static_di=0.500  (11s)
+[5/80] n571179 n=5 fullload=0.600  sparsevlm=0.600  static_di=0.600  static_di=0.600  (14s)
+[6/80] n344136 n=6 fullload=0.667  sparsevlm=0.667  static_di=0.500  static_di=0.500  (16s)
+[7/80] n518912 n=7 fullload=0.571  sparsevlm=0.571  static_di=0.429  static_di=0.429  (19s)
+[8/80] n410289 n=8 fullload=0.625  sparsevlm=0.625  static_di=0.500  static_di=0.500  (22s)
+[9/80] n336443 n=9 fullload=0.667  sparsevlm=0.667  static_di=0.556  static_di=0.556  (24s)
+[10/80] n501951 n=10 fullload=0.700  sparsevlm=0.700  static_di=0.600  static_di=0.600  (27s)
+[11/80] n486200 n=11 fullload=0.727  sparsevlm=0.727  static_di=0.636  static_di=0.636  (29s)
+[12/80] n508641 n=12 fullload=0.667  sparsevlm=0.667  static_di=0.583  static_di=0.583  (32s)
+[13/80] n250821 n=13 fullload=0.615  sparsevlm=0.615  static_di=0.538  static_di=0.538  (35s)
+[14/80] n335542 n=14 fullload=0.643  sparsevlm=0.643  static_di=0.571  static_di=0.571  (37s)
+[15/80] n367944 n=15 fullload=0.600  sparsevlm=0.600  static_di=0.533  static_di=0.533  (40s)
+[16/80] n574498 n=16 fullload=0.562  sparsevlm=0.562  static_di=0.500  static_di=0.500  (43s)
+[17/80] n126891 n=17 fullload=0.529  sparsevlm=0.529  static_di=0.471  static_di=0.471  (45s)
+[18/80] n296467 n=18 fullload=0.500  sparsevlm=0.500  static_di=0.444  static_di=0.444  (48s)
+[19/80] n100991 n=19 fullload=0.526  sparsevlm=0.474  static_di=0.474  static_di=0.474  (50s)
+[20/80] n65230 n=20 fullload=0.550  sparsevlm=0.500  static_di=0.450  static_di=0.450  (53s)
+[21/80] n570181 n=21 fullload=0.524  sparsevlm=0.476  static_di=0.429  static_di=0.429  (56s)
+[22/80] n39114 n=22 fullload=0.545  sparsevlm=0.500  static_di=0.455  static_di=0.455  (58s)
+[23/80] n49438 n=23 fullload=0.565  sparsevlm=0.522  static_di=0.478  static_di=0.478  (62s)
+[24/80] n124651 n=24 fullload=0.583  sparsevlm=0.542  static_di=0.500  static_di=0.500  (64s)
+[25/80] n274905 n=25 fullload=0.560  sparsevlm=0.520  static_di=0.480  static_di=0.480  (66s)
+[26/80] n489190 n=26 fullload=0.538  sparsevlm=0.500  static_di=0.462  static_di=0.462  (69s)
+[27/80] n71728 n=27 fullload=0.519  sparsevlm=0.481  static_di=0.444  static_di=0.444  (71s)
+[28/80] n567860 n=28 fullload=0.536  sparsevlm=0.500  static_di=0.464  static_di=0.464  (74s)
+[29/80] n520071 n=29 fullload=0.552  sparsevlm=0.517  static_di=0.483  static_di=0.483  (77s)
+[30/80] n148872 n=30 fullload=0.533  sparsevlm=0.500  static_di=0.500  static_di=0.500  (79s)
+[31/80] n206785 n=31 fullload=0.516  sparsevlm=0.484  static_di=0.484  static_di=0.484  (82s)
+[32/80] n566028 n=32 fullload=0.500  sparsevlm=0.469  static_di=0.469  static_di=0.469  (84s)
+[33/80] n494677 n=33 fullload=0.485  sparsevlm=0.455  static_di=0.455  static_di=0.455  (86s)
+[34/80] n62458 n=34 fullload=0.471  sparsevlm=0.441  static_di=0.441  static_di=0.441  (89s)
+[35/80] n314171 n=35 fullload=0.486  sparsevlm=0.457  static_di=0.457  static_di=0.457  (91s)
+[36/80] n513429 n=36 fullload=0.500  sparsevlm=0.472  static_di=0.472  static_di=0.472  (94s)
+[37/80] n497658 n=37 fullload=0.514  sparsevlm=0.486  static_di=0.486  static_di=0.486  (96s)
+[38/80] n25275 n=38 fullload=0.526  sparsevlm=0.500  static_di=0.500  static_di=0.474  (98s)
+[39/80] n260521 n=39 fullload=0.513  sparsevlm=0.487  static_di=0.487  static_di=0.462  (101s)
+[40/80] n471866 n=40 fullload=0.525  sparsevlm=0.500  static_di=0.500  static_di=0.475  (103s)
+[41/80] n526228 n=41 fullload=0.537  sparsevlm=0.512  static_di=0.512  static_di=0.488  (106s)
+[42/80] n483840 n=42 fullload=0.524  sparsevlm=0.500  static_di=0.500  static_di=0.476  (108s)
+[43/80] n24526 n=43 fullload=0.512  sparsevlm=0.488  static_di=0.488  static_di=0.465  (111s)
+[44/80] n305495 n=44 fullload=0.523  sparsevlm=0.500  static_di=0.500  static_di=0.477  (113s)
+[45/80] n429883 n=45 fullload=0.511  sparsevlm=0.489  static_di=0.489  static_di=0.467  (116s)
+[46/80] n494918 n=46 fullload=0.522  sparsevlm=0.500  static_di=0.500  static_di=0.478  (119s)
+[47/80] n432591 n=47 fullload=0.532  sparsevlm=0.511  static_di=0.511  static_di=0.489  (122s)
+[48/80] n164272 n=48 fullload=0.542  sparsevlm=0.521  static_di=0.521  static_di=0.500  (125s)
+[49/80] n216553 n=49 fullload=0.551  sparsevlm=0.531  static_di=0.531  static_di=0.510  (128s)
+[50/80] n194179 n=50 fullload=0.560  sparsevlm=0.540  static_di=0.540  static_di=0.520  (130s)
+[51/80] n466319 n=51 fullload=0.549  sparsevlm=0.529  static_di=0.529  static_di=0.510  (133s)
+[52/80] n382416 n=52 fullload=0.558  sparsevlm=0.538  static_di=0.538  static_di=0.519  (136s)
+[53/80] n172618 n=53 fullload=0.566  sparsevlm=0.547  static_di=0.547  static_di=0.528  (139s)
+[54/80] n355567 n=54 fullload=0.556  sparsevlm=0.537  static_di=0.537  static_di=0.519  (142s)
+[55/80] n208458 n=55 fullload=0.564  sparsevlm=0.545  static_di=0.545  static_di=0.527  (144s)
+[56/80] n290409 n=56 fullload=0.571  sparsevlm=0.554  static_di=0.554  static_di=0.536  (146s)
+[57/80] n538684 n=57 fullload=0.561  sparsevlm=0.544  static_di=0.544  static_di=0.526  (149s)
+[58/80] n357784 n=58 fullload=0.552  sparsevlm=0.552  static_di=0.552  static_di=0.534  (152s)
+[59/80] n79078 n=59 fullload=0.559  sparsevlm=0.559  static_di=0.559  static_di=0.542  (155s)
+[60/80] n501609 n=60 fullload=0.567  sparsevlm=0.567  static_di=0.567  static_di=0.550  (157s)
+[61/80] n536256 n=61 fullload=0.574  sparsevlm=0.574  static_di=0.574  static_di=0.557  (160s)
+[62/80] n437192 n=62 fullload=0.581  sparsevlm=0.581  static_di=0.581  static_di=0.565  (163s)
+[63/80] n507149 n=63 fullload=0.571  sparsevlm=0.571  static_di=0.571  static_di=0.556  (166s)
+[64/80] n500209 n=64 fullload=0.578  sparsevlm=0.578  static_di=0.578  static_di=0.562  (168s)
+[65/80] n497789 n=65 fullload=0.585  sparsevlm=0.569  static_di=0.569  static_di=0.554  (171s)
+[66/80] n525901 n=66 fullload=0.591  sparsevlm=0.576  static_di=0.576  static_di=0.561  (174s)
+[67/80] n560243 n=67 fullload=0.597  sparsevlm=0.582  static_di=0.582  static_di=0.567  (177s)
+[68/80] n234722 n=68 fullload=0.603  sparsevlm=0.588  static_di=0.588  static_di=0.574  (179s)
+[69/80] n546884 n=69 fullload=0.594  sparsevlm=0.580  static_di=0.580  static_di=0.565  (182s)
+[70/80] n23181 n=70 fullload=0.600  sparsevlm=0.586  static_di=0.586  static_di=0.571  (184s)
+[71/80] n186491 n=71 fullload=0.606  sparsevlm=0.592  static_di=0.592  static_di=0.577  (187s)
+[72/80] n417401 n=72 fullload=0.597  sparsevlm=0.583  static_di=0.583  static_di=0.569  (190s)
+[73/80] n146522 n=73 fullload=0.603  sparsevlm=0.589  static_di=0.589  static_di=0.575  (193s)
+[74/80] n184385 n=74 fullload=0.608  sparsevlm=0.595  static_di=0.595  static_di=0.581  (196s)
+[75/80] n393305 n=75 fullload=0.613  sparsevlm=0.600  static_di=0.600  static_di=0.587  (198s)
+[76/80] n410476 n=76 fullload=0.618  sparsevlm=0.605  static_di=0.605  static_di=0.592  (201s)
+[77/80] n88366 n=77 fullload=0.623  sparsevlm=0.610  static_di=0.610  static_di=0.597  (204s)
+[78/80] n249639 n=78 fullload=0.615  sparsevlm=0.603  static_di=0.603  static_di=0.590  (206s)
+[79/80] n406334 n=79 fullload=0.620  sparsevlm=0.595  static_di=0.608  static_di=0.595  (209s)
+[80/80] n579928 n=80 fullload=0.625  sparsevlm=0.600  static_di=0.613  static_di=0.600  (212s)
+
+=== budgets [0.25, 0.5]  (n=80, cold) ===
+method                      acc     TTFT     p50      p95  sel ms   diskMB  diskms  chunkf     kv     fb
+fullload                  62.5%    671.6   662.8    805.6   572.2   1164.1   374.8   1.000  0.246  0.000
+sparsevlm                 60.0%    793.7   803.7    898.5   683.2    923.6   407.9   0.739  0.246  0.169
+static_diverse_chunk@25   61.3%    383.8   384.4    429.8    14.5    300.1   209.6   0.242  0.243  0.000
+static_diverse_chunk@50   60.0%    601.9   609.1    675.1    21.3    593.9   339.0   0.496  0.493  0.000
+
+wrote /home/dblab/hj/mllm_v2/results/gqa_large_calib4/shard_000.json
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/01_build_store.py --out /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n532213,n283587,n579256,n238266,n117888,n398429,n116329,n9181,n98540,n511881,n28792,n572716,n150962,n481655,n314630,n400036,n199758,n19152,n299528,n35676,n153293,n66756,n160664,n275857,n250715,n433692,n59676,n342511,n281241,n192021,n55058,n271392,n499081,n235859,n187544,n503626,n256120,n260762,n318370,n302358,n199286,n477702,n507959,n449058,n357126,n262929,n315859,n475030,n207893,n398257,n130464,n346247,n68769,n118102,n143935,n257997,n65885,n90294,n544255,n273901,n373692,n48494,n210269,n222297,n531359,n481777,n415215,n512257,n16425,n59147,n46510,n313060,n311910,n259949,n54180,n37274,n200907,n347706,n386688,n262920
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:05,  2.59s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:05<00:02,  2.61s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:07<00:00,  2.37s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:07<00:00,  2.43s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/80] n532213: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[2/80] n283587: v_num=2340 chunks=37 1.23GB+0.06 (1.6s)
+[3/80] n579256: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[4/80] n238266: v_num=2340 chunks=37 1.23GB+0.06 (1.4s)
+[5/80] n117888: v_num=2448 chunks=39 1.28GB+0.06 (1.7s)
+[6/80] n398429: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[7/80] n116329: v_num=2144 chunks=34 1.12GB+0.05 (1.2s)
+[8/80] n9181: v_num=2352 chunks=37 1.23GB+0.06 (1.3s)
+[9/80] n98540: v_num=2448 chunks=39 1.28GB+0.06 (1.3s)
+[10/80] n511881: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[11/80] n28792: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[12/80] n572716: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[13/80] n150962: v_num=2438 chunks=39 1.28GB+0.06 (1.3s)
+[14/80] n481655: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[15/80] n314630: v_num=1464 chunks=23 0.77GB+0.04 (0.7s)
+[16/80] n400036: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[17/80] n199758: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[18/80] n19152: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[19/80] n299528: v_num=2352 chunks=37 1.23GB+0.06 (1.3s)
+[20/80] n35676: v_num=1368 chunks=22 0.72GB+0.03 (0.8s)
+[21/80] n153293: v_num=2928 chunks=46 1.54GB+0.07 (1.9s)
+[22/80] n66756: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[23/80] n160664: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[24/80] n275857: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[25/80] n250715: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[26/80] n433692: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[27/80] n59676: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[28/80] n342511: v_num=2352 chunks=37 1.23GB+0.06 (1.2s)
+[29/80] n281241: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[30/80] n192021: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[31/80] n55058: v_num=2928 chunks=46 1.54GB+0.07 (1.8s)
+[32/80] n271392: v_num=2144 chunks=34 1.12GB+0.05 (1.3s)
+[33/80] n499081: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[34/80] n235859: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[35/80] n187544: v_num=2144 chunks=34 1.12GB+0.05 (1.8s)
+[36/80] n503626: v_num=2352 chunks=37 1.23GB+0.06 (2.2s)
+[37/80] n256120: v_num=2144 chunks=34 1.12GB+0.05 (2.1s)
+[38/80] n260762: v_num=2144 chunks=34 1.12GB+0.05 (2.3s)
+[39/80] n318370: v_num=2340 chunks=37 1.23GB+0.06 (2.9s)
+[40/80] n302358: v_num=1654 chunks=26 0.87GB+0.04 (2.9s)
+[41/80] n199286: v_num=2242 chunks=36 1.18GB+0.06 (2.2s)
+[42/80] n477702: v_num=2144 chunks=34 1.12GB+0.05 (1.8s)
+[43/80] n507959: v_num=1464 chunks=23 0.77GB+0.04 (1.2s)
+[44/80] n449058: v_num=2438 chunks=39 1.28GB+0.06 (1.9s)
+[45/80] n357126: v_num=2340 chunks=37 1.23GB+0.06 (1.8s)
+[46/80] n262929: v_num=2160 chunks=34 1.13GB+0.05 (1.7s)
+[47/80] n315859: v_num=1704 chunks=27 0.89GB+0.04 (1.4s)
+[48/80] n475030: v_num=2352 chunks=37 1.23GB+0.06 (1.9s)
+[49/80] n207893: v_num=2340 chunks=37 1.23GB+0.06 (1.8s)
+[50/80] n398257: v_num=2352 chunks=37 1.23GB+0.06 (1.9s)
+[51/80] n130464: v_num=2340 chunks=37 1.23GB+0.06 (2.3s)
+[52/80] n346247: v_num=2144 chunks=34 1.12GB+0.05 (2.2s)
+[53/80] n68769: v_num=2340 chunks=37 1.23GB+0.06 (2.4s)
+[54/80] n118102: v_num=2144 chunks=34 1.12GB+0.05 (2.3s)
+[55/80] n143935: v_num=2340 chunks=37 1.23GB+0.06 (2.4s)
+[56/80] n257997: v_num=2438 chunks=39 1.28GB+0.06 (2.5s)
+[57/80] n65885: v_num=2352 chunks=37 1.23GB+0.06 (1.8s)
+[58/80] n90294: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[59/80] n544255: v_num=2352 chunks=37 1.23GB+0.06 (1.9s)
+[60/80] n273901: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[61/80] n373692: v_num=2144 chunks=34 1.12GB+0.05 (1.9s)
+[62/80] n48494: v_num=1464 chunks=23 0.77GB+0.04 (1.2s)
+[63/80] n210269: v_num=1464 chunks=23 0.77GB+0.04 (1.4s)
+[64/80] n222297: v_num=2144 chunks=34 1.12GB+0.05 (2.0s)
+[65/80] n531359: v_num=2352 chunks=37 1.23GB+0.06 (2.2s)
+[66/80] n481777: v_num=2144 chunks=34 1.12GB+0.05 (2.1s)
+[67/80] n415215: v_num=2160 chunks=34 1.13GB+0.05 (2.1s)
+[68/80] n512257: v_num=2144 chunks=34 1.12GB+0.05 (2.1s)
+[69/80] n16425: v_num=2438 chunks=39 1.28GB+0.06 (2.5s)
+[70/80] n59147: v_num=2340 chunks=37 1.23GB+0.06 (2.6s)
+[71/80] n46510: v_num=2340 chunks=37 1.23GB+0.06 (2.6s)
+[72/80] n313060: v_num=2928 chunks=46 1.54GB+0.07 (3.3s)
+[73/80] n311910: v_num=2144 chunks=34 1.12GB+0.05 (2.2s)
+[74/80] n259949: v_num=2046 chunks=32 1.07GB+0.05 (2.3s)
+[75/80] n54180: v_num=2352 chunks=37 1.23GB+0.06 (2.7s)
+[76/80] n37274: v_num=2340 chunks=37 1.23GB+0.06 (2.7s)
+[77/80] n200907: v_num=2340 chunks=37 1.23GB+0.06 (2.7s)
+[78/80] n347706: v_num=2256 chunks=36 1.18GB+0.06 (2.6s)
+[79/80] n386688: v_num=2046 chunks=32 1.07GB+0.05 (2.0s)
+[80/80] n262920: v_num=2928 chunks=46 1.54GB+0.07 (2.9s)
+store: 93.5 GB visual KV in /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/02_reorder.py --order importance --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --calib-questions 4
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.46s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:05<00:02,  2.51s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:07<00:00,  2.28s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:07<00:00,  2.34s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[81/395] n532213: importance order (per-layer) (10.0s)
+[82/395] n283587: importance order (per-layer) (12.5s)
+[83/395] n579256: importance order (per-layer) (6.9s)
+[84/395] n238266: importance order (per-layer) (4.5s)
+[85/395] n117888: importance order (per-layer) (4.6s)
+[86/395] n398429: importance order (per-layer) (4.3s)
+[87/395] n116329: importance order (per-layer) (3.8s)
+[88/395] n9181: importance order (per-layer) (4.8s)
+[89/395] n98540: importance order (per-layer) (4.6s)
+[90/395] n511881: importance order (per-layer) (4.3s)
+[91/395] n28792: importance order (per-layer) (4.0s)
+[92/395] n572716: importance order (per-layer) (4.7s)
+[93/395] n150962: importance order (per-layer) (4.5s)
+[94/395] n481655: importance order (per-layer) (4.2s)
+[95/395] n314630: importance order (per-layer) (1.9s)
+[96/395] n400036: importance order (per-layer) (5.6s)
+[97/395] n199758: importance order (per-layer) (3.8s)
+[98/395] n19152: importance order (per-layer) (3.8s)
+[99/395] n299528: importance order (per-layer) (5.5s)
+[100/395] n35676: importance order (per-layer) (1.7s)
+[101/395] n153293: importance order (per-layer) (5.3s)
+[102/395] n66756: importance order (per-layer) (3.9s)
+[103/395] n160664: importance order (per-layer) (5.0s)
+[104/395] n275857: importance order (per-layer) (3.7s)
+[105/395] n250715: importance order (per-layer) (4.2s)
+[106/395] n433692: importance order (per-layer) (4.5s)
+[107/395] n59676: importance order (per-layer) (3.8s)
+[108/395] n342511: importance order (per-layer) (4.9s)
+[109/395] n281241: importance order (per-layer) (3.8s)
+[110/395] n192021: importance order (per-layer) (3.9s)
+[111/395] n55058: importance order (per-layer) (5.5s)
+[112/395] n271392: importance order (per-layer) (3.7s)
+[113/395] n499081: importance order (per-layer) (4.6s)
+[114/395] n235859: importance order (per-layer) (4.2s)
+[115/395] n187544: importance order (per-layer) (3.9s)
+[116/395] n503626: importance order (per-layer) (4.1s)
+[117/395] n256120: importance order (per-layer) (3.8s)
+[118/395] n260762: importance order (per-layer) (3.7s)
+[119/395] n318370: importance order (per-layer) (4.3s)
+[120/395] n302358: importance order (per-layer) (2.2s)
+[121/395] n199286: importance order (per-layer) (5.1s)
+[122/395] n477702: importance order (per-layer) (3.9s)
+[123/395] n507959: importance order (per-layer) (1.9s)
+[124/395] n449058: importance order (per-layer) (4.6s)
+[125/395] n357126: importance order (per-layer) (4.7s)
+[126/395] n262929: importance order (per-layer) (4.4s)
+[127/395] n315859: importance order (per-layer) (3.3s)
+[128/395] n475030: importance order (per-layer) (4.3s)
+[129/395] n207893: importance order (per-layer) (5.6s)
+[130/395] n398257: importance order (per-layer) (4.3s)
+[131/395] n130464: importance order (per-layer) (4.6s)
+[132/395] n346247: importance order (per-layer) (3.7s)
+[133/395] n68769: importance order (per-layer) (4.3s)
+[134/395] n118102: importance order (per-layer) (3.8s)
+[135/395] n143935: importance order (per-layer) (4.9s)
+[136/395] n257997: importance order (per-layer) (5.5s)
+[137/395] n65885: importance order (per-layer) (4.3s)
+[138/395] n90294: importance order (per-layer) (4.4s)
+[139/395] n544255: importance order (per-layer) (4.3s)
+[140/395] n273901: importance order (per-layer) (4.5s)
+[141/395] n373692: importance order (per-layer) (3.9s)
+[142/395] n48494: importance order (per-layer) (2.0s)
+[143/395] n210269: importance order (per-layer) (5.0s)
+[144/395] n222297: importance order (per-layer) (3.8s)
+[145/395] n531359: importance order (per-layer) (4.4s)
+[146/395] n481777: importance order (per-layer) (4.0s)
+[147/395] n415215: importance order (per-layer) (3.8s)
+[148/395] n512257: importance order (per-layer) (3.9s)
+[149/395] n16425: importance order (per-layer) (5.0s)
+[150/395] n59147: importance order (per-layer) (4.2s)
+[151/395] n46510: importance order (per-layer) (4.2s)
+[152/395] n313060: importance order (per-layer) (5.4s)
+[153/395] n311910: importance order (per-layer) (3.8s)
+[154/395] n259949: importance order (per-layer) (4.2s)
+[155/395] n54180: importance order (per-layer) (5.1s)
+[156/395] n37274: importance order (per-layer) (4.9s)
+[157/395] n200907: importance order (per-layer) (4.2s)
+[158/395] n347706: importance order (per-layer) (4.2s)
+[159/395] n386688: importance order (per-layer) (6.7s)
+[160/395] n262920: importance order (per-layer) (5.8s)
+reorder done
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/06_build_static.py --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n532213,n283587,n579256,n238266,n117888,n398429,n116329,n9181,n98540,n511881,n28792,n572716,n150962,n481655,n314630,n400036,n199758,n19152,n299528,n35676,n153293,n66756,n160664,n275857,n250715,n433692,n59676,n342511,n281241,n192021,n55058,n271392,n499081,n235859,n187544,n503626,n256120,n260762,n318370,n302358,n199286,n477702,n507959,n449058,n357126,n262929,n315859,n475030,n207893,n398257,n130464,n346247,n68769,n118102,n143935,n257997,n65885,n90294,n544255,n273901,n373692,n48494,n210269,n222297,n531359,n481777,n415215,n512257,n16425,n59147,n46510,n313060,n311910,n259949,n54180,n37274,n200907,n347706,n386688,n262920
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:05,  2.56s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.49s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.22s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.30s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/80] n532213: CLIP 316 ms + metadata 1649 ms, 25.7 MB, sep chunks 10.1/34
+[2/80] n283587: CLIP 43 ms + metadata 696 ms, 28.6 MB, sep chunks 13.0/37
+[3/80] n579256: CLIP 42 ms + metadata 640 ms, 28.6 MB, sep chunks 11.4/37
+[4/80] n238266: CLIP 42 ms + metadata 647 ms, 28.6 MB, sep chunks 14.7/37
+[5/80] n117888: CLIP 42 ms + metadata 605 ms, 35.4 MB, sep chunks 17.0/39
+[6/80] n398429: CLIP 41 ms + metadata 562 ms, 28.6 MB, sep chunks 11.9/37
+[7/80] n116329: CLIP 41 ms + metadata 588 ms, 25.7 MB, sep chunks 10.0/34
+[8/80] n9181: CLIP 42 ms + metadata 898 ms, 34.9 MB, sep chunks 16.4/37
+[9/80] n98540: CLIP 40 ms + metadata 646 ms, 35.4 MB, sep chunks 18.3/39
+[10/80] n511881: CLIP 40 ms + metadata 542 ms, 28.6 MB, sep chunks 12.3/37
+[11/80] n28792: CLIP 42 ms + metadata 483 ms, 25.7 MB, sep chunks 11.8/34
+[12/80] n572716: CLIP 42 ms + metadata 492 ms, 25.7 MB, sep chunks 11.0/34
+[13/80] n150962: CLIP 42 ms + metadata 550 ms, 30.2 MB, sep chunks 15.1/39
+[14/80] n481655: CLIP 42 ms + metadata 538 ms, 28.6 MB, sep chunks 12.9/37
+[15/80] n314630: CLIP 25 ms + metadata 415 ms, 18.6 MB, sep chunks 6.9/23
+[16/80] n400036: CLIP 42 ms + metadata 490 ms, 25.7 MB, sep chunks 11.0/34
+[17/80] n199758: CLIP 40 ms + metadata 493 ms, 34.1 MB, sep chunks 16.1/34
+[18/80] n19152: CLIP 40 ms + metadata 563 ms, 25.7 MB, sep chunks 12.1/34
+[19/80] n299528: CLIP 41 ms + metadata 663 ms, 34.9 MB, sep chunks 16.6/37
+[20/80] n35676: CLIP 24 ms + metadata 367 ms, 18.4 MB, sep chunks 6.7/22
+[21/80] n153293: CLIP 42 ms + metadata 670 ms, 37.2 MB, sep chunks 20.0/46
+[22/80] n66756: CLIP 42 ms + metadata 597 ms, 25.7 MB, sep chunks 10.7/34
+[23/80] n160664: CLIP 42 ms + metadata 593 ms, 25.7 MB, sep chunks 11.0/34
+[24/80] n275857: CLIP 42 ms + metadata 551 ms, 25.7 MB, sep chunks 10.7/34
+[25/80] n250715: CLIP 42 ms + metadata 1078 ms, 28.6 MB, sep chunks 13.2/37
+[26/80] n433692: CLIP 42 ms + metadata 553 ms, 28.6 MB, sep chunks 11.7/37
+[27/80] n59676: CLIP 42 ms + metadata 506 ms, 34.1 MB, sep chunks 16.0/34
+[28/80] n342511: CLIP 42 ms + metadata 517 ms, 34.9 MB, sep chunks 17.3/37
+[29/80] n281241: CLIP 42 ms + metadata 494 ms, 34.1 MB, sep chunks 15.8/34
+[30/80] n192021: CLIP 42 ms + metadata 479 ms, 34.1 MB, sep chunks 16.7/34
+[31/80] n55058: CLIP 42 ms + metadata 663 ms, 37.2 MB, sep chunks 19.5/46
+[32/80] n271392: CLIP 42 ms + metadata 473 ms, 25.7 MB, sep chunks 11.0/34
+[33/80] n499081: CLIP 40 ms + metadata 505 ms, 25.7 MB, sep chunks 11.3/34
+[34/80] n235859: CLIP 41 ms + metadata 590 ms, 28.6 MB, sep chunks 12.6/37
+[35/80] n187544: CLIP 41 ms + metadata 478 ms, 25.7 MB, sep chunks 9.3/34
+[36/80] n503626: CLIP 40 ms + metadata 514 ms, 34.9 MB, sep chunks 18.1/37
+[37/80] n256120: CLIP 41 ms + metadata 519 ms, 25.7 MB, sep chunks 10.6/34
+[38/80] n260762: CLIP 40 ms + metadata 479 ms, 25.7 MB, sep chunks 10.4/34
+[39/80] n318370: CLIP 42 ms + metadata 643 ms, 28.6 MB, sep chunks 13.2/37
+[40/80] n302358: CLIP 24 ms + metadata 459 ms, 18.4 MB, sep chunks 6.8/26
+[41/80] n199286: CLIP 42 ms + metadata 543 ms, 27.3 MB, sep chunks 12.2/36
+[42/80] n477702: CLIP 42 ms + metadata 487 ms, 25.7 MB, sep chunks 11.9/34
+[43/80] n507959: CLIP 25 ms + metadata 398 ms, 18.6 MB, sep chunks 7.2/23
+[44/80] n449058: CLIP 42 ms + metadata 660 ms, 30.2 MB, sep chunks 14.6/39
+[45/80] n357126: CLIP 42 ms + metadata 680 ms, 28.6 MB, sep chunks 12.2/37
+[46/80] n262929: CLIP 42 ms + metadata 497 ms, 34.1 MB, sep chunks 15.4/34
+[47/80] n315859: CLIP 24 ms + metadata 451 ms, 19.7 MB, sep chunks 7.3/27
+[48/80] n475030: CLIP 42 ms + metadata 529 ms, 34.9 MB, sep chunks 15.8/37
+[49/80] n207893: CLIP 42 ms + metadata 535 ms, 28.6 MB, sep chunks 11.3/37
+[50/80] n398257: CLIP 42 ms + metadata 640 ms, 34.9 MB, sep chunks 18.6/37
+[51/80] n130464: CLIP 42 ms + metadata 543 ms, 28.6 MB, sep chunks 13.5/37
+[52/80] n346247: CLIP 42 ms + metadata 492 ms, 25.7 MB, sep chunks 10.8/34
+[53/80] n68769: CLIP 42 ms + metadata 662 ms, 28.6 MB, sep chunks 11.3/37
+[54/80] n118102: CLIP 42 ms + metadata 512 ms, 25.7 MB, sep chunks 10.0/34
+[55/80] n143935: CLIP 42 ms + metadata 629 ms, 28.6 MB, sep chunks 12.5/37
+[56/80] n257997: CLIP 42 ms + metadata 551 ms, 30.2 MB, sep chunks 13.9/39
+[57/80] n65885: CLIP 42 ms + metadata 537 ms, 34.9 MB, sep chunks 16.7/37
+[58/80] n90294: CLIP 42 ms + metadata 697 ms, 28.6 MB, sep chunks 15.6/37
+[59/80] n544255: CLIP 42 ms + metadata 666 ms, 34.9 MB, sep chunks 18.0/37
+[60/80] n273901: CLIP 42 ms + metadata 518 ms, 28.6 MB, sep chunks 12.3/37
+[61/80] n373692: CLIP 40 ms + metadata 480 ms, 25.7 MB, sep chunks 9.4/34
+[62/80] n48494: CLIP 23 ms + metadata 417 ms, 18.6 MB, sep chunks 6.0/23
+[63/80] n210269: CLIP 23 ms + metadata 419 ms, 18.6 MB, sep chunks 6.9/23
+[64/80] n222297: CLIP 40 ms + metadata 501 ms, 25.7 MB, sep chunks 9.5/34
+[65/80] n531359: CLIP 42 ms + metadata 519 ms, 34.9 MB, sep chunks 14.8/37
+[66/80] n481777: CLIP 42 ms + metadata 487 ms, 25.7 MB, sep chunks 10.3/34
+[67/80] n415215: CLIP 42 ms + metadata 526 ms, 34.1 MB, sep chunks 18.0/34
+[68/80] n512257: CLIP 42 ms + metadata 637 ms, 25.7 MB, sep chunks 12.0/34
+[69/80] n16425: CLIP 41 ms + metadata 536 ms, 30.2 MB, sep chunks 15.3/39
+[70/80] n59147: CLIP 42 ms + metadata 514 ms, 28.6 MB, sep chunks 15.7/37
+[71/80] n46510: CLIP 42 ms + metadata 682 ms, 28.6 MB, sep chunks 14.0/37
+[72/80] n313060: CLIP 42 ms + metadata 822 ms, 37.2 MB, sep chunks 19.3/46
+[73/80] n311910: CLIP 42 ms + metadata 558 ms, 25.7 MB, sep chunks 11.2/34
+[74/80] n259949: CLIP 42 ms + metadata 555 ms, 24.1 MB, sep chunks 8.8/32
+[75/80] n54180: CLIP 42 ms + metadata 553 ms, 34.9 MB, sep chunks 17.0/37
+[76/80] n37274: CLIP 42 ms + metadata 705 ms, 28.6 MB, sep chunks 11.4/37
+[77/80] n200907: CLIP 43 ms + metadata 667 ms, 28.6 MB, sep chunks 11.4/37
+[78/80] n347706: CLIP 42 ms + metadata 502 ms, 34.6 MB, sep chunks 15.0/36
+[79/80] n386688: CLIP 42 ms + metadata 583 ms, 24.1 MB, sep chunks 10.3/32
+[80/80] n262920: CLIP 42 ms + metadata 666 ms, 37.2 MB, sep chunks 19.8/46
+
+first-use per image: CLIP 44 ms + metadata 581 ms = 624 ms
+amortised over 5.0 questions/image: 124.9 ms/question
+sidecar 28.8 MB/image
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/04_eval.py --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n532213,n283587,n579256,n238266,n117888,n398429,n116329,n9181,n98540,n511881,n28792,n572716,n150962,n481655,n314630,n400036,n199758,n19152,n299528,n35676,n153293,n66756,n160664,n275857,n250715,n433692,n59676,n342511,n281241,n192021,n55058,n271392,n499081,n235859,n187544,n503626,n256120,n260762,n318370,n302358,n199286,n477702,n507959,n449058,n357126,n262929,n315859,n475030,n207893,n398257,n130464,n346247,n68769,n118102,n143935,n257997,n65885,n90294,n544255,n273901,n373692,n48494,n210269,n222297,n531359,n481777,n415215,n512257,n16425,n59147,n46510,n313060,n311910,n259949,n54180,n37274,n200907,n347706,n386688,n262920 --metric gqa --dataset gqa_large_calib4 --questions 1 --skip 4 --ratio 0.25 --budgets 0.25,0.5 --selectors sparsevlm,static_diverse_chunk --out /home/dblab/hj/mllm_v2/results/gqa_large_calib4/shard_001.json --no-recompute
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.29s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.29s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.08s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.14s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/80] n532213 n=1 fullload=0.000  sparsevlm=0.000  static_di=0.000  static_di=0.000  (3s)
+[2/80] n283587 n=2 fullload=0.000  sparsevlm=0.000  static_di=0.000  static_di=0.000  (6s)
+[3/80] n579256 n=3 fullload=0.333  sparsevlm=0.333  static_di=0.333  static_di=0.333  (9s)
+[4/80] n238266 n=4 fullload=0.500  sparsevlm=0.500  static_di=0.500  static_di=0.500  (12s)
+[5/80] n117888 n=5 fullload=0.600  sparsevlm=0.600  static_di=0.600  static_di=0.600  (14s)
+[6/80] n398429 n=6 fullload=0.500  sparsevlm=0.500  static_di=0.500  static_di=0.500  (17s)
+[7/80] n116329 n=7 fullload=0.571  sparsevlm=0.571  static_di=0.571  static_di=0.571  (20s)
+[8/80] n9181 n=8 fullload=0.500  sparsevlm=0.500  static_di=0.500  static_di=0.500  (23s)
+[9/80] n98540 n=9 fullload=0.444  sparsevlm=0.444  static_di=0.444  static_di=0.444  (26s)
+[10/80] n511881 n=10 fullload=0.500  sparsevlm=0.500  static_di=0.500  static_di=0.500  (28s)
+[11/80] n28792 n=11 fullload=0.545  sparsevlm=0.545  static_di=0.545  static_di=0.545  (31s)
+[12/80] n572716 n=12 fullload=0.500  sparsevlm=0.500  static_di=0.500  static_di=0.500  (33s)
+[13/80] n150962 n=13 fullload=0.462  sparsevlm=0.462  static_di=0.462  static_di=0.462  (36s)
+[14/80] n481655 n=14 fullload=0.500  sparsevlm=0.500  static_di=0.500  static_di=0.500  (39s)
+[15/80] n314630 n=15 fullload=0.467  sparsevlm=0.467  static_di=0.467  static_di=0.467  (41s)
+[16/80] n400036 n=16 fullload=0.500  sparsevlm=0.500  static_di=0.438  static_di=0.500  (44s)
+[17/80] n199758 n=17 fullload=0.529  sparsevlm=0.529  static_di=0.471  static_di=0.529  (46s)
+[18/80] n19152 n=18 fullload=0.500  sparsevlm=0.500  static_di=0.444  static_di=0.500  (48s)
+[19/80] n299528 n=19 fullload=0.474  sparsevlm=0.474  static_di=0.421  static_di=0.474  (51s)
+[20/80] n35676 n=20 fullload=0.500  sparsevlm=0.500  static_di=0.450  static_di=0.500  (53s)
+[21/80] n153293 n=21 fullload=0.476  sparsevlm=0.476  static_di=0.429  static_di=0.476  (57s)
+[22/80] n66756 n=22 fullload=0.455  sparsevlm=0.455  static_di=0.409  static_di=0.455  (59s)
+[23/80] n160664 n=23 fullload=0.478  sparsevlm=0.478  static_di=0.435  static_di=0.478  (62s)
+[24/80] n275857 n=24 fullload=0.500  sparsevlm=0.500  static_di=0.458  static_di=0.500  (64s)
+[25/80] n250715 n=25 fullload=0.480  sparsevlm=0.480  static_di=0.440  static_di=0.480  (67s)
+[26/80] n433692 n=26 fullload=0.500  sparsevlm=0.500  static_di=0.462  static_di=0.500  (70s)
+[27/80] n59676 n=27 fullload=0.519  sparsevlm=0.519  static_di=0.481  static_di=0.519  (72s)
+[28/80] n342511 n=28 fullload=0.536  sparsevlm=0.536  static_di=0.500  static_di=0.536  (75s)
+[29/80] n281241 n=29 fullload=0.552  sparsevlm=0.552  static_di=0.517  static_di=0.552  (78s)
+[30/80] n192021 n=30 fullload=0.533  sparsevlm=0.533  static_di=0.500  static_di=0.533  (80s)
+[31/80] n55058 n=31 fullload=0.548  sparsevlm=0.548  static_di=0.516  static_di=0.548  (84s)
+[32/80] n271392 n=32 fullload=0.531  sparsevlm=0.531  static_di=0.500  static_di=0.531  (86s)
+[33/80] n499081 n=33 fullload=0.545  sparsevlm=0.515  static_di=0.515  static_di=0.545  (89s)
+[34/80] n235859 n=34 fullload=0.559  sparsevlm=0.529  static_di=0.529  static_di=0.559  (91s)
+[35/80] n187544 n=35 fullload=0.571  sparsevlm=0.543  static_di=0.543  static_di=0.571  (94s)
+[36/80] n503626 n=36 fullload=0.583  sparsevlm=0.556  static_di=0.556  static_di=0.583  (96s)
+[37/80] n256120 n=37 fullload=0.595  sparsevlm=0.568  static_di=0.568  static_di=0.595  (99s)
+[38/80] n260762 n=38 fullload=0.579  sparsevlm=0.553  static_di=0.553  static_di=0.579  (101s)
+[39/80] n318370 n=39 fullload=0.590  sparsevlm=0.564  static_di=0.564  static_di=0.590  (104s)
+[40/80] n302358 n=40 fullload=0.600  sparsevlm=0.575  static_di=0.575  static_di=0.600  (106s)
+[41/80] n199286 n=41 fullload=0.585  sparsevlm=0.561  static_di=0.561  static_di=0.585  (109s)
+[42/80] n477702 n=42 fullload=0.571  sparsevlm=0.548  static_di=0.548  static_di=0.571  (111s)
+[43/80] n507959 n=43 fullload=0.558  sparsevlm=0.535  static_di=0.535  static_di=0.558  (114s)
+[44/80] n449058 n=44 fullload=0.568  sparsevlm=0.545  static_di=0.545  static_di=0.568  (116s)
+[45/80] n357126 n=45 fullload=0.556  sparsevlm=0.533  static_di=0.533  static_di=0.556  (119s)
+[46/80] n262929 n=46 fullload=0.543  sparsevlm=0.522  static_di=0.522  static_di=0.543  (122s)
+[47/80] n315859 n=47 fullload=0.553  sparsevlm=0.532  static_di=0.532  static_di=0.553  (124s)
+[48/80] n475030 n=48 fullload=0.562  sparsevlm=0.542  static_di=0.542  static_di=0.562  (127s)
+[49/80] n207893 n=49 fullload=0.571  sparsevlm=0.551  static_di=0.551  static_di=0.571  (130s)
+[50/80] n398257 n=50 fullload=0.580  sparsevlm=0.560  static_di=0.560  static_di=0.580  (133s)
+[51/80] n130464 n=51 fullload=0.569  sparsevlm=0.549  static_di=0.549  static_di=0.569  (136s)
+[52/80] n346247 n=52 fullload=0.577  sparsevlm=0.558  static_di=0.558  static_di=0.577  (139s)
+[53/80] n68769 n=53 fullload=0.585  sparsevlm=0.566  static_di=0.566  static_di=0.585  (141s)
+[54/80] n118102 n=54 fullload=0.574  sparsevlm=0.556  static_di=0.556  static_di=0.574  (144s)
+[55/80] n143935 n=55 fullload=0.582  sparsevlm=0.564  static_di=0.564  static_di=0.582  (147s)
+[56/80] n257997 n=56 fullload=0.589  sparsevlm=0.571  static_di=0.571  static_di=0.589  (150s)
+[57/80] n65885 n=57 fullload=0.596  sparsevlm=0.579  static_di=0.579  static_di=0.596  (153s)
+[58/80] n90294 n=58 fullload=0.586  sparsevlm=0.569  static_di=0.569  static_di=0.586  (155s)
+[59/80] n544255 n=59 fullload=0.593  sparsevlm=0.576  static_di=0.576  static_di=0.593  (158s)
+[60/80] n273901 n=60 fullload=0.600  sparsevlm=0.583  static_di=0.567  static_di=0.583  (161s)
+[61/80] n373692 n=61 fullload=0.607  sparsevlm=0.590  static_di=0.574  static_di=0.590  (164s)
+[62/80] n48494 n=62 fullload=0.597  sparsevlm=0.581  static_di=0.565  static_di=0.581  (166s)
+[63/80] n210269 n=63 fullload=0.603  sparsevlm=0.587  static_di=0.571  static_di=0.587  (168s)
+[64/80] n222297 n=64 fullload=0.609  sparsevlm=0.594  static_di=0.578  static_di=0.594  (170s)
+[65/80] n531359 n=65 fullload=0.615  sparsevlm=0.600  static_di=0.585  static_di=0.600  (173s)
+[66/80] n481777 n=66 fullload=0.606  sparsevlm=0.591  static_di=0.576  static_di=0.591  (176s)
+[67/80] n415215 n=67 fullload=0.612  sparsevlm=0.597  static_di=0.582  static_di=0.597  (178s)
+[68/80] n512257 n=68 fullload=0.618  sparsevlm=0.603  static_di=0.588  static_di=0.603  (181s)
+[69/80] n16425 n=69 fullload=0.623  sparsevlm=0.609  static_di=0.594  static_di=0.609  (184s)
+[70/80] n59147 n=70 fullload=0.629  sparsevlm=0.614  static_di=0.600  static_di=0.614  (187s)
+[71/80] n46510 n=71 fullload=0.634  sparsevlm=0.620  static_di=0.606  static_di=0.620  (190s)
+[72/80] n313060 n=72 fullload=0.639  sparsevlm=0.625  static_di=0.611  static_di=0.625  (193s)
+[73/80] n311910 n=73 fullload=0.644  sparsevlm=0.630  static_di=0.616  static_di=0.630  (196s)
+[74/80] n259949 n=74 fullload=0.649  sparsevlm=0.635  static_di=0.622  static_di=0.635  (199s)
+[75/80] n54180 n=75 fullload=0.640  sparsevlm=0.627  static_di=0.613  static_di=0.627  (202s)
+[76/80] n37274 n=76 fullload=0.645  sparsevlm=0.632  static_di=0.618  static_di=0.632  (204s)
+[77/80] n200907 n=77 fullload=0.649  sparsevlm=0.636  static_di=0.623  static_di=0.636  (207s)
+[78/80] n347706 n=78 fullload=0.654  sparsevlm=0.641  static_di=0.615  static_di=0.628  (210s)
+[79/80] n386688 n=79 fullload=0.646  sparsevlm=0.633  static_di=0.608  static_di=0.620  (212s)
+[80/80] n262920 n=80 fullload=0.637  sparsevlm=0.625  static_di=0.600  static_di=0.613  (215s)
+
+=== budgets [0.25, 0.5]  (n=80, cold) ===
+method                      acc     TTFT     p50      p95  sel ms   diskMB  diskms  chunkf     kv     fb
+fullload                  63.7%    694.0   690.9    867.0   599.2   1168.6   391.2   1.000  0.246  0.000
+sparsevlm                 62.5%    783.8   799.1    921.3   677.8    922.9   410.8   0.736  0.246  0.162
+static_diverse_chunk@25   60.0%    389.4   381.4    463.8    14.8    302.6   215.1   0.244  0.244  0.000
+static_diverse_chunk@50   61.3%    615.0   623.5    730.0    21.5    596.7   351.6   0.497  0.492  0.000
+
+wrote /home/dblab/hj/mllm_v2/results/gqa_large_calib4/shard_001.json
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/01_build_store.py --out /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n98544,n477215,n211324,n534106,n77818,n289376,n69237,n16936,n350732,n223750,n146555,n275148,n195249,n282607,n95313,n23762,n54424,n187961,n508733,n573460,n540852,n28572,n319845,n206358,n240973,n431447,n309148,n488874,n195925,n228268,n369595,n168412,n379991,n346736,n232810,n538039,n12404,n489699,n386682,n355339,n140421,n310828,n446242,n317260,n317189,n100552,n162108,n541482,n334278,n95369,n525029,n155555,n92308,n302387,n125122,n470131,n59627,n83784,n258500,n51658,n514467,n58220,n541854,n565418,n52544,n380113,n88933,n200692,n65866,n288870,n549922,n240666,n329479,n460556,n469525,n496803,n541688,n217003,n369970,n381072
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:05,  2.60s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:05<00:02,  2.61s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:07<00:00,  2.37s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:07<00:00,  2.43s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/80] n98544: v_num=2352 chunks=37 1.23GB+0.06 (1.9s)
+[2/80] n477215: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[3/80] n211324: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[4/80] n534106: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[5/80] n77818: v_num=2352 chunks=37 1.23GB+0.06 (1.5s)
+[6/80] n289376: v_num=2352 chunks=37 1.23GB+0.06 (1.3s)
+[7/80] n69237: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[8/80] n16936: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[9/80] n350732: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[10/80] n223750: v_num=2832 chunks=45 1.48GB+0.07 (1.5s)
+[11/80] n146555: v_num=2352 chunks=37 1.23GB+0.06 (1.2s)
+[12/80] n275148: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[13/80] n195249: v_num=1850 chunks=29 0.97GB+0.05 (0.9s)
+[14/80] n282607: v_num=1476 chunks=24 0.77GB+0.04 (0.7s)
+[15/80] n95313: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[16/80] n23762: v_num=2352 chunks=37 1.23GB+0.06 (1.2s)
+[17/80] n54424: v_num=2144 chunks=34 1.12GB+0.05 (1.2s)
+[18/80] n187961: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[19/80] n508733: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[20/80] n573460: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[21/80] n540852: v_num=2640 chunks=42 1.38GB+0.06 (1.4s)
+[22/80] n28572: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[23/80] n319845: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[24/80] n206358: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[25/80] n240973: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[26/80] n431447: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[27/80] n309148: v_num=2928 chunks=46 1.54GB+0.07 (2.0s)
+[28/80] n488874: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[29/80] n195925: v_num=2144 chunks=34 1.12GB+0.05 (1.6s)
+[30/80] n228268: v_num=2144 chunks=34 1.12GB+0.05 (1.6s)
+[31/80] n369595: v_num=2144 chunks=34 1.12GB+0.05 (1.5s)
+[32/80] n168412: v_num=2046 chunks=32 1.07GB+0.05 (1.5s)
+[33/80] n379991: v_num=2340 chunks=37 1.23GB+0.06 (1.6s)
+[34/80] n346736: v_num=2340 chunks=37 1.23GB+0.06 (1.7s)
+[35/80] n232810: v_num=2352 chunks=37 1.23GB+0.06 (1.8s)
+[36/80] n538039: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[37/80] n12404: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[38/80] n489699: v_num=2144 chunks=34 1.12GB+0.05 (2.1s)
+[39/80] n386682: v_num=2340 chunks=37 1.23GB+0.06 (2.1s)
+[40/80] n355339: v_num=2144 chunks=34 1.12GB+0.05 (1.4s)
+[41/80] n140421: v_num=2144 chunks=34 1.12GB+0.05 (1.2s)
+[42/80] n310828: v_num=2144 chunks=34 1.12GB+0.05 (1.2s)
+[43/80] n446242: v_num=2340 chunks=37 1.23GB+0.06 (1.8s)
+[44/80] n317260: v_num=2340 chunks=37 1.23GB+0.06 (2.1s)
+[45/80] n317189: v_num=2160 chunks=34 1.13GB+0.05 (2.1s)
+[46/80] n100552: v_num=2438 chunks=39 1.28GB+0.06 (2.5s)
+[47/80] n162108: v_num=2340 chunks=37 1.23GB+0.06 (2.5s)
+[48/80] n541482: v_num=1608 chunks=26 0.84GB+0.04 (1.7s)
+[49/80] n334278: v_num=2144 chunks=34 1.12GB+0.05 (1.9s)
+[50/80] n95369: v_num=2160 chunks=34 1.13GB+0.05 (2.1s)
+[51/80] n525029: v_num=2340 chunks=37 1.23GB+0.06 (2.2s)
+[52/80] n155555: v_num=2340 chunks=37 1.23GB+0.06 (2.0s)
+[53/80] n92308: v_num=2144 chunks=34 1.12GB+0.05 (2.2s)
+[54/80] n302387: v_num=2352 chunks=37 1.23GB+0.06 (2.5s)
+[55/80] n125122: v_num=2340 chunks=37 1.23GB+0.06 (2.6s)
+[56/80] n470131: v_num=2144 chunks=34 1.12GB+0.05 (2.5s)
+[57/80] n59627: v_num=2438 chunks=39 1.28GB+0.06 (3.0s)
+[58/80] n83784: v_num=2340 chunks=37 1.23GB+0.06 (3.3s)
+[59/80] n258500: v_num=2144 chunks=34 1.12GB+0.05 (3.0s)
+[60/80] n51658: v_num=2160 chunks=34 1.13GB+0.05 (2.4s)
+[61/80] n514467: v_num=2340 chunks=37 1.23GB+0.06 (2.2s)
+[62/80] n58220: v_num=2340 chunks=37 1.23GB+0.06 (2.5s)
+[63/80] n541854: v_num=2340 chunks=37 1.23GB+0.06 (2.4s)
+[64/80] n565418: v_num=1948 chunks=31 1.02GB+0.05 (2.1s)
+[65/80] n52544: v_num=2160 chunks=34 1.13GB+0.05 (2.3s)
+[66/80] n380113: v_num=2144 chunks=34 1.12GB+0.05 (2.0s)
+[67/80] n88933: v_num=2340 chunks=37 1.23GB+0.06 (2.5s)
+[68/80] n200692: v_num=2340 chunks=37 1.23GB+0.06 (2.4s)
+[69/80] n65866: v_num=2352 chunks=37 1.23GB+0.06 (2.4s)
+[70/80] n288870: v_num=2144 chunks=34 1.12GB+0.05 (2.3s)
+[71/80] n549922: v_num=2144 chunks=34 1.12GB+0.05 (2.3s)
+[72/80] n240666: v_num=2352 chunks=37 1.23GB+0.06 (2.5s)
+[73/80] n329479: v_num=2160 chunks=34 1.13GB+0.05 (2.2s)
+[74/80] n460556: v_num=2340 chunks=37 1.23GB+0.06 (2.5s)
+[75/80] n469525: v_num=2144 chunks=34 1.12GB+0.05 (2.2s)
+[76/80] n496803: v_num=1376 chunks=22 0.72GB+0.03 (1.2s)
+[77/80] n541688: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[78/80] n217003: v_num=2352 chunks=37 1.23GB+0.06 (2.1s)
+[79/80] n369970: v_num=2144 chunks=34 1.12GB+0.05 (1.9s)
+[80/80] n381072: v_num=2340 chunks=37 1.23GB+0.06 (2.1s)
+store: 93.7 GB visual KV in /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/02_reorder.py --order importance --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --calib-questions 4
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:05,  2.54s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.49s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.25s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.32s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[161/395] n98544: importance order (per-layer) (10.3s)
+[162/395] n477215: importance order (per-layer) (9.6s)
+[163/395] n211324: importance order (per-layer) (7.4s)
+[164/395] n534106: importance order (per-layer) (2.8s)
+[165/395] n77818: importance order (per-layer) (3.4s)
+[166/395] n289376: importance order (per-layer) (2.9s)
+[167/395] n69237: importance order (per-layer) (3.3s)
+[168/395] n16936: importance order (per-layer) (2.8s)
+[169/395] n350732: importance order (per-layer) (3.3s)
+[170/395] n223750: importance order (per-layer) (3.3s)
+[171/395] n146555: importance order (per-layer) (2.9s)
+[172/395] n275148: importance order (per-layer) (3.5s)
+[173/395] n195249: importance order (per-layer) (9.3s)
+[174/395] n282607: importance order (per-layer) (3.4s)
+[175/395] n95313: importance order (per-layer) (2.5s)
+[176/395] n23762: importance order (per-layer) (2.7s)
+[177/395] n54424: importance order (per-layer) (2.4s)
+[178/395] n187961: importance order (per-layer) (2.6s)
+[179/395] n508733: importance order (per-layer) (2.3s)
+[180/395] n573460: importance order (per-layer) (2.4s)
+[181/395] n540852: importance order (per-layer) (3.0s)
+[182/395] n28572: importance order (per-layer) (2.6s)
+[183/395] n319845: importance order (per-layer) (2.6s)
+[184/395] n206358: importance order (per-layer) (2.8s)
+[185/395] n240973: importance order (per-layer) (6.3s)
+[186/395] n431447: importance order (per-layer) (4.9s)
+[187/395] n309148: importance order (per-layer) (3.3s)
+[188/395] n488874: importance order (per-layer) (2.4s)
+[189/395] n195925: importance order (per-layer) (2.7s)
+[190/395] n228268: importance order (per-layer) (2.5s)
+[191/395] n369595: importance order (per-layer) (2.4s)
+[192/395] n168412: importance order (per-layer) (2.5s)
+[193/395] n379991: importance order (per-layer) (3.1s)
+[194/395] n346736: importance order (per-layer) (3.3s)
+[195/395] n232810: importance order (per-layer) (7.3s)
+[196/395] n538039: importance order (per-layer) (3.5s)
+[197/395] n12404: importance order (per-layer) (2.5s)
+[198/395] n489699: importance order (per-layer) (2.2s)
+[199/395] n386682: importance order (per-layer) (3.0s)
+[200/395] n355339: importance order (per-layer) (3.2s)
+[201/395] n140421: importance order (per-layer) (2.7s)
+[202/395] n310828: importance order (per-layer) (2.6s)
+[203/395] n446242: importance order (per-layer) (4.8s)
+[204/395] n317260: importance order (per-layer) (4.2s)
+[205/395] n317189: importance order (per-layer) (3.0s)
+[206/395] n100552: importance order (per-layer) (3.0s)
+[207/395] n162108: importance order (per-layer) (3.1s)
+[208/395] n541482: importance order (per-layer) (4.4s)
+[209/395] n334278: importance order (per-layer) (2.8s)
+[210/395] n95369: importance order (per-layer) (2.4s)
+[211/395] n525029: importance order (per-layer) (2.6s)
+[212/395] n155555: importance order (per-layer) (2.6s)
+[213/395] n92308: importance order (per-layer) (2.4s)
+[214/395] n302387: importance order (per-layer) (2.6s)
+[215/395] n125122: importance order (per-layer) (2.9s)
+[216/395] n470131: importance order (per-layer) (4.2s)
+[217/395] n59627: importance order (per-layer) (6.6s)
+[218/395] n83784: importance order (per-layer) (4.8s)
+[219/395] n258500: importance order (per-layer) (2.8s)
+[220/395] n51658: importance order (per-layer) (2.2s)
+[221/395] n514467: importance order (per-layer) (2.7s)
+[222/395] n58220: importance order (per-layer) (2.8s)
+[223/395] n541854: importance order (per-layer) (2.5s)
+[224/395] n565418: importance order (per-layer) (3.3s)
+[225/395] n52544: importance order (per-layer) (3.9s)
+[226/395] n380113: importance order (per-layer) (2.6s)
+[227/395] n88933: importance order (per-layer) (3.4s)
+[228/395] n200692: importance order (per-layer) (3.4s)
+[229/395] n65866: importance order (per-layer) (4.0s)
+[230/395] n288870: importance order (per-layer) (5.8s)
+[231/395] n549922: importance order (per-layer) (5.2s)
+[232/395] n240666: importance order (per-layer) (2.9s)
+[233/395] n329479: importance order (per-layer) (2.6s)
+[234/395] n460556: importance order (per-layer) (2.8s)
+[235/395] n469525: importance order (per-layer) (2.8s)
+[236/395] n496803: importance order (per-layer) (2.1s)
+[237/395] n541688: importance order (per-layer) (2.8s)
+[238/395] n217003: importance order (per-layer) (2.7s)
+[239/395] n369970: importance order (per-layer) (3.7s)
+[240/395] n381072: importance order (per-layer) (3.3s)
+reorder done
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/06_build_static.py --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n98544,n477215,n211324,n534106,n77818,n289376,n69237,n16936,n350732,n223750,n146555,n275148,n195249,n282607,n95313,n23762,n54424,n187961,n508733,n573460,n540852,n28572,n319845,n206358,n240973,n431447,n309148,n488874,n195925,n228268,n369595,n168412,n379991,n346736,n232810,n538039,n12404,n489699,n386682,n355339,n140421,n310828,n446242,n317260,n317189,n100552,n162108,n541482,n334278,n95369,n525029,n155555,n92308,n302387,n125122,n470131,n59627,n83784,n258500,n51658,n514467,n58220,n541854,n565418,n52544,n380113,n88933,n200692,n65866,n288870,n549922,n240666,n329479,n460556,n469525,n496803,n541688,n217003,n369970,n381072
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.45s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.45s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.21s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.28s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/80] n98544: CLIP 338 ms + metadata 619 ms, 34.9 MB, sep chunks 16.3/37
+[2/80] n477215: CLIP 42 ms + metadata 534 ms, 25.7 MB, sep chunks 11.1/34
+[3/80] n211324: CLIP 42 ms + metadata 3233 ms, 28.6 MB, sep chunks 12.2/37
+[4/80] n534106: CLIP 42 ms + metadata 978 ms, 28.6 MB, sep chunks 13.8/37
+[5/80] n77818: CLIP 42 ms + metadata 643 ms, 34.9 MB, sep chunks 17.7/37
+[6/80] n289376: CLIP 42 ms + metadata 623 ms, 34.9 MB, sep chunks 18.0/37
+[7/80] n69237: CLIP 40 ms + metadata 665 ms, 28.6 MB, sep chunks 15.1/37
+[8/80] n16936: CLIP 41 ms + metadata 635 ms, 25.7 MB, sep chunks 10.2/34
+[9/80] n350732: CLIP 42 ms + metadata 494 ms, 25.7 MB, sep chunks 9.6/34
+[10/80] n223750: CLIP 42 ms + metadata 708 ms, 37.0 MB, sep chunks 17.9/45
+[11/80] n146555: CLIP 42 ms + metadata 796 ms, 34.9 MB, sep chunks 17.5/37
+[12/80] n275148: CLIP 43 ms + metadata 571 ms, 28.6 MB, sep chunks 13.5/37
+[13/80] n195249: CLIP 41 ms + metadata 480 ms, 21.2 MB, sep chunks 8.1/29
+[14/80] n282607: CLIP 24 ms + metadata 472 ms, 25.2 MB, sep chunks 9.8/24
+[15/80] n95313: CLIP 41 ms + metadata 552 ms, 28.6 MB, sep chunks 14.0/37
+[16/80] n23762: CLIP 42 ms + metadata 534 ms, 34.9 MB, sep chunks 17.2/37
+[17/80] n54424: CLIP 43 ms + metadata 598 ms, 25.7 MB, sep chunks 10.2/34
+[18/80] n187961: CLIP 42 ms + metadata 618 ms, 28.6 MB, sep chunks 13.4/37
+[19/80] n508733: CLIP 42 ms + metadata 530 ms, 34.1 MB, sep chunks 17.3/34
+[20/80] n573460: CLIP 42 ms + metadata 932 ms, 25.7 MB, sep chunks 11.3/34
+[21/80] n540852: CLIP 42 ms + metadata 579 ms, 36.2 MB, sep chunks 19.9/42
+[22/80] n28572: CLIP 42 ms + metadata 465 ms, 34.1 MB, sep chunks 17.1/34
+[23/80] n319845: CLIP 41 ms + metadata 514 ms, 28.6 MB, sep chunks 12.3/37
+[24/80] n206358: CLIP 40 ms + metadata 467 ms, 25.7 MB, sep chunks 11.9/34
+[25/80] n240973: CLIP 40 ms + metadata 567 ms, 28.6 MB, sep chunks 13.4/37
+[26/80] n431447: CLIP 42 ms + metadata 604 ms, 28.6 MB, sep chunks 13.2/37
+[27/80] n309148: CLIP 42 ms + metadata 656 ms, 37.2 MB, sep chunks 20.1/46
+[28/80] n488874: CLIP 43 ms + metadata 482 ms, 25.7 MB, sep chunks 11.2/34
+[29/80] n195925: CLIP 40 ms + metadata 488 ms, 25.7 MB, sep chunks 10.6/34
+[30/80] n228268: CLIP 40 ms + metadata 581 ms, 25.7 MB, sep chunks 11.3/34
+[31/80] n369595: CLIP 40 ms + metadata 470 ms, 25.7 MB, sep chunks 8.8/34
+[32/80] n168412: CLIP 42 ms + metadata 475 ms, 24.1 MB, sep chunks 8.3/32
+[33/80] n379991: CLIP 42 ms + metadata 609 ms, 28.6 MB, sep chunks 14.9/37
+[34/80] n346736: CLIP 42 ms + metadata 627 ms, 28.6 MB, sep chunks 13.7/37
+[35/80] n232810: CLIP 42 ms + metadata 538 ms, 34.9 MB, sep chunks 17.2/37
+[36/80] n538039: CLIP 42 ms + metadata 481 ms, 25.7 MB, sep chunks 10.3/34
+[37/80] n12404: CLIP 42 ms + metadata 460 ms, 25.7 MB, sep chunks 12.1/34
+[38/80] n489699: CLIP 42 ms + metadata 535 ms, 25.7 MB, sep chunks 10.9/34
+[39/80] n386682: CLIP 40 ms + metadata 521 ms, 28.6 MB, sep chunks 15.1/37
+[40/80] n355339: CLIP 40 ms + metadata 559 ms, 25.7 MB, sep chunks 11.9/34
+[41/80] n140421: CLIP 40 ms + metadata 733 ms, 25.7 MB, sep chunks 11.1/34
+[42/80] n310828: CLIP 40 ms + metadata 510 ms, 25.7 MB, sep chunks 11.7/34
+[43/80] n446242: CLIP 42 ms + metadata 520 ms, 28.6 MB, sep chunks 14.9/37
+[44/80] n317260: CLIP 43 ms + metadata 732 ms, 28.6 MB, sep chunks 12.2/37
+[45/80] n317189: CLIP 42 ms + metadata 546 ms, 34.1 MB, sep chunks 17.4/34
+[46/80] n100552: CLIP 42 ms + metadata 693 ms, 30.2 MB, sep chunks 14.7/39
+[47/80] n162108: CLIP 42 ms + metadata 623 ms, 28.6 MB, sep chunks 13.8/37
+[48/80] n541482: CLIP 24 ms + metadata 525 ms, 19.4 MB, sep chunks 6.3/26
+[49/80] n334278: CLIP 42 ms + metadata 503 ms, 25.7 MB, sep chunks 11.1/34
+[50/80] n95369: CLIP 42 ms + metadata 487 ms, 34.1 MB, sep chunks 16.1/34
+[51/80] n525029: CLIP 41 ms + metadata 631 ms, 28.6 MB, sep chunks 10.7/37
+[52/80] n155555: CLIP 41 ms + metadata 621 ms, 28.6 MB, sep chunks 12.7/37
+[53/80] n92308: CLIP 41 ms + metadata 598 ms, 25.7 MB, sep chunks 11.4/34
+[54/80] n302387: CLIP 42 ms + metadata 698 ms, 34.9 MB, sep chunks 15.2/37
+[55/80] n125122: CLIP 42 ms + metadata 607 ms, 28.6 MB, sep chunks 12.7/37
+[56/80] n470131: CLIP 41 ms + metadata 764 ms, 25.7 MB, sep chunks 12.7/34
+[57/80] n59627: CLIP 41 ms + metadata 593 ms, 30.2 MB, sep chunks 14.2/39
+[58/80] n83784: CLIP 43 ms + metadata 603 ms, 28.6 MB, sep chunks 14.6/37
+[59/80] n258500: CLIP 42 ms + metadata 455 ms, 25.7 MB, sep chunks 10.7/34
+[60/80] n51658: CLIP 42 ms + metadata 489 ms, 34.1 MB, sep chunks 16.3/34
+[61/80] n514467: CLIP 41 ms + metadata 514 ms, 28.6 MB, sep chunks 13.6/37
+[62/80] n58220: CLIP 40 ms + metadata 507 ms, 28.6 MB, sep chunks 12.5/37
+[63/80] n541854: CLIP 40 ms + metadata 543 ms, 28.6 MB, sep chunks 13.4/37
+[64/80] n565418: CLIP 40 ms + metadata 495 ms, 22.8 MB, sep chunks 9.3/31
+[65/80] n52544: CLIP 40 ms + metadata 685 ms, 34.1 MB, sep chunks 12.9/34
+[66/80] n380113: CLIP 42 ms + metadata 590 ms, 25.7 MB, sep chunks 12.6/34
+[67/80] n88933: CLIP 42 ms + metadata 629 ms, 28.6 MB, sep chunks 13.2/37
+[68/80] n200692: CLIP 42 ms + metadata 516 ms, 28.6 MB, sep chunks 14.8/37
+[69/80] n65866: CLIP 42 ms + metadata 524 ms, 34.9 MB, sep chunks 15.6/37
+[70/80] n288870: CLIP 42 ms + metadata 499 ms, 25.7 MB, sep chunks 10.1/34
+[71/80] n549922: CLIP 42 ms + metadata 512 ms, 25.7 MB, sep chunks 10.8/34
+[72/80] n240666: CLIP 42 ms + metadata 570 ms, 34.9 MB, sep chunks 17.9/37
+[73/80] n329479: CLIP 42 ms + metadata 815 ms, 34.1 MB, sep chunks 14.8/34
+[74/80] n460556: CLIP 42 ms + metadata 502 ms, 28.6 MB, sep chunks 12.8/37
+[75/80] n469525: CLIP 41 ms + metadata 574 ms, 25.7 MB, sep chunks 11.1/34
+[76/80] n496803: CLIP 23 ms + metadata 407 ms, 22.6 MB, sep chunks 7.7/22
+[77/80] n541688: CLIP 40 ms + metadata 468 ms, 25.7 MB, sep chunks 10.3/34
+[78/80] n217003: CLIP 42 ms + metadata 495 ms, 34.9 MB, sep chunks 16.9/37
+[79/80] n369970: CLIP 40 ms + metadata 531 ms, 25.7 MB, sep chunks 9.8/34
+[80/80] n381072: CLIP 41 ms + metadata 507 ms, 28.6 MB, sep chunks 12.7/37
+
+first-use per image: CLIP 45 ms + metadata 609 ms = 653 ms
+amortised over 5.0 questions/image: 130.7 ms/question
+sidecar 28.8 MB/image
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/04_eval.py --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n98544,n477215,n211324,n534106,n77818,n289376,n69237,n16936,n350732,n223750,n146555,n275148,n195249,n282607,n95313,n23762,n54424,n187961,n508733,n573460,n540852,n28572,n319845,n206358,n240973,n431447,n309148,n488874,n195925,n228268,n369595,n168412,n379991,n346736,n232810,n538039,n12404,n489699,n386682,n355339,n140421,n310828,n446242,n317260,n317189,n100552,n162108,n541482,n334278,n95369,n525029,n155555,n92308,n302387,n125122,n470131,n59627,n83784,n258500,n51658,n514467,n58220,n541854,n565418,n52544,n380113,n88933,n200692,n65866,n288870,n549922,n240666,n329479,n460556,n469525,n496803,n541688,n217003,n369970,n381072 --metric gqa --dataset gqa_large_calib4 --questions 1 --skip 4 --ratio 0.25 --budgets 0.25,0.5 --selectors sparsevlm,static_diverse_chunk --out /home/dblab/hj/mllm_v2/results/gqa_large_calib4/shard_002.json --no-recompute
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.30s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.31s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.10s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.16s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/80] n98544 n=1 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (3s)
+[2/80] n477215 n=2 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (6s)
+[3/80] n211324 n=3 fullload=0.667  sparsevlm=0.667  static_di=0.667  static_di=0.667  (9s)
+[4/80] n534106 n=4 fullload=0.750  sparsevlm=0.750  static_di=0.750  static_di=0.750  (12s)
+[5/80] n77818 n=5 fullload=0.800  sparsevlm=0.800  static_di=0.800  static_di=0.800  (15s)
+[6/80] n289376 n=6 fullload=0.833  sparsevlm=0.833  static_di=0.833  static_di=0.833  (18s)
+[7/80] n69237 n=7 fullload=0.714  sparsevlm=0.714  static_di=0.714  static_di=0.714  (20s)
+[8/80] n16936 n=8 fullload=0.750  sparsevlm=0.750  static_di=0.750  static_di=0.750  (23s)
+[9/80] n350732 n=9 fullload=0.667  sparsevlm=0.667  static_di=0.667  static_di=0.667  (25s)
+[10/80] n223750 n=10 fullload=0.700  sparsevlm=0.700  static_di=0.700  static_di=0.700  (29s)
+[11/80] n146555 n=11 fullload=0.727  sparsevlm=0.727  static_di=0.727  static_di=0.727  (32s)
+[12/80] n275148 n=12 fullload=0.750  sparsevlm=0.750  static_di=0.750  static_di=0.750  (34s)
+[13/80] n195249 n=13 fullload=0.769  sparsevlm=0.769  static_di=0.769  static_di=0.769  (37s)
+[14/80] n282607 n=14 fullload=0.786  sparsevlm=0.786  static_di=0.786  static_di=0.786  (39s)
+[15/80] n95313 n=15 fullload=0.733  sparsevlm=0.733  static_di=0.733  static_di=0.733  (42s)
+[16/80] n23762 n=16 fullload=0.750  sparsevlm=0.750  static_di=0.750  static_di=0.750  (45s)
+[17/80] n54424 n=17 fullload=0.765  sparsevlm=0.765  static_di=0.765  static_di=0.765  (47s)
+[18/80] n187961 n=18 fullload=0.778  sparsevlm=0.778  static_di=0.778  static_di=0.778  (50s)
+[19/80] n508733 n=19 fullload=0.737  sparsevlm=0.737  static_di=0.737  static_di=0.737  (52s)
+[20/80] n573460 n=20 fullload=0.750  sparsevlm=0.750  static_di=0.750  static_di=0.750  (55s)
+[21/80] n540852 n=21 fullload=0.762  sparsevlm=0.762  static_di=0.762  static_di=0.762  (58s)
+[22/80] n28572 n=22 fullload=0.727  sparsevlm=0.727  static_di=0.727  static_di=0.727  (60s)
+[23/80] n319845 n=23 fullload=0.739  sparsevlm=0.739  static_di=0.739  static_di=0.739  (63s)
+[24/80] n206358 n=24 fullload=0.708  sparsevlm=0.708  static_di=0.708  static_di=0.708  (66s)
+[25/80] n240973 n=25 fullload=0.680  sparsevlm=0.680  static_di=0.680  static_di=0.680  (68s)
+[26/80] n431447 n=26 fullload=0.692  sparsevlm=0.692  static_di=0.692  static_di=0.692  (71s)
+[27/80] n309148 n=27 fullload=0.667  sparsevlm=0.667  static_di=0.667  static_di=0.667  (74s)
+[28/80] n488874 n=28 fullload=0.679  sparsevlm=0.679  static_di=0.679  static_di=0.679  (77s)
+[29/80] n195925 n=29 fullload=0.690  sparsevlm=0.690  static_di=0.690  static_di=0.690  (79s)
+[30/80] n228268 n=30 fullload=0.700  sparsevlm=0.667  static_di=0.700  static_di=0.700  (81s)
+[31/80] n369595 n=31 fullload=0.710  sparsevlm=0.677  static_di=0.710  static_di=0.710  (84s)
+[32/80] n168412 n=32 fullload=0.688  sparsevlm=0.656  static_di=0.688  static_di=0.688  (86s)
+[33/80] n379991 n=33 fullload=0.667  sparsevlm=0.636  static_di=0.667  static_di=0.667  (89s)
+[34/80] n346736 n=34 fullload=0.676  sparsevlm=0.647  static_di=0.676  static_di=0.676  (91s)
+[35/80] n232810 n=35 fullload=0.657  sparsevlm=0.629  static_di=0.657  static_di=0.657  (94s)
+[36/80] n538039 n=36 fullload=0.639  sparsevlm=0.611  static_di=0.639  static_di=0.639  (97s)
+[37/80] n12404 n=37 fullload=0.649  sparsevlm=0.622  static_di=0.649  static_di=0.649  (99s)
+[38/80] n489699 n=38 fullload=0.658  sparsevlm=0.632  static_di=0.658  static_di=0.658  (102s)
+[39/80] n386682 n=39 fullload=0.667  sparsevlm=0.641  static_di=0.667  static_di=0.667  (104s)
+[40/80] n355339 n=40 fullload=0.675  sparsevlm=0.650  static_di=0.675  static_di=0.675  (107s)
+[41/80] n140421 n=41 fullload=0.683  sparsevlm=0.634  static_di=0.659  static_di=0.683  (110s)
+[42/80] n310828 n=42 fullload=0.690  sparsevlm=0.643  static_di=0.667  static_di=0.690  (112s)
+[43/80] n446242 n=43 fullload=0.674  sparsevlm=0.628  static_di=0.651  static_di=0.674  (115s)
+[44/80] n317260 n=44 fullload=0.682  sparsevlm=0.636  static_di=0.659  static_di=0.682  (118s)
+[45/80] n317189 n=45 fullload=0.667  sparsevlm=0.644  static_di=0.644  static_di=0.667  (120s)
+[46/80] n100552 n=46 fullload=0.652  sparsevlm=0.630  static_di=0.630  static_di=0.652  (123s)
+[47/80] n162108 n=47 fullload=0.660  sparsevlm=0.638  static_di=0.638  static_di=0.660  (126s)
+[48/80] n541482 n=48 fullload=0.667  sparsevlm=0.646  static_di=0.646  static_di=0.667  (128s)
+[49/80] n334278 n=49 fullload=0.653  sparsevlm=0.633  static_di=0.633  static_di=0.653  (131s)
+[50/80] n95369 n=50 fullload=0.660  sparsevlm=0.640  static_di=0.640  static_di=0.660  (134s)
+[51/80] n525029 n=51 fullload=0.667  sparsevlm=0.647  static_di=0.647  static_di=0.667  (136s)
+[52/80] n155555 n=52 fullload=0.673  sparsevlm=0.654  static_di=0.654  static_di=0.673  (139s)
+[53/80] n92308 n=53 fullload=0.679  sparsevlm=0.660  static_di=0.660  static_di=0.679  (142s)
+[54/80] n302387 n=54 fullload=0.685  sparsevlm=0.667  static_di=0.667  static_di=0.685  (145s)
+[55/80] n125122 n=55 fullload=0.673  sparsevlm=0.655  static_di=0.655  static_di=0.673  (147s)
+[56/80] n470131 n=56 fullload=0.661  sparsevlm=0.643  static_di=0.643  static_di=0.661  (150s)
+[57/80] n59627 n=57 fullload=0.649  sparsevlm=0.632  static_di=0.632  static_di=0.649  (153s)
+[58/80] n83784 n=58 fullload=0.655  sparsevlm=0.638  static_di=0.638  static_di=0.655  (156s)
+[59/80] n258500 n=59 fullload=0.661  sparsevlm=0.644  static_di=0.644  static_di=0.661  (158s)
+[60/80] n51658 n=60 fullload=0.650  sparsevlm=0.633  static_di=0.633  static_di=0.650  (161s)
+[61/80] n514467 n=61 fullload=0.656  sparsevlm=0.639  static_di=0.639  static_di=0.656  (164s)
+[62/80] n58220 n=62 fullload=0.661  sparsevlm=0.645  static_di=0.629  static_di=0.645  (166s)
+[63/80] n541854 n=63 fullload=0.667  sparsevlm=0.651  static_di=0.635  static_di=0.651  (169s)
+[64/80] n565418 n=64 fullload=0.672  sparsevlm=0.656  static_di=0.641  static_di=0.656  (172s)
+[65/80] n52544 n=65 fullload=0.677  sparsevlm=0.662  static_di=0.646  static_di=0.662  (174s)
+[66/80] n380113 n=66 fullload=0.667  sparsevlm=0.652  static_di=0.636  static_di=0.652  (177s)
+[67/80] n88933 n=67 fullload=0.657  sparsevlm=0.642  static_di=0.627  static_di=0.642  (179s)
+[68/80] n200692 n=68 fullload=0.662  sparsevlm=0.647  static_di=0.632  static_di=0.647  (182s)
+[69/80] n65866 n=69 fullload=0.652  sparsevlm=0.638  static_di=0.623  static_di=0.638  (185s)
+[70/80] n288870 n=70 fullload=0.657  sparsevlm=0.643  static_di=0.629  static_di=0.643  (187s)
+[71/80] n549922 n=71 fullload=0.662  sparsevlm=0.648  static_di=0.634  static_di=0.648  (190s)
+[72/80] n240666 n=72 fullload=0.653  sparsevlm=0.639  static_di=0.639  static_di=0.639  (193s)
+[73/80] n329479 n=73 fullload=0.644  sparsevlm=0.630  static_di=0.630  static_di=0.630  (196s)
+[74/80] n460556 n=74 fullload=0.649  sparsevlm=0.635  static_di=0.635  static_di=0.635  (199s)
+[75/80] n469525 n=75 fullload=0.640  sparsevlm=0.640  static_di=0.640  static_di=0.627  (201s)
+[76/80] n496803 n=76 fullload=0.632  sparsevlm=0.632  static_di=0.632  static_di=0.618  (203s)
+[77/80] n541688 n=77 fullload=0.623  sparsevlm=0.623  static_di=0.623  static_di=0.610  (206s)
+[78/80] n217003 n=78 fullload=0.628  sparsevlm=0.628  static_di=0.628  static_di=0.615  (209s)
+[79/80] n369970 n=79 fullload=0.633  sparsevlm=0.633  static_di=0.633  static_di=0.620  (212s)
+[80/80] n381072 n=80 fullload=0.637  sparsevlm=0.637  static_di=0.637  static_di=0.625  (214s)
+
+=== budgets [0.25, 0.5]  (n=80, cold) ===
+method                      acc     TTFT     p50      p95  sel ms   diskMB  diskms  chunkf     kv     fb
+fullload                  63.7%    686.7   677.0    806.7   591.0   1171.8   387.6   1.000  0.246  0.000
+sparsevlm                 63.7%    794.7   796.7    935.1   688.1    925.6   417.4   0.735  0.246  0.162
+static_diverse_chunk@25   63.7%    388.7   383.8    439.0    15.3    300.4   213.2   0.241  0.241  0.000
+static_diverse_chunk@50   62.5%    606.6   611.0    692.7    21.5    595.4   343.0   0.494  0.490  0.000
+
+wrote /home/dblab/hj/mllm_v2/results/gqa_large_calib4/shard_002.json
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/01_build_store.py --out /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n181210,n264887,n255161,n413761,n413319,n329514,n166008,n233607,n143672,n167164,n578564,n480253,n49310,n131634,n403734,n272313,n64959,n433532,n530733,n310625,n162148,n472825,n246334,n133585,n285391,n141939,n243701,n369313,n159802,n548534,n414992,n312206,n522733,n278312,n204894,n170941,n324644,n229548,n272098,n351318,n455563,n167552,n531731,n181355,n411121,n527290,n222915,n184551,n279581,n28996,n412144,n479092,n9856,n209843,n441859,n94074,n445353,n437064,n95904,n318684,n468864,n326988,n356822,n500308,n14,n70461,n524855,n293477,n202379,n279173,n214497,n527589,n280089,n390187,n137182,n556604,n298104,n196058,n6309,n171169
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:05,  2.58s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:05<00:02,  2.56s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:07<00:00,  2.32s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:07<00:00,  2.39s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/80] n181210: v_num=2928 chunks=46 1.54GB+0.07 (2.3s)
+[2/80] n264887: v_num=1458 chunks=23 0.76GB+0.04 (0.8s)
+[3/80] n255161: v_num=1464 chunks=23 0.77GB+0.04 (0.7s)
+[4/80] n413761: v_num=2144 chunks=34 1.12GB+0.05 (1.2s)
+[5/80] n413319: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[6/80] n329514: v_num=2046 chunks=32 1.07GB+0.05 (1.1s)
+[7/80] n166008: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[8/80] n233607: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[9/80] n143672: v_num=2144 chunks=34 1.12GB+0.05 (1.2s)
+[10/80] n167164: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[11/80] n578564: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[12/80] n480253: v_num=2046 chunks=32 1.07GB+0.05 (1.0s)
+[13/80] n49310: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[14/80] n131634: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[15/80] n403734: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[16/80] n272313: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[17/80] n64959: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[18/80] n433532: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[19/80] n530733: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[20/80] n310625: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[21/80] n162148: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[22/80] n472825: v_num=2340 chunks=37 1.23GB+0.06 (1.4s)
+[23/80] n246334: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[24/80] n133585: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[25/80] n285391: v_num=2544 chunks=40 1.33GB+0.06 (1.3s)
+[26/80] n141939: v_num=2352 chunks=37 1.23GB+0.06 (1.2s)
+[27/80] n243701: v_num=2352 chunks=37 1.23GB+0.06 (1.2s)
+[28/80] n369313: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[29/80] n159802: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[30/80] n548534: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[31/80] n414992: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[32/80] n312206: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[33/80] n522733: v_num=2340 chunks=37 1.23GB+0.06 (1.7s)
+[34/80] n278312: v_num=2340 chunks=37 1.23GB+0.06 (1.8s)
+[35/80] n204894: v_num=2160 chunks=34 1.13GB+0.05 (1.8s)
+[36/80] n170941: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[37/80] n324644: v_num=2352 chunks=37 1.23GB+0.06 (1.9s)
+[38/80] n229548: v_num=2544 chunks=40 1.33GB+0.06 (2.1s)
+[39/80] n272098: v_num=2928 chunks=46 1.54GB+0.07 (2.4s)
+[40/80] n351318: v_num=2352 chunks=37 1.23GB+0.06 (1.9s)
+[41/80] n455563: v_num=2340 chunks=37 1.23GB+0.06 (2.1s)
+[42/80] n167552: v_num=2144 chunks=34 1.12GB+0.05 (1.9s)
+[43/80] n531731: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[44/80] n181355: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[45/80] n411121: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[46/80] n527290: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[47/80] n222915: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[48/80] n184551: v_num=2352 chunks=37 1.23GB+0.06 (1.9s)
+[49/80] n279581: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[50/80] n28996: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[51/80] n412144: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[52/80] n479092: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[53/80] n9856: v_num=2160 chunks=34 1.13GB+0.05 (1.7s)
+[54/80] n209843: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[55/80] n441859: v_num=1948 chunks=31 1.02GB+0.05 (1.6s)
+[56/80] n94074: v_num=2242 chunks=36 1.18GB+0.06 (1.8s)
+[57/80] n445353: v_num=2144 chunks=34 1.12GB+0.05 (1.6s)
+[58/80] n437064: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[59/80] n95904: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[60/80] n318684: v_num=2144 chunks=34 1.12GB+0.05 (1.8s)
+[61/80] n468864: v_num=2144 chunks=34 1.12GB+0.05 (1.9s)
+[62/80] n326988: v_num=2144 chunks=34 1.12GB+0.05 (1.8s)
+[63/80] n356822: v_num=2340 chunks=37 1.23GB+0.06 (2.0s)
+[64/80] n500308: v_num=2352 chunks=37 1.23GB+0.06 (2.1s)
+[65/80] n14: v_num=2352 chunks=37 1.23GB+0.06 (1.8s)
+[66/80] n70461: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[67/80] n524855: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[68/80] n293477: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[69/80] n202379: v_num=2242 chunks=36 1.18GB+0.06 (1.7s)
+[70/80] n279173: v_num=2144 chunks=34 1.12GB+0.05 (1.8s)
+[71/80] n214497: v_num=2144 chunks=34 1.12GB+0.05 (2.1s)
+[72/80] n527589: v_num=2340 chunks=37 1.23GB+0.06 (2.3s)
+[73/80] n280089: v_num=2438 chunks=39 1.28GB+0.06 (2.3s)
+[74/80] n390187: v_num=2256 chunks=36 1.18GB+0.06 (2.0s)
+[75/80] n137182: v_num=1464 chunks=23 0.77GB+0.04 (1.3s)
+[76/80] n556604: v_num=2256 chunks=36 1.18GB+0.06 (2.0s)
+[77/80] n298104: v_num=2160 chunks=34 1.13GB+0.05 (1.7s)
+[78/80] n196058: v_num=2144 chunks=34 1.12GB+0.05 (2.2s)
+[79/80] n6309: v_num=2340 chunks=37 1.23GB+0.06 (2.3s)
+[80/80] n171169: v_num=2160 chunks=34 1.13GB+0.05 (2.2s)
+store: 93.8 GB visual KV in /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/02_reorder.py --order importance --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --calib-questions 4
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:05,  2.56s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:05<00:02,  2.61s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:07<00:00,  2.36s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:07<00:00,  2.42s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[241/395] n181210: importance order (per-layer) (15.1s)
+[242/395] n264887: importance order (per-layer) (25.9s)
+[243/395] n255161: importance order (per-layer) (7.7s)
+[244/395] n413761: importance order (per-layer) (2.8s)
+[245/395] n413319: importance order (per-layer) (3.1s)
+[246/395] n329514: importance order (per-layer) (3.9s)
+[247/395] n166008: importance order (per-layer) (4.3s)
+[248/395] n233607: importance order (per-layer) (2.7s)
+[249/395] n143672: importance order (per-layer) (3.0s)
+[250/395] n167164: importance order (per-layer) (2.7s)
+[251/395] n578564: importance order (per-layer) (2.4s)
+[252/395] n480253: importance order (per-layer) (2.6s)
+[253/395] n49310: importance order (per-layer) (2.4s)
+[254/395] n131634: importance order (per-layer) (2.6s)
+[255/395] n403734: importance order (per-layer) (3.6s)
+[256/395] n272313: importance order (per-layer) (2.5s)
+[257/395] n64959: importance order (per-layer) (2.4s)
+[258/395] n433532: importance order (per-layer) (2.6s)
+[259/395] n530733: importance order (per-layer) (3.0s)
+[260/395] n310625: importance order (per-layer) (6.9s)
+[261/395] n162148: importance order (per-layer) (2.6s)
+[262/395] n472825: importance order (per-layer) (2.7s)
+[263/395] n246334: importance order (per-layer) (2.8s)
+[264/395] n133585: importance order (per-layer) (2.3s)
+[265/395] n285391: importance order (per-layer) (3.1s)
+[266/395] n141939: importance order (per-layer) (3.5s)
+[267/395] n243701: importance order (per-layer) (3.3s)
+[268/395] n369313: importance order (per-layer) (6.3s)
+[269/395] n159802: importance order (per-layer) (5.1s)
+[270/395] n548534: importance order (per-layer) (2.5s)
+[271/395] n414992: importance order (per-layer) (2.4s)
+[272/395] n312206: importance order (per-layer) (2.7s)
+[273/395] n522733: importance order (per-layer) (3.0s)
+[274/395] n278312: importance order (per-layer) (2.6s)
+[275/395] n204894: importance order (per-layer) (2.6s)
+[276/395] n170941: importance order (per-layer) (3.7s)
+[277/395] n324644: importance order (per-layer) (6.9s)
+[278/395] n229548: importance order (per-layer) (7.7s)
+[279/395] n272098: importance order (per-layer) (6.1s)
+[280/395] n351318: importance order (per-layer) (3.2s)
+[281/395] n455563: importance order (per-layer) (2.8s)
+[282/395] n167552: importance order (per-layer) (2.8s)
+[283/395] n531731: importance order (per-layer) (3.0s)
+[284/395] n181355: importance order (per-layer) (2.9s)
+[285/395] n411121: importance order (per-layer) (2.6s)
+[286/395] n527290: importance order (per-layer) (3.3s)
+[287/395] n222915: importance order (per-layer) (2.7s)
+[288/395] n184551: importance order (per-layer) (3.9s)
+[289/395] n279581: importance order (per-layer) (5.3s)
+[290/395] n28996: importance order (per-layer) (4.4s)
+[291/395] n412144: importance order (per-layer) (2.4s)
+[292/395] n479092: importance order (per-layer) (3.1s)
+[293/395] n9856: importance order (per-layer) (2.6s)
+[294/395] n209843: importance order (per-layer) (2.6s)
+[295/395] n441859: importance order (per-layer) (3.4s)
+[296/395] n94074: importance order (per-layer) (2.8s)
+[297/395] n445353: importance order (per-layer) (3.0s)
+[298/395] n437064: importance order (per-layer) (2.7s)
+[299/395] n95904: importance order (per-layer) (2.9s)
+[300/395] n318684: importance order (per-layer) (2.6s)
+[301/395] n468864: importance order (per-layer) (2.6s)
+[302/395] n326988: importance order (per-layer) (6.0s)
+[303/395] n356822: importance order (per-layer) (3.9s)
+[304/395] n500308: importance order (per-layer) (2.6s)
+[305/395] n14: importance order (per-layer) (3.0s)
+[306/395] n70461: importance order (per-layer) (2.6s)
+[307/395] n524855: importance order (per-layer) (2.7s)
+[308/395] n293477: importance order (per-layer) (2.6s)
+[309/395] n202379: importance order (per-layer) (2.5s)
+[310/395] n279173: importance order (per-layer) (2.6s)
+[311/395] n214497: importance order (per-layer) (2.6s)
+[312/395] n527589: importance order (per-layer) (3.4s)
+[313/395] n280089: importance order (per-layer) (6.2s)
+[314/395] n390187: importance order (per-layer) (4.3s)
+[315/395] n137182: importance order (per-layer) (2.3s)
+[316/395] n556604: importance order (per-layer) (2.6s)
+[317/395] n298104: importance order (per-layer) (2.3s)
+[318/395] n196058: importance order (per-layer) (2.5s)
+[319/395] n6309: importance order (per-layer) (3.3s)
+[320/395] n171169: importance order (per-layer) (2.5s)
+reorder done
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/06_build_static.py --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n181210,n264887,n255161,n413761,n413319,n329514,n166008,n233607,n143672,n167164,n578564,n480253,n49310,n131634,n403734,n272313,n64959,n433532,n530733,n310625,n162148,n472825,n246334,n133585,n285391,n141939,n243701,n369313,n159802,n548534,n414992,n312206,n522733,n278312,n204894,n170941,n324644,n229548,n272098,n351318,n455563,n167552,n531731,n181355,n411121,n527290,n222915,n184551,n279581,n28996,n412144,n479092,n9856,n209843,n441859,n94074,n445353,n437064,n95904,n318684,n468864,n326988,n356822,n500308,n14,n70461,n524855,n293477,n202379,n279173,n214497,n527589,n280089,n390187,n137182,n556604,n298104,n196058,n6309,n171169
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:05,  2.51s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.45s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.20s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.27s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/80] n181210: CLIP 312 ms + metadata 736 ms, 37.2 MB, sep chunks 20.6/46
+[2/80] n264887: CLIP 25 ms + metadata 521 ms, 15.5 MB, sep chunks 4.8/23
+[3/80] n255161: CLIP 24 ms + metadata 373 ms, 18.6 MB, sep chunks 8.4/23
+[4/80] n413761: CLIP 42 ms + metadata 592 ms, 25.7 MB, sep chunks 10.8/34
+[5/80] n413319: CLIP 42 ms + metadata 519 ms, 34.1 MB, sep chunks 15.9/34
+[6/80] n329514: CLIP 41 ms + metadata 584 ms, 24.1 MB, sep chunks 8.0/32
+[7/80] n166008: CLIP 40 ms + metadata 657 ms, 28.6 MB, sep chunks 14.2/37
+[8/80] n233607: CLIP 41 ms + metadata 492 ms, 25.7 MB, sep chunks 11.0/34
+[9/80] n143672: CLIP 42 ms + metadata 1181 ms, 25.7 MB, sep chunks 11.0/34
+[10/80] n167164: CLIP 42 ms + metadata 526 ms, 28.6 MB, sep chunks 13.2/37
+[11/80] n578564: CLIP 41 ms + metadata 544 ms, 34.1 MB, sep chunks 17.0/34
+[12/80] n480253: CLIP 40 ms + metadata 453 ms, 24.1 MB, sep chunks 10.2/32
+[13/80] n49310: CLIP 41 ms + metadata 468 ms, 25.7 MB, sep chunks 12.8/34
+[14/80] n131634: CLIP 40 ms + metadata 564 ms, 28.6 MB, sep chunks 14.4/37
+[15/80] n403734: CLIP 40 ms + metadata 484 ms, 25.7 MB, sep chunks 13.1/34
+[16/80] n272313: CLIP 42 ms + metadata 469 ms, 25.7 MB, sep chunks 11.0/34
+[17/80] n64959: CLIP 42 ms + metadata 485 ms, 25.7 MB, sep chunks 12.0/34
+[18/80] n433532: CLIP 42 ms + metadata 1940 ms, 34.1 MB, sep chunks 16.0/34
+[19/80] n530733: CLIP 42 ms + metadata 2637 ms, 28.6 MB, sep chunks 13.7/37
+[20/80] n310625: CLIP 42 ms + metadata 552 ms, 28.6 MB, sep chunks 14.8/37
+[21/80] n162148: CLIP 42 ms + metadata 545 ms, 28.6 MB, sep chunks 13.5/37
+[22/80] n472825: CLIP 41 ms + metadata 489 ms, 28.6 MB, sep chunks 13.8/37
+[23/80] n246334: CLIP 41 ms + metadata 536 ms, 28.6 MB, sep chunks 14.8/37
+[24/80] n133585: CLIP 40 ms + metadata 505 ms, 25.7 MB, sep chunks 10.8/34
+[25/80] n285391: CLIP 40 ms + metadata 585 ms, 35.7 MB, sep chunks 17.4/40
+[26/80] n141939: CLIP 40 ms + metadata 516 ms, 34.9 MB, sep chunks 17.6/37
+[27/80] n243701: CLIP 40 ms + metadata 516 ms, 34.9 MB, sep chunks 17.4/37
+[28/80] n369313: CLIP 40 ms + metadata 1159 ms, 25.7 MB, sep chunks 11.9/34
+[29/80] n159802: CLIP 42 ms + metadata 594 ms, 25.7 MB, sep chunks 10.7/34
+[30/80] n548534: CLIP 42 ms + metadata 482 ms, 25.7 MB, sep chunks 11.1/34
+[31/80] n414992: CLIP 42 ms + metadata 572 ms, 25.7 MB, sep chunks 10.3/34
+[32/80] n312206: CLIP 42 ms + metadata 587 ms, 28.6 MB, sep chunks 13.9/37
+[33/80] n522733: CLIP 42 ms + metadata 511 ms, 28.6 MB, sep chunks 14.0/37
+[34/80] n278312: CLIP 42 ms + metadata 506 ms, 28.6 MB, sep chunks 11.2/37
+[35/80] n204894: CLIP 42 ms + metadata 487 ms, 34.1 MB, sep chunks 16.2/34
+[36/80] n170941: CLIP 42 ms + metadata 519 ms, 28.6 MB, sep chunks 12.9/37
+[37/80] n324644: CLIP 41 ms + metadata 705 ms, 34.9 MB, sep chunks 14.7/37
+[38/80] n229548: CLIP 41 ms + metadata 661 ms, 35.7 MB, sep chunks 17.9/40
+[39/80] n272098: CLIP 42 ms + metadata 704 ms, 37.2 MB, sep chunks 21.3/46
+[40/80] n351318: CLIP 42 ms + metadata 548 ms, 34.9 MB, sep chunks 18.8/37
+[41/80] n455563: CLIP 42 ms + metadata 531 ms, 28.6 MB, sep chunks 13.9/37
+[42/80] n167552: CLIP 41 ms + metadata 524 ms, 25.7 MB, sep chunks 11.3/34
+[43/80] n531731: CLIP 41 ms + metadata 515 ms, 28.6 MB, sep chunks 12.0/37
+[44/80] n181355: CLIP 41 ms + metadata 645 ms, 28.6 MB, sep chunks 13.5/37
+[45/80] n411121: CLIP 40 ms + metadata 519 ms, 28.6 MB, sep chunks 12.9/37
+[46/80] n527290: CLIP 41 ms + metadata 548 ms, 28.6 MB, sep chunks 13.4/37
+[47/80] n222915: CLIP 42 ms + metadata 653 ms, 28.6 MB, sep chunks 15.0/37
+[48/80] n184551: CLIP 42 ms + metadata 567 ms, 34.9 MB, sep chunks 15.5/37
+[49/80] n279581: CLIP 42 ms + metadata 513 ms, 25.7 MB, sep chunks 11.6/34
+[50/80] n28996: CLIP 42 ms + metadata 532 ms, 28.6 MB, sep chunks 12.5/37
+[51/80] n412144: CLIP 42 ms + metadata 538 ms, 25.7 MB, sep chunks 11.9/34
+[52/80] n479092: CLIP 42 ms + metadata 526 ms, 28.6 MB, sep chunks 13.6/37
+[53/80] n9856: CLIP 42 ms + metadata 494 ms, 34.1 MB, sep chunks 15.5/34
+[54/80] n209843: CLIP 42 ms + metadata 505 ms, 28.6 MB, sep chunks 13.3/37
+[55/80] n441859: CLIP 42 ms + metadata 475 ms, 22.8 MB, sep chunks 10.1/31
+[56/80] n94074: CLIP 42 ms + metadata 554 ms, 27.3 MB, sep chunks 13.2/36
+[57/80] n445353: CLIP 42 ms + metadata 491 ms, 25.7 MB, sep chunks 11.7/34
+[58/80] n437064: CLIP 42 ms + metadata 474 ms, 25.7 MB, sep chunks 11.1/34
+[59/80] n95904: CLIP 42 ms + metadata 528 ms, 28.6 MB, sep chunks 12.7/37
+[60/80] n318684: CLIP 41 ms + metadata 510 ms, 25.7 MB, sep chunks 11.3/34
+[61/80] n468864: CLIP 41 ms + metadata 527 ms, 25.7 MB, sep chunks 12.6/34
+[62/80] n326988: CLIP 41 ms + metadata 472 ms, 25.7 MB, sep chunks 11.8/34
+[63/80] n356822: CLIP 41 ms + metadata 497 ms, 28.6 MB, sep chunks 12.6/37
+[64/80] n500308: CLIP 40 ms + metadata 563 ms, 34.9 MB, sep chunks 17.1/37
+[65/80] n14: CLIP 40 ms + metadata 506 ms, 34.9 MB, sep chunks 17.9/37
+[66/80] n70461: CLIP 41 ms + metadata 468 ms, 25.7 MB, sep chunks 10.7/34
+[67/80] n524855: CLIP 41 ms + metadata 449 ms, 25.7 MB, sep chunks 11.6/34
+[68/80] n293477: CLIP 41 ms + metadata 506 ms, 28.6 MB, sep chunks 15.0/37
+[69/80] n202379: CLIP 40 ms + metadata 493 ms, 27.3 MB, sep chunks 12.1/36
+[70/80] n279173: CLIP 42 ms + metadata 479 ms, 25.7 MB, sep chunks 11.6/34
+[71/80] n214497: CLIP 41 ms + metadata 505 ms, 25.7 MB, sep chunks 11.3/34
+[72/80] n527589: CLIP 41 ms + metadata 519 ms, 28.6 MB, sep chunks 14.7/37
+[73/80] n280089: CLIP 40 ms + metadata 603 ms, 30.2 MB, sep chunks 16.2/39
+[74/80] n390187: CLIP 42 ms + metadata 594 ms, 34.6 MB, sep chunks 16.1/36
+[75/80] n137182: CLIP 24 ms + metadata 442 ms, 18.6 MB, sep chunks 8.3/23
+[76/80] n556604: CLIP 42 ms + metadata 494 ms, 34.6 MB, sep chunks 15.0/36
+[77/80] n298104: CLIP 40 ms + metadata 469 ms, 34.1 MB, sep chunks 15.7/34
+[78/80] n196058: CLIP 41 ms + metadata 471 ms, 25.7 MB, sep chunks 10.5/34
+[79/80] n6309: CLIP 40 ms + metadata 533 ms, 28.6 MB, sep chunks 12.9/37
+[80/80] n171169: CLIP 42 ms + metadata 497 ms, 34.1 MB, sep chunks 15.2/34
+
+first-use per image: CLIP 44 ms + metadata 590 ms = 634 ms
+amortised over 5.0 questions/image: 126.9 ms/question
+sidecar 28.7 MB/image
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/04_eval.py --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n181210,n264887,n255161,n413761,n413319,n329514,n166008,n233607,n143672,n167164,n578564,n480253,n49310,n131634,n403734,n272313,n64959,n433532,n530733,n310625,n162148,n472825,n246334,n133585,n285391,n141939,n243701,n369313,n159802,n548534,n414992,n312206,n522733,n278312,n204894,n170941,n324644,n229548,n272098,n351318,n455563,n167552,n531731,n181355,n411121,n527290,n222915,n184551,n279581,n28996,n412144,n479092,n9856,n209843,n441859,n94074,n445353,n437064,n95904,n318684,n468864,n326988,n356822,n500308,n14,n70461,n524855,n293477,n202379,n279173,n214497,n527589,n280089,n390187,n137182,n556604,n298104,n196058,n6309,n171169 --metric gqa --dataset gqa_large_calib4 --questions 1 --skip 4 --ratio 0.25 --budgets 0.25,0.5 --selectors sparsevlm,static_diverse_chunk --out /home/dblab/hj/mllm_v2/results/gqa_large_calib4/shard_003.json --no-recompute
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.35s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.31s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.10s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.16s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/80] n181210 n=1 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (4s)
+[2/80] n264887 n=2 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (6s)
+[3/80] n255161 n=3 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (8s)
+[4/80] n413761 n=4 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (10s)
+[5/80] n413319 n=5 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (13s)
+[6/80] n329514 n=6 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (16s)
+[7/80] n166008 n=7 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (19s)
+[8/80] n233607 n=8 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (22s)
+[9/80] n143672 n=9 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (24s)
+[10/80] n167164 n=10 fullload=0.900  sparsevlm=0.900  static_di=0.900  static_di=0.900  (27s)
+[11/80] n578564 n=11 fullload=0.909  sparsevlm=0.909  static_di=0.909  static_di=0.909  (30s)
+[12/80] n480253 n=12 fullload=0.917  sparsevlm=0.833  static_di=0.833  static_di=0.917  (32s)
+[13/80] n49310 n=13 fullload=0.923  sparsevlm=0.846  static_di=0.846  static_di=0.923  (34s)
+[14/80] n131634 n=14 fullload=0.929  sparsevlm=0.857  static_di=0.857  static_di=0.929  (37s)
+[15/80] n403734 n=15 fullload=0.933  sparsevlm=0.867  static_di=0.867  static_di=0.933  (40s)
+[16/80] n272313 n=16 fullload=0.938  sparsevlm=0.875  static_di=0.875  static_di=0.938  (42s)
+[17/80] n64959 n=17 fullload=0.882  sparsevlm=0.824  static_di=0.824  static_di=0.882  (45s)
+[18/80] n433532 n=18 fullload=0.889  sparsevlm=0.833  static_di=0.833  static_di=0.889  (47s)
+[19/80] n530733 n=19 fullload=0.895  sparsevlm=0.842  static_di=0.842  static_di=0.895  (50s)
+[20/80] n310625 n=20 fullload=0.900  sparsevlm=0.850  static_di=0.850  static_di=0.900  (52s)
+[21/80] n162148 n=21 fullload=0.905  sparsevlm=0.857  static_di=0.857  static_di=0.905  (55s)
+[22/80] n472825 n=22 fullload=0.909  sparsevlm=0.864  static_di=0.864  static_di=0.909  (58s)
+[23/80] n246334 n=23 fullload=0.913  sparsevlm=0.870  static_di=0.870  static_di=0.913  (60s)
+[24/80] n133585 n=24 fullload=0.917  sparsevlm=0.875  static_di=0.875  static_di=0.917  (63s)
+[25/80] n285391 n=25 fullload=0.880  sparsevlm=0.840  static_di=0.840  static_di=0.880  (65s)
+[26/80] n141939 n=26 fullload=0.885  sparsevlm=0.846  static_di=0.846  static_di=0.885  (68s)
+[27/80] n243701 n=27 fullload=0.889  sparsevlm=0.852  static_di=0.852  static_di=0.889  (71s)
+[28/80] n369313 n=28 fullload=0.893  sparsevlm=0.857  static_di=0.857  static_di=0.893  (73s)
+[29/80] n159802 n=29 fullload=0.862  sparsevlm=0.828  static_di=0.828  static_di=0.862  (76s)
+[30/80] n548534 n=30 fullload=0.867  sparsevlm=0.800  static_di=0.833  static_di=0.867  (78s)
+[31/80] n414992 n=31 fullload=0.871  sparsevlm=0.806  static_di=0.839  static_di=0.871  (81s)
+[32/80] n312206 n=32 fullload=0.844  sparsevlm=0.781  static_di=0.812  static_di=0.844  (83s)
+[33/80] n522733 n=33 fullload=0.848  sparsevlm=0.788  static_di=0.818  static_di=0.848  (86s)
+[34/80] n278312 n=34 fullload=0.853  sparsevlm=0.794  static_di=0.824  static_di=0.853  (89s)
+[35/80] n204894 n=35 fullload=0.857  sparsevlm=0.800  static_di=0.829  static_di=0.857  (91s)
+[36/80] n170941 n=36 fullload=0.861  sparsevlm=0.806  static_di=0.833  static_di=0.861  (94s)
+[37/80] n324644 n=37 fullload=0.838  sparsevlm=0.811  static_di=0.838  static_di=0.838  (96s)
+[38/80] n229548 n=38 fullload=0.842  sparsevlm=0.816  static_di=0.842  static_di=0.842  (99s)
+[39/80] n272098 n=39 fullload=0.821  sparsevlm=0.795  static_di=0.821  static_di=0.821  (102s)
+[40/80] n351318 n=40 fullload=0.825  sparsevlm=0.800  static_di=0.825  static_di=0.825  (105s)
+[41/80] n455563 n=41 fullload=0.805  sparsevlm=0.780  static_di=0.805  static_di=0.805  (108s)
+[42/80] n167552 n=42 fullload=0.810  sparsevlm=0.786  static_di=0.810  static_di=0.810  (110s)
+[43/80] n531731 n=43 fullload=0.791  sparsevlm=0.767  static_di=0.791  static_di=0.791  (113s)
+[44/80] n181355 n=44 fullload=0.773  sparsevlm=0.750  static_di=0.773  static_di=0.773  (116s)
+[45/80] n411121 n=45 fullload=0.778  sparsevlm=0.756  static_di=0.778  static_di=0.778  (118s)
+[46/80] n527290 n=46 fullload=0.783  sparsevlm=0.761  static_di=0.783  static_di=0.783  (121s)
+[47/80] n222915 n=47 fullload=0.766  sparsevlm=0.745  static_di=0.766  static_di=0.766  (124s)
+[48/80] n184551 n=48 fullload=0.771  sparsevlm=0.750  static_di=0.771  static_di=0.771  (127s)
+[49/80] n279581 n=49 fullload=0.755  sparsevlm=0.735  static_di=0.755  static_di=0.755  (129s)
+[50/80] n28996 n=50 fullload=0.740  sparsevlm=0.720  static_di=0.740  static_di=0.740  (132s)
+[51/80] n412144 n=51 fullload=0.725  sparsevlm=0.706  static_di=0.725  static_di=0.725  (135s)
+[52/80] n479092 n=52 fullload=0.712  sparsevlm=0.692  static_di=0.712  static_di=0.712  (137s)
+[53/80] n9856 n=53 fullload=0.717  sparsevlm=0.698  static_di=0.717  static_di=0.717  (140s)
+[54/80] n209843 n=54 fullload=0.722  sparsevlm=0.704  static_di=0.722  static_di=0.722  (143s)
+[55/80] n441859 n=55 fullload=0.709  sparsevlm=0.691  static_di=0.709  static_di=0.709  (145s)
+[56/80] n94074 n=56 fullload=0.714  sparsevlm=0.696  static_di=0.714  static_di=0.714  (148s)
+[57/80] n445353 n=57 fullload=0.719  sparsevlm=0.702  static_di=0.719  static_di=0.719  (151s)
+[58/80] n437064 n=58 fullload=0.724  sparsevlm=0.707  static_di=0.724  static_di=0.724  (153s)
+[59/80] n95904 n=59 fullload=0.729  sparsevlm=0.712  static_di=0.729  static_di=0.729  (156s)
+[60/80] n318684 n=60 fullload=0.717  sparsevlm=0.700  static_di=0.717  static_di=0.717  (159s)
+[61/80] n468864 n=61 fullload=0.721  sparsevlm=0.705  static_di=0.721  static_di=0.721  (161s)
+[62/80] n326988 n=62 fullload=0.726  sparsevlm=0.710  static_di=0.726  static_di=0.726  (164s)
+[63/80] n356822 n=63 fullload=0.730  sparsevlm=0.714  static_di=0.730  static_di=0.730  (167s)
+[64/80] n500308 n=64 fullload=0.734  sparsevlm=0.719  static_di=0.734  static_di=0.734  (170s)
+[65/80] n14 n=65 fullload=0.738  sparsevlm=0.723  static_di=0.738  static_di=0.738  (173s)
+[66/80] n70461 n=66 fullload=0.742  sparsevlm=0.727  static_di=0.742  static_di=0.742  (175s)
+[67/80] n524855 n=67 fullload=0.746  sparsevlm=0.731  static_di=0.746  static_di=0.746  (178s)
+[68/80] n293477 n=68 fullload=0.750  sparsevlm=0.735  static_di=0.750  static_di=0.750  (181s)
+[69/80] n202379 n=69 fullload=0.754  sparsevlm=0.739  static_di=0.754  static_di=0.754  (183s)
+[70/80] n279173 n=70 fullload=0.743  sparsevlm=0.729  static_di=0.743  static_di=0.743  (186s)
+[71/80] n214497 n=71 fullload=0.732  sparsevlm=0.718  static_di=0.732  static_di=0.732  (188s)
+[72/80] n527589 n=72 fullload=0.722  sparsevlm=0.708  static_di=0.722  static_di=0.722  (191s)
+[73/80] n280089 n=73 fullload=0.712  sparsevlm=0.699  static_di=0.712  static_di=0.712  (194s)
+[74/80] n390187 n=74 fullload=0.716  sparsevlm=0.703  static_di=0.716  static_di=0.716  (197s)
+[75/80] n137182 n=75 fullload=0.707  sparsevlm=0.693  static_di=0.720  static_di=0.720  (199s)
+[76/80] n556604 n=76 fullload=0.697  sparsevlm=0.684  static_di=0.724  static_di=0.711  (202s)
+[77/80] n298104 n=77 fullload=0.701  sparsevlm=0.688  static_di=0.727  static_di=0.714  (205s)
+[78/80] n196058 n=78 fullload=0.692  sparsevlm=0.679  static_di=0.718  static_di=0.705  (207s)
+[79/80] n6309 n=79 fullload=0.696  sparsevlm=0.684  static_di=0.722  static_di=0.709  (210s)
+[80/80] n171169 n=80 fullload=0.700  sparsevlm=0.688  static_di=0.725  static_di=0.713  (213s)
+
+=== budgets [0.25, 0.5]  (n=80, cold) ===
+method                      acc     TTFT     p50      p95  sel ms   diskMB  diskms  chunkf     kv     fb
+fullload                  70.0%    671.1   667.4    768.4   573.6   1172.0   373.4   1.000  0.246  0.000
+sparsevlm                 68.8%    783.0   789.1    888.8   676.2    919.7   408.5   0.731  0.246  0.148
+static_diverse_chunk@25   72.5%    388.2   384.0    443.9    14.6    301.5   216.0   0.242  0.243  0.000
+static_diverse_chunk@50   71.2%    611.4   610.7    696.9    21.5    597.1   348.2   0.496  0.493  0.000
+
+wrote /home/dblab/hj/mllm_v2/results/gqa_large_calib4/shard_003.json
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/01_build_store.py --out /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n86120,n126087,n545516,n244826,n498712,n157375,n207708,n469156,n513100,n159284,n145498,n208302,n352479,n44249,n199097,n315887,n111390,n154856,n473688,n12214,n551964,n485969,n429961,n234683,n546616,n67005,n276011,n90944,n450919,n295771,n542609,n151768,n498140,n278453,n14087,n51002,n4777,n162586,n562105,n523165,n154160,n435808,n493357,n554880,n153118,n263180,n460385,n470920,n119886,n173807,n65202,n219840,n97485,n200225,n434283,n528403,n451187,n532191,n543966,n324908,n89148,n127705,n119944,n259002,n331357,n16656,n161313,n575770,n557666,n130638,n511913,n16378,n115614,n179136,n413002
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.44s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.45s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.21s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.27s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/75] n86120: v_num=2144 chunks=34 1.12GB+0.05 (1.7s)
+[2/75] n126087: v_num=2144 chunks=34 1.12GB+0.05 (1.4s)
+[3/75] n545516: v_num=2340 chunks=37 1.23GB+0.06 (1.5s)
+[4/75] n244826: v_num=1948 chunks=31 1.02GB+0.05 (1.0s)
+[5/75] n498712: v_num=2340 chunks=37 1.23GB+0.06 (1.5s)
+[6/75] n157375: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[7/75] n207708: v_num=2352 chunks=37 1.23GB+0.06 (1.5s)
+[8/75] n469156: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[9/75] n513100: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[10/75] n159284: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[11/75] n145498: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[12/75] n208302: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[13/75] n352479: v_num=2448 chunks=39 1.28GB+0.06 (1.5s)
+[14/75] n44249: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[15/75] n199097: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[16/75] n315887: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[17/75] n111390: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[18/75] n154856: v_num=1464 chunks=23 0.77GB+0.04 (0.8s)
+[19/75] n473688: v_num=2352 chunks=37 1.23GB+0.06 (1.3s)
+[20/75] n12214: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[21/75] n551964: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[22/75] n485969: v_num=2830 chunks=45 1.48GB+0.07 (1.5s)
+[23/75] n429961: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[24/75] n234683: v_num=2352 chunks=37 1.23GB+0.06 (1.2s)
+[25/75] n546616: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[26/75] n67005: v_num=2352 chunks=37 1.23GB+0.06 (1.2s)
+[27/75] n276011: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[28/75] n90944: v_num=2256 chunks=36 1.18GB+0.06 (1.1s)
+[29/75] n450919: v_num=2352 chunks=37 1.23GB+0.06 (1.2s)
+[30/75] n295771: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[31/75] n542609: v_num=2144 chunks=34 1.12GB+0.05 (1.1s)
+[32/75] n151768: v_num=2340 chunks=37 1.23GB+0.06 (1.3s)
+[33/75] n498140: v_num=2144 chunks=34 1.12GB+0.05 (1.0s)
+[34/75] n278453: v_num=2160 chunks=34 1.13GB+0.05 (1.1s)
+[35/75] n14087: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[36/75] n51002: v_num=2144 chunks=34 1.12GB+0.05 (1.2s)
+[37/75] n4777: v_num=2352 chunks=37 1.23GB+0.06 (1.2s)
+[38/75] n162586: v_num=2242 chunks=36 1.18GB+0.06 (1.1s)
+[39/75] n562105: v_num=2242 chunks=36 1.18GB+0.06 (1.2s)
+[40/75] n523165: v_num=2340 chunks=37 1.23GB+0.06 (1.4s)
+[41/75] n154160: v_num=2352 chunks=37 1.23GB+0.06 (1.8s)
+[42/75] n435808: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[43/75] n493357: v_num=2340 chunks=37 1.23GB+0.06 (1.2s)
+[44/75] n554880: v_num=2144 chunks=34 1.12GB+0.05 (1.2s)
+[45/75] n153118: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[46/75] n263180: v_num=2242 chunks=36 1.18GB+0.06 (2.3s)
+[47/75] n460385: v_num=2352 chunks=37 1.23GB+0.06 (2.4s)
+[48/75] n470920: v_num=2144 chunks=34 1.12GB+0.05 (2.3s)
+[49/75] n119886: v_num=2160 chunks=34 1.13GB+0.05 (2.4s)
+[50/75] n173807: v_num=2340 chunks=37 1.23GB+0.06 (3.1s)
+[51/75] n65202: v_num=2340 chunks=37 1.23GB+0.06 (2.4s)
+[52/75] n219840: v_num=2340 chunks=37 1.23GB+0.06 (2.1s)
+[53/75] n97485: v_num=2340 chunks=37 1.23GB+0.06 (2.2s)
+[54/75] n200225: v_num=2928 chunks=46 1.54GB+0.07 (3.3s)
+[55/75] n434283: v_num=2144 chunks=34 1.12GB+0.05 (2.2s)
+[56/75] n528403: v_num=1476 chunks=24 0.77GB+0.04 (1.7s)
+[57/75] n451187: v_num=1464 chunks=23 0.77GB+0.04 (1.6s)
+[58/75] n532191: v_num=2544 chunks=40 1.33GB+0.06 (2.7s)
+[59/75] n543966: v_num=2340 chunks=37 1.23GB+0.06 (2.7s)
+[60/75] n324908: v_num=2340 chunks=37 1.23GB+0.06 (2.9s)
+[61/75] n89148: v_num=2352 chunks=37 1.23GB+0.06 (2.9s)
+[62/75] n127705: v_num=2928 chunks=46 1.54GB+0.07 (3.7s)
+[63/75] n119944: v_num=2144 chunks=34 1.12GB+0.05 (1.6s)
+[64/75] n259002: v_num=2046 chunks=32 1.07GB+0.05 (2.1s)
+[65/75] n331357: v_num=2046 chunks=32 1.07GB+0.05 (2.0s)
+[66/75] n16656: v_num=2340 chunks=37 1.23GB+0.06 (2.3s)
+[67/75] n161313: v_num=1608 chunks=26 0.84GB+0.04 (1.4s)
+[68/75] n575770: v_num=2340 chunks=37 1.23GB+0.06 (1.8s)
+[69/75] n557666: v_num=2144 chunks=34 1.12GB+0.05 (1.5s)
+[70/75] n130638: v_num=2340 chunks=37 1.23GB+0.06 (1.9s)
+[71/75] n511913: v_num=2144 chunks=34 1.12GB+0.05 (1.9s)
+[72/75] n16378: v_num=2340 chunks=37 1.23GB+0.06 (2.0s)
+[73/75] n115614: v_num=2144 chunks=34 1.12GB+0.05 (1.8s)
+[74/75] n179136: v_num=2340 chunks=37 1.23GB+0.06 (2.0s)
+[75/75] n413002: v_num=2242 chunks=36 1.18GB+0.06 (1.9s)
+store: 88.1 GB visual KV in /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/02_reorder.py --order importance --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --calib-questions 4
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:05,  2.56s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:05<00:02,  2.50s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.26s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.33s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[321/395] n86120: importance order (per-layer) (6.0s)
+[322/395] n126087: importance order (per-layer) (10.3s)
+[323/395] n545516: importance order (per-layer) (4.9s)
+[324/395] n244826: importance order (per-layer) (4.8s)
+[325/395] n498712: importance order (per-layer) (3.0s)
+[326/395] n157375: importance order (per-layer) (2.9s)
+[327/395] n207708: importance order (per-layer) (2.6s)
+[328/395] n469156: importance order (per-layer) (4.6s)
+[329/395] n513100: importance order (per-layer) (2.5s)
+[330/395] n159284: importance order (per-layer) (3.0s)
+[331/395] n145498: importance order (per-layer) (2.9s)
+[332/395] n208302: importance order (per-layer) (3.8s)
+[333/395] n352479: importance order (per-layer) (2.9s)
+[334/395] n44249: importance order (per-layer) (6.3s)
+[335/395] n199097: importance order (per-layer) (4.6s)
+[336/395] n315887: importance order (per-layer) (2.4s)
+[337/395] n111390: importance order (per-layer) (2.7s)
+[338/395] n154856: importance order (per-layer) (2.0s)
+[339/395] n473688: importance order (per-layer) (3.1s)
+[340/395] n12214: importance order (per-layer) (2.9s)
+[341/395] n551964: importance order (per-layer) (2.7s)
+[342/395] n485969: importance order (per-layer) (3.2s)
+[343/395] n429961: importance order (per-layer) (3.4s)
+[344/395] n234683: importance order (per-layer) (3.3s)
+[345/395] n546616: importance order (per-layer) (6.5s)
+[346/395] n67005: importance order (per-layer) (5.0s)
+[347/395] n276011: importance order (per-layer) (2.8s)
+[348/395] n90944: importance order (per-layer) (2.5s)
+[349/395] n450919: importance order (per-layer) (3.2s)
+[350/395] n295771: importance order (per-layer) (2.6s)
+[351/395] n542609: importance order (per-layer) (2.4s)
+[352/395] n151768: importance order (per-layer) (2.6s)
+[353/395] n498140: importance order (per-layer) (2.4s)
+[354/395] n278453: importance order (per-layer) (2.8s)
+[355/395] n14087: importance order (per-layer) (2.8s)
+[356/395] n51002: importance order (per-layer) (3.0s)
+[357/395] n4777: importance order (per-layer) (5.5s)
+[358/395] n162586: importance order (per-layer) (5.0s)
+[359/395] n562105: importance order (per-layer) (2.7s)
+[360/395] n523165: importance order (per-layer) (2.7s)
+[361/395] n154160: importance order (per-layer) (2.8s)
+[362/395] n435808: importance order (per-layer) (2.9s)
+[363/395] n493357: importance order (per-layer) (3.0s)
+[364/395] n554880: importance order (per-layer) (3.2s)
+[365/395] n153118: importance order (per-layer) (5.3s)
+[366/395] n263180: importance order (per-layer) (6.3s)
+[367/395] n460385: importance order (per-layer) (3.5s)
+[368/395] n470920: importance order (per-layer) (2.6s)
+[369/395] n119886: importance order (per-layer) (2.5s)
+[370/395] n173807: importance order (per-layer) (3.3s)
+[371/395] n65202: importance order (per-layer) (3.2s)
+[372/395] n219840: importance order (per-layer) (2.8s)
+[373/395] n97485: importance order (per-layer) (3.4s)
+[374/395] n200225: importance order (per-layer) (4.2s)
+[375/395] n434283: importance order (per-layer) (3.7s)
+[376/395] n528403: importance order (per-layer) (7.3s)
+[377/395] n451187: importance order (per-layer) (3.3s)
+[378/395] n532191: importance order (per-layer) (2.9s)
+[379/395] n543966: importance order (per-layer) (2.9s)
+[380/395] n324908: importance order (per-layer) (2.8s)
+[381/395] n89148: importance order (per-layer) (2.8s)
+[382/395] n127705: importance order (per-layer) (3.4s)
+[383/395] n119944: importance order (per-layer) (2.9s)
+[384/395] n259002: importance order (per-layer) (3.7s)
+[385/395] n331357: importance order (per-layer) (3.2s)
+[386/395] n16656: importance order (per-layer) (2.7s)
+[387/395] n161313: importance order (per-layer) (2.1s)
+[388/395] n575770: importance order (per-layer) (2.7s)
+[389/395] n557666: importance order (per-layer) (2.4s)
+[390/395] n130638: importance order (per-layer) (3.0s)
+[391/395] n511913: importance order (per-layer) (2.7s)
+[392/395] n16378: importance order (per-layer) (3.1s)
+[393/395] n115614: importance order (per-layer) (4.0s)
+[394/395] n179136: importance order (per-layer) (2.9s)
+[395/395] n413002: importance order (per-layer) (2.6s)
+reorder done
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/06_build_static.py --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n86120,n126087,n545516,n244826,n498712,n157375,n207708,n469156,n513100,n159284,n145498,n208302,n352479,n44249,n199097,n315887,n111390,n154856,n473688,n12214,n551964,n485969,n429961,n234683,n546616,n67005,n276011,n90944,n450919,n295771,n542609,n151768,n498140,n278453,n14087,n51002,n4777,n162586,n562105,n523165,n154160,n435808,n493357,n554880,n153118,n263180,n460385,n470920,n119886,n173807,n65202,n219840,n97485,n200225,n434283,n528403,n451187,n532191,n543966,n324908,n89148,n127705,n119944,n259002,n331357,n16656,n161313,n575770,n557666,n130638,n511913,n16378,n115614,n179136,n413002
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.46s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.44s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.22s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.29s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/75] n86120: CLIP 293 ms + metadata 2629 ms, 25.7 MB, sep chunks 11.1/34
+[2/75] n126087: CLIP 42 ms + metadata 2772 ms, 25.7 MB, sep chunks 10.6/34
+[3/75] n545516: CLIP 42 ms + metadata 3308 ms, 28.6 MB, sep chunks 12.7/37
+[4/75] n244826: CLIP 42 ms + metadata 1199 ms, 22.8 MB, sep chunks 9.7/31
+[5/75] n498712: CLIP 42 ms + metadata 530 ms, 28.6 MB, sep chunks 12.4/37
+[6/75] n157375: CLIP 43 ms + metadata 735 ms, 28.6 MB, sep chunks 12.3/37
+[7/75] n207708: CLIP 42 ms + metadata 549 ms, 34.9 MB, sep chunks 16.9/37
+[8/75] n469156: CLIP 44 ms + metadata 584 ms, 34.1 MB, sep chunks 16.5/34
+[9/75] n513100: CLIP 42 ms + metadata 665 ms, 25.7 MB, sep chunks 11.5/34
+[10/75] n159284: CLIP 42 ms + metadata 576 ms, 34.1 MB, sep chunks 14.6/34
+[11/75] n145498: CLIP 42 ms + metadata 529 ms, 25.7 MB, sep chunks 9.2/34
+[12/75] n208302: CLIP 40 ms + metadata 586 ms, 28.6 MB, sep chunks 13.1/37
+[13/75] n352479: CLIP 40 ms + metadata 691 ms, 35.4 MB, sep chunks 16.9/39
+[14/75] n44249: CLIP 40 ms + metadata 482 ms, 25.7 MB, sep chunks 10.3/34
+[15/75] n199097: CLIP 42 ms + metadata 560 ms, 25.7 MB, sep chunks 12.7/34
+[16/75] n315887: CLIP 42 ms + metadata 527 ms, 25.7 MB, sep chunks 10.4/34
+[17/75] n111390: CLIP 42 ms + metadata 515 ms, 34.1 MB, sep chunks 16.6/34
+[18/75] n154856: CLIP 25 ms + metadata 440 ms, 18.6 MB, sep chunks 7.2/23
+[19/75] n473688: CLIP 42 ms + metadata 558 ms, 34.9 MB, sep chunks 15.8/37
+[20/75] n12214: CLIP 42 ms + metadata 590 ms, 25.7 MB, sep chunks 9.6/34
+[21/75] n551964: CLIP 42 ms + metadata 567 ms, 28.6 MB, sep chunks 13.1/37
+[22/75] n485969: CLIP 42 ms + metadata 666 ms, 35.9 MB, sep chunks 18.7/45
+[23/75] n429961: CLIP 42 ms + metadata 534 ms, 28.6 MB, sep chunks 14.7/37
+[24/75] n234683: CLIP 43 ms + metadata 550 ms, 34.9 MB, sep chunks 17.4/37
+[25/75] n546616: CLIP 42 ms + metadata 580 ms, 28.6 MB, sep chunks 14.1/37
+[26/75] n67005: CLIP 42 ms + metadata 621 ms, 34.9 MB, sep chunks 17.7/37
+[27/75] n276011: CLIP 42 ms + metadata 476 ms, 25.7 MB, sep chunks 12.4/34
+[28/75] n90944: CLIP 42 ms + metadata 510 ms, 34.6 MB, sep chunks 16.8/36
+[29/75] n450919: CLIP 42 ms + metadata 534 ms, 34.9 MB, sep chunks 17.5/37
+[30/75] n295771: CLIP 41 ms + metadata 471 ms, 25.7 MB, sep chunks 11.2/34
+[31/75] n542609: CLIP 40 ms + metadata 482 ms, 25.7 MB, sep chunks 9.4/34
+[32/75] n151768: CLIP 40 ms + metadata 611 ms, 28.6 MB, sep chunks 11.8/37
+[33/75] n498140: CLIP 40 ms + metadata 538 ms, 25.7 MB, sep chunks 11.9/34
+[34/75] n278453: CLIP 40 ms + metadata 545 ms, 34.1 MB, sep chunks 17.0/34
+[35/75] n14087: CLIP 40 ms + metadata 644 ms, 28.6 MB, sep chunks 13.8/37
+[36/75] n51002: CLIP 41 ms + metadata 511 ms, 25.7 MB, sep chunks 11.6/34
+[37/75] n4777: CLIP 40 ms + metadata 536 ms, 34.9 MB, sep chunks 19.1/37
+[38/75] n162586: CLIP 42 ms + metadata 547 ms, 27.3 MB, sep chunks 12.4/36
+[39/75] n562105: CLIP 42 ms + metadata 605 ms, 27.3 MB, sep chunks 14.3/36
+[40/75] n523165: CLIP 42 ms + metadata 538 ms, 28.6 MB, sep chunks 14.2/37
+[41/75] n154160: CLIP 42 ms + metadata 520 ms, 34.9 MB, sep chunks 16.3/37
+[42/75] n435808: CLIP 42 ms + metadata 593 ms, 28.6 MB, sep chunks 12.6/37
+[43/75] n493357: CLIP 42 ms + metadata 495 ms, 28.6 MB, sep chunks 12.7/37
+[44/75] n554880: CLIP 42 ms + metadata 547 ms, 25.7 MB, sep chunks 11.5/34
+[45/75] n153118: CLIP 43 ms + metadata 587 ms, 28.6 MB, sep chunks 13.4/37
+[46/75] n263180: CLIP 42 ms + metadata 520 ms, 27.3 MB, sep chunks 12.2/36
+[47/75] n460385: CLIP 43 ms + metadata 542 ms, 34.9 MB, sep chunks 18.1/37
+[48/75] n470920: CLIP 42 ms + metadata 617 ms, 25.7 MB, sep chunks 10.2/34
+[49/75] n119886: CLIP 43 ms + metadata 597 ms, 34.1 MB, sep chunks 17.2/34
+[50/75] n173807: CLIP 42 ms + metadata 569 ms, 28.6 MB, sep chunks 12.4/37
+[51/75] n65202: CLIP 42 ms + metadata 551 ms, 28.6 MB, sep chunks 12.5/37
+[52/75] n219840: CLIP 43 ms + metadata 594 ms, 28.6 MB, sep chunks 12.1/37
+[53/75] n97485: CLIP 42 ms + metadata 571 ms, 28.6 MB, sep chunks 14.4/37
+[54/75] n200225: CLIP 40 ms + metadata 721 ms, 37.2 MB, sep chunks 20.4/46
+[55/75] n434283: CLIP 40 ms + metadata 503 ms, 25.7 MB, sep chunks 10.4/34
+[56/75] n528403: CLIP 24 ms + metadata 440 ms, 25.2 MB, sep chunks 7.8/24
+[57/75] n451187: CLIP 24 ms + metadata 415 ms, 18.6 MB, sep chunks 7.3/23
+[58/75] n532191: CLIP 42 ms + metadata 656 ms, 35.7 MB, sep chunks 18.5/40
+[59/75] n543966: CLIP 41 ms + metadata 603 ms, 28.6 MB, sep chunks 13.3/37
+[60/75] n324908: CLIP 41 ms + metadata 699 ms, 28.6 MB, sep chunks 13.6/37
+[61/75] n89148: CLIP 41 ms + metadata 647 ms, 34.9 MB, sep chunks 16.7/37
+[62/75] n127705: CLIP 40 ms + metadata 718 ms, 37.2 MB, sep chunks 17.0/46
+[63/75] n119944: CLIP 43 ms + metadata 564 ms, 25.7 MB, sep chunks 11.1/34
+[64/75] n259002: CLIP 42 ms + metadata 520 ms, 24.1 MB, sep chunks 9.0/32
+[65/75] n331357: CLIP 41 ms + metadata 526 ms, 24.1 MB, sep chunks 9.1/32
+[66/75] n16656: CLIP 40 ms + metadata 520 ms, 28.6 MB, sep chunks 13.9/37
+[67/75] n161313: CLIP 26 ms + metadata 444 ms, 19.4 MB, sep chunks 7.9/26
+[68/75] n575770: CLIP 41 ms + metadata 739 ms, 28.6 MB, sep chunks 13.3/37
+[69/75] n557666: CLIP 40 ms + metadata 522 ms, 25.7 MB, sep chunks 11.2/34
+[70/75] n130638: CLIP 42 ms + metadata 513 ms, 28.6 MB, sep chunks 14.5/37
+[71/75] n511913: CLIP 43 ms + metadata 506 ms, 25.7 MB, sep chunks 10.0/34
+[72/75] n16378: CLIP 42 ms + metadata 513 ms, 28.6 MB, sep chunks 13.6/37
+[73/75] n115614: CLIP 42 ms + metadata 533 ms, 25.7 MB, sep chunks 10.8/34
+[74/75] n179136: CLIP 42 ms + metadata 630 ms, 28.6 MB, sep chunks 11.2/37
+[75/75] n413002: CLIP 42 ms + metadata 632 ms, 27.3 MB, sep chunks 14.0/36
+
+first-use per image: CLIP 44 ms + metadata 666 ms = 710 ms
+amortised over 5.0 questions/image: 142.0 ms/question
+sidecar 28.8 MB/image
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/04_eval.py --store /home/dblab/hj/mllm_v2/kvstore_gqa_large_calib4 --index /home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json --only n86120,n126087,n545516,n244826,n498712,n157375,n207708,n469156,n513100,n159284,n145498,n208302,n352479,n44249,n199097,n315887,n111390,n154856,n473688,n12214,n551964,n485969,n429961,n234683,n546616,n67005,n276011,n90944,n450919,n295771,n542609,n151768,n498140,n278453,n14087,n51002,n4777,n162586,n562105,n523165,n154160,n435808,n493357,n554880,n153118,n263180,n460385,n470920,n119886,n173807,n65202,n219840,n97485,n200225,n434283,n528403,n451187,n532191,n543966,n324908,n89148,n127705,n119944,n259002,n331357,n16656,n161313,n575770,n557666,n130638,n511913,n16378,n115614,n179136,n413002 --metric gqa --dataset gqa_large_calib4 --questions 1 --skip 4 --ratio 0.25 --budgets 0.25,0.5 --selectors sparsevlm,static_diverse_chunk --out /home/dblab/hj/mllm_v2/results/gqa_large_calib4/shard_004.json --no-recompute
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.37s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.32s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.11s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.17s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/75] n86120 n=1 fullload=1.000  sparsevlm=1.000  static_di=1.000  static_di=1.000  (3s)
+[2/75] n126087 n=2 fullload=0.500  sparsevlm=0.500  static_di=0.500  static_di=0.500  (5s)
+[3/75] n545516 n=3 fullload=0.333  sparsevlm=0.333  static_di=0.333  static_di=0.333  (8s)
+[4/75] n244826 n=4 fullload=0.250  sparsevlm=0.250  static_di=0.250  static_di=0.250  (11s)
+[5/75] n498712 n=5 fullload=0.200  sparsevlm=0.200  static_di=0.400  static_di=0.200  (14s)
+[6/75] n157375 n=6 fullload=0.167  sparsevlm=0.167  static_di=0.333  static_di=0.167  (16s)
+[7/75] n207708 n=7 fullload=0.286  sparsevlm=0.286  static_di=0.429  static_di=0.286  (19s)
+[8/75] n469156 n=8 fullload=0.250  sparsevlm=0.250  static_di=0.375  static_di=0.250  (21s)
+[9/75] n513100 n=9 fullload=0.333  sparsevlm=0.333  static_di=0.444  static_di=0.333  (24s)
+[10/75] n159284 n=10 fullload=0.400  sparsevlm=0.400  static_di=0.500  static_di=0.400  (26s)
+[11/75] n145498 n=11 fullload=0.455  sparsevlm=0.455  static_di=0.545  static_di=0.455  (29s)
+[12/75] n208302 n=12 fullload=0.500  sparsevlm=0.500  static_di=0.583  static_di=0.500  (31s)
+[13/75] n352479 n=13 fullload=0.462  sparsevlm=0.462  static_di=0.538  static_di=0.462  (34s)
+[14/75] n44249 n=14 fullload=0.500  sparsevlm=0.500  static_di=0.571  static_di=0.500  (37s)
+[15/75] n199097 n=15 fullload=0.467  sparsevlm=0.467  static_di=0.533  static_di=0.467  (39s)
+[16/75] n315887 n=16 fullload=0.438  sparsevlm=0.438  static_di=0.500  static_di=0.438  (42s)
+[17/75] n111390 n=17 fullload=0.471  sparsevlm=0.471  static_di=0.471  static_di=0.471  (44s)
+[18/75] n154856 n=18 fullload=0.444  sparsevlm=0.444  static_di=0.444  static_di=0.444  (46s)
+[19/75] n473688 n=19 fullload=0.474  sparsevlm=0.474  static_di=0.474  static_di=0.474  (48s)
+[20/75] n12214 n=20 fullload=0.500  sparsevlm=0.500  static_di=0.500  static_di=0.500  (51s)
+[21/75] n551964 n=21 fullload=0.524  sparsevlm=0.524  static_di=0.524  static_di=0.524  (54s)
+[22/75] n485969 n=22 fullload=0.500  sparsevlm=0.500  static_di=0.500  static_di=0.500  (57s)
+[23/75] n429961 n=23 fullload=0.478  sparsevlm=0.478  static_di=0.478  static_di=0.478  (59s)
+[24/75] n234683 n=24 fullload=0.458  sparsevlm=0.458  static_di=0.458  static_di=0.458  (62s)
+[25/75] n546616 n=25 fullload=0.480  sparsevlm=0.480  static_di=0.480  static_di=0.480  (64s)
+[26/75] n67005 n=26 fullload=0.500  sparsevlm=0.500  static_di=0.500  static_di=0.500  (67s)
+[27/75] n276011 n=27 fullload=0.519  sparsevlm=0.519  static_di=0.519  static_di=0.519  (70s)
+[28/75] n90944 n=28 fullload=0.500  sparsevlm=0.500  static_di=0.500  static_di=0.500  (72s)
+[29/75] n450919 n=29 fullload=0.517  sparsevlm=0.517  static_di=0.517  static_di=0.517  (75s)
+[30/75] n295771 n=30 fullload=0.533  sparsevlm=0.533  static_di=0.533  static_di=0.533  (78s)
+[31/75] n542609 n=31 fullload=0.548  sparsevlm=0.548  static_di=0.548  static_di=0.548  (80s)
+[32/75] n151768 n=32 fullload=0.531  sparsevlm=0.531  static_di=0.531  static_di=0.531  (83s)
+[33/75] n498140 n=33 fullload=0.515  sparsevlm=0.515  static_di=0.515  static_di=0.515  (85s)
+[34/75] n278453 n=34 fullload=0.529  sparsevlm=0.529  static_di=0.529  static_di=0.529  (88s)
+[35/75] n14087 n=35 fullload=0.543  sparsevlm=0.543  static_di=0.543  static_di=0.543  (90s)
+[36/75] n51002 n=36 fullload=0.556  sparsevlm=0.556  static_di=0.556  static_di=0.556  (93s)
+[37/75] n4777 n=37 fullload=0.568  sparsevlm=0.568  static_di=0.568  static_di=0.568  (96s)
+[38/75] n162586 n=38 fullload=0.579  sparsevlm=0.579  static_di=0.579  static_di=0.579  (98s)
+[39/75] n562105 n=39 fullload=0.564  sparsevlm=0.564  static_di=0.590  static_di=0.564  (101s)
+[40/75] n523165 n=40 fullload=0.575  sparsevlm=0.575  static_di=0.600  static_di=0.575  (103s)
+[41/75] n154160 n=41 fullload=0.561  sparsevlm=0.561  static_di=0.585  static_di=0.561  (106s)
+[42/75] n435808 n=42 fullload=0.571  sparsevlm=0.571  static_di=0.595  static_di=0.571  (109s)
+[43/75] n493357 n=43 fullload=0.581  sparsevlm=0.581  static_di=0.605  static_di=0.581  (112s)
+[44/75] n554880 n=44 fullload=0.568  sparsevlm=0.568  static_di=0.591  static_di=0.568  (114s)
+[45/75] n153118 n=45 fullload=0.578  sparsevlm=0.578  static_di=0.600  static_di=0.578  (117s)
+[46/75] n263180 n=46 fullload=0.587  sparsevlm=0.587  static_di=0.609  static_di=0.587  (120s)
+[47/75] n460385 n=47 fullload=0.596  sparsevlm=0.596  static_di=0.617  static_di=0.596  (122s)
+[48/75] n470920 n=48 fullload=0.604  sparsevlm=0.604  static_di=0.625  static_di=0.604  (125s)
+[49/75] n119886 n=49 fullload=0.612  sparsevlm=0.612  static_di=0.612  static_di=0.612  (128s)
+[50/75] n173807 n=50 fullload=0.620  sparsevlm=0.620  static_di=0.620  static_di=0.620  (130s)
+[51/75] n65202 n=51 fullload=0.627  sparsevlm=0.627  static_di=0.627  static_di=0.627  (133s)
+[52/75] n219840 n=52 fullload=0.615  sparsevlm=0.615  static_di=0.615  static_di=0.615  (136s)
+[53/75] n97485 n=53 fullload=0.604  sparsevlm=0.604  static_di=0.604  static_di=0.604  (139s)
+[54/75] n200225 n=54 fullload=0.611  sparsevlm=0.611  static_di=0.611  static_di=0.611  (142s)
+[55/75] n434283 n=55 fullload=0.618  sparsevlm=0.618  static_di=0.618  static_di=0.618  (145s)
+[56/75] n528403 n=56 fullload=0.625  sparsevlm=0.625  static_di=0.625  static_di=0.625  (147s)
+[57/75] n451187 n=57 fullload=0.614  sparsevlm=0.614  static_di=0.614  static_di=0.614  (149s)
+[58/75] n532191 n=58 fullload=0.621  sparsevlm=0.621  static_di=0.621  static_di=0.621  (152s)
+[59/75] n543966 n=59 fullload=0.627  sparsevlm=0.627  static_di=0.627  static_di=0.627  (155s)
+[60/75] n324908 n=60 fullload=0.617  sparsevlm=0.617  static_di=0.617  static_di=0.617  (158s)
+[61/75] n89148 n=61 fullload=0.623  sparsevlm=0.623  static_di=0.623  static_di=0.623  (161s)
+[62/75] n127705 n=62 fullload=0.629  sparsevlm=0.629  static_di=0.629  static_di=0.629  (164s)
+[63/75] n119944 n=63 fullload=0.635  sparsevlm=0.635  static_di=0.635  static_di=0.635  (167s)
+[64/75] n259002 n=64 fullload=0.641  sparsevlm=0.641  static_di=0.641  static_di=0.641  (169s)
+[65/75] n331357 n=65 fullload=0.631  sparsevlm=0.631  static_di=0.631  static_di=0.631  (172s)
+[66/75] n16656 n=66 fullload=0.621  sparsevlm=0.621  static_di=0.621  static_di=0.621  (175s)
+[67/75] n161313 n=67 fullload=0.612  sparsevlm=0.612  static_di=0.612  static_di=0.612  (177s)
+[68/75] n575770 n=68 fullload=0.618  sparsevlm=0.618  static_di=0.618  static_di=0.618  (179s)
+[69/75] n557666 n=69 fullload=0.623  sparsevlm=0.623  static_di=0.623  static_di=0.623  (182s)
+[70/75] n130638 n=70 fullload=0.629  sparsevlm=0.629  static_di=0.629  static_di=0.629  (185s)
+[71/75] n511913 n=71 fullload=0.634  sparsevlm=0.634  static_di=0.634  static_di=0.634  (188s)
+[72/75] n16378 n=72 fullload=0.625  sparsevlm=0.625  static_di=0.625  static_di=0.625  (190s)
+[73/75] n115614 n=73 fullload=0.630  sparsevlm=0.630  static_di=0.630  static_di=0.630  (193s)
+[74/75] n179136 n=74 fullload=0.622  sparsevlm=0.622  static_di=0.635  static_di=0.635  (196s)
+[75/75] n413002 n=75 fullload=0.627  sparsevlm=0.627  static_di=0.640  static_di=0.640  (199s)
+
+=== budgets [0.25, 0.5]  (n=75, cold) ===
+method                      acc     TTFT     p50      p95  sel ms   diskMB  diskms  chunkf     kv     fb
+fullload                  62.7%    680.6   681.8    825.3   588.4   1174.1   383.8   1.000  0.246  0.000
+sparsevlm                 62.7%    783.1   781.4    952.4   676.6    928.0   408.9   0.736  0.246  0.153
+static_diverse_chunk@25   64.0%    381.2   378.1    443.9    15.1    302.2   207.4   0.243  0.242  0.000
+static_diverse_chunk@50   64.0%    602.9   601.4    694.0    21.4    596.9   340.4   0.495  0.491  0.000
+
+wrote /home/dblab/hj/mllm_v2/results/gqa_large_calib4/shard_004.json

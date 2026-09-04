@@ -1,0 +1,15 @@
+{
+ "dataset": "gqa_large_calib4",
+ "metric": "gqa",
+ "order": "importance",
+ "calib_questions": 4,
+ "skip": 4,
+ "questions_per_image": 1,
+ "budgets": "0.25,0.5",
+ "sparsevlm_ratio": 0.25,
+ "selectors": "sparsevlm,static_diverse_chunk",
+ "shard_size": 80,
+ "n_images": 395,
+ "n_shards": 5,
+ "index": "/home/dblab/hj/mllm_v2/data/gqa_large_calib4/index.json"
+}

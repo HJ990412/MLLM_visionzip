@@ -1,0 +1,31 @@
+# Generated KV store and downloaded benchmark data
+/kvstore/
+/data/*
+!/data/index.json
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Local secrets and editor files
+.env
+.env.*
+!.env.example
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Generated logs and model/binary artifacts
+/*.log
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+

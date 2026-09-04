@@ -1,0 +1,15 @@
+{
+ "dataset": "textvqa",
+ "metric": "vqa",
+ "order": "importance",
+ "calib_questions": 1,
+ "skip": 1,
+ "questions_per_image": 1,
+ "budgets": "0.25,0.5",
+ "sparsevlm_ratio": 0.25,
+ "selectors": "sparsevlm,static_diverse_chunk",
+ "shard_size": 80,
+ "n_images": 500,
+ "n_shards": 7,
+ "index": "/home/dblab/hj/mllm_v2/data/textvqa/index.json"
+}

@@ -1,0 +1,15 @@
+{
+ "dataset": "vqav2",
+ "metric": "vqa",
+ "order": "importance",
+ "calib_questions": 1,
+ "skip": 1,
+ "questions_per_image": 4,
+ "budgets": "0.25,0.5",
+ "sparsevlm_ratio": 0.25,
+ "selectors": "sparsevlm,static_diverse_chunk",
+ "shard_size": 80,
+ "n_images": 250,
+ "n_shards": 4,
+ "index": "/home/dblab/hj/mllm_v2/data/vqav2/index.json"
+}
