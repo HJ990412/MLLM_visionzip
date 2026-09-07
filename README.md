@@ -1,5 +1,12 @@
 # Storage-aware visual KV selection for image-prefix IMPRESS
 
+> **Latency terminology correction (2026-09-07).** 이 문서의 기존 표에서
+> `TTFT`라고 기록한 값은 첫 토큰 뒤의 전체 autoregressive decoding까지 포함한
+> **end-to-end generation latency**였다. true TTFT는 요청 시작부터 첫 output
+> token이 동기화되어 사용 가능해지는 시점까지만 잰다. 기존 결과 파일은 보존하며,
+> 수정 계측으로 재실행한 GQA 40 images / 240 questions 결과는 문서 마지막의
+> `True-TTFT latency correction` 절과 `runs/gqa40_240_true_ttft/`에 별도로 기록한다.
+
 IMPRESS (FAST'25) 의 disk 기반 prefix-KV 재사용을 **이미지 prefix** 로 옮기고,
 중요 visual token 판별을 여러 방식으로 교체·비교한 구현.
 
@@ -762,3 +769,93 @@ overlap 이지만, 이번 검증 범위 밖이라 **구현하지 않았다.**
   comparable 하지만(no meaningful degradation observed), 속도 이점의 대부분을
   잃고 ReComp 보다 느려진다.
 
+## 11. True-TTFT latency correction (2026-09-07)
+
+앞 절들에서 `TTFT`라고 부른 값은 첫 토큰에서 멈추지 않고 최대 16-token
+generation이 끝날 때까지 잰 값이었다. 따라서 기존 파일과 표의 명칭은
+**historical `TTFT` = end-to-end generation latency**로 해석해야 한다. 기존
+결과는 provenance 보존을 위해 수정하지 않았고, 같은 GQA workload를 schema-v2
+계측으로 다시 실행했다.
+
+새 계측 경계는 다음과 같다.
+
+- **True TTFT**: 입력 tokenization/H2D와 cold-cache `posix_fadvise`가 끝난 뒤
+  request timer 시작 → selection, SSD read, cache reconstruction/scatter,
+  prompt prefill → 첫 output token 결정 직후 CUDA synchronize까지.
+- **Decode latency**: 첫 token timestamp 직후 → 2번째 이후 token을 생성하고
+  마지막 token이 끝난 뒤 CUDA synchronize까지.
+- **E2E latency**: 같은 request 시작 → 마지막 token 완료까지. 같은 timestamp를
+  사용하므로 request별로 `E2E = TTFT + decode`가 성립한다. CPU detokenization과
+  결과 저장은 제외한다.
+
+ReComp는 기존 Hugging Face greedy `generate()`를 유지하고 non-stopping
+criterion으로 첫 token만 timestamp했다. SSD 경로의 decoder는 최대 16개 token을
+그대로 반환하되 cap 도달 뒤 실행하던 사용되지 않는 look-ahead forward를
+제거했다. 이번 workload의 실제 생성 길이는 2--5라 cap 경로는 실행되지 않았다.
+selector, budget, chunk layout, cache 정책에는 변경이 없다.
+
+### 검증된 workload와 조건
+
+- frozen `data/index.json` SHA256:
+  `514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a`
+- evaluation slice: 이미지별 `questions[4:10]`
+- **40 unique images / 240 questions**, 이미지별 질문 수 min=max=mean=6
+- LLaVA v1.6 Vicuna 7B, 4-bit NF4, eager attention, greedy decode,
+  `max_new_tokens=16`, 64-token visual-KV chunk, cold page cache
+- SparseVLM 25% token retention, Static+Diverse 25%/50% chunk budget,
+  `diverse_frac=0.25`, separator sidecar
+
+### schema-v2 결과
+
+SSD Read는 request당 실제 `pread` byte의 decimal MB다.
+
+| Method | Retention | Accuracy | True TTFT mean | TTFT p50 | TTFT p95 | Decode mean | E2E mean | SSD Read |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| ReComp | - | 62.5% | 504.5 ms | 507.0 ms | 592.4 ms | 26.0 ms | 530.5 ms | 0.0 MB |
+| FullLoad | 100% | 62.1% | 687.3 ms | 680.9 ms | 821.6 ms | 31.6 ms | 718.9 ms | 1165.1 MB |
+| SparseVLM | 25% token | 60.0% | 751.3 ms | 766.1 ms | 885.5 ms | 39.7 ms | 791.0 ms | 928.1 MB |
+| **Static+Diverse** | **25%** | **60.8%** | **339.7 ms** | **331.9 ms** | **414.7 ms** | **27.0 ms** | **366.7 ms** | **300.4 MB** |
+| Static+Diverse | 50% | 62.5% | 575.4 ms | 569.7 ms | 682.6 ms | 27.2 ms | 602.6 ms | 594.2 MB |
+
+| Static+Diverse | TTFT 감소 vs FullLoad | TTFT 감소 vs ReComp |
+|---|---:|---:|
+| 25% | **50.6%** | **32.7%** |
+| 50% | **16.3%** | **-14.1%** (14.1% 느림) |
+
+| Method | TTFT std | Decode p50 / p95 | E2E p50 / p95 | SSD total | SSD chunk-units/request |
+|---|---:|---:|---:|---:|---:|
+| ReComp | 72.0 ms | 19.2 / 55.6 ms | 537.9 / 615.6 ms | 0.0 GB | 0.0 |
+| FullLoad | 85.5 ms | 23.1 / 62.5 ms | 706.9 / 849.7 ms | 279.6 GB | 2248.0 |
+| SparseVLM | 93.4 ms | 40.3 / 69.6 ms | 805.6 / 933.9 ms | 222.7 GB | 2794.0 |
+| Static+Diverse 25% | 51.3 ms | 19.8 / 57.1 ms | 360.4 / 442.0 ms | 72.1 GB | 545.6 |
+| Static+Diverse 50% | 76.2 ms | 19.8 / 57.4 ms | 593.8 / 720.4 ms | 142.6 GB | 1113.6 |
+
+Static+Diverse의 outer `prepare_ms` 평균은 25%/50%에서 293.9/526.8 ms이고,
+각각 selector 15.2/22.3 ms, `os.pread` 188.8/332.3 ms, scatter 52.7/92.0 ms,
+prepare 뒤 LM prefill 45.7/48.5 ms다. `prepare_ms`에는 text embedding, fresh
+cache 초기화, CPU buffer-to-tensor 변환과 bookkeeping도 포함되므로 세 component의
+단순 합보다 넓다. FullLoad/SparseVLM의 `prefill_ms`는 layer pre-hook 안의
+selection/read/scatter까지 포함하는 hook-inclusive 값이며 순수 model time이 아니다.
+
+### sanity와 과거 결과 대응
+
+- 5 methods × 240 requests = CSV 1,200행, 중복 key 0개
+- `TTFT < E2E`: 1,200/1,200; multi-token `decode > 0`: 1,200/1,200
+- 최대 `abs(E2E - TTFT - decode)`: 0.0 ms
+- 최대 Static+Diverse `abs(TTFT - prepare - prefill)`: 0.079 ms
+- timing/I/O 필드 전부 finite·nonnegative
+- 기존 결과와 prediction 및 accuracy: 각 방법 **240/240 완전 동일**
+
+| Method | 기존 `ttft` (실제로 E2E) | 새 E2E | 변화 |
+|---|---:|---:|---:|
+| ReComp | 537.1 ms | 530.5 ms | -1.2% |
+| FullLoad | 721.7 ms | 718.9 ms | -0.4% |
+| SparseVLM | 786.7 ms | 791.0 ms | +0.5% |
+| Static+Diverse 25% | 353.8 ms | 366.7 ms | +3.6% |
+| Static+Diverse 50% | 580.0 ms | 602.6 ms | +3.9% |
+
+즉 과거 수치는 사라진 것이 아니라 새 E2E와 최대 3.91% 안에서 대응한다. 결론적으로
+**기존 TTFT는 E2E였고, 새 TTFT가 실제 time-to-first-token이다.** 전체 raw/summary,
+재현 명령, timing 정의와 machine-readable validation은
+`runs/gqa40_240_true_ttft/`에 있다. `ssd_read_chunks`는 unique chunk 수가 아니라
+layer/file별 물리 K/V span과 SparseVLM probe-sidecar chunk-equivalent의 합이다.

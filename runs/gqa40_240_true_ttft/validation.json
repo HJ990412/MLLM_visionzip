@@ -1,0 +1,108 @@
+{
+  "schema_version": 2,
+  "validated_on": "2026-09-07",
+  "workload": {
+    "unique_images": 40,
+    "unique_questions": 240,
+    "questions_per_image_min": 6,
+    "questions_per_image_max": 6,
+    "questions_per_image_mean": 6.0,
+    "index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+    "ordered_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66"
+  },
+  "artifact_counts": {
+    "methods": 5,
+    "requests_per_method": 240,
+    "per_request_rows": 1200,
+    "duplicate_method_image_question_rows": 0
+  },
+  "timing_invariants": {
+    "all_required_times_finite_nonnegative": true,
+    "ttft_lt_e2e_requests": 1200,
+    "ttft_lt_e2e_total": 1200,
+    "multi_token_decode_positive_requests": 1200,
+    "multi_token_requests": 1200,
+    "max_abs_e2e_minus_ttft_minus_decode_ms": 0.0,
+    "max_abs_static_ttft_minus_prepare_minus_prefill_ms": 0.07886398816481233,
+    "generated_tokens_min": 2,
+    "generated_tokens_max": 5,
+    "generated_token_cap": 16,
+    "generated_token_cap_respected": true
+  },
+  "prediction_regression": [
+    {
+      "method_key": "recompute",
+      "reference": "results/eval_b25.json:recompute",
+      "predictions_equal": 240,
+      "accuracy_values_equal": 240,
+      "total": 240
+    },
+    {
+      "method_key": "fullload",
+      "reference": "results/eval_b25.json:fullload",
+      "predictions_equal": 240,
+      "accuracy_values_equal": 240,
+      "total": 240
+    },
+    {
+      "method_key": "sparsevlm",
+      "reference": "results/eval_b25.json:sparsevlm",
+      "predictions_equal": 240,
+      "accuracy_values_equal": 240,
+      "total": 240
+    },
+    {
+      "method_key": "static_diverse_chunk@25",
+      "reference": "results/ablation_25/all_25.json:static_diverse_chunk",
+      "predictions_equal": 240,
+      "accuracy_values_equal": 240,
+      "total": 240
+    },
+    {
+      "method_key": "static_diverse_chunk@50",
+      "reference": "results/budget_sweep/all_50.json:static_diverse_chunk",
+      "predictions_equal": 240,
+      "accuracy_values_equal": 240,
+      "total": 240
+    }
+  ],
+  "historical_e2e_correspondence": [
+    {
+      "method_key": "recompute",
+      "old_mislabeled_ttft_mean_ms": 537.1128434082493,
+      "new_e2e_mean_ms": 530.5142278171843,
+      "new_vs_old_percent": -1.2285343149110894
+    },
+    {
+      "method_key": "fullload",
+      "old_mislabeled_ttft_mean_ms": 721.6931840094427,
+      "new_e2e_mean_ms": 718.8847364144749,
+      "new_vs_old_percent": -0.3891470305102729
+    },
+    {
+      "method_key": "sparsevlm",
+      "old_mislabeled_ttft_mean_ms": 786.7390111166363,
+      "new_e2e_mean_ms": 791.027551858618,
+      "new_vs_old_percent": 0.5451033546556738
+    },
+    {
+      "method_key": "static_diverse_chunk@25",
+      "old_mislabeled_ttft_mean_ms": 353.79153575437766,
+      "new_e2e_mean_ms": 366.6816351986199,
+      "new_vs_old_percent": 3.643416572066127
+    },
+    {
+      "method_key": "static_diverse_chunk@50",
+      "old_mislabeled_ttft_mean_ms": 579.9719553207979,
+      "new_e2e_mean_ms": 602.6326680856679,
+      "new_vs_old_percent": 3.9072083670555813
+    }
+  ],
+  "interpretation": {
+    "old_ttft_field": "request start through full autoregressive generation",
+    "new_ttft_field": "request start through synchronized first output token",
+    "new_e2e_field": "request start through synchronized final output token",
+    "maximum_absolute_old_to_new_e2e_mean_change_percent": 3.9072083670555813,
+    "full_run_hit_16_token_cap": false
+  }
+}

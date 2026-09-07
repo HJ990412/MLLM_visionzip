@@ -26,6 +26,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import transformers.models.llama.modeling_llama as ml
+from transformers import StoppingCriteria
 
 from mmimpress import reorder as ro
 from mmimpress import sparsevlm as sv
@@ -35,6 +36,23 @@ from mmimpress.store import ChunkReader, IOCounter, chunks_for_tokens, load_meta
 # ------------------------------------------------- per-layer additive bias
 _ORIG_EAGER = ml.eager_attention_forward
 BIAS = {}
+
+
+class _FirstTokenTimestamp(StoppingCriteria):
+    """Observe generation's first selected token without stopping it."""
+
+    def __init__(self):
+        self.at = None
+
+    def __call__(self, input_ids, scores, **kwargs):
+        if self.at is None:
+            # Materialize the selected token on the host, matching the explicit
+            # ``int(argmax)`` boundary in the stored-KV paths.
+            _ = int(input_ids[0, -1])
+            torch.cuda.synchronize()
+            self.at = time.perf_counter()
+        return torch.zeros(input_ids.shape[0], dtype=torch.bool,
+                           device=input_ids.device)
 
 
 def _eager_with_bias(module, query, key, value, attention_mask, **kw):
@@ -332,7 +350,9 @@ class ImageContext:
             t0 = _t.perf_counter()
             buf = os.pread(fd, n * 2, 0)
             dt = _t.perf_counter() - t0
-            os.posix_fadvise(fd, 0, 0, os.POSIX_FADV_DONTNEED)
+            # Do not evict here: this function runs inside the online request
+            # timer.  ChunkReader.drop_all() already evicts sep_kv.bin before
+            # the next cold request, outside TTFT/E2E.
         finally:
             os.close(fd)
         if counter is not None:
@@ -379,46 +399,79 @@ class Server:
     # --------------------------------------------------------- generate
     @torch.no_grad()
     def _decode(self, cache, suffix_ids, prefix_len):
+        """Prefill, expose the first token, then finish greedy decoding.
+
+        The first CUDA synchronization is deliberately immediately after the
+        first-token argmax.  It is the TTFT boundary used by every stored-KV
+        method.  ``decode_ms`` starts at that boundary and covers only the
+        autoregressive work needed for tokens 2..N (N <= max_new_tokens).
+
+        The old loop returned at most ``max_new_tokens`` tokens but executed
+        one unused forward after token N.  Stopping before that forward keeps
+        the generated answer semantics while making every method perform the
+        same maximum of 16 output-token decisions.
+        """
+        assert self.max_new_tokens >= 1
         model = self.runner.model
         dev = model.device
         tok = self.runner.processor.tokenizer
         n = suffix_ids.shape[0]
         pos = torch.arange(prefix_len, prefix_len + n, device=dev)
+
+        prefill_t0 = time.perf_counter()
         out = model(input_ids=suffix_ids.to(dev).unsqueeze(0),
                     attention_mask=torch.ones(1, prefix_len + n,
                                               dtype=torch.long, device=dev),
                     position_ids=pos.unsqueeze(0), cache_position=pos,
                     past_key_values=cache, use_cache=True)
         first = int(out.logits[0, -1].argmax())
-        toks, cur = [], prefix_len + n
-        nxt = first
-        for _ in range(self.max_new_tokens):
-            if nxt == tok.eos_token_id:
-                break
-            toks.append(nxt)
+        torch.cuda.synchronize()
+        first_token_at = time.perf_counter()
+        prefill_ms = (first_token_at - prefill_t0) * 1e3
+
+        decode_t0 = first_token_at
+        # Count generated token decisions in the standard HF sense, including
+        # EOS when it is produced.  Decoding the answer below removes specials.
+        toks, cur = [first], prefix_len + n
+        while toks[-1] != tok.eos_token_id and len(toks) < self.max_new_tokens:
+            prev = toks[-1]
             cp = torch.tensor([cur], device=dev)
-            out = model(input_ids=torch.tensor([[nxt]], device=dev),
+            out = model(input_ids=torch.tensor([[prev]], device=dev),
                         attention_mask=torch.ones(1, cur + 1, dtype=torch.long,
                                                   device=dev),
                         position_ids=cp.unsqueeze(0), cache_position=cp,
                         past_key_values=cache, use_cache=True)
             nxt = int(out.logits[0, -1].argmax())
             cur += 1
-        return tok.decode(toks).strip(), first
+            toks.append(nxt)
+        torch.cuda.synchronize()
+        finished_at = time.perf_counter()
+        answer = tok.decode(toks, skip_special_tokens=True).strip()
+        return answer, first, {
+            "first_token_at": first_token_at,
+            "finished_at": finished_at,
+            "prefill_ms": prefill_ms,
+            "decode_ms": (finished_at - decode_t0) * 1e3,
+            "generated_tokens": len(toks),
+        }
 
     @torch.no_grad()
     def request(self, ctx, question, mode="impress", cold=True):
-        """Serve one question.  Returns dict with answer, ttft and I/O stats.
+        """Serve one question with true-TTFT and end-to-end timing.
 
-        ttft covers everything a deployed system does per request: rater
-        selection, per-layer identification, the disk reads it triggers, the
-        prefill and the first token.  Store bookkeeping is outside it.
+        ``ttft`` ends immediately after the first output token is available;
+        ``decode_latency`` covers subsequent autoregressive generation;
+        ``e2e_latency`` ends after the final generated token.  Tokenization,
+        host-to-device input preparation and cold-cache eviction stay outside
+        all three timers, matching the original experiment boundary.
         """
         BIAS.clear()
         if cold:
             ctx.reader.drop_all()
         counter = IOCounter()
-        suffix_ids = suffix_ids_for(self.runner, question)
+        dev = self.runner.model.device
+        # Tokenization and request-input H2D are outside the online timers.
+        suffix_ids = suffix_ids_for(self.runner, question).to(dev)
 
         torch.cuda.synchronize()
         t0 = time.perf_counter()
@@ -427,14 +480,25 @@ class Server:
                             self.alpha, mode=mode, counter=counter)
         cache = ctx.cache.new_request()
         with sel:
-            answer, _ = self._decode(cache, suffix_ids,
-                                     ctx.meta["prefix_len"])
-        torch.cuda.synchronize()
-        ttft = time.perf_counter() - t0
+            answer, _, timing = self._decode(
+                cache, suffix_ids, ctx.meta["prefix_len"])
+        ttft = timing["first_token_at"] - t0
+        e2e = timing["finished_at"] - t0
         BIAS.clear()
         del cache
-        return {"answer": answer, "ttft": ttft, "n_raters": int(rr.numel()),
-                "io": counter.summary(), **sel.stats()}
+        return {
+            "answer": answer,
+            "ttft": ttft,
+            "decode_latency": timing["decode_ms"] / 1e3,
+            "e2e_latency": e2e,
+            # For hook-based modes this interval includes the layer hooks
+            # (selection/read/scatter) as well as the model's prompt prefill.
+            "prefill_ms": timing["prefill_ms"],
+            "generated_tokens": timing["generated_tokens"],
+            "n_raters": int(rr.numel()),
+            "io": counter.summary(),
+            **sel.stats(),
+        }
 
     @torch.no_grad()
     def request_cvpr25(self, ctx, question, static, budget=0.25,
@@ -445,15 +509,17 @@ class Server:
 
         Selection, reads and cache fill all happen BEFORE the forward, so the
         model runs with no hooks and no attention weights are ever produced for
-        identification.  `model_ms` isolates the forward+decode so the selector
-        cost is not hidden inside it.
+        identification.  ``prefill_ms`` ends at the first-token boundary,
+        ``decode_ms`` is subsequent autoregressive generation, and
+        ``model_ms`` remains their sum for backwards-compatible diagnostics.
         """
         BIAS.clear()
         if cold:
             ctx.reader.drop_all()
         counter = IOCounter()
-        suffix_ids = suffix_ids_for(self.runner, question)
         dev = self.runner.model.device
+        # Tokenization and request-input H2D are outside the online timers.
+        suffix_ids = suffix_ids_for(self.runner, question).to(dev)
 
         torch.cuda.synchronize()
         t0 = time.perf_counter()
@@ -467,36 +533,69 @@ class Server:
         torch.cuda.synchronize()
         t_prep = time.perf_counter() - t0
 
-        t1 = time.perf_counter()
-        answer, _ = self._decode(cache, suffix_ids, ctx.meta["prefix_len"])
-        torch.cuda.synchronize()
-        t_model = time.perf_counter() - t1
+        answer, _, timing = self._decode(
+            cache, suffix_ids, ctx.meta["prefix_len"])
+        ttft = timing["first_token_at"] - t0
+        e2e = timing["finished_at"] - t0
+        t_model_ms = timing["prefill_ms"] + timing["decode_ms"]
 
         BIAS.clear()
         del cache
         st = sel.stats()
-        st.update({"answer": answer, "ttft": t_prep + t_model,
-                   "prepare_ms": t_prep * 1e3, "model_ms": t_model * 1e3,
-                   "io": counter.summary(), "n_raters": 0})
+        st.update({
+            "answer": answer,
+            "ttft": ttft,
+            "decode_latency": timing["decode_ms"] / 1e3,
+            "e2e_latency": e2e,
+            "prepare_ms": t_prep * 1e3,
+            "prefill_ms": timing["prefill_ms"],
+            "decode_ms": timing["decode_ms"],
+            "model_ms": t_model_ms,
+            "generated_tokens": timing["generated_tokens"],
+            "io": counter.summary(),
+            "n_raters": 0,
+        })
         st["selector_ms"] = st["select_ms"] + st["query_ms"]
         return st
 
     @torch.no_grad()
     def recompute(self, enc, question_unused=None):
-        """ReComp baseline: no store, full prefill from pixels."""
+        """ReComp baseline with the same true-TTFT/decode boundary.
+
+        Input processing and host-to-device transfer happen before ``t0``.
+        The timed prefill includes the vision tower and multimodal prompt.
+        ``generate`` is retained so prediction semantics remain byte-for-byte
+        comparable with the original ReComp baseline; a non-stopping criterion
+        timestamps the first generated token without ending generation.
+        """
         runner = self.runner
         enc = runner.to_device(enc)
         tok = runner.processor.tokenizer
+        assert self.max_new_tokens >= 1
+        # Timing instrumentation itself is prepared before the online timer.
+        marker = _FirstTokenTimestamp()
         torch.cuda.synchronize()
         t0 = time.perf_counter()
-        out = runner.model.generate(**enc, max_new_tokens=self.max_new_tokens,
-                                    do_sample=False,
-                                    pad_token_id=tok.eos_token_id)
+        prefill_t0 = time.perf_counter()
+        out = runner.model.generate(
+            **enc, max_new_tokens=self.max_new_tokens, do_sample=False,
+            pad_token_id=tok.eos_token_id, stopping_criteria=[marker])
         torch.cuda.synchronize()
-        ttft = time.perf_counter() - t0
-        text = tok.decode(out[0, enc["input_ids"].shape[1]:],
-                          skip_special_tokens=True).strip()
-        return {"answer": text, "ttft": ttft}
+        finished_at = time.perf_counter()
+        assert marker.at is not None, "generate returned without an output token"
+        first_token_at = marker.at
+        decode_t0 = first_token_at
+        toks = out[0, enc["input_ids"].shape[1]:]
+        text = tok.decode(toks, skip_special_tokens=True).strip()
+        return {
+            "answer": text,
+            "ttft": first_token_at - t0,
+            "decode_latency": finished_at - decode_t0,
+            "e2e_latency": finished_at - t0,
+            "prefill_ms": (first_token_at - prefill_t0) * 1e3,
+            "decode_ms": (finished_at - decode_t0) * 1e3,
+            "generated_tokens": int(toks.numel()),
+        }
 
 
 # --------------------------------------------------------------- calibration
