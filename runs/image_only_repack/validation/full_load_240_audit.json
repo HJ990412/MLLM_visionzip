@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "audit": "raster_vs_direct_visionzip_full_load_240",
+  "created_at": "2026-09-11T02:36:10+09:00",
+  "classification": {
+    "strict_exact_pass": false,
+    "structural_integrity_pass": true,
+    "bf16_numerical_warning": true,
+    "summary": "The two layouts contain byte-identical logical FP16 K/V for both affected images, but physical token order changes BF16 eager-attention reduction order and flips two near-boundary Yes/No first-token decisions."
+  },
+  "inputs": {
+    "raster_run": "runs/image_only_repack/raster",
+    "visionzip_direct_run": "runs/image_only_repack/visionzip_direct",
+    "raster_per_request": "runs/image_only_repack/raster/per_request.csv",
+    "visionzip_per_request": "runs/image_only_repack/visionzip_direct/per_request.csv",
+    "smoke_validation": "runs/image_only_repack/validation/raster_direct_v2.json",
+    "index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+    "evaluation_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66"
+  },
+  "request_alignment": {
+    "n_requests_each": 240,
+    "key": [
+      "image_id",
+      "question_id"
+    ],
+    "key_sets_equal": true,
+    "question_equal_count": 240,
+    "ground_truth_equal_count": 240,
+    "generated_token_count_equal_count": 240
+  },
+  "behavioral_equivalence": {
+    "prediction_equal_count": 238,
+    "prediction_agreement": 0.9916666666666667,
+    "first_token_equal_count": 238,
+    "first_token_agreement": 0.9916666666666667,
+    "correctness_equal_count": 238,
+    "correctness_agreement": 0.9916666666666667,
+    "mismatch_count": 2,
+    "raster_correct_count": 149,
+    "raster_accuracy": 0.6208333333333333,
+    "visionzip_direct_correct_count": 147,
+    "visionzip_direct_accuracy": 0.6125,
+    "visionzip_minus_raster_accuracy_pp": -0.8333333333333333,
+    "strict_exact_pass": false,
+    "mismatches": [
+      {
+        "image_id": "n472825",
+        "question_id": "202101149",
+        "question": "Do you see a skateboarder that is not female?",
+        "ground_truth": [
+          "yes"
+        ],
+        "raster": {
+          "prediction": "Yes",
+          "first_token_id": 3869,
+          "correct": 1.0,
+          "generated_tokens": 2,
+          "ttft_ms": 758.057406055741,
+          "ssd_read_ms": 441.34468922857195,
+          "hook_ms": 709.851237013936,
+          "prefill_ms": 753.2331940019503,
+          "decode_ms": 18.867673934437335,
+          "e2e_latency_ms": 776.9250799901783,
+          "ssd_read_bytes": 1226833920,
+          "ssd_preads": 64
+        },
+        "visionzip_direct": {
+          "prediction": "No",
+          "first_token_id": 1939,
+          "correct": 0.0,
+          "generated_tokens": 2,
+          "ttft_ms": 731.2694240827113,
+          "ssd_read_ms": 472.41550334729254,
+          "hook_ms": 678.686082130298,
+          "prefill_ms": 726.1888150824234,
+          "decode_ms": 18.861365970224142,
+          "e2e_latency_ms": 750.1307900529355,
+          "ssd_read_bytes": 1226833920,
+          "ssd_preads": 64
+        }
+      },
+      {
+        "image_id": "n498140",
+        "question_id": "2072741",
+        "question": "Do the building and the sign have a different colors?",
+        "ground_truth": [
+          "no"
+        ],
+        "raster": {
+          "prediction": "No",
+          "first_token_id": 1939,
+          "correct": 1.0,
+          "generated_tokens": 2,
+          "ttft_ms": 659.0947100194171,
+          "ssd_read_ms": 411.33203881327063,
+          "hook_ms": 608.8016487192363,
+          "prefill_ms": 654.4215539470315,
+          "decode_ms": 18.930093967355788,
+          "e2e_latency_ms": 678.0248039867729,
+          "ssd_read_bytes": 1124073472,
+          "ssd_preads": 64
+        },
+        "visionzip_direct": {
+          "prediction": "Yes",
+          "first_token_id": 3869,
+          "correct": 0.0,
+          "generated_tokens": 2,
+          "ttft_ms": 657.2642480023205,
+          "ssd_read_ms": 391.9628248549998,
+          "hook_ms": 599.8555920086801,
+          "prefill_ms": 652.3884390480816,
+          "decode_ms": 19.10667901393026,
+          "e2e_latency_ms": 676.3709270162508,
+          "ssd_read_bytes": 1124073472,
+          "ssd_preads": 64
+        }
+      }
+    ]
+  },
+  "io_equivalence": {
+    "all_240_requests_exact": true,
+    "fields_checked": [
+      "ssd_read_bytes",
+      "ssd_read_chunks",
+      "ssd_preads",
+      "normal_kv_read_bytes",
+      "separator_read_bytes",
+      "normal_kv_preads",
+      "separator_preads",
+      "total_actual_pread_bytes"
+    ],
+    "max_absolute_delta_any_checked_field": 0,
+    "ssd_read_bytes_mean": 1165072793.6,
+    "ssd_read_bytes_total": 279617470464,
+    "ssd_read_mb_mean_decimal": 1165.0727936,
+    "ssd_preads_mean": 64.0,
+    "ssd_read_chunks_mean": 2248.0,
+    "separator_read_bytes_mean": 0.0,
+    "separator_preads_mean": 0.0
+  },
+  "timing_comparison": {
+    "note": "These are paired qid statistics from two separate executions with different companion-arm schedules and different physical files. They are descriptive, not evidence that FullLoad benefits causally from VisionZip ordering.",
+    "raster": {
+      "ttft_mean_ms": 782.1115526550178,
+      "ssd_read_mean_ms": 469.6300862551046,
+      "hook_mean_ms": 725.8279479210614,
+      "prefill_mean_ms": 777.3192270877189,
+      "decode_mean_ms": 28.706041604164056,
+      "e2e_mean_ms": 810.8175942591819
+    },
+    "visionzip_direct": {
+      "ttft_mean_ms": 717.1698122217398,
+      "ssd_read_mean_ms": 449.7169324148369,
+      "hook_mean_ms": 657.0763474126579,
+      "prefill_mean_ms": 712.0681752120921,
+      "decode_mean_ms": 29.680757187694933,
+      "e2e_mean_ms": 746.8505694094347
+    },
+    "visionzip_minus_raster": {
+      "ttft_mean_ms": -64.94174043327803,
+      "ttft_mean_pct_of_raster": -8.303385906118079,
+      "ssd_read_mean_ms": -19.913153840267682,
+      "ssd_read_mean_pct_of_raster": -4.240178477290059,
+      "hook_mean_ms": -68.7516005084035,
+      "prefill_mean_ms": -65.25105187562679,
+      "decode_mean_ms": 0.9747155835308767,
+      "e2e_mean_ms": -63.96702484974719
+    },
+    "paired_qid_delta_raster_minus_visionzip": {
+      "ttft_ms": {
+        "mean": 64.94174043327803,
+        "median": 66.11173949204385,
+        "p5": -126.477844,
+        "p95": 238.874447,
+        "min": -252.936348086223,
+        "max": 370.38462702184916,
+        "raster_slower_count": 170,
+        "visionzip_slower_count": 70
+      },
+      "ssd_read_ms": {
+        "mean": 19.91315384026772,
+        "median": 22.371300554368645,
+        "p5": -109.332423,
+        "p95": 121.068511,
+        "min": -225.03644798416644,
+        "max": 199.9392359284684,
+        "raster_slower_count": 154,
+        "visionzip_slower_count": 86
+      }
+    }
+  },
+  "mapped_logical_kv_audit": {
+    "method": "For each affected image, each physical store row was mapped through stored_to_original and compared in original-token space for every FP16 element of every K and V file across all 32 layers.",
+    "reference_store": "kvstore_image_only_work",
+    "reference_store_layout_at_audit": "morton",
+    "reference_store_note": "This is the same fresh-raster payload used by the raster run, subsequently transformed only by recorded post-hoc permutations.",
+    "candidate_store": "kvstore_image_only_visionzip",
+    "candidate_store_layout": "visionzip_image_only",
+    "images": [
+      {
+        "image_id": "n472825",
+        "elements_compared": 613416960,
+        "differing_elements": 0,
+        "max_absolute_difference": 0.0,
+        "logical_kv_exact": true,
+        "sys_kv_file_sha256_reference": "7ba6b5e47b3f56dffbbfd4811936079aa51aa6199e4668b5f9d4135cd03815d9",
+        "sys_kv_file_sha256_candidate": "7ba6b5e47b3f56dffbbfd4811936079aa51aa6199e4668b5f9d4135cd03815d9",
+        "sys_kv_hash_equal": true,
+        "v_hidden_file_sha256_reference": "e4361f86234cff607db915a98b9777fcbff900a12fc6d5b197a8ed3f7c1ca198",
+        "v_hidden_file_sha256_candidate": "e4361f86234cff607db915a98b9777fcbff900a12fc6d5b197a8ed3f7c1ca198",
+        "v_hidden_hash_equal": true
+      },
+      {
+        "image_id": "n498140",
+        "elements_compared": 562036736,
+        "differing_elements": 0,
+        "max_absolute_difference": 0.0,
+        "logical_kv_exact": true,
+        "sys_kv_file_sha256_reference": "7ba6b5e47b3f56dffbbfd4811936079aa51aa6199e4668b5f9d4135cd03815d9",
+        "sys_kv_file_sha256_candidate": "7ba6b5e47b3f56dffbbfd4811936079aa51aa6199e4668b5f9d4135cd03815d9",
+        "sys_kv_hash_equal": true,
+        "v_hidden_file_sha256_reference": "e7ce9a54bac52de43be21243378696e95cd84dc7c074ec1a3457ac5f929263ae",
+        "v_hidden_file_sha256_candidate": "e7ce9a54bac52de43be21243378696e95cd84dc7c074ec1a3457ac5f929263ae",
+        "v_hidden_hash_equal": true
+      }
+    ],
+    "total_elements_compared": 1175453696,
+    "total_differing_elements": 0,
+    "global_max_absolute_difference": 0.0,
+    "all_logical_kv_exact": true,
+    "all_sys_kv_hashes_equal": true,
+    "all_v_hidden_hashes_equal": true,
+    "structural_integrity_pass": true
+  },
+  "smoke_logit_evidence": {
+    "source": "runs/image_only_repack/validation/raster_direct_v2.json",
+    "n_requests": 9,
+    "prediction_agreement": 1.0,
+    "first_token_agreement": 1.0,
+    "greedy_logit_token_agreement": 1.0,
+    "max_logit_absolute_difference": 0.125,
+    "max_mean_logit_absolute_difference": 0.021795334294438362,
+    "min_logit_cosine": 0.9999722242355347,
+    "logit_atol": 0.15,
+    "logit_rtol": 0.01,
+    "logit_cosine_minimum": 0.9999,
+    "within_configured_bf16_gate": true
+  },
+  "root_cause_assessment": {
+    "likely_cause": "BF16 eager-attention finite-precision reduction-order sensitivity after a mathematically equivalent physical permutation of paired visual K/V rows.",
+    "structural_mapping_error_supported": false,
+    "evidence": [
+      "The affected images have byte-identical logical FP16 K/V after applying both recorded permutations.",
+      "System K/V and visual hidden-state files have identical SHA256 hashes.",
+      "All FullLoad byte and pread counts match for all 240 requests.",
+      "The serving path deliberately loads FullLoad rows in physical stored order; RoPE is already baked into K.",
+      "Prior smoke logits are extremely close but not bitwise identical, which is expected when softmax/value reductions traverse a different physical order.",
+      "Both observed flips are the same close Yes/No token pair and occur at the first greedy decision."
+    ]
+  },
+  "reporting_policy": {
+    "strict_behavioral_gate": "FAIL",
+    "structural_integrity_gate": "PASS",
+    "numerical_equivalence_classification": "WARN",
+    "requirements": [
+      "Never report the 240-request FullLoad comparison as 100% exact or as a strict pass.",
+      "Report the two mismatch qids, 99.1667% agreement, and -0.8333 percentage-point accuracy delta.",
+      "Use the same-layout FullLoad as the primary quality-delta denominator, and also expose the raster/canonical FullLoad sensitivity.",
+      "Do not interpret the separate-run FullLoad latency gap as a causal benefit of physical reordering."
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "a_method": "static_diverse_chunk",
+  "b_method": "reorder_prefix_chunk",
+  "bootstrap": {
+    "a_mean": 0.5791666666666667,
+    "b_mean": 0.5833333333333334,
+    "delta_mean": -0.004166666666666667,
+    "image_cluster_primary": {
+      "a_ci95": [
+        0.5083333333333333,
+        0.65
+      ],
+      "b_ci95": [
+        0.5125,
+        0.6501041666666653
+      ],
+      "delta_ci95": [
+        -0.03333333333333344,
+        0.025000000000000022
+      ],
+      "sampling_unit": "image; all six questions retained as one cluster"
+    },
+    "n_bootstrap": 10000,
+    "n_image_clusters": 40,
+    "n_questions": 240,
+    "question_supplement": {
+      "a_ci95": [
+        0.5166666666666667,
+        0.6416666666666667
+      ],
+      "b_ci95": [
+        0.5208333333333334,
+        0.6458333333333334
+      ],
+      "delta_ci95": [
+        -0.029166666666666674,
+        0.02083333333333337
+      ],
+      "sampling_unit": "question"
+    },
+    "seed": 0
+  },
+  "comparison": "Static+Diverse25 - Prefix25",
+  "delta_pp": -0.4166666666666667,
+  "mcnemar": {
+    "a_only": 5,
+    "b_only": 6,
+    "both_correct": 134,
+    "discordant": 11,
+    "neither_correct": 95,
+    "p_exact_two_sided": 1.0
+  },
+  "overlap_summary": {
+    "intersection_mean": 5.8875,
+    "jaccard_mean": 0.5330349334134648,
+    "jaccard_median": 0.5555555555555556,
+    "n_image_layers": 1280,
+    "prefix_only_mean": 2.6375,
+    "sd_only_mean": 2.6375
+  },
+  "scope": "supplementary calib1 composed-layout sensitivity run"
+}

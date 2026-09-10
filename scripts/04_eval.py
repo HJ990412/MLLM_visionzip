@@ -38,6 +38,13 @@ from mmimpress.serve import ImageContext, Server, load_static
 # baseline; the cvpr25 ones are hook-free and chunk-first.
 SELECTORS = {
     "sparsevlm":              ("impress", {}),
+    # Importance-reorder-only control: first-k stored chunks, no scores.
+    "reorder_prefix_chunk":   ("cvpr25", dict(mode="prefix")),
+    # Explicit-layout aliases used by the isolated image-only repack study.
+    # They share the exact selector implementation; only the fail-closed store
+    # provenance contract and artifact label differ.
+    "layout_prefix_chunk":    ("cvpr25", dict(mode="prefix")),
+    "visionzip_repack_prefix":("cvpr25", dict(mode="prefix")),
     "visionzip_static_chunk": ("cvpr25", dict(mode="static")),
     "cvpr25_hybrid_chunk":    ("cvpr25", dict(mode="hybrid")),
     "cvpr25_hybrid_diverse":  ("cvpr25", dict(mode="diverse")),
@@ -91,6 +98,15 @@ def main():
     ap.add_argument("--run-dir", default=None,
                     help="write per_request.csv, summary.csv and README.md "
                          "alongside the JSON/JSONL result")
+    ap.add_argument("--static-build-summary", default=None,
+                    help="optional static-build JSON for this exact store; "
+                         "avoids attributing the global legacy summary to an "
+                         "isolated/reordered store")
+    ap.add_argument("--prefix-layout", default=None,
+                    choices=("raster", "morton", "visionzip_image_only",
+                             "calib_importance_sep_tail"),
+                    help="explicit layout contract for Prefix on a new store; "
+                         "omit to retain the legacy calib-importance validator")
     ap.add_argument("--expect-images", type=int, default=None,
                     help="fail before model load unless the runnable workload "
                          "has exactly this many unique images")
@@ -174,8 +190,12 @@ def main():
         ctx = ImageContext(d, runner.model.device)
         img = Image.open(PROJECT_ROOT / e["image_path"]).convert("RGB")
         qs = e["questions"][args.skip:args.skip + args.questions]
+        # The prefix baseline must not load or receive VisionZip scores.  A
+        # combined ablation may still load static.pt once for the *other*
+        # methods, outside every request timer.
         static = load_static(ctx) if any(
-            k == "cvpr25" for _, k, _, _ in plan) else None
+            k == "cvpr25" and kw.get("mode") != "prefix"
+            for _, k, kw, _ in plan) else None
         for q in qs:
             rec = {"image_id": e["image_id"], "question_id": q["question_id"],
                    "question": q["question"],
@@ -191,14 +211,19 @@ def main():
                     r = srv.request(ctx, q["question"], mode="impress",
                                     cold=not args.warm)
                 else:
+                    request_static = (None if kw.get("mode") == "prefix"
+                                      else static)
                     r = srv.request_cvpr25(
-                        ctx, q["question"], static, budget=b,
+                        ctx, q["question"], request_static, budget=b,
                         sep_policy=args.sep_policy,
                         lam_static=args.lam_static,
                         lam_query=args.lam_query,
                         diverse_frac=args.diverse_frac,
                         cold=not args.warm,
-                        image_id=e["image_id"], **kw)
+                        image_id=e["image_id"],
+                        expected_prefix_layout=(
+                            args.prefix_layout if kw.get("mode") == "prefix"
+                            else None), **kw)
                 rec[name] = _pack(r, q, args.metric)
             rows.append(rec)
         ctx.close()
@@ -215,8 +240,11 @@ def main():
         vals = [v for v in vals if v is not None]
         return float(np.mean(vals)) if vals else None
 
+    static_summary_path = (Path(args.static_build_summary)
+                           if args.static_build_summary
+                           else RESULTS_DIR / "static_build.json")
     try:
-        with open(RESULTS_DIR / "static_build.json") as f:
+        with open(static_summary_path) as f:
             sb = json.load(f)
     except FileNotFoundError:
         sb = {}
@@ -238,6 +266,7 @@ def main():
          "alpha": args.alpha, "probe_heads": args.probe,
          "lam_static": args.lam_static, "lam_query": args.lam_query,
          "diverse_frac": args.diverse_frac,
+         "prefix_layout": args.prefix_layout,
          "sep_policy": args.sep_policy, "cold": not args.warm,
          "max_new_tokens": srv.max_new_tokens,
          "index": str(index_path),
@@ -278,7 +307,15 @@ def main():
                   "touched_chunk_fraction", "logical_kv_ratio",
                   "fallback_rate", "scatter_ms", "model_ms",
                   "n_chunks_selected", "n_chunks_total", "chunk_io_ms",
-                  "prepare_ms", "prefill_ms", "ssd_read_ms"):
+                  "prepare_ms", "prefill_ms", "ssd_read_ms",
+                  "normal_kv_read_bytes", "separator_read_bytes",
+                  "normal_kv_preads", "separator_preads",
+                  "total_actual_pread_bytes", "mean_bytes_per_pread",
+                  "normal_mean_bytes_per_pread",
+                  "separator_mean_bytes_per_pread",
+                  "normal_chunk_count_total",
+                  "static_score_calls", "query_score_calls",
+                  "diversity_calls"):
             v = agg(m, k, None)
             if v is not None:
                 d[k] = v
@@ -310,7 +347,9 @@ def main():
                 / agg("recompute", "ttft") * 100)
             d["acc_drop_vs_recompute_pp"] = (agg("recompute", "acc")
                                              - d["acc"]) * 100
-        if sb and SELECTORS.get(base, ("", {}))[0] == "cvpr25":
+        selector_spec = SELECTORS.get(base, ("", {}))
+        if (sb and selector_spec[0] == "cvpr25" and
+                selector_spec[1].get("mode") != "prefix"):
             d["first_use_static_ms"] = sb.get("total_first_use_ms")
             d["amortised_static_ms_per_question"] = sb.get(
                 "amortised_ms_per_question")
@@ -366,7 +405,20 @@ def main():
 
 def _pack(r, q, metric="gqa"):
     io = r.get("io") or {}
+    per_kind = io.get("per_kind", {})
+    normal_kv_read_bytes = int(
+        per_kind.get("k", {}).get("bytes", 0) +
+        per_kind.get("v", {}).get("bytes", 0))
+    normal_kv_preads = int(
+        per_kind.get("k", {}).get("preads", 0) +
+        per_kind.get("v", {}).get("preads", 0))
+    separator_read_bytes = int(
+        per_kind.get("sep", {}).get("bytes", 0))
+    separator_preads = int(
+        per_kind.get("sep", {}).get("preads", 0))
+    total_preads = int(io.get("preads", 0))
     d = {"answer": r["answer"],
+         "first_token_id": r.get("first_token_id"),
          # Seconds are retained for compatibility with scripts/07 and /12.
          # In schema v2 this field is TRUE TTFT, not the old E2E value.
          "ttft": r["ttft"],
@@ -384,8 +436,25 @@ def _pack(r, q, metric="gqa"):
          # One unit is one K or V chunk span in one layer/file.  The separator
          # sidecar contributes bytes and a pread, but zero chunk units.
          "ssd_read_chunks": io.get("chunk_units", 0),
-         "preads": io.get("preads", 0),
+         "preads": total_preads,
+         "mean_bytes_per_pread": (float(io.get("bytes", 0)) / total_preads
+                                  if total_preads else 0.0),
+         "normal_mean_bytes_per_pread": (
+             float(normal_kv_read_bytes) / normal_kv_preads
+             if normal_kv_preads else 0.0),
+         "separator_mean_bytes_per_pread": (
+             float(separator_read_bytes) / separator_preads
+             if separator_preads else 0.0),
          "chunk_units": io.get("chunk_units", 0),
+         # Split the measured pread traffic.  This is derived from IOCounter
+         # for every method (including FullLoad), rather than inferred from a
+         # nominal budget.  SparseVLM probe traffic, when present, remains in
+         # total_actual_pread_bytes but is intentionally not normal visual KV.
+         "normal_kv_read_bytes": normal_kv_read_bytes,
+         "separator_read_bytes": separator_read_bytes,
+         "normal_kv_preads": normal_kv_preads,
+         "separator_preads": separator_preads,
+         "total_actual_pread_bytes": int(io.get("bytes", 0)),
          "fallback_rate": r.get("fallback_rate"),
          "mean_jaccard": r.get("mean_jaccard"),
          "hook_ms": r.get("hook_ms"),
@@ -393,7 +462,15 @@ def _pack(r, q, metric="gqa"):
     for k in ("selector_ms", "select_ms", "query_ms", "chunk_io_ms",
               "scatter_ms", "model_ms", "prepare_ms", "prefill_ms",
               "touched_chunk_fraction", "logical_kv_ratio",
-              "n_chunks_selected", "n_chunks_total"):
+              "logical_kv_ratio_per_layer", "n_chunks_selected",
+              "n_chunks_total", "normal_chunk_count_total",
+              "normal_kv_read_bytes", "separator_read_bytes",
+              "normal_kv_preads", "separator_preads",
+              "total_actual_pread_bytes", "static_score_calls",
+              "query_score_calls", "diversity_calls", "selection_mode",
+              "selected_chunk_ids_per_layer", "separator_policy",
+              "reordered_prefix_store_validated", "validated_prefix_layout",
+              "n_raters"):
         if k in r:
             d[k] = r[k]
     return d
@@ -406,6 +483,12 @@ def _display_method(key):
         return "FullLoad"
     if key == "sparsevlm":
         return "SparseVLM"
+    if key.startswith("reorder_prefix_chunk"):
+        return "Reorder+Prefix"
+    if key.startswith("visionzip_repack_prefix"):
+        return "ImageOnly-Repack+Prefix"
+    if key.startswith("layout_prefix_chunk"):
+        return "Layout+Prefix"
     if key.startswith("static_diverse_chunk"):
         return "Static+Diverse"
     return key
@@ -413,7 +496,14 @@ def _display_method(key):
 
 def _method_order(keys):
     preferred = ["recompute", "fullload", "sparsevlm",
-                 "static_diverse_chunk@25", "static_diverse_chunk@50"]
+                 "reorder_prefix_chunk@25",
+                 "layout_prefix_chunk@25", "visionzip_repack_prefix@25",
+                 "visionzip_static_chunk@25", "diverse_chunk@25",
+                 "static_diverse_chunk@25",
+                 "reorder_prefix_chunk@50",
+                 "layout_prefix_chunk@50", "visionzip_repack_prefix@50",
+                 "visionzip_static_chunk@50", "diverse_chunk@50",
+                 "static_diverse_chunk@50"]
     rank = {k: i for i, k in enumerate(preferred)}
     return sorted(keys, key=lambda k: (rank.get(k, len(rank)), k))
 
@@ -424,12 +514,22 @@ def _write_run_artifacts(run_dir, rows, modes, summary, retention,
     fields = [
         "dataset", "method_key", "method", "retention", "retention_kind",
         "image_id", "question_id", "question", "prediction",
-        "ground_truth", "correct", "generated_tokens", "selector_ms",
+        "ground_truth", "correct", "first_token_id", "generated_tokens",
+        "physical_layout", "calibration_questions", "retrieval",
+        "selector_ms",
         "ssd_read_ms", "scatter_ms", "prepare_ms", "prefill_ms",
         "ttft_ms", "decode_ms", "e2e_latency_ms", "ssd_read_bytes",
         "ssd_read_chunks", "ssd_preads", "chunk_io_ms", "hook_ms",
         "n_chunks_selected", "n_chunks_total", "touched_chunk_fraction",
-        "logical_kv_ratio", "fallback_rate",
+        "logical_kv_ratio", "logical_kv_ratio_per_layer", "fallback_rate",
+        "normal_chunk_count_total", "normal_kv_read_bytes",
+        "separator_read_bytes", "normal_kv_preads", "separator_preads",
+        "total_actual_pread_bytes", "mean_bytes_per_pread",
+        "normal_mean_bytes_per_pread", "separator_mean_bytes_per_pread",
+        "static_score_calls", "query_score_calls", "diversity_calls",
+        "selection_mode", "selected_chunk_ids_per_layer", "separator_policy",
+        "reordered_prefix_store_validated", "validated_prefix_layout",
+        "n_raters",
     ]
     flat = []
     for rec in rows:
@@ -447,7 +547,21 @@ def _write_run_artifacts(run_dir, rows, modes, summary, retention,
                 "prediction": v["answer"],
                 "ground_truth": json.dumps(rec["gold"], ensure_ascii=False),
                 "correct": v["acc"],
+                "first_token_id": v.get("first_token_id"),
                 "generated_tokens": v["generated_tokens"],
+                "physical_layout": (args.prefix_layout or
+                                    ("calib_importance_legacy" if
+                                     m.startswith("reorder_prefix_chunk")
+                                     else "not_applicable")),
+                "calibration_questions": (0 if args.prefix_layout in
+                                           ("raster", "morton",
+                                            "visionzip_image_only") else
+                                           (4 if args.prefix_layout in
+                                            (None, "calib_importance_sep_tail")
+                                            else None)),
+                "retrieval": ("prefix" if SELECTORS.get(
+                    m.split("@")[0], (None, {}))[1].get("mode") == "prefix"
+                    else m),
                 "selector_ms": v.get("selector_ms"),
                 "ssd_read_ms": v["ssd_read_ms"],
                 "scatter_ms": v.get("scatter_ms"),
@@ -466,6 +580,33 @@ def _write_run_artifacts(run_dir, rows, modes, summary, retention,
                 "touched_chunk_fraction": v.get("touched_chunk_fraction"),
                 "logical_kv_ratio": v.get("logical_kv_ratio"),
                 "fallback_rate": v.get("fallback_rate"),
+                "logical_kv_ratio_per_layer": json.dumps(
+                    v.get("logical_kv_ratio_per_layer")),
+                "normal_chunk_count_total":
+                    v.get("normal_chunk_count_total"),
+                "normal_kv_read_bytes": v.get("normal_kv_read_bytes"),
+                "separator_read_bytes": v.get("separator_read_bytes"),
+                "normal_kv_preads": v.get("normal_kv_preads"),
+                "separator_preads": v.get("separator_preads"),
+                "total_actual_pread_bytes":
+                    v.get("total_actual_pread_bytes"),
+                "mean_bytes_per_pread": v.get("mean_bytes_per_pread"),
+                "normal_mean_bytes_per_pread":
+                    v.get("normal_mean_bytes_per_pread"),
+                "separator_mean_bytes_per_pread":
+                    v.get("separator_mean_bytes_per_pread"),
+                "static_score_calls": v.get("static_score_calls"),
+                "query_score_calls": v.get("query_score_calls"),
+                "diversity_calls": v.get("diversity_calls"),
+                "selection_mode": v.get("selection_mode"),
+                "selected_chunk_ids_per_layer": json.dumps(
+                    v.get("selected_chunk_ids_per_layer")),
+                "separator_policy": v.get("separator_policy"),
+                "reordered_prefix_store_validated":
+                    v.get("reordered_prefix_store_validated"),
+                "validated_prefix_layout":
+                    v.get("validated_prefix_layout"),
+                "n_raters": v.get("n_raters"),
             })
 
     with open(run_dir / "per_request.csv", "w", newline="") as f:
@@ -482,6 +623,12 @@ def _write_run_artifacts(run_dir, rows, modes, summary, retention,
         "ssd_read_bytes_mean", "ssd_read_bytes_total", "ssd_read_mb_mean",
         "ssd_read_chunks_mean", "prepare_mean_ms", "selector_mean_ms",
         "ssd_read_mean_ms", "scatter_mean_ms", "prefill_mean_ms",
+        "normal_chunk_count_total_mean", "normal_kv_read_bytes_mean",
+        "separator_read_bytes_mean", "normal_kv_preads_mean",
+        "separator_preads_mean", "mean_bytes_per_pread_mean",
+        "normal_mean_bytes_per_pread_mean",
+        "separator_mean_bytes_per_pread_mean", "static_score_calls_mean",
+        "query_score_calls_mean", "diversity_calls_mean",
         "ttft_reduction_vs_fullload_pct",
         "ttft_reduction_vs_recompute_pct",
     ]
@@ -516,6 +663,20 @@ def _write_run_artifacts(run_dir, rows, modes, summary, retention,
             "ssd_read_mean_ms": d.get("ssd_read_ms", 0.0),
             "scatter_mean_ms": d.get("scatter_ms"),
             "prefill_mean_ms": d.get("prefill_ms"),
+            "normal_chunk_count_total_mean":
+                d.get("normal_chunk_count_total"),
+            "normal_kv_read_bytes_mean": d.get("normal_kv_read_bytes"),
+            "separator_read_bytes_mean": d.get("separator_read_bytes"),
+            "normal_kv_preads_mean": d.get("normal_kv_preads"),
+            "separator_preads_mean": d.get("separator_preads"),
+            "mean_bytes_per_pread_mean": d.get("mean_bytes_per_pread"),
+            "normal_mean_bytes_per_pread_mean":
+                d.get("normal_mean_bytes_per_pread"),
+            "separator_mean_bytes_per_pread_mean":
+                d.get("separator_mean_bytes_per_pread"),
+            "static_score_calls_mean": d.get("static_score_calls"),
+            "query_score_calls_mean": d.get("query_score_calls"),
+            "diversity_calls_mean": d.get("diversity_calls"),
             "ttft_reduction_vs_fullload_pct":
                 d["ttft_reduction_vs_fullload_pct"],
             "ttft_reduction_vs_recompute_pct":
@@ -591,13 +752,16 @@ def _write_run_artifacts(run_dir, rows, modes, summary, retention,
         "| Method | vs FullLoad | vs ReComp |",
         "|---|---:|---:|",
     ]
+    def pct_or_na(value):
+        return "n/a" if value is None else f"{float(value):.1f}%"
+
     for r in summary_rows:
         if r["method"] != "Static+Diverse":
             continue
         reductions.append(
             f"| Static+Diverse {ret_label(r)} | "
-            f"{r['ttft_reduction_vs_fullload_pct']:.1f}% | "
-            f"{r['ttft_reduction_vs_recompute_pct']:.1f}% |")
+            f"{pct_or_na(r['ttft_reduction_vs_fullload_pct'])} | "
+            f"{pct_or_na(r['ttft_reduction_vs_recompute_pct'])} |")
 
     detail = [
         "| Retention | Prepare | Selector | SSD pread | Scatter | Prefill |",
@@ -613,7 +777,9 @@ def _write_run_artifacts(run_dir, rows, modes, summary, retention,
             f"{r['scatter_mean_ms']:.1f} ms | "
             f"{r['prefill_mean_ms']:.1f} ms |")
 
-    text = f"""# GQA 40/240 true-TTFT rerun
+    static_budget_labels = ", ".join(
+        f"{float(b) * 100:g}%" for b in summary["budgets"])
+    text = f"""# GQA {summary['n_images']} images / {summary['n']} questions true-TTFT run
 
 Generated by schema-v2 latency instrumentation on {time.strftime('%Y-%m-%d')}.
 
@@ -650,8 +816,8 @@ terminal EOS.
 - Model: `llava-hf/llava-v1.6-vicuna-7b-hf`, 4-bit NF4, eager attention
 - Greedy decoding, maximum {summary['max_new_tokens']} output tokens
 - 64-token visual-KV chunks; cold page cache; separator sidecar
-- SparseVLM retention 25%; Static+Diverse chunk budgets 25% and 50%;
-  `diverse_frac=0.25`
+- SparseVLM retention {summary['ratio'] * 100:g}%; Static+Diverse chunk budgets
+  {static_budget_labels}; `diverse_frac={summary['diverse_frac']:g}`
 
 ## Main results
 

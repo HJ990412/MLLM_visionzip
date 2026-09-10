@@ -1,0 +1,42 @@
+{
+ "passed": true,
+ "cpu_index_validation": {
+  "passed": true,
+  "n_dialogs": 2,
+  "n_turns": 20,
+  "n_candidates": 2000,
+  "n_dense_rounds": 2,
+  "dense_round_counts": {
+   "3": 1,
+   "4": 1
+  },
+  "causal_prompt_assertions": 20
+ },
+ "expected_records": 100,
+ "actual_records": 100,
+ "duplicate_keys": [],
+ "missing_keys": [],
+ "unexpected_keys": [],
+ "rank_permutation_failures": [],
+ "rank_score_alignment_failures": [],
+ "score_vector_failures": [],
+ "ground_truth_rank_alignment_failures": [],
+ "ndcg_alignment_failures": [],
+ "selection_semantic_failures": [],
+ "source_alignment_failures": [],
+ "forbidden_latency_fields": [],
+ "cross_method_prompt_hash_failures": [],
+ "cross_method_selector_input_hash_failures": [],
+ "cross_method_candidate_hash_failures": [],
+ "candidate_branching": "one prompt prefill; DynamicCache.crop after every candidate",
+ "score_definition": "unnormalized sum log-probability including EOS",
+ "selector_forbidden_inputs": [
+  "candidate_answers",
+  "candidate_answer_indices",
+  "gt_index",
+  "current_gold_answer",
+  "future_questions",
+  "future_answers"
+ ],
+ "contains_system_latency_measurements": false
+}

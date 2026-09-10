@@ -1,0 +1,231 @@
+{
+ "schema_version": "multiturn-results-v1-true-ttft",
+ "dataset": "visdial_v1.0_val",
+ "index": "/home/dblab/hj/mllm_v2/data/visdial_v1.0/subsets/smoke_seed1234/index.json",
+ "index_sha256": "db3a6469c792c21ee218acf9856da1e5fe0ee3161bf09e83e9734255cfa9ec63",
+ "store": "/home/dblab/hj/mllm_v2/kvstore_multiturn/visdial_smoke_seed1234",
+ "store_manifest": "/home/dblab/hj/mllm_v2/kvstore_multiturn/visdial_smoke_seed1234/pipeline_manifest.json",
+ "store_manifest_sha256_at_eval_start": "2cab26ebc672e25f37e551f6c84c51ff20a5904a7c8eea5d12ffec604b0e3578",
+ "store_content_snapshot": {
+  "index_sha256": "db3a6469c792c21ee218acf9856da1e5fe0ee3161bf09e83e9734255cfa9ec63",
+  "store_index_sha256": "83227ebbc6547eb8320dbf8bae2053bfb1ea91ed48a70448159f67aa77f98b6c",
+  "image_ids": [
+   "visdial:511888",
+   "visdial:96511"
+  ],
+  "calibration_policy": "caption_only_pre_dialog",
+  "future_turn_calibration_count": 0,
+  "calibration_records": [
+   {
+    "image_id": "visdial:511888",
+    "context_id": "visdial:511888:caption-calibration",
+    "kind": "caption_only_pre_dialog",
+    "sha256": "c247d8d1acba2422bbf46b213f47a7739e0c6efb25645501f2c07529a995da27",
+    "observed_turn_boundary": 0
+   },
+   {
+    "image_id": "visdial:96511",
+    "context_id": "visdial:96511:caption-calibration",
+    "kind": "caption_only_pre_dialog",
+    "sha256": "9a121f4b13804ff35b68379d03c1d34e8e1080753c26af3766bc52967a23602d",
+    "observed_turn_boundary": 0
+   }
+  ],
+  "reorder": {
+   "algorithm": "existing_importance",
+   "calib_questions": 1
+  },
+  "static_selector": {
+   "algorithm": "existing_static_diverse_chunk",
+   "chunk_size": 64,
+   "aggregate": "topk_mean",
+   "alpha": 0.7,
+   "top_frac": 0.25,
+   "diverse_frac": 0.25
+  },
+  "build": {
+   "image_kv_build_count": 2,
+   "full_visual_kv_bytes": 2350907392
+  },
+  "static": {
+   "static_metadata_build_count": 2,
+   "artifacts": [
+    {
+     "image_id": "visdial:511888",
+     "meta_sha256": "7918c7431030d947e34feb7f161e378a35786a859cb4b00601253bc29b10c0df",
+     "visual_tokens": 2340,
+     "prefix_tokens": 2345,
+     "full_visual_kv_bytes": 1226833920,
+     "reordered": true,
+     "static_pt_sha256": "c136fd28fffb9ca9eb8a64d5a1beacd344ef5e84ba7c3df433380439c23091f1",
+     "static_pt_bytes": 9719373,
+     "sep_kv_bytes": 18874368
+    },
+    {
+     "image_id": "visdial:96511",
+     "meta_sha256": "e19aa9e3e16ac71b77bb30faa1f613cc79f4ab4ef073cf155442ba2093e3fe02",
+     "visual_tokens": 2144,
+     "prefix_tokens": 2149,
+     "full_visual_kv_bytes": 1124073472,
+     "reordered": true,
+     "static_pt_sha256": "189b03195433e0f1f5cedb7ee6c19cd0a5fe86c9de642b6582f50fdfc6023fff",
+     "static_pt_bytes": 8931213,
+     "sep_kv_bytes": 16777216
+    }
+   ]
+  }
+ },
+ "store_content_fingerprint": "f58a07625deaafe6403a629593ab76d53b73f63551664c813c4750c1ed8569c1",
+ "seed": 1234,
+ "n_dialogs": 2,
+ "n_turns": 20,
+ "expected_request_keys": [
+  [
+   "visdial:511888",
+   1
+  ],
+  [
+   "visdial:511888",
+   2
+  ],
+  [
+   "visdial:511888",
+   3
+  ],
+  [
+   "visdial:511888",
+   4
+  ],
+  [
+   "visdial:511888",
+   5
+  ],
+  [
+   "visdial:511888",
+   6
+  ],
+  [
+   "visdial:511888",
+   7
+  ],
+  [
+   "visdial:511888",
+   8
+  ],
+  [
+   "visdial:511888",
+   9
+  ],
+  [
+   "visdial:511888",
+   10
+  ],
+  [
+   "visdial:96511",
+   1
+  ],
+  [
+   "visdial:96511",
+   2
+  ],
+  [
+   "visdial:96511",
+   3
+  ],
+  [
+   "visdial:96511",
+   4
+  ],
+  [
+   "visdial:96511",
+   5
+  ],
+  [
+   "visdial:96511",
+   6
+  ],
+  [
+   "visdial:96511",
+   7
+  ],
+  [
+   "visdial:96511",
+   8
+  ],
+  [
+   "visdial:96511",
+   9
+  ],
+  [
+   "visdial:96511",
+   10
+  ]
+ ],
+ "expected_request_keys_sha256": "433b627cbd6305f69a28ec8c6b62a2897edce1b5634a9a9f11ecf03ca7d4f120",
+ "max_dialogs_requested": null,
+ "max_turns_requested": null,
+ "methods": [
+  "ReComp",
+  "FullLoad",
+  "SparseVLM 25%",
+  "Static+Diverse 25%",
+  "Static+Diverse 50%"
+ ],
+ "method_keys": [
+  "recompute",
+  "fullload",
+  "sparsevlm",
+  "static_diverse@25",
+  "static_diverse@50"
+ ],
+ "history_policy": "gold_teacher_forced",
+ "calibration_policy": "caption_only_pre_dialog",
+ "future_turn_calibration_count": 0,
+ "prompt_template": "visdial-gold-history-v1",
+ "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+ "load_4bit": true,
+ "quantization": "NF4 double-quant",
+ "attention": "eager",
+ "decoding": "greedy",
+ "max_new_tokens": 16,
+ "chunk_size": 64,
+ "sparsevlm_budget": 0.25,
+ "static_diverse_budgets": [
+  0.25,
+  0.5
+ ],
+ "diverse_frac": 0.25,
+ "cold_page_cache": true,
+ "ttft_definition": "request start -> selector -> SSD pread -> cache reconstruction/scatter -> prompt prefill -> first output token argmax -> CUDA synchronize",
+ "input_preprocessing_timed": false,
+ "max_position_embeddings": 4096,
+ "quality_mode": "generative_auxiliary_normalized_match",
+ "field_semantics": {
+  "selected_kv_ratio": "logical kept visual-token ratio",
+  "ssd_payload_ratio_vs_full_visual_kv": "actual visual K/V payload (plus mandatory separator sidecar) divided by Full visual K/V; excludes SparseVLM probe bytes",
+  "ssd_read_bytes": "all bytes returned by actual os.pread calls",
+  "ssd_read_chunk_units": "K/V/probe file-level chunk-equivalent units, not unique chunks",
+  "n_chunks_selected": "Static+Diverse mean unique selected chunks per layer, excluding separator sidecar"
+ },
+ "machine": {
+  "gpu_name": "NVIDIA GeForce RTX 4090",
+  "gpu_total_memory_bytes": 25391333376,
+  "system_ram_total_bytes": 134817562624,
+  "system_ram_available_bytes_at_start": 127526858752,
+  "cpu_count": 24
+ },
+ "image_kv_build_count": 2,
+ "static_metadata_build_count": 2,
+ "run_started_at_unix": 1788949298.3400395,
+ "resume_count": 0,
+ "machine_at_initial_start": {
+  "gpu_name": "NVIDIA GeForce RTX 4090",
+  "gpu_total_memory_bytes": 25391333376,
+  "system_ram_total_bytes": 134817562624,
+  "system_ram_available_bytes_at_start": 127526858752,
+  "cpu_count": 24
+ },
+ "image_context_open_count": 2,
+ "static_metadata_load_count": 2,
+ "elapsed_seconds": 60.69939589500427
+}

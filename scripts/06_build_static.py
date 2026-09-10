@@ -131,6 +131,9 @@ def main():
     ap.add_argument("--top-frac", type=float, default=0.25)
     ap.add_argument("--index", default=None)
     ap.add_argument("--only", default=None)
+    ap.add_argument("--summary-out", default=None,
+                    help="optional summary JSON path; use this for isolated "
+                         "multi-turn runs so legacy results are not overwritten")
     args = ap.parse_args()
 
     global STORE_DIR
@@ -169,8 +172,10 @@ def main():
                "n_chunks": rows[0]["n_chunks"] if rows else 0,
                "agg": {"mode": args.agg, "alpha": args.alpha,
                        "top_frac": args.top_frac}}
-    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    with open(RESULTS_DIR / "static_build.json", "w") as f:
+    summary_out = (Path(args.summary_out) if args.summary_out else
+                   RESULTS_DIR / "static_build.json")
+    summary_out.parent.mkdir(parents=True, exist_ok=True)
+    with open(summary_out, "w") as f:
         json.dump(summary, f, indent=1)
     print(f"\nfirst-use per image: CLIP {clip:.0f} ms + metadata {meta:.0f} ms "
           f"= {clip+meta:.0f} ms")

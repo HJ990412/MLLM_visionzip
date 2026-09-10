@@ -1,0 +1,666 @@
+{
+ "schema_version": "visdial-official-quality-v1",
+ "dataset": "visdial_v1.0_val",
+ "quality_mode": "official_candidate_ranking",
+ "index": "/home/dblab/hj/mllm_v2/data/visdial_v1.0/subsets/smoke_seed1234/index.json",
+ "index_sha256": "db3a6469c792c21ee218acf9856da1e5fe0ee3161bf09e83e9734255cfa9ec63",
+ "store": "/home/dblab/hj/mllm_v2/kvstore_multiturn/visdial_smoke_seed1234",
+ "store_manifest": "/home/dblab/hj/mllm_v2/kvstore_multiturn/visdial_smoke_seed1234/pipeline_manifest.json",
+ "store_manifest_sha256_at_quality_start": "5221f41e68a3007f2588487b77d0445560fde9d28f0bfee305c648c564c19238",
+ "store_content_snapshot": {
+  "index_sha256": "db3a6469c792c21ee218acf9856da1e5fe0ee3161bf09e83e9734255cfa9ec63",
+  "store_index_sha256": "83227ebbc6547eb8320dbf8bae2053bfb1ea91ed48a70448159f67aa77f98b6c",
+  "image_ids": [
+   "visdial:511888",
+   "visdial:96511"
+  ],
+  "calibration_policy": "caption_only_pre_dialog",
+  "future_turn_calibration_count": 0,
+  "calibration_records": [
+   {
+    "image_id": "visdial:511888",
+    "context_id": "visdial:511888:caption-calibration",
+    "kind": "caption_only_pre_dialog",
+    "sha256": "c247d8d1acba2422bbf46b213f47a7739e0c6efb25645501f2c07529a995da27",
+    "observed_turn_boundary": 0
+   },
+   {
+    "image_id": "visdial:96511",
+    "context_id": "visdial:96511:caption-calibration",
+    "kind": "caption_only_pre_dialog",
+    "sha256": "9a121f4b13804ff35b68379d03c1d34e8e1080753c26af3766bc52967a23602d",
+    "observed_turn_boundary": 0
+   }
+  ],
+  "reorder": {
+   "algorithm": "existing_importance",
+   "calib_questions": 1
+  },
+  "static_selector": {
+   "algorithm": "existing_static_diverse_chunk",
+   "chunk_size": 64,
+   "aggregate": "topk_mean",
+   "alpha": 0.7,
+   "top_frac": 0.25,
+   "diverse_frac": 0.25
+  },
+  "build": {
+   "image_kv_build_count": 2,
+   "full_visual_kv_bytes": 2350907392
+  },
+  "static": {
+   "done": true,
+   "static_metadata_build_count": 2,
+   "artifacts": [
+    {
+     "image_id": "visdial:511888",
+     "meta_sha256": "7918c7431030d947e34feb7f161e378a35786a859cb4b00601253bc29b10c0df",
+     "visual_tokens": 2340,
+     "prefix_tokens": 2345,
+     "full_visual_kv_bytes": 1226833920,
+     "reordered": true,
+     "static_pt_sha256": "c136fd28fffb9ca9eb8a64d5a1beacd344ef5e84ba7c3df433380439c23091f1",
+     "static_pt_bytes": 9719373,
+     "sep_kv_bytes": 18874368
+    },
+    {
+     "image_id": "visdial:96511",
+     "meta_sha256": "e19aa9e3e16ac71b77bb30faa1f613cc79f4ab4ef073cf155442ba2093e3fe02",
+     "visual_tokens": 2144,
+     "prefix_tokens": 2149,
+     "full_visual_kv_bytes": 1124073472,
+     "reordered": true,
+     "static_pt_sha256": "189b03195433e0f1f5cedb7ee6c19cd0a5fe86c9de642b6582f50fdfc6023fff",
+     "static_pt_bytes": 8931213,
+     "sep_kv_bytes": 16777216
+    }
+   ]
+  }
+ },
+ "store_content_fingerprint": "ed3dcccd7881e6490b4171e08732642234a470a08e740b4bcd42b93e99f24092",
+ "calibration_policy": "caption_only_pre_dialog",
+ "future_turn_calibration_count": 0,
+ "method_keys": [
+  "recompute",
+  "fullload",
+  "sparsevlm",
+  "static_diverse@25",
+  "static_diverse@50"
+ ],
+ "methods": [
+  "ReComp",
+  "FullLoad",
+  "SparseVLM 25%",
+  "Static+Diverse 25%",
+  "Static+Diverse 50%"
+ ],
+ "n_dialogs": 2,
+ "n_turns": 20,
+ "expected_request_keys": [
+  [
+   "visdial:511888",
+   1,
+   "recompute"
+  ],
+  [
+   "visdial:511888",
+   1,
+   "fullload"
+  ],
+  [
+   "visdial:511888",
+   1,
+   "sparsevlm"
+  ],
+  [
+   "visdial:511888",
+   1,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:511888",
+   1,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:511888",
+   2,
+   "recompute"
+  ],
+  [
+   "visdial:511888",
+   2,
+   "fullload"
+  ],
+  [
+   "visdial:511888",
+   2,
+   "sparsevlm"
+  ],
+  [
+   "visdial:511888",
+   2,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:511888",
+   2,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:511888",
+   3,
+   "recompute"
+  ],
+  [
+   "visdial:511888",
+   3,
+   "fullload"
+  ],
+  [
+   "visdial:511888",
+   3,
+   "sparsevlm"
+  ],
+  [
+   "visdial:511888",
+   3,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:511888",
+   3,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:511888",
+   4,
+   "recompute"
+  ],
+  [
+   "visdial:511888",
+   4,
+   "fullload"
+  ],
+  [
+   "visdial:511888",
+   4,
+   "sparsevlm"
+  ],
+  [
+   "visdial:511888",
+   4,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:511888",
+   4,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:511888",
+   5,
+   "recompute"
+  ],
+  [
+   "visdial:511888",
+   5,
+   "fullload"
+  ],
+  [
+   "visdial:511888",
+   5,
+   "sparsevlm"
+  ],
+  [
+   "visdial:511888",
+   5,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:511888",
+   5,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:511888",
+   6,
+   "recompute"
+  ],
+  [
+   "visdial:511888",
+   6,
+   "fullload"
+  ],
+  [
+   "visdial:511888",
+   6,
+   "sparsevlm"
+  ],
+  [
+   "visdial:511888",
+   6,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:511888",
+   6,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:511888",
+   7,
+   "recompute"
+  ],
+  [
+   "visdial:511888",
+   7,
+   "fullload"
+  ],
+  [
+   "visdial:511888",
+   7,
+   "sparsevlm"
+  ],
+  [
+   "visdial:511888",
+   7,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:511888",
+   7,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:511888",
+   8,
+   "recompute"
+  ],
+  [
+   "visdial:511888",
+   8,
+   "fullload"
+  ],
+  [
+   "visdial:511888",
+   8,
+   "sparsevlm"
+  ],
+  [
+   "visdial:511888",
+   8,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:511888",
+   8,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:511888",
+   9,
+   "recompute"
+  ],
+  [
+   "visdial:511888",
+   9,
+   "fullload"
+  ],
+  [
+   "visdial:511888",
+   9,
+   "sparsevlm"
+  ],
+  [
+   "visdial:511888",
+   9,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:511888",
+   9,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:511888",
+   10,
+   "recompute"
+  ],
+  [
+   "visdial:511888",
+   10,
+   "fullload"
+  ],
+  [
+   "visdial:511888",
+   10,
+   "sparsevlm"
+  ],
+  [
+   "visdial:511888",
+   10,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:511888",
+   10,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:96511",
+   1,
+   "recompute"
+  ],
+  [
+   "visdial:96511",
+   1,
+   "fullload"
+  ],
+  [
+   "visdial:96511",
+   1,
+   "sparsevlm"
+  ],
+  [
+   "visdial:96511",
+   1,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:96511",
+   1,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:96511",
+   2,
+   "recompute"
+  ],
+  [
+   "visdial:96511",
+   2,
+   "fullload"
+  ],
+  [
+   "visdial:96511",
+   2,
+   "sparsevlm"
+  ],
+  [
+   "visdial:96511",
+   2,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:96511",
+   2,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:96511",
+   3,
+   "recompute"
+  ],
+  [
+   "visdial:96511",
+   3,
+   "fullload"
+  ],
+  [
+   "visdial:96511",
+   3,
+   "sparsevlm"
+  ],
+  [
+   "visdial:96511",
+   3,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:96511",
+   3,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:96511",
+   4,
+   "recompute"
+  ],
+  [
+   "visdial:96511",
+   4,
+   "fullload"
+  ],
+  [
+   "visdial:96511",
+   4,
+   "sparsevlm"
+  ],
+  [
+   "visdial:96511",
+   4,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:96511",
+   4,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:96511",
+   5,
+   "recompute"
+  ],
+  [
+   "visdial:96511",
+   5,
+   "fullload"
+  ],
+  [
+   "visdial:96511",
+   5,
+   "sparsevlm"
+  ],
+  [
+   "visdial:96511",
+   5,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:96511",
+   5,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:96511",
+   6,
+   "recompute"
+  ],
+  [
+   "visdial:96511",
+   6,
+   "fullload"
+  ],
+  [
+   "visdial:96511",
+   6,
+   "sparsevlm"
+  ],
+  [
+   "visdial:96511",
+   6,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:96511",
+   6,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:96511",
+   7,
+   "recompute"
+  ],
+  [
+   "visdial:96511",
+   7,
+   "fullload"
+  ],
+  [
+   "visdial:96511",
+   7,
+   "sparsevlm"
+  ],
+  [
+   "visdial:96511",
+   7,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:96511",
+   7,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:96511",
+   8,
+   "recompute"
+  ],
+  [
+   "visdial:96511",
+   8,
+   "fullload"
+  ],
+  [
+   "visdial:96511",
+   8,
+   "sparsevlm"
+  ],
+  [
+   "visdial:96511",
+   8,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:96511",
+   8,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:96511",
+   9,
+   "recompute"
+  ],
+  [
+   "visdial:96511",
+   9,
+   "fullload"
+  ],
+  [
+   "visdial:96511",
+   9,
+   "sparsevlm"
+  ],
+  [
+   "visdial:96511",
+   9,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:96511",
+   9,
+   "static_diverse@50"
+  ],
+  [
+   "visdial:96511",
+   10,
+   "recompute"
+  ],
+  [
+   "visdial:96511",
+   10,
+   "fullload"
+  ],
+  [
+   "visdial:96511",
+   10,
+   "sparsevlm"
+  ],
+  [
+   "visdial:96511",
+   10,
+   "static_diverse@25"
+  ],
+  [
+   "visdial:96511",
+   10,
+   "static_diverse@50"
+  ]
+ ],
+ "expected_request_keys_sha256": "2eac6dd50ad3396bead0343cbef470b91fe9bbd1804781c8fcb3487ac819fd4b",
+ "max_dialogs": 2,
+ "max_turns": 10,
+ "seed": 1234,
+ "history_policy": "gold_teacher_forced",
+ "prompt_template": "visdial-gold-history-v1",
+ "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+ "model_config_name_or_path": "llava-hf/llava-v1.6-vicuna-7b-hf",
+ "model_checkpoint_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+ "load_4bit": true,
+ "quantization": "NF4 double-quant",
+ "attention": "eager",
+ "decoding": null,
+ "candidate_count_per_turn": 100,
+ "candidate_branch_batch_size": 1,
+ "candidate_cache_restore": "DynamicCache.crop(prompt_length)",
+ "candidate_tokenization": "tokenize(prompt + single ASCII space + candidate); require exact prompt-token prefix; append one EOS token",
+ "score_definition": "unnormalized sum log-probability including EOS",
+ "length_normalized": false,
+ "eos_token_id": 2,
+ "bos_token_id": 1,
+ "pad_token_id": 0,
+ "tokenizer_class": "LlamaTokenizerFast",
+ "tokenizer_name_or_path": "llava-hf/llava-v1.6-vicuna-7b-hf",
+ "image_processor_class": "LlavaNextImageProcessor",
+ "image_token_id": 32000,
+ "max_position_embeddings": 4096,
+ "transformers_version": "4.57.6",
+ "torch_version": "2.5.1+cu121",
+ "sparsevlm_budget": 0.25,
+ "static_diverse_budgets": [
+  0.25,
+  0.5
+ ],
+ "diverse_frac": 0.25,
+ "separator_policy": "sidecar",
+ "metric_definitions": [
+  "MRR",
+  "R@1",
+  "R@5",
+  "R@10",
+  "Mean Rank",
+  "NDCG (dense round only)"
+ ],
+ "official_starter_repository": "https://github.com/batra-mlp-lab/visdial-challenge-starter-pytorch/tree/5844f3d5a575e9ec1c1684feb760e7de5c912beb",
+ "official_starter_commit": "5844f3d5a575e9ec1c1684feb760e7de5c912beb",
+ "official_reference_files": [
+  "visdialch/decoders/gen.py",
+  "visdialch/metrics.py",
+  "evaluate.py"
+ ],
+ "official_rank_files": {
+  "recompute": "official_ranks/recompute.json",
+  "fullload": "official_ranks/fullload.json",
+  "sparsevlm": "official_ranks/sparsevlm.json",
+  "static_diverse@25": "official_ranks/static_diverse_25.json",
+  "static_diverse@50": "official_ranks/static_diverse_50.json"
+ },
+ "official_rank_scope": "schema-compatible fragment for the configured deterministic subset; not a complete full-validation EvalAI submission",
+ "rank_format": "VisDial list[{image_id, round_id, ranks}]; ranks are 1-based and aligned to original candidate order",
+ "contains_system_latency_measurements": false,
+ "page_cache_policy": "not controlled; quality-only run",
+ "run_started_at_unix": 1788953577.8780344,
+ "resume_count": 0,
+ "elapsed_seconds": 351.4490923881531
+}

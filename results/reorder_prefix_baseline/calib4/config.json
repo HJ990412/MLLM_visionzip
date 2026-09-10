@@ -1,0 +1,185 @@
+{
+  "analysis": "reorder_prefix_baseline",
+  "bootstrap": {
+    "ci": 0.95,
+    "n_resamples": 10000,
+    "primary": "image-cluster paired bootstrap",
+    "seed": 0,
+    "supplement": "question-level paired bootstrap"
+  },
+  "code_provenance_sha256": {
+    "mmimpress/cvpr25.py": "b8356d4d8c3f13c7bbb7802d1088f7eba4179b3f5ac478648fdb6c2c902a456b",
+    "mmimpress/dataset.py": "e5e58ea185275429c7e74bbccde43fd50a276428d64089f2f349616ed65b15a0",
+    "mmimpress/model.py": "df3169f62488f593f59297a8c57445a64b2783d1e60b2883080521263b5b8faa",
+    "mmimpress/serve.py": "05874d4bac4542a26cc1f2ae8760a77995d449c1fa07e5e0ec9f80bc3a3e314e",
+    "scripts/04_eval.py": "52bb6b5707052b24acbbcfd5a3e34b23ee4643dc7ca2ec7a1ec9341fab10aa48"
+  },
+  "created_at": "2026-09-11T00:08:50+0900",
+  "decision_rule": "GO iff observed delta Accuracy(Static+Diverse25 - Prefix25) > 0 and the 95% image-cluster paired-bootstrap CI lower bound > 0; otherwise RETHINK",
+  "latency_definition": {
+    "decode": "after first output token through final output token",
+    "e2e": "request start through final output token",
+    "ttft": "request start through first output token"
+  },
+  "legacy_preservation": {
+    "results/ablation_25": {
+      "exists": true,
+      "expected_sha256": "dfc290746067320ecca71cdb7523dc3ce3b85b026fac3ad619bbc7598fbf3634",
+      "kind": "tree",
+      "matches_expected": true,
+      "n_bytes": 3223508,
+      "n_files": 15,
+      "sha256": "dfc290746067320ecca71cdb7523dc3ce3b85b026fac3ad619bbc7598fbf3634"
+    },
+    "results/budget_sweep": {
+      "exists": true,
+      "expected_sha256": "0b83ae8e27b25804ce57024c219d1ef51c3f4e934e708fb9737fb7085906b93c",
+      "kind": "tree",
+      "matches_expected": true,
+      "n_bytes": 3574875,
+      "n_files": 18,
+      "sha256": "0b83ae8e27b25804ce57024c219d1ef51c3f4e934e708fb9737fb7085906b93c"
+    },
+    "results/eval_b25.json": {
+      "exists": true,
+      "expected_sha256": "c656871497716d5f5e2355b9fcacb69ebdaf163b3ed345dfbc6adb3d91786b10",
+      "kind": "file",
+      "matches_expected": true,
+      "n_bytes": 601969,
+      "n_files": 1,
+      "sha256": "c656871497716d5f5e2355b9fcacb69ebdaf163b3ed345dfbc6adb3d91786b10"
+    },
+    "results_reorder.log": {
+      "exists": true,
+      "expected_sha256": "fc8af24e66302d6955986f65056c7857e629a29f89755258c7e42a45d7576385",
+      "kind": "file",
+      "matches_expected": true,
+      "n_bytes": 2856,
+      "n_files": 1,
+      "sha256": "fc8af24e66302d6955986f65056c7857e629a29f89755258c7e42a45d7576385"
+    },
+    "runs/gqa40_240_true_ttft": {
+      "exists": true,
+      "expected_sha256": "cc7928fa1300e8a66fad195e2a0110523972f8bffd36a18ec62d1eb74bf7ba19",
+      "kind": "tree",
+      "matches_expected": true,
+      "n_bytes": 2282398,
+      "n_files": 7,
+      "sha256": "cc7928fa1300e8a66fad195e2a0110523972f8bffd36a18ec62d1eb74bf7ba19"
+    },
+    "runs/gqa40_240_true_ttft_budget_10_15_20": {
+      "exists": true,
+      "expected_sha256": "04a7f1bfdef359adbe772f01899da0f1988b596472711d5a97daf78407da98b4",
+      "kind": "tree",
+      "matches_expected": true,
+      "n_bytes": 2855811,
+      "n_files": 7,
+      "sha256": "04a7f1bfdef359adbe772f01899da0f1988b596472711d5a97daf78407da98b4"
+    }
+  },
+  "methods": [
+    "recompute",
+    "fullload",
+    "sparsevlm",
+    "reorder_prefix_chunk@25",
+    "visionzip_static_chunk@25",
+    "diverse_chunk@25",
+    "static_diverse_chunk@25",
+    "reorder_prefix_chunk@50",
+    "visionzip_static_chunk@50",
+    "diverse_chunk@50",
+    "static_diverse_chunk@50"
+  ],
+  "optional_methods": [
+    "reorder_prefix_chunk@50",
+    "visionzip_static_chunk@50",
+    "diverse_chunk@50",
+    "static_diverse_chunk@50"
+  ],
+  "path_policy": {
+    "ancestor_descendant_overlap_allowed": false,
+    "output_scope": "/home/dblab/hj/mllm_v2/results/reorder_prefix_baseline",
+    "publication": "renameat2(RENAME_NOREPLACE)",
+    "source_scope": "/home/dblab/hj/mllm_v2/runs/reorder_prefix_baseline",
+    "strict_child_required": true,
+    "symlinks_allowed": false
+  },
+  "prefix_selector_by_budget": {
+    "25": {
+      "max_allowed_mean_ms": 1.0,
+      "max_allowed_p95_ms": 2.0,
+      "mean_ms": 0.19381173866956183,
+      "min_ms": 0.11879380326718092,
+      "n": 240,
+      "p95_ms": 0.24263023515231896
+    },
+    "50": {
+      "max_allowed_mean_ms": 1.0,
+      "max_allowed_p95_ms": 2.0,
+      "mean_ms": 0.3337151841454518,
+      "min_ms": 0.17380609642714262,
+      "n": 240,
+      "p95_ms": 0.37585351383313537
+    }
+  },
+  "prefix_selector_max_mean_ms": 1.0,
+  "prefix_selector_max_p95_ms": 2.0,
+  "required_methods": [
+    "recompute",
+    "fullload",
+    "sparsevlm",
+    "reorder_prefix_chunk@25",
+    "visionzip_static_chunk@25",
+    "diverse_chunk@25",
+    "static_diverse_chunk@25"
+  ],
+  "schema_version": 1,
+  "source": {
+    "per_request_sha256": "aab42a6b6fc4d6aefdd1027d4a267dbab6781a8edc35a8dd34a118f82868ed66",
+    "results": "/home/dblab/hj/mllm_v2/runs/reorder_prefix_baseline/calib4/results.json",
+    "results_sha256": "9c4c11ac1868419c0b4493b802e5f5ded90c430de22220e32cbd4676a88fbdec",
+    "run_dir": "/home/dblab/hj/mllm_v2/runs/reorder_prefix_baseline/calib4",
+    "schema_version": 2,
+    "source_command": "/home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/04_eval.py --index data/index.json --store kvstore --limit 40 --questions 6 --skip 4 --ratio 0.25 --budgets 0.25,0.5 --selectors sparsevlm,reorder_prefix_chunk,visionzip_static_chunk,diverse_chunk,static_diverse_chunk --sep-policy sidecar --diverse-frac 0.25 --metric gqa --dataset gqa --expect-images 40 --expect-questions 240 --run-dir runs/reorder_prefix_baseline/calib4"
+  },
+  "source_fixed_conditions": {
+    "alpha": 0.6,
+    "budgets": [
+      0.25,
+      0.5
+    ],
+    "cold": true,
+    "diverse_frac": 0.25,
+    "lam_query": 1.0,
+    "lam_static": 1.0,
+    "max_new_tokens": 16,
+    "probe_heads": 3,
+    "ratio": 0.25,
+    "sep_policy": "sidecar"
+  },
+  "store": {
+    "content_n_bytes": 50807307190,
+    "content_n_files": 4040,
+    "content_sha256": "e570a6847743a203fc1e2892d736ebe8aa946647cbb0e280f212388da2c09d68",
+    "expected_content_sha256": "e570a6847743a203fc1e2892d736ebe8aa946647cbb0e280f212388da2c09d68",
+    "expected_selection_metadata_sha256": "616e50ae052aee5d9a284e31a24fae463bd793e9b572ceeca859ad87270e8a82",
+    "path": "/home/dblab/hj/mllm_v2/kvstore",
+    "selection_metadata_n_bytes": 1186753982,
+    "selection_metadata_n_files": 120,
+    "selection_metadata_sha256": "616e50ae052aee5d9a284e31a24fae463bd793e9b572ceeca859ad87270e8a82"
+  },
+  "workload": {
+    "calibration_questions_per_image": 4,
+    "calibration_workload_sha256": "992cc89a81a6cadf363b65b58f8f89fabfc0a1a17358559069f8c0b6cabc1e71",
+    "dataset": "gqa",
+    "expected_calibration_workload_sha256": "992cc89a81a6cadf363b65b58f8f89fabfc0a1a17358559069f8c0b6cabc1e71",
+    "images": 40,
+    "index": "data/index.json",
+    "index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+    "ordered_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66",
+    "questions": 240,
+    "questions_per_image": 6,
+    "recomputed_index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+    "skip": 4
+  }
+}

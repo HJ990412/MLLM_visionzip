@@ -310,9 +310,11 @@ class LayerSelector:
         sims = [r["sim"] for r in self.log if r["sim"] is not None]
         nc = self.ctx.meta["n_chunks_per_layer"]
         ch = [r.get("chunks", nc) for r in self.log]
-        return {"touched_chunk_fraction": float(np.mean(ch)) / nc,
-                "logical_kv_ratio": self.k_keep
-                / self.ctx.meta["v_token_num"],
+        is_full = self.mode == "fullload"
+        return {"touched_chunk_fraction": (1.0 if is_full else
+                                             float(np.mean(ch)) / nc),
+                "logical_kv_ratio": (1.0 if is_full else self.k_keep
+                                      / self.ctx.meta["v_token_num"]),
                 "fallback_rate": modes.count("fallback") / n,
                 "probe_rate": modes.count("probe") / n,
                 "mean_jaccard": (sum(sims) / len(sims)) if sims else None,
@@ -333,19 +335,148 @@ class ImageContext:
         from pathlib import Path
         self.dir = Path(store_dir)
         self.meta = load_meta(self.dir)
+        nl = self.meta.get("newline_stored", self.meta["newline_idx"])
+        if nl and isinstance(nl[0], list):
+            self._separator_positions = [
+                sorted(int(x) for x in row) for row in nl]
+        else:
+            row = sorted(int(x) for x in nl)
+            self._separator_positions = [
+                list(row) for _ in range(self.meta["num_layers"])]
+        n_sep = len(self._separator_positions[0])
+        assert all(len(row) == n_sep
+                   for row in self._separator_positions), \
+            "separator count varies across layers"
+        self.sep_kv_shape = (2, self.meta["num_layers"], n_sep,
+                             self.meta["num_heads"], self.meta["head_dim"])
+        sep_path = self.dir / "sep_kv.bin"
+        assert sep_path.stat().st_size == int(np.prod(self.sep_kv_shape)) * 2, \
+            f"separator sidecar size mismatch: {sep_path}"
         self.reader = ChunkReader(self.dir, self.meta, drop_cache=drop_cache)
         sys_kv = torch.load(self.dir / "sys_kv.pt", weights_only=True)
         self.cache = PrefixCache(self.meta, sys_kv, device)
         self.v_hidden = torch.load(self.dir / "v_hidden.pt", weights_only=True)
 
-    def read_sep_kv(self, static, counter=None):
-        """Always-loaded row-separator KV: (2, L, n_sep, H, hd), one read."""
+    def separator_positions(self, layer):
+        """Stored row-separator positions without loading VisionZip metadata."""
+        return self._separator_positions[layer]
+
+    def validate_reordered_prefix_store(self):
+        """Validate the on-disk layout required by the Prefix baseline.
+
+        ``reorder_prefix_chunk`` is meaningful only for an importance-reordered
+        store with an independent permutation at every decoder layer.  Keep
+        this check on the context, rather than in the timed selector, so a bad
+        raster/Morton store fails before it can produce a misleading result and
+        valid requests do not pay validation overhead in TTFT.
+
+        The legacy store metadata does not record the reorder algorithm name,
+        but its importance layout is distinguishable from the shared Morton
+        layout used by this repository via ``order_is_per_layer``.  The checks
+        below also prove that every recorded order is a full permutation and
+        that the stored separator positions agree with it.
+        """
+        if getattr(self, "_reordered_prefix_store_validated", False):
+            return
+        m = self.meta
+        assert m.get("reordered") is True, \
+            "prefix baseline requires an already-reordered KV store"
+        assert m.get("order_is_per_layer") is True, \
+            ("prefix baseline requires the per-layer importance layout; "
+             "shared/raster layouts are not valid")
+        orders = m.get("order")
+        L, vn = m["num_layers"], m["v_token_num"]
+        assert isinstance(orders, list) and len(orders) == L, \
+            "missing per-layer stored-to-original permutations"
+        expected = list(range(vn))
+        original_sep = sorted(int(x) for x in m["newline_idx"])
+        for li, order in enumerate(orders):
+            assert isinstance(order, list) and len(order) == vn, \
+                f"invalid permutation length at layer {li}"
+            assert sorted(int(x) for x in order) == expected, \
+                f"invalid stored-to-original permutation at layer {li}"
+            stored_sep = self.separator_positions(li)
+            assert sorted(int(order[p]) for p in stored_sep) == original_sep, \
+                f"separator mapping disagrees with permutation at layer {li}"
+        self._reordered_prefix_store_validated = True
+
+    def validate_prefix_layout(self, expected_layout):
+        """Validate an explicitly named physical layout for Prefix loading.
+
+        The historical validator above intentionally remains pinned to the
+        calib=4 per-layer importance store.  New image-only experiments use a
+        single permutation for every layer and therefore need a separate,
+        provenance-aware gate rather than weakening that old contract.
+        """
+        expected_layout = str(expected_layout)
+        if getattr(self, "_prefix_layout_validated", None) == expected_layout:
+            return
+        m = self.meta
+        actual = m.get("physical_layout", m.get("layout_method"))
+        assert actual == expected_layout, \
+            f"expected Prefix layout {expected_layout!r}, got {actual!r}"
+        L, vn = int(m["num_layers"]), int(m["v_token_num"])
+        identity = list(range(vn))
+        raw = m.get("order")
+        if raw:
+            orders = raw if m.get("order_is_per_layer") else [raw] * L
+        else:
+            orders = [identity] * L
+        assert len(orders) == L
+        original_sep = sorted(int(x) for x in m["newline_idx"])
+        for li, order in enumerate(orders):
+            assert len(order) == vn and sorted(int(x) for x in order) == identity, \
+                f"invalid {expected_layout} permutation at layer {li}"
+            stored_sep = self.separator_positions(li)
+            assert sorted(int(order[p]) for p in stored_sep) == original_sep, \
+                f"separator mapping disagrees at layer {li}"
+
+        if expected_layout == "visionzip_image_only":
+            assert m.get("reordered") is True
+            assert m.get("order_is_per_layer") is False, \
+                "image-only VisionZip must use one global layer-independent order"
+            assert m.get("global_order_all_layers") is True
+            assert m.get("layout_uses_dataset_question") is False
+            assert m.get("llm_used_for_layout_scoring") is False
+            assert int(m.get("calibration_questions", -1)) == 0
+            assert m.get("separator_tail") is True
+            n_sep = len(original_sep)
+            expected_tail = list(range(vn - n_sep, vn))
+            assert self.separator_positions(0) == expected_tail
+            assert all(self.separator_positions(li) == expected_tail
+                       for li in range(L))
+            assert (self.dir / "visionzip_layout.pt").is_file(), \
+                "missing question-independent layout artifact"
+        elif expected_layout == "raster":
+            assert all([int(x) for x in order] == identity for order in orders)
+            assert m.get("layout_uses_dataset_question") is False
+            assert int(m.get("calibration_questions", -1)) == 0
+        elif expected_layout == "morton":
+            assert m.get("order_is_per_layer") is False
+            assert m.get("separator_tail") is True
+        elif expected_layout == "calib_importance_sep_tail":
+            assert m.get("order_is_per_layer") is True
+            assert int(m.get("calibration_questions", -1)) > 0
+            assert m.get("separator_tail") is True
+        else:
+            raise AssertionError(f"unsupported explicit Prefix layout: {expected_layout}")
+        self._prefix_layout_validated = expected_layout
+        self._reordered_prefix_store_validated = True
+
+    def read_sep_kv(self, counter=None):
+        """Always-loaded row-separator KV: (2, L, n_sep, H, hd), one read.
+
+        Prefix-chunk loading shares this exact timed path with scored methods;
+        all metadata derivation and validation happened in ``__init__`` before
+        the request timer.
+        """
         import os
         import time as _t
         import numpy as _np
-        shape = tuple(static["sep_kv_shape"])
+        shape = self.sep_kv_shape
         n = int(_np.prod(shape))
-        fd = os.open(self.dir / "sep_kv.bin", os.O_RDONLY)
+        path = self.dir / "sep_kv.bin"
+        fd = os.open(path, os.O_RDONLY)
         try:
             t0 = _t.perf_counter()
             buf = os.pread(fd, n * 2, 0)
@@ -371,9 +502,22 @@ def suffix_ids_for(runner, question):
     The stored prefix already covers [system tokens | expanded image block], so
     a request only needs the text after <image>: one tokenizer call, no pixels.
     """
+    return suffix_ids_from_prompt(runner, runner.prompt(question))
+
+
+def suffix_ids_from_prompt(runner, prompt):
+    """Token ids after the sole image span in an arbitrary formatted prompt.
+
+    The SSD single-image path is valid only when the image is the first and
+    only multimodal block.  Explicit assertions prevent this helper from being
+    accidentally used to concatenate independent MMDU image-prefix stores.
+    """
     tok = runner.processor.tokenizer
-    ids = tok(runner.prompt(question), return_tensors="pt").input_ids[0]
-    i = int((ids == runner.image_token_id).nonzero()[0, 0])
+    ids = tok(prompt, return_tensors="pt").input_ids[0]
+    image_pos = (ids == runner.image_token_id).nonzero(as_tuple=True)[0]
+    assert image_pos.numel() == 1, \
+        f"stored single-image path needs one <image>, got {image_pos.numel()}"
+    i = int(image_pos[0])
     return ids[i + 1:]
 
 
@@ -456,7 +600,8 @@ class Server:
         }
 
     @torch.no_grad()
-    def request(self, ctx, question, mode="impress", cold=True):
+    def request(self, ctx, question=None, mode="impress", cold=True,
+                prompt_text=None, suffix_ids=None):
         """Serve one question with true-TTFT and end-to-end timing.
 
         ``ttft`` ends immediately after the first output token is available;
@@ -471,16 +616,24 @@ class Server:
         counter = IOCounter()
         dev = self.runner.model.device
         # Tokenization and request-input H2D are outside the online timers.
-        suffix_ids = suffix_ids_for(self.runner, question).to(dev)
+        if suffix_ids is None:
+            suffix_ids = (suffix_ids_from_prompt(self.runner, prompt_text)
+                          if prompt_text is not None
+                          else suffix_ids_for(self.runner, question))
+        suffix_ids = suffix_ids.to(dev)
 
         torch.cuda.synchronize()
         t0 = time.perf_counter()
-        rr = self.raters(ctx, suffix_ids)
+        # FullLoad has no selector and must not pay a history-length-dependent
+        # SparseVLM rater cost.  Existing artifacts remain untouched; this is
+        # the causal multi-turn measurement path used by new runs.
+        rr = (self.raters(ctx, suffix_ids) if mode != "fullload"
+              else torch.empty(0, dtype=torch.long, device=dev))
         sel = LayerSelector(self.runner, ctx, rr, self.ratio, self.probe,
                             self.alpha, mode=mode, counter=counter)
         cache = ctx.cache.new_request()
         with sel:
-            answer, _, timing = self._decode(
+            answer, first_token_id, timing = self._decode(
                 cache, suffix_ids, ctx.meta["prefix_len"])
         ttft = timing["first_token_at"] - t0
         e2e = timing["finished_at"] - t0
@@ -488,6 +641,7 @@ class Server:
         del cache
         return {
             "answer": answer,
+            "first_token_id": first_token_id,
             "ttft": ttft,
             "decode_latency": timing["decode_ms"] / 1e3,
             "e2e_latency": e2e,
@@ -501,10 +655,11 @@ class Server:
         }
 
     @torch.no_grad()
-    def request_cvpr25(self, ctx, question, static, budget=0.25,
+    def request_cvpr25(self, ctx, question=None, static=None, budget=0.25,
                        mode="static", lam_static=1.0, lam_query=1.0,
                        sep_policy="force", diverse_frac=0.25, cold=True,
-                       seed=0, image_id=""):
+                       seed=0, image_id="", prompt_text=None,
+                       suffix_ids=None, expected_prefix_layout=None):
         """Hook-free chunk-first request.
 
         Selection, reads and cache fill all happen BEFORE the forward, so the
@@ -513,17 +668,33 @@ class Server:
         ``decode_ms`` is subsequent autoregressive generation, and
         ``model_ms`` remains their sum for backwards-compatible diagnostics.
         """
+        # This is deliberately before cache eviction, token preparation and
+        # the request timer.  A Prefix result from a raster/shared-order store
+        # would answer a different research question and must fail closed.
+        if mode == "prefix":
+            if expected_prefix_layout is None:
+                ctx.validate_reordered_prefix_store()
+            else:
+                ctx.validate_prefix_layout(expected_prefix_layout)
         BIAS.clear()
         if cold:
             ctx.reader.drop_all()
         counter = IOCounter()
         dev = self.runner.model.device
         # Tokenization and request-input H2D are outside the online timers.
-        suffix_ids = suffix_ids_for(self.runner, question).to(dev)
+        if suffix_ids is None:
+            suffix_ids = (suffix_ids_from_prompt(self.runner, prompt_text)
+                          if prompt_text is not None
+                          else suffix_ids_for(self.runner, question))
+        suffix_ids = suffix_ids.to(dev)
 
         torch.cuda.synchronize()
         t0 = time.perf_counter()
-        text_emb = self.runner.model.get_input_embeddings()(suffix_ids.to(dev))
+        # The final static_diverse method is query-independent.  Avoid an
+        # otherwise unused O(history length) embedding lookup so its measured
+        # selector overhead remains the intended image-level constant.
+        text_emb = (self.runner.model.get_input_embeddings()(suffix_ids)
+                    if mode in ("hybrid", "diverse") else None)
         cache = ctx.cache.new_request()
         sel = CVPR25ChunkSelector(self.runner, ctx, static, budget, mode,
                                   lam_static, lam_query, sep_policy,
@@ -533,7 +704,7 @@ class Server:
         torch.cuda.synchronize()
         t_prep = time.perf_counter() - t0
 
-        answer, _, timing = self._decode(
+        answer, first_token_id, timing = self._decode(
             cache, suffix_ids, ctx.meta["prefix_len"])
         ttft = timing["first_token_at"] - t0
         e2e = timing["finished_at"] - t0
@@ -542,8 +713,17 @@ class Server:
         BIAS.clear()
         del cache
         st = sel.stats()
+        io_summary = counter.summary()
+        per_kind = io_summary.get("per_kind", {})
+        separator_bytes = int(per_kind.get("sep", {}).get("bytes", 0))
+        normal_kv_bytes = int(per_kind.get("k", {}).get("bytes", 0) +
+                              per_kind.get("v", {}).get("bytes", 0))
+        separator_preads = int(per_kind.get("sep", {}).get("preads", 0))
+        normal_kv_preads = int(per_kind.get("k", {}).get("preads", 0) +
+                               per_kind.get("v", {}).get("preads", 0))
         st.update({
             "answer": answer,
+            "first_token_id": first_token_id,
             "ttft": ttft,
             "decode_latency": timing["decode_ms"] / 1e3,
             "e2e_latency": e2e,
@@ -552,7 +732,18 @@ class Server:
             "decode_ms": timing["decode_ms"],
             "model_ms": t_model_ms,
             "generated_tokens": timing["generated_tokens"],
-            "io": counter.summary(),
+            "io": io_summary,
+            "normal_kv_read_bytes": normal_kv_bytes,
+            "separator_read_bytes": separator_bytes,
+            "normal_kv_preads": normal_kv_preads,
+            "separator_preads": separator_preads,
+            "total_actual_pread_bytes": int(io_summary.get("bytes", 0)),
+            "reordered_prefix_store_validated": (
+                bool(getattr(ctx, "_reordered_prefix_store_validated", False))
+                if mode == "prefix" else None),
+            "validated_prefix_layout": (
+                getattr(ctx, "_prefix_layout_validated", None)
+                if mode == "prefix" else None),
             "n_raters": 0,
         })
         st["selector_ms"] = st["select_ms"] + st["query_ms"]
@@ -589,6 +780,7 @@ class Server:
         text = tok.decode(toks, skip_special_tokens=True).strip()
         return {
             "answer": text,
+            "first_token_id": int(toks[0]),
             "ttft": first_token_at - t0,
             "decode_latency": finished_at - decode_t0,
             "e2e_latency": finished_at - t0,
@@ -695,6 +887,8 @@ class CVPR25ChunkSelector:
     """Static (VisionZip) + optional query correction (PACT) over SSD chunks.
 
     modes:
+      "prefix"   first-k chunks in the calibrated, reordered SSD layout;
+                 no static/query/diversity score is loaded or evaluated
       "static"   VisionZip saliency only -- zero per-question identification
       "hybrid"   + a PACT-shaped query correction (one q_proj, one dot product)
       "diverse"  + DivPrune MaxMin tie-breaking among near-equal chunks
@@ -723,7 +917,18 @@ class CVPR25ChunkSelector:
         self.seed = seed
         self.image_id = image_id
         self.chunks_per_layer = []
-        self.kept_tokens = 0
+        self.selected_chunk_ids_per_layer = []
+        self.kept_tokens_per_layer = []
+        self.static_score_calls = 0
+        self.query_score_calls = 0
+        self.diversity_calls = 0
+        assert self.mode == "prefix" or self.static is not None, \
+            f"{self.mode} requires static metadata"
+        if self.mode == "prefix":
+            assert self.static is None, \
+                "prefix baseline must not receive VisionZip/static metadata"
+            assert self.sep_policy == "sidecar", \
+                "prefix baseline is defined with the shared separator sidecar"
 
     # -------------------------------------------------------- query score
     def _query_scores(self, text_emb):
@@ -761,7 +966,7 @@ class CVPR25ChunkSelector:
         self._sep = None
         if self.sep_policy == "sidecar":
             t0 = time.perf_counter()
-            self._sep = ctx.read_sep_kv(self.static, self.io)
+            self._sep = ctx.read_sep_kv(self.io)
             self.t["chunk_io"] += time.perf_counter() - t0
 
         qs = None
@@ -769,6 +974,7 @@ class CVPR25ChunkSelector:
             torch.cuda.synchronize()
             t0 = time.perf_counter()
             qs = self._query_scores(text_emb)
+            self.query_score_calls += 1
             torch.cuda.synchronize()
             self.t["query"] += time.perf_counter() - t0
 
@@ -783,9 +989,15 @@ class CVPR25ChunkSelector:
                 query_score=(qs[li] if qs is not None else None),
                 lam_static=self.lam_static, lam_query=self.lam_query,
                 diverse_frac=self.diverse_frac, seed=self.seed,
-                image_id=self.image_id)
+                image_id=self.image_id, n_chunks=nc)
+            if self.mode in ("static", "hybrid", "diverse",
+                             "static_diverse"):
+                self.static_score_calls += 1
+            if self.mode in ("diverse", "static_diverse", "diverse_only"):
+                self.diversity_calls += 1
             self.t["select"] += time.perf_counter() - t0
             self.chunks_per_layer.append(len(cids))
+            self.selected_chunk_ids_per_layer.append([int(c) for c in cids])
 
             t0 = time.perf_counter()
             loaded = {}
@@ -801,13 +1013,12 @@ class CVPR25ChunkSelector:
             keep = torch.zeros(vn, dtype=torch.bool)
             keep[loaded["k"][0]] = True          # whole chunks are readable
             if self.sep_policy == "sidecar":
-                sp = torch.tensor(self.static["sep_pos"][li],
+                sp = torch.tensor(ctx.separator_positions(li),
                                   dtype=torch.long)
                 ctx.cache.write(li, "k", sp, self._sep[0][li])
                 ctx.cache.write(li, "v", sp, self._sep[1][li])
                 keep[sp] = True
-            if li == 0:
-                self.kept_tokens = int(keep.sum())
+            self.kept_tokens_per_layer.append(int(keep.sum()))
             BIAS[li] = bias_from_keep(keep, m, dev)
             torch.cuda.synchronize()
             self.t["scatter"] += time.perf_counter() - t0
@@ -818,10 +1029,21 @@ class CVPR25ChunkSelector:
                 "n_chunks_total": nc,
                 "touched_chunk_fraction": float(np.mean(self.chunks_per_layer))
                 / nc,
-                "logical_kv_ratio": self.kept_tokens
+                "logical_kv_ratio": float(np.mean(self.kept_tokens_per_layer))
                 / self.ctx.meta["v_token_num"],
+                "logical_kv_ratio_per_layer": [
+                    n / self.ctx.meta["v_token_num"]
+                    for n in self.kept_tokens_per_layer],
                 "fallback_rate": 0.0,
                 "mean_jaccard": None,
+                "selection_mode": self.mode,
+                "selected_chunk_ids_per_layer":
+                    self.selected_chunk_ids_per_layer,
+                "normal_chunk_count_total": int(sum(self.chunks_per_layer)),
+                "static_score_calls": int(self.static_score_calls),
+                "query_score_calls": int(self.query_score_calls),
+                "diversity_calls": int(self.diversity_calls),
+                "separator_policy": self.sep_policy,
                 "select_ms": self.t["select"] * 1e3,
                 "query_ms": self.t["query"] * 1e3,
                 "chunk_io_ms": self.t["chunk_io"] * 1e3,
@@ -832,4 +1054,8 @@ class CVPR25ChunkSelector:
 def load_static(ctx):
     p = ctx.dir / "static.pt"
     assert p.exists(), f"missing static sidecar: run scripts/06_build_static.py"
-    return torch.load(p, weights_only=True)
+    static = torch.load(p, weights_only=True)
+    assert tuple(static["sep_kv_shape"]) == ctx.sep_kv_shape
+    assert [[int(x) for x in row] for row in static["sep_pos"]] == \
+        ctx._separator_positions
+    return static

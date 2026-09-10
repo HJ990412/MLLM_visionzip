@@ -1,0 +1,24 @@
+{
+ "expected_csv_rows": 1440,
+ "actual_csv_rows": 1440,
+ "unique_images": 40,
+ "unique_questions": 240,
+ "duplicate_method_image_question_rows": 0,
+ "requests_per_method": {
+  "fullload": 240,
+  "recompute": 240,
+  "sparsevlm": 240,
+  "static_diverse_chunk@10": 240,
+  "static_diverse_chunk@15": 240,
+  "static_diverse_chunk@20": 240
+ },
+ "all_required_times_finite_nonnegative": true,
+ "ttft_lt_e2e_fraction": 1.0,
+ "multi_token_requests": 1440,
+ "multi_token_decode_positive_fraction": 1.0,
+ "max_abs_e2e_minus_ttft_decode_ms": 0.0,
+ "max_abs_static_ttft_minus_prepare_prefill_ms": 0.13976095942780375,
+ "generated_tokens_min": 2,
+ "generated_tokens_max": 16,
+ "generated_token_cap_respected": true
+}

@@ -1,0 +1,87 @@
+{
+  "analysis": "supplementary_calib1_prefix_vs_static_diverse",
+  "code_sha256": {
+    "analyzer": "41d251389aaa9fc68ce45f985539f386a81d920538bb2b207af49174c6c5a715",
+    "shared_statistics_helpers": "8ab1988b29933ced023cdaa702b4568e2b616e10a0d833bd80a727e14d23e39b"
+  },
+  "created_at": "2026-09-11T00:31:53+0900",
+  "provenance_limitation": {
+    "meta_records_calibration_count": false,
+    "statement": "calib1 store was composed from a calib4 store copy; bitwise tie-order equivalence to a fresh raster-to-calib1 build is not guaranteed",
+    "status": "declared_composed_layout_not_bitwise_fresh_verified"
+  },
+  "schema_version": 1,
+  "source": {
+    "command": "/home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/04_eval.py --store kvstore_reorder_prefix_calib1 --index data/index.json --limit 40 --skip 4 --questions 6 --expect-images 40 --expect-questions 240 --ratio 0.25 --budget 0.25 --selectors reorder_prefix_chunk,static_diverse_chunk --sep-policy sidecar --no-recompute --static-build-summary runs/reorder_prefix_baseline/calib1_pair25/calib1_static_build.json --run-dir runs/reorder_prefix_baseline/calib1_pair25",
+    "per_request_sha256": "51720040ffa126d6500fcef758777fbaf88ab7bd78bc1170e6d5bed987158454",
+    "results_sha256": "598bc3384205fef6da8ae2d61c250f77c5b0363ea68333b721791bcb1893c851",
+    "run_dir": "/home/dblab/hj/mllm_v2/runs/reorder_prefix_baseline/calib1_pair25",
+    "static_build_sha256": "2d145d325d053b1ba6ac3ed47b118bd6e5a381634d143a1c0d07ca92625c3c10"
+  },
+  "statistics": {
+    "primary": "image-cluster paired bootstrap",
+    "resamples": 10000,
+    "seed": 0,
+    "supplement": [
+      "question paired bootstrap",
+      "exact McNemar"
+    ]
+  },
+  "store": {
+    "large_payload_content_hash_performed": false,
+    "meta_sha256_by_image": {
+      "n133585": "9cc1a849a8de38005a427d6a636e256f31aa13951ec301962a9295c0fd43ab51",
+      "n154856": "a2560c9bd118756260ee6cd1b0f1d661f4b7c6c8e9cfa34f057cda59b090e1af",
+      "n16425": "640b5d5024e53215ed6bacf7a33263d3e844970299847ecebe09dd4ced7bb348",
+      "n166008": "ff61f4934e525a6fe3efbbe9b0eaf2339deb301ecfdaadb049102a78390cf927",
+      "n16656": "605c6adc25439e1e7edd939059d9886b0c541bbdb6c46be95cf98b97463e8584",
+      "n195249": "2577ed3ce10ebb5090e1e1f2ad1d5a17f8a34d53966c08acf3bbb558c5b3caa7",
+      "n199286": "5b9584cf9f8dafcde8bbcc03a7b7e49d0c6fb078380d39b5f5525b487cb24e1d",
+      "n234722": "24ab36b25996edec28f50ad57624a618a30dcb6bed46c45024e9e84141353757",
+      "n244826": "9ce559ebc312fe34cde5d70a4be7e8468723fb05e4ae7b1293c1590de7f35cd8",
+      "n262929": "514e79f0838a9c6f56f5acb4a7cffb0b1687b910ac8335c8887f6226c967b5b2",
+      "n272098": "d7171d925f856a84d75f78ad4317d47478299720646d374836bffeb5342be5c9",
+      "n281241": "d8b7d578f8de0ca94154aa38512b8321778d859759da2433ee7a0dff330cc396",
+      "n293477": "2deb29e47709370bc6b9e9dd60b69211fa9d4830c3933c8c8f55d9cff4916b17",
+      "n298104": "d5cdaa36429d0c35f1c8fe5a45e8bbde60ffd6b1c18361e3b47a1312fad4633e",
+      "n302387": "ae35e997ed1763216c13c841bd35603fae7baf6fa3ff4083b35831a6cc27a698",
+      "n314171": "62617a2630b832a9834dede5b4ea7c2ab412dafb7259881521c5ebe0503edd60",
+      "n329479": "bfcd18c3d3fc2420a356aebd1df12212d9a0f7817d09e23f2e50cd18cc6b72a0",
+      "n331357": "303a485d77400b99ebaf19da56a12db5c73e48d0c2fd396107e89835865885b7",
+      "n355567": "373d7e3184809e4e9de3eaf3c4cb96ced960b63b07cc5985d03c186a45bbb117",
+      "n37274": "67b171a8a569ca223ef3056c969d7b9052cded1613f2356381c7e679d3096bd4",
+      "n390187": "2e82a21e142a4ee38dbfb5cbd4f11e063349b57d84635a7dc6eb47bc0410740a",
+      "n406334": "45f0e5cc86c6d5b66dd124d2a4fd0e37d3c93e40346d4777222b8b81512d6c63",
+      "n437064": "a816fcee90ab5a5ff717d603fc9727efb04f3d11ad764b3d1630e07d45a2effa",
+      "n44249": "c3c022741bcb7c49f26a094000fd7695913914e7b0a838429ed2b6ff093acacb",
+      "n450919": "9be946abe771e2d8445c921769da2fd9ff9cc4358bcc8272363b375e566363c2",
+      "n470131": "656e06c242330ac81f71c173714beb227aaaf6f7c17eee0ad445d4a111e1aba5",
+      "n472825": "a968ecca855ca2138ee6aecdae71ff8cd03e9a62fe0132d7d9515ee80e69470a",
+      "n48494": "2a59d6f839aa2e48a4867e592be77490ffa8b2a817826cd83c1c29a63d4d1df0",
+      "n494918": "c3bd1807135be50263b3927c35cefb11b90ac7f7c1f4b2a0cab334029618a4f5",
+      "n498140": "fd9394bae91361ed656fe054e156df317b14442373c6594601c7ddfe8c9e5ed2",
+      "n51002": "bd7f8a2c68df5b049a9830efd08c23627c8af6241cdf9b033edfe0a9cc3d305f",
+      "n522733": "46abef80a248865527e3e61f8e1cb7a58834f99be128cba65d4c45f83d1cbf3d",
+      "n52544": "4db20202435f64ef67e0388179e55940199ea8adfc8c7627207505aca2ea5567",
+      "n527589": "bd614cafe1077e2be376699608354634f7c90aeb4fa5d12cb927297c5117644e",
+      "n540852": "111bc2d7c6d9e04c3da3e28965114ea475138f807054a6f9e67f01f014aa3438",
+      "n567860": "17f44f44c13b73b059666a3b2cb1477691eebcc1f08d2e16fbd1fd0b0add6f87",
+      "n58220": "9c3833e3b48fa40fb84b9e3e007f63c6b3b366c078b6cee1e8091f1e423c3a0e",
+      "n67005": "2c7cdf80f0c0298db000dc692c10f193f30aba253dd346592ce2321a64f98c52",
+      "n90294": "e575b20d9e2c81fb694c81dfcf9770b0673dde599bc9fbc09c5ca794a13421d2",
+      "n9181": "b47494c790b0aca985fbbfdbd5a0e174c24c1bfc199fc58222107daec3c9bf4e"
+    },
+    "metadata_only_validation": true,
+    "path": "/home/dblab/hj/mllm_v2/kvstore_reorder_prefix_calib1",
+    "payload_bytes_stat_checked": 46602911744,
+    "payload_files_stat_checked": 2560
+  },
+  "workload": {
+    "calibration_question_ids_sha256": "ba6b7e06c31853e2ef6009627026674b0e54e1b40d77e0def59c7c60be148438",
+    "calibration_questions_per_image": 1,
+    "evaluation_slice": "questions[4:10]",
+    "evaluation_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66",
+    "index": "/home/dblab/hj/mllm_v2/data/index.json",
+    "index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a"
+  }
+}

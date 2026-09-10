@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "validated_on": "2026-09-08",
+  "workload": {
+    "unique_images": 40,
+    "unique_questions": 240,
+    "questions_per_image_min": 6,
+    "questions_per_image_max": 6,
+    "questions_per_image_mean": 6.0,
+    "index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+    "ordered_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66"
+  },
+  "configuration": {
+    "static_diverse_budgets": [0.1, 0.15, 0.2],
+    "sparsevlm_token_retention": 0.25,
+    "separator_policy": "sidecar",
+    "diverse_fraction": 0.25,
+    "cold_page_cache": true,
+    "max_new_tokens": 16
+  },
+  "artifact_counts": {
+    "methods": 6,
+    "requests_per_method": 240,
+    "per_request_rows": 1440,
+    "duplicate_method_image_question_rows": 0
+  },
+  "timing_invariants": {
+    "all_required_times_finite_nonnegative": true,
+    "ttft_lt_e2e_requests": 1440,
+    "ttft_lt_e2e_total": 1440,
+    "multi_token_decode_positive_requests": 1440,
+    "multi_token_requests": 1440,
+    "max_abs_e2e_minus_ttft_minus_decode_ms": 0.0,
+    "max_abs_static_ttft_minus_prepare_minus_prefill_ms": 0.13976095942780375,
+    "generated_tokens_min": 2,
+    "generated_tokens_max": 16,
+    "generated_token_cap_respected": true
+  },
+  "baseline_prediction_regression": [
+    {
+      "method_key": "recompute",
+      "reference": "runs/gqa40_240_true_ttft/results.json:recompute",
+      "predictions_equal": 240,
+      "accuracy_values_equal": 240,
+      "total": 240
+    },
+    {
+      "method_key": "fullload",
+      "reference": "runs/gqa40_240_true_ttft/results.json:fullload",
+      "predictions_equal": 240,
+      "accuracy_values_equal": 240,
+      "total": 240
+    },
+    {
+      "method_key": "sparsevlm",
+      "reference": "runs/gqa40_240_true_ttft/results.json:sparsevlm",
+      "predictions_equal": 240,
+      "accuracy_values_equal": 240,
+      "total": 240
+    }
+  ],
+  "static_diverse": [
+    {
+      "budget": 0.1,
+      "accuracy": 0.37916666666666665,
+      "accuracy_delta_vs_fullload_pp": -24.16666666666667,
+      "accuracy_delta_vs_sparsevlm_pp": -22.083333333333332,
+      "ttft_mean_ms": 243.31553641071272,
+      "ttft_p50_ms": 208.07983301347122,
+      "ttft_p95_ms": 273.65996358275873,
+      "ttft_reduction_vs_fullload_pct": 63.52488468205594,
+      "ttft_reduction_vs_recompute_pct": 51.6669837643671,
+      "e2e_mean_ms": 299.8895826152875,
+      "ssd_read_bytes_mean": 133615616.0,
+      "ssd_read_bytes_total": 32067747840,
+      "ssd_bytes_vs_fullload_pct": 11.468434996849968,
+      "ssd_read_chunk_units_mean": 224.0,
+      "selected_chunks_per_layer_mean": 3.5,
+      "touched_chunk_fraction_mean": 0.09904073581159596,
+      "requests_hitting_16_token_cap": 15
+    },
+    {
+      "budget": 0.15,
+      "accuracy": 0.525,
+      "accuracy_delta_vs_fullload_pp": -9.583333333333332,
+      "accuracy_delta_vs_sparsevlm_pp": -7.499999999999996,
+      "ttft_mean_ms": 283.3663375293933,
+      "ttft_p50_ms": 253.31767450552434,
+      "ttft_p95_ms": 330.50514960777934,
+      "ttft_reduction_vs_fullload_pct": 57.52092122402992,
+      "ttft_reduction_vs_recompute_pct": 43.71115797011229,
+      "e2e_mean_ms": 319.36015262714744,
+      "ssd_read_bytes_mean": 195500441.6,
+      "ssd_read_bytes_total": 46920105984,
+      "ssd_bytes_vs_fullload_pct": 16.780105301053013,
+      "ssd_read_chunk_units_mean": 344.0,
+      "selected_chunks_per_layer_mean": 5.375,
+      "touched_chunk_fraction_mean": 0.15241035084529267,
+      "requests_hitting_16_token_cap": 4
+    },
+    {
+      "budget": 0.2,
+      "accuracy": 0.5875,
+      "accuracy_delta_vs_fullload_pp": -3.3333333333333326,
+      "accuracy_delta_vs_sparsevlm_pp": -1.2499999999999956,
+      "ttft_mean_ms": 307.8144662543006,
+      "ttft_p50_ms": 290.27643700828776,
+      "ttft_p95_ms": 366.47099265828723,
+      "ttft_reduction_vs_fullload_pct": 53.85593407317376,
+      "ttft_reduction_vs_recompute_pct": 38.85469947994346,
+      "e2e_mean_ms": 335.16114461332717,
+      "ssd_read_bytes_mean": 246963404.8,
+      "ssd_read_bytes_total": 59271217152,
+      "ssd_bytes_vs_fullload_pct": 21.197251035010353,
+      "ssd_read_chunk_units_mean": 443.2,
+      "selected_chunks_per_layer_mean": 6.925,
+      "touched_chunk_fraction_mean": 0.19780632435315978,
+      "requests_hitting_16_token_cap": 0
+    }
+  ],
+  "tail_events": {
+    "criterion": "Static+Diverse true TTFT greater than 1000 ms",
+    "requests_per_budget": 2,
+    "included_in_primary_statistics": true,
+    "request_keys": [
+      ["n293477", "20856756"],
+      ["n44249", "20935919"]
+    ],
+    "observation": "The same requests show stalls in every SSD-backed arm while ReComp remains normal; means and standard deviations include these events."
+  }
+}

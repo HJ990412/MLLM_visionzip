@@ -1,0 +1,120 @@
+{
+ "schema_version": 1,
+ "phase": "posthoc_direct",
+ "all_passed": true,
+ "direct_vs_posthoc": {
+  "passed": true,
+  "n_images": 3,
+  "n_requests": 9,
+  "selected_prefix_kv_exact": true,
+  "prediction_agreement": 1.0,
+  "first_token_agreement": 1.0,
+  "rows": [
+   {
+    "image_id": "n355567",
+    "permutation_sha256": "9e4888125921dcaedaf99e527e8461fc9bac3793a89fc0768bf3785411fa7ba3",
+    "selected_prefix_digest_direct": "5dfb27748d44e768a7e1a0594150ea390831e0a4c3693b20c2e7d8cfb44c2a3d",
+    "selected_prefix_digest_posthoc": "5dfb27748d44e768a7e1a0594150ea390831e0a4c3693b20c2e7d8cfb44c2a3d",
+    "selected_prefix_kv_exact": true,
+    "selected_rows": 512,
+    "selected_chunks": 8,
+    "shape_agreement": true,
+    "predictions": [
+     {
+      "question_id": "201751701",
+      "prediction_equal": true,
+      "first_token_equal": true,
+      "direct_prediction": "Yes",
+      "posthoc_prediction": "Yes"
+     },
+     {
+      "question_id": "201751740",
+      "prediction_equal": true,
+      "first_token_equal": true,
+      "direct_prediction": "Yes",
+      "posthoc_prediction": "Yes"
+     },
+     {
+      "question_id": "201751873",
+      "prediction_equal": true,
+      "first_token_equal": true,
+      "direct_prediction": "Small",
+      "posthoc_prediction": "Small"
+     }
+    ]
+   },
+   {
+    "image_id": "n9181",
+    "permutation_sha256": "35351e6cba453e8983b5194ff9143a03c357ca1abeff69534ec42ebe67b822d9",
+    "selected_prefix_digest_direct": "b42e5eada98ecf644b5b319689f7af88ebf431276f00adb6844b163bf254e3b1",
+    "selected_prefix_digest_posthoc": "b42e5eada98ecf644b5b319689f7af88ebf431276f00adb6844b163bf254e3b1",
+    "selected_prefix_kv_exact": true,
+    "selected_rows": 576,
+    "selected_chunks": 9,
+    "shape_agreement": true,
+    "predictions": [
+     {
+      "question_id": "20929611",
+      "prediction_equal": true,
+      "first_token_equal": true,
+      "direct_prediction": "Yes",
+      "posthoc_prediction": "Yes"
+     },
+     {
+      "question_id": "20929389",
+      "prediction_equal": true,
+      "first_token_equal": true,
+      "direct_prediction": "No",
+      "posthoc_prediction": "No"
+     },
+     {
+      "question_id": "20929384",
+      "prediction_equal": true,
+      "first_token_equal": true,
+      "direct_prediction": "No",
+      "posthoc_prediction": "No"
+     }
+    ]
+   },
+   {
+    "image_id": "n390187",
+    "permutation_sha256": "89aa7e31218da2a852423740797df0ed2e2811e1334879ccbb0f00dec4dbb085",
+    "selected_prefix_digest_direct": "3b8573dd14c4489200a0b7937dfeef7c8052be678547a031a9bd14cac69b8a17",
+    "selected_prefix_digest_posthoc": "3b8573dd14c4489200a0b7937dfeef7c8052be678547a031a9bd14cac69b8a17",
+    "selected_prefix_kv_exact": true,
+    "selected_rows": 576,
+    "selected_chunks": 9,
+    "shape_agreement": true,
+    "predictions": [
+     {
+      "question_id": "201861403",
+      "prediction_equal": true,
+      "first_token_equal": true,
+      "direct_prediction": "Motorcycle",
+      "posthoc_prediction": "Motorcycle"
+     },
+     {
+      "question_id": "201861402",
+      "prediction_equal": true,
+      "first_token_equal": true,
+      "direct_prediction": "Motorcycle",
+      "posthoc_prediction": "Motorcycle"
+     },
+     {
+      "question_id": "201861409",
+      "prediction_equal": true,
+      "first_token_equal": true,
+      "direct_prediction": "No",
+      "posthoc_prediction": "No"
+     }
+    ]
+   }
+  ]
+ },
+ "inputs": {
+  "index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+  "evaluation_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66",
+  "direct_store": "/home/dblab/hj/mllm_v2/kvstore_image_only_visionzip",
+  "posthoc_store": "/home/dblab/hj/mllm_v2/kvstore_image_only_work"
+ }
+}

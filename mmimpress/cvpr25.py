@@ -55,6 +55,8 @@ What is borrowed, and from where (exact files in
 """
 from __future__ import annotations
 
+import hashlib
+
 import torch
 
 # --------------------------------------------------- VisionZip static score
@@ -117,6 +119,54 @@ def anyres_token_scores(runner, per_sub_scores, image_size, v_num,
     body[:, :hi_w] = kept
     body[:, hi_w] = float("inf")                           # row separators
     return scores
+
+
+def visionzip_repack_order(token_scores, newline_idx):
+    """Return the deterministic image-only physical Visual-KV order.
+
+    ``token_scores`` is in the model's original visual-token coordinate and is
+    produced by :func:`anyres_token_scores`.  LLaVA-NeXT row separators carry
+    ``+inf`` there because selection-time code must always retain them.  That
+    convention must *not* leak into physical layout construction: sorting the
+    tensor naively would place every separator at the front and spend the
+    normal Prefix budget on structural rows that are already supplied by the
+    separator sidecar.
+
+    Real patches are therefore stable-sorted by decreasing VisionZip score and
+    separators are appended at the tail in original order.  The returned list
+    follows the repository-wide mapping convention ``stored = original[perm]``.
+    No question, LLM state, calibration score, or layer index is accepted by
+    this function; one image consequently has one global permutation shared by
+    every decoder layer.
+    """
+    scores = torch.as_tensor(token_scores, dtype=torch.float32).flatten().cpu()
+    n = int(scores.numel())
+    separators = sorted({int(i) for i in newline_idx})
+    if any(i < 0 or i >= n for i in separators):
+        raise ValueError("separator index is outside the visual-token span")
+    sep_set = set(separators)
+    real = [i for i in range(n) if i not in sep_set]
+    if not torch.isfinite(scores[torch.tensor(real, dtype=torch.long)]).all():
+        raise ValueError("every real visual patch must have a finite saliency")
+
+    # ``stable=True`` makes equal scores retain ``real``'s original-index
+    # order, which is the deterministic tie policy required by the experiment.
+    if real:
+        real_t = torch.tensor(real, dtype=torch.long)
+        ranked = torch.argsort(scores[real_t], descending=True, stable=True)
+        ordered_real = real_t[ranked].tolist()
+    else:
+        ordered_real = []
+    perm = [int(i) for i in ordered_real] + separators
+    if len(perm) != n or sorted(perm) != list(range(n)):
+        raise AssertionError("VisionZip repack order is not a full permutation")
+    return perm
+
+
+def permutation_sha256(stored_to_original):
+    """Portable digest for a stored->original integer permutation."""
+    payload = ",".join(str(int(i)) for i in stored_to_original).encode("ascii")
+    return hashlib.sha256(payload).hexdigest()
 
 
 # ----------------------------------------------------- chunk-level ranking
@@ -276,8 +326,8 @@ def maxmin_diverse(desc, k, seeds=None):
 # shared by every strategy, so a difference in the results can only come from
 # WHICH chunks were chosen, never from how they were fetched.
 
-STRATEGIES = ("static", "hybrid", "diverse", "static_diverse", "diverse_only",
-              "random")
+STRATEGIES = ("prefix", "static", "hybrid", "diverse", "static_diverse",
+              "diverse_only", "random")
 
 
 def _rng_for(seed, image_id, layer):
@@ -304,11 +354,22 @@ def budget_chunk_count(n_chunks, budget):
     return max(1, min(n_chunks, int(round(budget * n_chunks))))
 
 
+def prefix_chunk_ids(n_chunks, budget):
+    """The calibration-reorder-only baseline: first ``k`` stored chunks.
+
+    This deliberately has no score tensor, query input, or diversity state.
+    ``budget_chunk_count`` is shared with every scored strategy so a Prefix25
+    versus Static+Diverse25 comparison changes chunk identity, never volume.
+    """
+    return list(range(budget_chunk_count(n_chunks, budget)))
+
+
 def choose_chunks(mode, layer, static, budget, force=(), query_score=None,
                   lam_static=1.0, lam_query=1.0, diverse_frac=0.25,
-                  seed=0, image_id=""):
+                  seed=0, image_id="", n_chunks=None):
     """Chunk ids for one layer.  Returns (cids, score_or_None).
 
+    prefix          first-k chunks in the already-reordered SSD layout
     static          VisionZip image saliency only, top-k by chunk score
     hybrid          + PACT-shaped query correction
     diverse         hybrid, then DivPrune MaxMin over the tail
@@ -316,8 +377,15 @@ def choose_chunks(mode, layer, static, budget, force=(), query_score=None,
     diverse_only    DivPrune MaxMin alone, no saliency, no query
     random          uniform chunks, no scoring of any kind
     """
-    chunk_scores = static["chunk_score"][layer]
-    nc = chunk_scores.numel()
+    if mode == "prefix":
+        if n_chunks is None:
+            raise ValueError("prefix selection requires explicit n_chunks")
+        nc = int(n_chunks)
+        return prefix_chunk_ids(nc, budget), None
+
+    if static is None:
+        raise ValueError(f"{mode} requires static metadata")
+    nc = int(static["chunk_score"].shape[-1])
     k = budget_chunk_count(nc, budget)
     force = sorted({int(c) for c in force})
 
@@ -336,6 +404,7 @@ def choose_chunks(mode, layer, static, budget, force=(), query_score=None,
                               seeds=force or None)
         return sorted(cids), None
 
+    chunk_scores = static["chunk_score"][layer]
     score = lam_static * zscore(chunk_scores)
     if query_score is not None and mode in ("hybrid", "diverse"):
         score = score + lam_query * query_score

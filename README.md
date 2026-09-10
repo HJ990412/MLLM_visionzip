@@ -859,3 +859,194 @@ selection/read/scatter까지 포함하는 hook-inclusive 값이며 순수 model 
 재현 명령, timing 정의와 machine-readable validation은
 `runs/gqa40_240_true_ttft/`에 있다. `ssd_read_chunks`는 unique chunk 수가 아니라
 layer/file별 물리 K/V span과 SparseVLM probe-sidecar chunk-equivalent의 합이다.
+
+## 12. Static+Diverse low-budget sweep: 10% / 15% / 20% (2026-09-08)
+
+§11과 완전히 같은 frozen GQA 40 images / 240 questions, model, calibration,
+reordered KV store, 64-token chunk, separator sidecar와 cold-cache 조건에서
+Static+Diverse budget만 10/15/20%로 바꿨다. ReComp, FullLoad, SparseVLM은 한
+번씩 같은 run 안에서 다시 측정했다.
+
+| Method | Retention | Accuracy | True TTFT mean | p50 | p95 | Decode mean | E2E mean | SSD Read |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| ReComp | - | 62.5% | 503.4 ms | 507.8 | 588.1 | 26.1 ms | 529.6 ms | 0.0 MB |
+| FullLoad | 100% | 62.1% | 667.1 ms | 653.9 | 800.4 | 32.0 ms | 699.0 ms | 1165.1 MB |
+| SparseVLM | 25% token | 60.0% | 750.3 ms | 741.9 | 878.5 | 38.0 ms | 788.3 ms | 928.1 MB |
+| Static+Diverse | 10% | 37.9% | 243.3 ms | 208.1 | 273.7 | 56.6 ms | 299.9 ms | 133.6 MB |
+| Static+Diverse | 15% | 52.5% | 283.4 ms | 253.3 | 330.5 | 36.0 ms | 319.4 ms | 195.5 MB |
+| **Static+Diverse** | **20%** | **58.8%** | **307.8 ms** | **290.3** | **366.5** | **27.3 ms** | **335.2 ms** | **247.0 MB** |
+
+| Budget | ΔAcc vs FullLoad | ΔAcc vs SparseVLM | TTFT 감소 vs Full | TTFT 감소 vs ReComp | SSD bytes / Full |
+|---:|---:|---:|---:|---:|---:|
+| 10% | −24.2 pp | −22.1 pp | 63.5% | 51.7% | 11.47% |
+| 15% | −9.6 pp | −7.5 pp | 57.5% | 43.7% | 16.78% |
+| 20% | −3.3 pp | −1.3 pp | 53.9% | 38.9% | 21.20% |
+
+낮은 budget일수록 I/O와 TTFT는 줄지만 10/15%의 accuracy 손실은 너무 크다.
+20%는 SparseVLM과 1.25 pp 차이까지 회복하지만 FullLoad보다는 3.33 pp 낮다.
+서로 다른 run의 절대 latency를 직접 섞지 않고 각 run의 FullLoad로 정규화하면,
+TTFT/FullLoad는 10/15/20/25/50%에서 각각
+0.365/0.425/0.461/0.494/0.837이다. 20→25%는 normalized TTFT가 0.033
+증가하는 대신 accuracy가 2.08 pp 회복되어, 기존의 “FullLoad와 1~2 pp 이내”
+기준에서는 **25%가 여전히 가장 작은 관측상 적합 budget**이다.
+
+10%에서는 저정확도 출력 중 15/240개가 16-token cap에 도달해 decode mean이
+56.6 ms로 증가했고, 15%는 4개, 20%는 0개였다. 또한 동일한 두 request에서 모든
+SSD 기반 arm에 1초 이상의 request-path/system tail이 관측됐다. `pread` 외의
+selector/scatter도 함께 늘어 원인을 특정 subsystem으로 단정할 수 없다. 이 둘은
+primary mean/std에서 제외하지 않았으므로 특히 10/15%는 p50/p95도 함께 봐야 한다.
+
+전체 결과와 재현 명령은 `runs/gqa40_240_true_ttft_budget_10_15_20/`에 있으며,
+CSV 1,440행(6 methods × 240), 중복 0, `E2E = TTFT + decode`, baseline prediction
+240/240 동일성 및 정확한 chunk/I/O 산술을 모두 검증했다.
+
+## 13. Multi-turn VisDial / MMDU extension (2026-09-09)
+
+기존 single-turn 결과를 보존한 채 별도 canonical index와 runner로 multi-turn workload를
+추가했다. VisDial v1.0 validation 100 dialogs × 10 turns의 5-arm system run은 5,000개
+request 모두 검증을 통과했다. Static+Diverse 25%는 FullLoad 대비 SSD read 74.20%,
+true TTFT 49.30%를 줄였고, 50%는 각각 49.15%, 16.04%를 줄였다. 동일 이미지 KV와
+static metadata는 dialog당 한 번만 만들고 10 turns에서 재사용했다.
+
+MMDU는 독립 image-prefix KV concat을 사용하지 않았다. 2-dialog progressive correctness
+gate에서 token/image order와 greedy outputs는 일치했지만, 사전 고정한 first-logit
+tolerance에 실패해 Static+Diverse full system run은 중단했다. 따라서 MMDU 결과는
+110 dialogs / 1,645 turns의 context 및 visual-KV capacity feasibility까지만 보고하며,
+method별 TTFT·SSD·quality 수치는 만들지 않았다.
+
+구현, 검증, turn별 표, quality-only candidate-ranking smoke 및 주장 범위는
+[`results/MULTITURN_REPORT.md`](results/MULTITURN_REPORT.md)에 정리했다.
+
+## 14. Importance-reorder Prefix baseline (2026-09-11)
+
+Static+Diverse의 기여를 importance reorder와 분리하기 위해
+`reorder_prefix_chunk`를 추가했다. 이 arm은 기존 calib=4 per-layer reordered
+store에서 각 layer의 `k = round(n_chunks * budget)`개 앞쪽 chunk만 읽으며,
+VisionZip static score, query score, MaxMin diversity를 전혀 호출하지 않는다.
+Separator는 Static+Diverse와 동일한 `sep_kv.bin` sidecar를 사용한다.
+
+동일 GQA 40 images / `questions[4:10]` 240 questions, cold page cache,
+schema-v2 true TTFT 조건의 결과는 다음과 같다.
+
+| Method | Accuracy | True TTFT mean | SSD read/request | Selector |
+|---|---:|---:|---:|---:|
+| FullLoad | 62.08% | 656.15 ms | 1165.073 MB | - |
+| Reorder + Prefix 25% | 60.42% | **262.16 ms** | 306.079 MB | **0.194 ms** |
+| Reorder + Static 25% | 46.67% | 296.08 ms | 306.066 MB | 3.868 ms |
+| Reorder + Diverse Only 25% | 58.33% | 406.71 ms | 296.561 MB | 18.980 ms |
+| Reorder + Static+Diverse 25% | 60.83% | 337.59 ms | 300.401 MB | 14.866 ms |
+| Reorder + Prefix 50% | 62.50% | **426.26 ms** | 603.875 MB | **0.334 ms** |
+| Reorder + Static+Diverse 50% | 62.50% | 560.92 ms | 594.209 MB | 21.865 ms |
+
+25%에서 Static+Diverse의 추가 accuracy는 Prefix 대비 **+0.42 pp**뿐이었다.
+Image-cluster paired bootstrap 95% CI는 **[-2.08, +3.33] pp**, SD-only/Prefix-only
+정답은 7/6, exact McNemar p=1.0이다. 50%에서는 두 방법 모두 62.50%였다.
+
+Prefix25와 Static+Diverse25의 `(image, layer)` 평균 chunk Jaccard는 0.5431
+(median 0.6000)이다. 선택 집합은 상당히 다르지만 accuracy 추가 이득은 확립되지
+않았다. 분석 전용으로 first-4 SparseVLM calibration score를 재계산했을 때 separator
+제외 importance-mass coverage도 Prefix25 73.50%, Static25 71.11%,
+Static+Diverse25 65.62%로 Prefix가 가장 높았다. 이 score는 selection에 사용하지 않았다.
+
+따라서 사전 판정 규칙(`Static+Diverse-Prefix`의 image-cluster CI 하한이 0보다 클
+때만 GO)에 따라 결론은 **RETHINK**다. 기존 13절까지의 Static+Diverse 결과 자체는
+유효하지만, 60.8% accuracy의 주된 원인은 현재 증거상 calibration-based importance
+reorder이며 Static+Diverse의 독립적인 accuracy contribution은 재정의가 필요하다.
+
+Calib=1 독립 복사 store 보조실험에서도 Prefix25 58.33%, Static+Diverse25 57.92%
+(SD-Prefix -0.42 pp)로 보완 효과가 나타나지 않았다. 이 store는 calib=4 store의
+완전 복사본에 composed permutation을 적용했으므로 fresh raster build와 exact-score
+tie order까지 bitwise 동일하다는 보장은 없다.
+
+전체 raw 결과, 검증, paired 통계, selection trace와 coverage는
+[`results/reorder_prefix_baseline/calib4/`](results/reorder_prefix_baseline/calib4/)와
+[`runs/reorder_prefix_baseline/calib1_pair25/`](runs/reorder_prefix_baseline/calib1_pair25/)
+에 있다.
+
+## 15. Calibration-free ImageOnly VisionZip repack + Prefix (2026-09-11)
+
+Vision Encoder penultimate layer의 CLS-to-patch attention을 head 방향으로 합산해
+image-only saliency를 만들고, real patch만 stable descending sort한 하나의 global
+permutation을 모든 LLM KV layer에 동일하게 적용했다. Separator는 normal budget에서
+제외해 physical tail에 stable 배치하고 `sep_kv.bin` sidecar로 항상 읽는다. 최종
+경로는 fresh raster KV를 SSD에 쓴 뒤 다시 읽어 바꾸는 방식이 아니라, prefix KV가
+메모리에 있을 때 permutation한 뒤 최종 layout으로 한 번만 쓰는 direct-write다.
+온라인 요청은 score/static/diversity 계산 없이 각 layer의 physical first-k chunk만
+읽는다.
+
+동일 GQA 40 images / `questions[4:10]` 240 questions, schema-v2 true TTFT, cold page
+cache, 64-token chunk 조건 결과다. 서로 다른 run 사이 절대 latency 변동이 있으므로
+각 arm의 raw 값과 함께 같은 VisionZip run의 FullLoad 대비 감소율을 사용한다.
+
+| Layout / retrieval | Calib Q | Accuracy | True TTFT | SSD read | preads | Selector |
+|---|---:|---:|---:|---:|---:|---:|
+| Raster / FullLoad | 0 | 62.08% | 782.11 ms | 1165.073 MB | 64 | - |
+| Pixel recomputation / **ReComp** (historical schema-v2) | - | **62.50%** | **503.81 ms** | **0.000 MB** | **0** | - |
+| Raster / Prefix25 | 0 | 2.92% | 289.06 ms | 306.079 MB | 65 | 0.210 ms |
+| Morton / Prefix25 | 0 | 2.92% | 289.24 ms | 306.079 MB | 65 | 0.226 ms |
+| Calib4 importance legacy / Prefix25 | 4 | 60.42% | **262.16 ms** | 306.079 MB | 65 | 0.194 ms |
+| **VisionZip image-only / Prefix25** | **0** | **57.92%** | **284.74 ms** | **306.079 MB** | **65** | **0.212 ms** |
+| VisionZip image-only / Prefix50 | 0 | 60.00% | 460.86 ms | 603.875 MB | 65 | 0.331 ms |
+| Calib4 separator-tail matched / Prefix25 | 4 | 60.83% | 290.44 ms | 306.079 MB | 65 | 0.208 ms |
+
+ReComp는 보존된 calib4 run의 원시 240행을 재사용했다. 이미지·질문·gold·순서와
+index/workload hash, 모델·decoding·schema-v2 TTFT 조건이 모두 일치한다. ReComp는
+pixel부터 매 요청 재계산하므로 KV-store read와 pread가 모두 0이고, SSD cold-cache와
+separator policy는 적용 대상이 아니다. ImageOnly Prefix25는 ReComp보다 accuracy가
+4.58 pp 낮지만 TTFT는 43.48% 짧고, Prefix50은 accuracy가 2.50 pp 낮지만 TTFT는
+8.53% 짧다. 다만 ReComp는 과거 run이고 `first_token_id`가 저장되기 전 artifact라서
+quality는 정확히 paired 비교할 수 있지만 새 image-only run과의 절대 latency 비교는
+cross-run 비교로 해석해야 한다.
+
+ImageOnly Prefix25는 같은 physical-layout run의 FullLoad 61.25%보다 3.33 pp,
+canonical Raster FullLoad보다 4.17 pp 낮고, legacy calib4 Prefix25보다 2.50 pp,
+separator-tail matched calib4보다 2.92 pp 낮다. 반면 Raster/Morton Prefix25보다는
+55.00 pp 회복했다. 같은 VisionZip run에서 SSD byte는 73.73%, true TTFT는 60.30%
+감소했다. Historical Static+Diverse25의 약 277.55 preads/request와 비교하면 Prefix는
+65회로 4.27배 적고, selector도 14.866 ms에서 0.212 ms로 줄었다.
+
+First 25%의 importance-mass coverage는 다음과 같다. 괄호는 image-layer macro / 전체
+mass-weighted aggregation이다.
+
+| Layout | VisionZip saliency | 분석 전용 calib4 SparseVLM importance |
+|---|---:|---:|
+| Raster | 29.56% / 29.48% | 25.27% / 24.20% |
+| Morton | 28.54% / 28.43% | 24.99% / 24.02% |
+| **VisionZip image-only** | **73.15% / 73.27%** | **41.60% / 36.74%** |
+| Calib4 legacy | 50.53% / 50.68% | 73.50% / 61.73% |
+| Calib4 separator-tail matched | 51.87% / 52.01% | 74.53% / 63.10% |
+
+즉 image-only repack은 자신이 정의한 visual saliency는 앞쪽에 잘 모으지만,
+질문 기반 importance와의 정렬은 calib4보다 약하다. 이것이 25%에서 남은 quality
+gap과 일치한다. SparseVLM score는 이 사후 coverage 분석에만 사용했고 layout 생성,
+저장, selection, serving에는 전달하지 않았다.
+
+질문 독립성 검증은 3 images × 3 questions에서 pixel/image size/saliency/permutation이
+모두 100% 동일했고, layout scoring 중 decoder-layer forward와 `calibrate_image`,
+`Server.raters`, SparseVLM Q/K 호출은 모두 0이었다. Direct-write와 fresh-raster 후
+post-hoc prototype도 3 images의 Prefix25 payload 및 9개 prediction/first token이
+전부 동일했다. 기존 canonical store와 과거 result tree의 hash도 모두 보존됐다.
+
+엄격한 FullLoad output identity는 **238/240(99.17%)로 FAIL**이다. 두 Yes/No first-token
+경계 사례가 바뀌어 Raster 62.08%와 repacked 61.25% 사이에 -0.83 pp가 생겼다. 이를
+통과로 숨기지 않았다. 다만 해당 두 이미지의 stored-to-original mapping 후 FP16 K/V
+1,175,453,696개 원소는 차이 0이고 `sys_kv`/`v_hidden` hash와 240개 I/O가 모두
+동일했다. 따라서 structural integrity는 통과했고, 원인은 eager BF16 attention의
+물리 순서별 reduction-order 민감성으로 분류했다.
+
+Direct build의 image당 평균은 saliency 45.34 ms, permutation 0.66 ms, KV repack
+43.78 ms, SSD write 468.88 ms, total ingestion 1305.09 ms였다. Raster build
+1166.23 ms 대비 일회성 증가는 138.87 ms/image이며, 이미지당 1/5/10/20 requests에서
+각각 138.87/27.77/13.89/6.94 ms/request로 상각된다. Mapping metadata는 평균
+68.2 KB/image다.
+
+사전 판정 규칙에 따른 결론은 **PARTIAL GO**다. Calibration 없이 Raster/Morton보다
+압도적으로 높은 quality와 sequential SSD locality를 얻었지만, 25%에서 calib4 및
+FullLoad와의 gap이 아직 의미 있어 그대로 새 main contribution으로 전환할 수준의
+STRONG GO는 아니다. 50%는 quality를 회복하지만 SSD/TTFT 이점이 감소한다. ReComp
+통합본은 전체 2,160-row paired 결과, 64,000-row cumulative coverage,
+bootstrap/McNemar, strict validation과 재현 정보를
+[`results/image_only_repack_recomp/`](results/image_only_repack_recomp/)에 저장했다.
+기존 1,920-row snapshot인
+[`results/image_only_repack/`](results/image_only_repack/)은 수정하지 않고 그대로
+보존했다.

@@ -1,0 +1,118 @@
+{
+  "checks": {
+    "binary_scores_and_true_ttft_invariants": {
+      "detail": {
+        "failures": [],
+        "max_residual_ms": 0.0
+      },
+      "passed": true
+    },
+    "calib1_intended_id_hash": {
+      "detail": "ba6b7e06c31853e2ef6009627026674b0e54e1b40d77e0def59c7c60be148438",
+      "passed": true
+    },
+    "dataset_and_retention_semantics": {
+      "detail": [],
+      "passed": true
+    },
+    "exact_1280_overlap_rows": {
+      "detail": 1280,
+      "passed": true
+    },
+    "exact_720_unique_rows": {
+      "detail": 720,
+      "passed": true
+    },
+    "exact_frozen_question_and_gold_content": {
+      "detail": [],
+      "passed": true
+    },
+    "exact_paired_240_keys": {
+      "detail": {
+        "fullload": 240,
+        "reorder_prefix_chunk": 240,
+        "static_diverse_chunk": 240
+      },
+      "passed": true
+    },
+    "exact_three_arms": {
+      "detail": [
+        "fullload",
+        "reorder_prefix_chunk",
+        "static_diverse_chunk"
+      ],
+      "passed": true
+    },
+    "fixed_question_independent_selections_and_budgets": {
+      "detail": [],
+      "passed": true
+    },
+    "frozen_index_and_workload_hashes": {
+      "detail": {
+        "index": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+        "workload": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66"
+      },
+      "passed": true
+    },
+    "fullload_exact_payload_accounting": {
+      "detail": [],
+      "passed": true
+    },
+    "lightweight_store_geometry_and_permutations": {
+      "detail": [],
+      "passed": true
+    },
+    "no_calibration_evaluation_id_overlap": {
+      "detail": null,
+      "passed": true
+    },
+    "results_json_csv_consistent": {
+      "detail": [],
+      "passed": true
+    },
+    "schema_v2": {
+      "detail": null,
+      "passed": true
+    },
+    "selector_modes_and_zero_prefix_counters": {
+      "detail": [],
+      "passed": true
+    },
+    "sidecar_and_exact_pread_accounting": {
+      "detail": [],
+      "passed": true
+    },
+    "single_run_declares_calib1_store_and_pair": {
+      "detail": "/home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/04_eval.py --store kvstore_reorder_prefix_calib1 --index data/index.json --limit 40 --skip 4 --questions 6 --expect-images 40 --expect-questions 240 --ratio 0.25 --budget 0.25 --selectors reorder_prefix_chunk,static_diverse_chunk --sep-policy sidecar --no-recompute --static-build-summary runs/reorder_prefix_baseline/calib1_pair25/calib1_static_build.json --run-dir runs/reorder_prefix_baseline/calib1_pair25",
+      "passed": true
+    },
+    "source_fixed_conditions": {
+      "detail": {
+        "budget": 0.25,
+        "budgets": [
+          0.25
+        ],
+        "cold": true,
+        "max_new_tokens": 16,
+        "metric": "gqa",
+        "n": 240,
+        "n_images": 40,
+        "questions_per_image_requested": 6,
+        "ratio": 0.25,
+        "sep_policy": "sidecar",
+        "skip": 4
+      },
+      "passed": true
+    }
+  },
+  "counts": {
+    "chunk_overlap_rows": 1280,
+    "images": 40,
+    "methods": 3,
+    "per_request_rows": 720,
+    "questions": 240
+  },
+  "failures": [],
+  "passed": true,
+  "schema_version": 1
+}

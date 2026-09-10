@@ -1,0 +1,290 @@
+{
+  "schema_version": "mmdu-dynamic-cache-validation-v1",
+  "created_unix": 1788949869.9586513,
+  "index": "/home/dblab/hj/mllm_v2/data/mmdu/subsets/correctness_progressive_seed1234/index.json",
+  "index_sha256": "299bc9b5c0b71b39da36cf96d771779bff0aa39c4442c51196e906b5d1bbbd0b",
+  "run_dir": "/home/dblab/hj/mllm_v2/runs/mmdu_multiturn/correctness_progressive_seed1234_v2",
+  "dataset": "mmdu",
+  "dialog_ids": [
+    "mmdu:70",
+    "mmdu:35"
+  ],
+  "n_dialogs": 2,
+  "turn_policy": "first_3_user_turns_each_dialog",
+  "turns_per_dialog": 3,
+  "n_turns": 6,
+  "history_policy": "gold_teacher_forced",
+  "prompt_policy": "mmimpress.multiturn.mmdu_prompt_vicuna_append_only",
+  "prompt_wrapper": "USER: ... ASSISTANT: ...</s>",
+  "image_marker_mapping": "<ImageHere> -> <image>\\n",
+  "image_order_policy": "canonical active_image_ids order; new_image_ids must be the ordered tail and only that tail is sent on append",
+  "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+  "model_config_name_or_path": "llava-hf/llava-v1.6-vicuna-7b-hf",
+  "model_checkpoint_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+  "processor_class": "LlavaNextProcessor",
+  "tokenizer_class": "LlamaTokenizerFast",
+  "tokenizer_name_or_path": "llava-hf/llava-v1.6-vicuna-7b-hf",
+  "image_processor_class": "LlavaNextImageProcessor",
+  "processor_artifacts": {
+    "preprocessor_config.json": {
+      "filename": "preprocessor_config.json",
+      "cached_path": "/home/dblab/.cache/huggingface/hub/models--llava-hf--llava-v1.6-vicuna-7b-hf/snapshots/c916e6cdcd760b4cecd1dd4907f84ac649f93b23/preprocessor_config.json",
+      "sha256": "ecef425c1d3ee91f5e05144c4d107389f9fefd04a424d5cbfc3fb6e0525b8c55",
+      "snapshot_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23"
+    },
+    "processor_config.json": {
+      "filename": "processor_config.json",
+      "cached_path": "/home/dblab/.cache/huggingface/hub/models--llava-hf--llava-v1.6-vicuna-7b-hf/snapshots/c916e6cdcd760b4cecd1dd4907f84ac649f93b23/processor_config.json",
+      "sha256": "7cd8bff508772b8b4e6b0678550bf856a7f28abd0f8b237235ac83bfcb9b1c36",
+      "snapshot_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23"
+    },
+    "tokenizer_config.json": {
+      "filename": "tokenizer_config.json",
+      "cached_path": "/home/dblab/.cache/huggingface/hub/models--llava-hf--llava-v1.6-vicuna-7b-hf/snapshots/c916e6cdcd760b4cecd1dd4907f84ac649f93b23/tokenizer_config.json",
+      "sha256": "89833b4fed3f4010fb864ae4f70055e7f940cf9b52aba4167d42647219fe097a",
+      "snapshot_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23"
+    }
+  },
+  "load_4bit": true,
+  "quantization": "bitsandbytes NF4 double-quant, bfloat16 compute",
+  "attention": "eager",
+  "decoding": "greedy_argmax",
+  "max_new_tokens": 16,
+  "first_logit_tolerance": {
+    "max_abs": 0.125,
+    "mean_abs": 0.01,
+    "declared_before_run": true
+  },
+  "seed": 1234,
+  "resize_before_processor": {
+    "size_wh": [
+      336,
+      336
+    ],
+    "color_mode": "RGB",
+    "resample": "PIL.Image.Resampling.LANCZOS",
+    "source": "https://github.com/Liuziyu77/MMDU/blob/main/model_generation/LLaVa_next_gen_ans.py"
+  },
+  "official_mmdu_repository": "https://github.com/Liuziyu77/MMDU",
+  "official_llava_next_generation_script": "https://github.com/Liuziyu77/MMDU/blob/main/model_generation/LLaVa_next_gen_ans.py",
+  "official_generation_difference": "Official script uses [INST] wrappers and generated history. This cache-equivalence test uses the fixed Vicuna checkpoint's local USER/ASSISTANT wrapper and gold teacher-forced history in both paths.",
+  "hard_context_limit": 4096,
+  "model_max_position_embeddings": 4096,
+  "effective_context_limit": 4096,
+  "context_gate": "prompt_tokens + max_new_tokens <= effective_context_limit",
+  "full_path": "fresh DynamicCache; complete prompt plus all active images",
+  "append_path": "one DynamicCache per dialog; exact token suffix plus ordered newly introduced images; crop generated continuation before next gold turn",
+  "existing_image_prefix_ssd_stores_used": false,
+  "independent_image_prefix_kv_concatenation_used": false,
+  "static_diverse_mmdu_gate_passed": false,
+  "static_diverse_gate_reason": "out of scope: this validates native append-only DynamicCache only",
+  "official_mmdu_generation_protocol_gate_passed": false,
+  "official_protocol_gate_reason": "different model-native prompt wrapper and gold rather than generated history",
+  "transformers_cache_class": "transformers.DynamicCache",
+  "transformers_version": "4.57.6",
+  "torch_version": "2.5.1+cu121",
+  "cuda_device": "NVIDIA GeForce RTX 4090",
+  "machine": {
+    "gpu_total_memory_bytes": 25391333376,
+    "system_ram_total_bytes": 134817562624,
+    "system_ram_available_bytes_at_start": 127539744768
+  },
+  "observed_visual_kv_geometries": [
+    {
+      "active_visual_tokens": 1176,
+      "cache_dtypes": [
+        "torch.bfloat16"
+      ],
+      "derivation": "sum over actual DynamicCache layers of K/V heads*head_dim*element_size",
+      "full_visual_kv_bytes": 616562688,
+      "image_visual_kv_bytes": {
+        "mmdu:35:image1": 616562688
+      },
+      "num_layers": 32,
+      "representative_layer": {
+        "key_dtype": "torch.bfloat16",
+        "key_element_size": 2,
+        "key_shape": [
+          1,
+          32,
+          1214,
+          128
+        ],
+        "layer": 0,
+        "value_dtype": "torch.bfloat16",
+        "value_element_size": 2,
+        "value_shape": [
+          1,
+          32,
+          1214,
+          128
+        ]
+      },
+      "visual_kv_bytes_per_token": 524288
+    },
+    {
+      "active_visual_tokens": 1176,
+      "cache_dtypes": [
+        "torch.bfloat16"
+      ],
+      "derivation": "sum over actual DynamicCache layers of K/V heads*head_dim*element_size",
+      "full_visual_kv_bytes": 616562688,
+      "image_visual_kv_bytes": {
+        "mmdu:35:image1": 616562688
+      },
+      "num_layers": 32,
+      "representative_layer": {
+        "key_dtype": "torch.bfloat16",
+        "key_element_size": 2,
+        "key_shape": [
+          1,
+          32,
+          1838,
+          128
+        ],
+        "layer": 0,
+        "value_dtype": "torch.bfloat16",
+        "value_element_size": 2,
+        "value_shape": [
+          1,
+          32,
+          1838,
+          128
+        ]
+      },
+      "visual_kv_bytes_per_token": 524288
+    },
+    {
+      "active_visual_tokens": 1176,
+      "cache_dtypes": [
+        "torch.bfloat16"
+      ],
+      "derivation": "sum over actual DynamicCache layers of K/V heads*head_dim*element_size",
+      "full_visual_kv_bytes": 616562688,
+      "image_visual_kv_bytes": {
+        "mmdu:70:image1": 616562688
+      },
+      "num_layers": 32,
+      "representative_layer": {
+        "key_dtype": "torch.bfloat16",
+        "key_element_size": 2,
+        "key_shape": [
+          1,
+          32,
+          1210,
+          128
+        ],
+        "layer": 0,
+        "value_dtype": "torch.bfloat16",
+        "value_element_size": 2,
+        "value_shape": [
+          1,
+          32,
+          1210,
+          128
+        ]
+      },
+      "visual_kv_bytes_per_token": 524288
+    },
+    {
+      "active_visual_tokens": 2352,
+      "cache_dtypes": [
+        "torch.bfloat16"
+      ],
+      "derivation": "sum over actual DynamicCache layers of K/V heads*head_dim*element_size",
+      "full_visual_kv_bytes": 1233125376,
+      "image_visual_kv_bytes": {
+        "mmdu:35:image1": 616562688,
+        "mmdu:35:image2": 616562688
+      },
+      "num_layers": 32,
+      "representative_layer": {
+        "key_dtype": "torch.bfloat16",
+        "key_element_size": 2,
+        "key_shape": [
+          1,
+          32,
+          3744,
+          128
+        ],
+        "layer": 0,
+        "value_dtype": "torch.bfloat16",
+        "value_element_size": 2,
+        "value_shape": [
+          1,
+          32,
+          3744,
+          128
+        ]
+      },
+      "visual_kv_bytes_per_token": 524288
+    },
+    {
+      "active_visual_tokens": 2352,
+      "cache_dtypes": [
+        "torch.bfloat16"
+      ],
+      "derivation": "sum over actual DynamicCache layers of K/V heads*head_dim*element_size",
+      "full_visual_kv_bytes": 1233125376,
+      "image_visual_kv_bytes": {
+        "mmdu:70:image1": 616562688,
+        "mmdu:70:image2": 616562688
+      },
+      "num_layers": 32,
+      "representative_layer": {
+        "key_dtype": "torch.bfloat16",
+        "key_element_size": 2,
+        "key_shape": [
+          1,
+          32,
+          2683,
+          128
+        ],
+        "layer": 0,
+        "value_dtype": "torch.bfloat16",
+        "value_element_size": 2,
+        "value_shape": [
+          1,
+          32,
+          2683,
+          128
+        ]
+      },
+      "visual_kv_bytes_per_token": 524288
+    },
+    {
+      "active_visual_tokens": 2352,
+      "cache_dtypes": [
+        "torch.bfloat16"
+      ],
+      "derivation": "sum over actual DynamicCache layers of K/V heads*head_dim*element_size",
+      "full_visual_kv_bytes": 1233125376,
+      "image_visual_kv_bytes": {
+        "mmdu:70:image1": 616562688,
+        "mmdu:70:image2": 616562688
+      },
+      "num_layers": 32,
+      "representative_layer": {
+        "key_dtype": "torch.bfloat16",
+        "key_element_size": 2,
+        "key_shape": [
+          1,
+          32,
+          3020,
+          128
+        ],
+        "layer": 0,
+        "value_dtype": "torch.bfloat16",
+        "value_element_size": 2,
+        "value_shape": [
+          1,
+          32,
+          3020,
+          128
+        ]
+      },
+      "visual_kv_bytes_per_token": 524288
+    }
+  ],
+  "visual_kv_bytes_source": "actual generated DynamicCache tensors"
+}

@@ -1,0 +1,86 @@
+{
+  "experiment": "importance-reorder prefix baseline",
+  "status": "preregistered_before_main_run",
+  "dataset": "GQA",
+  "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+  "main_workload": {
+    "index": "data/index.json",
+    "images": 40,
+    "evaluation_question_slice": "questions[4:10]",
+    "evaluation_questions": 240,
+    "calibration_questions_per_image": 4,
+    "calibration_provenance_note": "The existing store is documented as calib=4 by README.md and results_reorder.log; meta.json does not self-record the calibration count.",
+    "index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+    "evaluation_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66",
+    "calibration_question_id_sha256": "992cc89a81a6cadf363b65b58f8f89fabfc0a1a17358559069f8c0b6cabc1e71"
+  },
+  "store": {
+    "path": "kvstore",
+    "reuse_existing_read_only": true,
+    "importance_reordered": true,
+    "per_layer_order": true,
+    "chunk_size_tokens": 64,
+    "content_aggregate_sha256": "e570a6847743a203fc1e2892d736ebe8aa946647cbb0e280f212388da2c09d68",
+    "meta_static_separator_aggregate_sha256": "616e50ae052aee5d9a284e31a24fae463bd793e9b572ceeca859ad87270e8a82"
+  },
+  "conditions": {
+    "budgets": [0.25, 0.5],
+    "separator_policy": "sidecar",
+    "cold_page_cache": true,
+    "greedy_decoding": true,
+    "max_new_tokens": 16,
+    "primary_pair": [
+      "reorder_prefix_chunk@25",
+      "static_diverse_chunk@25"
+    ],
+    "required_25_percent_arms": [
+      "recompute",
+      "fullload",
+      "sparsevlm",
+      "reorder_prefix_chunk@25",
+      "visionzip_static_chunk@25",
+      "diverse_chunk@25",
+      "static_diverse_chunk@25"
+    ],
+    "supplementary_50_percent_arms": [
+      "reorder_prefix_chunk@50",
+      "static_diverse_chunk@50"
+    ]
+  },
+  "prefix_semantics": {
+    "chunk_count": "budget_chunk_count(n_chunks, budget)",
+    "selected_normal_chunks_per_layer": "range(k)",
+    "static_score_calls": 0,
+    "query_score_calls": 0,
+    "diversity_calls": 0,
+    "separator": "same sep_kv.bin sidecar as Static+Diverse"
+  },
+  "latency_definition": {
+    "true_ttft": "request start -> chunk-id selection -> real SSD pread -> reconstruction/scatter -> prompt prefill -> first output token decision -> CUDA synchronize",
+    "decode": "after first output token through final output token",
+    "e2e": "true_ttft + decode"
+  },
+  "primary_statistics": {
+    "accuracy_delta_pp": "100 * mean(correct_StaticDiverse25 - correct_Prefix25)",
+    "confidence_interval": "two-sided percentile bootstrap, resampling 40 image clusters with all six questions retained",
+    "bootstrap_replicates": 10000,
+    "seed": 0,
+    "supplementary": [
+      "question-level paired bootstrap",
+      "two-sided exact McNemar test"
+    ]
+  },
+  "decision_rule": {
+    "GO": "observed Static+Diverse25 minus Prefix25 accuracy is positive and the lower endpoint of the 95% image-cluster bootstrap CI is strictly greater than zero",
+    "RETHINK": "otherwise",
+    "note": "The binary rule is preregistered before observing Prefix results; a CI crossing zero is not interpreted as equivalence."
+  },
+  "preservation_manifest_before": {
+    "runs/gqa40_240_true_ttft": "cc7928fa1300e8a66fad195e2a0110523972f8bffd36a18ec62d1eb74bf7ba19",
+    "runs/gqa40_240_true_ttft_budget_10_15_20": "04a7f1bfdef359adbe772f01899da0f1988b596472711d5a97daf78407da98b4",
+    "results/ablation_25": "dfc290746067320ecca71cdb7523dc3ce3b85b026fac3ad619bbc7598fbf3634",
+    "results/budget_sweep": "0b83ae8e27b25804ce57024c219d1ef51c3f4e934e708fb9737fb7085906b93c",
+    "results/eval_b25.json": "c656871497716d5f5e2355b9fcacb69ebdaf163b3ed345dfbc6adb3d91786b10",
+    "results_reorder.log": "fc8af24e66302d6955986f65056c7857e629a29f89755258c7e42a45d7576385"
+  }
+}

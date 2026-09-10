@@ -1,0 +1,25 @@
+{
+ "passed": true,
+ "n_records": 100,
+ "n_dialogs": 2,
+ "n_turns": 20,
+ "checks": {
+  "ttft_lt_e2e": true,
+  "e2e_approximately_ttft_plus_decode": true,
+  "identical_text_history_across_methods": true,
+  "identical_suffix_ids_across_methods": true,
+  "history_tokens_monotonic": true,
+  "active_images_monotonic": true,
+  "image_kv_built_once_per_dialog": true,
+  "static_metadata_built_once_per_dialog": true,
+  "full_load_reads_full_visual_kv": true,
+  "selected_chunk_count_obeys_budget": true,
+  "selected_chunk_counts_present": true,
+  "identical_active_images_across_methods": true,
+  "unique_dialog_turn_method_keys": true,
+  "complete_result_matrix": true,
+  "expected_request_keys_exact": true,
+  "no_future_turn_calibration": true
+ },
+ "failures": []
+}

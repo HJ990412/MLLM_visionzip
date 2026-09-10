@@ -1,0 +1,487 @@
+{
+ "schema_version": 1,
+ "analysis_only": true,
+ "coverage_used_for_layout_or_serving": false,
+ "sparsevlm_scores_used_for_layout": false,
+ "visionzip_layout_uses_dataset_question": false,
+ "llm_used_for_visionzip_layout_scoring": false,
+ "visionzip_calibration_questions": 0,
+ "matched_calib_exact_legacy_normal_order_plus_separator_tail": true,
+ "calibration_importance_source": "fresh calibrate_image over questions[0:4], analysis only",
+ "n_images": 40,
+ "n_calibration_questions_processed": 160,
+ "n_rows": 64000,
+ "fractions": [
+  0.1,
+  0.2,
+  0.25,
+  0.3,
+  0.5
+ ],
+ "summary": [
+  {
+   "layout": "calib4_importance_legacy",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.1,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.5403786017687473,
+   "global_mass_weighted_coverage": 0.42173707431190527,
+   "mean_realized_normal_token_fraction": 0.09554079433282406
+  },
+  {
+   "layout": "calib4_importance_legacy",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.2,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.6886778414688631,
+   "global_mass_weighted_coverage": 0.5676860483843666,
+   "mean_realized_normal_token_fraction": 0.19378534712072212
+  },
+  {
+   "layout": "calib4_importance_legacy",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.25,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.7349976212749366,
+   "global_mass_weighted_coverage": 0.617286541655942,
+   "mean_realized_normal_token_fraction": 0.23887756111319236
+  },
+  {
+   "layout": "calib4_importance_legacy",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.3,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.7818331433134954,
+   "global_mass_weighted_coverage": 0.6695253462141529,
+   "mean_realized_normal_token_fraction": 0.2945122211154471
+  },
+  {
+   "layout": "calib4_importance_legacy",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.5,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.8936462162049406,
+   "global_mass_weighted_coverage": 0.8094977709720672,
+   "mean_realized_normal_token_fraction": 0.4945850113360576
+  },
+  {
+   "layout": "calib4_importance_legacy",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.1,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.2972006692031777,
+   "global_mass_weighted_coverage": 0.3004534637167544,
+   "mean_realized_normal_token_fraction": 0.09554079433282406
+  },
+  {
+   "layout": "calib4_importance_legacy",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.2,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.4480489640345118,
+   "global_mass_weighted_coverage": 0.44943328106120056,
+   "mean_realized_normal_token_fraction": 0.19378534712072212
+  },
+  {
+   "layout": "calib4_importance_legacy",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.25,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.5052798085478033,
+   "global_mass_weighted_coverage": 0.5068418968941831,
+   "mean_realized_normal_token_fraction": 0.23887756111319236
+  },
+  {
+   "layout": "calib4_importance_legacy",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.3,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.5694549519203373,
+   "global_mass_weighted_coverage": 0.5707988446019839,
+   "mean_realized_normal_token_fraction": 0.2945122211154471
+  },
+  {
+   "layout": "calib4_importance_legacy",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.5,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.7544969868296414,
+   "global_mass_weighted_coverage": 0.7547588812629447,
+   "mean_realized_normal_token_fraction": 0.4945850113360576
+  },
+  {
+   "layout": "calib4_importance_sep_tail",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.1,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.552880093406517,
+   "global_mass_weighted_coverage": 0.4400385292061621,
+   "mean_realized_normal_token_fraction": 0.10193028373158046
+  },
+  {
+   "layout": "calib4_importance_sep_tail",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.2,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.6997616582076148,
+   "global_mass_weighted_coverage": 0.5825220000855391,
+   "mean_realized_normal_token_fraction": 0.20357290826245822
+  },
+  {
+   "layout": "calib4_importance_sep_tail",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.25,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.7453170051709346,
+   "global_mass_weighted_coverage": 0.6309969147167185,
+   "mean_realized_normal_token_fraction": 0.24988769317525988
+  },
+  {
+   "layout": "calib4_importance_sep_tail",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.3,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.7912419928402332,
+   "global_mass_weighted_coverage": 0.6820838469502801,
+   "mean_realized_normal_token_fraction": 0.30691412673830676
+  },
+  {
+   "layout": "calib4_importance_sep_tail",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.5,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.9000459729932799,
+   "global_mass_weighted_coverage": 0.8188548974266798,
+   "mean_realized_normal_token_fraction": 0.5104431753516421
+  },
+  {
+   "layout": "calib4_importance_sep_tail",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.1,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.30933368662113986,
+   "global_mass_weighted_coverage": 0.3124963060500709,
+   "mean_realized_normal_token_fraction": 0.10193028373158046
+  },
+  {
+   "layout": "calib4_importance_sep_tail",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.2,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.46110559427445175,
+   "global_mass_weighted_coverage": 0.4623259032721775,
+   "mean_realized_normal_token_fraction": 0.20357290826245822
+  },
+  {
+   "layout": "calib4_importance_sep_tail",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.25,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.5186733745981424,
+   "global_mass_weighted_coverage": 0.520074447236548,
+   "mean_realized_normal_token_fraction": 0.24988769317525988
+  },
+  {
+   "layout": "calib4_importance_sep_tail",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.3,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.5827308719446214,
+   "global_mass_weighted_coverage": 0.583924066852277,
+   "mean_realized_normal_token_fraction": 0.30691412673830676
+  },
+  {
+   "layout": "calib4_importance_sep_tail",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.5,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.7666568551734046,
+   "global_mass_weighted_coverage": 0.7668649542290349,
+   "mean_realized_normal_token_fraction": 0.5104431753516421
+  },
+  {
+   "layout": "morton",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.1,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.11617333421440224,
+   "global_mass_weighted_coverage": 0.10867914159045897,
+   "mean_realized_normal_token_fraction": 0.10193028373158046
+  },
+  {
+   "layout": "morton",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.2,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.21269100348938977,
+   "global_mass_weighted_coverage": 0.20217375088182013,
+   "mean_realized_normal_token_fraction": 0.20357290826245822
+  },
+  {
+   "layout": "morton",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.25,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.24994864530772162,
+   "global_mass_weighted_coverage": 0.2402102596066907,
+   "mean_realized_normal_token_fraction": 0.24988769317525988
+  },
+  {
+   "layout": "morton",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.3,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.2901253887808076,
+   "global_mass_weighted_coverage": 0.28204599918963497,
+   "mean_realized_normal_token_fraction": 0.30691412673830676
+  },
+  {
+   "layout": "morton",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.5,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.42261002608087905,
+   "global_mass_weighted_coverage": 0.4256563333574714,
+   "mean_realized_normal_token_fraction": 0.5104431753516421
+  },
+  {
+   "layout": "morton",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.1,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.12694522856949114,
+   "global_mass_weighted_coverage": 0.12637607176312418,
+   "mean_realized_normal_token_fraction": 0.10193028373158046
+  },
+  {
+   "layout": "morton",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.2,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.23133811810759494,
+   "global_mass_weighted_coverage": 0.22998871342634034,
+   "mean_realized_normal_token_fraction": 0.20357290826245822
+  },
+  {
+   "layout": "morton",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.25,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.28543469487938367,
+   "global_mass_weighted_coverage": 0.2842604265959004,
+   "mean_realized_normal_token_fraction": 0.24988769317525988
+  },
+  {
+   "layout": "morton",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.3,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.3346497826833564,
+   "global_mass_weighted_coverage": 0.33213361055485635,
+   "mean_realized_normal_token_fraction": 0.30691412673830676
+  },
+  {
+   "layout": "morton",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.5,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.5365212053545664,
+   "global_mass_weighted_coverage": 0.5354111746191272,
+   "mean_realized_normal_token_fraction": 0.5104431753516421
+  },
+  {
+   "layout": "raster",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.1,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.11423458939250172,
+   "global_mass_weighted_coverage": 0.10700302660089596,
+   "mean_realized_normal_token_fraction": 0.10193028373158046
+  },
+  {
+   "layout": "raster",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.2,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.21459166582032205,
+   "global_mass_weighted_coverage": 0.20283419705967243,
+   "mean_realized_normal_token_fraction": 0.20357290826245822
+  },
+  {
+   "layout": "raster",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.25,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.252702087293894,
+   "global_mass_weighted_coverage": 0.2420074502620849,
+   "mean_realized_normal_token_fraction": 0.24984158978019816
+  },
+  {
+   "layout": "raster",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.3,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.28978989590502985,
+   "global_mass_weighted_coverage": 0.28172477636562787,
+   "mean_realized_normal_token_fraction": 0.3061463595924259
+  },
+  {
+   "layout": "raster",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.5,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.4145127484706488,
+   "global_mass_weighted_coverage": 0.4171854114229321,
+   "mean_realized_normal_token_fraction": 0.5050477301339418
+  },
+  {
+   "layout": "raster",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.1,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.12325948421555415,
+   "global_mass_weighted_coverage": 0.1228983999377611,
+   "mean_realized_normal_token_fraction": 0.10193028373158046
+  },
+  {
+   "layout": "raster",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.2,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.23511515983446413,
+   "global_mass_weighted_coverage": 0.23321034666727358,
+   "mean_realized_normal_token_fraction": 0.20357290826245822
+  },
+  {
+   "layout": "raster",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.25,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.29556217790800887,
+   "global_mass_weighted_coverage": 0.2948138429643287,
+   "mean_realized_normal_token_fraction": 0.24984158978019816
+  },
+  {
+   "layout": "raster",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.3,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.33134625189996975,
+   "global_mass_weighted_coverage": 0.3297551874233514,
+   "mean_realized_normal_token_fraction": 0.3061463595924259
+  },
+  {
+   "layout": "raster",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.5,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.4946734586266345,
+   "global_mass_weighted_coverage": 0.4921180462104887,
+   "mean_realized_normal_token_fraction": 0.5050477301339418
+  },
+  {
+   "layout": "visionzip_image_only",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.1,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.2255723378195083,
+   "global_mass_weighted_coverage": 0.18764528268418798,
+   "mean_realized_normal_token_fraction": 0.10193028373158046
+  },
+  {
+   "layout": "visionzip_image_only",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.2,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.35818947079530317,
+   "global_mass_weighted_coverage": 0.3122347446312741,
+   "mean_realized_normal_token_fraction": 0.20357290826245822
+  },
+  {
+   "layout": "visionzip_image_only",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.25,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.415954063700618,
+   "global_mass_weighted_coverage": 0.3673716917937846,
+   "mean_realized_normal_token_fraction": 0.24988769317525988
+  },
+  {
+   "layout": "visionzip_image_only",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.3,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.479784584105084,
+   "global_mass_weighted_coverage": 0.42768341577178237,
+   "mean_realized_normal_token_fraction": 0.30691412673830676
+  },
+  {
+   "layout": "visionzip_image_only",
+   "importance_source": "sparsevlm_calib4_analysis_only",
+   "physical_fraction_requested": 0.5,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.6809894021283852,
+   "global_mass_weighted_coverage": 0.6238756302900736,
+   "mean_realized_normal_token_fraction": 0.5104431753516421
+  },
+  {
+   "layout": "visionzip_image_only",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.1,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.5192835489774741,
+   "global_mass_weighted_coverage": 0.5221120712372059,
+   "mean_realized_normal_token_fraction": 0.10193028373158046
+  },
+  {
+   "layout": "visionzip_image_only",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.2,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.680058014518658,
+   "global_mass_weighted_coverage": 0.6809681724543588,
+   "mean_realized_normal_token_fraction": 0.20357290826245822
+  },
+  {
+   "layout": "visionzip_image_only",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.25,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.7315167233779932,
+   "global_mass_weighted_coverage": 0.7327172233592055,
+   "mean_realized_normal_token_fraction": 0.24988769317525988
+  },
+  {
+   "layout": "visionzip_image_only",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.3,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.7840829714019801,
+   "global_mass_weighted_coverage": 0.7851947943274433,
+   "mean_realized_normal_token_fraction": 0.30691412673830676
+  },
+  {
+   "layout": "visionzip_image_only",
+   "importance_source": "visionzip_image_saliency",
+   "physical_fraction_requested": 0.5,
+   "n_image_layers": 1280,
+   "macro_mean_coverage": 0.9095100910472048,
+   "global_mass_weighted_coverage": 0.9099199947831865,
+   "mean_realized_normal_token_fraction": 0.5104431753516421
+  }
+ ],
+ "inputs": {
+  "index": "/home/dblab/hj/mllm_v2/data/index.json",
+  "index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+  "evaluation_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66",
+  "calibration_workload_sha256": "992cc89a81a6cadf363b65b58f8f89fabfc0a1a17358559069f8c0b6cabc1e71",
+  "calib4_store": "/home/dblab/hj/mllm_v2/kvstore",
+  "calib4_store_expected_content_sha256": "e570a6847743a203fc1e2892d736ebe8aa946647cbb0e280f212388da2c09d68",
+  "visionzip_store": "/home/dblab/hj/mllm_v2/kvstore_image_only_visionzip",
+  "matched_calib_store": "/home/dblab/hj/mllm_v2/kvstore_image_only_work",
+  "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+  "chunk_size": 64
+ },
+ "command": "/home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/24_collect_image_only_coverage.py --index data/index.json --calib4-store kvstore --visionzip-store kvstore_image_only_visionzip --matched-calib-store kvstore_image_only_work --out-dir runs/image_only_repack/coverage",
+ "coverage_csv_sha256": "e599a387a83427eb34b692b8c4b1bb1c592a1a4b45cd2e44dacc493cdac4aa4b"
+}

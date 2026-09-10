@@ -1,0 +1,132 @@
+{
+  "overlap": {
+    "25": {
+      "budget": 0.25,
+      "intersection_mean": 5.971875,
+      "jaccard_mean": 0.5431147656469347,
+      "jaccard_median": 0.6,
+      "n_image_layers": 1280,
+      "prefix_only_mean": 2.553125,
+      "sd_only_mean": 2.553125
+    },
+    "50": {
+      "budget": 0.5,
+      "intersection_mean": 13.1125,
+      "jaccard_mean": 0.6070037110609311,
+      "jaccard_median": 0.6190476190476191,
+      "n_image_layers": 1280,
+      "prefix_only_mean": 4.2875,
+      "sd_only_mean": 4.2875
+    }
+  },
+  "static_diverse25_minus_prefix25": {
+    "a_method": "static_diverse_chunk@25",
+    "b_method": "reorder_prefix_chunk@25",
+    "bootstrap": {
+      "a_mean": 0.6083333333333333,
+      "b_mean": 0.6041666666666666,
+      "delta_mean": 0.004166666666666667,
+      "image_cluster_primary": {
+        "a_ci95": [
+          0.5333333333333334,
+          0.6791666666666667
+        ],
+        "b_ci95": [
+          0.5333333333333333,
+          0.675
+        ],
+        "delta_ci95": [
+          -0.02083333333333348,
+          0.033333333333333326
+        ],
+        "sampling_unit": "image; all six questions retained as one cluster"
+      },
+      "n_bootstrap": 10000,
+      "n_image_clusters": 40,
+      "n_questions": 240,
+      "question_supplement": {
+        "a_ci95": [
+          0.5458333333333333,
+          0.6708333333333333
+        ],
+        "b_ci95": [
+          0.5416666666666666,
+          0.6666666666666666
+        ],
+        "delta_ci95": [
+          -0.025000000000000022,
+          0.033333333333333326
+        ],
+        "sampling_unit": "question"
+      },
+      "seed": 0
+    },
+    "decision": "RETHINK",
+    "decision_rule": "GO iff observed delta Accuracy(Static+Diverse25 - Prefix25) > 0 and the 95% image-cluster paired-bootstrap CI lower bound > 0; otherwise RETHINK",
+    "delta_pp": 0.4166666666666667,
+    "mcnemar": {
+      "a_only": 7,
+      "b_only": 6,
+      "both_correct": 139,
+      "discordant": 13,
+      "neither_correct": 88,
+      "p_exact_two_sided": 1.0
+    },
+    "primary_decision": true
+  },
+  "static_diverse50_minus_prefix50": {
+    "a_method": "static_diverse_chunk@50",
+    "b_method": "reorder_prefix_chunk@50",
+    "bootstrap": {
+      "a_mean": 0.625,
+      "b_mean": 0.625,
+      "delta_mean": 0.0,
+      "image_cluster_primary": {
+        "a_ci95": [
+          0.55,
+          0.6958333333333334
+        ],
+        "b_ci95": [
+          0.55,
+          0.7
+        ],
+        "delta_ci95": [
+          -0.01666666666666672,
+          0.016666666666666607
+        ],
+        "sampling_unit": "image; all six questions retained as one cluster"
+      },
+      "n_bootstrap": 10000,
+      "n_image_clusters": 40,
+      "n_questions": 240,
+      "question_supplement": {
+        "a_ci95": [
+          0.5625,
+          0.6833333333333333
+        ],
+        "b_ci95": [
+          0.5625,
+          0.6833333333333333
+        ],
+        "delta_ci95": [
+          -0.016666666666666607,
+          0.01666666666666672
+        ],
+        "sampling_unit": "question"
+      },
+      "seed": 0
+    },
+    "decision": "RETHINK",
+    "decision_rule": "GO iff observed delta Accuracy(Static+Diverse25 - Prefix25) > 0 and the 95% image-cluster paired-bootstrap CI lower bound > 0; otherwise RETHINK",
+    "delta_pp": 0.0,
+    "mcnemar": {
+      "a_only": 2,
+      "b_only": 2,
+      "both_correct": 148,
+      "discordant": 4,
+      "neither_correct": 88,
+      "p_exact_two_sided": 1.0
+    },
+    "primary_decision": false
+  }
+}

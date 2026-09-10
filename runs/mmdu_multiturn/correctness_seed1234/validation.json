@@ -1,0 +1,39 @@
+{
+  "schema_version": "mmdu-dynamic-cache-validation-v1",
+  "validation_scope": "native_append_only_transformers_DynamicCache",
+  "checks": {
+    "dialog_count_exact": true,
+    "turn_count_exact": true,
+    "all_prefixes_exact": true,
+    "all_token_sequences_exact": true,
+    "all_visual_spans_exact": true,
+    "all_active_image_orders_exact": true,
+    "all_new_image_orders_exact": true,
+    "all_cache_lengths_exact": true,
+    "all_logit_differences_finite": true,
+    "all_logits_within_predeclared_tolerance": false,
+    "all_first_tokens_exact": true,
+    "all_generated_token_ids_exact": true,
+    "all_generated_responses_exact": true,
+    "all_contexts_within_4096": true
+  },
+  "append_only_dynamic_cache_gate_passed": false,
+  "max_observed_first_logit_abs_diff": 0.15625,
+  "max_observed_first_logit_mean_abs_diff": 0.022636042907834053,
+  "first_logit_tolerance": {
+    "max_abs": 0.125,
+    "mean_abs": 0.01,
+    "declared_before_run": true
+  },
+  "note_on_logits": "The predeclared max and mean absolute tolerances are both gated; the behavioral gate additionally requires exact greedy first-token and generated-token equality.",
+  "existing_image_prefix_ssd_stores_used": false,
+  "independent_image_prefix_kv_concatenation_used": false,
+  "static_diverse_mmdu_gate_passed": false,
+  "static_diverse_gate_reason": "separate gate remains closed; SSD/static-diverse serving was not run",
+  "official_prompt_equivalence_claimed": false,
+  "official_mmdu_generation_protocol_gate_passed": false,
+  "official_protocol_gate_reason": "official [INST] plus generated-history quality protocol was not run",
+  "official_resize_equivalence_claimed": true,
+  "completed_unix": 1788949545.6150231,
+  "elapsed_seconds": 21.00234842300415
+}

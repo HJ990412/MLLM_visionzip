@@ -70,9 +70,33 @@ class LlavaRunner:
         return (f"USER: <image>\n{question} "
                 "Answer the question using a single word or phrase. ASSISTANT:")
 
+    def encode_prompt(self, image, prompt: str):
+        """Encode an already formatted single- or multi-image prompt.
+
+        ``encode`` remains the legacy single-turn VQA entry point.  Multi-turn
+        workloads need to control the complete textual conversation while
+        retaining the exact same processor and model-loading path.
+        """
+        enc = self.processor(images=image, text=prompt, return_tensors="pt")
+        return {k: v for k, v in enc.items()}
+
     def encode(self, image, question: str):
-        enc = self.processor(images=image, text=self.prompt(question),
-                             return_tensors="pt")
+        return self.encode_prompt(image, self.prompt(question))
+
+    def image_inputs(self, image):
+        """Preprocess pixels without accepting or tokenizing any text.
+
+        The image-only repacking path deliberately calls the processor's image
+        component directly.  Keeping ``question`` out of this API makes it
+        impossible for a dataset question to influence VisionZip saliency by
+        accident while still using the exact LLaVA-NeXT AnyRes preprocessing
+        configuration owned by ``AutoProcessor``.
+        """
+        enc = self.processor.image_processor(images=image,
+                                             return_tensors="pt")
+        required = {"pixel_values", "image_sizes"}
+        missing = required - set(enc)
+        assert not missing, f"image processor omitted {sorted(missing)}"
         return {k: v for k, v in enc.items()}
 
     def to_device(self, enc):
@@ -82,11 +106,31 @@ class LlavaRunner:
 
     # ---------------------------------------------------------- geometry
     def visual_span(self, input_ids):
+        spans = self.visual_spans(input_ids)
+        assert len(spans) == 1, f"expected one image span, got {spans}"
+        return spans[0]
+
+    def visual_spans(self, input_ids):
+        """Return every contiguous expanded ``<image>`` span in token order.
+
+        This does not make the existing SSD cache multi-image capable; it is a
+        read-only geometry primitive used by the MMDU correctness gate.
+        """
+        if input_ids.dim() > 1:
+            assert input_ids.shape[0] == 1, input_ids.shape
+            input_ids = input_ids[0]
         pos = (input_ids == self.image_token_id).nonzero(as_tuple=True)[0]
         assert pos.numel() > 0, "no image tokens in input_ids"
-        v0, v1 = int(pos[0]), int(pos[-1])
-        assert pos.numel() == v1 - v0 + 1, "image token span is not contiguous"
-        return v0, int(pos.numel())
+        spans = []
+        start = prev = int(pos[0])
+        for p in pos[1:].tolist():
+            p = int(p)
+            if p != prev + 1:
+                spans.append((start, prev - start + 1))
+                start = p
+            prev = p
+        spans.append((start, prev - start + 1))
+        return spans
 
     def anyres_layout(self, image_size, v_num: int):
         """(base, hi_h, hi_w, newline_local_indices) for one image.
