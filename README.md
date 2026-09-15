@@ -1108,4 +1108,6 @@ Turn 1의 E2E TTFT는 네 arm 모두 약 519–520 ms로 동일하다. SSD persi
 MRR/R@K/Mean Rank/NDCG 점수가 아니다. 전체 timing boundary, persistence accounting,
 turn별 통계, break-even CSV와 validation은
 [`results/visdial_turn1_piggyback_e2e_ttft/main_seed1234/`](results/visdial_turn1_piggyback_e2e_ttft/main_seed1234/)
-에 있다.
+에 있다. Turn 1을 제외한 paper-facing cache-hit(Turns 2–10) 재집계, FullLoad I/O
+breakdown, persistence 분리, turn별 통계와 52개 fail-closed 검증은
+[`results/visdial_cache_hit_analysis/`](results/visdial_cache_hit_analysis/)에 추가했다.

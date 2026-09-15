@@ -1,0 +1,64 @@
+{
+  "schema_version": "visdial-cache-hit-analysis-v1",
+  "analysis_only": true,
+  "new_inference_executed": false,
+  "source_run_dir": "/home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/main_seed1234",
+  "source_results_dir": "/home/dblab/hj/mllm_v2/results/visdial_turn1_piggyback_e2e_ttft/main_seed1234",
+  "results_dir": "/home/dblab/hj/mllm_v2/results/visdial_cache_hit_analysis",
+  "analyzer": {
+    "path": "/home/dblab/hj/mllm_v2/scripts/32_analyze_visdial_cache_hits.py",
+    "sha256": "06d702b73e6e67798c54dd384c0290b549c9914aaf324f1ff41f54480d0ef244"
+  },
+  "source_file_sha256": {
+    "config": "fc4dcd619e877fbfa10c530c11da8cfa0c4920c01611951613042ef9dee4d4df",
+    "raw": "e250dadac32fdf4c1a17420313b5fb12c03cb3aa75dd1f727f08c8dd7f332df9",
+    "persistence": "83ac38ac0f7b0833a35ea5ab826ad448ffcb2fbe7ab0d722acaa12d70841f7cc",
+    "persistence_jsonl": "4273df815e7a42a209260594f1d48ecce5f1d8ec272ab56f8edf7fedc6c64e06",
+    "source_validation": "fa7e5f65e2e8f27d85075998e5de84cd1867c35866fce668ccede0d82670b2d9",
+    "source_summary": "400c85aa56a5bbefac3439078a2edeef1f16d13a840852aca1429e42917b0635",
+    "source_readme": "2357bb898a4784a7fe9e64dd34479440b1abf9ad68b06b92acf74dd4a1b90c89",
+    "index": "8c3dd7e983cb39e61d26362a0353b86ac84845bd7537a6331078ab7707777383"
+  },
+  "source_run_tree_sha256_before": "10a55ee7a6d6340d80265685aee7b3d693ea6f067cc60eb1a2d869092dce13f8",
+  "source_results_tree_sha256_before": "b8dda5c70fd040debb4a13fe8ea7e5b74600dad2c48882794ac059bf7eeafd2e",
+  "dataset": "visdial_v1.0_val",
+  "index_sha256": "8c3dd7e983cb39e61d26362a0353b86ac84845bd7537a6331078ab7707777383",
+  "ordered_request_keys_sha256": "395ba928a15eb45bca905aa91d1ec89617981f18b9b22338341b2a189b3f141a",
+  "main_turns": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "main_rows": 3600,
+  "main_rows_per_method": 900,
+  "turn1_in_main_rows": 0,
+  "methods": [
+    "ReComp",
+    "FullLoad",
+    "Prefix25",
+    "Prefix45"
+  ],
+  "main_metric": "end_to_end_ttft_ms",
+  "core_ttft_role": "diagnostic_only",
+  "persistence_in_main_ttft": false,
+  "persistence_reported_separately": true,
+  "history_policy": "gold_teacher_forced",
+  "quality_metric": "normalized_generative_match_auxiliary_not_official_visdial",
+  "ssd_units": {
+    "MB": 1000000,
+    "GB": 1000000000
+  },
+  "page_cache_conditioning": {
+    "method": "posix_fadvise(DONTNEED)",
+    "inside_request_timer": false,
+    "io_api": "buffered pread",
+    "o_direct": false,
+    "ssd_controller_cache_flushed": false
+  }
+}
