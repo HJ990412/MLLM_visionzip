@@ -331,7 +331,8 @@ class ImageContext:
     on which.  meta["order"] records the permutation for analysis only.
     """
 
-    def __init__(self, store_dir, device, drop_cache=True):
+    def __init__(self, store_dir, device, drop_cache=True,
+                 require_v_hidden=True):
         from pathlib import Path
         self.dir = Path(store_dir)
         self.meta = load_meta(self.dir)
@@ -355,7 +356,14 @@ class ImageContext:
         self.reader = ChunkReader(self.dir, self.meta, drop_cache=drop_cache)
         sys_kv = torch.load(self.dir / "sys_kv.pt", weights_only=True)
         self.cache = PrefixCache(self.meta, sys_kv, device)
-        self.v_hidden = torch.load(self.dir / "v_hidden.pt", weights_only=True)
+        v_hidden_path = self.dir / "v_hidden.pt"
+        if require_v_hidden:
+            self.v_hidden = torch.load(v_hidden_path, weights_only=True)
+        else:
+            # FullLoad and the sequential-Prefix path never consult the
+            # SparseVLM rater input.  Turn-1 piggyback stores therefore need
+            # not persist this otherwise-unused tensor.
+            self.v_hidden = None
 
     def separator_positions(self, layer):
         """Stored row-separator positions without loading VisionZip metadata."""
@@ -534,6 +542,8 @@ class Server:
     # ---------------------------------------------------------- raters
     def raters(self, ctx, suffix_ids):
         dev = self.runner.model.device
+        assert ctx.v_hidden is not None, \
+            "SparseVLM rater selection requires v_hidden.pt"
         emb = self.runner.model.get_input_embeddings()(suffix_ids.to(dev))
         pair = torch.cat([ctx.v_hidden.to(dev).float().unsqueeze(0),
                           emb.float().unsqueeze(0)], dim=1)
@@ -651,6 +661,10 @@ class Server:
             "generated_tokens": timing["generated_tokens"],
             "n_raters": int(rr.numel()),
             "io": counter.summary(),
+            "core_started_at_s": t0,
+            "first_token_at_s": timing["first_token_at"],
+            "model_finished_at_s": timing["finished_at"],
+            "postprocess_finished_at_s": time.perf_counter(),
             **sel.stats(),
         }
 
@@ -745,12 +759,17 @@ class Server:
                 getattr(ctx, "_prefix_layout_validated", None)
                 if mode == "prefix" else None),
             "n_raters": 0,
+            "core_started_at_s": t0,
+            "first_token_at_s": timing["first_token_at"],
+            "model_finished_at_s": timing["finished_at"],
+            "postprocess_finished_at_s": time.perf_counter(),
         })
         st["selector_ms"] = st["select_ms"] + st["query_ms"]
         return st
 
     @torch.no_grad()
-    def recompute(self, enc, question_unused=None):
+    def recompute(self, enc, question_unused=None,
+                  return_past_key_values=False):
         """ReComp baseline with the same true-TTFT/decode boundary.
 
         Input processing and host-to-device transfer happen before ``t0``.
@@ -770,15 +789,18 @@ class Server:
         prefill_t0 = time.perf_counter()
         out = runner.model.generate(
             **enc, max_new_tokens=self.max_new_tokens, do_sample=False,
-            pad_token_id=tok.eos_token_id, stopping_criteria=[marker])
+            pad_token_id=tok.eos_token_id, stopping_criteria=[marker],
+            return_dict_in_generate=return_past_key_values,
+            use_cache=True)
         torch.cuda.synchronize()
         finished_at = time.perf_counter()
         assert marker.at is not None, "generate returned without an output token"
         first_token_at = marker.at
         decode_t0 = first_token_at
-        toks = out[0, enc["input_ids"].shape[1]:]
+        sequences = out.sequences if return_past_key_values else out
+        toks = sequences[0, enc["input_ids"].shape[1]:]
         text = tok.decode(toks, skip_special_tokens=True).strip()
-        return {
+        result = {
             "answer": text,
             "first_token_id": int(toks[0]),
             "ttft": first_token_at - t0,
@@ -787,7 +809,14 @@ class Server:
             "prefill_ms": (first_token_at - prefill_t0) * 1e3,
             "decode_ms": (finished_at - decode_t0) * 1e3,
             "generated_tokens": int(toks.numel()),
+            "core_started_at_s": t0,
+            "first_token_at_s": first_token_at,
+            "model_finished_at_s": finished_at,
+            "postprocess_finished_at_s": time.perf_counter(),
         }
+        if return_past_key_values:
+            result["captured_past_key_values"] = out.past_key_values
+        return result
 
 
 # --------------------------------------------------------------- calibration

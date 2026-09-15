@@ -1,0 +1,125 @@
+{
+ "index": "/home/dblab/hj/mllm_v2/data/visdial_v1.0/subsets/main_seed1234/index.json",
+ "methods": "recompute,prefix25,prefix45,fullload",
+ "smoke_tag": "seed1234_warmupfix",
+ "disk_free_bytes": 207197138944,
+ "smoke_run": "/home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix",
+ "smoke_store": "/home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix",
+ "direct_store": "/home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_direct_seed1234_warmupfix",
+ "main_run": null,
+ "main_store": null,
+ "main_results": null
+}
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/28_eval_visdial_turn1_piggyback.py --index /home/dblab/hj/mllm_v2/data/visdial_v1.0/subsets/main_seed1234/index.json --store /home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix --run-dir /home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix --max-dialogs 2 --max-turns 10 --max-new-tokens 16 --seed 1234 --methods recompute,prefix25,prefix45,fullload --min-free-after-gib 20.0
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.37s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.32s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.11s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.17s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/2 t1] ImageOnly-Repack Prefix45: e2e-TTFT=529.8ms vision=39.1ms pred='No'
+[1/2 t1] ImageOnly FullLoad: e2e-TTFT=527.9ms vision=39.1ms pred='No'
+[1/2 t1] ReComp: e2e-TTFT=527.7ms vision=39.1ms pred='No'
+[1/2 t1] ImageOnly-Repack Prefix25: e2e-TTFT=528.4ms vision=39.1ms pred='No'
+[1/2 t2] ImageOnly-Repack Prefix45: e2e-TTFT=433.9ms SSD=589.3MB pred='No'
+[1/2 t2] ImageOnly FullLoad: e2e-TTFT=738.5ms SSD=1226.8MB pred='No'
+[1/2 t2] ReComp: e2e-TTFT=565.7ms SSD=0.0MB pred='No'
+[1/2 t2] ImageOnly-Repack Prefix25: e2e-TTFT=253.1ms SSD=320.9MB pred='No'
+[1/2 t3] ImageOnly-Repack Prefix45: e2e-TTFT=444.5ms SSD=589.3MB pred='Yes'
+[1/2 t3] ImageOnly FullLoad: e2e-TTFT=687.1ms SSD=1226.8MB pred='Yes'
+[1/2 t3] ReComp: e2e-TTFT=562.5ms SSD=0.0MB pred='Yes'
+[1/2 t3] ImageOnly-Repack Prefix25: e2e-TTFT=270.7ms SSD=320.9MB pred='Yes'
+[1/2 t4] ImageOnly-Repack Prefix45: e2e-TTFT=422.4ms SSD=589.3MB pred='Yes'
+[1/2 t4] ImageOnly FullLoad: e2e-TTFT=750.0ms SSD=1226.8MB pred='Yes'
+[1/2 t4] ReComp: e2e-TTFT=536.8ms SSD=0.0MB pred='Yes'
+[1/2 t4] ImageOnly-Repack Prefix25: e2e-TTFT=272.6ms SSD=320.9MB pred='Yes'
+[1/2 t5] ImageOnly-Repack Prefix45: e2e-TTFT=417.8ms SSD=589.3MB pred='Many'
+[1/2 t5] ImageOnly FullLoad: e2e-TTFT=753.0ms SSD=1226.8MB pred='Many'
+[1/2 t5] ReComp: e2e-TTFT=569.1ms SSD=0.0MB pred='Many'
+[1/2 t5] ImageOnly-Repack Prefix25: e2e-TTFT=274.9ms SSD=320.9MB pred='There are many buildings in the image.'
+[1/2 t6] ImageOnly-Repack Prefix45: e2e-TTFT=453.7ms SSD=589.3MB pred='Yes'
+[1/2 t6] ImageOnly FullLoad: e2e-TTFT=692.3ms SSD=1226.8MB pred='Yes'
+[1/2 t6] ReComp: e2e-TTFT=573.0ms SSD=0.0MB pred='Yes'
+[1/2 t6] ImageOnly-Repack Prefix25: e2e-TTFT=237.7ms SSD=320.9MB pred='Yes'
+[1/2 t7] ImageOnly-Repack Prefix45: e2e-TTFT=450.1ms SSD=589.3MB pred='Yes'
+[1/2 t7] ImageOnly FullLoad: e2e-TTFT=714.6ms SSD=1226.8MB pred='Yes'
+[1/2 t7] ReComp: e2e-TTFT=569.6ms SSD=0.0MB pred='Yes'
+[1/2 t7] ImageOnly-Repack Prefix25: e2e-TTFT=244.1ms SSD=320.9MB pred='Yes'
+[1/2 t8] ImageOnly-Repack Prefix45: e2e-TTFT=445.3ms SSD=589.3MB pred='The sign says "Auckland."'
+[1/2 t8] ImageOnly FullLoad: e2e-TTFT=719.7ms SSD=1226.8MB pred='The sign says "Auckland."'
+[1/2 t8] ReComp: e2e-TTFT=549.1ms SSD=0.0MB pred='The sign says "Auckland."'
+[1/2 t8] ImageOnly-Repack Prefix25: e2e-TTFT=286.5ms SSD=320.9MB pred='The sign says "Auckland."'
+[1/2 t9] ImageOnly-Repack Prefix45: e2e-TTFT=457.5ms SSD=589.3MB pred='No'
+[1/2 t9] ImageOnly FullLoad: e2e-TTFT=722.5ms SSD=1226.8MB pred='No'
+[1/2 t9] ReComp: e2e-TTFT=585.4ms SSD=0.0MB pred='No'
+[1/2 t9] ImageOnly-Repack Prefix25: e2e-TTFT=296.9ms SSD=320.9MB pred='No'
+[1/2 t10] ImageOnly-Repack Prefix45: e2e-TTFT=468.8ms SSD=589.3MB pred='No'
+[1/2 t10] ImageOnly FullLoad: e2e-TTFT=953.5ms SSD=1226.8MB pred='No'
+[1/2 t10] ReComp: e2e-TTFT=579.7ms SSD=0.0MB pred='No'
+[1/2 t10] ImageOnly-Repack Prefix25: e2e-TTFT=295.4ms SSD=320.9MB pred='No'
+[2/2 t1] ImageOnly FullLoad: e2e-TTFT=513.4ms vision=39.5ms pred='No'
+[2/2 t1] ReComp: e2e-TTFT=509.1ms vision=39.1ms pred='No'
+[2/2 t1] ImageOnly-Repack Prefix25: e2e-TTFT=508.7ms vision=39.0ms pred='No'
+[2/2 t1] ImageOnly-Repack Prefix45: e2e-TTFT=508.7ms vision=39.1ms pred='No'
+[2/2 t2] ImageOnly FullLoad: e2e-TTFT=706.1ms SSD=1124.1MB pred='No'
+[2/2 t2] ReComp: e2e-TTFT=511.5ms SSD=0.0MB pred='No'
+[2/2 t2] ImageOnly-Repack Prefix25: e2e-TTFT=259.6ms SSD=285.2MB pred='No'
+[2/2 t2] ImageOnly-Repack Prefix45: e2e-TTFT=376.0ms SSD=520.1MB pred='No'
+[2/2 t3] ImageOnly FullLoad: e2e-TTFT=682.3ms SSD=1124.1MB pred='Yes'
+[2/2 t3] ReComp: e2e-TTFT=514.7ms SSD=0.0MB pred='Yes'
+[2/2 t3] ImageOnly-Repack Prefix25: e2e-TTFT=254.4ms SSD=285.2MB pred='Yes'
+[2/2 t3] ImageOnly-Repack Prefix45: e2e-TTFT=376.5ms SSD=520.1MB pred='Yes'
+[2/2 t4] ImageOnly FullLoad: e2e-TTFT=641.2ms SSD=1124.1MB pred='Yes'
+[2/2 t4] ReComp: e2e-TTFT=519.2ms SSD=0.0MB pred='Yes'
+[2/2 t4] ImageOnly-Repack Prefix25: e2e-TTFT=260.3ms SSD=285.2MB pred='Yes'
+[2/2 t4] ImageOnly-Repack Prefix45: e2e-TTFT=367.9ms SSD=520.1MB pred='Yes'
+[2/2 t5] ImageOnly FullLoad: e2e-TTFT=615.1ms SSD=1124.1MB pred='No'
+[2/2 t5] ReComp: e2e-TTFT=522.2ms SSD=0.0MB pred='No'
+[2/2 t5] ImageOnly-Repack Prefix25: e2e-TTFT=224.9ms SSD=285.2MB pred='No'
+[2/2 t5] ImageOnly-Repack Prefix45: e2e-TTFT=366.2ms SSD=520.1MB pred='No'
+[2/2 t6] ImageOnly FullLoad: e2e-TTFT=658.3ms SSD=1124.1MB pred='Yes'
+[2/2 t6] ReComp: e2e-TTFT=493.7ms SSD=0.0MB pred='Yes'
+[2/2 t6] ImageOnly-Repack Prefix25: e2e-TTFT=266.4ms SSD=285.2MB pred='Yes'
+[2/2 t6] ImageOnly-Repack Prefix45: e2e-TTFT=389.7ms SSD=520.1MB pred='Yes'
+[2/2 t7] ImageOnly FullLoad: e2e-TTFT=671.1ms SSD=1124.1MB pred='No'
+[2/2 t7] ReComp: e2e-TTFT=527.7ms SSD=0.0MB pred='No'
+[2/2 t7] ImageOnly-Repack Prefix25: e2e-TTFT=252.7ms SSD=285.2MB pred='No'
+[2/2 t7] ImageOnly-Repack Prefix45: e2e-TTFT=382.2ms SSD=520.1MB pred='No'
+[2/2 t8] ImageOnly FullLoad: e2e-TTFT=736.1ms SSD=1124.1MB pred='Yes'
+[2/2 t8] ReComp: e2e-TTFT=536.4ms SSD=0.0MB pred='Yes'
+[2/2 t8] ImageOnly-Repack Prefix25: e2e-TTFT=265.5ms SSD=285.2MB pred='Yes'
+[2/2 t8] ImageOnly-Repack Prefix45: e2e-TTFT=377.3ms SSD=520.1MB pred='Yes'
+[2/2 t9] ImageOnly FullLoad: e2e-TTFT=658.9ms SSD=1124.1MB pred='No'
+[2/2 t9] ReComp: e2e-TTFT=541.3ms SSD=0.0MB pred='No'
+[2/2 t9] ImageOnly-Repack Prefix25: e2e-TTFT=255.7ms SSD=285.2MB pred='No'
+[2/2 t9] ImageOnly-Repack Prefix45: e2e-TTFT=386.5ms SSD=520.1MB pred='No'
+[2/2 t10] ImageOnly FullLoad: e2e-TTFT=681.1ms SSD=1124.1MB pred='No'
+[2/2 t10] ReComp: e2e-TTFT=537.3ms SSD=0.0MB pred='No'
+[2/2 t10] ImageOnly-Repack Prefix25: e2e-TTFT=232.5ms SSD=285.2MB pred='No'
+[2/2 t10] ImageOnly-Repack Prefix45: e2e-TTFT=387.9ms SSD=520.1MB pred='No'
+{
+ "status": "complete",
+ "run_dir": "/home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix",
+ "store_root": "/home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix",
+ "rows": 80,
+ "persistence_rows": 2,
+ "elapsed_seconds": 44.85033523500897
+}
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/30_validate_visdial_turn1_piggyback.py --smoke-run /home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix --captured-store /home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix --direct-store /home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_direct_seed1234_warmupfix --index /home/dblab/hj/mllm_v2/data/visdial_v1.0/subsets/main_seed1234/index.json --output /home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix/captured_kv_validation.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.38s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.35s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.10s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.17s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+validated visdial:511888: full KV=True P25=True P45=True
+validated visdial:96511: full KV=True P25=True P45=True
+{
+ "passed": true,
+ "output": "/home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix/captured_kv_validation.json",
+ "elapsed_seconds": 31.13221502304077
+}

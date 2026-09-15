@@ -1,0 +1,285 @@
+{
+ "schema_version": "visdial-turn1-piggyback-e2e-ttft-v1",
+ "status": "complete",
+ "dataset": "visdial_v1.0_val",
+ "index": "/home/dblab/hj/mllm_v2/data/visdial_v1.0/subsets/main_seed1234/index.json",
+ "index_sha256": "8c3dd7e983cb39e61d26362a0353b86ac84845bd7537a6331078ab7707777383",
+ "expected_main_index_sha256": "8c3dd7e983cb39e61d26362a0353b86ac84845bd7537a6331078ab7707777383",
+ "expected_request_keys": [
+  [
+   "visdial:511888",
+   1
+  ],
+  [
+   "visdial:511888",
+   2
+  ],
+  [
+   "visdial:511888",
+   3
+  ],
+  [
+   "visdial:511888",
+   4
+  ],
+  [
+   "visdial:511888",
+   5
+  ],
+  [
+   "visdial:511888",
+   6
+  ],
+  [
+   "visdial:511888",
+   7
+  ],
+  [
+   "visdial:511888",
+   8
+  ],
+  [
+   "visdial:511888",
+   9
+  ],
+  [
+   "visdial:511888",
+   10
+  ],
+  [
+   "visdial:96511",
+   1
+  ],
+  [
+   "visdial:96511",
+   2
+  ],
+  [
+   "visdial:96511",
+   3
+  ],
+  [
+   "visdial:96511",
+   4
+  ],
+  [
+   "visdial:96511",
+   5
+  ],
+  [
+   "visdial:96511",
+   6
+  ],
+  [
+   "visdial:96511",
+   7
+  ],
+  [
+   "visdial:96511",
+   8
+  ],
+  [
+   "visdial:96511",
+   9
+  ],
+  [
+   "visdial:96511",
+   10
+  ]
+ ],
+ "expected_request_keys_sha256": "433b627cbd6305f69a28ec8c6b62a2897edce1b5634a9a9f11ecf03ca7d4f120",
+ "expected_main_request_keys_sha256": "395ba928a15eb45bca905aa91d1ec89617981f18b9b22338341b2a189b3f141a",
+ "correctness_validation_source": {
+  "path": "/home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix/captured_kv_validation.json",
+  "sha256": "c5111ee13a4c7530810b94369eb49a1822bf04954de555756ad71c91d5b1532c"
+ },
+ "seed": 1234,
+ "n_dialogs": 2,
+ "n_unique_images": 2,
+ "turns_per_dialog": 10,
+ "n_turns": 20,
+ "n_method_requests": 80,
+ "method_keys": [
+  "recompute",
+  "prefix25",
+  "prefix45",
+  "fullload"
+ ],
+ "methods": [
+  "ReComp",
+  "ImageOnly-Repack Prefix25",
+  "ImageOnly-Repack Prefix45",
+  "ImageOnly FullLoad"
+ ],
+ "budgets": {
+  "recompute": null,
+  "prefix25": 0.25,
+  "prefix45": 0.45,
+  "fullload": 1.0
+ },
+ "method_order_policy": "cyclic deterministic rotation by (zero_based_dialog_index + seed) modulo number of methods; same order at every turn of a dialog",
+ "method_orders": {
+  "visdial:511888": [
+   "prefix45",
+   "fullload",
+   "recompute",
+   "prefix25"
+  ],
+  "visdial:96511": [
+   "fullload",
+   "recompute",
+   "prefix25",
+   "prefix45"
+  ]
+ },
+ "method_order_by_dialog": {
+  "visdial:511888": [
+   "prefix45",
+   "fullload",
+   "recompute",
+   "prefix25"
+  ],
+  "visdial:96511": [
+   "fullload",
+   "recompute",
+   "prefix25",
+   "prefix45"
+  ]
+ },
+ "unmeasured_warmup": {
+  "enabled": true,
+  "count": 1,
+  "excluded_from_all_latency_metrics": true,
+  "fixture": "deterministic_in_memory_rgb_pattern_640x480",
+  "fixture_sha256": "084a2eb13fe0a1aab10d4b15c14e5aa14da8c0f1a6b51504423dc9b64594663e",
+  "fixture_is_dataset_image": false,
+  "consumed_experiment_request": false,
+  "prompt": "USER: <image>\nThis is an unmeasured serving-path warm-up. Describe the image briefly. ASSISTANT:",
+  "prompt_sha256": "cdb5a5d32c94336025918f872544b5189b6080f46c969d79e1f760f1e36a6190",
+  "input_tensors_sha256": "243d6342cda5a6dc3082cb518a42784919f2d340b100692493ddd98df22bc32f",
+  "actual_combined_processor": true,
+  "normal_multimodal_generation": true,
+  "return_past_key_values_path": true,
+  "captured_cache_discarded": true,
+  "saliency_capture_enabled": true,
+  "vision_forward_count": 1,
+  "saliency_call_count": 1,
+  "separate_vision_forward_count": 0,
+  "ssd_store_written": false,
+  "vision_ms": 129.57318115234375,
+  "saliency_extra_ms": 0.1658879965543747,
+  "processor_total_ms": 15.688790939748287,
+  "first_token_id": 450,
+  "generated_tokens": 16,
+  "request_until_return_ms": 1132.0466620381922,
+  "total_including_capture_cleanup_ms": 1132.1676289662719
+ },
+ "warmup_policy": "one deterministic synthetic-image request before the measured workload; actual combined processor, image H2D, normal multimodal generation, returned-cache path, and same-forward saliency hook; cache/saliency discarded and no SSD store written",
+ "warmup_excluded_from_latency": true,
+ "warmup_uses_experiment_subset": false,
+ "history_policy": "gold_teacher_forced",
+ "prompt_template": "visdial-gold-history-v1",
+ "quality_mode": "generative_auxiliary_normalized_match_not_official",
+ "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+ "load_4bit": true,
+ "quantization": "4-bit NF4 double-quant",
+ "attention": "eager",
+ "decoding": "greedy",
+ "max_new_tokens": 16,
+ "chunk_size": 64,
+ "physical_layout": "visionzip_image_only",
+ "retrieval": "sequential_first_k_repacked_chunks",
+ "separator_policy": "sidecar",
+ "selector_algorithms_excluded": [
+  "Static+Diverse",
+  "SparseVLM",
+  "query-dependent selector",
+  "MaxMin"
+ ],
+ "turn1_policy": "all methods use normal image+Turn1 multimodal inference; one Ours execution exposes its existing past_key_values and same-forward image-only saliency; its cache is persisted immediately after Answer1 and released before a later counterfactual arm; no second vision or prefix forward",
+ "persistence_schedule": "immediately_after_source_answer1",
+ "source_gpu_cache_released_before_next_method": true,
+ "turn2_to_10_policy": "ReComp repeats image processor+H2D+vision; Prefix/FullLoad use the one shared SSD store and never invoke vision",
+ "main_ttft_field": "end_to_end_ttft_ms",
+ "main_ttft_metric": "end_to_end_ttft_ms",
+ "input_preprocessing_timed": true,
+ "page_cache_conditioning_in_ttft": false,
+ "cold_page_cache": true,
+ "ssd_read_api": "buffered_pread",
+ "o_direct": false,
+ "ssd_controller_cache_flushed": false,
+ "future_turn_calibration_count": 0,
+ "calibration_questions": 0,
+ "layout_uses_dataset_question": false,
+ "saliency_source": "turn1_vision_penultimate_cls_to_patch_attention_head_sum",
+ "ttft_definition": "after page-cache conditioning, timer before prompt construction and tokenization -> input preparation -> initial H2D -> ReComp vision or SSD KV read/scatter -> prefill -> first output token decision -> CUDA synchronize",
+ "core_ttft_definition": "after initial request input H2D -> model/storage critical path -> first output token CUDA synchronize",
+ "e2e_definition": "request timer start -> all generated tokens CUDA synchronize -> CPU detokenization and method result assembly",
+ "model_e2e_field": "model_e2e_ms",
+ "request_e2e_field": "request_e2e_ms",
+ "cpu_detokenization_in_request_e2e": true,
+ "jpeg_file_read_and_decode_timed": false,
+ "image_processor_resize_crop_tensorize_timed": true,
+ "page_cache": {
+  "condition": "OS page-cache cold",
+  "method": "posix_fadvise(DONTNEED)",
+  "conditioning_inside_ttft": false,
+  "io_api": "buffered os.pread",
+  "o_direct": false,
+  "ssd_controller_cache_forced_flush": false,
+  "forbidden_claims": [
+   "true cold SSD",
+   "SSD cache fully flushed"
+  ]
+ },
+ "persistence_scenarios": {
+  "A": "back-to-back worst case; add persistence once for N>=2",
+  "B": "ideal hidden-persistence reference; exclude persistence"
+ },
+ "store_root": "/home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix",
+ "run_dir": "/home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix",
+ "machine": {
+  "hostname": "dblab",
+  "gpu_name": "NVIDIA GeForce RTX 4090",
+  "gpu_total_memory_bytes": 25391333376,
+  "system_ram_total_bytes": 134817562624,
+  "system_ram_available_bytes_at_start": 127513538560,
+  "disk_total_bytes": 1967317549056,
+  "disk_free_bytes_at_start": 207196868608,
+  "cpu_count": 24,
+  "torch_version": "2.5.1+cu121"
+ },
+ "min_free_after_gib": 20.0,
+ "run_started_at_unix": 1789392464.3296804,
+ "completed_at_unix": 1789392509.1904538,
+ "elapsed_seconds": 44.85033523500897,
+ "observed_rows": 80,
+ "observed_persistence_rows": 2,
+ "observed_dialog_ids_sha256": "bb9e33a923cd793fe28afa9698a0608a7dc6b01fa65a92bceb084d003fe59b71",
+ "observed_method_position_counts": {
+  "prefix45": {
+   "0": 1,
+   "3": 1
+  },
+  "fullload": {
+   "0": 1,
+   "1": 1
+  },
+  "recompute": {
+   "1": 1,
+   "2": 1
+  },
+  "prefix25": {
+   "2": 1,
+   "3": 1
+  }
+ },
+ "disk_free_bytes_at_end": 204803723264,
+ "store_total_bytes": 2391945339,
+ "visual_kv_total_bytes": 2350907392,
+ "captured_kv_correctness_validation": {
+  "path": "/home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234_warmupfix/captured_kv_validation.json",
+  "sha256": "c5111ee13a4c7530810b94369eb49a1822bf04954de555756ad71c91d5b1532c",
+  "passed": true
+ }
+}

@@ -1,0 +1,170 @@
+{
+ "index": "/home/dblab/hj/mllm_v2/data/visdial_v1.0/subsets/main_seed1234/index.json",
+ "methods": "recompute,prefix25,prefix45,fullload",
+ "disk_free_bytes": 212147060736,
+ "smoke_run": "/home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234",
+ "smoke_store": "/home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_seed1234",
+ "direct_store": "/home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_direct_seed1234",
+ "main_run": null,
+ "main_store": null,
+ "main_results": null
+}
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python -m unittest discover -s tests -v
+test_direct_write_matches_fresh_raster_then_posthoc_repack (test_image_only_repack.DirectAndPosthocLayoutTests) ... ok
+test_prefix_online_path_cannot_call_any_forbidden_scorer (test_image_only_repack.OnlinePrefixIsolationTests) ... ok
+test_accepts_valid_shared_image_only_layout_and_raster_layout (test_image_only_repack.PrefixLayoutValidatorTests) ... ok
+test_rejects_wrong_provenance_mapping_and_missing_artifact (test_image_only_repack.PrefixLayoutValidatorTests) ... ok
+test_contiguous_first_k_has_exact_actual_bytes_and_preads (test_image_only_repack.RealPrefixIOTests) ... ok
+test_invalid_real_score_and_separator_index_fail_closed (test_image_only_repack.VisionZipOrderTests) ... ok
+test_stable_ties_separator_tail_bijection_and_inverse (test_image_only_repack.VisionZipOrderTests) ... ok
+test_reordered_prefix_is_exact_first_k_without_static_metadata (test_multiturn.ChunkBudgetTests) ... ok
+test_static_diverse_obeys_25_and_50_percent_chunk_budgets (test_multiturn.ChunkBudgetTests) ... ok
+test_imagehere_mapping_preserves_image_order (test_multiturn.MMDUCanonicalTests) ... ok
+test_prompt_is_gold_teacher_forced_and_has_no_future_leakage (test_multiturn.MMDUCanonicalTests) ... ok
+test_ndcg_uses_only_nonzero_relevance_cutoff (test_multiturn.RetrievalMetricTests) ... ok
+test_sparse_retrieval_metrics_match_hand_calculation (test_multiturn.RetrievalMetricTests) ... ok
+test_duplicate_and_unexpected_request_keys_are_rejected (test_multiturn.SyntheticResultValidationTests) ... ok
+test_invalid_timing_or_method_history_is_rejected (test_multiturn.SyntheticResultValidationTests) ... ok
+test_missing_budget_provenance_and_future_leak_are_rejected (test_multiturn.SyntheticResultValidationTests) ... ok
+test_valid_true_ttft_records_pass_all_timing_invariants (test_multiturn.SyntheticResultValidationTests) ... ok
+test_all_methods_receive_identical_teacher_forced_prompt (test_multiturn.VisDialCanonicalTests) ... ok
+test_history_is_strictly_growing_gold_history (test_multiturn.VisDialCanonicalTests) ... ok
+test_main_subset_has_balanced_dense_rounds (test_multiturn.VisDialCanonicalTests) ... ok
+test_prompt_and_store_calibration_cannot_see_future_turns (test_multiturn.VisDialCanonicalTests) ... ok
+test_ten_turns_share_one_image_store (test_multiturn.VisDialCanonicalTests) ... ok
+test_real_pread_accounting_split_is_preserved (test_reorder_prefix.EvalPackingTests) ... ok
+test_prefix_prepare_uses_exact_first_k_and_no_scoring (test_reorder_prefix.PrefixSelectionContractTests) ... ok
+test_prefix_rejects_static_metadata_and_non_sidecar_policy (test_reorder_prefix.PrefixSelectionContractTests) ... ok
+test_raster_shared_and_invalid_permutations_fail_closed (test_reorder_prefix.PrefixStoreValidationTests) ... ok
+test_valid_per_layer_reordered_store_passes_once (test_reorder_prefix.PrefixStoreValidationTests) ... ok
+test_candidate_branches_are_cropped_and_likelihood_is_shifted (test_visdial_official_quality.CandidateScoringTests) ... ok
+test_stable_original_order_tie_ranks (test_visdial_official_quality.CandidateScoringTests) ... ok
+test_every_semantic_config_change_blocks_resume (test_visdial_official_quality.OutputAndResumeTests) ... ok
+test_required_aggregate_outputs_and_readme_are_written (test_visdial_official_quality.OutputAndResumeTests) ... ok
+test_validation_rejects_nan_ndcg_and_wrong_static_budget (test_visdial_official_quality.OutputAndResumeTests) ... ok
+test_validation_rejects_ranks_not_derived_from_scores (test_visdial_official_quality.OutputAndResumeTests) ... ok
+test_rotation_is_balanced_and_stable_hash_is_order_independent (test_visdial_turn1_piggyback_core.DeterministicHelpersTests) ... ok
+test_atomic_store_has_exact_prefix_layout_and_no_v_hidden (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_existing_target_refused_and_failed_stage_removed (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_post_publication_integrity_failure_does_not_strand_as_error (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_unproven_capture_metadata_is_rejected_before_staging (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_exact_penultimate_capture_only_and_output_unchanged (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_exception_removes_only_our_hooks_and_active_marker (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_fail_closed_on_backend_no_call_or_multiple_calls (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_positional_attention_call_is_bound_by_parameter_name (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_timing_only_never_requests_any_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+
+----------------------------------------------------------------------
+Ran 44 tests in 0.469s
+
+OK
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/28_eval_visdial_turn1_piggyback.py --index /home/dblab/hj/mllm_v2/data/visdial_v1.0/subsets/main_seed1234/index.json --store /home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_seed1234 --run-dir /home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234 --max-dialogs 2 --max-turns 10 --max-new-tokens 16 --seed 1234 --methods recompute,prefix25,prefix45,fullload --min-free-after-gib 20.0
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.36s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.31s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.08s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.15s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/2 t1] ImageOnly-Repack Prefix45: e2e-TTFT=944.6ms vision=136.3ms pred='No'
+[1/2 t1] ImageOnly FullLoad: e2e-TTFT=530.9ms vision=39.2ms pred='No'
+[1/2 t1] ReComp: e2e-TTFT=527.6ms vision=39.1ms pred='No'
+[1/2 t1] ImageOnly-Repack Prefix25: e2e-TTFT=527.4ms vision=39.1ms pred='No'
+[1/2 t2] ImageOnly-Repack Prefix45: e2e-TTFT=466.1ms SSD=589.3MB pred='No'
+[1/2 t2] ImageOnly FullLoad: e2e-TTFT=814.7ms SSD=1226.8MB pred='No'
+[1/2 t2] ReComp: e2e-TTFT=570.6ms SSD=0.0MB pred='No'
+[1/2 t2] ImageOnly-Repack Prefix25: e2e-TTFT=283.5ms SSD=320.9MB pred='No'
+[1/2 t3] ImageOnly-Repack Prefix45: e2e-TTFT=422.4ms SSD=589.3MB pred='Yes'
+[1/2 t3] ImageOnly FullLoad: e2e-TTFT=940.3ms SSD=1226.8MB pred='Yes'
+[1/2 t3] ReComp: e2e-TTFT=561.3ms SSD=0.0MB pred='Yes'
+[1/2 t3] ImageOnly-Repack Prefix25: e2e-TTFT=285.6ms SSD=320.9MB pred='Yes'
+[1/2 t4] ImageOnly-Repack Prefix45: e2e-TTFT=430.5ms SSD=589.3MB pred='Yes'
+[1/2 t4] ImageOnly FullLoad: e2e-TTFT=962.5ms SSD=1226.8MB pred='Yes'
+[1/2 t4] ReComp: e2e-TTFT=543.9ms SSD=0.0MB pred='Yes'
+[1/2 t4] ImageOnly-Repack Prefix25: e2e-TTFT=285.2ms SSD=320.9MB pred='Yes'
+[1/2 t5] ImageOnly-Repack Prefix45: e2e-TTFT=431.8ms SSD=589.3MB pred='Many'
+[1/2 t5] ImageOnly FullLoad: e2e-TTFT=900.9ms SSD=1226.8MB pred='Many'
+[1/2 t5] ReComp: e2e-TTFT=568.0ms SSD=0.0MB pred='Many'
+[1/2 t5] ImageOnly-Repack Prefix25: e2e-TTFT=273.8ms SSD=320.9MB pred='There are many buildings in the image.'
+[1/2 t6] ImageOnly-Repack Prefix45: e2e-TTFT=437.8ms SSD=589.3MB pred='Yes'
+[1/2 t6] ImageOnly FullLoad: e2e-TTFT=774.0ms SSD=1226.8MB pred='Yes'
+[1/2 t6] ReComp: e2e-TTFT=577.1ms SSD=0.0MB pred='Yes'
+[1/2 t6] ImageOnly-Repack Prefix25: e2e-TTFT=279.8ms SSD=320.9MB pred='Yes'
+[1/2 t7] ImageOnly-Repack Prefix45: e2e-TTFT=420.7ms SSD=589.3MB pred='Yes'
+[1/2 t7] ImageOnly FullLoad: e2e-TTFT=747.9ms SSD=1226.8MB pred='Yes'
+[1/2 t7] ReComp: e2e-TTFT=567.3ms SSD=0.0MB pred='Yes'
+[1/2 t7] ImageOnly-Repack Prefix25: e2e-TTFT=247.3ms SSD=320.9MB pred='Yes'
+[1/2 t8] ImageOnly-Repack Prefix45: e2e-TTFT=440.0ms SSD=589.3MB pred='The sign says "Auckland."'
+[1/2 t8] ImageOnly FullLoad: e2e-TTFT=702.2ms SSD=1226.8MB pred='The sign says "Auckland."'
+[1/2 t8] ReComp: e2e-TTFT=549.0ms SSD=0.0MB pred='The sign says "Auckland."'
+[1/2 t8] ImageOnly-Repack Prefix25: e2e-TTFT=292.6ms SSD=320.9MB pred='The sign says "Auckland."'
+[1/2 t9] ImageOnly-Repack Prefix45: e2e-TTFT=471.3ms SSD=589.3MB pred='No'
+[1/2 t9] ImageOnly FullLoad: e2e-TTFT=729.0ms SSD=1226.8MB pred='No'
+[1/2 t9] ReComp: e2e-TTFT=585.1ms SSD=0.0MB pred='No'
+[1/2 t9] ImageOnly-Repack Prefix25: e2e-TTFT=273.8ms SSD=320.9MB pred='No'
+[1/2 t10] ImageOnly-Repack Prefix45: e2e-TTFT=466.7ms SSD=589.3MB pred='No'
+[1/2 t10] ImageOnly FullLoad: e2e-TTFT=766.4ms SSD=1226.8MB pred='No'
+[1/2 t10] ReComp: e2e-TTFT=579.5ms SSD=0.0MB pred='No'
+[1/2 t10] ImageOnly-Repack Prefix25: e2e-TTFT=287.4ms SSD=320.9MB pred='No'
+[2/2 t1] ImageOnly FullLoad: e2e-TTFT=514.5ms vision=39.8ms pred='No'
+[2/2 t1] ReComp: e2e-TTFT=508.1ms vision=39.1ms pred='No'
+[2/2 t1] ImageOnly-Repack Prefix25: e2e-TTFT=508.0ms vision=39.1ms pred='No'
+[2/2 t1] ImageOnly-Repack Prefix45: e2e-TTFT=508.2ms vision=39.4ms pred='No'
+[2/2 t2] ImageOnly FullLoad: e2e-TTFT=585.1ms SSD=1124.1MB pred='No'
+[2/2 t2] ReComp: e2e-TTFT=511.8ms SSD=0.0MB pred='No'
+[2/2 t2] ImageOnly-Repack Prefix25: e2e-TTFT=263.3ms SSD=285.2MB pred='No'
+[2/2 t2] ImageOnly-Repack Prefix45: e2e-TTFT=385.3ms SSD=520.1MB pred='No'
+[2/2 t3] ImageOnly FullLoad: e2e-TTFT=734.1ms SSD=1124.1MB pred='Yes'
+[2/2 t3] ReComp: e2e-TTFT=520.9ms SSD=0.0MB pred='Yes'
+[2/2 t3] ImageOnly-Repack Prefix25: e2e-TTFT=278.4ms SSD=285.2MB pred='Yes'
+[2/2 t3] ImageOnly-Repack Prefix45: e2e-TTFT=384.8ms SSD=520.1MB pred='Yes'
+[2/2 t4] ImageOnly FullLoad: e2e-TTFT=642.4ms SSD=1124.1MB pred='Yes'
+[2/2 t4] ReComp: e2e-TTFT=518.7ms SSD=0.0MB pred='Yes'
+[2/2 t4] ImageOnly-Repack Prefix25: e2e-TTFT=279.3ms SSD=285.2MB pred='Yes'
+[2/2 t4] ImageOnly-Repack Prefix45: e2e-TTFT=396.4ms SSD=520.1MB pred='Yes'
+[2/2 t5] ImageOnly FullLoad: e2e-TTFT=765.1ms SSD=1124.1MB pred='No'
+[2/2 t5] ReComp: e2e-TTFT=522.1ms SSD=0.0MB pred='No'
+[2/2 t5] ImageOnly-Repack Prefix25: e2e-TTFT=272.8ms SSD=285.2MB pred='No'
+[2/2 t5] ImageOnly-Repack Prefix45: e2e-TTFT=388.3ms SSD=520.1MB pred='No'
+[2/2 t6] ImageOnly FullLoad: e2e-TTFT=760.5ms SSD=1124.1MB pred='Yes'
+[2/2 t6] ReComp: e2e-TTFT=495.9ms SSD=0.0MB pred='Yes'
+[2/2 t6] ImageOnly-Repack Prefix25: e2e-TTFT=226.3ms SSD=285.2MB pred='Yes'
+[2/2 t6] ImageOnly-Repack Prefix45: e2e-TTFT=333.1ms SSD=520.1MB pred='Yes'
+[2/2 t7] ImageOnly FullLoad: e2e-TTFT=624.3ms SSD=1124.1MB pred='No'
+[2/2 t7] ReComp: e2e-TTFT=530.8ms SSD=0.0MB pred='No'
+[2/2 t7] ImageOnly-Repack Prefix25: e2e-TTFT=267.1ms SSD=285.2MB pred='No'
+[2/2 t7] ImageOnly-Repack Prefix45: e2e-TTFT=404.1ms SSD=520.1MB pred='No'
+[2/2 t8] ImageOnly FullLoad: e2e-TTFT=659.4ms SSD=1124.1MB pred='Yes'
+[2/2 t8] ReComp: e2e-TTFT=531.7ms SSD=0.0MB pred='Yes'
+[2/2 t8] ImageOnly-Repack Prefix25: e2e-TTFT=260.4ms SSD=285.2MB pred='Yes'
+[2/2 t8] ImageOnly-Repack Prefix45: e2e-TTFT=404.2ms SSD=520.1MB pred='Yes'
+[2/2 t9] ImageOnly FullLoad: e2e-TTFT=713.0ms SSD=1124.1MB pred='No'
+[2/2 t9] ReComp: e2e-TTFT=541.0ms SSD=0.0MB pred='No'
+[2/2 t9] ImageOnly-Repack Prefix25: e2e-TTFT=255.6ms SSD=285.2MB pred='No'
+[2/2 t9] ImageOnly-Repack Prefix45: e2e-TTFT=400.0ms SSD=520.1MB pred='No'
+[2/2 t10] ImageOnly FullLoad: e2e-TTFT=697.9ms SSD=1124.1MB pred='No'
+[2/2 t10] ReComp: e2e-TTFT=537.8ms SSD=0.0MB pred='No'
+[2/2 t10] ImageOnly-Repack Prefix25: e2e-TTFT=278.0ms SSD=285.2MB pred='No'
+[2/2 t10] ImageOnly-Repack Prefix45: e2e-TTFT=360.3ms SSD=520.1MB pred='No'
+{
+ "status": "complete",
+ "run_dir": "/home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234",
+ "store_root": "/home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_seed1234",
+ "rows": 80,
+ "persistence_rows": 2,
+ "elapsed_seconds": 46.57390064804349
+}
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/30_validate_visdial_turn1_piggyback.py --smoke-run /home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234 --captured-store /home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_seed1234 --direct-store /home/dblab/hj/mllm_v2/kvstore_visdial_turn1_piggyback_e2e_ttft/smoke_direct_seed1234 --index /home/dblab/hj/mllm_v2/data/visdial_v1.0/subsets/main_seed1234/index.json --output /home/dblab/hj/mllm_v2/runs/visdial_turn1_piggyback_e2e_ttft/smoke_seed1234/captured_kv_validation.json
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.42s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.34s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.10s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.18s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+validated visdial:511888: full KV=False P25=True P45=True
+validated visdial:96511: full KV=False P25=True P45=True
