@@ -1050,3 +1050,62 @@ bootstrap/McNemar, strict validation과 재현 정보를
 기존 1,920-row snapshot인
 [`results/image_only_repack/`](results/image_only_repack/)은 수정하지 않고 그대로
 보존했다.
+
+
+## 16. ImageOnly VisionZip sequential-Prefix budget sweep: 20% / 25% / 30% (2026-09-14)
+
+ImageOnly VisionZip permutation을 고정한 뒤 budget만 바꾼 순차 Prefix sweep이다.
+GQA 40 images / `questions[4:10]` 240 questions, schema-v2 true TTFT, cold page
+cache 조건에서 측정했다. Calibration question, 온라인 score, diversity, budget별
+layout은 사용하지 않았고, `k = round(n_chunks * budget)`만 바뀐다. 각 layer의
+연속 first-k chunk는 하나의 span으로 합쳐 읽으므로 budget과 무관하게 request당
+64 normal pread + 1 separator-sidecar pread를 사용한다.
+
+| Budget | Accuracy | Δ vs same-run FullLoad | True TTFT | TTFT 감소 | SSD read | SSD 감소 |
+|---:|---:|---:|---:|---:|---:|---:|
+| FullLoad | 61.25% | -- | 727.37 ms | -- | 1165.07 MB | -- |
+| 20% | 54.58% | −6.67 pp | **233.78 ms** | **67.86%** | **252.39 MB** | **78.34%** |
+| **25%** | **57.92%** | **−3.33 pp** | **265.17 ms** | **63.54%** | **306.08 MB** | **73.73%** |
+| 30% | 58.75% | −2.50 pp | 300.06 ms | 58.75% | 371.51 MB | 68.11% |
+| 45% | 60.42% | −0.83 pp | 404.78 ms | 44.35% | 551.03 MB | 52.70% |
+| 50% | 60.00% | −1.25 pp | 435.31 ms | 40.15% | 603.87 MB | 48.17% |
+
+20→25%는 53.69 MB와 31.39 ms를 더 써서 accuracy를 +3.33 pp 회복한다.
+25→30%의 추가 회복은 +0.83 pp이고, 추가 비용은 65.43 MB / 34.89 ms다. 따라서
+aggressive operating point는 25%(FullLoad 대비 loss ≤4 pp), 관측상 balanced
+operating point는 45%(loss −0.83 pp)다. 표본은 40개 image cluster이므로 1 pp
+미만의 차이를 확정적으로 해석하지 않는다.
+
+ReComp도 같은 조건에서 포함한 비교, paired CI, Pareto frontier, coverage와 raw
+artifacts는 [`results/image_only_repack_budget_sweep/`](results/image_only_repack_budget_sweep/)와
+[`results/image_only_repack_budget_sweep_with_recomp/`](results/image_only_repack_budget_sweep_with_recomp/)
+에 있다.
+
+## 17. VisDial Turn-1 piggyback cache persistence (2026-09-14)
+
+VisDial v1.0 validation 100 dialogs × 10 turns, 총 1,000 requests/method에서
+Turn 1의 정상 pixel-based multimodal forward로 visual KV와 image-only saliency를
+동시에 capture했다. Prefix arm은 미리 만들어진 SSD cache로 시작하지 않으며, image당
+한 번의 persistence는 first-token 측정 뒤에 수행한다. 즉 Turn 1의 TTFT를 cache
+build가 좋게 보이도록 줄이지 않고, Turn 2부터 재사용 이득이 나타나는 설정이다.
+
+| Scope | Method | Quality† | E2E TTFT mean | SSD read/request |
+|---|---|---:|---:|---:|
+| All turns | ReComp | 0.452 | 537.31 ms | 0.00 MB |
+| All turns | FullLoad | 0.453 | 669.62 ms | 1052.49 MB |
+| All turns | Prefix25 | 0.433 | **302.46 ms** | **276.15 MB** |
+| All turns | Prefix45 | 0.453 | 427.84 ms | 499.32 MB |
+| Turns 2–10 | ReComp | 0.439 | 539.30 ms | 0.00 MB |
+| Turns 2–10 | Prefix25 | 0.418 | **278.34 ms** (−48.39%) | 306.83 MB |
+| Turns 2–10 | Prefix45 | 0.440 | 417.59 ms (−22.57%) | 554.80 MB |
+
+Turn 1의 E2E TTFT는 네 arm 모두 약 519–520 ms로 동일하다. SSD persistence를
+포함한 conservative worst-case 누적 E2E에서는 Prefix25가 Turn 5에서 ReComp보다
+빨라지고, 10 turns에서는 **4456.20 ms**로 ReComp **5694.66 ms**보다 **21.75%**
+낮다. Prefix45는 quality가 ReComp와 같지만 worst-case 손익분기는 Turn 10이다.
+
+† Quality는 기존 normalized generative-match 보조 지표이며, 공식 VisDial
+MRR/R@K/Mean Rank/NDCG 점수가 아니다. 전체 timing boundary, persistence accounting,
+turn별 통계, break-even CSV와 validation은
+[`results/visdial_turn1_piggyback_e2e_ttft/main_seed1234/`](results/visdial_turn1_piggyback_e2e_ttft/main_seed1234/)
+에 있다.
