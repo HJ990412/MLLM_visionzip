@@ -1,0 +1,14 @@
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python /home/dblab/hj/mllm_v2/scripts/34_analyze_image_only_generalization.py --run-root /home/dblab/hj/mllm_v2/runs/image_only_generalization --results-root /home/dblab/hj/mllm_v2/results/image_only_generalization --bootstrap-resamples 10000 --bootstrap-seed 1234 --protection-manifest /home/dblab/hj/mllm_v2/runs/image_only_generalization/protected_artifacts_before.json
+{
+  "status": "PASS",
+  "results_root": "/home/dblab/hj/mllm_v2/results/image_only_generalization",
+  "cross_dataset_verdict": "PARTIALLY SUPPORTED",
+  "datasets": {
+    "gqa_large": "SUPPORTED",
+    "vqav2": "PARTIALLY SUPPORTED",
+    "textvqa": "SUPPORTED"
+  },
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 1234
+}

@@ -1,0 +1,288 @@
+{
+ "schema_version": "mt-gqa-analysis-v1",
+ "passed": true,
+ "expected_dialogs": 10,
+ "n_dialogs": 10,
+ "n_images": 1,
+ "n_rows": 120,
+ "expected_rows": 120,
+ "turns_per_dialog": 3,
+ "method_keys": [
+  "recompute",
+  "fullload",
+  "prefix25",
+  "prefix45"
+ ],
+ "gqa_scores_recomputed": true,
+ "complete_dialogue_turn_method_matrix": true,
+ "method_position_counts": {
+  "recompute": [
+   3,
+   2,
+   2,
+   3
+  ],
+  "fullload": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "prefix25": [
+   2,
+   3,
+   3,
+   2
+  ],
+  "prefix45": [
+   2,
+   2,
+   3,
+   3
+  ]
+ },
+ "method_rotation_position_balanced": true,
+ "bootstrap_resamples": 10000,
+ "bootstrap_seed": 1234,
+ "source_manifest_before": {
+  "file_count": 3,
+  "total_bytes": 1015151,
+  "files": {
+   "config.json": {
+    "size_bytes": 5126,
+    "sha256": "ced19db2c74c1918c749f200ac34bb654e4c4ce69a87837f1ba71c62631f8a27"
+   },
+   "images/n229548.json": {
+    "size_bytes": 1008991,
+    "sha256": "4f799c7fff78eff3ababb2abf1bafd85c7f700feefbcb434ce9ed85d27c35767"
+   },
+   "shards/shard_000.json": {
+    "size_bytes": 1034,
+    "sha256": "e2ad815fe07b7e35a037529cca245380f3fa578cc63b74feb5254772924ffca1"
+   }
+  },
+  "manifest_sha256": "f90040da3d0c0944a495d8553e66ea506e603d79eedcc11816459d90979ccefb"
+ },
+ "provenance": {
+  "benchmark_type": "MT-GQA-reconstructed",
+  "dataset": "gqa_testdev_balanced_mt3",
+  "dialogues_file_sha256": "2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224",
+  "source_full_workload_sha256": "0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62",
+  "selected_workload_sha256": "8ff4546280a136c868d1c64e2032370b5c2248e8eec67c2775a10668cdda7676",
+  "model_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23"
+ },
+ "image_artifact_hashes": {
+  "n229548": "4f799c7fff78eff3ababb2abf1bafd85c7f700feefbcb434ce9ed85d27c35767"
+ },
+ "dataset_evidence": {
+  "directory": "/home/dblab/hj/mllm_v2/data/mt_gqa",
+  "artifact_sha256": {
+   "dataset_provenance.json": "fdc57d7ddc5bfedb0310aedd175a6fd200b584d5cb308770cc84dd44debd0c28",
+   "dialogues.json": "2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224",
+   "dataset_stats.json": "00da9713de02c7f1f66871ead108181beb71e9d6695c6f4ec1d31d55b17fa6c1",
+   "config.json": "32774d4dc53d747cff944ac93369de1b53ede2d663754a25ccbdec2f38348f81"
+  },
+  "benchmark_type": "MT-GQA-reconstructed",
+  "full_dialogues": 4061,
+  "full_workload_sha256": "0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62",
+  "canonical_dataset_config": {
+   "artifact_sha256": {
+    "dataset_provenance.json": "fdc57d7ddc5bfedb0310aedd175a6fd200b584d5cb308770cc84dd44debd0c28",
+    "dataset_stats.json": "00da9713de02c7f1f66871ead108181beb71e9d6695c6f4ec1d31d55b17fa6c1",
+    "dialogues.json": "2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224"
+   },
+   "benchmark_type": "MT-GQA-reconstructed",
+   "calibration_count": 0,
+   "dialogues_sha256": "2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224",
+   "disclaimer": "The source paper specifies GQA testdev-balanced, 4,061 three-turn dialogues, but the exact dialogue artifact was unavailable at evaluation time. We therefore use a deterministic reconstruction and do not claim exact benchmark identity.",
+   "future_answer_access_count_for_layout": 0,
+   "future_question_access_count_for_layout": 0,
+   "history_policy": "gold_teacher_forced",
+   "image_dir": "/home/dblab/hj/SparseVLMs/playground/data/eval/gqa/data/images",
+   "membership_rule": "source-order contiguous triples within each image",
+   "n_dialogues": 4061,
+   "n_turns": 12183,
+   "n_unique_images": 398,
+   "official_benchmark_identity_claimed": false,
+   "question_normalization": "Unicode NFKC + whitespace collapse + casefold",
+   "ranking_algorithm": "mt-gqa-reconstructed-sha256-rank-v1",
+   "schema_version": "mt-gqa-reconstructed-v1",
+   "seed": 1234,
+   "seed_role": "SHA256 image ordering only",
+   "source_questions_path": "/home/dblab/hj/SparseVLMs/playground/data/eval/gqa/data/testdev_balanced_questions.json",
+   "source_questions_sha256": "14039069c0b3c797c7aa9bcd5f4c2aa4b5976e02c0b6773e1a584d942a03a318",
+   "strict_canonical": true,
+   "turns_per_dialogue": 3,
+   "workload_sha256": "0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62"
+  },
+  "canonical_dataset_provenance": {
+   "benchmark_type": "MT-GQA-reconstructed",
+   "disclaimer": "The source paper specifies GQA testdev-balanced, 4,061 three-turn dialogues, but the exact dialogue artifact was unavailable at evaluation time. We therefore use a deterministic reconstruction and do not claim exact benchmark identity.",
+   "metacompress_repository_evidence": {
+    "branch": "main",
+    "commit": "70a620eaec3d03368bfff9b85c2e278871c595ea",
+    "evidence_scope": "README-only",
+    "official_dialogue_artifact_observed": false,
+    "readme_sha256": "36bdc94be163aadea0f489e55495de29e8f2c4b6f54285d87dfa2412f096f1a1",
+    "readme_status": "Code implementation is being organized and will be released as soon as possible.",
+    "repository": "https://github.com/MArSha1147/MetaCompress",
+    "tags_observed": [],
+    "tree_files": [
+     "README.md"
+    ]
+   },
+   "official_benchmark_identity_claimed": false,
+   "paper": {
+    "arxiv": "2603.21701",
+    "reported_dialogues": 4061,
+    "reported_source": "GQA testdev-balanced",
+    "reported_turns_per_dialogue": 3,
+    "title": "Rethinking Token Reduction for Large Vision-Language Models"
+   },
+   "reconstruction": {
+    "duplicate_policy": "Preserve source-order membership. Exact normalized repeats across different dialogues are retained and disclosed; any repeat inside one source-order triple fails validation.",
+    "future_question_or_answer_used_for_layout": false,
+    "membership": "For each image, preserve source JSON occurrence order and take consecutive non-overlapping triples up to floor(original_questions / 3).",
+    "question_normalization": "Unicode NFKC + whitespace collapse + casefold",
+    "quota_rule": "floor(original_questions_per_image / 3)",
+    "ranking": "mt-gqa-reconstructed-sha256-rank-v1",
+    "same_image_per_dialogue": true,
+    "seed": 1234,
+    "seed_role": "SHA256 image ordering only",
+    "turns_per_dialogue": 3
+   },
+   "schema_version": "mt-gqa-reconstructed-v1",
+   "source": {
+    "dataset": "GQA",
+    "image_dir": "/home/dblab/hj/SparseVLMs/playground/data/eval/gqa/data/images",
+    "images_required": 398,
+    "images_verified": 398,
+    "questions": 12578,
+    "questions_path": "/home/dblab/hj/SparseVLMs/playground/data/eval/gqa/data/testdev_balanced_questions.json",
+    "questions_sha256": "14039069c0b3c797c7aa9bcd5f4c2aa4b5976e02c0b6773e1a584d942a03a318",
+    "split": "testdev-balanced"
+   }
+  }
+ },
+ "conclusions": {
+  "quality_verdict": "PARTIALLY SUPPORTED",
+  "efficiency_verdict": "SUPPORTED",
+  "quality_rule": "SUPPORTED iff both prefixes have Avg gap >= -2pp and T3-vs-T1 gap growth >= -2pp; PARTIAL iff one does.",
+  "efficiency_rule": "SUPPORTED iff both prefixes beat ReComp cache-hit TTFT and FullLoad SSD bytes; PARTIAL iff one does.",
+  "questions": {
+   "Q1": "MT-GQA-reconstructed; source and hashes are recorded in the immutable run config.",
+   "Q2": "Three questions from one image; Turn 2 receives Q1/gold A1/Q2 and Turn 3 receives Q1/gold A1/Q2/gold A2/Q3.",
+   "Q3": {
+    "recompute": {
+     "acc1": 0.6,
+     "acc2": 1.0,
+     "acc3": 1.0,
+     "avg": 0.8666666666666666
+    },
+    "fullload": {
+     "acc1": 0.6,
+     "acc2": 1.0,
+     "acc3": 1.0,
+     "avg": 0.8666666666666666
+    },
+    "prefix25": {
+     "acc1": 0.6,
+     "acc2": 0.9,
+     "acc3": 1.0,
+     "avg": 0.8333333333333334
+    },
+    "prefix45": {
+     "acc1": 0.6,
+     "acc2": 1.0,
+     "acc3": 1.0,
+     "avg": 0.8666666666666666
+    }
+   },
+   "Q4": {
+    "gap_growth_t3_minus_t1": 0.0,
+    "gap_worsened": false
+   },
+   "Q5": {
+    "gap_growth_t3_minus_t1": 0.0,
+    "gap_worsened": false
+   },
+   "Q6": "Future-query robustness verdict: PARTIALLY SUPPORTED.",
+   "Q7": {
+    "prefix25_ttft_reduction_vs_recomp_pct": 46.73591165707407
+   },
+   "Q8": {
+    "prefix45_ttft_reduction_vs_recomp_pct": 15.45177433614185
+   },
+   "Q9": {
+    "fullload_is_faster_than_recomp": false
+   },
+   "Q10": {
+    "partial_loading_needed_for_best_measured_ttft": true
+   }
+  }
+ },
+ "full_load_and_turn1_sanity": {
+  "recomp_vs_fullload_by_turn": {
+   "turn1": {
+    "n_dialogs": 10,
+    "prediction_agreement_fraction": 1.0,
+    "first_token_agreement_fraction": 1.0,
+    "accuracy_gap_fullload_minus_recomp": 0.0
+   },
+   "turn2": {
+    "n_dialogs": 10,
+    "prediction_agreement_fraction": 1.0,
+    "first_token_agreement_fraction": 1.0,
+    "accuracy_gap_fullload_minus_recomp": 0.0
+   },
+   "turn3": {
+    "n_dialogs": 10,
+    "prediction_agreement_fraction": 1.0,
+    "first_token_agreement_fraction": 1.0,
+    "accuracy_gap_fullload_minus_recomp": 0.0
+   }
+  },
+  "recomp_vs_fullload_avg_accuracy_gap": 0.0,
+  "turn1_four_arm_fairness": {
+   "recompute": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   },
+   "fullload": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   },
+   "prefix25": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   },
+   "prefix45": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   }
+  }
+ },
+ "source_manifest_after_analysis": {
+  "file_count": 3,
+  "total_bytes": 1015151,
+  "files": {
+   "config.json": {
+    "size_bytes": 5126,
+    "sha256": "ced19db2c74c1918c749f200ac34bb654e4c4ce69a87837f1ba71c62631f8a27"
+   },
+   "images/n229548.json": {
+    "size_bytes": 1008991,
+    "sha256": "4f799c7fff78eff3ababb2abf1bafd85c7f700feefbcb434ce9ed85d27c35767"
+   },
+   "shards/shard_000.json": {
+    "size_bytes": 1034,
+    "sha256": "e2ad815fe07b7e35a037529cca245380f3fa578cc63b74feb5254772924ffca1"
+   }
+  },
+  "manifest_sha256": "f90040da3d0c0944a495d8553e66ea506e603d79eedcc11816459d90979ccefb"
+ }
+}

@@ -1,0 +1,343 @@
+{
+ "schema_version": "mt-gqa-analysis-v1",
+ "metric_order": [
+  "Acc1",
+  "Acc2",
+  "Acc3",
+  "Avg"
+ ],
+ "bootstrap": {
+  "cluster_unit": "dialogue",
+  "n_clusters": 100,
+  "n_resamples": 10000,
+  "seed": 1234,
+  "absolute": {
+   "recompute": {
+    "estimate": [
+     0.65,
+     0.72,
+     0.76,
+     0.71
+    ],
+    "ci95_low": [
+     0.55,
+     0.63,
+     0.67,
+     0.6599999999999998
+    ],
+    "ci95_high": [
+     0.74,
+     0.81,
+     0.84,
+     0.7566666666666667
+    ]
+   },
+   "fullload": {
+    "estimate": [
+     0.65,
+     0.72,
+     0.75,
+     0.7066666666666666
+    ],
+    "ci95_low": [
+     0.55,
+     0.63,
+     0.66,
+     0.6599999999999995
+    ],
+    "ci95_high": [
+     0.74,
+     0.81,
+     0.83,
+     0.7533333333333334
+    ]
+   },
+   "prefix25": {
+    "estimate": [
+     0.65,
+     0.66,
+     0.75,
+     0.6866666666666665
+    ],
+    "ci95_low": [
+     0.55,
+     0.56,
+     0.66,
+     0.6333333333333332
+    ],
+    "ci95_high": [
+     0.74,
+     0.75,
+     0.83,
+     0.7366666666666665
+    ]
+   },
+   "prefix45": {
+    "estimate": [
+     0.65,
+     0.73,
+     0.76,
+     0.7133333333333332
+    ],
+    "ci95_low": [
+     0.55,
+     0.64,
+     0.67,
+     0.663333333333333
+    ],
+    "ci95_high": [
+     0.74,
+     0.82,
+     0.84,
+     0.7600000000000001
+    ]
+   }
+  },
+  "delta_vs_fullload": {
+   "recompute": {
+    "estimate": [
+     0.0,
+     0.0,
+     0.01,
+     0.0033333333333333335
+    ],
+    "ci95_low": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "ci95_high": [
+     0.0,
+     0.0,
+     0.030000000000000027,
+     0.01000000000000012
+    ]
+   },
+   "fullload": {
+    "estimate": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "ci95_low": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "ci95_high": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "prefix25": {
+    "estimate": [
+     0.0,
+     -0.06,
+     0.0,
+     -0.01999999999999999
+    ],
+    "ci95_low": [
+     0.0,
+     -0.13,
+     -0.06000000000000005,
+     -0.053333333333333455
+    ],
+    "ci95_high": [
+     0.0,
+     0.010000000000000009,
+     0.06000000000000005,
+     0.013333333333333197
+    ]
+   },
+   "prefix45": {
+    "estimate": [
+     0.0,
+     0.01,
+     0.01,
+     0.006666666666666666
+    ],
+    "ci95_low": [
+     0.0,
+     -0.030000000000000027,
+     -0.020000000000000018,
+     -0.010000000000000231
+    ],
+    "ci95_high": [
+     0.0,
+     0.05999999999999994,
+     0.04999999999999993,
+     0.026666666666666505
+    ]
+   }
+  }
+ },
+ "mcnemar_vs_fullload": {
+  "recompute": {
+   "turn1": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn2": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn3": {
+    "a_only": 1,
+    "b_only": 0,
+    "discordant": 1,
+    "p_value_two_sided_exact": 1.0
+   }
+  },
+  "prefix25": {
+   "turn1": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn2": {
+    "a_only": 4,
+    "b_only": 10,
+    "discordant": 14,
+    "p_value_two_sided_exact": 0.1795654296875
+   },
+   "turn3": {
+    "a_only": 5,
+    "b_only": 5,
+    "discordant": 10,
+    "p_value_two_sided_exact": 1.0
+   }
+  },
+  "prefix45": {
+   "turn1": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn2": {
+    "a_only": 3,
+    "b_only": 2,
+    "discordant": 5,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn3": {
+    "a_only": 2,
+    "b_only": 1,
+    "discordant": 3,
+    "p_value_two_sided_exact": 1.0
+   }
+  }
+ },
+ "full_load_and_turn1_sanity": {
+  "recomp_vs_fullload_by_turn": {
+   "turn1": {
+    "n_dialogs": 100,
+    "prediction_agreement_fraction": 1.0,
+    "first_token_agreement_fraction": 1.0,
+    "accuracy_gap_fullload_minus_recomp": 0.0
+   },
+   "turn2": {
+    "n_dialogs": 100,
+    "prediction_agreement_fraction": 1.0,
+    "first_token_agreement_fraction": 1.0,
+    "accuracy_gap_fullload_minus_recomp": 0.0
+   },
+   "turn3": {
+    "n_dialogs": 100,
+    "prediction_agreement_fraction": 0.99,
+    "first_token_agreement_fraction": 0.99,
+    "accuracy_gap_fullload_minus_recomp": -0.01
+   }
+  },
+  "recomp_vs_fullload_avg_accuracy_gap": -0.0033333333333333335,
+  "turn1_four_arm_fairness": {
+   "recompute": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   },
+   "fullload": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   },
+   "prefix25": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   },
+   "prefix45": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   }
+  }
+ },
+ "conclusions": {
+  "quality_verdict": "SUPPORTED",
+  "efficiency_verdict": "SUPPORTED",
+  "quality_rule": "SUPPORTED iff both prefixes have Avg gap >= -2pp and T3-vs-T1 gap growth >= -2pp; PARTIAL iff one does.",
+  "efficiency_rule": "SUPPORTED iff both prefixes beat ReComp cache-hit TTFT and FullLoad SSD bytes; PARTIAL iff one does.",
+  "questions": {
+   "Q1": "MT-GQA-reconstructed; source and hashes are recorded in the immutable run config.",
+   "Q2": "Three questions from one image; Turn 2 receives Q1/gold A1/Q2 and Turn 3 receives Q1/gold A1/Q2/gold A2/Q3.",
+   "Q3": {
+    "recompute": {
+     "acc1": 0.65,
+     "acc2": 0.72,
+     "acc3": 0.76,
+     "avg": 0.7100000000000002
+    },
+    "fullload": {
+     "acc1": 0.65,
+     "acc2": 0.72,
+     "acc3": 0.75,
+     "avg": 0.7066666666666669
+    },
+    "prefix25": {
+     "acc1": 0.65,
+     "acc2": 0.66,
+     "acc3": 0.75,
+     "avg": 0.6866666666666668
+    },
+    "prefix45": {
+     "acc1": 0.65,
+     "acc2": 0.73,
+     "acc3": 0.76,
+     "avg": 0.7133333333333334
+    }
+   },
+   "Q4": {
+    "gap_growth_t3_minus_t1": 0.0,
+    "gap_worsened": false
+   },
+   "Q5": {
+    "gap_growth_t3_minus_t1": 0.01,
+    "gap_worsened": false
+   },
+   "Q6": "Future-query robustness verdict: SUPPORTED.",
+   "Q7": {
+    "prefix25_ttft_reduction_vs_recomp_pct": 48.762547861554744
+   },
+   "Q8": {
+    "prefix45_ttft_reduction_vs_recomp_pct": 20.099505062777837
+   },
+   "Q9": {
+    "fullload_is_faster_than_recomp": false
+   },
+   "Q10": {
+    "partial_loading_needed_for_best_measured_ttft": true
+   }
+  }
+ }
+}

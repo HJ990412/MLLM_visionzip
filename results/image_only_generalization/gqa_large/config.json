@@ -1,0 +1,172 @@
+{
+  "schema_version": "image-only-generalization-analysis-v1",
+  "dataset": "gqa_large",
+  "source_run_dir": "/home/dblab/hj/mllm_v2/runs/image_only_generalization/gqa_large",
+  "source_run_config_sha256": "3492880b03f519baf03dd70f92705ad6461973fa54734ee2a510b97654b05187",
+  "source_run_tree_sha256": "82cdcf470c4acb151ac7fb17544f99f4082ed4e049c3daf850a8c0d8025552ae",
+  "source_artifact_manifest_sha256": "37fe166c7f5e4f1c25b3c6f59108cfd3c412c90fe51bfd8bc05a53711c8154ef",
+  "index": "/home/dblab/hj/mllm_v2/data/gqa_large/index.json",
+  "index_sha256": "0d50962f0c1bac3bc6e1836978289d5fde7d60b434f55cebbc4607c4c80a797c",
+  "evaluation_workload_sha256": "cabec1bb1035c836839b98d72ba6a04558529d246cf55f8499ca75ea2d2f290c",
+  "n_images": 395,
+  "n_questions": 1185,
+  "questions_per_image": {
+    "min": 3,
+    "mean": 3.0,
+    "max": 3
+  },
+  "evaluation_slice": {
+    "skip": 1,
+    "questions": 3
+  },
+  "metric": "gqa",
+  "metric_implementation": "mmimpress.dataset.METRICS",
+  "main_ttft": "end_to_end_ttft_ms",
+  "diagnostic_ttft": "core_ttft_ms",
+  "bootstrap": "paired image-cluster",
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 1234,
+  "category_source": "scripts/12_analysis.py-compatible regex heuristic",
+  "category_rule_order": [
+    "yes/no",
+    "color",
+    "count",
+    "spatial",
+    "material/attr",
+    "object",
+    "other"
+  ],
+  "category_rules": {
+    "yes/no": "^(is|are|do|does|was|were|has|have|can|did)\\b",
+    "color": "\\bcolou?r|what colou?r\\b",
+    "count": "\\bhow many|number of\\b",
+    "spatial": "\\b(left|right|above|below|behind|front|under|near|beside|top|bottom|side)\\b",
+    "material/attr": "\\b(material|made of|shape|size|texture|large|small|tall|short|thin|thick)\\b",
+    "object": "^(what|which|who)\\b",
+    "other": "fallback after all preceding rules"
+  },
+  "category_dataset_interpretation": "Exploratory GQA facets: yes/no, color, count, spatial, material/attribute, object, and fallback other.",
+  "verdict": {
+    "verdict": "SUPPORTED",
+    "prefix25_efficiency_point": true,
+    "prefix45_quality_point": true,
+    "prefix45_significant_quality_loss_95ci": false,
+    "rule": "SUPPORTED iff Prefix25 reduces E2E-TTFT and SSD bytes, is no slower/heavier than Prefix45, and Prefix45 also reduces TTFT/SSD, scores at least as high as Prefix25, and its paired image-cluster 95% CI versus FullLoad does not exclude zero on the negative side"
+  },
+  "runner_config": {
+    "schema_version": "image-only-generalization-e2e-ttft-v1",
+    "experiment_id": "9992ea89-98de-4b37-ad23-f62f60e0327c",
+    "dataset": "gqa_large",
+    "index": "/home/dblab/hj/mllm_v2/data/gqa_large/index.json",
+    "index_sha256": "0d50962f0c1bac3bc6e1836978289d5fde7d60b434f55cebbc4607c4c80a797c",
+    "workload_sha256": "cabec1bb1035c836839b98d72ba6a04558529d246cf55f8499ca75ea2d2f290c",
+    "source_full_workload_sha256": "cabec1bb1035c836839b98d72ba6a04558529d246cf55f8499ca75ea2d2f290c",
+    "source_full_n_images": 395,
+    "source_full_n_questions": 1185,
+    "partial_workload": false,
+    "n_images": 395,
+    "n_questions": 1185,
+    "questions_per_image": {
+      "min": 3,
+      "mean": 3.0,
+      "max": 3
+    },
+    "skip": 1,
+    "questions_per_image_requested": 3,
+    "shard_size": 1000,
+    "n_shards": 1,
+    "seed": 1234,
+    "method_keys": [
+      "recompute",
+      "fullload",
+      "prefix25",
+      "prefix45"
+    ],
+    "methods": {
+      "recompute": {
+        "label": "ReComp",
+        "budget": null
+      },
+      "fullload": {
+        "label": "ImageOnly FullLoad",
+        "budget": 1.0
+      },
+      "prefix25": {
+        "label": "ImageOnly Repack + Prefix25",
+        "budget": 0.25
+      },
+      "prefix45": {
+        "label": "ImageOnly Repack + Prefix45",
+        "budget": 0.45
+      }
+    },
+    "method_order_policy": "cyclic deterministic rotation by global canonical request ordinal plus seed; invariant to shard size/order/resume",
+    "boundary_question_id": "__image_only_fixed_synthetic_boundary_v1__",
+    "boundary_text": "This is a fixed non-dataset cache-construction boundary. Describe the image briefly.",
+    "boundary_text_sha256": "8aea37a7070092e1f195f4d518b36dc57f4c62f8d45da5a0d187f8d6f7ccc0ab",
+    "boundary_text_source": "fixed_non_dataset_synthetic",
+    "boundary_id_and_text_do_not_collide_with_index": true,
+    "calibration_questions": 0,
+    "layout_uses_dataset_question": false,
+    "layout_uses_generated_answer": false,
+    "layout_uses_llm_qk": false,
+    "query_dependent_importance": false,
+    "static_diverse_calls": 0,
+    "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+    "model_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+    "load_4bit": true,
+    "quantization": "4-bit NF4 double-quant",
+    "attention": "eager",
+    "decoding": "greedy",
+    "max_new_tokens": 16,
+    "chunk_size": 64,
+    "physical_layout": "visionzip_image_only",
+    "retrieval": "sequential physical first-k chunks",
+    "separator_policy": "stable_tail_plus_sidecar",
+    "ssd_read_api": "buffered os.pread",
+    "o_direct": false,
+    "ssd_controller_cache_flushed": false,
+    "cache_condition": "OS-page-cache-cold",
+    "page_cache_conditioning": "posix_fadvise(DONTNEED)",
+    "page_cache_conditioning_inside_ttft": false,
+    "store_fsynced_before_page_cache_conditioning": true,
+    "main_ttft_field": "end_to_end_ttft_ms",
+    "core_ttft_field": "core_ttft_ms",
+    "tokenization_inside_ttft": true,
+    "initial_h2d_inside_ttft": true,
+    "prompt_construction_inside_ttft": true,
+    "recompute_image_processing_inside_ttft": true,
+    "ttft_definition": "after page-cache conditioning, before prompt construction -> tokenization/processor -> input preparation -> initial H2D -> ReComp vision or SSD pread/scatter -> prefill -> greedy first token -> CUDA synchronize",
+    "jpeg_file_read_and_decode_timed": false,
+    "image_processor_resize_crop_tensorize_timed_for_recompute": true,
+    "persistence_in_main_ttft": false,
+    "image_at_a_time_temporary_store": true,
+    "temporary_payload_deleted_after_immutable_image_artifact": true,
+    "unmeasured_warmup": {
+      "enabled": true,
+      "count": 1,
+      "fixture": "deterministic_in_memory_rgb_pattern_640x480",
+      "fixture_sha256": "084a2eb13fe0a1aab10d4b15c14e5aa14da8c0f1a6b51504423dc9b64594663e",
+      "fixture_is_dataset_image": false,
+      "prompt_sha256": "717e8520738aac6b4c1dabe61a81e437b69b87f7931162bbd6ca48b52c649ac2",
+      "consumed_evaluation_request": false,
+      "ssd_store_read_or_written": false,
+      "excluded_from_all_latency_metrics": true,
+      "first_token_id": 450
+    },
+    "machine": {
+      "hostname": "dblab",
+      "gpu_name": "NVIDIA GeForce RTX 4090",
+      "gpu_total_memory_bytes": 25391333376,
+      "system_ram_total_bytes": 134817562624,
+      "system_ram_available_bytes": 127757611008,
+      "disk_total_bytes": 1967317549056,
+      "disk_free_bytes_at_start": 136241147904
+    },
+    "capacity_guard": {
+      "min_free_after_gib": 64.0,
+      "max_used_percent_exclusive": 96.0,
+      "build_headroom_gib": 3.0
+    }
+  }
+}

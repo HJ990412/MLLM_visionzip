@@ -1,0 +1,26 @@
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python /home/dblab/hj/mllm_v2/scripts/38_analyze_mt_gqa_full.py --run-root /home/dblab/hj/mllm_v2/runs/mt_gqa_full/smoke_10 --results-root /home/dblab/hj/mllm_v2/runs/mt_gqa_full/smoke_10_analysis --expected-dialogs 10 --bootstrap-resamples 10000 --bootstrap-seed 1234 --dataset-provenance /home/dblab/hj/mllm_v2/data/mt_gqa/dataset_provenance.json
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/scripts/38_analyze_mt_gqa_full.py", line 1030, in <module>
+    main()
+  File "/home/dblab/hj/mllm_v2/scripts/38_analyze_mt_gqa_full.py", line 1020, in main
+    result = analyze(args.run_root, args.results_root,
+  File "/home/dblab/hj/mllm_v2/scripts/38_analyze_mt_gqa_full.py", line 919, in analyze
+    rows, persistence, config, evidence = load_and_validate(
+  File "/home/dblab/hj/mllm_v2/scripts/38_analyze_mt_gqa_full.py", line 408, in load_and_validate
+    rows.extend(_validate_row(raw, artifact, image_id, config)
+  File "/home/dblab/hj/mllm_v2/scripts/38_analyze_mt_gqa_full.py", line 408, in <genexpr>
+    rows.extend(_validate_row(raw, artifact, image_id, config)
+  File "/home/dblab/hj/mllm_v2/scripts/38_analyze_mt_gqa_full.py", line 337, in _validate_row
+    ratio = _pick(row, (
+  File "/home/dblab/hj/mllm_v2/scripts/38_analyze_mt_gqa_full.py", line 229, in _pick
+    raise AnalysisError(f"conflicting aliases for {context}: {found}")
+__main__.AnalysisError: conflicting aliases for mtgqa_000001/2/prefix25/selected ratio: [('actual_selected_normal_chunk_fraction', 0.25), ('selected_kv_ratio', 0.27044025157232704)]
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python /home/dblab/hj/mllm_v2/scripts/38_analyze_mt_gqa_full.py --run-root /home/dblab/hj/mllm_v2/runs/mt_gqa_full/smoke_10 --results-root /home/dblab/hj/mllm_v2/runs/mt_gqa_full/smoke_10_analysis --expected-dialogs 10 --bootstrap-resamples 10000 --bootstrap-seed 1234 --dataset-provenance /home/dblab/hj/mllm_v2/data/mt_gqa/dataset_provenance.json
+{
+ "passed": true,
+ "n_dialogs": 10,
+ "n_images": 1,
+ "n_rows": 120
+}

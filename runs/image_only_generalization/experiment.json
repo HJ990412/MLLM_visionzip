@@ -1,0 +1,54 @@
+{
+ "schema_version": "image-only-generalization-orchestrator-v1",
+ "experiment_id": "9992ea89-98de-4b37-ad23-f62f60e0327c",
+ "status": "complete",
+ "datasets": [
+  "gqa_large",
+  "vqav2",
+  "textvqa"
+ ],
+ "specs": {
+  "gqa_large": {
+   "metric": "gqa",
+   "index": "/home/dblab/hj/mllm_v2/data/gqa_large/index.json",
+   "index_sha256": "0d50962f0c1bac3bc6e1836978289d5fde7d60b434f55cebbc4607c4c80a797c",
+   "workload_sha256": "cabec1bb1035c836839b98d72ba6a04558529d246cf55f8499ca75ea2d2f290c",
+   "images": 395,
+   "questions": 1185,
+   "skip": 1,
+   "questions_per_image": 3
+  },
+  "vqav2": {
+   "metric": "vqa",
+   "index": "/home/dblab/hj/mllm_v2/data/vqav2/index.json",
+   "index_sha256": "b83d5fa288fcb722ca073e261d3fec9086629ed0db2e568a2d5d6a24ef1589d7",
+   "workload_sha256": "e341b499a968c5caba4ddffc58fdf0ccafe2e0e212b6cb280ca1b11fc9f31d18",
+   "images": 250,
+   "questions": 1000,
+   "skip": 1,
+   "questions_per_image": 4
+  },
+  "textvqa": {
+   "metric": "vqa",
+   "index": "/home/dblab/hj/mllm_v2/data/textvqa/index.json",
+   "index_sha256": "b1e5ff0eaba2a45c6398e7cb90631cdc7387eff25ed0997a66374f25968a2f4d",
+   "workload_sha256": "49fa0b15f406132162cba1b47245f28a560d28b4f3af76985c855d77a145a2a6",
+   "images": 500,
+   "questions": 500,
+   "skip": 1,
+   "questions_per_image": 1
+  }
+ },
+ "seed": 1234,
+ "shard_size": 1000,
+ "min_free_after_gib": 64.0,
+ "bootstrap_resamples": 10000,
+ "model_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+ "run_root": "/home/dblab/hj/mllm_v2/runs/image_only_generalization",
+ "results_root": "/home/dblab/hj/mllm_v2/results/image_only_generalization",
+ "started_at_unix": 1789455749.9570796,
+ "completed_at_unix": 1789464214.06342,
+ "protected_artifacts_unchanged": true,
+ "protected_manifest_sha256_before": "155887a557ac18e885c917fb32b9ebaff38297cd069890af0c3df31974af6572",
+ "protected_manifest_sha256_after": "155887a557ac18e885c917fb32b9ebaff38297cd069890af0c3df31974af6572"
+}

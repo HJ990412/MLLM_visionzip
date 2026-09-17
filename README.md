@@ -205,3 +205,51 @@ Turn 10에 ReComp보다 빨라진다.
 모든 52개 fail-closed 검증이 통과했다. 상세 timing boundary, turn별 추이, raw-derived
 CSV와 검증 근거는
 [`results/visdial_cache_hit_analysis/`](results/visdial_cache_hit_analysis/)에 있다.
+
+
+## 4. Cross-dataset ImageOnly generalization (2026-09-17)
+
+Calibration question 없이 동일한 image-only VisionZip repack + sequential Prefix를
+GQA-large(395 images / 1,185 questions), VQAv2(250 / 1,000), TextVQA(500 / 500)에
+적용했다. 서버 측 end-to-end TTFT를 측정하고, quality는 각 dataset의 기존
+repository scorer로 평가했다.
+
+| Dataset | FullLoad | Prefix25 | Δ P25 | Prefix45 | Δ P45 | P25 TTFT 감소 vs ReComp | P45 TTFT 감소 vs ReComp |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| GQA-large | 63.46% | 58.73% | −4.73 pp | 62.87% | −0.59 pp | 44.46% | 16.33% |
+| VQAv2 | 81.57% | 76.33% | −5.23 pp | 80.50% | −1.07 pp | 44.50% | 15.84% |
+| TextVQA | 61.93% | 57.87% | −4.07 pp | 62.20% | +0.27 pp | 46.27% | 18.77% |
+
+Prefix25는 세 dataset에서 일관된 TTFT 이득을 보였으나 quality 손실은 4–5 pp다.
+Prefix45도 세 dataset 모두 ReComp보다 빠르지만, quality-oriented 조건을 모두
+충족한 것은 아니다. 종합 판정은 **PARTIALLY SUPPORTED**다. VQAv2/TextVQA
+점수는 기존 구현과의 비교를 위한 repository scorer 값이며 공식 evaluator와
+byte-for-byte 동일하다고 주장하지 않는다. Dataset별 CI, SSD I/O, category 분석,
+검증과 재현 정보는
+[`results/image_only_generalization/`](results/image_only_generalization/)에 있다.
+
+## 5. Full MT-GQA three-turn evaluation (2026-09-17)
+
+4,061 dialogues × 3 turns × 4 methods, 총 48,732 requests를 평가했다. 원 논문의
+정확한 dialogue artifact를 확보하지 못해 GQA testdev-balanced에서 결정적으로
+재구성한 workload이며, 원 benchmark와 동일하다고 주장하지 않는다. Turn 2/3에는
+이전 gold answer를 history에 넣는 teacher-forced 조건을 사용한다. 아래 quality는
+첫 gold answer와의 **strict normalized exact match**다.
+
+| Method | Turn 1 | Turn 2 | Turn 3 | 평균 | Δ 평균 vs FullLoad | Cache-hit TTFT (Turns 2–3) | SSD MB/request |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| ReComp | 63.19% | 73.65% | 75.18% | 70.67% | −0.02 pp | 528.47 ms | 0.00 |
+| FullLoad | 63.19% | 73.73% | 75.15% | 70.69% | -- | 737.07 ms | 1173.92 |
+| Prefix25 | 63.19% | 70.65% | 73.23% | 69.02% | −1.67 pp | **275.61 ms** | **307.82** |
+| Prefix45 | 63.19% | 72.94% | 74.66% | 70.26% | −0.43 pp | 428.16 ms | 555.57 |
+
+Cache-hit TTFT는 ReComp 대비 Prefix25 **47.85%**, Prefix45 **18.98%** 낮았다.
+FullLoad는 ReComp보다 느렸다. Turn 1에는 네 방법의 prediction과 first token이
+100% 일치했고, cache persistence는 Turn 1 뒤 한 번 수행해 cache-hit TTFT에서
+분리했다. Quality·efficiency 판정은 모두 **SUPPORTED**다. 다만 이 판정은 위의
+재구성 workload와 사전 정의된 기준에 한정된다.
+
+실험 설정, 통계, 검증, per-turn 결과는
+[`results/mt_gqa_full/`](results/mt_gqa_full/)에 있다. 337 MB raw JSONL은
+GitHub 단일 파일 제한 때문에 무손실 gzip(`raw.jsonl.gz`)으로 게시하며,
+로컬 원본 `raw.jsonl`은 그대로 보존한다.

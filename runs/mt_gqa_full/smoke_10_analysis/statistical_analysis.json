@@ -1,0 +1,343 @@
+{
+ "schema_version": "mt-gqa-analysis-v1",
+ "metric_order": [
+  "Acc1",
+  "Acc2",
+  "Acc3",
+  "Avg"
+ ],
+ "bootstrap": {
+  "cluster_unit": "dialogue",
+  "n_clusters": 10,
+  "n_resamples": 10000,
+  "seed": 1234,
+  "absolute": {
+   "recompute": {
+    "estimate": [
+     0.6,
+     1.0,
+     1.0,
+     0.8666666666666666
+    ],
+    "ci95_low": [
+     0.3,
+     1.0,
+     1.0,
+     0.7666666666666667
+    ],
+    "ci95_high": [
+     0.9,
+     1.0,
+     1.0,
+     0.9666666666666666
+    ]
+   },
+   "fullload": {
+    "estimate": [
+     0.6,
+     1.0,
+     1.0,
+     0.8666666666666666
+    ],
+    "ci95_low": [
+     0.3,
+     1.0,
+     1.0,
+     0.7666666666666667
+    ],
+    "ci95_high": [
+     0.9,
+     1.0,
+     1.0,
+     0.9666666666666666
+    ]
+   },
+   "prefix25": {
+    "estimate": [
+     0.6,
+     0.9,
+     1.0,
+     0.8333333333333334
+    ],
+    "ci95_low": [
+     0.3,
+     0.7,
+     1.0,
+     0.7
+    ],
+    "ci95_high": [
+     0.9,
+     1.0,
+     1.0,
+     0.9666666666666666
+    ]
+   },
+   "prefix45": {
+    "estimate": [
+     0.6,
+     1.0,
+     1.0,
+     0.8666666666666666
+    ],
+    "ci95_low": [
+     0.3,
+     1.0,
+     1.0,
+     0.7666666666666667
+    ],
+    "ci95_high": [
+     0.9,
+     1.0,
+     1.0,
+     0.9666666666666666
+    ]
+   }
+  },
+  "delta_vs_fullload": {
+   "recompute": {
+    "estimate": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "ci95_low": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "ci95_high": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "fullload": {
+    "estimate": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "ci95_low": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "ci95_high": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "prefix25": {
+    "estimate": [
+     0.0,
+     -0.1,
+     0.0,
+     -0.03333333333333333
+    ],
+    "ci95_low": [
+     0.0,
+     -0.30000000000000004,
+     0.0,
+     -0.10000000000000009
+    ],
+    "ci95_high": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "prefix45": {
+    "estimate": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "ci95_low": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "ci95_high": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  }
+ },
+ "mcnemar_vs_fullload": {
+  "recompute": {
+   "turn1": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn2": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn3": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   }
+  },
+  "prefix25": {
+   "turn1": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn2": {
+    "a_only": 0,
+    "b_only": 1,
+    "discordant": 1,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn3": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   }
+  },
+  "prefix45": {
+   "turn1": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn2": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn3": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   }
+  }
+ },
+ "full_load_and_turn1_sanity": {
+  "recomp_vs_fullload_by_turn": {
+   "turn1": {
+    "n_dialogs": 10,
+    "prediction_agreement_fraction": 1.0,
+    "first_token_agreement_fraction": 1.0,
+    "accuracy_gap_fullload_minus_recomp": 0.0
+   },
+   "turn2": {
+    "n_dialogs": 10,
+    "prediction_agreement_fraction": 1.0,
+    "first_token_agreement_fraction": 1.0,
+    "accuracy_gap_fullload_minus_recomp": 0.0
+   },
+   "turn3": {
+    "n_dialogs": 10,
+    "prediction_agreement_fraction": 1.0,
+    "first_token_agreement_fraction": 1.0,
+    "accuracy_gap_fullload_minus_recomp": 0.0
+   }
+  },
+  "recomp_vs_fullload_avg_accuracy_gap": 0.0,
+  "turn1_four_arm_fairness": {
+   "recompute": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   },
+   "fullload": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   },
+   "prefix25": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   },
+   "prefix45": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   }
+  }
+ },
+ "conclusions": {
+  "quality_verdict": "PARTIALLY SUPPORTED",
+  "efficiency_verdict": "SUPPORTED",
+  "quality_rule": "SUPPORTED iff both prefixes have Avg gap >= -2pp and T3-vs-T1 gap growth >= -2pp; PARTIAL iff one does.",
+  "efficiency_rule": "SUPPORTED iff both prefixes beat ReComp cache-hit TTFT and FullLoad SSD bytes; PARTIAL iff one does.",
+  "questions": {
+   "Q1": "MT-GQA-reconstructed; source and hashes are recorded in the immutable run config.",
+   "Q2": "Three questions from one image; Turn 2 receives Q1/gold A1/Q2 and Turn 3 receives Q1/gold A1/Q2/gold A2/Q3.",
+   "Q3": {
+    "recompute": {
+     "acc1": 0.6,
+     "acc2": 1.0,
+     "acc3": 1.0,
+     "avg": 0.8666666666666666
+    },
+    "fullload": {
+     "acc1": 0.6,
+     "acc2": 1.0,
+     "acc3": 1.0,
+     "avg": 0.8666666666666666
+    },
+    "prefix25": {
+     "acc1": 0.6,
+     "acc2": 0.9,
+     "acc3": 1.0,
+     "avg": 0.8333333333333334
+    },
+    "prefix45": {
+     "acc1": 0.6,
+     "acc2": 1.0,
+     "acc3": 1.0,
+     "avg": 0.8666666666666666
+    }
+   },
+   "Q4": {
+    "gap_growth_t3_minus_t1": 0.0,
+    "gap_worsened": false
+   },
+   "Q5": {
+    "gap_growth_t3_minus_t1": 0.0,
+    "gap_worsened": false
+   },
+   "Q6": "Future-query robustness verdict: PARTIALLY SUPPORTED.",
+   "Q7": {
+    "prefix25_ttft_reduction_vs_recomp_pct": 46.73591165707407
+   },
+   "Q8": {
+    "prefix45_ttft_reduction_vs_recomp_pct": 15.45177433614185
+   },
+   "Q9": {
+    "fullload_is_faster_than_recomp": false
+   },
+   "Q10": {
+    "partial_loading_needed_for_best_measured_ttft": true
+   }
+  }
+ }
+}

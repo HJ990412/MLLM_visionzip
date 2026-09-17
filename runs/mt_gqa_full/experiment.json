@@ -1,0 +1,161 @@
+{
+  "schema_version": "mt-gqa-full-orchestrator-v1",
+  "experiment_id": "bdb87fde-ebd5-46d3-b52b-291e533905b7",
+  "status": "complete",
+  "benchmark_type": "MT-GQA-reconstructed",
+  "exact_official_identity_claimed": false,
+  "seed": 1234,
+  "model_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+  "dialogues": 4061,
+  "turns": 12183,
+  "methods": 4,
+  "planned_method_turn_requests": 48732,
+  "full_planned_method_turn_requests": 48732,
+  "smoke_planned_method_turn_requests": 120,
+  "pilot_planned_method_turn_requests": 1200,
+  "staged_validation_requests_outside_full": 1320,
+  "shard_size": 60,
+  "shard_size_policy": "automatic_40_to_60_from_free_space",
+  "disk_free_bytes_at_start": 135523885056,
+  "min_free_after_gib": 30.0,
+  "index_sha256": "2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224",
+  "workload_sha256": "0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62",
+  "dataset_provenance_sha256": "fdc57d7ddc5bfedb0310aedd175a6fd200b584d5cb308770cc84dd44debd0c28",
+  "bootstrap_resamples": 10000,
+  "execution_order": [
+    "provenance",
+    "smoke_10",
+    "pilot_100",
+    "projection",
+    "full_4061",
+    "analysis"
+  ],
+  "started_at_unix": 1789536679.554321,
+  "smoke": {
+    "name": "smoke_10",
+    "dialogues": 10,
+    "turns": 30,
+    "planned_method_turn_requests": 120,
+    "unique_images": 1,
+    "shard_size": 60,
+    "n_shards": 1,
+    "wall_seconds_this_invocation": 0.0,
+    "resume_enabled": true,
+    "completed_stage_reused_without_subprocess": true,
+    "run_dir": "/home/dblab/hj/mllm_v2/runs/mt_gqa_full/smoke_10",
+    "completion_validation": {
+      "passed": true,
+      "dialogues": 10,
+      "turns": 30,
+      "images": 1,
+      "observed_method_turn_requests": 120,
+      "expected_method_turn_requests": 120,
+      "exact_request_coverage": true
+    },
+    "temporary_cleanup": {
+      "passed": true,
+      "removed": false,
+      "payload_leaves": 0
+    }
+  },
+  "pilot": {
+    "name": "pilot_100",
+    "dialogues": 100,
+    "turns": 300,
+    "planned_method_turn_requests": 1200,
+    "unique_images": 10,
+    "shard_size": 60,
+    "n_shards": 1,
+    "wall_seconds_this_invocation": 777.6177684100112,
+    "resume_enabled": true,
+    "completed_stage_reused_without_subprocess": false,
+    "run_dir": "/home/dblab/hj/mllm_v2/runs/mt_gqa_full/pilot_100",
+    "completion_validation": {
+      "passed": true,
+      "dialogues": 100,
+      "turns": 300,
+      "images": 10,
+      "observed_method_turn_requests": 1200,
+      "expected_method_turn_requests": 1200,
+      "exact_request_coverage": true
+    },
+    "temporary_cleanup": {
+      "passed": true,
+      "removed": true,
+      "payload_leaves": 0
+    }
+  },
+  "projection": {
+    "schema_version": "mt-gqa-full-orchestrator-v1",
+    "source": "required_100_dialogue_gpu_pilot",
+    "pilot_dialogues": 100,
+    "pilot_unique_images": 10,
+    "pilot_method_turn_requests": 1200,
+    "pilot_observed_seconds": 766.6865839958191,
+    "pilot_requests_per_second": 1.5651767293824772,
+    "pilot_seconds_per_dialogue": 7.666865839958191,
+    "mean_store_persist_seconds_per_image": 0.9515183279872872,
+    "peak_temporary_store_bytes": 1361656773,
+    "full_dialogues": 4061,
+    "full_unique_images": 398,
+    "full_planned_method_turn_requests": 48732,
+    "projected_full_seconds": 31135.14217607021,
+    "projected_full_hours": 8.648650604463947,
+    "projection_does_not_cancel_full": true,
+    "full_continues_regardless_of_estimate": true,
+    "note": "Linear dialogue projection from the mandatory pilot; the full stage is launched unconditionally after this artifact is synced."
+  },
+  "full": {
+    "name": "full_4061",
+    "dialogues": 4061,
+    "turns": 12183,
+    "planned_method_turn_requests": 48732,
+    "unique_images": 398,
+    "shard_size": 60,
+    "n_shards": 7,
+    "wall_seconds_this_invocation": 31123.89466085285,
+    "resume_enabled": true,
+    "completed_stage_reused_without_subprocess": false,
+    "run_dir": "/home/dblab/hj/mllm_v2/runs/mt_gqa_full/full_4061",
+    "completion_validation": {
+      "passed": true,
+      "dialogues": 4061,
+      "turns": 12183,
+      "images": 398,
+      "observed_method_turn_requests": 48732,
+      "expected_method_turn_requests": 48732,
+      "exact_request_coverage": true
+    },
+    "temporary_cleanup": {
+      "passed": true,
+      "removed": true,
+      "payload_leaves": 0
+    }
+  },
+  "completed_at_unix": 1789568810.6445882,
+  "protected_prior_artifacts_unchanged": true,
+  "actual_full_method_turn_requests": 48732,
+  "exact_48732_request_coverage": true,
+  "temporary_cleanup": {
+    "passed": true,
+    "temporary_kv_leak_count": 0,
+    "stages": {
+      "smoke_10": {
+        "passed": true,
+        "removed": false,
+        "payload_leaves": 0
+      },
+      "pilot_100": {
+        "passed": true,
+        "removed": false,
+        "payload_leaves": 0
+      },
+      "full_4061": {
+        "passed": true,
+        "removed": false,
+        "payload_leaves": 0
+      }
+    }
+  },
+  "disk_free_bytes_at_end": 134630338560
+}

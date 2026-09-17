@@ -1,0 +1,478 @@
+{
+ "schema_version": "mt-gqa-analysis-v2",
+ "metric_order": [
+  "Acc1",
+  "Acc2",
+  "Acc3",
+  "Avg"
+ ],
+ "bootstrap": {
+  "cluster_unit": "dialogue",
+  "n_clusters": 4061,
+  "n_resamples": 10000,
+  "seed": 1234,
+  "absolute": {
+   "recompute": {
+    "estimate": [
+     0.6318640728884511,
+     0.7365180989903964,
+     0.7517852745629156,
+     0.706722482147248
+    ],
+    "ci95_low": [
+     0.617083230731347,
+     0.723220881556267,
+     0.7382418123614873,
+     0.6985964048263915
+    ],
+    "ci95_high": [
+     0.6466387589263728,
+     0.7500615611918247,
+     0.765082491997045,
+     0.7147664778790048
+    ]
+   },
+   "fullload": {
+    "estimate": [
+     0.6318640728884511,
+     0.7372568332922925,
+     0.7515390297956168,
+     0.7068866453254471
+    ],
+    "ci95_low": [
+     0.617083230731347,
+     0.7237133710908643,
+     0.7379955675941886,
+     0.6986784864154912
+    ],
+    "ci95_high": [
+     0.6466387589263728,
+     0.7505540507264221,
+     0.7648362472297464,
+     0.7149306410572039
+    ]
+   },
+   "prefix25": {
+    "estimate": [
+     0.6318640728884511,
+     0.7064762373799557,
+     0.7323319379463187,
+     0.690224082738237
+    ],
+    "ci95_low": [
+     0.617083230731347,
+     0.6924402856439301,
+     0.7185422309775917,
+     0.6816875974718839
+    ],
+    "ci95_high": [
+     0.6466387589263728,
+     0.7202659443486826,
+     0.7458754001477469,
+     0.6982680784699956
+    ]
+   },
+   "prefix45": {
+    "estimate": [
+     0.6318640728884511,
+     0.7293770007387343,
+     0.746614134449643,
+     0.7026184026922699
+    ],
+    "ci95_low": [
+     0.617083230731347,
+     0.7158335385373061,
+     0.7330706722482148,
+     0.694163999015014
+    ],
+    "ci95_high": [
+     0.6466387589263728,
+     0.7426742181728638,
+     0.7601575966510712,
+     0.7106623984240282
+    ]
+   }
+  },
+  "delta_vs_fullload": {
+   "recompute": {
+    "estimate": [
+     0.0,
+     -0.0007387343018960847,
+     0.0002462447672986949,
+     -0.00016416317819912995
+    ],
+    "ci95_low": [
+     0.0,
+     -0.004186161044077763,
+     -0.001969958138389627,
+     -0.0015595501928911154
+    ],
+    "ci95_high": [
+     0.0,
+     0.002462447672986978,
+     0.002462447672986978,
+     0.0011491422473941526
+    ]
+   },
+   "fullload": {
+    "estimate": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "ci95_low": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "ci95_high": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "prefix25": {
+    "estimate": [
+     0.0,
+     -0.030780595912336863,
+     -0.019207091849298204,
+     -0.016662562587211705
+    ],
+    "ci95_low": [
+     0.0,
+     -0.04038414183698591,
+     -0.028564393006648592,
+     -0.02117704998768533
+    ],
+    "ci95_high": [
+     0.0,
+     -0.02142329475498639,
+     -0.010096035459246533,
+     -0.012230156775836349
+    ]
+   },
+   "prefix45": {
+    "estimate": [
+     0.0,
+     -0.007879832553558237,
+     -0.004924895345973898,
+     -0.00426824263317738
+    ],
+    "ci95_low": [
+     0.0,
+     -0.014774686037921758,
+     -0.011573504063038587,
+     -0.0073873430189604905
+    ],
+    "ci95_high": [
+     0.0,
+     -0.0012312238364935446,
+     0.0014774686037921647,
+     -0.0011491422473947077
+    ]
+   }
+  }
+ },
+ "mcnemar_vs_fullload": {
+  "recompute": {
+   "turn1": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn2": {
+    "a_only": 22,
+    "b_only": 25,
+    "discordant": 47,
+    "p_value_two_sided_exact": 0.7708669945730264
+   },
+   "turn3": {
+    "a_only": 12,
+    "b_only": 11,
+    "discordant": 23,
+    "p_value_two_sided_exact": 1.0
+   }
+  },
+  "prefix25": {
+   "turn1": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn2": {
+    "a_only": 140,
+    "b_only": 265,
+    "discordant": 405,
+    "p_value_two_sided_exact": 5.293717546762034e-10
+   },
+   "turn3": {
+    "a_only": 142,
+    "b_only": 220,
+    "discordant": 362,
+    "p_value_two_sided_exact": 4.873822519850968e-05
+   }
+  },
+  "prefix45": {
+   "turn1": {
+    "a_only": 0,
+    "b_only": 0,
+    "discordant": 0,
+    "p_value_two_sided_exact": 1.0
+   },
+   "turn2": {
+    "a_only": 84,
+    "b_only": 116,
+    "discordant": 200,
+    "p_value_two_sided_exact": 0.028125407232926402
+   },
+   "turn3": {
+    "a_only": 82,
+    "b_only": 102,
+    "discordant": 184,
+    "p_value_two_sided_exact": 0.16112227096097972
+   }
+  }
+ },
+ "full_load_and_turn1_sanity": {
+  "recomp_vs_fullload_by_turn": {
+   "turn1": {
+    "n_dialogs": 4061,
+    "prediction_agreement_fraction": 1.0,
+    "first_token_agreement_fraction": 1.0,
+    "accuracy_gap_fullload_minus_recomp": 0.0
+   },
+   "turn2": {
+    "n_dialogs": 4061,
+    "prediction_agreement_fraction": 0.9847328244274809,
+    "first_token_agreement_fraction": 0.9859640482639744,
+    "accuracy_gap_fullload_minus_recomp": 0.0007387343018960847
+   },
+   "turn3": {
+    "n_dialogs": 4061,
+    "prediction_agreement_fraction": 0.9901502093080522,
+    "first_token_agreement_fraction": 0.9906426988426495,
+    "accuracy_gap_fullload_minus_recomp": -0.0002462447672986949
+   }
+  },
+  "recomp_vs_fullload_avg_accuracy_gap": 0.00016416317819912995,
+  "turn1_four_arm_fairness": {
+   "recompute": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   },
+   "fullload": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   },
+   "prefix25": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   },
+   "prefix45": {
+    "prediction_agreement_vs_recomp_fraction": 1.0,
+    "first_token_agreement_vs_recomp_fraction": 1.0,
+    "accuracy_gap_vs_recomp": 0.0
+   }
+  }
+ },
+ "quality_metric_audit": {
+  "primary_metric": "normalized_exact_match",
+  "legacy_source_metric": "normalized_gold_prefix_match",
+  "normalization": "lowercase; replace punctuation with spaces; remove a/an/the; collapse whitespace; compare against the first gold answer",
+  "legacy_source_behavior": "The stored runner score also accepts a prediction whose first normalized words equal the complete normalized gold answer.",
+  "source_score_fields_validated": [
+   "score",
+   "quality_score_if_present"
+  ],
+  "analyzed_score_fields": [
+   "score",
+   "quality_score",
+   "recomputed_score"
+  ],
+  "legacy_preservation_fields": [
+   "stored_legacy_score",
+   "legacy_quality_score (if source present)",
+   "legacy_recomputed_score"
+  ],
+  "n_rows": 48732,
+  "discrepancy_count": 9,
+  "discrepancy_fraction": 0.00018468357547402119,
+  "discrepancy_count_by_method": {
+   "recompute": 2,
+   "fullload": 2,
+   "prefix25": 3,
+   "prefix45": 2
+  },
+  "discrepancy_count_by_turn": {
+   "turn1": 4,
+   "turn2": 5,
+   "turn3": 0
+  },
+  "examples": [
+   {
+    "dialog_id": "mtgqa_003306",
+    "turn_id": 2,
+    "method_key": "recompute",
+    "prediction": "Computer mouse",
+    "gold": [
+     "computer"
+    ],
+    "stored_legacy_score": 1.0,
+    "strict_score": 0.0
+   },
+   {
+    "dialog_id": "mtgqa_003306",
+    "turn_id": 2,
+    "method_key": "fullload",
+    "prediction": "Computer mouse",
+    "gold": [
+     "computer"
+    ],
+    "stored_legacy_score": 1.0,
+    "strict_score": 0.0
+   },
+   {
+    "dialog_id": "mtgqa_003306",
+    "turn_id": 2,
+    "method_key": "prefix25",
+    "prediction": "Computer mouse",
+    "gold": [
+     "computer"
+    ],
+    "stored_legacy_score": 1.0,
+    "strict_score": 0.0
+   },
+   {
+    "dialog_id": "mtgqa_003306",
+    "turn_id": 2,
+    "method_key": "prefix45",
+    "prediction": "Computer mouse",
+    "gold": [
+     "computer"
+    ],
+    "stored_legacy_score": 1.0,
+    "strict_score": 0.0
+   },
+   {
+    "dialog_id": "mtgqa_003314",
+    "turn_id": 2,
+    "method_key": "prefix25",
+    "prediction": "Computer mouse",
+    "gold": [
+     "computer"
+    ],
+    "stored_legacy_score": 1.0,
+    "strict_score": 0.0
+   },
+   {
+    "dialog_id": "mtgqa_003320",
+    "turn_id": 1,
+    "method_key": "recompute",
+    "prediction": "Computer mouse",
+    "gold": [
+     "computer"
+    ],
+    "stored_legacy_score": 1.0,
+    "strict_score": 0.0
+   },
+   {
+    "dialog_id": "mtgqa_003320",
+    "turn_id": 1,
+    "method_key": "fullload",
+    "prediction": "Computer mouse",
+    "gold": [
+     "computer"
+    ],
+    "stored_legacy_score": 1.0,
+    "strict_score": 0.0
+   },
+   {
+    "dialog_id": "mtgqa_003320",
+    "turn_id": 1,
+    "method_key": "prefix25",
+    "prediction": "Computer mouse",
+    "gold": [
+     "computer"
+    ],
+    "stored_legacy_score": 1.0,
+    "strict_score": 0.0
+   },
+   {
+    "dialog_id": "mtgqa_003320",
+    "turn_id": 1,
+    "method_key": "prefix45",
+    "prediction": "Computer mouse",
+    "gold": [
+     "computer"
+    ],
+    "stored_legacy_score": 1.0,
+    "strict_score": 0.0
+   }
+  ]
+ },
+ "conclusions": {
+  "quality_verdict": "SUPPORTED",
+  "efficiency_verdict": "SUPPORTED",
+  "quality_rule": "SUPPORTED iff both prefixes have Avg gap >= -2pp and T3-vs-T1 gap growth >= -2pp; PARTIAL iff one does.",
+  "efficiency_rule": "SUPPORTED iff both prefixes beat ReComp cache-hit TTFT and FullLoad SSD bytes; PARTIAL iff one does.",
+  "questions": {
+   "Q1": "MT-GQA-reconstructed; source and hashes are recorded in the immutable run config.",
+   "Q2": "Three questions from one image; Turn 2 receives Q1/gold A1/Q2 and Turn 3 receives Q1/gold A1/Q2/gold A2/Q3.",
+   "Q3": {
+    "recompute": {
+     "acc1": 0.6318640728884511,
+     "acc2": 0.7365180989903964,
+     "acc3": 0.7517852745629156,
+     "avg": 0.7067224821472544
+    },
+    "fullload": {
+     "acc1": 0.6318640728884511,
+     "acc2": 0.7372568332922925,
+     "acc3": 0.7515390297956168,
+     "avg": 0.7068866453254535
+    },
+    "prefix25": {
+     "acc1": 0.6318640728884511,
+     "acc2": 0.7064762373799557,
+     "acc3": 0.7323319379463187,
+     "avg": 0.6902240827382418
+    },
+    "prefix45": {
+     "acc1": 0.6318640728884511,
+     "acc2": 0.7293770007387343,
+     "acc3": 0.746614134449643,
+     "avg": 0.702618402692276
+    }
+   },
+   "Q4": {
+    "gap_growth_t3_minus_t1": -0.019207091849298204,
+    "gap_worsened": true
+   },
+   "Q5": {
+    "gap_growth_t3_minus_t1": -0.004924895345973898,
+    "gap_worsened": true
+   },
+   "Q6": "Future-query robustness verdict: SUPPORTED.",
+   "Q7": {
+    "prefix25_ttft_reduction_vs_recomp_pct": 47.847041076127624
+   },
+   "Q8": {
+    "prefix45_ttft_reduction_vs_recomp_pct": 18.980295810103403
+   },
+   "Q9": {
+    "fullload_is_faster_than_recomp": false
+   },
+   "Q10": {
+    "partial_loading_needed_for_best_measured_ttft": true
+   }
+  }
+ }
+}

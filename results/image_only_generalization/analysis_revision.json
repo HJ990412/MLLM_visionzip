@@ -1,0 +1,24 @@
+{
+  "schema_version": "image-only-generalization-analysis-correction-v1",
+  "inference_experiment_id": "9992ea89-98de-4b37-ad23-f62f60e0327c",
+  "inference_rerun": false,
+  "source_run_artifacts_changed": false,
+  "reason": "The first analysis pass selected the lower-level kv_repack_ms alias before the authoritative flat repack_ms aggregate. Alias priority was corrected and the persistence summaries and dataset READMEs were regenerated from the same immutable run artifacts.",
+  "unaffected_outputs": [
+    "raw inference rows",
+    "quality scores",
+    "TTFT and E2E statistics",
+    "SSD I/O statistics",
+    "bootstrap intervals",
+    "dataset and cross-dataset verdicts"
+  ],
+  "corrected_analyzer_sha256": "8e365131221090039d3e043499897a27dbb65194793a81b7ab8e6ee08ee76940",
+  "corrected_files_sha256": {
+    "gqa_large/persistence_summary.csv": "894a0cfc4980c7e880c1d1666e3d3e51d26bdb733870878401f97e399efb6b9a",
+    "vqav2/persistence_summary.csv": "b332cb451dac618d7ea876aee0ab281589f631194275a5a20be1bc0b24571a1d",
+    "textvqa/persistence_summary.csv": "55529f68f66bb80b1d0c772fa1b067b40b94e2a41f4c04d0821fa690a6dabdfc",
+    "gqa_large/README.md": "885375d17404a7b5a5d7b3a1e3ae75638ae3442f654f5808fdd8844c82510a54",
+    "vqav2/README.md": "7f159fcb131917ffd1e7c7689eba617dfc18fc031c38563ff0e650fed74da155",
+    "textvqa/README.md": "3a5a384624d7739c005e96ce3bb84a5c103da9cc60aa758084de8a47ff0cf4fe"
+  }
+}

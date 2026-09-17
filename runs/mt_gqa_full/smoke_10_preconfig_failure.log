@@ -1,0 +1,8 @@
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python /home/dblab/hj/mllm_v2/scripts/37_eval_mt_gqa_full_shard.py --index /home/dblab/hj/mllm_v2/data/mt_gqa/dialogues.json --run-dir /home/dblab/hj/mllm_v2/runs/mt_gqa_full/smoke_10 --temp-root /home/dblab/hj/mllm_v2/runs/mt_gqa_full/_temporary_visual_kv/smoke_10 --experiment-id bdb87fde-ebd5-46d3-b52b-291e533905b7 --shard-index 0 --shard-size 60 --expected-index-sha256 2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224 --expected-workload-sha256 0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62 --expected-dialogs 10 --seed 1234 --max-new-tokens 16 --min-free-after-gib 30.0 --max-dialogs 10 --allow-partial-workload
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/scripts/37_eval_mt_gqa_full_shard.py", line 2181, in <module>
+    main()
+  File "/home/dblab/hj/mllm_v2/scripts/37_eval_mt_gqa_full_shard.py", line 2067, in main
+    raise ValueError(
+ValueError: nonempty output root has no config.json; refusing to mix runs

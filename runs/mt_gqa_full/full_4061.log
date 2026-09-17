@@ -1,0 +1,468 @@
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python /home/dblab/hj/mllm_v2/scripts/37_eval_mt_gqa_full_shard.py --index /home/dblab/hj/mllm_v2/data/mt_gqa/dialogues.json --run-dir /home/dblab/hj/mllm_v2/runs/mt_gqa_full/full_4061 --temp-root /home/dblab/hj/mllm_v2/runs/mt_gqa_full/_temporary_visual_kv/full_4061 --experiment-id bdb87fde-ebd5-46d3-b52b-291e533905b7 --shard-index 0 --shard-size 60 --expected-index-sha256 2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224 --expected-workload-sha256 0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62 --expected-dialogs 4061 --seed 1234 --max-new-tokens 16 --min-free-after-gib 30.0
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.27s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.26s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.03s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.09s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/60] n229548: 11 dialogs, 132 rows; store 1.36 GB
+[2/60] n181355: 22 dialogs, 264 rows; store 1.25 GB
+[3/60] n95369: 4 dialogs, 48 rows; store 1.16 GB
+[4/60] n204894: 12 dialogs, 144 rows; store 1.16 GB
+[5/60] n28572: 13 dialogs, 156 rows; store 1.16 GB
+[6/60] n28792: 3 dialogs, 36 rows; store 1.14 GB
+[7/60] n141939: 15 dialogs, 180 rows; store 1.26 GB
+[8/60] n528403: 5 dialogs, 60 rows; store 0.80 GB
+[9/60] n282436: 13 dialogs, 156 rows; store 1.25 GB
+[10/60] n130638: 6 dialogs, 72 rows; store 1.25 GB
+[11/60] n35676: 16 dialogs, 192 rows; store 0.73 GB
+[12/60] n455563: 8 dialogs, 96 rows; store 1.25 GB
+[13/60] n79078: 6 dialogs, 72 rows; store 1.26 GB
+[14/60] n503626: 2 dialogs, 24 rows; store 1.26 GB
+[15/60] n344136: 11 dialogs, 132 rows; store 1.14 GB
+[16/60] n157375: 4 dialogs, 48 rows; store 1.25 GB
+[17/60] n473688: 15 dialogs, 180 rows; store 1.26 GB
+[18/60] n196058: 11 dialogs, 132 rows; store 1.14 GB
+[19/60] n170941: 12 dialogs, 144 rows; store 1.25 GB
+[20/60] n258500: 7 dialogs, 84 rows; store 1.14 GB
+[21/60] n470920: 20 dialogs, 240 rows; store 1.14 GB
+[22/60] n240973: 19 dialogs, 228 rows; store 1.25 GB
+[23/60] n331357: 7 dialogs, 84 rows; store 1.09 GB
+[24/60] n90944: 8 dialogs, 96 rows; store 1.21 GB
+[25/60] n116329: 11 dialogs, 132 rows; store 1.14 GB
+[26/60] n262929: 9 dialogs, 108 rows; store 1.16 GB
+[27/60] n164272: 8 dialogs, 96 rows; store 1.25 GB
+[28/60] n572716: 6 dialogs, 72 rows; store 1.14 GB
+[29/60] n313060: 15 dialogs, 180 rows; store 1.56 GB
+[30/60] n480253: 16 dialogs, 192 rows; store 1.09 GB
+[31/60] n520071: 24 dialogs, 288 rows; store 1.25 GB
+[32/60] n159802: 19 dialogs, 228 rows; store 1.14 GB
+[33/60] n272098: 8 dialogs, 96 rows; store 1.56 GB
+[34/60] n486200: 8 dialogs, 96 rows; store 1.14 GB
+[35/60] n234722: 8 dialogs, 96 rows; store 1.25 GB
+[36/60] n67005: 10 dialogs, 120 rows; store 1.26 GB
+[37/60] n494918: 9 dialogs, 108 rows; store 1.26 GB
+[38/60] n206358: 7 dialogs, 84 rows; store 1.14 GB
+[39/60] n511913: 14 dialogs, 168 rows; store 1.14 GB
+[40/60] n77818: 23 dialogs, 276 rows; store 1.26 GB
+[41/60] n523165: 5 dialogs, 60 rows; store 1.25 GB
+[42/60] n68769: 17 dialogs, 204 rows; store 1.25 GB
+[43/60] n386682: 11 dialogs, 132 rows; store 1.25 GB
+[44/60] n565418: 7 dialogs, 84 rows; store 1.04 GB
+[45/60] n16378: 17 dialogs, 204 rows; store 1.25 GB
+[46/60] n65230: 9 dialogs, 108 rows; store 1.26 GB
+[47/60] n256120: 16 dialogs, 192 rows; store 1.14 GB
+[48/60] n489190: 11 dialogs, 132 rows; store 1.14 GB
+[49/60] n317260: 12 dialogs, 144 rows; store 1.25 GB
+[50/60] n380113: 11 dialogs, 132 rows; store 1.14 GB
+[51/60] n235859: 10 dialogs, 120 rows; store 1.25 GB
+[52/60] n540852: 6 dialogs, 72 rows; store 1.41 GB
+[53/60] n514467: 5 dialogs, 60 rows; store 1.25 GB
+[54/60] n148872: 7 dialogs, 84 rows; store 1.26 GB
+[55/60] n199758: 5 dialogs, 60 rows; store 1.16 GB
+[56/60] n280089: 11 dialogs, 132 rows; store 1.30 GB
+[57/60] n12404: 14 dialogs, 168 rows; store 1.14 GB
+[58/60] n23762: 7 dialogs, 84 rows; store 1.26 GB
+[59/60] n37274: 17 dialogs, 204 rows; store 1.25 GB
+[60/60] n541482: 9 dialogs, 108 rows; store 0.86 GB
+completed shard 0: 60 images
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python /home/dblab/hj/mllm_v2/scripts/37_eval_mt_gqa_full_shard.py --index /home/dblab/hj/mllm_v2/data/mt_gqa/dialogues.json --run-dir /home/dblab/hj/mllm_v2/runs/mt_gqa_full/full_4061 --temp-root /home/dblab/hj/mllm_v2/runs/mt_gqa_full/_temporary_visual_kv/full_4061 --experiment-id bdb87fde-ebd5-46d3-b52b-291e533905b7 --shard-index 1 --shard-size 60 --expected-index-sha256 2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224 --expected-workload-sha256 0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62 --expected-dialogs 4061 --seed 1234 --max-new-tokens 16 --min-free-after-gib 30.0
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.36s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.28s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.04s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.12s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/60] n469156: 5 dialogs, 60 rows; store 1.16 GB
+[2/60] n290409: 10 dialogs, 120 rows; store 1.25 GB
+[3/60] n527290: 14 dialogs, 168 rows; store 1.25 GB
+[4/60] n318370: 8 dialogs, 96 rows; store 1.25 GB
+[5/60] n357126: 4 dialogs, 48 rows; store 1.25 GB
+[6/60] n411121: 14 dialogs, 168 rows; store 1.25 GB
+[7/60] n536256: 13 dialogs, 156 rows; store 1.25 GB
+[8/60] n199286: 6 dialogs, 72 rows; store 1.20 GB
+[9/60] n65885: 10 dialogs, 120 rows; store 1.26 GB
+[10/60] n497658: 3 dialogs, 36 rows; store 1.14 GB
+[11/60] n579256: 16 dialogs, 192 rows; store 1.25 GB
+[12/60] n69237: 21 dialogs, 252 rows; store 1.25 GB
+[13/60] n433692: 17 dialogs, 204 rows; store 1.25 GB
+[14/60] n525029: 7 dialogs, 84 rows; store 1.25 GB
+[15/60] n264887: 19 dialogs, 228 rows; store 0.78 GB
+[16/60] n567860: 10 dialogs, 120 rows; store 1.25 GB
+[17/60] n58220: 10 dialogs, 120 rows; store 1.25 GB
+[18/60] n211324: 6 dialogs, 72 rows; store 1.25 GB
+[19/60] n70461: 5 dialogs, 60 rows; store 1.14 GB
+[20/60] n64959: 11 dialogs, 132 rows; store 1.14 GB
+[21/60] n324908: 16 dialogs, 192 rows; store 1.25 GB
+[22/60] n282607: 11 dialogs, 132 rows; store 0.80 GB
+[23/60] n184551: 7 dialogs, 84 rows; store 1.26 GB
+[24/60] n560243: 9 dialogs, 108 rows; store 1.25 GB
+[25/60] n153118: 6 dialogs, 72 rows; store 1.25 GB
+[26/60] n479092: 12 dialogs, 144 rows; store 1.25 GB
+[27/60] n118102: 15 dialogs, 180 rows; store 1.14 GB
+[28/60] n357784: 22 dialogs, 264 rows; store 1.25 GB
+[29/60] n350766: 10 dialogs, 120 rows; store 1.14 GB
+[30/60] n369595: 4 dialogs, 48 rows; store 1.14 GB
+[31/60] n48494: 5 dialogs, 60 rows; store 0.78 GB
+[32/60] n434283: 9 dialogs, 108 rows; store 1.14 GB
+[33/60] n534106: 13 dialogs, 156 rows; store 1.25 GB
+[34/60] n578564: 19 dialogs, 228 rows; store 1.16 GB
+[35/60] n336443: 9 dialogs, 108 rows; store 1.14 GB
+[36/60] n259949: 9 dialogs, 108 rows; store 1.09 GB
+[37/60] n381072: 4 dialogs, 48 rows; store 1.25 GB
+[38/60] n305495: 11 dialogs, 132 rows; store 1.16 GB
+[39/60] n526228: 23 dialogs, 276 rows; store 1.04 GB
+[40/60] n403734: 8 dialogs, 96 rows; store 1.14 GB
+[41/60] n150962: 13 dialogs, 156 rows; store 1.30 GB
+[42/60] n249639: 7 dialogs, 84 rows; store 1.16 GB
+[43/60] n24526: 9 dialogs, 108 rows; store 1.14 GB
+[44/60] n181210: 11 dialogs, 132 rows; store 1.56 GB
+[45/60] n219840: 11 dialogs, 132 rows; store 1.25 GB
+[46/60] n146555: 10 dialogs, 120 rows; store 1.26 GB
+[47/60] n398257: 20 dialogs, 240 rows; store 1.26 GB
+[48/60] n546616: 13 dialogs, 156 rows; store 1.25 GB
+[49/60] n513429: 20 dialogs, 240 rows; store 1.25 GB
+[50/60] n145498: 8 dialogs, 96 rows; store 1.14 GB
+[51/60] n512257: 2 dialogs, 24 rows; store 1.14 GB
+[52/60] n554880: 30 dialogs, 360 rows; store 1.14 GB
+[53/60] n57848: 1 dialogs, 12 rows; store 1.25 GB
+[54/60] n217003: 4 dialogs, 48 rows; store 1.26 GB
+[55/60] n260762: 11 dialogs, 132 rows; store 1.14 GB
+[56/60] n446242: 6 dialogs, 72 rows; store 1.25 GB
+[57/60] n216553: 13 dialogs, 156 rows; store 1.14 GB
+[58/60] n6908: 15 dialogs, 180 rows; store 1.16 GB
+[59/60] n310625: 7 dialogs, 84 rows; store 1.25 GB
+[60/60] n279173: 14 dialogs, 168 rows; store 1.14 GB
+completed shard 1: 60 images
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python /home/dblab/hj/mllm_v2/scripts/37_eval_mt_gqa_full_shard.py --index /home/dblab/hj/mllm_v2/data/mt_gqa/dialogues.json --run-dir /home/dblab/hj/mllm_v2/runs/mt_gqa_full/full_4061 --temp-root /home/dblab/hj/mllm_v2/runs/mt_gqa_full/_temporary_visual_kv/full_4061 --experiment-id bdb87fde-ebd5-46d3-b52b-291e533905b7 --shard-index 2 --shard-size 60 --expected-index-sha256 2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224 --expected-workload-sha256 0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62 --expected-dialogs 4061 --seed 1234 --max-new-tokens 16 --min-free-after-gib 30.0
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.27s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.24s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.03s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.09s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/60] n508733: 8 dialogs, 96 rows; store 1.16 GB
+[2/60] n257997: 7 dialogs, 84 rows; store 1.30 GB
+[3/60] n263180: 12 dialogs, 144 rows; store 1.20 GB
+[4/60] n262920: 21 dialogs, 252 rows; store 1.56 GB
+[5/60] n413761: 4 dialogs, 48 rows; store 1.14 GB
+[6/60] n574498: 7 dialogs, 84 rows; store 1.21 GB
+[7/60] n493357: 7 dialogs, 84 rows; store 1.25 GB
+[8/60] n167552: 11 dialogs, 132 rows; store 1.14 GB
+[9/60] n347706: 12 dialogs, 144 rows; store 1.21 GB
+[10/60] n575770: 5 dialogs, 60 rows; store 1.25 GB
+[11/60] n522733: 4 dialogs, 48 rows; store 1.25 GB
+[12/60] n398429: 12 dialogs, 144 rows; store 1.25 GB
+[13/60] n285391: 3 dialogs, 36 rows; store 1.36 GB
+[14/60] n133585: 8 dialogs, 96 rows; store 1.14 GB
+[15/60] n501951: 9 dialogs, 108 rows; store 0.99 GB
+[16/60] n498140: 4 dialogs, 48 rows; store 1.14 GB
+[17/60] n355339: 15 dialogs, 180 rows; store 1.14 GB
+[18/60] n166008: 7 dialogs, 84 rows; store 1.25 GB
+[19/60] n51002: 19 dialogs, 228 rows; store 1.14 GB
+[20/60] n507959: 22 dialogs, 264 rows; store 0.78 GB
+[21/60] n317189: 5 dialogs, 60 rows; store 1.16 GB
+[22/60] n83784: 10 dialogs, 120 rows; store 1.25 GB
+[23/60] n88933: 14 dialogs, 168 rows; store 1.25 GB
+[24/60] n488874: 14 dialogs, 168 rows; store 1.14 GB
+[25/60] n244826: 4 dialogs, 48 rows; store 1.04 GB
+[26/60] n65202: 6 dialogs, 72 rows; store 1.25 GB
+[27/60] n571179: 8 dialogs, 96 rows; store 1.30 GB
+[28/60] n9181: 7 dialogs, 84 rows; store 1.26 GB
+[29/60] n44249: 8 dialogs, 96 rows; store 1.14 GB
+[30/60] n281241: 10 dialogs, 120 rows; store 1.16 GB
+[31/60] n352479: 8 dialogs, 96 rows; store 1.31 GB
+[32/60] n326988: 16 dialogs, 192 rows; store 1.14 GB
+[33/60] n432591: 10 dialogs, 120 rows; store 1.25 GB
+[34/60] n272313: 9 dialogs, 108 rows; store 1.14 GB
+[35/60] n477702: 12 dialogs, 144 rows; store 1.14 GB
+[36/60] n549922: 5 dialogs, 60 rows; store 1.14 GB
+[37/60] n95904: 8 dialogs, 96 rows; store 1.25 GB
+[38/60] n518912: 11 dialogs, 132 rows; store 1.25 GB
+[39/60] n243701: 8 dialogs, 96 rows; store 1.26 GB
+[40/60] n255161: 4 dialogs, 48 rows; store 0.78 GB
+[41/60] n238266: 8 dialogs, 96 rows; store 1.25 GB
+[42/60] n12214: 8 dialogs, 96 rows; store 1.14 GB
+[43/60] n283587: 25 dialogs, 300 rows; store 1.25 GB
+[44/60] n390187: 8 dialogs, 96 rows; store 1.21 GB
+[45/60] n496803: 11 dialogs, 132 rows; store 0.74 GB
+[46/60] n497789: 12 dialogs, 144 rows; store 1.25 GB
+[47/60] n232810: 3 dialogs, 36 rows; store 1.26 GB
+[48/60] n346736: 4 dialogs, 48 rows; store 1.25 GB
+[49/60] n222297: 8 dialogs, 96 rows; store 1.14 GB
+[50/60] n531731: 9 dialogs, 108 rows; store 1.25 GB
+[51/60] n209843: 8 dialogs, 96 rows; store 1.25 GB
+[52/60] n489699: 8 dialogs, 96 rows; store 1.14 GB
+[53/60] n276011: 10 dialogs, 120 rows; store 1.14 GB
+[54/60] n413002: 9 dialogs, 108 rows; store 1.20 GB
+[55/60] n356822: 13 dialogs, 156 rows; store 1.25 GB
+[56/60] n548534: 13 dialogs, 156 rows; store 1.14 GB
+[57/60] n88366: 12 dialogs, 144 rows; store 1.04 GB
+[58/60] n315859: 7 dialogs, 84 rows; store 0.91 GB
+[59/60] n143672: 9 dialogs, 108 rows; store 1.14 GB
+[60/60] n441859: 5 dialogs, 60 rows; store 1.04 GB
+completed shard 2: 60 images
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python /home/dblab/hj/mllm_v2/scripts/37_eval_mt_gqa_full_shard.py --index /home/dblab/hj/mllm_v2/data/mt_gqa/dialogues.json --run-dir /home/dblab/hj/mllm_v2/runs/mt_gqa_full/full_4061 --temp-root /home/dblab/hj/mllm_v2/runs/mt_gqa_full/_temporary_visual_kv/full_4061 --experiment-id bdb87fde-ebd5-46d3-b52b-291e533905b7 --shard-index 3 --shard-size 60 --expected-index-sha256 2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224 --expected-workload-sha256 0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62 --expected-dialogs 4061 --seed 1234 --max-new-tokens 16 --min-free-after-gib 30.0
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.32s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.29s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.06s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.12s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/60] n363445: 18 dialogs, 216 rows; store 1.25 GB
+[2/60] n16656: 13 dialogs, 156 rows; store 1.25 GB
+[3/60] n551964: 12 dialogs, 144 rows; store 1.25 GB
+[4/60] n433532: 21 dialogs, 252 rows; store 1.16 GB
+[5/60] n210269: 11 dialogs, 132 rows; store 0.78 GB
+[6/60] n532213: 9 dialogs, 108 rows; store 1.14 GB
+[7/60] n23181: 15 dialogs, 180 rows; store 0.78 GB
+[8/60] n131634: 9 dialogs, 108 rows; store 1.25 GB
+[9/60] n346247: 10 dialogs, 120 rows; store 1.14 GB
+[10/60] n386688: 12 dialogs, 144 rows; store 1.09 GB
+[11/60] n14087: 15 dialogs, 180 rows; store 1.25 GB
+[12/60] n228268: 4 dialogs, 48 rows; store 1.14 GB
+[13/60] n16936: 9 dialogs, 108 rows; store 1.14 GB
+[14/60] n59147: 11 dialogs, 132 rows; store 1.25 GB
+[15/60] n429961: 15 dialogs, 180 rows; store 1.25 GB
+[16/60] n508641: 8 dialogs, 96 rows; store 1.25 GB
+[17/60] n314630: 18 dialogs, 216 rows; store 0.78 GB
+[18/60] n481655: 2 dialogs, 24 rows; store 1.25 GB
+[19/60] n429883: 8 dialogs, 96 rows; store 1.25 GB
+[20/60] n184385: 17 dialogs, 204 rows; store 1.25 GB
+[21/60] n351318: 5 dialogs, 60 rows; store 1.26 GB
+[22/60] n400036: 12 dialogs, 144 rows; store 1.14 GB
+[23/60] n16425: 5 dialogs, 60 rows; store 1.30 GB
+[24/60] n124651: 5 dialogs, 60 rows; store 1.14 GB
+[25/60] n501609: 15 dialogs, 180 rows; store 1.14 GB
+[26/60] n168412: 3 dialogs, 36 rows; store 1.09 GB
+[27/60] n530733: 4 dialogs, 48 rows; store 1.25 GB
+[28/60] n355567: 8 dialogs, 96 rows; store 1.14 GB
+[29/60] n115614: 6 dialogs, 72 rows; store 1.14 GB
+[30/60] n223750: 8 dialogs, 96 rows; store 1.51 GB
+[31/60] n382416: 15 dialogs, 180 rows; store 1.26 GB
+[32/60] n538039: 8 dialogs, 96 rows; store 1.14 GB
+[33/60] n319845: 14 dialogs, 168 rows; store 1.25 GB
+[34/60] n431447: 12 dialogs, 144 rows; store 1.25 GB
+[35/60] n200225: 13 dialogs, 156 rows; store 1.56 GB
+[36/60] n557666: 6 dialogs, 72 rows; store 1.14 GB
+[37/60] n259002: 23 dialogs, 276 rows; store 1.09 GB
+[38/60] n279581: 9 dialogs, 108 rows; store 1.14 GB
+[39/60] n119886: 12 dialogs, 144 rows; store 1.16 GB
+[40/60] n126087: 7 dialogs, 84 rows; store 1.14 GB
+[41/60] n143935: 10 dialogs, 120 rows; store 1.25 GB
+[42/60] n89148: 6 dialogs, 72 rows; store 1.26 GB
+[43/60] n206785: 12 dialogs, 144 rows; store 1.14 GB
+[44/60] n173807: 7 dialogs, 84 rows; store 1.25 GB
+[45/60] n541854: 9 dialogs, 108 rows; store 1.25 GB
+[46/60] n195925: 5 dialogs, 60 rows; store 1.14 GB
+[47/60] n329479: 8 dialogs, 96 rows; store 1.16 GB
+[48/60] n451187: 11 dialogs, 132 rows; store 0.78 GB
+[49/60] n532191: 15 dialogs, 180 rows; store 1.36 GB
+[50/60] n154160: 5 dialogs, 60 rows; store 1.26 GB
+[51/60] n154856: 10 dialogs, 120 rows; store 0.78 GB
+[52/60] n240666: 13 dialogs, 156 rows; store 1.26 GB
+[53/60] n573460: 11 dialogs, 132 rows; store 1.14 GB
+[54/60] n570181: 14 dialogs, 168 rows; store 1.14 GB
+[55/60] n414992: 8 dialogs, 96 rows; store 1.14 GB
+[56/60] n445353: 7 dialogs, 84 rows; store 1.14 GB
+[57/60] n59676: 10 dialogs, 120 rows; store 1.16 GB
+[58/60] n417401: 6 dialogs, 72 rows; store 1.26 GB
+[59/60] n151768: 14 dialogs, 168 rows; store 1.25 GB
+[60/60] n410476: 10 dialogs, 120 rows; store 1.16 GB
+completed shard 3: 60 images
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python /home/dblab/hj/mllm_v2/scripts/37_eval_mt_gqa_full_shard.py --index /home/dblab/hj/mllm_v2/data/mt_gqa/dialogues.json --run-dir /home/dblab/hj/mllm_v2/runs/mt_gqa_full/full_4061 --temp-root /home/dblab/hj/mllm_v2/runs/mt_gqa_full/_temporary_visual_kv/full_4061 --experiment-id bdb87fde-ebd5-46d3-b52b-291e533905b7 --shard-index 4 --shard-size 60 --expected-index-sha256 2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224 --expected-workload-sha256 0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62 --expected-dialogs 4061 --seed 1234 --max-new-tokens 16 --min-free-after-gib 30.0
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.28s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.27s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.05s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.11s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/60] n125122: 18 dialogs, 216 rows; store 1.25 GB
+[2/60] n278312: 22 dialogs, 264 rows; store 1.25 GB
+[3/60] n309148: 20 dialogs, 240 rows; store 1.56 GB
+[4/60] n65866: 8 dialogs, 96 rows; store 1.26 GB
+[5/60] n140421: 23 dialogs, 276 rows; store 1.14 GB
+[6/60] n246334: 9 dialogs, 108 rows; store 1.25 GB
+[7/60] n97485: 20 dialogs, 240 rows; store 1.25 GB
+[8/60] n545516: 8 dialogs, 96 rows; store 1.25 GB
+[9/60] n288870: 3 dialogs, 36 rows; store 1.14 GB
+[10/60] n524855: 3 dialogs, 36 rows; store 1.14 GB
+[11/60] n9856: 8 dialogs, 96 rows; store 1.16 GB
+[12/60] n71728: 11 dialogs, 132 rows; store 1.14 GB
+[13/60] n195249: 10 dialogs, 120 rows; store 0.99 GB
+[14/60] n556604: 12 dialogs, 144 rows; store 1.21 GB
+[15/60] n200692: 7 dialogs, 84 rows; store 1.25 GB
+[16/60] n273901: 2 dialogs, 24 rows; store 1.25 GB
+[17/60] n466319: 3 dialogs, 36 rows; store 1.25 GB
+[18/60] n160664: 15 dialogs, 180 rows; store 1.14 GB
+[19/60] n98544: 9 dialogs, 108 rows; store 1.26 GB
+[20/60] n111390: 11 dialogs, 132 rows; store 1.16 GB
+[21/60] n311910: 8 dialogs, 96 rows; store 1.14 GB
+[22/60] n449058: 8 dialogs, 96 rows; store 1.30 GB
+[23/60] n222915: 19 dialogs, 228 rows; store 1.25 GB
+[24/60] n130464: 2 dialogs, 24 rows; store 1.25 GB
+[25/60] n379991: 6 dialogs, 72 rows; store 1.25 GB
+[26/60] n207708: 16 dialogs, 192 rows; store 1.26 GB
+[27/60] n146522: 10 dialogs, 120 rows; store 1.14 GB
+[28/60] n413319: 7 dialogs, 84 rows; store 1.16 GB
+[29/60] n499081: 14 dialogs, 168 rows; store 1.14 GB
+[30/60] n470131: 11 dialogs, 132 rows; store 1.14 GB
+[31/60] n329514: 3 dialogs, 36 rows; store 1.09 GB
+[32/60] n54180: 10 dialogs, 120 rows; store 1.26 GB
+[33/60] n498712: 13 dialogs, 156 rows; store 1.25 GB
+[34/60] n172618: 11 dialogs, 132 rows; store 1.25 GB
+[35/60] n271392: 9 dialogs, 108 rows; store 1.14 GB
+[36/60] n437064: 14 dialogs, 168 rows; store 1.14 GB
+[37/60] n302358: 4 dialogs, 48 rows; store 0.88 GB
+[38/60] n469525: 5 dialogs, 60 rows; store 1.14 GB
+[39/60] n525901: 13 dialogs, 156 rows; store 1.25 GB
+[40/60] n342511: 6 dialogs, 72 rows; store 1.26 GB
+[41/60] n250821: 8 dialogs, 96 rows; store 1.26 GB
+[42/60] n312206: 12 dialogs, 144 rows; store 1.25 GB
+[43/60] n123075: 1 dialogs, 12 rows; store 0.78 GB
+[44/60] n127705: 4 dialogs, 48 rows; store 1.56 GB
+[45/60] n250715: 23 dialogs, 276 rows; store 1.25 GB
+[46/60] n162148: 8 dialogs, 96 rows; store 1.25 GB
+[47/60] n373692: 3 dialogs, 36 rows; store 1.14 GB
+[48/60] n298104: 13 dialogs, 156 rows; store 1.16 GB
+[49/60] n483840: 6 dialogs, 72 rows; store 1.25 GB
+[50/60] n500209: 12 dialogs, 144 rows; store 1.16 GB
+[51/60] n100552: 9 dialogs, 108 rows; store 1.30 GB
+[52/60] n542609: 4 dialogs, 48 rows; store 1.14 GB
+[53/60] n25275: 7 dialogs, 84 rows; store 1.14 GB
+[54/60] n159284: 5 dialogs, 60 rows; store 1.16 GB
+[55/60] n369313: 8 dialogs, 96 rows; store 1.14 GB
+[56/60] n278453: 9 dialogs, 108 rows; store 1.16 GB
+[57/60] n153293: 8 dialogs, 96 rows; store 1.56 GB
+[58/60] n410289: 4 dialogs, 48 rows; store 1.26 GB
+[59/60] n200907: 12 dialogs, 144 rows; store 1.25 GB
+[60/60] n531359: 7 dialogs, 84 rows; store 1.26 GB
+completed shard 4: 60 images
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python /home/dblab/hj/mllm_v2/scripts/37_eval_mt_gqa_full_shard.py --index /home/dblab/hj/mllm_v2/data/mt_gqa/dialogues.json --run-dir /home/dblab/hj/mllm_v2/runs/mt_gqa_full/full_4061 --temp-root /home/dblab/hj/mllm_v2/runs/mt_gqa_full/_temporary_visual_kv/full_4061 --experiment-id bdb87fde-ebd5-46d3-b52b-291e533905b7 --shard-index 5 --shard-size 60 --expected-index-sha256 2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224 --expected-workload-sha256 0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62 --expected-dialogs 4061 --seed 1234 --max-new-tokens 16 --min-free-after-gib 30.0
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.29s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.24s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.03s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.09s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/60] n117888: 13 dialogs, 156 rows; store 1.31 GB
+[2/60] n481777: 2 dialogs, 24 rows; store 1.14 GB
+[3/60] n369970: 8 dialogs, 96 rows; store 1.14 GB
+[4/60] n296467: 27 dialogs, 324 rows; store 1.25 GB
+[5/60] n393305: 11 dialogs, 132 rows; store 1.26 GB
+[6/60] n289376: 6 dialogs, 72 rows; store 1.26 GB
+[7/60] n485969: 18 dialogs, 216 rows; store 1.51 GB
+[8/60] n4777: 23 dialogs, 276 rows; store 1.26 GB
+[9/60] n162108: 6 dialogs, 72 rows; store 1.25 GB
+[10/60] n92308: 8 dialogs, 96 rows; store 1.14 GB
+[11/60] n162586: 11 dialogs, 132 rows; store 1.20 GB
+[12/60] n406334: 9 dialogs, 108 rows; store 1.14 GB
+[13/60] n293477: 19 dialogs, 228 rows; store 1.25 GB
+[14/60] n299528: 8 dialogs, 96 rows; store 1.26 GB
+[15/60] n126891: 10 dialogs, 120 rows; store 0.91 GB
+[16/60] n295771: 8 dialogs, 96 rows; store 1.14 GB
+[17/60] n186491: 8 dialogs, 96 rows; store 1.25 GB
+[18/60] n28996: 13 dialogs, 156 rows; store 1.25 GB
+[19/60] n137182: 8 dialogs, 96 rows; store 0.78 GB
+[20/60] n66756: 14 dialogs, 168 rows; store 1.14 GB
+[21/60] n507149: 4 dialogs, 48 rows; store 1.14 GB
+[22/60] n315887: 26 dialogs, 312 rows; store 1.14 GB
+[23/60] n334278: 16 dialogs, 192 rows; store 1.14 GB
+[24/60] n579928: 10 dialogs, 120 rows; store 1.46 GB
+[25/60] n471866: 5 dialogs, 60 rows; store 1.14 GB
+[26/60] n511881: 3 dialogs, 36 rows; store 1.25 GB
+[27/60] n302387: 9 dialogs, 108 rows; store 1.26 GB
+[28/60] n119944: 28 dialogs, 336 rows; store 1.14 GB
+[29/60] n468864: 6 dialogs, 72 rows; store 1.14 GB
+[30/60] n49438: 10 dialogs, 120 rows; store 1.56 GB
+[31/60] n275148: 20 dialogs, 240 rows; store 1.25 GB
+[32/60] n59627: 6 dialogs, 72 rows; store 1.30 GB
+[33/60] n62458: 6 dialogs, 72 rows; store 1.14 GB
+[34/60] n46510: 5 dialogs, 60 rows; store 1.25 GB
+[35/60] n208458: 4 dialogs, 48 rows; store 0.78 GB
+[36/60] n566028: 7 dialogs, 84 rows; store 1.04 GB
+[37/60] n435808: 16 dialogs, 192 rows; store 1.25 GB
+[38/60] n179136: 4 dialogs, 48 rows; store 1.25 GB
+[39/60] n437192: 3 dialogs, 36 rows; store 1.16 GB
+[40/60] n412144: 9 dialogs, 108 rows; store 1.14 GB
+[41/60] n249903: 1 dialogs, 12 rows; store 1.30 GB
+[42/60] n460385: 12 dialogs, 144 rows; store 1.26 GB
+[43/60] n187544: 6 dialogs, 72 rows; store 1.14 GB
+[44/60] n49310: 10 dialogs, 120 rows; store 1.14 GB
+[45/60] n472825: 6 dialogs, 72 rows; store 1.25 GB
+[46/60] n324644: 5 dialogs, 60 rows; store 1.26 GB
+[47/60] n167164: 11 dialogs, 132 rows; store 1.25 GB
+[48/60] n95313: 16 dialogs, 192 rows; store 1.25 GB
+[49/60] n199097: 13 dialogs, 156 rows; store 1.14 GB
+[50/60] n98540: 8 dialogs, 96 rows; store 1.31 GB
+[51/60] n460556: 3 dialogs, 36 rows; store 1.25 GB
+[52/60] n494677: 5 dialogs, 60 rows; store 1.04 GB
+[53/60] n475030: 6 dialogs, 72 rows; store 1.26 GB
+[54/60] n546884: 9 dialogs, 108 rows; store 1.25 GB
+[55/60] n275857: 3 dialogs, 36 rows; store 1.14 GB
+[56/60] n55058: 24 dialogs, 288 rows; store 1.56 GB
+[57/60] n513100: 13 dialogs, 156 rows; store 1.14 GB
+[58/60] n51658: 8 dialogs, 96 rows; store 1.16 GB
+[59/60] n14: 6 dialogs, 72 rows; store 1.26 GB
+[60/60] n527589: 12 dialogs, 144 rows; store 1.25 GB
+completed shard 5: 60 images
+
+$ /home/dblab/anaconda3/envs/mllm_ft/bin/python /home/dblab/hj/mllm_v2/scripts/37_eval_mt_gqa_full_shard.py --index /home/dblab/hj/mllm_v2/data/mt_gqa/dialogues.json --run-dir /home/dblab/hj/mllm_v2/runs/mt_gqa_full/full_4061 --temp-root /home/dblab/hj/mllm_v2/runs/mt_gqa_full/_temporary_visual_kv/full_4061 --experiment-id bdb87fde-ebd5-46d3-b52b-291e533905b7 --shard-index 6 --shard-size 60 --expected-index-sha256 2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224 --expected-workload-sha256 0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62 --expected-dialogs 4061 --seed 1234 --max-new-tokens 16 --min-free-after-gib 30.0
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.33s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.27s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.06s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.12s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/38] n6309: 11 dialogs, 132 rows; store 1.25 GB
+[2/38] n214497: 9 dialogs, 108 rows; store 1.14 GB
+[3/38] n274905: 15 dialogs, 180 rows; store 1.14 GB
+[4/38] n233607: 14 dialogs, 168 rows; store 1.14 GB
+[5/38] n192021: 13 dialogs, 156 rows; store 1.16 GB
+[6/38] n52544: 12 dialogs, 144 rows; store 1.16 GB
+[7/38] n39114: 11 dialogs, 132 rows; store 1.16 GB
+[8/38] n194179: 7 dialogs, 84 rows; store 1.06 GB
+[9/38] n477215: 6 dialogs, 72 rows; store 1.14 GB
+[10/38] n161313: 4 dialogs, 48 rows; store 0.86 GB
+[11/38] n310828: 19 dialogs, 228 rows; store 1.14 GB
+[12/38] n543966: 14 dialogs, 168 rows; store 1.25 GB
+[13/38] n234683: 12 dialogs, 144 rows; store 1.26 GB
+[14/38] n19152: 4 dialogs, 48 rows; store 1.14 GB
+[15/38] n54424: 17 dialogs, 204 rows; store 1.14 GB
+[16/38] n155555: 2 dialogs, 24 rows; store 1.25 GB
+[17/38] n367944: 11 dialogs, 132 rows; store 1.25 GB
+[18/38] n335542: 14 dialogs, 168 rows; store 1.30 GB
+[19/38] n541688: 10 dialogs, 120 rows; store 1.14 GB
+[20/38] n562105: 3 dialogs, 36 rows; store 1.20 GB
+[21/38] n544255: 9 dialogs, 108 rows; store 1.26 GB
+[22/38] n187961: 12 dialogs, 144 rows; store 1.25 GB
+[23/38] n171169: 14 dialogs, 168 rows; store 1.16 GB
+[24/38] n350732: 8 dialogs, 96 rows; store 1.14 GB
+[25/38] n450919: 6 dialogs, 72 rows; store 1.26 GB
+[26/38] n318684: 10 dialogs, 120 rows; store 1.14 GB
+[27/38] n86120: 7 dialogs, 84 rows; store 1.14 GB
+[28/38] n207893: 7 dialogs, 84 rows; store 1.25 GB
+[29/38] n314171: 14 dialogs, 168 rows; store 1.16 GB
+[30/38] n94074: 5 dialogs, 60 rows; store 1.20 GB
+[31/38] n202379: 12 dialogs, 144 rows; store 1.20 GB
+[32/38] n500308: 15 dialogs, 180 rows; store 1.26 GB
+[33/38] n415215: 8 dialogs, 96 rows; store 1.16 GB
+[34/38] n208302: 6 dialogs, 72 rows; store 1.25 GB
+[35/38] n260521: 12 dialogs, 144 rows; store 1.14 GB
+[36/38] n538684: 6 dialogs, 72 rows; store 1.14 GB
+[37/38] n100991: 19 dialogs, 228 rows; store 1.25 GB
+[38/38] n90294: 15 dialogs, 180 rows; store 1.25 GB
+completed shard 6: 38 images

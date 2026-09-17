@@ -1,0 +1,48 @@
+{
+  "benchmark_type": "MT-GQA-reconstructed",
+  "disclaimer": "The source paper specifies GQA testdev-balanced, 4,061 three-turn dialogues, but the exact dialogue artifact was unavailable at evaluation time. We therefore use a deterministic reconstruction and do not claim exact benchmark identity.",
+  "metacompress_repository_evidence": {
+    "branch": "main",
+    "commit": "70a620eaec3d03368bfff9b85c2e278871c595ea",
+    "evidence_scope": "README-only",
+    "official_dialogue_artifact_observed": false,
+    "readme_sha256": "36bdc94be163aadea0f489e55495de29e8f2c4b6f54285d87dfa2412f096f1a1",
+    "readme_status": "Code implementation is being organized and will be released as soon as possible.",
+    "repository": "https://github.com/MArSha1147/MetaCompress",
+    "tags_observed": [],
+    "tree_files": [
+      "README.md"
+    ]
+  },
+  "official_benchmark_identity_claimed": false,
+  "paper": {
+    "arxiv": "2603.21701",
+    "reported_dialogues": 4061,
+    "reported_source": "GQA testdev-balanced",
+    "reported_turns_per_dialogue": 3,
+    "title": "Rethinking Token Reduction for Large Vision-Language Models"
+  },
+  "reconstruction": {
+    "duplicate_policy": "Preserve source-order membership. Exact normalized repeats across different dialogues are retained and disclosed; any repeat inside one source-order triple fails validation.",
+    "future_question_or_answer_used_for_layout": false,
+    "membership": "For each image, preserve source JSON occurrence order and take consecutive non-overlapping triples up to floor(original_questions / 3).",
+    "question_normalization": "Unicode NFKC + whitespace collapse + casefold",
+    "quota_rule": "floor(original_questions_per_image / 3)",
+    "ranking": "mt-gqa-reconstructed-sha256-rank-v1",
+    "same_image_per_dialogue": true,
+    "seed": 1234,
+    "seed_role": "SHA256 image ordering only",
+    "turns_per_dialogue": 3
+  },
+  "schema_version": "mt-gqa-reconstructed-v1",
+  "source": {
+    "dataset": "GQA",
+    "image_dir": "/home/dblab/hj/SparseVLMs/playground/data/eval/gqa/data/images",
+    "images_required": 398,
+    "images_verified": 398,
+    "questions": 12578,
+    "questions_path": "/home/dblab/hj/SparseVLMs/playground/data/eval/gqa/data/testdev_balanced_questions.json",
+    "questions_sha256": "14039069c0b3c797c7aa9bcd5f4c2aa4b5976e02c0b6773e1a584d942a03a318",
+    "split": "testdev-balanced"
+  }
+}
