@@ -1,0 +1,519 @@
+{
+  "schema_version": "mt-gqa-gold-generated-history-analysis-v2",
+  "passed": true,
+  "checks": {
+    "exact_logical_row_count": true,
+    "zero_failed_requests": true,
+    "zero_duplicate_cells": true,
+    "physical_execution_ids_independent": true,
+    "complete_protocol_method_turn_matrix": true,
+    "expected_dialogue_count": true,
+    "expected_image_count": true,
+    "gold_history_causal_and_exact": true,
+    "generated_history_same_method_causal_and_exact": true,
+    "generated_history_raw_provenance_exact": true,
+    "future_leakage_zero": true,
+    "cross_protocol_t1_prompt_prediction_first_token_100pct": true,
+    "cross_protocol_t1_physical_executions_independent": true,
+    "strict_score_recomputed": true,
+    "prior_artifacts_unchanged": true,
+    "frozen_source_configuration": true,
+    "qa_cache_hit_selection_present": true,
+    "ours_cache_hit_selection_present": true,
+    "qa_ours_normal_chunk_budget_equal": true,
+    "qa_ours_fixed_25pct_budget_exact": true,
+    "qa_chunk_validated_configuration_unchanged": true,
+    "ours_validated_configuration_unchanged": true,
+    "ours_selection_invariant_across_protocol_query_turn": true,
+    "ours_storage_permutation_invariant_across_protocol": true,
+    "ours_selection_is_exact_first_k_prefix": true,
+    "manual_history_samples_cover_protocol_method_t2_t3": true
+  },
+  "expected_logical_rows": 97464,
+  "observed_logical_rows": 97464,
+  "expected_dialogues": 4061,
+  "observed_dialogues": 4061,
+  "observed_images": 398,
+  "failed_requests": 0,
+  "duplicate_cells": 0,
+  "t1_pairs_checked": 16244,
+  "t1_shared_physical_pairs": 0,
+  "protection_validation": {
+    "added_paths": [],
+    "after_manifest_sha256": "13fecf8620c0cb47e10ab26316d64ebd23e115c28b2de3d46bfef64ea61b112a",
+    "before_manifest_sha256": "13fecf8620c0cb47e10ab26316d64ebd23e115c28b2de3d46bfef64ea61b112a",
+    "changed_paths": [],
+    "entry_count_after": 38852,
+    "entry_count_before": 38852,
+    "file_count_after": 31706,
+    "file_count_before": 31706,
+    "missing_paths": [],
+    "observed_scope_manifest_sha256": "13fecf8620c0cb47e10ab26316d64ebd23e115c28b2de3d46bfef64ea61b112a",
+    "passed": true,
+    "schema_version": "mt-gqa-history-protected-artifacts-v2",
+    "total_bytes_after": 240398717198,
+    "total_bytes_before": 240398717198,
+    "path": "/home/dblab/hj/mllm_v2/runs/mt_gqa_4arm_history_comparison_20260921T081420Z/protected_artifacts_validation.json",
+    "sha256": "c5b687e9abba30a668ea8cbd807722f91ab94afeb0bad31cb7bb9a3f27b39554"
+  },
+  "frozen_source_configuration": {
+    "passed": true,
+    "expected": {
+      "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+      "model_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+      "load_4bit": true,
+      "quantization": "4-bit NF4 double-quant",
+      "compute_dtype": "bfloat16",
+      "attention": "eager",
+      "decoding": "greedy",
+      "max_new_tokens": 16,
+      "chunk_size": 64,
+      "probe_heads": 3,
+      "qa_chunk_configuration": {
+        "physical_layout": "raster",
+        "head_reduce": "mean",
+        "chunk_aggregation": "mean_valid_spatial_tokens",
+        "normal_chunk_budget": 0.25,
+        "budget_helper": "budget_chunk_count_round",
+        "rater_algorithm_id": "sparsevlm_visual_text_mean_threshold_v1",
+        "rater_scope": "entire_available_causal_suffix",
+        "fallback": false,
+        "adaptive_budget": false
+      },
+      "ours_configuration": {
+        "physical_layout": "visionzip_image_only",
+        "normal_chunk_budget": 0.25,
+        "selection": "fixed_first_k_prefix",
+        "online_query_scoring": false
+      },
+      "later_turn_policy": "ReComp pixels; FullLoad/QA use raster SSD; Ours uses independent image-only repacked SSD"
+    },
+    "gold_generated_identical_fields": [
+      "model",
+      "model_revision",
+      "load_4bit",
+      "quantization",
+      "compute_dtype",
+      "attention",
+      "decoding",
+      "max_new_tokens",
+      "chunk_size",
+      "probe_heads",
+      "qa_chunk_configuration",
+      "ours_configuration",
+      "later_turn_policy",
+      "turn1_policy",
+      "qa_raster_source_policy",
+      "methods",
+      "method_order_policy",
+      "quality_metric",
+      "normalization",
+      "input_token_count_definition",
+      "main_ttft_field"
+    ]
+  },
+  "manual_history_samples": [
+    {
+      "seed": 1234,
+      "protocol": "gold_history",
+      "method_key": "recompute",
+      "method": "ReComp",
+      "dialog_id": "mtgqa_001861",
+      "image_id": "n143672",
+      "turn_id": 2,
+      "question_id": "201412273",
+      "question": "Who wears the cap?",
+      "history_source": "gold",
+      "history_text": "Q1: Who wears a cap?\nA1: skier",
+      "history_answers": [
+        "skier"
+      ],
+      "history_source_request_ids": [
+        "gold:201412272"
+      ],
+      "prompt": "USER: <image>\nQ1: Who wears a cap?\nA1: skier\n\nCurrent question Q2: Who wears the cap?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "d73d9d669b2cead372407b2a972ba2777efc689bfbf5c7ba1b5cd9cfb93e18a2",
+      "prediction": "skier",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "gold_history",
+      "method_key": "recompute",
+      "method": "ReComp",
+      "dialog_id": "mtgqa_001457",
+      "image_id": "n355339",
+      "turn_id": 3,
+      "question_id": "20783027",
+      "question": "Are there bar stools or tables?",
+      "history_source": "gold",
+      "history_text": "Q1: What is in front of the laptop?\nA1: screen\nQ2: Is the plastic keyboard to the right of the chair?\nA2: yes",
+      "history_answers": [
+        "screen",
+        "yes"
+      ],
+      "history_source_request_ids": [
+        "gold:20783238",
+        "gold:20783387"
+      ],
+      "prompt": "USER: <image>\nQ1: What is in front of the laptop?\nA1: screen\nQ2: Is the plastic keyboard to the right of the chair?\nA2: yes\n\nCurrent question Q3: Are there bar stools or tables?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "3ca751e034f22491c35a6e7171bf4044ed0b26f5727fa962430b9d08f700a045",
+      "prediction": "Yes",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "gold_history",
+      "method_key": "fullload",
+      "method": "FullLoad",
+      "dialog_id": "mtgqa_000732",
+      "image_id": "n65885",
+      "turn_id": 2,
+      "question_id": "20456576",
+      "question": "What is the animal that is lying on the carpet?",
+      "history_source": "gold",
+      "history_text": "Q1: Is the animal to the left of the cabinet holding a teddy bear?\nA1: yes",
+      "history_answers": [
+        "yes"
+      ],
+      "history_source_request_ids": [
+        "gold:20456571"
+      ],
+      "prompt": "USER: <image>\nQ1: Is the animal to the left of the cabinet holding a teddy bear?\nA1: yes\n\nCurrent question Q2: What is the animal that is lying on the carpet?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "2eded6a78bbc12fac51f44362a680bd274c322c7aea1ab75303a981ef194b4a0",
+      "prediction": "Dog",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "gold_history",
+      "method_key": "fullload",
+      "method": "FullLoad",
+      "dialog_id": "mtgqa_001338",
+      "image_id": "n262920",
+      "turn_id": 3,
+      "question_id": "202003707",
+      "question": "Is there a DVD player to the right of him?",
+      "history_source": "gold",
+      "history_text": "Q1: In front of what are the laptops?\nA1: cables\nQ2: Are there TVs or controllers?\nA2: no",
+      "history_answers": [
+        "cables",
+        "no"
+      ],
+      "history_source_request_ids": [
+        "gold:202003723",
+        "gold:202004255"
+      ],
+      "prompt": "USER: <image>\nQ1: In front of what are the laptops?\nA1: cables\nQ2: Are there TVs or controllers?\nA2: no\n\nCurrent question Q3: Is there a DVD player to the right of him?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "25e4e601808b57e3f4fc7074aadb183f10901f7954c7ad53d3768c9a07c9f011",
+      "prediction": "No",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "gold_history",
+      "method_key": "qa_chunk25",
+      "method": "QA-Chunk25",
+      "dialog_id": "mtgqa_000275",
+      "image_id": "n164272",
+      "turn_id": 2,
+      "question_id": "201704685",
+      "question": "What animal is in front of the building?",
+      "history_source": "gold",
+      "history_text": "Q1: What animals are in front of the building?\nA1: cows",
+      "history_answers": [
+        "cows"
+      ],
+      "history_source_request_ids": [
+        "gold:201704688"
+      ],
+      "prompt": "USER: <image>\nQ1: What animals are in front of the building?\nA1: cows\n\nCurrent question Q2: What animal is in front of the building?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "b54c0144ac622e75c029f699f186c0a7dda3d202947a575b74047afd7c22c56a",
+      "prediction": "Cows",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "gold_history",
+      "method_key": "qa_chunk25",
+      "method": "QA-Chunk25",
+      "dialog_id": "mtgqa_001000",
+      "image_id": "n534106",
+      "turn_id": 3,
+      "question_id": "202265708",
+      "question": "What is the woman that is to the left of the pillows doing, sitting or walking?",
+      "history_source": "gold",
+      "history_text": "Q1: What color are the pillows that are to the right of the woman?\nA1: brown\nQ2: What is the young person doing?\nA2: eating",
+      "history_answers": [
+        "brown",
+        "eating"
+      ],
+      "history_source_request_ids": [
+        "gold:202266155",
+        "gold:202265645"
+      ],
+      "prompt": "USER: <image>\nQ1: What color are the pillows that are to the right of the woman?\nA1: brown\nQ2: What is the young person doing?\nA2: eating\n\nCurrent question Q3: What is the woman that is to the left of the pillows doing, sitting or walking?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "b0e900e8551b24cc032c61332eea7c2d69082e7ca866c5b876181844af5f9343",
+      "prediction": "Sitting",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "gold_history",
+      "method_key": "ours25",
+      "method": "Ours25",
+      "dialog_id": "mtgqa_001001",
+      "image_id": "n578564",
+      "turn_id": 2,
+      "question_id": "202218839",
+      "question": "What is the name of the cooking utensil that is hang from the hook?",
+      "history_source": "gold",
+      "history_text": "Q1: What is hanging above the chalkboard?\nA1: picture",
+      "history_answers": [
+        "picture"
+      ],
+      "history_source_request_ids": [
+        "gold:202218649"
+      ],
+      "prompt": "USER: <image>\nQ1: What is hanging above the chalkboard?\nA1: picture\n\nCurrent question Q2: What is the name of the cooking utensil that is hang from the hook?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "829356c13af0b8867d0ba5e06380c5b20209bb4de5bd27c17af1f9df18adf03b",
+      "prediction": "Pan",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "gold_history",
+      "method_key": "ours25",
+      "method": "Ours25",
+      "dialog_id": "mtgqa_003870",
+      "image_id": "n541688",
+      "turn_id": 3,
+      "question_id": "201360888",
+      "question": "The girl holds what?",
+      "history_source": "gold",
+      "history_text": "Q1: Is the shirt both striped and gray?\nA1: yes\nQ2: What color do you think the shirt the boy is wearing is?\nA2: gray",
+      "history_answers": [
+        "yes",
+        "gray"
+      ],
+      "history_source_request_ids": [
+        "gold:201360988",
+        "gold:201360984"
+      ],
+      "prompt": "USER: <image>\nQ1: Is the shirt both striped and gray?\nA1: yes\nQ2: What color do you think the shirt the boy is wearing is?\nA2: gray\n\nCurrent question Q3: The girl holds what?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "d7aea0fb6584025e0857003bce0b57844cf2728b1896c51e95e27bbe22ef3066",
+      "prediction": "Toothbrush",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "generated_history",
+      "method_key": "recompute",
+      "method": "ReComp",
+      "dialog_id": "mtgqa_002967",
+      "image_id": "n298104",
+      "turn_id": 2,
+      "question_id": "201504952",
+      "question": "The woman is posing with what?",
+      "history_source": "generated",
+      "history_text": "Q1: Where is the surfboard?\nA1: Sand",
+      "history_answers": [
+        "Sand"
+      ],
+      "history_source_request_ids": [
+        "generated_history:mtgqa_002967:t1:recompute"
+      ],
+      "prompt": "USER: <image>\nQ1: Where is the surfboard?\nA1: Sand\n\nCurrent question Q2: The woman is posing with what?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "183a47e14dc220220a606758e6134bf0151733bd91442d6d488047b5bb3f2eac",
+      "prediction": "Surfboard",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "generated_history",
+      "method_key": "recompute",
+      "method": "ReComp",
+      "dialog_id": "mtgqa_003204",
+      "image_id": "n406334",
+      "turn_id": 3,
+      "question_id": "202158763",
+      "question": "Is the weather cloudy or clear?",
+      "history_source": "generated",
+      "history_text": "Q1: Where is the bus?\nA1: Parking lot\nQ2: Do you see any buses near the old people?\nA2: Yes",
+      "history_answers": [
+        "Parking lot",
+        "Yes"
+      ],
+      "history_source_request_ids": [
+        "generated_history:mtgqa_003204:t1:recompute",
+        "generated_history:mtgqa_003204:t2:recompute"
+      ],
+      "prompt": "USER: <image>\nQ1: Where is the bus?\nA1: Parking lot\nQ2: Do you see any buses near the old people?\nA2: Yes\n\nCurrent question Q3: Is the weather cloudy or clear?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "ca3a333169f9e7d049cde5b18caf0118c86265a0d8d4fd4e3ad0d9177a0674a9",
+      "prediction": "Clear",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "generated_history",
+      "method_key": "fullload",
+      "method": "FullLoad",
+      "dialog_id": "mtgqa_002130",
+      "image_id": "n16425",
+      "turn_id": 2,
+      "question_id": "20342299",
+      "question": "Where in the photo is the person, on the right or on the left?",
+      "history_source": "generated",
+      "history_text": "Q1: Is the bus to the right of the other bus red and large?\nA1: No",
+      "history_answers": [
+        "No"
+      ],
+      "history_source_request_ids": [
+        "generated_history:mtgqa_002130:t1:fullload"
+      ],
+      "prompt": "USER: <image>\nQ1: Is the bus to the right of the other bus red and large?\nA1: No\n\nCurrent question Q2: Where in the photo is the person, on the right or on the left?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "bb1da810b04b3ae766de0096ba294e26522896beb03eaa148fde7cc7bd62fbd6",
+      "prediction": "Left",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "generated_history",
+      "method_key": "fullload",
+      "method": "FullLoad",
+      "dialog_id": "mtgqa_001412",
+      "image_id": "n398429",
+      "turn_id": 3,
+      "question_id": "202174211",
+      "question": "What appliance is on top of the oven?",
+      "history_source": "generated",
+      "history_text": "Q1: Which side of the photo is the stove on?\nA1: Left\nQ2: Is the coffee machine to the left of the bench?\nA2: Yes",
+      "history_answers": [
+        "Left",
+        "Yes"
+      ],
+      "history_source_request_ids": [
+        "generated_history:mtgqa_001412:t1:fullload",
+        "generated_history:mtgqa_001412:t2:fullload"
+      ],
+      "prompt": "USER: <image>\nQ1: Which side of the photo is the stove on?\nA1: Left\nQ2: Is the coffee machine to the left of the bench?\nA2: Yes\n\nCurrent question Q3: What appliance is on top of the oven?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "c7e647e1a8d74dc2bdbebe69d1b574337ada1183c1c7d9487c66ea85e18e45eb",
+      "prediction": "Coffee maker",
+      "strict_correct": 0.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "generated_history",
+      "method_key": "qa_chunk25",
+      "method": "QA-Chunk25",
+      "dialog_id": "mtgqa_000861",
+      "image_id": "n64959",
+      "turn_id": 2,
+      "question_id": "201429134",
+      "question": "Which material was used to make the pipe, plastic or chrome?",
+      "history_source": "generated",
+      "history_text": "Q1: What is higher than the window?\nA1: Ceiling",
+      "history_answers": [
+        "Ceiling"
+      ],
+      "history_source_request_ids": [
+        "generated_history:mtgqa_000861:t1:qa_chunk25"
+      ],
+      "prompt": "USER: <image>\nQ1: What is higher than the window?\nA1: Ceiling\n\nCurrent question Q2: Which material was used to make the pipe, plastic or chrome?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "203cacb7d1d69d0753d92482b5ac280ec72e12a9517c4cdbf988d000b6ae347f",
+      "prediction": "Plastic",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "generated_history",
+      "method_key": "qa_chunk25",
+      "method": "QA-Chunk25",
+      "dialog_id": "mtgqa_001149",
+      "image_id": "n398257",
+      "turn_id": 3,
+      "question_id": "20381625",
+      "question": "Does the plant pot under the plant look full and brown?",
+      "history_source": "generated",
+      "history_text": "Q1: Is the red book thin or thick?\nA1: Thick\nQ2: Is the color of the keyboard the same as the color of the plant?\nA2: No",
+      "history_answers": [
+        "Thick",
+        "No"
+      ],
+      "history_source_request_ids": [
+        "generated_history:mtgqa_001149:t1:qa_chunk25",
+        "generated_history:mtgqa_001149:t2:qa_chunk25"
+      ],
+      "prompt": "USER: <image>\nQ1: Is the red book thin or thick?\nA1: Thick\nQ2: Is the color of the keyboard the same as the color of the plant?\nA2: No\n\nCurrent question Q3: Does the plant pot under the plant look full and brown?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "c6104f3589baa710b342f319700469f8e2116afbde381f50016af03ce9e8958a",
+      "prediction": "No",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "generated_history",
+      "method_key": "ours25",
+      "method": "Ours25",
+      "dialog_id": "mtgqa_000484",
+      "image_id": "n565418",
+      "turn_id": 2,
+      "question_id": "2091082",
+      "question": "What is the size of the tire?",
+      "history_source": "generated",
+      "history_text": "Q1: On which side is the wood fence, the left or the right?\nA1: Left",
+      "history_answers": [
+        "Left"
+      ],
+      "history_source_request_ids": [
+        "generated_history:mtgqa_000484:t1:ours25"
+      ],
+      "prompt": "USER: <image>\nQ1: On which side is the wood fence, the left or the right?\nA1: Left\n\nCurrent question Q2: What is the size of the tire?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "98c0ba10f70c8b46612324a777709bdbd43d9b74002ca739cf842b7ca4b5440b",
+      "prediction": "Small",
+      "strict_correct": 1.0,
+      "causal_history_and_provenance_exact": true
+    },
+    {
+      "seed": 1234,
+      "protocol": "generated_history",
+      "method_key": "ours25",
+      "method": "Ours25",
+      "dialog_id": "mtgqa_002030",
+      "image_id": "n16936",
+      "turn_id": 3,
+      "question_id": "20414571",
+      "question": "Who in this scene is standing?",
+      "history_source": "generated",
+      "history_text": "Q1: Which side is the skateboard on, the left or the right?\nA1: Left\nQ2: Does the skateboard have a different color than the helmet?\nA2: No",
+      "history_answers": [
+        "Left",
+        "No"
+      ],
+      "history_source_request_ids": [
+        "generated_history:mtgqa_002030:t1:ours25",
+        "generated_history:mtgqa_002030:t2:ours25"
+      ],
+      "prompt": "USER: <image>\nQ1: Which side is the skateboard on, the left or the right?\nA1: Left\nQ2: Does the skateboard have a different color than the helmet?\nA2: No\n\nCurrent question Q3: Who in this scene is standing?\nAnswer the current question with a single word or short phrase. ASSISTANT:",
+      "prompt_sha256": "161e4b2a02fdf5e655d24f4d88407604b5801e59fe128bf2672ea7a151799288",
+      "prediction": "Skateboarder",
+      "strict_correct": 0.0,
+      "causal_history_and_provenance_exact": true
+    }
+  ],
+  "protocol": "generated_history",
+  "logical_rows": 48732
+}

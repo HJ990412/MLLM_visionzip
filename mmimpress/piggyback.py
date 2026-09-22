@@ -27,7 +27,7 @@ from typing import Any, Mapping, Sequence
 
 import torch
 
-from mmimpress.config import CHUNK_SIZE
+from mmimpress.config import CHUNK_SIZE, PROBE_HEADS
 from mmimpress.cvpr25 import (anyres_token_scores, permutation_sha256,
                               visionzip_repack_order)
 from mmimpress.model import cache_layers
@@ -407,6 +407,111 @@ class VisionSaliencyCapture(VisionForwardCapture):
 
     def __init__(self, runner):
         super().__init__(runner, capture_saliency=True)
+
+
+class DecoderVisualHiddenCapture:
+    """Capture original-order visual input states from a normal Turn-1 pass.
+
+    SparseVLM rater selection needs the decoder input hidden states of the
+    expanded visual block.  This context attaches one read-only pre-hook to
+    decoder layer 0 and retains the tensor produced by the request's ordinary
+    multimodal prefill.  Autoregressive one-token decoder calls are observed
+    but ignored; no model, decoder, or vision forward is initiated here.
+    """
+
+    def __init__(self, runner, visual_start: int, visual_tokens: int):
+        self.runner = runner
+        self.visual_start = int(visual_start)
+        self.visual_tokens = int(visual_tokens)
+        if self.visual_start < 0 or self.visual_tokens < 1:
+            raise ValueError("invalid visual span")
+        self.total_layer0_calls = 0
+        self.visual_capture_count = 0
+        self.decode_calls = 0
+        self.materialize_ms = 0.0
+        self.visual_hidden = None
+        self._device_value = None
+        self._handle = None
+        self._entered = False
+
+    def __enter__(self):
+        if self._entered:
+            raise RuntimeError("DecoderVisualHiddenCapture is single-use")
+        self._entered = True
+        layer = self.runner.layers[0]
+        active_name = "_mmimpress_active_visual_hidden_capture"
+        if getattr(layer, active_name, None) is not None:
+            raise RuntimeError("concurrent decoder visual capture is unsafe")
+        setattr(layer, active_name, self)
+        try:
+            self._handle = layer.register_forward_pre_hook(
+                self._hook, with_kwargs=True)
+        except BaseException:
+            delattr(layer, active_name)
+            raise
+        return self
+
+    def _hook(self, module, args, kwargs):
+        hidden = args[0] if args else kwargs["hidden_states"]
+        self.total_layer0_calls += 1
+        stop = self.visual_start + self.visual_tokens
+        if int(hidden.shape[1]) >= stop:
+            self.visual_capture_count += 1
+            assert self.visual_capture_count == 1, (
+                "normal Turn-1 request produced multiple full visual prefills"
+            )
+            self._device_value = hidden[
+                0, self.visual_start:stop].detach()
+        else:
+            self.decode_calls += 1
+
+    def _remove(self):
+        layer = self.runner.layers[0]
+        if self._handle is not None:
+            self._handle.remove()
+            self._handle = None
+        active_name = "_mmimpress_active_visual_hidden_capture"
+        if getattr(layer, active_name, None) is self:
+            delattr(layer, active_name)
+
+    def __exit__(self, exc_type, exc, traceback):
+        self._remove()
+        if exc_type is not None:
+            self._device_value = None
+            return False
+        assert self.visual_capture_count == 1, (
+            "expected exactly one Turn-1 visual decoder prefill, got "
+            f"{self.visual_capture_count}"
+        )
+        assert self._device_value is not None
+        started = time.perf_counter()
+        self.visual_hidden = self._device_value.to(
+            dtype=torch.float16, device="cpu").contiguous()
+        self.materialize_ms = (time.perf_counter() - started) * 1e3
+        self._device_value = None
+        assert tuple(self.visual_hidden.shape[:1]) == (self.visual_tokens,)
+        assert torch.isfinite(self.visual_hidden).all()
+        return False
+
+    def result_cpu(self) -> torch.Tensor:
+        if self.visual_hidden is None:
+            raise RuntimeError("visual hidden state is ready after context exit")
+        return self.visual_hidden
+
+    def stats(self) -> dict[str, Any]:
+        return {
+            "capture_visual_hidden": True,
+            "visual_hidden_capture_count": int(self.visual_capture_count),
+            "layer0_total_calls": int(self.total_layer0_calls),
+            "autoregressive_layer0_calls": int(self.decode_calls),
+            "separate_model_forward_count": 0,
+            "separate_vision_forward_count": 0,
+            "capture_source": "same_turn1_normal_multimodal_prefill",
+            "visual_start": int(self.visual_start),
+            "visual_tokens": int(self.visual_tokens),
+            "materialize_ms": float(self.materialize_ms),
+            "materialize_on_context_exit": True,
+        }
 
 
 def _fsync_directory(path: Path) -> None:
@@ -892,14 +997,279 @@ def persist_captured_visual_prefix(
             shutil.rmtree(staging)
 
 
+@torch.no_grad()
+def persist_captured_raster_prefix(
+    runner,
+    captured_past_key_values,
+    expanded_input_ids: torch.Tensor,
+    image_size: Sequence[int] | torch.Tensor,
+    visual_hidden_states: torch.Tensor,
+    out_dir: Path,
+    *,
+    image_id: str | int,
+    model_id: str | None = None,
+    chunk_size: int = CHUNK_SIZE,
+    probe_heads: int = PROBE_HEADS,
+    hidden_capture_stats: Mapping[str, Any] | DecoderVisualHiddenCapture,
+    image_input_sha256: str | None = None,
+    extra_metadata: Mapping[str, Any] | None = None,
+    full_integrity_hash: bool = False,
+) -> dict[str, Any]:
+    """Persist QA-Select's canonical raster store from the Turn-1 cache.
+
+    Unlike :func:`persist_captured_visual_prefix`, this path performs no
+    saliency mapping and no permutation.  It writes the visual K/V rows in
+    their original model order, stores the configured probe-key heads, and
+    persists the layer-0 visual hidden states captured from that same normal
+    request.  Publication follows the same fsync + atomic no-clobber protocol
+    as the image-only repacked store.
+    """
+    persist_t0 = time.perf_counter()
+    destination = Path(out_dir)
+    if destination.name in ("", ".", ".."):
+        raise ValueError(f"unsafe output directory: {destination}")
+    parent = destination.parent
+    parent.mkdir(parents=True, exist_ok=True)
+    if os.path.lexists(destination):
+        raise FileExistsError(errno.EEXIST, "refusing to overwrite store",
+                              destination)
+
+    if not isinstance(hidden_capture_stats, DecoderVisualHiddenCapture):
+        raise TypeError(
+            "raster persistence requires the live same-request "
+            "DecoderVisualHiddenCapture object; an unbound stats mapping is "
+            "not sufficient provenance")
+    capture_object = hidden_capture_stats
+    assert capture_object.runner is runner
+    capture_document = capture_object.stats()
+    assert torch.equal(
+        torch.as_tensor(visual_hidden_states).float().cpu(),
+        capture_object.result_cpu().float()), (
+            "visual_hidden_states differ from the completed capture")
+    requirements = {
+        "capture_visual_hidden": True,
+        "visual_hidden_capture_count": 1,
+        "separate_model_forward_count": 0,
+        "separate_vision_forward_count": 0,
+        "capture_source": "same_turn1_normal_multimodal_prefill",
+    }
+    for key, expected in requirements.items():
+        assert capture_document.get(key) == expected, (
+            f"invalid Turn-1 hidden capture provenance {key}: "
+            f"{capture_document.get(key)!r} != {expected!r}")
+    assert capture_document.get("materialize_on_context_exit") is True
+
+    ids = expanded_input_ids
+    if ids.ndim == 2:
+        assert ids.shape[0] == 1, ids.shape
+        ids = ids[0]
+    assert ids.ndim == 1, ids.shape
+    v_start, v_num = runner.visual_span(ids)
+    prefix_len = int(v_start + v_num)
+    if torch.is_tensor(image_size):
+        size = [int(item) for item in image_size.detach().cpu().reshape(-1)]
+    else:
+        size = [int(item) for item in image_size]
+    assert len(size) == 2
+    base, hi_h, hi_w, newline_idx = runner.anyres_layout(size, v_num)
+    hidden = torch.as_tensor(visual_hidden_states).detach().to(
+        dtype=torch.float16, device="cpu").contiguous()
+    assert hidden.ndim == 2 and hidden.shape[0] == v_num, (
+        hidden.shape, v_num)
+    assert int(capture_document["visual_start"]) == v_start
+    assert int(capture_document["visual_tokens"]) == v_num
+    assert torch.isfinite(hidden).all()
+
+    layers = cache_layers(captured_past_key_values)
+    assert layers
+    for layer_index, (key, value) in enumerate(layers):
+        assert key.shape == value.shape and key.ndim == 4
+        assert key.shape[0] == 1 and key.shape[2] >= prefix_len, (
+            layer_index, key.shape, prefix_len)
+    heads = int(layers[0][0].shape[1])
+    if not 0 < int(probe_heads) <= heads:
+        raise ValueError(f"probe_heads must be in [1,{heads}]")
+
+    identity = list(range(int(v_num)))
+    identity_sha = permutation_sha256(identity)
+    invariant_metadata = {
+        "image_id": str(image_id),
+        "model": str(model_id or getattr(runner, "model_id", "unknown")),
+        "base_grid": int(base),
+        "hires_grid": [int(hi_h), int(hi_w)],
+        "physical_layout": "raster",
+        "layout_method": "raster",
+        "layout_source": "turn1_normal_inference_piggyback",
+        "visual_kv_source": "turn1_captured_past_key_values",
+        "visual_hidden_source": "same_turn1_decoder_layer0_input",
+        "turn1_normal_inference": True,
+        "separate_vision_forward": False,
+        "separate_prefix_forward": False,
+        "separate_model_forward_for_visual_hidden": False,
+        "composed_from_store": False,
+        "layout_uses_dataset_question": False,
+        "layout_uses_generated_answer": False,
+        "llm_used_for_layout_scoring": False,
+        "calibration_questions": 0,
+        "future_questions_used": 0,
+        "turn1_question_present_in_source_forward": True,
+        "visual_prefix_causally_precedes_question": True,
+        "global_order_all_layers": True,
+        "separator_policy": "original_positions_plus_sidecar",
+        "separator_tail": False,
+        "reordered": False,
+        "order_is_per_layer": False,
+        "identity_permutation_sha256": identity_sha,
+        "probe_heads_required_for_serving": int(probe_heads),
+        "qa_select_compatible": True,
+        "hidden_capture": capture_document,
+        "capture_provenance_validated": True,
+    }
+    if image_input_sha256 is not None:
+        invariant_metadata["image_input_sha256"] = str(image_input_sha256)
+    if extra_metadata:
+        writer_reserved = {
+            "v_token_start", "v_token_num", "prefix_len", "num_layers",
+            "num_heads", "head_dim", "probe_heads", "dtype", "chunk_size",
+            "n_chunks_per_layer", "newline_idx", "newline_stored",
+            "n_spatial", "prefix_input_ids", "layout", "order",
+            "bytes_visual_kv", "bytes_probe_sidecar",
+            "bytes_separator_sidecar",
+        }
+        conflicts = (set(extra_metadata) & set(invariant_metadata)
+                     | set(extra_metadata) & writer_reserved)
+        if conflicts:
+            raise ValueError(
+                "extra_metadata cannot override invariants: "
+                + ", ".join(sorted(conflicts)))
+        invariant_metadata.update(dict(extra_metadata))
+
+    staging = Path(tempfile.mkdtemp(
+        prefix=f".{destination.name}.staging-", dir=parent))
+    published = False
+    try:
+        writer_timing: dict[str, float] = {}
+        meta = write_image_store(
+            staging, layers, int(v_start), int(v_num),
+            ids[:prefix_len].detach().cpu().tolist(), list(newline_idx),
+            extra=invariant_metadata, chunk_size=int(chunk_size),
+            probe_heads=int(probe_heads), stored_to_original=None,
+            separator_sidecar=True, timing_out=writer_timing)
+        assert meta["physical_layout"] == "raster"
+        assert meta["reordered"] is False
+        assert "order" not in meta
+        assert int(meta["probe_heads"]) == int(probe_heads)
+        assert int(meta["bytes_probe_sidecar"]) > 0
+        assert int(meta["bytes_separator_sidecar"]) > 0
+
+        started = time.perf_counter()
+        torch.save(hidden, staging / "v_hidden.pt")
+        hidden_write_ms = (time.perf_counter() - started) * 1e3
+        file_sizes = _store_file_sizes(staging)
+        byte_breakdown = _byte_breakdown(file_sizes, meta)
+        byte_breakdown["visual_hidden"] = int(file_sizes["v_hidden.pt"])
+        byte_breakdown["other"] -= int(file_sizes["v_hidden.pt"])
+
+        file_fsync_ms, directory_fsync_ms, synced_files, synced_dirs = \
+            _fsync_staging_tree(staging)
+        started = time.perf_counter()
+        _rename_noreplace(staging, destination)
+        atomic_rename_ms = (time.perf_counter() - started) * 1e3
+        published = True
+        started = time.perf_counter()
+        try:
+            _fsync_directory(parent)
+        except Exception as exc:
+            raise RuntimeError(
+                f"store was published at {destination}, but parent fsync "
+                "failed; inspect the no-clobber destination") from exc
+        parent_fsync_ms = (time.perf_counter() - started) * 1e3
+        durability_ms = (file_fsync_ms + directory_fsync_ms
+                         + atomic_rename_ms + parent_fsync_ms)
+        persist_ms = (time.perf_counter() - persist_t0) * 1e3
+
+        started = time.perf_counter()
+        integrity_ok = True
+        integrity_error = None
+        sample_hash = None
+        file_hashes: dict[str, str] = {}
+        tree_hash = None
+        try:
+            sample_hash = _sampled_store_sha256(destination, file_sizes)
+            if full_integrity_hash:
+                checked_sizes, file_hashes, tree_hash = \
+                    _store_file_manifest(destination)
+                assert checked_sizes == file_sizes
+            else:
+                file_hashes = {
+                    relative: sha256_file(destination / relative)
+                    for relative in ("meta.json", "v_hidden.pt")
+                }
+        except Exception as exc:
+            integrity_ok = False
+            integrity_error = f"{type(exc).__name__}: {exc}"
+        hash_ms = (time.perf_counter() - started) * 1e3
+        helper_total_ms = (time.perf_counter() - persist_t0) * 1e3
+        timing_ms = {
+            "kv_materialize_ms": float(writer_timing["kv_materialize_ms"]),
+            "kv_repack_ms": float(writer_timing["kv_repack_ms"]),
+            "repack_ms": 0.0,
+            "store_write_ms": float(writer_timing["ssd_write_ms"]),
+            "visual_hidden_write_ms": float(hidden_write_ms),
+            "ssd_write_ms": float(
+                writer_timing["ssd_write_ms"] + hidden_write_ms),
+            "hash_ms": float(hash_ms),
+            "integrity_hash_ms": float(hash_ms),
+            "file_fsync_ms": float(file_fsync_ms),
+            "directory_fsync_ms": float(directory_fsync_ms),
+            "atomic_rename_ms": float(atomic_rename_ms),
+            "parent_fsync_ms": float(parent_fsync_ms),
+            "durability_ms": float(durability_ms),
+            "persist_ms": float(persist_ms),
+            "helper_total_ms": float(helper_total_ms),
+        }
+        return {
+            "store_dir": str(destination.resolve()),
+            "image_id": str(image_id),
+            "meta": meta,
+            "timing_ms": timing_ms,
+            "bytes": byte_breakdown,
+            "file_sizes": file_sizes,
+            "hashes": {
+                "files_sha256": file_hashes,
+                "tree_sha256": tree_hash,
+                "prefix_kv_sample_sha256": sample_hash,
+                "full_integrity_hash": bool(full_integrity_hash),
+                "identity_permutation_sha256": identity_sha,
+            },
+            "durability": {
+                "same_filesystem_staging": True,
+                "atomic_no_clobber": True,
+                "files_fsynced": int(synced_files),
+                "directories_fsynced_before_rename": int(synced_dirs),
+                "parent_fsynced_after_rename": True,
+            },
+            "integrity": {
+                "ok": integrity_ok,
+                "error": integrity_error,
+                "excluded_from_persist_ms": True,
+            },
+        }
+    finally:
+        if not published and os.path.lexists(staging):
+            shutil.rmtree(staging)
+
+
 # Short spelling for callers that organise all persistence around Turn 1.
 persist_turn1_prefix = persist_captured_visual_prefix
 
 
 __all__ = [
+    "DecoderVisualHiddenCapture",
     "VisionForwardCapture",
     "VisionSaliencyCapture",
     "deterministic_method_rotation",
+    "persist_captured_raster_prefix",
     "persist_captured_visual_prefix",
     "persist_turn1_prefix",
     "sha256_file",

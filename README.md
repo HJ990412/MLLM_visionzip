@@ -15,6 +15,52 @@ Vision Encoder의 image-only saliency로 KV를 한 번 재배치하고, cache-hi
 핵심 구현은 `mmimpress/store.py`, `mmimpress/serve.py`, `mmimpress/piggyback.py`에,
 실험·분석은 `scripts/`, 검증된 표와 raw-derived artifact는 `results/`에 있다.
 
+## SparseVLM-based QA-Select25 SSD baseline (2026-09-20)
+
+Ours의 image-only repacked Prefix25와 같은 nominal 25%에서 비교하는 main baseline을
+추가했다. QA-Select25는 Turn 1의 normal pixel inference에서 original/raster Visual-KV,
+visual hidden state, first 3 probe-head K를 piggyback 저장한다. 이후 각 질문마다 현재
+text raters와 layer별 rater-to-visual Q/K attention으로 spatial token의 정확히 25%를
+고르고, 해당 token이 속한 64-token SSD chunk만 읽어 scatter/mask한다. SparseVLM의
+`select_raters`, `rater_visual_scores_from_qk(head_reduce="mean")`, `select_topk`를
+재사용하지만 adaptive budget, recycling/merging, diversity, calibration, IMPRESS
+Jaccard voting/full-layer fallback은 사용하지 않는다.
+
+격리된 GQA 40 images / 240 questions 결과다. Accuracy는 전체 질문, 나머지는
+cache-hit Turns 2–6 평균이다.
+
+| Method | Accuracy | TTFT | Nominal KV | Logical kept | Actual SSD | SSD ratio | Selector | Touched chunks |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| ReComp | 62.50% | 516.50 ms | — | — | 0.00 MB | 0.00% | 0.00 ms | — |
+| FullLoad | 62.50% | 650.73 ms | 100% | 100% | 1165.07 MB | 100.00% | 0.00 ms | 100.00% |
+| **QA-Select25** | **60.00%** | 903.46 ms | 25% | 25% | 1196.50 MB | 102.72% | 112.52 ms | 96.36% |
+| **Ours25** | **57.92%** | **258.97 ms** | 25% | 26.28% | **306.08 MB** | **26.28%** | **0.20 ms** | **24.28%** |
+
+QA는 Ours보다 accuracy가 +2.08 pp 높지만 TTFT는 +644.49 ms, 3.49×이고, probe와
+분산 chunk 때문에 logical 25%임에도 FullLoad보다 2.72% 더 많은 SSD bytes를 읽었다.
+200개 cache-hit request의 400개 within-image 질문쌍은 모두 다른 selected-token set을
+보였고 layer-macro mean Jaccard는 0.7334였다. Ours는 질문마다 같은 first-k prefix,
+query-scoring 0, layer당 contiguous run 1을 유지했다.
+
+재현 runner는 `scripts/49_eval_query_aware_baseline.py`, artifact 보호는
+`scripts/50_protect_query_aware_artifacts.py`, fail-closed 최종 보고서는
+`scripts/51_report_query_aware_baseline.py`다. 27개 run-level gate, 전체 196개 CPU
+test, 기존 13,120개 run/result artifact의 before/after hash가 통과했다. 정확한 1–20
+분석, per-layer selection/Jaccard, raw timing과 hashes는
+[`results/query_aware_baseline/gqa40_240_final/`](results/query_aware_baseline/gqa40_240_final/)에
+있다. 이 단계에서는 MT-GQA-reconstructed, ConvBench, VisDial full rerun을 수행하지
+않았다.
+
+### Chunk-aligned follow-up: QA-Chunk25
+
+같은 query-aware score를 token 단위가 아니라 SSD chunk 단위로 집계해 Ours25와
+동일한 chunk 수만 읽는 QA-Chunk25도 평가했다. 동일한 GQA 40 images / 240
+questions에서 QA-Chunk25는 accuracy 58.33%, cache-hit TTFT 439.31 ms,
+348.06 MB/request를 기록했다. QA-Token25보다 I/O locality와 TTFT가 크게 개선됐지만,
+Ours25(57.92%, 253.72 ms, 306.08 MB)보다 accuracy는 +0.41 pp, TTFT는
++185.59 ms였다. 상세 결과와 검증은
+[`results/query_aware_chunk_baseline/gqa40_240_20260919T155349Z/`](results/query_aware_chunk_baseline/gqa40_240_20260919T155349Z/)에 있다.
+
 ## 1. Calibration-free ImageOnly VisionZip repack + Prefix (2026-09-11)
 
 Vision Encoder penultimate layer의 CLS-to-patch attention을 head 방향으로 합산해
@@ -253,3 +299,25 @@ FullLoad는 ReComp보다 느렸다. Turn 1에는 네 방법의 prediction과 fir
 [`results/mt_gqa_full/`](results/mt_gqa_full/)에 있다. 337 MB raw JSONL은
 GitHub 단일 파일 제한 때문에 무손실 gzip(`raw.jsonl.gz`)으로 게시하며,
 로컬 원본 `raw.jsonl`은 그대로 보존한다.
+
+## 6. ConvBench full multi-turn evaluation (2026-09-18)
+
+577 conversations, 6,924 method-turn requests를 완주했다. Cache-hit pooled TTFT는
+ReComp 597.46 ms, FullLoad 759.04 ms, Prefix25 344.39 ms, Prefix45 489.62 ms였고,
+SSD read는 각각 0, 1152.65, 305.72, 545.20 MB/request였다. 따라서 Prefix25와
+Prefix45는 ReComp 대비 TTFT를 각각 42.36%, 18.05% 줄였다. Judge unresolved
+543건(7.84%)은 고정 denominator에서 0 win으로 처리했으며, 상세 quality와
+진단 결과는 [`results/convbench_full/full_577/`](results/convbench_full/full_577/)에
+있다.
+
+## 7. MT-GQA gold/generated-history four-arm comparison (2026-09-22)
+
+QA-Chunk25를 포함해 ReComp, FullLoad, QA-Chunk25, Ours25 네 arm을 4,061개
+3-turn dialogue에서 gold-history와 method별 generated-history 조건으로 각각
+평가했다. Gold-history 평균 정확도는 70.67%, 70.72%, 68.93%, 69.02%였고,
+generated-history에서는 66.72%, 66.65%, 64.93%, 65.13%였다. Cache-hit TTFT는
+gold-history 기준 QA-Chunk25 450.04 ms, Ours25 278.13 ms였으며, 두 방법의 평균
+정확도 차이는 −0.09 pp(QA−Ours)였다. Generated-history에서도 차이는 −0.20 pp로
+작았지만 QA-Chunk25의 selector 비용은 약 96.7 ms였다. 전체 per-turn 결과,
+paired test, error propagation, I/O 분석은
+[`results/mt_gqa_4arm_history_comparison_20260921T081420Z/`](results/mt_gqa_4arm_history_comparison_20260921T081420Z/)에 있다.
