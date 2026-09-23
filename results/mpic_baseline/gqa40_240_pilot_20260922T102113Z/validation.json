@@ -1,0 +1,60 @@
+{
+  "artifact_protection_status": "pending_external_verify_after",
+  "cache_hit_counts": {
+    "fullload": 200,
+    "mpic32": 200,
+    "ours25": 200,
+    "qa_chunk25": 200,
+    "recompute": 200
+  },
+  "checks": {
+    "200_cache_hit_requests_per_method": true,
+    "240_requests_per_method": true,
+    "all_image_persistence_evidence": true,
+    "all_mpic_image_boundary_hashes_unchanged": true,
+    "all_persistence_measurements_complete": true,
+    "all_prompts_method_identical": true,
+    "all_requests_status_ok": true,
+    "exact_expected_schedule_coverage": true,
+    "expected_1200_requests": true,
+    "mpic_200_hits": true,
+    "mpic_decode_cache_append_exact": true,
+    "mpic_exact_32_layer_counters": true,
+    "mpic_exact_chunk_aligned_ssd_accounting": true,
+    "mpic_full_context_retained": true,
+    "mpic_k32_or_n": true,
+    "mpic_main_pilot_same_position_context": true,
+    "mpic_one_selective_prefill": true,
+    "mpic_selected_exact_leading_rows": true,
+    "mpic_source_payload_immutable": true,
+    "no_future_question_leakage": true,
+    "no_unresolved_failures": true,
+    "q1_all_normal_pixels": true,
+    "q1_normal_pixel_inputs_identical": true,
+    "q1_normal_pixel_outputs_identical": true,
+    "stored_hits_never_run_vision": true,
+    "unique_request_ids": true
+  },
+  "expected_requests": 1200,
+  "failure_events": 0,
+  "final_validated_claim": false,
+  "limitations": [
+    "single-image fixed-prefix GQA; not native multi-image MPIC",
+    "cache hits are page-cache conditioned with DONTNEED, which does not guarantee a cold SSD controller cache",
+    "MPIC-32 is the repository SSD adaptation, not official MPIC code",
+    "mixed cache-hit/cache-miss overlap is not applicable here",
+    "layer-wise prefetch is not implemented"
+  ],
+  "method_counts": {
+    "fullload": 240,
+    "mpic32": 240,
+    "ours25": 240,
+    "qa_chunk25": 240,
+    "recompute": 240
+  },
+  "observed_requests": 1200,
+  "passed": true,
+  "schema_version": "mpic-gqa-five-arm-v1",
+  "unresolved_failures": 0,
+  "validation_scope": "measurement_and_mpic_correctness_only"
+}

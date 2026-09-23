@@ -54,3 +54,15 @@ env/
 /results/convbench_full/generation_577/raw.jsonl
 /results/mt_gqa_4arm_history_comparison_*/gold_history/raw.jsonl
 /results/mt_gqa_4arm_history_comparison_*/generated_history/raw.jsonl
+
+# Baseline run directories contain generated KV stores and duplicate logs.
+/runs/mpic_baseline/
+/runs/rekv_baseline/
+/runs/mt_vqa_v2_generated_4arm_*/
+
+# Validated request logs and large protection manifests are published as gzip.
+/results/mpic_baseline/*/raw.jsonl
+/results/mpic_baseline/*/protected_artifacts_before.json
+/results/rekv_baseline/*/raw.jsonl
+/results/rekv_baseline/*/protected_artifacts_before.json
+/results/mt_vqa_v2_generated_4arm_*/raw.jsonl

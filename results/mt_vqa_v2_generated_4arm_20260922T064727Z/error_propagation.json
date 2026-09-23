@@ -1,0 +1,183 @@
+{
+  "conditioning_definition": "full-credit means soft VQA score == 1.0",
+  "outcome": "mean soft VQA score",
+  "diagnostic_only": true,
+  "methods": {
+    "recompute": {
+      "t2_given_t1_full_credit": {
+        "n": 183,
+        "score_sum": 145.66666666666666,
+        "mean_soft_score": 0.7959927140255009
+      },
+      "t2_given_t1_non_full_credit": {
+        "n": 67,
+        "score_sum": 51.333333333333336,
+        "mean_soft_score": 0.7661691542288558
+      },
+      "t3_given_both_prior_full_credit": {
+        "n": 137,
+        "score_sum": 114.0,
+        "mean_soft_score": 0.8321167883211679
+      },
+      "t3_given_any_prior_non_full_credit": {
+        "n": 113,
+        "score_sum": 94.0,
+        "mean_soft_score": 0.831858407079646
+      },
+      "t3_prior_patterns": {
+        "CC": {
+          "n": 137,
+          "score_sum": 114.0,
+          "mean_soft_score": 0.8321167883211679
+        },
+        "CW": {
+          "n": 46,
+          "score_sum": 34.0,
+          "mean_soft_score": 0.7391304347826086
+        },
+        "WC": {
+          "n": 47,
+          "score_sum": 42.333333333333336,
+          "mean_soft_score": 0.9007092198581561
+        },
+        "WW": {
+          "n": 20,
+          "score_sum": 17.666666666666668,
+          "mean_soft_score": 0.8833333333333334
+        }
+      }
+    },
+    "fullload": {
+      "t2_given_t1_full_credit": {
+        "n": 183,
+        "score_sum": 147.0,
+        "mean_soft_score": 0.8032786885245902
+      },
+      "t2_given_t1_non_full_credit": {
+        "n": 67,
+        "score_sum": 50.333333333333336,
+        "mean_soft_score": 0.7512437810945274
+      },
+      "t3_given_both_prior_full_credit": {
+        "n": 139,
+        "score_sum": 116.0,
+        "mean_soft_score": 0.8345323741007195
+      },
+      "t3_given_any_prior_non_full_credit": {
+        "n": 111,
+        "score_sum": 91.0,
+        "mean_soft_score": 0.8198198198198198
+      },
+      "t3_prior_patterns": {
+        "CC": {
+          "n": 139,
+          "score_sum": 116.0,
+          "mean_soft_score": 0.8345323741007195
+        },
+        "CW": {
+          "n": 44,
+          "score_sum": 32.0,
+          "mean_soft_score": 0.7272727272727273
+        },
+        "WC": {
+          "n": 46,
+          "score_sum": 41.333333333333336,
+          "mean_soft_score": 0.8985507246376813
+        },
+        "WW": {
+          "n": 21,
+          "score_sum": 17.666666666666668,
+          "mean_soft_score": 0.8412698412698413
+        }
+      }
+    },
+    "qa_chunk25": {
+      "t2_given_t1_full_credit": {
+        "n": 183,
+        "score_sum": 144.33333333333334,
+        "mean_soft_score": 0.7887067395264117
+      },
+      "t2_given_t1_non_full_credit": {
+        "n": 67,
+        "score_sum": 48.0,
+        "mean_soft_score": 0.7164179104477612
+      },
+      "t3_given_both_prior_full_credit": {
+        "n": 137,
+        "score_sum": 110.33333333333333,
+        "mean_soft_score": 0.805352798053528
+      },
+      "t3_given_any_prior_non_full_credit": {
+        "n": 113,
+        "score_sum": 92.0,
+        "mean_soft_score": 0.8141592920353983
+      },
+      "t3_prior_patterns": {
+        "CC": {
+          "n": 137,
+          "score_sum": 110.33333333333333,
+          "mean_soft_score": 0.805352798053528
+        },
+        "CW": {
+          "n": 46,
+          "score_sum": 35.333333333333336,
+          "mean_soft_score": 0.7681159420289856
+        },
+        "WC": {
+          "n": 45,
+          "score_sum": 38.666666666666664,
+          "mean_soft_score": 0.8592592592592592
+        },
+        "WW": {
+          "n": 22,
+          "score_sum": 18.0,
+          "mean_soft_score": 0.8181818181818182
+        }
+      }
+    },
+    "ours25": {
+      "t2_given_t1_full_credit": {
+        "n": 183,
+        "score_sum": 140.33333333333334,
+        "mean_soft_score": 0.7668488160291439
+      },
+      "t2_given_t1_non_full_credit": {
+        "n": 67,
+        "score_sum": 47.0,
+        "mean_soft_score": 0.7014925373134329
+      },
+      "t3_given_both_prior_full_credit": {
+        "n": 133,
+        "score_sum": 105.33333333333333,
+        "mean_soft_score": 0.7919799498746867
+      },
+      "t3_given_any_prior_non_full_credit": {
+        "n": 117,
+        "score_sum": 95.0,
+        "mean_soft_score": 0.811965811965812
+      },
+      "t3_prior_patterns": {
+        "CC": {
+          "n": 133,
+          "score_sum": 105.33333333333333,
+          "mean_soft_score": 0.7919799498746867
+        },
+        "CW": {
+          "n": 50,
+          "score_sum": 38.666666666666664,
+          "mean_soft_score": 0.7733333333333333
+        },
+        "WC": {
+          "n": 43,
+          "score_sum": 35.666666666666664,
+          "mean_soft_score": 0.8294573643410852
+        },
+        "WW": {
+          "n": 24,
+          "score_sum": 20.666666666666668,
+          "mean_soft_score": 0.8611111111111112
+        }
+      }
+    }
+  }
+}

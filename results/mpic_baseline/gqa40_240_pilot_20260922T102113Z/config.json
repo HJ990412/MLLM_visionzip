@@ -1,0 +1,173 @@
+{
+  "attention_implementation": "eager",
+  "cache_hit_policy": "Q2-Q6: ReComp pixels; FullLoad/QA-Chunk25 share raster; Ours25 uses repacked image-only store; MPIC-32 uses its dedicated canonical KV plus visual-input sidecar",
+  "chunk_size": 64,
+  "compute_dtype": "bfloat16",
+  "dataset": "gqa",
+  "decoding": "greedy",
+  "disk_space_policy": {
+    "free_bytes_at_start": 107646705664,
+    "minimum_free_bytes": 8589934592,
+    "peak_storage_strategy": "three per-image stores only; delete run-local stores after all 30 records for that image are durable",
+    "total_bytes_at_start": 1967317549056
+  },
+  "finished_at_unix": 1790073336.311159,
+  "full_images": 40,
+  "full_questions": 240,
+  "full_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66",
+  "history_policy": "none_independent_gqa_questions",
+  "index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+  "invocations": [
+    {
+      "at_unix": 1790072514.1395855,
+      "max_new_requests": null,
+      "pid": 1944796,
+      "resume": false
+    }
+  ],
+  "load_4bit": true,
+  "max_new_tokens": 16,
+  "method_keys": [
+    "recompute",
+    "fullload",
+    "qa_chunk25",
+    "ours25",
+    "mpic32"
+  ],
+  "methods": {
+    "fullload": {
+      "display_label": "FullLoad",
+      "method_id": "fullload",
+      "online_selection": false,
+      "paper_label": "FullLoad",
+      "physical_layout": "canonical_raster",
+      "query_dependent": false,
+      "repacking": false,
+      "retention_ratio": 1.0,
+      "selection_granularity": "full_visual_kv"
+    },
+    "mpic32": {
+      "display_label": "MPIC-32 (SSD adaptation)",
+      "importance_source": "first_k_canonical_image_rows",
+      "k_recompute": 32,
+      "method_id": "mpic32_ssd",
+      "online_selection": false,
+      "paper_label": "MPIC-32 (SSD adaptation)",
+      "physical_layout": "canonical_raster_plus_visual_input_sidecar",
+      "query_dependent": false,
+      "repacking": false,
+      "retention_ratio": 1.0,
+      "selection_granularity": "first_32_image_tokens_recomputed"
+    },
+    "ours25": {
+      "display_label": "Ours25",
+      "importance_source": "image-only Vision Encoder saliency",
+      "method_id": "imageonly_prefix25",
+      "online_selection": false,
+      "paper_label": "Ours",
+      "physical_layout": "importance-aware repacked",
+      "query_dependent": false,
+      "repacking": true,
+      "retention_ratio": 0.25,
+      "selection_granularity": "ssd_chunk_prefix"
+    },
+    "qa_chunk25": {
+      "chunk_score": "mean_valid_spatial_token_importance",
+      "display_label": "QA-Chunk25",
+      "importance_source": "SparseVLM-style text-guided visual importance",
+      "method_id": "qa_chunk25",
+      "online_selection": true,
+      "paper_label": "Query-Aware Chunk",
+      "physical_layout": "canonical_raster",
+      "query_dependent": true,
+      "repacking": false,
+      "retention_ratio": 0.25,
+      "selection_granularity": "ssd_chunk"
+    },
+    "recompute": {
+      "display_label": "ReComp",
+      "method_id": "recompute",
+      "online_selection": false,
+      "paper_label": "ReComp",
+      "physical_layout": "none",
+      "query_dependent": false,
+      "repacking": false,
+      "retention_ratio": null,
+      "selection_granularity": "none"
+    }
+  },
+  "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+  "model_class": "transformers.models.llava_next.modeling_llava_next.LlavaNextForConditionalGeneration",
+  "model_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+  "mpic_k": 32,
+  "n_images": 40,
+  "n_questions": 240,
+  "page_cache_conditioning": "posix_fadvise_DONTNEED outside TTFT; not a guarantee of cold physical SSD/controller cache",
+  "probe_heads": 3,
+  "processor_class": "transformers.models.llava_next.processing_llava_next.LlavaNextProcessor",
+  "quantization": "NF4",
+  "question_slice": [
+    4,
+    10
+  ],
+  "questions_per_image": 6,
+  "results_dir": "/home/dblab/hj/mllm_v2/results/mpic_baseline/gqa40_240_pilot_20260922T102113Z",
+  "resume_count": 0,
+  "resume_events": [],
+  "retry_policy": {
+    "maximum_technical_retries_per_request": 1,
+    "quality_based_regeneration": false,
+    "retries_require_explicit_resume": true
+  },
+  "run_dir": "/home/dblab/hj/mllm_v2/runs/mpic_baseline/pilot_20260922T102113Z",
+  "run_id": "pilot_20260922T102113Z",
+  "runtime": {
+    "accelerate": "1.14.0",
+    "attention_implementation": "eager",
+    "bitsandbytes": "0.49.2",
+    "compute_dtype": "bfloat16",
+    "cuda_compute_capability": [
+      8,
+      9
+    ],
+    "cuda_device_index": 0,
+    "cuda_device_name": "NVIDIA GeForce RTX 4090",
+    "cudnn": 90100,
+    "load_4bit": true,
+    "model_class": "transformers.models.llava_next.modeling_llava_next.LlavaNextForConditionalGeneration",
+    "model_config_sha256": "0c4e90dc330a36ddf633eaf640a9a3ac0e0b914acd81a98ab3ad547bb737d72a",
+    "model_id": "llava-hf/llava-v1.6-vicuna-7b-hf",
+    "model_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+    "numpy": "2.2.6",
+    "pillow": "12.2.0",
+    "processor_class": "transformers.models.llava_next.processing_llava_next.LlavaNextProcessor",
+    "python": "3.10.20",
+    "tokenizer_class": "transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast",
+    "tokenizer_vocab_size": 32001,
+    "torch": "2.5.1+cu121",
+    "torch_cuda_build": "12.1",
+    "transformers": "4.57.6"
+  },
+  "schema_version": "mpic-gqa-five-arm-v1",
+  "seed": 1234,
+  "selected_images": 40,
+  "selected_questions": 240,
+  "selected_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66",
+  "started_at_unix": 1790072505.2414553,
+  "status": "measurements_complete_pending_artifact_protection",
+  "ttft_definition": "request start before prompt/tokenization/input preparation; include required SSD reads, H2D, cache assembly, prefill, first-token materialization and CUDA sync",
+  "turn1_policy": "all five arms use ordinary Image+Q1 pixel inference; stores piggyback their arm's answer-producing forward",
+  "warmup_events": [
+    {
+      "at_unix": 1790072514.1395836,
+      "enabled": true,
+      "excluded_from_all_metrics": true,
+      "fixture": "deterministic_in_memory_rgb_pattern_640x480",
+      "fixture_sha256": "084a2eb13fe0a1aab10d4b15c14e5aa14da8c0f1a6b51504423dc9b64594663e",
+      "resume": false,
+      "saliency_capture_count": 1,
+      "vision_forward_count": 1,
+      "visual_hidden_capture_count": 1
+    }
+  ]
+}

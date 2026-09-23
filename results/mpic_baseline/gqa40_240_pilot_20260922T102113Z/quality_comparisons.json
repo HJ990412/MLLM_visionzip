@@ -1,0 +1,121 @@
+{
+  "bootstrap_replicates": 10000,
+  "bootstrap_unit": "image (all questions in sampled image retained)",
+  "comparisons": [
+    {
+      "candidate": "ReComp",
+      "candidate_method_key": "recompute",
+      "first_token_agreement_all": 0.9833333333333333,
+      "paired_hit_ttft_mean_difference_ms": -133.6515287507791,
+      "prediction_agreement_all": 0.9833333333333333,
+      "quality_all": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": 0.016666666666666666,
+        "ci95_low": -0.016666666666666666,
+        "clusters": 40,
+        "estimate": 0.0,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 240,
+        "seed": 680032
+      },
+      "quality_hit": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": 0.02,
+        "ci95_low": -0.02,
+        "clusters": 40,
+        "estimate": 0.0,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 200,
+        "seed": 680033
+      },
+      "reference": "FullLoad"
+    },
+    {
+      "candidate": "QA-Chunk25",
+      "candidate_method_key": "qa_chunk25",
+      "first_token_agreement_all": 0.875,
+      "paired_hit_ttft_mean_difference_ms": -229.66655135620385,
+      "prediction_agreement_all": 0.875,
+      "quality_all": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": -0.004166666666666667,
+        "ci95_low": -0.08333333333333333,
+        "clusters": 40,
+        "estimate": -0.041666666666666664,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 240,
+        "seed": 680036
+      },
+      "quality_hit": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": -0.005,
+        "ci95_low": -0.1,
+        "clusters": 40,
+        "estimate": -0.05,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 200,
+        "seed": 680037
+      },
+      "reference": "FullLoad"
+    },
+    {
+      "candidate": "Ours25",
+      "candidate_method_key": "ours25",
+      "first_token_agreement_all": 0.8583333333333333,
+      "paired_hit_ttft_mean_difference_ms": -396.18524769786745,
+      "prediction_agreement_all": 0.8583333333333333,
+      "quality_all": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": -0.004166666666666667,
+        "ci95_low": -0.09583333333333334,
+        "clusters": 40,
+        "estimate": -0.04583333333333333,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 240,
+        "seed": 680038
+      },
+      "quality_hit": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": 0.0,
+        "ci95_low": -0.11,
+        "clusters": 40,
+        "estimate": -0.055,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 200,
+        "seed": 680039
+      },
+      "reference": "FullLoad"
+    },
+    {
+      "candidate": "MPIC-32 (SSD adaptation)",
+      "candidate_method_key": "mpic32",
+      "first_token_agreement_all": 0.9958333333333333,
+      "paired_hit_ttft_mean_difference_ms": -5.023650444345549,
+      "prediction_agreement_all": 0.9958333333333333,
+      "quality_all": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": 0.0,
+        "ci95_low": -0.0125,
+        "clusters": 40,
+        "estimate": -0.004166666666666667,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 240,
+        "seed": 680040
+      },
+      "quality_hit": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": 0.0,
+        "ci95_low": -0.015,
+        "clusters": 40,
+        "estimate": -0.005,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 200,
+        "seed": 680041
+      },
+      "reference": "FullLoad"
+    }
+  ],
+  "difference_direction": "candidate_minus_fullload",
+  "schema_version": "mpic-gqa-final-report-v1",
+  "seed_base": 680032
+}

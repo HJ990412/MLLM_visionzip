@@ -1,0 +1,144 @@
+{
+  "bootstrap_replicates": 10000,
+  "bootstrap_unit": "image (all questions in sampled image retained)",
+  "comparisons": [
+    {
+      "candidate": "ReKV-Chunk25 (adapted)",
+      "candidate_method_key": "rekv_chunk25",
+      "contingency_all": {
+        "both_correct": 123,
+        "both_wrong": 85,
+        "reference_only_correct": 16,
+        "rekv_only_correct": 16
+      },
+      "contingency_hit": {
+        "both_correct": 99,
+        "both_wrong": 69,
+        "reference_only_correct": 16,
+        "rekv_only_correct": 16
+      },
+      "first_token_agreement_all": 0.8083333333333333,
+      "hit_ttft_mean_difference_ms": 311.18509373860434,
+      "hit_ttft_relative_reduction_vs_reference": -1.2093265274178382,
+      "hit_ttft_speedup_reference_over_rekv": 0.4526266206420629,
+      "prediction_agreement_all": 0.7916666666666666,
+      "quality_all": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": 0.04583333333333333,
+        "ci95_low": -0.04583333333333333,
+        "clusters": 40,
+        "estimate": 0.0,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 240,
+        "seed": 680032
+      },
+      "quality_hit": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": 0.055,
+        "ci95_low": -0.055,
+        "clusters": 40,
+        "estimate": 0.0,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 200,
+        "seed": 680033
+      },
+      "reference": "Ours25",
+      "reference_hit_ttft_mean_ms": 257.3209854273591,
+      "reference_method_key": "ours25",
+      "rekv_hit_ttft_mean_ms": 568.5060791659635
+    },
+    {
+      "candidate": "ReKV-Chunk25 (adapted)",
+      "candidate_method_key": "rekv_chunk25",
+      "contingency_all": {
+        "both_correct": 119,
+        "both_wrong": 80,
+        "reference_only_correct": 21,
+        "rekv_only_correct": 20
+      },
+      "contingency_hit": {
+        "both_correct": 95,
+        "both_wrong": 64,
+        "reference_only_correct": 21,
+        "rekv_only_correct": 20
+      },
+      "first_token_agreement_all": 0.7833333333333333,
+      "hit_ttft_mean_difference_ms": 136.73114714911208,
+      "hit_ttft_relative_reduction_vs_reference": -0.31667226837470897,
+      "hit_ttft_speedup_reference_over_rekv": 0.7594904396630097,
+      "prediction_agreement_all": 0.7666666666666667,
+      "quality_all": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": 0.05416666666666667,
+        "ci95_low": -0.0625,
+        "clusters": 40,
+        "estimate": -0.004166666666666667,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 240,
+        "seed": 680034
+      },
+      "quality_hit": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": 0.065,
+        "ci95_low": -0.075,
+        "clusters": 40,
+        "estimate": -0.005,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 200,
+        "seed": 680035
+      },
+      "reference": "QA-Chunk25",
+      "reference_hit_ttft_mean_ms": 431.7749320168514,
+      "reference_method_key": "qa_chunk25",
+      "rekv_hit_ttft_mean_ms": 568.5060791659635
+    },
+    {
+      "candidate": "ReKV-Chunk25 (adapted)",
+      "candidate_method_key": "rekv_chunk25",
+      "contingency_all": {
+        "both_correct": 127,
+        "both_wrong": 78,
+        "reference_only_correct": 23,
+        "rekv_only_correct": 12
+      },
+      "contingency_hit": {
+        "both_correct": 103,
+        "both_wrong": 62,
+        "reference_only_correct": 23,
+        "rekv_only_correct": 12
+      },
+      "first_token_agreement_all": 0.8166666666666667,
+      "hit_ttft_mean_difference_ms": -92.26765642641112,
+      "hit_ttft_relative_reduction_vs_reference": 0.13963578068625024,
+      "hit_ttft_speedup_reference_over_rekv": 1.1622984516925026,
+      "prediction_agreement_all": 0.8,
+      "quality_all": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": 0.008333333333333333,
+        "ci95_low": -0.10416666666666667,
+        "clusters": 40,
+        "estimate": -0.04583333333333333,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 240,
+        "seed": 680036
+      },
+      "quality_hit": {
+        "bootstrap_replicates": 10000,
+        "ci95_high": 0.01,
+        "ci95_low": -0.125,
+        "clusters": 40,
+        "estimate": -0.055,
+        "interval": "image-cluster percentile bootstrap",
+        "paired_observations": 200,
+        "seed": 680037
+      },
+      "reference": "FullLoad",
+      "reference_hit_ttft_mean_ms": 660.7737355923746,
+      "reference_method_key": "fullload",
+      "rekv_hit_ttft_mean_ms": 568.5060791659635
+    }
+  ],
+  "difference_direction": "ReKV_minus_reference",
+  "schema_version": "rekv-gqa-final-report-v1",
+  "seed_base": 680032
+}

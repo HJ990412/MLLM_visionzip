@@ -1,0 +1,132 @@
+{
+  "schema_version": "mt-vqa-v2-generated-4arm-analysis-v1",
+  "passed": true,
+  "checks": {
+    "all_dialogues_exactly_three_turns_same_image": true,
+    "complete_method_turn_matrix": true,
+    "exact_logical_row_count": true,
+    "failed_requests_zero": true,
+    "duplicate_requests_zero": true,
+    "physical_executions_unique": true,
+    "vqa_soft_scores_recomputed_from_ten_answers": true,
+    "same_method_generated_history_exact": true,
+    "gold_history_uses_zero": true,
+    "future_leakage_zero": true,
+    "turn1_four_arm_prompt_pixel_prediction_first_token_fair": true,
+    "qa_query_scoring_calls_positive": true,
+    "full_load_selector_calls_zero": true,
+    "ours_query_scoring_calls_zero": true,
+    "qa_and_ours_fixed_25pct_budget": true,
+    "exact_ssd_io_contracts": true,
+    "ours_t2_t3_prefix_and_permutation_invariant": true,
+    "frozen_source_configuration": true,
+    "prior_artifacts_unchanged": true,
+    "dataset_construction_validated": true
+  },
+  "expected_logical_rows": 3000,
+  "observed_logical_rows": 3000,
+  "expected_dialogues": 250,
+  "observed_dialogues": 250,
+  "expected_images": 250,
+  "observed_images": 250,
+  "failed_requests": 0,
+  "duplicate_requests": 0,
+  "t1_dialogues_checked": 250,
+  "frozen_source_configuration": {
+    "passed": true,
+    "expected": {
+      "schema_version": "mt-vqa-v2-generated-4arm-shard-v1",
+      "protocol": "generated_history",
+      "protocols": [
+        "generated_history"
+      ],
+      "protocol_scope": "generated_history_only",
+      "seed": 1234,
+      "method_keys": [
+        "recompute",
+        "fullload",
+        "qa_chunk25",
+        "ours25"
+      ],
+      "dataset": "vqav2_validation_mt3_reconstructed",
+      "benchmark_type": "MT-VQA-v2-reconstructed",
+      "history_policy": "method_local_generated",
+      "quality_metric": "repository_vqa_consensus_min_matches_over_3",
+      "quality_metric_implementation": "mmimpress.dataset.vqa_score",
+      "official_vqa_evaluator_claimed": false,
+      "binary_correct_threshold": 0.5,
+      "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+      "model_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+      "load_4bit": true,
+      "quantization": "4-bit NF4 double-quant",
+      "compute_dtype": "bfloat16",
+      "attention": "eager",
+      "decoding": "greedy",
+      "max_new_tokens": 16,
+      "chunk_size": 64,
+      "probe_heads": 3,
+      "main_ttft_field": "end_to_end_ttft_ms",
+      "qa_chunk_configuration": {
+        "physical_layout": "raster",
+        "head_reduce": "mean",
+        "chunk_aggregation": "mean_valid_spatial_tokens",
+        "normal_chunk_budget": 0.25,
+        "budget_helper": "budget_chunk_count_round",
+        "rater_algorithm_id": "sparsevlm_visual_text_mean_threshold_v1",
+        "rater_scope": "entire_available_causal_suffix",
+        "fallback": false,
+        "adaptive_budget": false
+      },
+      "ours_configuration": {
+        "physical_layout": "visionzip_image_only",
+        "normal_chunk_budget": 0.25,
+        "selection": "fixed_first_k_prefix",
+        "online_query_scoring": false
+      },
+      "dataset_construction": {
+        "source_index_sha256": "b83d5fa288fcb722ca073e261d3fec9086629ed0db2e568a2d5d6a24ef1589d7",
+        "source_slice": "questions[1:5]",
+        "dialogue_membership": "questions[1:4]",
+        "dialogues_per_image": 1,
+        "dialogue_overlap": false,
+        "question_reuse": false
+      },
+      "later_turn_policy": "ReComp pixels; FullLoad/QA use raster SSD; Ours uses independent image-only repacked SSD"
+    }
+  },
+  "protection_validation": {
+    "added_paths": [],
+    "after_manifest_sha256": "3bfa82dfc6c17b911f3cdf177f0835e8b02b9f40f5870fb10274524e02c4f26d",
+    "before_manifest_sha256": "3bfa82dfc6c17b911f3cdf177f0835e8b02b9f40f5870fb10274524e02c4f26d",
+    "changed_paths": [],
+    "entry_count_after": 39763,
+    "entry_count_before": 39763,
+    "file_count_after": 32592,
+    "file_count_before": 32592,
+    "missing_paths": [],
+    "observed_scope_manifest_sha256": "3bfa82dfc6c17b911f3cdf177f0835e8b02b9f40f5870fb10274524e02c4f26d",
+    "passed": true,
+    "schema_version": "mt-vqa-v2-generated-protected-artifacts-v1",
+    "total_bytes_after": 242601005940,
+    "total_bytes_before": 242601005940,
+    "path": "/home/dblab/hj/mllm_v2/runs/mt_vqa_v2_generated_4arm_20260922T064727Z/protected_artifacts_validation.json",
+    "sha256": "e5a28b71433aad9230584032b7976c19d292a7c602b4cb2d59e2ecd45c4f014a"
+  },
+  "experiment_id": "706504f7-ef3c-4c2a-96be-e4390e0b5b80",
+  "index_sha256": "89719b2a1187c07e3228cc76cf1e473b3c713a0dcb3d65da0c596ae81898d6ea",
+  "workload_sha256": "384e39bad4e2e8d5865fe20bad7661d3cad8fe0b5ce5effbfc43ea896170cbbc",
+  "model_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+  "seed": 1234,
+  "methods": [
+    "recompute",
+    "fullload",
+    "qa_chunk25",
+    "ours25"
+  ],
+  "protocol": "generated_history",
+  "bootstrap": {
+    "resamples": 10000,
+    "seed": 1234,
+    "cluster_unit": "image"
+  }
+}

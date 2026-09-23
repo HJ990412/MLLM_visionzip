@@ -1,0 +1,91 @@
+{
+  "schema_version": "mt-vqa-v2-generated-4arm-analysis-v1",
+  "comparison": "QA-Chunk25 minus Ours25",
+  "primary_metric": "paired soft VQA score",
+  "per_turn": {
+    "turn1": {
+      "n": 250,
+      "qa_minus_ours_soft_accuracy": 0.0,
+      "soft_score_comparison": {
+        "equal": 250
+      },
+      "full_credit_diagnostic": {
+        "definition": "score == 1.0",
+        "both_full_credit": 183,
+        "qa_only_full_credit": 0,
+        "ours_only_full_credit": 0,
+        "neither_full_credit": 67,
+        "mcnemar_exact_two_sided_p_diagnostic": 1.0,
+        "primary_test": false
+      }
+    },
+    "turn2": {
+      "n": 250,
+      "qa_minus_ours_soft_accuracy": 0.02,
+      "soft_score_comparison": {
+        "equal": 221,
+        "ours_greater": 11,
+        "qa_greater": 18
+      },
+      "full_credit_diagnostic": {
+        "definition": "score == 1.0",
+        "both_full_credit": 168,
+        "qa_only_full_credit": 14,
+        "ours_only_full_credit": 8,
+        "neither_full_credit": 60,
+        "mcnemar_exact_two_sided_p_diagnostic": 0.28627872467041016,
+        "primary_test": false
+      }
+    },
+    "turn3": {
+      "n": 250,
+      "qa_minus_ours_soft_accuracy": 0.007999999999999998,
+      "soft_score_comparison": {
+        "equal": 205,
+        "ours_greater": 23,
+        "qa_greater": 22
+      },
+      "full_credit_diagnostic": {
+        "definition": "score == 1.0",
+        "both_full_credit": 170,
+        "qa_only_full_credit": 18,
+        "ours_only_full_credit": 19,
+        "neither_full_credit": 43,
+        "mcnemar_exact_two_sided_p_diagnostic": 1.0,
+        "primary_test": false
+      }
+    }
+  },
+  "image_cluster_bootstrap_95ci": {
+    "primary_inference": true,
+    "cluster_unit": "image",
+    "estimator": "ratio of sampled score sums to sampled request counts",
+    "resamples": 10000,
+    "seed": 1234,
+    "turns": {
+      "acc1": {
+        "difference": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "acc2": {
+        "difference": 0.02,
+        "ci95_low": -0.012000000000000004,
+        "ci95_high": 0.05333333333333334
+      },
+      "acc3": {
+        "difference": 0.007999999999999997,
+        "ci95_low": -0.031999999999999994,
+        "ci95_high": 0.049333333333333326
+      }
+    },
+    "avg": {
+      "difference": 0.009333333333333332,
+      "ci95_low": -0.008444444444444444,
+      "ci95_high": 0.027555555555555555
+    }
+  },
+  "avg_ci_includes_zero": true,
+  "equivalence_claim_permitted": false,
+  "full_credit_cells_are_diagnostic_only": true
+}

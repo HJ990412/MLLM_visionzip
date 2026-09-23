@@ -321,3 +321,34 @@ gold-history 기준 QA-Chunk25 450.04 ms, Ours25 278.13 ms였으며, 두 방법�
 작았지만 QA-Chunk25의 selector 비용은 약 96.7 ms였다. 전체 per-turn 결과,
 paired test, error propagation, I/O 분석은
 [`results/mt_gqa_4arm_history_comparison_20260921T081420Z/`](results/mt_gqa_4arm_history_comparison_20260921T081420Z/)에 있다.
+
+## 8. MT-VQA-v2 generated-history evaluation (2026-09-22)
+
+ReComp, FullLoad, QA-Chunk25, Ours25를 250개 이미지의 3-turn dialogue에서
+평가했다(총 3,000 requests). 평균 soft VQA score는 각각 80.58%, 80.49%,
+79.20%, 78.27%였고, cache-hit T2–T3 TTFT는 529.83, 707.68, 462.61,
+286.41 ms였다. QA-Chunk25와 Ours25의 평균 점수 차이는 +0.93 pp이나
+이미지 단위 bootstrap 95% CI [-0.84, +2.76] pp에는 0이 포함된다.
+이 데이터는 공개 MT-VQA-v2 대화 원본이 없어 구성한 250-image subset이며
+공식 benchmark 재현으로 해석하지 않는다. 자세한 결과는
+results/mt_vqa_v2_generated_4arm_20260922T064727Z/README.md에 있다.
+
+## 9. MPIC-32 SSD adaptation (2026-09-22)
+
+동일한 GQA 40 images / 240 questions의 다섯 방법 비교에서 MPIC-32의
+전체 accuracy는 62.08%, cache-hit TTFT는 646.72 ms, SSD read는
+1165.335 MB/request였다. Ours25는 57.92%, 255.56 ms,
+306.079 MB/request였다. MPIC는 전체 image context를 유지하면서
+작은 prefix를 다시 계산하므로 25% 저장 budget 방법과 조건이 다르다.
+이 실험은 단일 이미지 SSD adaptation이며 논문의 multi-image overlap은
+측정하지 않았다. 계약과 분석은 docs/mpic_baseline_contract.md 및
+results/mpic_baseline/gqa40_240_pilot_20260922T102113Z/ANALYSIS.md에 있다.
+
+## 10. ReKV-Chunk25 SSD adaptation (2026-09-23)
+
+동일한 GQA slice의 여섯 방법 비교에서 ReKV-Chunk25는 전체 accuracy
+57.92%, cache-hit TTFT 568.51 ms, SSD read 305.236 MB/request였다.
+같은 run의 Ours25는 57.92%, 257.32 ms, 306.079 MB/request였다.
+ReKV의 video-frame retrieval을 64-token SSD chunk에 적용한 것으로,
+원 논문의 streaming-video 시스템 수치를 재현한 결과는 아니다.
+구현 계약과 검증은 docs/rekv_baseline_contract.md 및

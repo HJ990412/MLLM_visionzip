@@ -1,0 +1,37 @@
+{
+  "schema_version": "mt-vqa-v2-generated-4arm-analysis-v1",
+  "benchmark_type": "MT-VQA-v2-reconstructed",
+  "official_released_dialogue_artifact_found_locally": false,
+  "official_benchmark_identity_claimed": false,
+  "seed": 1234,
+  "source_dataset": "VQAv2 validation local frozen slice",
+  "source_index_sha256": "b83d5fa288fcb722ca073e261d3fec9086629ed0db2e568a2d5d6a24ef1589d7",
+  "evaluation_slice": "questions[1:5]",
+  "dialogue_membership": "first source-order triple questions[1:4]",
+  "dialogues_per_image": 1,
+  "turns_per_dialogue": 3,
+  "dialogue_overlap": false,
+  "question_reuse": false,
+  "images": 250,
+  "dialogues": 250,
+  "selected_questions": 750,
+  "results_used_to_choose_membership": false,
+  "index": {
+    "path": "/home/dblab/hj/mllm_v2/data/mt_vqa_v2/dialogues.json",
+    "sha256": "89719b2a1187c07e3228cc76cf1e473b3c713a0dcb3d65da0c596ae81898d6ea",
+    "workload_sha256": "384e39bad4e2e8d5865fe20bad7661d3cad8fe0b5ce5effbfc43ea896170cbbc",
+    "dialogues": 250,
+    "images": 250,
+    "turns": 750,
+    "question_reuse": 0,
+    "all_dialogues_exactly_three_turns": true,
+    "all_dialogues_one_unique_image": true,
+    "envelope": {
+      "benchmark_type": "MT-VQA-v2-reconstructed",
+      "schema_version": "mt-vqa-v2-reconstructed-v1",
+      "seed": 1234
+    }
+  },
+  "passed": true,
+  "disclaimer": "No official/released MT-VQA-v2 dialogue artifact was present locally. This evaluation uses a deterministic reconstruction from the project's frozen VQAv2 validation slice and does not claim official benchmark identity or exact MetaCompress protocol identity."
+}

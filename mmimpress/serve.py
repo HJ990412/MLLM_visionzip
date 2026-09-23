@@ -1398,6 +1398,8 @@ class Server:
             "prefill_ms": prefill_ms,
             "decode_ms": (finished_at - decode_t0) * 1e3,
             "generated_tokens": len(toks),
+            "generated_token_ids": list(toks),
+            "generated_token_count": len(toks),
         }
 
     @torch.no_grad()
@@ -1450,6 +1452,8 @@ class Server:
             # (selection/read/scatter) as well as the model's prompt prefill.
             "prefill_ms": timing["prefill_ms"],
             "generated_tokens": timing["generated_tokens"],
+            "generated_token_ids": timing["generated_token_ids"],
+            "generated_token_count": timing["generated_token_count"],
             "n_raters": int(rr.numel()),
             "io": counter.summary(),
             "core_started_at_s": t0,
@@ -1556,6 +1560,8 @@ class Server:
             "prefill_ms": timing["prefill_ms"],
             "decode_ms": timing["decode_ms"],
             "generated_tokens": timing["generated_tokens"],
+            "generated_token_ids": timing["generated_token_ids"],
+            "generated_token_count": timing["generated_token_count"],
             "n_raters": int(rater_rows.numel()),
             "io": io_summary,
             "normal_kv_read_bytes": normal_kv_bytes,
@@ -1672,6 +1678,8 @@ class Server:
             "prefill_ms": timing["prefill_ms"],
             "decode_ms": timing["decode_ms"],
             "generated_tokens": timing["generated_tokens"],
+            "generated_token_ids": timing["generated_token_ids"],
+            "generated_token_count": timing["generated_token_count"],
             "n_raters": int(rater_rows.numel()),
             "io": io_summary,
             "normal_kv_read_bytes": normal_kv_bytes,
@@ -1774,6 +1782,8 @@ class Server:
             "decode_ms": timing["decode_ms"],
             "model_ms": t_model_ms,
             "generated_tokens": timing["generated_tokens"],
+            "generated_token_ids": timing["generated_token_ids"],
+            "generated_token_count": timing["generated_token_count"],
             "io": io_summary,
             "normal_kv_read_bytes": normal_kv_bytes,
             "separator_read_bytes": separator_bytes,
@@ -1837,6 +1847,8 @@ class Server:
             "prefill_ms": (first_token_at - prefill_t0) * 1e3,
             "decode_ms": (finished_at - decode_t0) * 1e3,
             "generated_tokens": int(toks.numel()),
+            "generated_token_ids": [int(value) for value in toks.tolist()],
+            "generated_token_count": int(toks.numel()),
             "core_started_at_s": t0,
             "first_token_at_s": first_token_at,
             "model_finished_at_s": finished_at,
