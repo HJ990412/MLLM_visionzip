@@ -20,7 +20,8 @@ import torch
 import transformers.models.llama.modeling_llama as llama
 
 from mmimpress.cvpr25 import budget_chunk_count
-from mmimpress.serve import BIAS, contiguous_runs, suffix_ids_for
+from mmimpress.serve import (BIAS, contiguous_runs, suffix_ids_for,
+                            suffix_ids_from_prompt)
 from mmimpress.store import IOCounter
 
 
@@ -466,9 +467,17 @@ class ReKVServer:
         self.check_finite_logits = bool(check_finite_logits)
 
     @torch.no_grad()
-    def request(self, ctx, *, question: str, cold: bool = True) -> dict:
+    def request(self, ctx, *, question: str | None = None,
+                prompt_text: str | None = None,
+                retrieval_text: str | None = None,
+                cold: bool = True) -> dict:
         if self.max_new_tokens < 1:
             raise ValueError("max_new_tokens must be positive")
+        if (question is None) == (prompt_text is None):
+            raise ValueError("provide exactly one of question or prompt_text")
+        if prompt_text is not None and retrieval_text is None:
+            raise ValueError("MT prompt requires explicit causal retrieval_text")
+        query_text = question if prompt_text is None else retrieval_text
         if cold:
             ctx.reader.drop_all()  # outside TTFT, matching the other arms
         device = self.runner.model.device
@@ -478,11 +487,13 @@ class ReKVServer:
         started = time.perf_counter()
         prep_at = time.perf_counter()
         tokenizer = self.runner.processor.tokenizer
-        question_ids_cpu = tokenizer(question, return_tensors="pt").input_ids
+        question_ids_cpu = tokenizer(query_text, return_tensors="pt").input_ids
         question_hash = hashlib.sha256(
             question_ids_cpu.numpy().tobytes()).hexdigest()
         question_ids = question_ids_cpu.to(device)
-        suffix = suffix_ids_for(self.runner, question).to(device)
+        suffix = (suffix_ids_for(self.runner, question)
+                  if prompt_text is None else
+                  suffix_ids_from_prompt(self.runner, prompt_text)).to(device)
         request_prep_ms = (time.perf_counter()-prep_at)*1e3
         state = RequestState()
         # Sidecar is one request-local SSD read.  It is never resident across
@@ -594,6 +605,7 @@ class ReKVServer:
             "generated_token_count": len(tokens),
             "question_ids_sha256": question_hash,
             "question_token_ids": question_ids[0].detach().cpu().tolist(),
+            "answer_suffix_token_ids": suffix.detach().cpu().tolist(),
             "ttft": first_at-started,
             "ttft_ms": (first_at-started)*1e3,
             "decode_latency": finished_at-first_at,

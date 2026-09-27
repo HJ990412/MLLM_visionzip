@@ -1,0 +1,47 @@
+{
+  "mpic32": {
+    "actual_kv_read_ratio_mean": 1.0,
+    "method": "MPIC-32 (adapted)",
+    "n_hits": 8122,
+    "recomputed_image_tokens_per_hit": 32,
+    "reused_image_tokens_mean": 2207.072642206353
+  },
+  "ours25": {
+    "actual_attention_key_length_mean": null,
+    "first_k_planning_ms_mean": null,
+    "fixed_physical_prefix_all_hits": true,
+    "method": "Ours25",
+    "n_hits": 8122,
+    "online_selector_ms_mean": 0.21842620510959296,
+    "same_image_question_pair_count": 100465,
+    "same_image_question_pair_jaccard_mean": 1.0,
+    "selected_layout_runs_per_layer_mean": 1.0,
+    "t2_t3_changed_count": 0,
+    "t2_t3_dialogue_pairs": 4061,
+    "t2_t3_identical_count": 4061,
+    "t2_t3_jaccard_mean": 1.0,
+    "t2_t3_jaccard_p50": 1.0
+  },
+  "rekv_chunk25": {
+    "actual_attention_key_length_mean": 635.3658812484609,
+    "answer_prefill_wall_ms_mean": 50.717893951310806,
+    "duplicate_selected_range_bytes_total": 0,
+    "metadata_bytes_per_image_mean": 9249750.090452261,
+    "method": "ReKV-Chunk25 (adapted)",
+    "n_hits": 8122,
+    "online_decision_instrumented_component_sum_ms_mean": 10.187385424074199,
+    "online_decision_timing_note": "sum of instrumented host intervals; queued GPU work can overlap, so this is not an isolated GPU kernel time",
+    "retrieval_forward_wall_ms_mean": 553.1459338712563,
+    "same_image_question_pair_count": 100465,
+    "same_image_question_pair_jaccard_mean": 0.9115903602659456,
+    "selected_layout_runs_per_layer_mean": 2.5877439362226053,
+    "stage_a_ssd_mb_per_hit": 307.45102498891896,
+    "stage_b_duplicate_ssd_bytes_total": 0,
+    "t2_t3_changed_count": 4011,
+    "t2_t3_dialogue_pairs": 4061,
+    "t2_t3_identical_count": 50,
+    "t2_t3_jaccard_mean": 0.947862996880643,
+    "t2_t3_jaccard_p50": 0.9525423728813559
+  },
+  "schema_version": "mt-gqa-generated-five-arm-report-v1"
+}

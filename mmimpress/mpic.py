@@ -1210,6 +1210,9 @@ class MPICServer:
             "prompt_and_tokenization_ms": (
                 prompt_ready - request_started) * 1e3,
             "ttft_ms": (first_token_at - request_started) * 1e3,
+            "core_started_at_s": float(request_started),
+            "first_token_at_s": float(first_token_at),
+            "model_finished_at_s": float(finished_at),
             "model_generation_e2e_ms": (
                 finished_at - request_started) * 1e3,
             "decode_ms": (finished_at - first_token_at) * 1e3,

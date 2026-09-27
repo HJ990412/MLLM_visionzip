@@ -1,0 +1,294 @@
+{
+  "bootstrap_replicates": 10000,
+  "bootstrap_seed": 1234,
+  "bootstrap_unit": "image (all dialogues and turns in image retained)",
+  "comparisons": [
+    {
+      "avg_ci_includes_zero": true,
+      "candidate": "ReKV-Chunk25 (adapted)",
+      "candidate_method_key": "rekv_chunk25",
+      "contingency": {
+        "all": {
+          "both_correct": 7436,
+          "both_wrong": 3685,
+          "candidate_only_correct": 563,
+          "n": 12183,
+          "ours_minus_candidate": -0.005253221702372158,
+          "reference_only_correct": 499
+        },
+        "t1": {
+          "both_correct": 2566,
+          "both_wrong": 1495,
+          "candidate_only_correct": 0,
+          "n": 4061,
+          "ours_minus_candidate": 0.0,
+          "reference_only_correct": 0
+        },
+        "t2": {
+          "both_correct": 2409,
+          "both_wrong": 1103,
+          "candidate_only_correct": 299,
+          "n": 4061,
+          "ours_minus_candidate": -0.01206599359763605,
+          "reference_only_correct": 250
+        },
+        "t3": {
+          "both_correct": 2461,
+          "both_wrong": 1087,
+          "candidate_only_correct": 264,
+          "n": 4061,
+          "ours_minus_candidate": -0.0036936715094804235,
+          "reference_only_correct": 249
+        }
+      },
+      "difference_direction": "Ours25 minus candidate",
+      "image_cluster_bootstrap_95ci": {
+        "avg": {
+          "ci95_high": 0.0009676538756251681,
+          "ci95_low": -0.011362899792513453,
+          "difference": -0.0052532217023721585
+        },
+        "cluster_unit": "image; all dialogues and all three turns retained within sampled image",
+        "clusters": 398,
+        "dialogues": 4061,
+        "per_turn": {
+          "t1": {
+            "ci95_high": 0.0,
+            "ci95_low": 0.0,
+            "difference": 0.0
+          },
+          "t2": {
+            "ci95_high": 0.0,
+            "ci95_low": -0.023998570908581537,
+            "difference": -0.01206599359763605
+          },
+          "t3": {
+            "ci95_high": 0.008164053727320934,
+            "ci95_low": -0.015189952236076738,
+            "difference": -0.0036936715094804235
+          }
+        },
+        "replicates": 10000,
+        "seed": 1234
+      },
+      "reference": "Ours25",
+      "reference_method_key": "ours25"
+    },
+    {
+      "avg_ci_includes_zero": false,
+      "candidate": "MPIC-32 (adapted)",
+      "candidate_method_key": "mpic32",
+      "contingency": {
+        "all": {
+          "both_correct": 7643,
+          "both_wrong": 3757,
+          "candidate_only_correct": 491,
+          "n": 12183,
+          "ours_minus_candidate": -0.01633423623081343,
+          "reference_only_correct": 292
+        },
+        "t1": {
+          "both_correct": 2566,
+          "both_wrong": 1495,
+          "candidate_only_correct": 0,
+          "n": 4061,
+          "ours_minus_candidate": 0.0,
+          "reference_only_correct": 0
+        },
+        "t2": {
+          "both_correct": 2514,
+          "both_wrong": 1154,
+          "candidate_only_correct": 248,
+          "n": 4061,
+          "ours_minus_candidate": -0.025363211031765576,
+          "reference_only_correct": 145
+        },
+        "t3": {
+          "both_correct": 2563,
+          "both_wrong": 1108,
+          "candidate_only_correct": 243,
+          "n": 4061,
+          "ours_minus_candidate": -0.023639497660674712,
+          "reference_only_correct": 147
+        }
+      },
+      "difference_direction": "Ours25 minus candidate",
+      "image_cluster_bootstrap_95ci": {
+        "avg": {
+          "ci95_high": -0.01118786376815421,
+          "ci95_low": -0.021436196231205816,
+          "difference": -0.01633423623081343
+        },
+        "cluster_unit": "image; all dialogues and all three turns retained within sampled image",
+        "clusters": 398,
+        "dialogues": 4061,
+        "per_turn": {
+          "t1": {
+            "ci95_high": 0.0,
+            "ci95_low": 0.0,
+            "difference": 0.0
+          },
+          "t2": {
+            "ci95_high": -0.015369360436291522,
+            "ci95_low": -0.035194212093985745,
+            "difference": -0.025363211031765576
+          },
+          "t3": {
+            "ci95_high": -0.013818049138768452,
+            "ci95_low": -0.03330810933272969,
+            "difference": -0.023639497660674712
+          }
+        },
+        "replicates": 10000,
+        "seed": 1234
+      },
+      "reference": "Ours25",
+      "reference_method_key": "ours25"
+    },
+    {
+      "avg_ci_includes_zero": false,
+      "candidate": "FullLoad",
+      "candidate_method_key": "fullload",
+      "contingency": {
+        "all": {
+          "both_correct": 7628,
+          "both_wrong": 3756,
+          "candidate_only_correct": 492,
+          "n": 12183,
+          "ours_minus_candidate": -0.01518509398341952,
+          "reference_only_correct": 307
+        },
+        "t1": {
+          "both_correct": 2566,
+          "both_wrong": 1495,
+          "candidate_only_correct": 0,
+          "n": 4061,
+          "ours_minus_candidate": 0.0,
+          "reference_only_correct": 0
+        },
+        "t2": {
+          "both_correct": 2511,
+          "both_wrong": 1149,
+          "candidate_only_correct": 253,
+          "n": 4061,
+          "ours_minus_candidate": -0.025855700566362966,
+          "reference_only_correct": 148
+        },
+        "t3": {
+          "both_correct": 2551,
+          "both_wrong": 1112,
+          "candidate_only_correct": 239,
+          "n": 4061,
+          "ours_minus_candidate": -0.019699581383895593,
+          "reference_only_correct": 159
+        }
+      },
+      "difference_direction": "Ours25 minus candidate",
+      "image_cluster_bootstrap_95ci": {
+        "avg": {
+          "ci95_high": -0.01013106129511032,
+          "ci95_low": -0.020253898674145086,
+          "difference": -0.015185093983419518
+        },
+        "cluster_unit": "image; all dialogues and all three turns retained within sampled image",
+        "clusters": 398,
+        "dialogues": 4061,
+        "per_turn": {
+          "t1": {
+            "ci95_high": 0.0,
+            "ci95_low": 0.0,
+            "difference": 0.0
+          },
+          "t2": {
+            "ci95_high": -0.015973630831643004,
+            "ci95_low": -0.03567864889645882,
+            "difference": -0.025855700566362966
+          },
+          "t3": {
+            "ci95_high": -0.010063449348811695,
+            "ci95_low": -0.02937596236449411,
+            "difference": -0.019699581383895593
+          }
+        },
+        "replicates": 10000,
+        "seed": 1234
+      },
+      "reference": "Ours25",
+      "reference_method_key": "ours25"
+    },
+    {
+      "avg_ci_includes_zero": false,
+      "candidate": "ReComp",
+      "candidate_method_key": "recompute",
+      "contingency": {
+        "all": {
+          "both_correct": 7640,
+          "both_wrong": 3760,
+          "candidate_only_correct": 488,
+          "n": 12183,
+          "ours_minus_candidate": -0.01584174669621604,
+          "reference_only_correct": 295
+        },
+        "t1": {
+          "both_correct": 2566,
+          "both_wrong": 1495,
+          "candidate_only_correct": 0,
+          "n": 4061,
+          "ours_minus_candidate": 0.0,
+          "reference_only_correct": 0
+        },
+        "t2": {
+          "both_correct": 2515,
+          "both_wrong": 1151,
+          "candidate_only_correct": 251,
+          "n": 4061,
+          "ours_minus_candidate": -0.026348190100960355,
+          "reference_only_correct": 144
+        },
+        "t3": {
+          "both_correct": 2559,
+          "both_wrong": 1114,
+          "candidate_only_correct": 237,
+          "n": 4061,
+          "ours_minus_candidate": -0.02117704998768776,
+          "reference_only_correct": 151
+        }
+      },
+      "difference_direction": "Ours25 minus candidate",
+      "image_cluster_bootstrap_95ci": {
+        "avg": {
+          "ci95_high": -0.010791337049882008,
+          "ci95_low": -0.020894146212438666,
+          "difference": -0.015841746696216037
+        },
+        "cluster_unit": "image; all dialogues and all three turns retained within sampled image",
+        "clusters": 398,
+        "dialogues": 4061,
+        "per_turn": {
+          "t1": {
+            "ci95_high": 0.0,
+            "ci95_low": 0.0,
+            "difference": 0.0
+          },
+          "t2": {
+            "ci95_high": -0.016417422631340217,
+            "ci95_low": -0.036289467208071864,
+            "difference": -0.026348190100960355
+          },
+          "t3": {
+            "ci95_high": -0.011554383175525188,
+            "ci95_low": -0.030706088163723715,
+            "difference": -0.02117704998768776
+          }
+        },
+        "replicates": 10000,
+        "seed": 1234
+      },
+      "reference": "Ours25",
+      "reference_method_key": "ours25"
+    }
+  ],
+  "interpretation_rule": "CI including zero means no statistically clear difference; it does not establish equivalence",
+  "quality_metric": "strict_normalized_exact_match",
+  "schema_version": "mt-gqa-generated-five-arm-report-v1"
+}

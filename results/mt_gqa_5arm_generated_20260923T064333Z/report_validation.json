@@ -1,0 +1,91 @@
+{
+  "analysis_seed": 1234,
+  "bootstrap_replicates": 10000,
+  "checks": {
+    "exact_398_image_4061_dialogue_60915_request_matrix": true,
+    "five_method_t1_t2_t3_coverage": true,
+    "four_store_persistence_per_image": true,
+    "frozen_index_and_workload_sha256": true,
+    "generated_history_only": true,
+    "method_local_generated_history_exact": true,
+    "ours_fixed_prefix_across_all_same_image_hits": true,
+    "prior_artifacts_and_source_code_unchanged": true,
+    "raw_matches_398_immutable_image_artifacts": true,
+    "rekv_stage_b_and_duplicate_payload_read_zero": true,
+    "runner_validation_passed": true,
+    "strict_quality_recomputed": true,
+    "ten_thousand_image_cluster_bootstrap": true
+  },
+  "dialogues": 4061,
+  "execution_attempts": {
+    "failed_invocations": 0,
+    "failure_events": [],
+    "interrupted_attempt_ids": [],
+    "interrupted_invocations": 0,
+    "invocations_with_existing_marker": 0,
+    "retried_shard_invocations": 0,
+    "retry_count_scope": "additional evaluator invocations for a stage/shard lacking a complete marker; completed logical rows are independently deduplicated",
+    "shard_invocations": 9,
+    "successful_invocations": 9
+  },
+  "hits_per_method": 8122,
+  "images": 398,
+  "index_sha256": "2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224",
+  "logical_requests": 60915,
+  "method_local_generated_history_validated": true,
+  "method_position_counts": {
+    "fullload": {
+      "0": 2436,
+      "1": 2439,
+      "2": 2436,
+      "3": 2436,
+      "4": 2436
+    },
+    "mpic32": {
+      "0": 2436,
+      "1": 2436,
+      "2": 2439,
+      "3": 2436,
+      "4": 2436
+    },
+    "ours25": {
+      "0": 2436,
+      "1": 2436,
+      "2": 2436,
+      "3": 2436,
+      "4": 2439
+    },
+    "recompute": {
+      "0": 2439,
+      "1": 2436,
+      "2": 2436,
+      "3": 2436,
+      "4": 2436
+    },
+    "rekv_chunk25": {
+      "0": 2436,
+      "1": 2436,
+      "2": 2436,
+      "3": 2439,
+      "4": 2436
+    }
+  },
+  "n_image_artifacts": 398,
+  "passed": true,
+  "physical_executions": 60915,
+  "physical_stream_store_builds": 398,
+  "protection_schema": "mt-gqa-5arm-protected-artifacts-v1",
+  "recorded_retries": 0,
+  "rekv_activation_coverage": true,
+  "rekv_stage_b_and_duplicate_reads_zero": true,
+  "requests_per_method": 12183,
+  "runner_completed_logical_row_retry_count": 0,
+  "runner_failed_requests": 0,
+  "runner_incomplete_image_rebuild_count": 0,
+  "runner_retry_count": 0,
+  "runner_validation_schema": "mt-gqa-5arm-generated-orchestrator-v1",
+  "schema_version": "mt-gqa-generated-five-arm-report-v1",
+  "standalone_equivalent_is_derived": true,
+  "strict_scores_recomputed": true,
+  "workload_sha256": "0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62"
+}

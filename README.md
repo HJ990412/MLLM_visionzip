@@ -352,3 +352,26 @@ results/mpic_baseline/gqa40_240_pilot_20260922T102113Z/ANALYSIS.md에 있다.
 ReKV의 video-frame retrieval을 64-token SSD chunk에 적용한 것으로,
 원 논문의 streaming-video 시스템 수치를 재현한 결과는 아니다.
 구현 계약과 검증은 docs/rekv_baseline_contract.md 및
+
+## 11. MT-GQA generated-history five-arm main (2026-09-23)
+
+ReComp, FullLoad, MPIC-32, ReKV-Chunk25, Ours25를 같은 MT-GQA-reconstructed
+4,061개 3-turn dialogue에서 평가했다(398 images, 총 60,915 requests).
+각 방법이 생성한 이전 답변을 다음 turn의 history에 넣었다. 정확도는
+strict normalized exact match이며, TTFT와 SSD I/O는 각 방법의 cache-hit
+Turns 2–3 요청 8,122개의 평균이다.
+
+| Method | T1 | T2 | T3 | Avg | Cache-hit TTFT | SSD MB/hit |
+|---|---:|---:|---:|---:|---:|---:|
+| ReComp | 63.19% | 68.11% | 68.85% | 66.72% | 531.93 ms | 0.00 |
+| FullLoad | 63.19% | 68.06% | 68.70% | 66.65% | 744.66 ms | 1173.92 |
+| MPIC-32 (adapted) | 63.19% | 68.01% | 69.10% | 66.77% | 718.02 ms | 1174.18 |
+| ReKV-Chunk25 (adapted) | 63.19% | 66.68% | 67.10% | 65.66% | 604.72 ms | 307.45 |
+| Ours25 | 63.19% | 65.48% | 66.73% | 65.13% | **301.54 ms** | 307.82 |
+
+Ours25의 cache-hit TTFT는 ReKV-Chunk25보다 50.14% 낮았고, 평균 정확도는
+0.53 pp 낮았다(이미지 단위 bootstrap 95% CI: −1.14~+0.10 pp).
+Persistence를 매 3-turn session에 부과한 standalone-equivalent 평균은
+Ours25 2259.67 ms, ReComp 1668.10 ms였다. 결과와 검증 자료는
+[five-arm generated-history results](results/mt_gqa_5arm_generated_20260923T064333Z/)에 있다.
+이 실험은 재구성한 MT-GQA workload와 SSD에 맞춘 MPIC·ReKV 구현을 사용한다.
