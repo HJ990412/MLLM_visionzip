@@ -56,6 +56,8 @@ What is borrowed, and from where (exact files in
 from __future__ import annotations
 
 import hashlib
+import math
+from numbers import Integral, Real
 
 import torch
 
@@ -352,6 +354,21 @@ def budget_chunk_count(n_chunks, budget):
     not volume.
     """
     return max(1, min(n_chunks, int(round(budget * n_chunks))))
+
+
+def visual_kv_budget_count(n_content: int, ratio: float) -> int:
+    """Ceiling token budget for non-structural Visual KV positions.
+
+    This is separate from the legacy rounded chunk budget. A zero-sized
+    candidate set has a zero budget; serving rejects such an image span.
+    """
+    if isinstance(n_content, bool) or not isinstance(n_content, Integral) \
+            or n_content < 0:
+        raise ValueError("n_content must be a non-negative integer")
+    if isinstance(ratio, bool) or not isinstance(ratio, Real) \
+            or not math.isfinite(ratio) or not 0 <= ratio <= 1:
+        raise ValueError("visual KV ratio must be finite and in [0, 1]")
+    return math.ceil(ratio * n_content)
 
 
 def prefix_chunk_ids(n_chunks, budget):

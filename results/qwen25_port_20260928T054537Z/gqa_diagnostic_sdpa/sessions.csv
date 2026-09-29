@@ -1,0 +1,4 @@
+method,images,request_only_mean_ms,aggregation_unit,session_e2e_mean_ms,image_independent_requests_total_mean_ms,missing_provisioning_or_activation_timing_images,activation_mean_ms,activation_read_bytes_mean,activation_pread_calls_mean,metadata_resident_bytes_mean,activation_timing_policy,validation_status,benchmark_validated,run_mode
+recompute,40,782.8132365131751,six_independent_requests_per_image,,782.8132365131751,0,0.0,0.0,0.0,0.0,not applicable,FAIL,False,diagnostic_numerical_mismatch
+fullload,40,584.6206381393131,six_independent_requests_per_image,,669.4787840999197,0,12.88771911058575,23721296.725,58.0,95307.8,first per-store activation outside TTFT included,FAIL,False,diagnostic_numerical_mismatch
+ours25,40,518.6144437990151,six_independent_requests_per_image,,602.8029150154907,0,13.309141562785953,23721434.5,58.0,95571.8,first per-store activation outside TTFT included,FAIL,False,diagnostic_numerical_mismatch

@@ -1,0 +1,151 @@
+{
+  "analysis": {
+    "different_selected_content_set_images": 1,
+    "new_chunk_comparison_images": {
+      "increase": 1
+    },
+    "paired_hit_quality_new_minus_old": {
+      "bootstrap_resamples": 10000,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "image_clusters": 1,
+      "mean_difference_new_minus_old": 0.0,
+      "seed": 1234
+    },
+    "paired_hit_ttft_ms_new_minus_old": {
+      "bootstrap_resamples": 10000,
+      "ci95": [
+        14.24590377137065,
+        14.24590377137065
+      ],
+      "image_clusters": 1,
+      "mean_difference_new_minus_old": 14.24590377137065,
+      "seed": 1234
+    },
+    "same_selected_content_set_images": 0
+  },
+  "methods": [
+    {
+      "budget_unit": "none",
+      "hit_content_retention_image_mean": null,
+      "hit_content_retention_pooled_tokens": null,
+      "hit_structural_inclusive_retention_image_mean": null,
+      "hit_structural_inclusive_retention_pooled_tokens": null,
+      "hit_ttft_ms": 497.9578253813088,
+      "hits": 5,
+      "method": "ReComp",
+      "method_id": "recompute",
+      "normal_read_mb_per_hit": 0.0,
+      "normal_read_ratio_image_mean": 0.0,
+      "normal_read_ratio_pooled_bytes": 0.0,
+      "quality_all": 0.3333333333333333,
+      "quality_by_turn": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "quality_hit": 0.2,
+      "requests": 6,
+      "total_read_mb_per_hit": 0.0,
+      "total_read_ratio_image_mean": 0.0,
+      "total_read_ratio_pooled_bytes": 0.0,
+      "unused_loaded_real_mb_per_hit": 0.0,
+      "unused_loaded_real_rows_per_hit": 0.0
+    },
+    {
+      "budget_unit": "full_visual_kv",
+      "hit_content_retention_image_mean": 1.0,
+      "hit_content_retention_pooled_tokens": 1.0,
+      "hit_structural_inclusive_retention_image_mean": 1.0,
+      "hit_structural_inclusive_retention_pooled_tokens": 1.0,
+      "hit_ttft_ms": 878.0865085311234,
+      "hits": 5,
+      "method": "FullLoad",
+      "method_id": "fullload",
+      "normal_read_mb_per_hit": 1124.073472,
+      "normal_read_ratio_image_mean": 1.0,
+      "normal_read_ratio_pooled_bytes": 1.0,
+      "quality_all": 0.5,
+      "quality_by_turn": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 0.0,
+        "4": 1.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "quality_hit": 0.4,
+      "requests": 6,
+      "total_read_mb_per_hit": 1124.073472,
+      "total_read_ratio_image_mean": 1.0,
+      "total_read_ratio_pooled_bytes": 1.0,
+      "unused_loaded_real_mb_per_hit": 0.0,
+      "unused_loaded_real_rows_per_hit": 0.0
+    },
+    {
+      "budget_unit": "chunk",
+      "hit_content_retention_image_mean": 0.24242424242424243,
+      "hit_content_retention_pooled_tokens": 0.24242424242424243,
+      "hit_structural_inclusive_retention_image_mean": 0.2537313432835821,
+      "hit_structural_inclusive_retention_pooled_tokens": 0.2537313432835821,
+      "hit_ttft_ms": 298.6408717930317,
+      "hits": 5,
+      "method": "Ours-Chunk25-Legacy",
+      "method_id": "ours_chunk25_legacy",
+      "normal_read_mb_per_hit": 268.435456,
+      "normal_read_ratio_image_mean": 0.2388059701492537,
+      "normal_read_ratio_pooled_bytes": 0.23880597014925373,
+      "quality_all": 0.5,
+      "quality_by_turn": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "quality_hit": 0.4,
+      "requests": 6,
+      "total_read_mb_per_hit": 285.212672,
+      "total_read_ratio_image_mean": 0.2537313432835821,
+      "total_read_ratio_pooled_bytes": 0.2537313432835821,
+      "unused_loaded_real_mb_per_hit": 0.0,
+      "unused_loaded_real_rows_per_hit": 0.0
+    },
+    {
+      "budget_unit": "visual_kv",
+      "hit_content_retention_image_mean": 0.25,
+      "hit_content_retention_pooled_tokens": 0.25,
+      "hit_structural_inclusive_retention_image_mean": 0.26119402985074625,
+      "hit_structural_inclusive_retention_pooled_tokens": 0.26119402985074625,
+      "hit_ttft_ms": 312.88677556440234,
+      "hits": 5,
+      "method": "Ours-KV25-New",
+      "method_id": "ours_kv25",
+      "normal_read_mb_per_hit": 301.989888,
+      "normal_read_ratio_image_mean": 0.26865671641791045,
+      "normal_read_ratio_pooled_bytes": 0.26865671641791045,
+      "quality_all": 0.5,
+      "quality_by_turn": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "quality_hit": 0.4,
+      "requests": 6,
+      "total_read_mb_per_hit": 318.767104,
+      "total_read_ratio_image_mean": 0.2835820895522388,
+      "total_read_ratio_pooled_bytes": 0.2835820895522388,
+      "unused_loaded_real_mb_per_hit": 25.165824,
+      "unused_loaded_real_rows_per_hit": 48.0
+    }
+  ]
+}

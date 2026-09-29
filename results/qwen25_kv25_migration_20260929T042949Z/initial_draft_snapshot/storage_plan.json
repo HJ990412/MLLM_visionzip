@@ -1,0 +1,25 @@
+{
+  "schema_version": "qwen25-kv25-storage-plan-v1",
+  "baseline_environment": "/home/dblab/hj/mllm_v2/runs/qwen25_kv25_migration_20260929T042949Z/environment_before.json",
+  "baseline_protection_manifest_sha256": "13c2ba95cf9047fc8a5f300c6b4e18221cd13d5fd5f0af88767a9d0becbfb0b1",
+  "disk_free_bytes_at_baseline": 144456257536,
+  "read_only_reuse": {
+    "gqa_store_root": "/home/dblab/hj/mllm_v2/runs/qwen25_correctness_v2_20260928T081111Z/gqa_pilot/stores",
+    "gqa_existing_bytes": 1907576832,
+    "mt_store_root": "/home/dblab/hj/mllm_v2/runs/qwen25_correctness_v2_20260928T081111Z/mt_pilot/stores",
+    "mt_existing_bytes": 2017841152,
+    "store_copies_created": 0,
+    "old_new_ours_share_same_existing_repacked_store": true,
+    "fullload_uses_existing_canonical_store": true
+  },
+  "new_output_peak_allowance_bytes": 2147483648,
+  "temporary_file_peak_allowance_bytes": 1073741824,
+  "other_migration_validation_allowance_bytes": 1073741824,
+  "reserved_free_bytes": 32212254720,
+  "minimum_free_before_pilot_bytes": 37580963840,
+  "stop_if_free_below_bytes": 32212254720,
+  "persistence_status": "NOT_REMEASURED",
+  "execution_scope": "CACHE-HIT REEVALUATION; T1 inference measured separately, no new store writes",
+  "cold_start_session_claim": false,
+  "safety_rule": "Never delete, move, compress, or overwrite prior stores/results to create space."
+}

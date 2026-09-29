@@ -1,0 +1,5155 @@
+{
+  "combined_adapter_revision": "9f193bacd446d4a88a662fb77d8789ea22c9e42962ed10a7d2e2986c8127e191",
+  "configuration": {
+    "attention_backend": "sdpa",
+    "budget_ratio": 0.25,
+    "chunk_size": 64,
+    "max_new_tokens": 16,
+    "seed": 1234
+  },
+  "created_utc": "2026-09-28T07:21:34.126617+00:00",
+  "gates": {
+    "capture": {
+      "details": {
+        "additional_prefix_forwards": 0,
+        "cache_hit_vision_calls": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "model_forward_calls": [
+          {
+            "has_pixels": true,
+            "input_length": 394
+          },
+          {
+            "has_pixels": false,
+            "input_length": 1
+          }
+        ],
+        "source_prefill_with_pixels": 1,
+        "source_vision_calls": [
+          1,
+          1,
+          1
+        ]
+      },
+      "duration_seconds": 7.95489177107811e-06,
+      "status": "PASS"
+    },
+    "cpu_score_reference": {
+      "details": {
+        "blocked_query_rows": 2,
+        "frame_boundaries": [
+          0,
+          4,
+          7,
+          11
+        ],
+        "max_abs_score_error": 1.7881393432617188e-07,
+        "window_mapping_equal": true
+      },
+      "duration_seconds": 0.0026668270584195852,
+      "status": "PASS"
+    },
+    "fullload": {
+      "details": {
+        "per_question": [
+          {
+            "question_id": "201751701",
+            "ssd_request": {
+              "actual_kept_ratio": 1.0,
+              "compact_prefix_tokens": 366,
+              "compact_suffix_first_slot": 366,
+              "dense_reference": false,
+              "first_token_id": 2152,
+              "generated_token_count": 2,
+              "generated_token_ids": [
+                2152,
+                151645
+              ],
+              "kept_tokens": 345,
+              "logical_suffix_first_position": [
+                44,
+                44,
+                44
+              ],
+              "metadata_read_bytes": 0,
+              "online_query_score_calls": 0,
+              "padding_rows_read": 39,
+              "peak_gpu_allocated_bytes": 6173824512,
+              "peak_gpu_reserved_bytes": 7956594688,
+              "planning_ms": 0.04147784784436226,
+              "pread_calls": 57,
+              "prediction": "no",
+              "raw_pread_ms": 2.78863194398582,
+              "read_io": {
+                "bytes": 23224320,
+                "ms": 2.78863194398582,
+                "per_kind": {
+                  "structural": {
+                    "bytes": 1204224,
+                    "preads": 1,
+                    "seconds": 0.00014207186177372932,
+                    "spans": 1
+                  },
+                  "visual": {
+                    "bytes": 22020096,
+                    "preads": 56,
+                    "seconds": 0.0026465600822120905,
+                    "spans": 56
+                  }
+                },
+                "preads": 57,
+                "span_details": [
+                  {
+                    "kind": "structural",
+                    "offset": 0,
+                    "requested_bytes": 1204224,
+                    "source": "structural_kv.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_000/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_000/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_001/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_001/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_002/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_002/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_003/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_003/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_004/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_004/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_005/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_005/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_006/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_006/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_007/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_007/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_008/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_008/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_009/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_009/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_010/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_010/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_011/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_011/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_012/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_012/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_013/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_013/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_014/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_014/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_015/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_015/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_016/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_016/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_017/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_017/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_018/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_018/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_019/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_019/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_020/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_020/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_021/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_021/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_022/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_022/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_023/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_023/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_024/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_024/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_025/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_025/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_026/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_026/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_027/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_027/v.bin"
+                  }
+                ],
+                "spans": 57
+              },
+              "read_spans": 57,
+              "request_e2e_ms": 64.07064711675048,
+              "rope_deltas": [
+                [
+                  -322
+                ]
+              ],
+              "selected_chunks": 6,
+              "selector_ms": 0.0,
+              "structural_read_bytes": 1204224,
+              "timing_ms": {
+                "decode": 16.71913987956941,
+                "fixed_first_k_planning": 0.04147784784436226,
+                "h2d_and_assembly": 2.520156092941761,
+                "prompt_preparation": 0.6809569895267487,
+                "raw_pread": 2.78863194398582,
+                "store_load_inclusive": 6.116189993917942,
+                "suffix_prefill": 37.66067512333393
+              },
+              "total_payload_read_ratio": 1.0,
+              "total_visual_tokens": 345,
+              "truncated": false,
+              "ttft_ms": 47.107266960665584,
+              "vision_calls": 0,
+              "visual_payload_read_ratio": 1.0,
+              "visual_read_bytes": 22020096
+            },
+            "ssd_vs_memory": {
+              "first_token_identical": true,
+              "generated_tokens_identical": true,
+              "left_first_token": 2152,
+              "left_prediction": "no",
+              "max_abs_logit_error": 0.0,
+              "max_relative_logit_error": 0.0,
+              "numerically_close": true,
+              "passed": true,
+              "prediction_identical": true,
+              "right_first_token": 2152,
+              "right_prediction": "no"
+            },
+            "ssd_vs_recompute": {
+              "first_token_identical": true,
+              "generated_tokens_identical": true,
+              "left_first_token": 2152,
+              "left_prediction": "no",
+              "max_abs_logit_error": 0.1328125,
+              "max_relative_logit_error": 2.0,
+              "numerically_close": true,
+              "passed": true,
+              "prediction_identical": true,
+              "right_first_token": 2152,
+              "right_prediction": "no"
+            }
+          },
+          {
+            "question_id": "201751740",
+            "ssd_request": {
+              "actual_kept_ratio": 1.0,
+              "compact_prefix_tokens": 366,
+              "compact_suffix_first_slot": 366,
+              "dense_reference": false,
+              "first_token_id": 9693,
+              "generated_token_count": 2,
+              "generated_token_ids": [
+                9693,
+                151645
+              ],
+              "kept_tokens": 345,
+              "logical_suffix_first_position": [
+                44,
+                44,
+                44
+              ],
+              "metadata_read_bytes": 0,
+              "online_query_score_calls": 0,
+              "padding_rows_read": 39,
+              "peak_gpu_allocated_bytes": 6173824512,
+              "peak_gpu_reserved_bytes": 7956594688,
+              "planning_ms": 0.043998006731271744,
+              "pread_calls": 57,
+              "prediction": "yes",
+              "raw_pread_ms": 2.871554112061858,
+              "read_io": {
+                "bytes": 23224320,
+                "ms": 2.871554112061858,
+                "per_kind": {
+                  "structural": {
+                    "bytes": 1204224,
+                    "preads": 1,
+                    "seconds": 0.0001241760328412056,
+                    "spans": 1
+                  },
+                  "visual": {
+                    "bytes": 22020096,
+                    "preads": 56,
+                    "seconds": 0.0027473780792206526,
+                    "spans": 56
+                  }
+                },
+                "preads": 57,
+                "span_details": [
+                  {
+                    "kind": "structural",
+                    "offset": 0,
+                    "requested_bytes": 1204224,
+                    "source": "structural_kv.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_000/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_000/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_001/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_001/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_002/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_002/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_003/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_003/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_004/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_004/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_005/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_005/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_006/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_006/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_007/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_007/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_008/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_008/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_009/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_009/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_010/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_010/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_011/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_011/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_012/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_012/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_013/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_013/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_014/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_014/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_015/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_015/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_016/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_016/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_017/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_017/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_018/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_018/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_019/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_019/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_020/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_020/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_021/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_021/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_022/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_022/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_023/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_023/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_024/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_024/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_025/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_025/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_026/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_026/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_027/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_027/v.bin"
+                  }
+                ],
+                "spans": 57
+              },
+              "read_spans": 57,
+              "request_e2e_ms": 79.01973114348948,
+              "rope_deltas": [
+                [
+                  -322
+                ]
+              ],
+              "selected_chunks": 6,
+              "selector_ms": 0.0,
+              "structural_read_bytes": 1204224,
+              "timing_ms": {
+                "decode": 30.578816076740623,
+                "fixed_first_k_planning": 0.043998006731271744,
+                "h2d_and_assembly": 2.909555099904537,
+                "prompt_preparation": 0.6264389958232641,
+                "raw_pread": 2.871554112061858,
+                "store_load_inclusive": 6.674756994470954,
+                "suffix_prefill": 37.83213114365935
+              },
+              "total_payload_read_ratio": 1.0,
+              "total_visual_tokens": 345,
+              "truncated": false,
+              "ttft_ms": 48.19246311672032,
+              "vision_calls": 0,
+              "visual_payload_read_ratio": 1.0,
+              "visual_read_bytes": 22020096
+            },
+            "ssd_vs_memory": {
+              "first_token_identical": true,
+              "generated_tokens_identical": true,
+              "left_first_token": 9693,
+              "left_prediction": "yes",
+              "max_abs_logit_error": 0.0,
+              "max_relative_logit_error": 0.0,
+              "numerically_close": true,
+              "passed": true,
+              "prediction_identical": true,
+              "right_first_token": 9693,
+              "right_prediction": "yes"
+            },
+            "ssd_vs_recompute": {
+              "first_token_identical": true,
+              "generated_tokens_identical": true,
+              "left_first_token": 9693,
+              "left_prediction": "yes",
+              "max_abs_logit_error": 0.4375,
+              "max_relative_logit_error": 1.9953917264938354,
+              "numerically_close": false,
+              "passed": false,
+              "prediction_identical": true,
+              "right_first_token": 9693,
+              "right_prediction": "yes"
+            }
+          },
+          {
+            "question_id": "201751873",
+            "ssd_request": {
+              "actual_kept_ratio": 1.0,
+              "compact_prefix_tokens": 366,
+              "compact_suffix_first_slot": 366,
+              "dense_reference": false,
+              "first_token_id": 16,
+              "generated_token_count": 4,
+              "generated_token_ids": [
+                16,
+                15,
+                7541,
+                151645
+              ],
+              "kept_tokens": 345,
+              "logical_suffix_first_position": [
+                44,
+                44,
+                44
+              ],
+              "metadata_read_bytes": 0,
+              "online_query_score_calls": 0,
+              "padding_rows_read": 39,
+              "peak_gpu_allocated_bytes": 6172599296,
+              "peak_gpu_reserved_bytes": 7956594688,
+              "planning_ms": 0.04226807504892349,
+              "pread_calls": 57,
+              "prediction": "10 feet",
+              "raw_pread_ms": 2.8702605050057173,
+              "read_io": {
+                "bytes": 23224320,
+                "ms": 2.8702605050057173,
+                "per_kind": {
+                  "structural": {
+                    "bytes": 1204224,
+                    "preads": 1,
+                    "seconds": 0.00012898514978587627,
+                    "spans": 1
+                  },
+                  "visual": {
+                    "bytes": 22020096,
+                    "preads": 56,
+                    "seconds": 0.002741275355219841,
+                    "spans": 56
+                  }
+                },
+                "preads": 57,
+                "span_details": [
+                  {
+                    "kind": "structural",
+                    "offset": 0,
+                    "requested_bytes": 1204224,
+                    "source": "structural_kv.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_000/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_000/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_001/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_001/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_002/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_002/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_003/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_003/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_004/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_004/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_005/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_005/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_006/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_006/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_007/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_007/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_008/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_008/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_009/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_009/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_010/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_010/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_011/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_011/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_012/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_012/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_013/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_013/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_014/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_014/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_015/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_015/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_016/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_016/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_017/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_017/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_018/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_018/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_019/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_019/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_020/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_020/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_021/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_021/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_022/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_022/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_023/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_023/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_024/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_024/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_025/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_025/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_026/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_026/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_027/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 393216,
+                    "source": "layer_027/v.bin"
+                  }
+                ],
+                "spans": 57
+              },
+              "read_spans": 57,
+              "request_e2e_ms": 97.79495396651328,
+              "rope_deltas": [
+                [
+                  -322
+                ]
+              ],
+              "selected_chunks": 6,
+              "selector_ms": 0.0,
+              "structural_read_bytes": 1204224,
+              "timing_ms": {
+                "decode": 49.65708707459271,
+                "fixed_first_k_planning": 0.04226807504892349,
+                "h2d_and_assembly": 3.0040619894862175,
+                "prompt_preparation": 0.5853171460330486,
+                "raw_pread": 2.8702605050057173,
+                "store_load_inclusive": 6.418716860935092,
+                "suffix_prefill": 37.740878062322736
+              },
+              "total_payload_read_ratio": 1.0,
+              "total_visual_tokens": 345,
+              "truncated": false,
+              "ttft_ms": 47.89399798028171,
+              "vision_calls": 0,
+              "visual_payload_read_ratio": 1.0,
+              "visual_read_bytes": 22020096
+            },
+            "ssd_vs_memory": {
+              "first_token_identical": true,
+              "generated_tokens_identical": true,
+              "left_first_token": 16,
+              "left_prediction": "10 feet",
+              "max_abs_logit_error": 0.0,
+              "max_relative_logit_error": 0.0,
+              "numerically_close": true,
+              "passed": true,
+              "prediction_identical": true,
+              "right_first_token": 16,
+              "right_prediction": "10 feet"
+            },
+            "ssd_vs_recompute": {
+              "first_token_identical": true,
+              "generated_tokens_identical": true,
+              "left_first_token": 16,
+              "left_prediction": "10 feet",
+              "max_abs_logit_error": 0.4375,
+              "max_relative_logit_error": 2.0,
+              "numerically_close": false,
+              "passed": false,
+              "prediction_identical": true,
+              "right_first_token": 16,
+              "right_prediction": "10 feet"
+            }
+          }
+        ]
+      },
+      "duration_seconds": 0.4808235098607838,
+      "status": "FAIL"
+    },
+    "geometry": {
+      "details": {
+        "per_question": [
+          {
+            "checks": {
+              "decoder_layers": true,
+              "expanded_image": true,
+              "merger": true,
+              "native_cache": true,
+              "patches": true,
+              "prefix_boundary": true,
+              "scores": true,
+              "visual_kv_rows": true
+            },
+            "geometry": {
+              "expanded_image_tokens": 345,
+              "image_grid_thw": [
+                [
+                  1,
+                  30,
+                  46
+                ]
+              ],
+              "merger_tokens": 345,
+              "pre_merger_patches": 1380,
+              "prefix_len": 366,
+              "resized_hw": [
+                420,
+                644
+              ],
+              "vision_end_index": 365,
+              "vision_start_index": 19,
+              "visual_count": 345,
+              "visual_kv_rows": 345,
+              "visual_start": 20
+            },
+            "native_kv_shape": [
+              1,
+              4,
+              366,
+              128
+            ],
+            "score_count": 345
+          },
+          {
+            "checks": {
+              "decoder_layers": true,
+              "expanded_image": true,
+              "merger": true,
+              "native_cache": true,
+              "patches": true,
+              "prefix_boundary": true,
+              "scores": true,
+              "visual_kv_rows": true
+            },
+            "geometry": {
+              "expanded_image_tokens": 345,
+              "image_grid_thw": [
+                [
+                  1,
+                  30,
+                  46
+                ]
+              ],
+              "merger_tokens": 345,
+              "pre_merger_patches": 1380,
+              "prefix_len": 366,
+              "resized_hw": [
+                420,
+                644
+              ],
+              "vision_end_index": 365,
+              "vision_start_index": 19,
+              "visual_count": 345,
+              "visual_kv_rows": 345,
+              "visual_start": 20
+            },
+            "native_kv_shape": [
+              1,
+              4,
+              366,
+              128
+            ],
+            "score_count": 345
+          },
+          {
+            "checks": {
+              "decoder_layers": true,
+              "expanded_image": true,
+              "merger": true,
+              "native_cache": true,
+              "patches": true,
+              "prefix_boundary": true,
+              "scores": true,
+              "visual_kv_rows": true
+            },
+            "geometry": {
+              "expanded_image_tokens": 345,
+              "image_grid_thw": [
+                [
+                  1,
+                  30,
+                  46
+                ]
+              ],
+              "merger_tokens": 345,
+              "pre_merger_patches": 1380,
+              "prefix_len": 366,
+              "resized_hw": [
+                420,
+                644
+              ],
+              "vision_end_index": 365,
+              "vision_start_index": 19,
+              "visual_count": 345,
+              "visual_kv_rows": 345,
+              "visual_start": 20
+            },
+            "native_kv_shape": [
+              1,
+              4,
+              366,
+              128
+            ],
+            "score_count": 345
+          }
+        ]
+      },
+      "duration_seconds": 6.395205855369568e-05,
+      "status": "PASS"
+    },
+    "gpu_score_reference": {
+      "details": {
+        "blocked_score_count": 345,
+        "dense_score_count": 345,
+        "max_abs_score_error": 9.5367431640625e-07,
+        "mean_abs_score_error": 4.036271050722462e-08,
+        "numerically_close": true,
+        "stable_permutation_identical": true
+      },
+      "duration_seconds": 0.0015896339900791645,
+      "status": "PASS"
+    },
+    "history": {
+      "details": {
+        "gold_answers_used_as_history": false,
+        "per_method": [
+          {
+            "expected_vision_calls": true,
+            "method": "recompute",
+            "t1_generated_answer": "no",
+            "t2_generated_answer": "no",
+            "t2_generated_token_count": 2,
+            "t3_assistant_history": [
+              "no",
+              "no"
+            ],
+            "t3_generated_answer": "large",
+            "t3_generated_token_count": 2,
+            "uses_own_generated_answers": true
+          },
+          {
+            "expected_vision_calls": true,
+            "method": "fullload",
+            "t1_generated_answer": "no",
+            "t2_generated_answer": "no",
+            "t2_generated_token_count": 2,
+            "t3_assistant_history": [
+              "no",
+              "no"
+            ],
+            "t3_generated_answer": "large",
+            "t3_generated_token_count": 2,
+            "uses_own_generated_answers": true
+          },
+          {
+            "expected_vision_calls": true,
+            "method": "ours25",
+            "t1_generated_answer": "no",
+            "t2_generated_answer": "no",
+            "t2_generated_token_count": 2,
+            "t3_assistant_history": [
+              "no",
+              "no"
+            ],
+            "t3_generated_answer": "small",
+            "t3_generated_token_count": 2,
+            "uses_own_generated_answers": true
+          }
+        ]
+      },
+      "duration_seconds": 0.5135583579540253,
+      "status": "PASS"
+    },
+    "io": {
+      "details": {
+        "activation_reads_separate_from_hit": true,
+        "fullload": {
+          "expected_visual_bytes": 22020096,
+          "no_unselected_visual_payload": true,
+          "passed": true,
+          "pread_calls": 57,
+          "returned_metadata_bytes": 0,
+          "returned_structural_bytes": 1204224,
+          "returned_visual_bytes": 22020096,
+          "selected_chunks": 6,
+          "span_details": [
+            {
+              "kind": "structural",
+              "offset": 0,
+              "requested_bytes": 1204224,
+              "source": "structural_kv.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_000/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_000/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_001/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_001/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_002/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_002/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_003/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_003/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_004/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_004/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_005/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_005/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_006/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_006/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_007/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_007/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_008/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_008/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_009/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_009/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_010/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_010/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_011/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_011/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_012/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_012/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_013/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_013/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_014/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_014/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_015/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_015/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_016/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_016/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_017/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_017/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_018/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_018/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_019/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_019/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_020/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_020/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_021/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_021/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_022/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_022/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_023/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_023/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_024/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_024/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_025/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_025/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_026/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_026/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_027/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 393216,
+              "source": "layer_027/v.bin"
+            }
+          ],
+          "spans": 57,
+          "structural_spans": 1,
+          "total_chunks": 6,
+          "visual_spans": 56
+        },
+        "ours25": {
+          "expected_visual_bytes": 7340032,
+          "no_unselected_visual_payload": true,
+          "passed": true,
+          "pread_calls": 57,
+          "returned_metadata_bytes": 0,
+          "returned_structural_bytes": 1204224,
+          "returned_visual_bytes": 7340032,
+          "selected_chunks": 2,
+          "span_details": [
+            {
+              "kind": "structural",
+              "offset": 0,
+              "requested_bytes": 1204224,
+              "source": "structural_kv.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_000/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_000/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_001/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_001/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_002/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_002/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_003/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_003/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_004/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_004/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_005/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_005/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_006/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_006/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_007/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_007/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_008/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_008/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_009/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_009/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_010/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_010/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_011/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_011/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_012/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_012/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_013/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_013/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_014/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_014/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_015/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_015/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_016/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_016/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_017/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_017/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_018/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_018/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_019/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_019/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_020/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_020/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_021/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_021/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_022/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_022/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_023/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_023/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_024/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_024/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_025/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_025/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_026/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_026/v.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_027/k.bin"
+            },
+            {
+              "kind": "visual",
+              "offset": 0,
+              "requested_bytes": 131072,
+              "source": "layer_027/v.bin"
+            }
+          ],
+          "spans": 57,
+          "structural_spans": 1,
+          "total_chunks": 6,
+          "visual_spans": 56
+        }
+      },
+      "duration_seconds": 3.6539044231176376e-05,
+      "status": "PASS"
+    },
+    "persistence": {
+      "details": {
+        "canonical": {
+          "persistence_ms": 86.13997814245522,
+          "store_dir": "/home/dblab/hj/mllm_v2/runs/qwen25_correctness_debug_20260928T070425Z/full_validation_sdpa_unchanged/canonical_store",
+          "timing_ms": {
+            "fsync_ms": 31.95216227322817,
+            "kv_materialize_ms": 8.911822224035859,
+            "kv_repack_ms": 0.0,
+            "permutation_ms": 0.6228929851204157,
+            "ssd_write_ms": 9.277285542339087,
+            "total_persistence_ms": 65.35736890509725
+          }
+        },
+        "combined_adapter_revision": "9f193bacd446d4a88a662fb77d8789ea22c9e42962ed10a7d2e2986c8127e191",
+        "repacked": {
+          "persistence_ms": 92.66301221214235,
+          "store_dir": "/home/dblab/hj/mllm_v2/runs/qwen25_correctness_debug_20260928T070425Z/full_validation_sdpa_unchanged/repacked_store",
+          "timing_ms": {
+            "fsync_ms": 31.181582482531667,
+            "kv_materialize_ms": 13.998894952237606,
+            "kv_repack_ms": 1.074476633220911,
+            "permutation_ms": 1.2386329472064972,
+            "ssd_write_ms": 10.225515579804778,
+            "total_persistence_ms": 72.49624491669238
+          }
+        },
+        "source_revision_matches_store": true,
+        "store_code_revision": "9f193bacd446d4a88a662fb77d8789ea22c9e42962ed10a7d2e2986c8127e191",
+        "store_environment_revision": "54294cdabd3552e39ac12393e293453f8fb87b9506f5e1ebc07c2265e001bb3c"
+      },
+      "duration_seconds": 0.13861602591350675,
+      "status": "PASS"
+    },
+    "prefix25": {
+      "details": {
+        "per_question": [
+          {
+            "compact_request": {
+              "actual_kept_ratio": 0.3710144927536232,
+              "compact_prefix_tokens": 149,
+              "compact_suffix_first_slot": 149,
+              "dense_reference": false,
+              "first_token_id": 2152,
+              "generated_token_count": 2,
+              "generated_token_ids": [
+                2152,
+                151645
+              ],
+              "kept_tokens": 128,
+              "logical_suffix_first_position": [
+                44,
+                44,
+                44
+              ],
+              "metadata_read_bytes": 0,
+              "online_query_score_calls": 0,
+              "padding_rows_read": 0,
+              "peak_gpu_allocated_bytes": 6161371136,
+              "peak_gpu_reserved_bytes": 7958691840,
+              "planning_ms": 0.03036903217434883,
+              "pread_calls": 57,
+              "prediction": "no",
+              "raw_pread_ms": 0.7235903758555651,
+              "read_io": {
+                "bytes": 8544256,
+                "ms": 0.7235903758555651,
+                "per_kind": {
+                  "structural": {
+                    "bytes": 1204224,
+                    "preads": 1,
+                    "seconds": 0.00011607701890170574,
+                    "spans": 1
+                  },
+                  "visual": {
+                    "bytes": 7340032,
+                    "preads": 56,
+                    "seconds": 0.0006075133569538593,
+                    "spans": 56
+                  }
+                },
+                "preads": 57,
+                "span_details": [
+                  {
+                    "kind": "structural",
+                    "offset": 0,
+                    "requested_bytes": 1204224,
+                    "source": "structural_kv.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_000/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_000/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_001/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_001/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_002/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_002/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_003/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_003/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_004/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_004/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_005/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_005/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_006/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_006/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_007/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_007/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_008/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_008/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_009/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_009/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_010/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_010/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_011/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_011/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_012/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_012/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_013/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_013/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_014/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_014/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_015/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_015/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_016/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_016/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_017/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_017/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_018/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_018/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_019/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_019/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_020/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_020/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_021/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_021/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_022/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_022/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_023/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_023/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_024/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_024/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_025/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_025/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_026/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_026/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_027/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_027/v.bin"
+                  }
+                ],
+                "spans": 57
+              },
+              "read_spans": 57,
+              "request_e2e_ms": 61.42274593003094,
+              "rope_deltas": [
+                [
+                  -322
+                ]
+              ],
+              "selected_chunks": 2,
+              "selector_ms": 0.0,
+              "structural_read_bytes": 1204224,
+              "timing_ms": {
+                "decode": 18.58493685722351,
+                "fixed_first_k_planning": 0.03036903217434883,
+                "h2d_and_assembly": 1.728039002045989,
+                "prompt_preparation": 0.6452109664678574,
+                "raw_pread": 0.7235903758555651,
+                "store_load_inclusive": 2.925415989011526,
+                "suffix_prefill": 37.214277079328895
+              },
+              "total_payload_read_ratio": 0.36790123456790125,
+              "total_visual_tokens": 345,
+              "truncated": false,
+              "ttft_ms": 42.61916899122298,
+              "vision_calls": 0,
+              "visual_payload_read_ratio": 0.3333333333333333,
+              "visual_read_bytes": 7340032
+            },
+            "compact_suffix_slot": 149,
+            "dense_and_compact_cache_slots_correct": true,
+            "dense_suffix_slot": 366,
+            "dense_vs_compact": {
+              "first_token_identical": true,
+              "generated_tokens_identical": true,
+              "left_first_token": 2152,
+              "left_prediction": "no",
+              "max_abs_logit_error": 0.125,
+              "max_relative_logit_error": 1.99609375,
+              "numerically_close": true,
+              "passed": true,
+              "prediction_identical": true,
+              "right_first_token": 2152,
+              "right_prediction": "no"
+            },
+            "logical_suffix_position": [
+              44,
+              44,
+              44
+            ],
+            "question_id": "201751701",
+            "same_full_logical_suffix_positions": true,
+            "same_selected_visual_set": true,
+            "selected_visual_original": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              7,
+              11,
+              15,
+              20,
+              21,
+              22,
+              23,
+              24,
+              26,
+              27,
+              36,
+              43,
+              46,
+              49,
+              53,
+              55,
+              57,
+              59,
+              61,
+              63,
+              64,
+              65,
+              67,
+              68,
+              69,
+              70,
+              72,
+              73,
+              75,
+              76,
+              78,
+              79,
+              82,
+              83,
+              87,
+              88,
+              91,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100,
+              101,
+              102,
+              103,
+              106,
+              107,
+              110,
+              111,
+              112,
+              114,
+              122,
+              123,
+              126,
+              129,
+              130,
+              132,
+              135,
+              136,
+              137,
+              141,
+              142,
+              143,
+              145,
+              155,
+              176,
+              183,
+              184,
+              186,
+              187,
+              193,
+              195,
+              196,
+              197,
+              198,
+              199,
+              200,
+              202,
+              205,
+              206,
+              207,
+              213,
+              219,
+              220,
+              221,
+              222,
+              225,
+              226,
+              228,
+              240,
+              241,
+              243,
+              244,
+              245,
+              246,
+              247,
+              253,
+              266,
+              272,
+              275,
+              276,
+              277,
+              278,
+              282,
+              283,
+              285,
+              286,
+              289,
+              290,
+              293,
+              294,
+              296,
+              302,
+              314,
+              319,
+              324,
+              325,
+              335,
+              338,
+              339,
+              344
+            ]
+          },
+          {
+            "compact_request": {
+              "actual_kept_ratio": 0.3710144927536232,
+              "compact_prefix_tokens": 149,
+              "compact_suffix_first_slot": 149,
+              "dense_reference": false,
+              "first_token_id": 9693,
+              "generated_token_count": 2,
+              "generated_token_ids": [
+                9693,
+                151645
+              ],
+              "kept_tokens": 128,
+              "logical_suffix_first_position": [
+                44,
+                44,
+                44
+              ],
+              "metadata_read_bytes": 0,
+              "online_query_score_calls": 0,
+              "padding_rows_read": 0,
+              "peak_gpu_allocated_bytes": 6161371136,
+              "peak_gpu_reserved_bytes": 7958691840,
+              "planning_ms": 0.03286218270659447,
+              "pread_calls": 57,
+              "prediction": "yes",
+              "raw_pread_ms": 0.7239470724016428,
+              "read_io": {
+                "bytes": 8544256,
+                "ms": 0.7239470724016428,
+                "per_kind": {
+                  "structural": {
+                    "bytes": 1204224,
+                    "preads": 1,
+                    "seconds": 0.0001005060039460659,
+                    "spans": 1
+                  },
+                  "visual": {
+                    "bytes": 7340032,
+                    "preads": 56,
+                    "seconds": 0.0006234410684555769,
+                    "spans": 56
+                  }
+                },
+                "preads": 57,
+                "span_details": [
+                  {
+                    "kind": "structural",
+                    "offset": 0,
+                    "requested_bytes": 1204224,
+                    "source": "structural_kv.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_000/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_000/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_001/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_001/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_002/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_002/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_003/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_003/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_004/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_004/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_005/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_005/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_006/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_006/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_007/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_007/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_008/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_008/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_009/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_009/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_010/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_010/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_011/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_011/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_012/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_012/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_013/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_013/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_014/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_014/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_015/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_015/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_016/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_016/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_017/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_017/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_018/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_018/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_019/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_019/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_020/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_020/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_021/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_021/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_022/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_022/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_023/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_023/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_024/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_024/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_025/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_025/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_026/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_026/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_027/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_027/v.bin"
+                  }
+                ],
+                "spans": 57
+              },
+              "read_spans": 57,
+              "request_e2e_ms": 58.57709003612399,
+              "rope_deltas": [
+                [
+                  -322
+                ]
+              ],
+              "selected_chunks": 2,
+              "selector_ms": 0.0,
+              "structural_read_bytes": 1204224,
+              "timing_ms": {
+                "decode": 15.795283950865269,
+                "fixed_first_k_planning": 0.03286218270659447,
+                "h2d_and_assembly": 1.7062160186469555,
+                "prompt_preparation": 0.6102679762989283,
+                "raw_pread": 0.7239470724016428,
+                "store_load_inclusive": 2.953074872493744,
+                "suffix_prefill": 37.202175008133054
+              },
+              "total_payload_read_ratio": 0.36790123456790125,
+              "total_visual_tokens": 345,
+              "truncated": false,
+              "ttft_ms": 42.579707922413945,
+              "vision_calls": 0,
+              "visual_payload_read_ratio": 0.3333333333333333,
+              "visual_read_bytes": 7340032
+            },
+            "compact_suffix_slot": 149,
+            "dense_and_compact_cache_slots_correct": true,
+            "dense_suffix_slot": 366,
+            "dense_vs_compact": {
+              "first_token_identical": true,
+              "generated_tokens_identical": true,
+              "left_first_token": 9693,
+              "left_prediction": "yes",
+              "max_abs_logit_error": 0.15625,
+              "max_relative_logit_error": 1.9960159063339233,
+              "numerically_close": false,
+              "passed": false,
+              "prediction_identical": true,
+              "right_first_token": 9693,
+              "right_prediction": "yes"
+            },
+            "logical_suffix_position": [
+              44,
+              44,
+              44
+            ],
+            "question_id": "201751740",
+            "same_full_logical_suffix_positions": true,
+            "same_selected_visual_set": true,
+            "selected_visual_original": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              7,
+              11,
+              15,
+              20,
+              21,
+              22,
+              23,
+              24,
+              26,
+              27,
+              36,
+              43,
+              46,
+              49,
+              53,
+              55,
+              57,
+              59,
+              61,
+              63,
+              64,
+              65,
+              67,
+              68,
+              69,
+              70,
+              72,
+              73,
+              75,
+              76,
+              78,
+              79,
+              82,
+              83,
+              87,
+              88,
+              91,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100,
+              101,
+              102,
+              103,
+              106,
+              107,
+              110,
+              111,
+              112,
+              114,
+              122,
+              123,
+              126,
+              129,
+              130,
+              132,
+              135,
+              136,
+              137,
+              141,
+              142,
+              143,
+              145,
+              155,
+              176,
+              183,
+              184,
+              186,
+              187,
+              193,
+              195,
+              196,
+              197,
+              198,
+              199,
+              200,
+              202,
+              205,
+              206,
+              207,
+              213,
+              219,
+              220,
+              221,
+              222,
+              225,
+              226,
+              228,
+              240,
+              241,
+              243,
+              244,
+              245,
+              246,
+              247,
+              253,
+              266,
+              272,
+              275,
+              276,
+              277,
+              278,
+              282,
+              283,
+              285,
+              286,
+              289,
+              290,
+              293,
+              294,
+              296,
+              302,
+              314,
+              319,
+              324,
+              325,
+              335,
+              338,
+              339,
+              344
+            ]
+          },
+          {
+            "compact_request": {
+              "actual_kept_ratio": 0.3710144927536232,
+              "compact_prefix_tokens": 149,
+              "compact_suffix_first_slot": 149,
+              "dense_reference": false,
+              "first_token_id": 9004,
+              "generated_token_count": 2,
+              "generated_token_ids": [
+                9004,
+                151645
+              ],
+              "kept_tokens": 128,
+              "logical_suffix_first_position": [
+                44,
+                44,
+                44
+              ],
+              "metadata_read_bytes": 0,
+              "online_query_score_calls": 0,
+              "padding_rows_read": 0,
+              "peak_gpu_allocated_bytes": 6160147456,
+              "peak_gpu_reserved_bytes": 7958691840,
+              "planning_ms": 0.028596026822924614,
+              "pread_calls": 57,
+              "prediction": "small",
+              "raw_pread_ms": 0.6699173245579004,
+              "read_io": {
+                "bytes": 8544256,
+                "ms": 0.6699173245579004,
+                "per_kind": {
+                  "structural": {
+                    "bytes": 1204224,
+                    "preads": 1,
+                    "seconds": 0.00011399597860872746,
+                    "spans": 1
+                  },
+                  "visual": {
+                    "bytes": 7340032,
+                    "preads": 56,
+                    "seconds": 0.000555921345949173,
+                    "spans": 56
+                  }
+                },
+                "preads": 57,
+                "span_details": [
+                  {
+                    "kind": "structural",
+                    "offset": 0,
+                    "requested_bytes": 1204224,
+                    "source": "structural_kv.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_000/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_000/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_001/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_001/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_002/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_002/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_003/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_003/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_004/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_004/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_005/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_005/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_006/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_006/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_007/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_007/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_008/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_008/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_009/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_009/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_010/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_010/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_011/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_011/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_012/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_012/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_013/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_013/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_014/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_014/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_015/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_015/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_016/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_016/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_017/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_017/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_018/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_018/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_019/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_019/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_020/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_020/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_021/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_021/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_022/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_022/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_023/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_023/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_024/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_024/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_025/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_025/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_026/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_026/v.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_027/k.bin"
+                  },
+                  {
+                    "kind": "visual",
+                    "offset": 0,
+                    "requested_bytes": 131072,
+                    "source": "layer_027/v.bin"
+                  }
+                ],
+                "spans": 57
+              },
+              "read_spans": 57,
+              "request_e2e_ms": 57.52158910036087,
+              "rope_deltas": [
+                [
+                  -322
+                ]
+              ],
+              "selected_chunks": 2,
+              "selector_ms": 0.0,
+              "structural_read_bytes": 1204224,
+              "timing_ms": {
+                "decode": 15.768895857036114,
+                "fixed_first_k_planning": 0.028596026822924614,
+                "h2d_and_assembly": 1.4513309579342604,
+                "prompt_preparation": 0.5772961303591728,
+                "raw_pread": 0.6699173245579004,
+                "store_load_inclusive": 2.5371110532432795,
+                "suffix_prefill": 36.85570298694074
+              },
+              "total_payload_read_ratio": 0.36790123456790125,
+              "total_visual_tokens": 345,
+              "truncated": false,
+              "ttft_ms": 41.518277022987604,
+              "vision_calls": 0,
+              "visual_payload_read_ratio": 0.3333333333333333,
+              "visual_read_bytes": 7340032
+            },
+            "compact_suffix_slot": 149,
+            "dense_and_compact_cache_slots_correct": true,
+            "dense_suffix_slot": 366,
+            "dense_vs_compact": {
+              "first_token_identical": true,
+              "generated_tokens_identical": true,
+              "left_first_token": 9004,
+              "left_prediction": "small",
+              "max_abs_logit_error": 0.3125,
+              "max_relative_logit_error": 2.0,
+              "numerically_close": false,
+              "passed": false,
+              "prediction_identical": true,
+              "right_first_token": 9004,
+              "right_prediction": "small"
+            },
+            "logical_suffix_position": [
+              44,
+              44,
+              44
+            ],
+            "question_id": "201751873",
+            "same_full_logical_suffix_positions": true,
+            "same_selected_visual_set": true,
+            "selected_visual_original": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              7,
+              11,
+              15,
+              20,
+              21,
+              22,
+              23,
+              24,
+              26,
+              27,
+              36,
+              43,
+              46,
+              49,
+              53,
+              55,
+              57,
+              59,
+              61,
+              63,
+              64,
+              65,
+              67,
+              68,
+              69,
+              70,
+              72,
+              73,
+              75,
+              76,
+              78,
+              79,
+              82,
+              83,
+              87,
+              88,
+              91,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100,
+              101,
+              102,
+              103,
+              106,
+              107,
+              110,
+              111,
+              112,
+              114,
+              122,
+              123,
+              126,
+              129,
+              130,
+              132,
+              135,
+              136,
+              137,
+              141,
+              142,
+              143,
+              145,
+              155,
+              176,
+              183,
+              184,
+              186,
+              187,
+              193,
+              195,
+              196,
+              197,
+              198,
+              199,
+              200,
+              202,
+              205,
+              206,
+              207,
+              213,
+              219,
+              220,
+              221,
+              222,
+              225,
+              226,
+              228,
+              240,
+              241,
+              243,
+              244,
+              245,
+              246,
+              247,
+              253,
+              266,
+              272,
+              275,
+              276,
+              277,
+              278,
+              282,
+              283,
+              285,
+              286,
+              289,
+              290,
+              293,
+              294,
+              296,
+              302,
+              314,
+              319,
+              324,
+              325,
+              335,
+              338,
+              339,
+              344
+            ]
+          }
+        ]
+      },
+      "duration_seconds": 0.37480697105638683,
+      "status": "FAIL"
+    },
+    "query_independence": {
+      "details": {
+        "causal_isolation": "captured prefix KV is bitwise identical across three suffix questions",
+        "prefix_ids_equal": [
+          true,
+          true
+        ],
+        "prefix_kv_bitwise_equal": [
+          {
+            "equal": true,
+            "mismatch_entry_count": 0,
+            "mismatches": []
+          },
+          {
+            "equal": true,
+            "mismatch_entry_count": 0,
+            "mismatches": []
+          }
+        ],
+        "prefix_logical_positions_equal": [
+          true,
+          true
+        ],
+        "score_bitwise_equal": [
+          true,
+          true
+        ],
+        "stable_permutation_identical": [
+          true,
+          true
+        ]
+      },
+      "duration_seconds": 0.019141777884215117,
+      "status": "PASS"
+    },
+    "repacked_full100": {
+      "details": {
+        "per_question": [
+          {
+            "question_id": "201751701",
+            "vision_calls": 0,
+            "vs_canonical": {
+              "first_token_identical": true,
+              "generated_tokens_identical": true,
+              "left_first_token": 2152,
+              "left_prediction": "no",
+              "max_abs_logit_error": 0.0,
+              "max_relative_logit_error": 0.0,
+              "numerically_close": true,
+              "passed": true,
+              "prediction_identical": true,
+              "right_first_token": 2152,
+              "right_prediction": "no"
+            }
+          },
+          {
+            "question_id": "201751740",
+            "vision_calls": 0,
+            "vs_canonical": {
+              "first_token_identical": true,
+              "generated_tokens_identical": true,
+              "left_first_token": 9693,
+              "left_prediction": "yes",
+              "max_abs_logit_error": 0.0,
+              "max_relative_logit_error": 0.0,
+              "numerically_close": true,
+              "passed": true,
+              "prediction_identical": true,
+              "right_first_token": 9693,
+              "right_prediction": "yes"
+            }
+          },
+          {
+            "question_id": "201751873",
+            "vision_calls": 0,
+            "vs_canonical": {
+              "first_token_identical": true,
+              "generated_tokens_identical": true,
+              "left_first_token": 16,
+              "left_prediction": "10 feet",
+              "max_abs_logit_error": 0.0,
+              "max_relative_logit_error": 0.0,
+              "numerically_close": true,
+              "passed": true,
+              "prediction_identical": true,
+              "right_first_token": 16,
+              "right_prediction": "10 feet"
+            }
+          }
+        ]
+      },
+      "duration_seconds": 0.3145434509497136,
+      "status": "PASS"
+    },
+    "request_isolation": {
+      "details": {
+        "mutated_image_sha256": "72d444e44c1c46f98726a9c5f964007c6ad125c1869d2ff5af6b2f33fdef58c4",
+        "mutated_image_vision_calls": 1,
+        "rejection": "cache identity mismatch for image_sha256",
+        "repeat_original_vision_calls": 0,
+        "repeat_vs_pre_switch": {
+          "first_token_identical": true,
+          "generated_tokens_identical": true,
+          "left_first_token": 9693,
+          "left_prediction": "yes",
+          "max_abs_logit_error": 0.0,
+          "max_relative_logit_error": 0.0,
+          "numerically_close": true,
+          "passed": true,
+          "prediction_identical": true,
+          "right_first_token": 9693,
+          "right_prediction": "yes"
+        },
+        "rope_deltas_cleared": true,
+        "wrong_image_identity_rejected": true
+      },
+      "duration_seconds": 0.1860197780188173,
+      "status": "PASS"
+    },
+    "roundtrip": {
+      "details": {
+        "canonical_activation": {
+          "activation_io": {
+            "bytes": 23262249,
+            "ms": 3.2629540655761957,
+            "per_kind": {
+              "activation_structural": {
+                "bytes": 1204224,
+                "preads": 1,
+                "seconds": 0.00013290997594594955,
+                "spans": 1
+              },
+              "activation_visual": {
+                "bytes": 22020096,
+                "preads": 56,
+                "seconds": 0.003116338048130274,
+                "spans": 56
+              },
+              "metadata": {
+                "bytes": 37929,
+                "preads": 1,
+                "seconds": 1.3706041499972343e-05,
+                "spans": 1
+              }
+            },
+            "preads": 58,
+            "span_details": [
+              {
+                "kind": "metadata",
+                "offset": 0,
+                "requested_bytes": 37929,
+                "source": "meta.json"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_000/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_000/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_001/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_001/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_002/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_002/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_003/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_003/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_004/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_004/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_005/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_005/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_006/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_006/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_007/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_007/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_008/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_008/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_009/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_009/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_010/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_010/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_011/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_011/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_012/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_012/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_013/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_013/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_014/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_014/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_015/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_015/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_016/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_016/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_017/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_017/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_018/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_018/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_019/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_019/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_020/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_020/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_021/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_021/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_022/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_022/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_023/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_023/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_024/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_024/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_025/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_025/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_026/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_026/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_027/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_027/v.bin"
+              },
+              {
+                "kind": "activation_structural",
+                "offset": 0,
+                "requested_bytes": 1204224,
+                "source": "structural_kv.bin"
+              }
+            ],
+            "spans": 58
+          },
+          "activation_ms": 14.883863041177392,
+          "metadata_resident_bytes": 94695
+        },
+        "canonical_all_prefix_positions": true,
+        "canonical_bf16_bitwise": {
+          "equal": true,
+          "mismatch_entry_count": 0,
+          "mismatches": []
+        },
+        "canonical_physical_file_hashes": {
+          "checked_visual_files": 56,
+          "equal": true,
+          "mismatched_files": []
+        },
+        "dtype": "bfloat16",
+        "inverse_mapping_identical": true,
+        "native_kv_heads": 4,
+        "repacked_activation": {
+          "activation_io": {
+            "bytes": 23262387,
+            "ms": 2.020325744524598,
+            "per_kind": {
+              "activation_structural": {
+                "bytes": 1204224,
+                "preads": 1,
+                "seconds": 0.00011802301742136478,
+                "spans": 1
+              },
+              "activation_visual": {
+                "bytes": 22020096,
+                "preads": 56,
+                "seconds": 0.0018929815851151943,
+                "spans": 56
+              },
+              "metadata": {
+                "bytes": 38067,
+                "preads": 1,
+                "seconds": 9.321141988039017e-06,
+                "spans": 1
+              }
+            },
+            "preads": 58,
+            "span_details": [
+              {
+                "kind": "metadata",
+                "offset": 0,
+                "requested_bytes": 38067,
+                "source": "meta.json"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_000/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_000/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_001/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_001/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_002/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_002/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_003/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_003/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_004/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_004/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_005/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_005/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_006/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_006/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_007/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_007/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_008/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_008/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_009/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_009/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_010/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_010/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_011/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_011/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_012/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_012/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_013/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_013/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_014/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_014/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_015/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_015/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_016/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_016/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_017/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_017/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_018/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_018/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_019/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_019/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_020/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_020/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_021/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_021/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_022/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_022/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_023/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_023/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_024/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_024/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_025/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_025/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_026/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_026/v.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_027/k.bin"
+              },
+              {
+                "kind": "activation_visual",
+                "offset": 0,
+                "requested_bytes": 393216,
+                "source": "layer_027/v.bin"
+              },
+              {
+                "kind": "activation_structural",
+                "offset": 0,
+                "requested_bytes": 1204224,
+                "source": "structural_kv.bin"
+              }
+            ],
+            "spans": 58
+          },
+          "activation_ms": 12.720401166006923,
+          "metadata_resident_bytes": 94959
+        },
+        "repacked_all_prefix_positions": true,
+        "repacked_inverse_bf16_bitwise": {
+          "equal": true,
+          "mismatch_entry_count": 0,
+          "mismatches": []
+        },
+        "repacked_physical_file_hashes": {
+          "checked_visual_files": 56,
+          "equal": true,
+          "mismatched_files": []
+        },
+        "stable_order_identical": true
+      },
+      "duration_seconds": 0.08946884609758854,
+      "status": "PASS"
+    },
+    "runtime_load": {
+      "details": {
+        "cuda_name": "NVIDIA GeForce RTX 4090",
+        "cuda_total_memory_bytes": 25391333376,
+        "installed_modeling_path": "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py",
+        "installed_modeling_sha256": "f5051523300145f66de080765c06bd8080350c15692c096d2c38e73fe9d03099",
+        "runtime": {
+          "attention_backend": "sdpa",
+          "bitsandbytes": "0.49.2",
+          "checkpoint_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+          "decoder_layers": 28,
+          "decoding": "greedy",
+          "eos_token_ids": [
+            151643,
+            151645
+          ],
+          "gpu_name": "NVIDIA GeForce RTX 4090",
+          "gpu_total_bytes": 25391333376,
+          "head_dim": 128,
+          "hf_device_map": {
+            "": "cuda:0"
+          },
+          "kv_heads": 4,
+          "max_new_tokens": 16,
+          "model_id": "Qwen/Qwen2.5-VL-7B-Instruct",
+          "processor_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+          "processor_settings": {
+            "max_pixels": 802816,
+            "min_pixels": 200704,
+            "processor_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+            "use_fast": true
+          },
+          "quantized_module_count": 358,
+          "quantized_module_prefixes": [
+            "language_model",
+            "visual"
+          ],
+          "quantized_module_scope_counts": {
+            "language_model": 196,
+            "other": 0,
+            "vision": 162
+          },
+          "query_heads": 28,
+          "seed": 1234,
+          "spatial_merge_size": 2,
+          "text_attention_backend": "sdpa",
+          "tokenizer_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+          "torch": "2.5.1+cu121",
+          "transformers": "4.57.6",
+          "vision_attention_backend": "sdpa",
+          "vision_fullatt_block_indexes": [
+            7,
+            15,
+            23,
+            31
+          ],
+          "vision_heads": 16,
+          "weight_offload": false
+        }
+      },
+      "duration_seconds": 9.338772512041032,
+      "status": "PASS"
+    },
+    "source_capture": {
+      "details": {
+        "first_request_model_forward_calls": [
+          {
+            "has_pixels": true,
+            "input_length": 394
+          },
+          {
+            "has_pixels": false,
+            "input_length": 1
+          }
+        ],
+        "responses": [
+          {
+            "capture_clone_ms": 0.5865900311619043,
+            "prediction": "no",
+            "question_id": "201751701",
+            "score_extra_ms": 19.526781048625708,
+            "score_peak_extra_gpu_bytes": 42393600,
+            "score_peak_gpu_allocated_bytes": 6036367872,
+            "score_sha256": "e4b0f55d04c712224d41c00a36598cf98cf5a526c315b6377bb68b9aebfb906a",
+            "vision_calls": 1
+          },
+          {
+            "capture_clone_ms": 0.5148400086909533,
+            "prediction": "yes",
+            "question_id": "201751740",
+            "score_extra_ms": 1.2517098803073168,
+            "score_peak_extra_gpu_bytes": 42393600,
+            "score_peak_gpu_allocated_bytes": 6058239488,
+            "score_sha256": "e4b0f55d04c712224d41c00a36598cf98cf5a526c315b6377bb68b9aebfb906a",
+            "vision_calls": 1
+          },
+          {
+            "capture_clone_ms": 0.5346850957721472,
+            "prediction": "10 feet",
+            "question_id": "201751873",
+            "score_extra_ms": 1.2322738766670227,
+            "score_peak_extra_gpu_bytes": 42393600,
+            "score_peak_gpu_allocated_bytes": 6078940672,
+            "score_sha256": "e4b0f55d04c712224d41c00a36598cf98cf5a526c315b6377bb68b9aebfb906a",
+            "vision_calls": 1
+          }
+        ]
+      },
+      "duration_seconds": 0.7643247561063617,
+      "status": "PASS"
+    }
+  },
+  "model_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+  "pilot_eligible": false,
+  "run_dir": "/home/dblab/hj/mllm_v2/runs/qwen25_correctness_debug_20260928T070425Z/full_validation_sdpa_unchanged",
+  "schema_version": "qwen25-gpu-correctness-v1",
+  "source": {
+    "gqa_index": "/home/dblab/hj/mllm_v2/data/index.json",
+    "gqa_index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+    "image_id": "n355567",
+    "image_path": "/home/dblab/hj/mllm_v2/data/images/n355567.png",
+    "image_sha256": "6b09d6ab2c13d108951fd6d53522fcb80e6cfd5bb3e1f2925e1001919343a39f",
+    "questions": [
+      {
+        "gold": "yes",
+        "question": "Is the clock to the right of the lady near the tennis ball?",
+        "question_id": "201751701"
+      },
+      {
+        "gold": "yes",
+        "question": "Does the person to the left of the lady look happy and modern?",
+        "question_id": "201751740"
+      },
+      {
+        "gold": "small",
+        "question": "How large is the wire net?",
+        "question_id": "201751873"
+      }
+    ]
+  },
+  "source_hashes": {
+    "docs/qwen25_port_contract.md": "98f606e26e5953fd645a58a80754080308a73962ceb2963f0b99c87bace940bd",
+    "mmimpress/qwen25/runner.py": "be63757fca6007eda27a102054f389bc54f15cef8a8c24b11bc2851ec3345be3",
+    "mmimpress/qwen25/store.py": "9dff059be4a0105c449c894b6a5daf21ed32935bcb5cc525471f184a679e2a58",
+    "mmimpress/qwen25/vision.py": "de2cdf62588da21e49a66568a32626b23e0b2e8ad6813bea22e0f6c31c6a0e59",
+    "scripts/78_validate_qwen25.py": "6bb953cbc02adacb1cb7e11b45b76b6d3756ed302e92fb7dfeb868fec766d3fb"
+  },
+  "status": "FAIL",
+  "tolerances": {
+    "float32_score_atol": 1e-05,
+    "float32_score_rtol": 1e-05,
+    "gpu_bf16_score_atol": 0.001,
+    "gpu_bf16_score_rtol": 0.001,
+    "gpu_logit_atol": 0.125,
+    "gpu_logit_rtol": 0.02
+  },
+  "visionzip_reference": {
+    "commit": "8f86b55c6f000eb033e6912538af2dd7dcb30502",
+    "source_sha256": "26f828971ac9d4058768e07d9cb5c329b792d13206c64e6bf66f5e4b8c026004"
+  }
+}

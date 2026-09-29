@@ -1,0 +1,7 @@
+# Qwen KV25 pilot timing addendum
+
+The Qwen KV25 migration request requires each pixel request's image preparation to be included in TTFT. This pilot therefore opens and RGB-decodes the image separately for every normal-pixel request: all four arms at T1, and ReComp at T2/T3. The measured `image_file_decode_ms` is added to the Qwen runner's synchronized TTFT and request E2E, and appears both at the top level of every raw request and in its `result` and `timing_ms` records. For SSD cache hits, this field is null because the image file is not decoded in that request.
+
+The image SHA256 integrity check is performed once per image before the method requests and is outside the request timer. Qwen processor input construction, vision, prefill, and first-token synchronization remain inside the runner's pixel request timer. Cache-hit prompt construction, actual SSD pread, H2D assembly, suffix prefill and generation remain inside the hit timer. Store activation and payload SHA verification, plus the OS page-cache conditioning hint, are outside the hit timer and recorded separately. Diagnostic T1 KV clone occurs after request E2E and is not counted as a store write or persistence measurement.
+
+This addendum describes pilot measurement only. It does not modify the GPU-frozen Qwen budget/correctness contracts or core inference implementation. The user-requested image-decode timing requirement governs this pilot where earlier contract prose excluded image file decode.

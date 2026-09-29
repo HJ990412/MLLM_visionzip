@@ -1,0 +1,202 @@
+{
+  "analysis": {
+    "different_selected_content_set_images": 24,
+    "new_chunk_comparison_images": {
+      "increase": 16,
+      "same": 24
+    },
+    "overhead_by_method": {
+      "fullload": {
+        "activation_mean_ms": 0.9996220702305436,
+        "persistence_attribution": "own_measured_write",
+        "persistence_mean_ms_independent_deployment": 1178.4552308963612,
+        "physical_persistence_writes_in_this_run": 40,
+        "t1_e2e_mean_ms": 540.8149980357848,
+        "t1_ttft_mean_ms": 513.1419198121876
+      },
+      "ours_chunk25_legacy": {
+        "activation_mean_ms": 11.168856977019459,
+        "persistence_attribution": "own_measured_write",
+        "persistence_mean_ms_independent_deployment": 1088.0939346156083,
+        "physical_persistence_writes_in_this_run": 40,
+        "t1_e2e_mean_ms": 542.0597230899148,
+        "t1_ttft_mean_ms": 514.250504411757
+      },
+      "ours_kv25": {
+        "activation_mean_ms": 10.788531310390681,
+        "persistence_attribution": "shared_measured_image_only_write",
+        "persistence_mean_ms_independent_deployment": 1088.0939346156083,
+        "physical_persistence_writes_in_this_run": 0,
+        "t1_e2e_mean_ms": 540.6514247879386,
+        "t1_ttft_mean_ms": 512.9363400163129
+      },
+      "recompute": {
+        "activation_mean_ms": null,
+        "persistence_attribution": "none",
+        "persistence_mean_ms_independent_deployment": null,
+        "physical_persistence_writes_in_this_run": 0,
+        "t1_e2e_mean_ms": 540.6295133405365,
+        "t1_ttft_mean_ms": 512.8188722534105
+      }
+    },
+    "paired_hit_quality_new_minus_old": {
+      "bootstrap_resamples": 10000,
+      "ci95": [
+        -0.034999999999999996,
+        0.010000000000000005
+      ],
+      "image_clusters": 40,
+      "mean_difference_new_minus_old": -0.009999999999999998,
+      "seed": 1234
+    },
+    "paired_hit_ttft_ms_new_minus_old": {
+      "bootstrap_resamples": 10000,
+      "ci95": [
+        -3.5969851164263673,
+        5.5414397452841495
+      ],
+      "image_clusters": 40,
+      "mean_difference_new_minus_old": 0.9238392952829599,
+      "seed": 1234
+    },
+    "same_selected_content_set_images": 16
+  },
+  "methods": [
+    {
+      "budget_unit": "none",
+      "hit_content_retention_image_mean": null,
+      "hit_content_retention_pooled_tokens": null,
+      "hit_structural_inclusive_retention_image_mean": null,
+      "hit_structural_inclusive_retention_pooled_tokens": null,
+      "hit_ttft_ms": 512.1949814935215,
+      "hits": 200,
+      "method": "ReComp",
+      "method_id": "recompute",
+      "normal_read_mb_per_hit": 0.0,
+      "normal_read_ratio_image_mean": 0.0,
+      "normal_read_ratio_pooled_bytes": 0.0,
+      "padding_returned_mb_per_hit": 0.0,
+      "quality_all": 0.625,
+      "quality_by_turn": {
+        "1": 0.6,
+        "2": 0.625,
+        "3": 0.65,
+        "4": 0.7,
+        "5": 0.475,
+        "6": 0.7
+      },
+      "quality_hit": 0.63,
+      "requests": 240,
+      "same_file_duplicate_returned_mb_per_hit": 0.0,
+      "structural_duplicate_across_files_mb_per_hit": 0.0,
+      "structural_normal_mb_per_hit": 0.0,
+      "total_read_mb_per_hit": 0.0,
+      "total_read_ratio_image_mean": 0.0,
+      "total_read_ratio_pooled_bytes": 0.0,
+      "unused_loaded_real_mb_per_hit": 0.0,
+      "unused_loaded_real_rows_per_hit": 0.0
+    },
+    {
+      "budget_unit": "full_visual_kv",
+      "hit_content_retention_image_mean": 1.0,
+      "hit_content_retention_pooled_tokens": 1.0,
+      "hit_structural_inclusive_retention_image_mean": 1.0,
+      "hit_structural_inclusive_retention_pooled_tokens": 1.0,
+      "hit_ttft_ms": 691.7327848495916,
+      "hits": 200,
+      "method": "FullLoad",
+      "method_id": "fullload",
+      "normal_read_mb_per_hit": 1165.0727935999998,
+      "normal_read_ratio_image_mean": 1.0,
+      "normal_read_ratio_pooled_bytes": 1.0,
+      "padding_returned_mb_per_hit": 0.0,
+      "quality_all": 0.625,
+      "quality_by_turn": {
+        "1": 0.6,
+        "2": 0.575,
+        "3": 0.65,
+        "4": 0.725,
+        "5": 0.475,
+        "6": 0.725
+      },
+      "quality_hit": 0.63,
+      "requests": 240,
+      "same_file_duplicate_returned_mb_per_hit": 0.0,
+      "structural_duplicate_across_files_mb_per_hit": 0.0,
+      "structural_normal_mb_per_hit": 20.0278016,
+      "total_read_mb_per_hit": 1165.0727935999998,
+      "total_read_ratio_image_mean": 1.0,
+      "total_read_ratio_pooled_bytes": 1.0,
+      "unused_loaded_real_mb_per_hit": 0.0,
+      "unused_loaded_real_rows_per_hit": 0.0
+    },
+    {
+      "budget_unit": "chunk",
+      "hit_content_retention_image_mean": 0.24988769317525994,
+      "hit_content_retention_pooled_tokens": 0.24981684981684982,
+      "hit_structural_inclusive_retention_image_mean": 0.2627658354083044,
+      "hit_structural_inclusive_retention_pooled_tokens": 0.26271262712627125,
+      "hit_ttft_ms": 256.58722940832376,
+      "hits": 200,
+      "method": "Ours-Chunk25-Legacy",
+      "method_id": "ours_chunk25_legacy",
+      "normal_read_mb_per_hit": 286.0515328,
+      "normal_read_ratio_image_mean": 0.2456036166428809,
+      "normal_read_ratio_pooled_bytes": 0.24552245522455224,
+      "padding_returned_mb_per_hit": 0.0,
+      "quality_all": 0.5791666666666667,
+      "quality_by_turn": {
+        "1": 0.6,
+        "2": 0.625,
+        "3": 0.6,
+        "4": 0.5,
+        "5": 0.45,
+        "6": 0.7
+      },
+      "quality_hit": 0.575,
+      "requests": 240,
+      "same_file_duplicate_returned_mb_per_hit": 0.0,
+      "structural_duplicate_across_files_mb_per_hit": 0.0,
+      "structural_normal_mb_per_hit": 0.0,
+      "total_read_mb_per_hit": 306.0793344,
+      "total_read_ratio_image_mean": 0.2627658354083044,
+      "total_read_ratio_pooled_bytes": 0.26271262712627125,
+      "unused_loaded_real_mb_per_hit": 0.0,
+      "unused_loaded_real_rows_per_hit": 0.0
+    },
+    {
+      "budget_unit": "visual_kv",
+      "hit_content_retention_image_mean": 0.25,
+      "hit_content_retention_pooled_tokens": 0.25,
+      "hit_structural_inclusive_retention_image_mean": 0.26287166407406765,
+      "hit_structural_inclusive_retention_pooled_tokens": 0.2628926289262893,
+      "hit_ttft_ms": 257.5110687036067,
+      "hits": 200,
+      "method": "Ours-KV25-New",
+      "method_id": "ours_kv25",
+      "normal_read_mb_per_hit": 299.4733056,
+      "normal_read_ratio_image_mean": 0.2574891358119822,
+      "normal_read_ratio_pooled_bytes": 0.2570425704257043,
+      "padding_returned_mb_per_hit": 0.0,
+      "quality_all": 0.5708333333333333,
+      "quality_by_turn": {
+        "1": 0.6,
+        "2": 0.625,
+        "3": 0.6,
+        "4": 0.475,
+        "5": 0.425,
+        "6": 0.7
+      },
+      "quality_hit": 0.565,
+      "requests": 240,
+      "same_file_duplicate_returned_mb_per_hit": 0.0,
+      "structural_duplicate_across_files_mb_per_hit": 0.0,
+      "structural_normal_mb_per_hit": 0.0,
+      "total_read_mb_per_hit": 319.5011072,
+      "total_read_ratio_image_mean": 0.27465135457740564,
+      "total_read_ratio_pooled_bytes": 0.2742327423274233,
+      "unused_loaded_real_mb_per_hit": 13.2120576,
+      "unused_loaded_real_rows_per_hit": 25.2
+    }
+  ]
+}

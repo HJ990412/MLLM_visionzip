@@ -1,0 +1,131 @@
+{
+  "cuda": "12.1",
+  "executed_gqa_images": 40,
+  "gpu_correctness_gate": {
+    "contract_sha256": "934f982a7d01a8de92e80ad7406ea5a5de0ec09c8a88a0399c2a2f9fd5b98518",
+    "fixed_samples": [
+      [
+        "n355567",
+        "201751701"
+      ],
+      [
+        "n9181",
+        "20929611"
+      ],
+      [
+        "n390187",
+        "201861403"
+      ],
+      [
+        "n133585",
+        "202108008"
+      ],
+      [
+        "n272098",
+        "201535625"
+      ]
+    ],
+    "path": "/home/dblab/hj/mllm_v2/runs/llava_kv25_migration_20260929T030414Z/gpu_validation_v2.json",
+    "sha256": "5be85ff8afa607dde8a0783abae2ecabaac75558ee69299ce578d5ebdc5a66ed",
+    "source_sha256": {
+      "mmimpress/cvpr25.py": "feb5640097056560fadbe596d7ff5aae82745b2d533fccdb8680f4134fada1b1",
+      "mmimpress/model.py": "39437de1b03c41af4f8e9aa219620c6a1544a2a4ef98391679eb0dfd2522c6ba",
+      "mmimpress/piggyback.py": "ed45e69ae17c25e64ccbc1ff9bd5afbf608119c6fb23d03e7a046600abcc0092",
+      "mmimpress/serve.py": "4bcba0a5da91176a3fe82c216a9195e14cb245f98cf08d3ec599948ea25745e5",
+      "mmimpress/store.py": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b"
+    },
+    "tolerance": {
+      "atol": 0.0001,
+      "rtol": 0.0001
+    },
+    "verdict": "PASS"
+  },
+  "gpu_preflight": {
+    "index": "0",
+    "memory_total_mib": "24564",
+    "memory_used_mib": "30",
+    "name": "NVIDIA GeForce RTX 4090",
+    "utilization_pct": "0"
+  },
+  "gqa": {
+    "full_images": 40,
+    "full_questions": 240,
+    "full_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66",
+    "index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+    "selected_images": 40,
+    "selected_questions": 240,
+    "selected_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66"
+  },
+  "host": "dblab",
+  "methods": {
+    "fullload": {
+      "budget_unit": "full_visual_kv",
+      "label": "FullLoad",
+      "ratio": 1.0
+    },
+    "ours_chunk25_legacy": {
+      "budget_unit": "chunk",
+      "label": "Ours-Chunk25-Legacy",
+      "ratio": 0.25
+    },
+    "ours_kv25": {
+      "budget_unit": "visual_kv",
+      "label": "Ours-KV25-New",
+      "ratio": 0.25
+    },
+    "recompute": {
+      "budget_unit": "none",
+      "label": "ReComp",
+      "ratio": null
+    }
+  },
+  "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+  "model_config": {
+    "attention_backend": "eager",
+    "chunk_size": 64,
+    "compute_dtype": "bfloat16",
+    "load_4bit": true,
+    "max_new_tokens": 16
+  },
+  "mt_smoke": {
+    "dialog_ids": [
+      "mtgqa_000694",
+      "mtgqa_002328",
+      "mtgqa_002167",
+      "mtgqa_003187"
+    ],
+    "full_workload_sha256": "0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62",
+    "image_ids": [
+      "n411121",
+      "n173807",
+      "n115614",
+      "n162586"
+    ],
+    "index_sha256": "2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224",
+    "sample_seed": 1234,
+    "selected_dialogues": 4,
+    "selected_images": 4,
+    "source_dialogues": 4061,
+    "source_images": 398
+  },
+  "phase": "both",
+  "preflight_one_image": false,
+  "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]",
+  "run_id": "llava_kv25_migration_20260929T032642Z",
+  "schema_version": "llava-kv25-migration-pilot-v1",
+  "seed": 1234,
+  "source_sha256": {
+    "mmimpress/config.py": "5d14532936ac55e01d7320ec8877b242471361c1001afb25a9d7fafc4a12c418",
+    "mmimpress/cvpr25.py": "feb5640097056560fadbe596d7ff5aae82745b2d533fccdb8680f4134fada1b1",
+    "mmimpress/model.py": "39437de1b03c41af4f8e9aa219620c6a1544a2a4ef98391679eb0dfd2522c6ba",
+    "mmimpress/mt_gqa.py": "a33c5ef9889bdff2abfcf026782cf9fc3fb5076f5bcbb1b24969864945bb9406",
+    "mmimpress/piggyback.py": "ed45e69ae17c25e64ccbc1ff9bd5afbf608119c6fb23d03e7a046600abcc0092",
+    "mmimpress/serve.py": "4bcba0a5da91176a3fe82c216a9195e14cb245f98cf08d3ec599948ea25745e5",
+    "mmimpress/store.py": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b",
+    "scripts/49_eval_query_aware_baseline.py": "ea6e3d0d3a50580e3c4cde8c578d377b4e7e92f2dcb6313610bf52b10f4c042d",
+    "scripts/73_eval_mt_gqa_5arm_generated_shard.py": "a4db1736d6d5a65549eb0a16d3421d4bd70c53afafa24da7c60d9308236afccc",
+    "scripts/89_eval_llava_kv25.py": "c65132f5aa8c3598cd5f64cc598e6034241946f2f941248d03d202e74224dcbd"
+  },
+  "started_at_utc": "2026-09-29T03:26:56Z",
+  "torch": "2.5.1+cu121"
+}

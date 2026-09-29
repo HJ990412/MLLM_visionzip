@@ -1,0 +1,72 @@
+{
+  "gpu_gate": {
+    "contract_sha256": "934f982a7d01a8de92e80ad7406ea5a5de0ec09c8a88a0399c2a2f9fd5b98518",
+    "fixed_samples": [
+      [
+        "n355567",
+        "201751701"
+      ],
+      [
+        "n9181",
+        "20929611"
+      ],
+      [
+        "n390187",
+        "201861403"
+      ],
+      [
+        "n133585",
+        "202108008"
+      ],
+      [
+        "n272098",
+        "201535625"
+      ]
+    ],
+    "path": "/home/dblab/hj/mllm_v2/runs/llava_kv25_migration_20260929T030414Z/gpu_validation_v2.json",
+    "sha256": "5be85ff8afa607dde8a0783abae2ecabaac75558ee69299ce578d5ebdc5a66ed",
+    "source_sha256": {
+      "mmimpress/cvpr25.py": "feb5640097056560fadbe596d7ff5aae82745b2d533fccdb8680f4134fada1b1",
+      "mmimpress/model.py": "39437de1b03c41af4f8e9aa219620c6a1544a2a4ef98391679eb0dfd2522c6ba",
+      "mmimpress/piggyback.py": "ed45e69ae17c25e64ccbc1ff9bd5afbf608119c6fb23d03e7a046600abcc0092",
+      "mmimpress/serve.py": "4bcba0a5da91176a3fe82c216a9195e14cb245f98cf08d3ec599948ea25745e5",
+      "mmimpress/store.py": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b"
+    },
+    "tolerance": {
+      "atol": 0.0001,
+      "rtol": 0.0001
+    },
+    "verdict": "PASS"
+  },
+  "max_new_tokens": 16,
+  "methods": {
+    "fullload": {
+      "budget_unit": "full_visual_kv",
+      "label": "FullLoad",
+      "ratio": 1.0
+    },
+    "ours_chunk25_legacy": {
+      "budget_unit": "chunk",
+      "label": "Ours-Chunk25-Legacy",
+      "ratio": 0.25
+    },
+    "ours_kv25": {
+      "budget_unit": "visual_kv",
+      "label": "Ours-KV25-New",
+      "ratio": 0.25
+    },
+    "recompute": {
+      "budget_unit": "none",
+      "label": "ReComp",
+      "ratio": null
+    }
+  },
+  "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+  "page_cache_conditioning": "posix_fadvise_DONTNEED outside timer",
+  "phase": "gqa",
+  "run_id": "llava_kv25_migration_preflight_20260929T032323Z",
+  "schema_version": "llava-kv25-migration-pilot-v1",
+  "seed": 1234,
+  "store_policy": "run-local per-image full stores retained; one immutable image-only physical store shared by old/new",
+  "timing": "outer request start through synchronized first token"
+}

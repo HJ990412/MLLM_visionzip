@@ -1,0 +1,51 @@
+{
+  "dataset": "mt_gqa_reconstructed",
+  "frozen_inputs_sha256": "642570323383bc6ba78382b87b2ff26e560b85b2ed6f0a1403a0a7d89ec34617",
+  "frozen_validation_configuration": {
+    "attention_backend": "sdpa",
+    "budget_ratio": 0.25,
+    "checkpoint_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+    "chunk_size": 64,
+    "history_policy": "none_independent_gqa_questions",
+    "max_new_tokens": 16,
+    "max_pixels": 802816,
+    "methods": [
+      "recompute",
+      "fullload",
+      "ours25"
+    ],
+    "min_pixels": 200704,
+    "model_id": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "quality_metric": "mmimpress.dataset.exact_score",
+    "seed": 1234
+  },
+  "manifest_file_sha256": "f433df117d5262998f8c7597d8952bc05dfd2a62ee2ff8ad99c905f2c77a54ee",
+  "manifest_path": "/home/dblab/hj/mllm_v2/runs/qwen25_correctness_v2_20260928T081111Z/mt_pilot/manifest.json",
+  "pilot_policy_from_preexecution_manifest": {
+    "chunk_size": 64,
+    "dataset_file_read_and_image_decode_in_ttft": false,
+    "history_policy": "method_own_generated_answers",
+    "max_new_tokens": 16,
+    "methods": [
+      "recompute",
+      "fullload",
+      "ours25"
+    ],
+    "model_id": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "nominal_budget_ratio": 0.25,
+    "page_cache_conditioning_in_ttft": false,
+    "processor": {
+      "max_pixels": 802816,
+      "min_pixels": 200704
+    },
+    "seed": 1234,
+    "timing_boundary": "request starts before prompt/tokenization/input preparation; TTFT ends after first output token materialization and CUDA sync"
+  },
+  "pilot_reporter_sha256": "c06f819b79da247f5be702f22746a40e481027e7696122c45c3a1f51a063a0fd",
+  "pilot_runner_sha256": "ce4f1be163049a070d8246171426d7edb642dc4bfd83707d901886b93cc7e95b",
+  "record_scope": "post-execution copy of prospectively frozen manifest and validation configuration",
+  "schema_version": "qwen25-v2-pilot-config-provenance-v1",
+  "supplement_reporter_sha256": "aa7284508e80aa28cb6ccb8f7ce7b27d30eb4487f19363cde1215699d9ad6788",
+  "validation_file_sha256": "a3b851f6fc291711ef53452b6eab164ae84e6d3801ce717b19b8386a120ad860",
+  "validation_path": "/home/dblab/hj/mllm_v2/runs/qwen25_correctness_v2_20260928T081111Z/gpu_validation/validation.json"
+}

@@ -352,6 +352,7 @@ results/mpic_baseline/gqa40_240_pilot_20260922T102113Z/ANALYSIS.md에 있다.
 ReKV의 video-frame retrieval을 64-token SSD chunk에 적용한 것으로,
 원 논문의 streaming-video 시스템 수치를 재현한 결과는 아니다.
 구현 계약과 검증은 docs/rekv_baseline_contract.md 및
+results/rekv_baseline/gqa40_240_pilot_20260923T035750Z/ANALYSIS.md에 있다.
 
 ## 11. MT-GQA generated-history five-arm main (2026-09-23)
 
@@ -375,3 +376,61 @@ Persistence를 매 3-turn session에 부과한 standalone-equivalent 평균은
 Ours25 2259.67 ms, ReComp 1668.10 ms였다. 결과와 검증 자료는
 [five-arm generated-history results](results/mt_gqa_5arm_generated_20260923T064333Z/)에 있다.
 이 실험은 재구성한 MT-GQA workload와 SSD에 맞춘 MPIC·ReKV 구현을 사용한다.
+
+## 12. Qwen2.5-VL image-only 포팅·정합성 확인 (2026-09-28)
+
+Qwen/Qwen2.5-VL-7B-Instruct의 native BF16 Visual KV 저장·재사용 경로를
+추가했다. 최초 GPU 검증은 15개 gate 중 13개만 통과하여 초기 pilot은
+진단 결과로만 남겼다. 원인 분석 후 고정된 v2 계약의 재검증에서 10쌍의
+matched in-memory/SSD correctness gate가 PASS했고, GQA 40-image 및
+MT 40-dialogue Chunk25 pilot을 별도로 재실행했다. 기존 ReComp와의 BF16/NF4
+수치 차이는 사라졌다고 주장하지 않는다. 초기 실패와 후속 PASS를 구분한
+[포팅 보고서](results/qwen25_port_20260928T054537Z/PORT_REPORT.md),
+[수치 분기 조사](results/qwen25_correctness_debug_20260928T070425Z/REPORT.md),
+[v2 재검증 결과](results/qwen25_correctness_v2_20260928T081111Z/REPORT.md)를 참조한다.
+
+## 13. LLaVA Ours-Chunk25 → Ours-Visual-KV25 (2026-09-29)
+
+기존 Chunk25는 64-token chunk 개수의 25%를 선택했고, 새 Visual-KV25는
+실제 visual-content KV 행 N개 중 ceil(0.25×N)개만 attention에 남긴다.
+경계 chunk의 추가 행은 읽을 수 있지만 mask로 제외한다. GQA 고정 40 images ×
+6 questions의 같은 실행에서 네 arm을 비교했고 GPU correctness와 독립 감사가
+통과했다. 아래 수치는 T2–T6 cache hit 평균이다.
+
+| Method | Hit 정답률 | Hit TTFT | Normal / total read MB/hit | 실제 content retention |
+|---|---:|---:|---:|---:|
+| ReComp | 63.0% | 512.19 ms | 0 / 0 | — |
+| FullLoad | 63.0% | 691.73 ms | 1165.073 / 1165.073 | 100% |
+| Ours-Chunk25-Legacy | 57.5% | 256.59 ms | 286.052 / 306.079 | 24.99% |
+| Ours-KV25-New | 56.5% | 257.51 ms | 299.473 / 319.501 | 25.00% |
+
+KV25−legacy의 paired hit 정답률 차이는 −1.0 pp (95% CI −3.5~+1.0),
+TTFT 차이는 +0.92 ms (95% CI −3.60~+5.54)였다. 별도의 MT-GQA
+4-image smoke는 full 4,061-dialogue 실험이 아니다.
+[예산 계약](docs/llava_kv25_budget_contract.md),
+[파일럿 보고서](results/llava_kv25_migration_20260929T032642Z/REPORT.md)와
+[재현·감사 자료](results/llava_kv25_migration_20260929T032642Z/REPRODUCE.md)에 상세 결과가 있다.
+
+## 14. Qwen Ours-Chunk25 → Ours-Visual-KV25 (2026-09-29)
+
+동일한 Qwen checkpoint·NF4/BF16/SDPA에서 64-row Chunk25와 정확한
+visual-content KV 25% 선택을 별개 arm으로 실행했다. v2 기반 GPU correctness
+gate와 독립 감사가 PASS했다. GQA는 40 images × 6 questions, MT는
+40 dialogues × 3 generated-history turns이며 모두 4-arm 파일럿이다.
+
+| Dataset / method | Hit 정답률 | Hit TTFT | Normal / total read MB/hit | Content retention |
+|---|---:|---:|---:|---:|
+| GQA / Chunk25 legacy | 60.00% | 55.92 ms | 6.423 / 7.627 | 31.73% |
+| GQA / Visual-KV25 | 57.00% | 55.65 ms | 7.340 / 8.544 | 25.12% |
+| MT / Chunk25 legacy | 66.25% | 59.73 ms | 7.065 / 8.269 | 33.40% |
+| MT / Visual-KV25 | 67.50% | 59.02 ms | 7.524 / 8.728 | 25.14% |
+
+GQA에서 KV25−legacy hit 정답률 차이는 −3.0 pp (95% CI −6.5~0.0),
+MT에서는 +1.25 pp (−2.5~+5.0)다. 두 TTFT 차이의 CI에도 0이 포함되어
+동등성이나 속도 개선을 확정할 수 없다. Qwen의 persistence·cold-start
+session 비용은 이번 전환에서 재측정하지 않았고, 더 큰 main run에는
+저장 공간 계획이 필요하다. [예산 계약](docs/qwen25_kv25_budget_contract.md),
+[파일럿 결과](results/qwen25_kv25_migration_20260929T042949Z/REPORT.md),
+[타이밍 정정](docs/qwen25_kv25_pilot_timing_erratum.md)을 참조한다.
+대용량 run-local store와 원시 요청 로그는 로컬에 보존하고, 여기에는
+계약·요약표·검증·감사 자료를 게시한다.

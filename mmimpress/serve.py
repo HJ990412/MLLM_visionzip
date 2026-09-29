@@ -1198,6 +1198,71 @@ class ImageContext:
         self._prefix_layout_validated = expected_layout
         self._reordered_prefix_store_validated = True
 
+    def validate_visual_kv_layout(self):
+        """Validate the immutable image-only order used by visual-KV budgets.
+
+        Activation loads the layout artifact once, before the request timer;
+        cache hits only use the already validated metadata permutation.
+        """
+        if getattr(self, "_visual_kv_layout_validated", False):
+            return
+        from mmimpress.cvpr25 import (permutation_sha256,
+                                      visionzip_repack_order)
+
+        self.validate_prefix_layout("visionzip_image_only")
+        m = self.meta
+        vn = int(m["v_token_num"])
+        L = int(m["num_layers"])
+        cs = int(m["chunk_size"])
+        original_sep = [int(x) for x in m["newline_idx"]]
+        assert original_sep == sorted(set(original_sep)), \
+            "invalid original separator positions"
+        assert all(0 <= pos < vn for pos in original_sep)
+        n_content = vn - len(original_sep)
+        assert n_content > 0, "image span has no visual-content tokens"
+        assert int(m.get("n_spatial", -1)) == n_content
+        assert cs == 64, "visual-KV budget requires 64-token chunks"
+        assert int(m["n_chunks_per_layer"]) == (vn + cs - 1) // cs
+        assert int(m["prefix_len"]) == int(m["v_token_start"]) + vn
+        assert m.get("separator_policy") == "stable_tail_plus_sidecar"
+        assert m.get("dtype") == "float16", \
+            "separator sidecar reader requires the LLaVA float16 store"
+        order = m.get("order")
+        assert isinstance(order, list) and len(order) == vn, \
+            "visual-KV budget requires an explicit global permutation"
+        order = [int(x) for x in order]
+        assert order[n_content:] == original_sep, \
+            "structural rows must form a stable-order separator tail"
+        assert m.get("permutation_sha256") == permutation_sha256(order)
+        assert all(self.separator_positions(li) == list(range(n_content, vn))
+                   for li in range(L))
+
+        artifact = torch.load(self.dir / "visionzip_layout.pt",
+                              map_location="cpu", weights_only=True)
+        scores = torch.as_tensor(artifact["token_score_original"]).flatten()
+        assert scores.numel() == vn
+        assert [int(x) for x in artifact["newline_original"]] == original_sep
+        assert [int(x) for x in artifact["stored_to_original"]] == order
+        inverse = [0] * vn
+        for stored, original in enumerate(order):
+            inverse[original] = stored
+        assert [int(x) for x in artifact["original_to_stored"]] == inverse
+        assert m.get("inverse_permutation_sha256") == \
+            permutation_sha256(inverse)
+        assert visionzip_repack_order(scores, original_sep) == order, \
+            "stored real rows are not in stable descending importance order"
+        assert artifact.get("layout_uses_dataset_question") is False
+        assert artifact.get("llm_used_for_layout_scoring") is False
+        assert int(artifact.get("calibration_questions", -1)) == 0
+
+        row_bytes = int(m["num_heads"]) * int(m["head_dim"]) * 2
+        for li in range(L):
+            for kind in ("k", "v"):
+                path = self.dir / f"layer_{li:02d}" / f"{kind}.bin"
+                assert path.stat().st_size == vn * row_bytes, \
+                    f"invalid visual-KV file length: {path}"
+        self._visual_kv_layout_validated = True
+
     def validate_qa_select_layout(self):
         """Fail closed unless this is QA-Select's canonical raster store.
 
@@ -1709,7 +1774,8 @@ class Server:
                        mode="static", lam_static=1.0, lam_query=1.0,
                        sep_policy="force", diverse_frac=0.25, cold=True,
                        seed=0, image_id="", prompt_text=None,
-                       suffix_ids=None, expected_prefix_layout=None):
+                       suffix_ids=None, expected_prefix_layout=None,
+                       budget_unit="chunk"):
         """Hook-free chunk-first request.
 
         Selection, reads and cache fill all happen BEFORE the forward, so the
@@ -1721,11 +1787,21 @@ class Server:
         # This is deliberately before cache eviction, token preparation and
         # the request timer.  A Prefix result from a raster/shared-order store
         # would answer a different research question and must fail closed.
-        if mode == "prefix":
-            if expected_prefix_layout is None:
-                ctx.validate_reordered_prefix_store()
-            else:
-                ctx.validate_prefix_layout(expected_prefix_layout)
+        if budget_unit == "visual_kv":
+            if mode != "prefix" or sep_policy != "sidecar":
+                raise ValueError(
+                    "visual-KV budget requires prefix mode and separator sidecar")
+            if expected_prefix_layout not in (None, "visionzip_image_only"):
+                raise ValueError("visual-KV budget requires image-only layout")
+            ctx.validate_visual_kv_layout()
+        elif budget_unit == "chunk":
+            if mode == "prefix":
+                if expected_prefix_layout is None:
+                    ctx.validate_reordered_prefix_store()
+                else:
+                    ctx.validate_prefix_layout(expected_prefix_layout)
+        else:
+            raise ValueError(f"unsupported budget unit: {budget_unit}")
         BIAS.clear()
         if cold:
             ctx.reader.drop_all()
@@ -1749,7 +1825,8 @@ class Server:
         sel = CVPR25ChunkSelector(self.runner, ctx, static, budget, mode,
                                   lam_static, lam_query, sep_policy,
                                   diverse_frac, counter, seed=seed,
-                                  image_id=image_id)
+                                  image_id=image_id,
+                                  budget_unit=budget_unit)
         sel.prepare(text_emb)
         torch.cuda.synchronize()
         t_prep = time.perf_counter() - t0
@@ -1962,19 +2039,21 @@ class CVPR25ChunkSelector:
       "hybrid"   + a PACT-shaped query correction (one q_proj, one dot product)
       "diverse"  + DivPrune MaxMin tie-breaking among near-equal chunks
 
-    The budget is a CHUNK budget, so touched-chunk-fraction == budget by
-    construction.  Whole chunks are read, so every token inside a selected
-    chunk is kept (masking them out would cost accuracy and save no bytes);
-    the realised logical KV ratio is reported rather than assumed.
+    The default budget is a CHUNK budget and retains each loaded chunk's
+    rows. The explicit visual_kv budget selects the first k importance-ranked
+    real rows, reads their covering chunks, and masks extra rows in the final
+    chunk. Both modes use the same physical cache and separator sidecar.
     """
 
     def __init__(self, runner, ctx, static, budget=0.25, mode="static",
                  lam_static=1.0, lam_query=1.0, sep_policy="force",
-                 diverse_frac=0.25, counter=None, seed=0, image_id=""):
+                 diverse_frac=0.25, counter=None, seed=0, image_id="",
+                 budget_unit="chunk"):
         self.runner = runner
         self.ctx = ctx
         self.static = static
         self.budget = budget
+        self.budget_unit = budget_unit
         self.mode = mode
         self.lam_static = lam_static
         self.lam_query = lam_query
@@ -1988,9 +2067,39 @@ class CVPR25ChunkSelector:
         self.chunks_per_layer = []
         self.selected_chunk_ids_per_layer = []
         self.kept_tokens_per_layer = []
+        self.loaded_real_rows_per_layer = []
+        self.loaded_structural_rows_per_layer = []
+        self.planned_normal_read_spans = []
         self.static_score_calls = 0
         self.query_score_calls = 0
         self.diversity_calls = 0
+        if self.budget_unit not in ("chunk", "visual_kv"):
+            raise ValueError(f"unsupported budget unit: {self.budget_unit}")
+        if self.budget_unit == "visual_kv":
+            if self.mode != "prefix" or self.sep_policy != "sidecar":
+                raise ValueError(
+                    "visual-KV budget requires prefix mode and separator sidecar")
+            from mmimpress.cvpr25 import visual_kv_budget_count
+            m = ctx.meta
+            vn = int(m["v_token_num"])
+            n_content = int(m["n_spatial"])
+            if n_content <= 0 or n_content > vn:
+                raise ValueError("image span has no valid visual-content tokens")
+            if n_content != vn - len(ctx.separator_positions(0)):
+                raise ValueError("visual-content count disagrees with separators")
+            if int(m["chunk_size"]) != 64:
+                raise ValueError("visual-KV budget requires 64-token chunks")
+            order = m.get("order")
+            if not isinstance(order, list) or len(order) != vn:
+                raise ValueError("visual-KV budget requires a global permutation")
+            self.n_content = n_content
+            self.n_structural = vn - n_content
+            self.k_target = visual_kv_budget_count(n_content, budget)
+            self.visual_chunk_ids = list(range(
+                (self.k_target + int(m["chunk_size"]) - 1)
+                // int(m["chunk_size"])))
+            self.selected_stored_ids = list(range(self.k_target))
+            self.selected_original_ids = [int(x) for x in order[:self.k_target]]
         assert self.mode == "prefix" or self.static is not None, \
             f"{self.mode} requires static metadata"
         if self.mode == "prefix":
@@ -2053,12 +2162,15 @@ class CVPR25ChunkSelector:
             # file, so their chunks are not bought out of the budget.
             force = (self.static["sep_chunks"][li]
                      if self.sep_policy == "force" else [])
-            cids, _ = choose_chunks(
-                self.mode, li, self.static, self.budget, force=force,
-                query_score=(qs[li] if qs is not None else None),
-                lam_static=self.lam_static, lam_query=self.lam_query,
-                diverse_frac=self.diverse_frac, seed=self.seed,
-                image_id=self.image_id, n_chunks=nc)
+            if self.budget_unit == "visual_kv":
+                cids = self.visual_chunk_ids
+            else:
+                cids, _ = choose_chunks(
+                    self.mode, li, self.static, self.budget, force=force,
+                    query_score=(qs[li] if qs is not None else None),
+                    lam_static=self.lam_static, lam_query=self.lam_query,
+                    diverse_frac=self.diverse_frac, seed=self.seed,
+                    image_id=self.image_id, n_chunks=nc)
             if self.mode in ("static", "hybrid", "diverse",
                              "static_diverse"):
                 self.static_score_calls += 1
@@ -2071,22 +2183,55 @@ class CVPR25ChunkSelector:
             t0 = time.perf_counter()
             loaded = {}
             for kind in ("k", "v"):
-                loaded[kind] = ctx.reader.read_chunks(li, kind, cids, self.io)
+                if self.budget_unit == "visual_kv" and not cids:
+                    loaded[kind] = (
+                        torch.empty(0, dtype=torch.long),
+                        torch.empty(0, int(m["num_heads"]), int(m["head_dim"]),
+                                    dtype=torch.float16))
+                else:
+                    loaded[kind] = ctx.reader.read_chunks(
+                        li, kind, cids, self.io)
             self.t["chunk_io"] += time.perf_counter() - t0
+
+            if self.budget_unit == "visual_kv":
+                row_end = min(len(cids) * cs, vn)
+                expected_rows = torch.arange(row_end, dtype=torch.long)
+                assert torch.equal(loaded["k"][0], expected_rows)
+                assert torch.equal(loaded["v"][0], expected_rows)
+                real_loaded = min(row_end, self.n_content)
+                self.loaded_real_rows_per_layer.append(real_loaded)
+                self.loaded_structural_rows_per_layer.append(
+                    row_end - real_loaded)
+                if cids:
+                    length = (row_end * int(m["num_heads"])
+                              * int(m["head_dim"])
+                              * np.dtype(m["dtype"]).itemsize)
+                    for kind in ("k", "v"):
+                        self.planned_normal_read_spans.append({
+                            "layer": int(li), "kind": kind,
+                            "offset_bytes": 0, "length_bytes": int(length),
+                        })
 
             torch.cuda.synchronize()
             t0 = time.perf_counter()
             for kind in ("k", "v"):
                 rows, vals = loaded[kind]
-                ctx.cache.write(li, kind, rows, vals)
+                if rows.numel():
+                    ctx.cache.write(li, kind, rows, vals)
             keep = torch.zeros(vn, dtype=torch.bool)
-            keep[loaded["k"][0]] = True          # whole chunks are readable
+            if self.budget_unit == "visual_kv":
+                keep[:self.k_target] = True
+            else:
+                keep[loaded["k"][0]] = True      # legacy whole-chunk budget
             if self.sep_policy == "sidecar":
                 sp = torch.tensor(ctx.separator_positions(li),
                                   dtype=torch.long)
                 ctx.cache.write(li, "k", sp, self._sep[0][li])
                 ctx.cache.write(li, "v", sp, self._sep[1][li])
                 keep[sp] = True
+            if self.budget_unit == "visual_kv":
+                assert int(keep[:self.n_content].sum()) == self.k_target
+                assert bool(keep[self.n_content:].all())
             self.kept_tokens_per_layer.append(int(keep.sum()))
             BIAS[li] = bias_from_keep(keep, m, dev)
             torch.cuda.synchronize()
@@ -2098,7 +2243,7 @@ class CVPR25ChunkSelector:
                     for row in self.selected_chunk_ids_per_layer]
         run_counts = [count for count, _ in run_rows]
         run_lengths = [length for _, lengths in run_rows for length in lengths]
-        return {"n_chunks_selected": float(np.mean(self.chunks_per_layer)),
+        result = {"n_chunks_selected": float(np.mean(self.chunks_per_layer)),
                 "n_chunks_total": nc,
                 "touched_chunk_fraction": float(np.mean(self.chunks_per_layer))
                 / nc,
@@ -2126,7 +2271,50 @@ class CVPR25ChunkSelector:
                 "query_ms": self.t["query"] * 1e3,
                 "chunk_io_ms": self.t["chunk_io"] * 1e3,
                 "scatter_ms": self.t["scatter"] * 1e3,
-                "hook_ms": 0.0}
+                "hook_ms": 0.0,
+                "budget_unit": self.budget_unit}
+        if self.budget_unit == "visual_kv":
+            assert len(self.loaded_real_rows_per_layer) == \
+                int(self.ctx.meta["num_layers"])
+            assert len(set(self.loaded_real_rows_per_layer)) == 1
+            assert len(set(self.loaded_structural_rows_per_layer)) == 1
+            assert all(count == self.k_target + self.n_structural
+                       for count in self.kept_tokens_per_layer)
+            m = self.ctx.meta
+            loaded_real = self.loaded_real_rows_per_layer[0]
+            loaded_structural = self.loaded_structural_rows_per_layer[0]
+            row_bytes = (int(m["num_heads"]) * int(m["head_dim"])
+                         * np.dtype(m["dtype"]).itemsize)
+            all_kv_row_bytes = 2 * int(m["num_layers"]) * row_bytes
+            result.update({
+                "ratio": float(self.budget),
+                "N_content": self.n_content,
+                "N_structural": self.n_structural,
+                "k_target": self.k_target,
+                "attended_content_kv_count": self.k_target,
+                "attended_content_kv_count_per_layer":
+                    [self.k_target] * int(m["num_layers"]),
+                "normal_chunks_read": len(self.visual_chunk_ids),
+                "actual_loaded_real_rows": loaded_real,
+                "unused_loaded_real_rows": loaded_real - self.k_target,
+                "actual_loaded_structural_rows": loaded_structural,
+                "selected_stored_ids": self.selected_stored_ids,
+                "selected_original_ids": self.selected_original_ids,
+                "keep_count_per_layer": self.kept_tokens_per_layer,
+                "planned_normal_read_spans": self.planned_normal_read_spans,
+                "logical_content_retention_ratio":
+                    self.k_target / self.n_content,
+                "structural_included_visual_retention_ratio":
+                    (self.k_target + self.n_structural)
+                    / int(m["v_token_num"]),
+                "logical_required_content_bytes":
+                    self.k_target * all_kv_row_bytes,
+                "unused_loaded_real_bytes":
+                    (loaded_real - self.k_target) * all_kv_row_bytes,
+                "structural_bytes_in_normal_payload":
+                    loaded_structural * all_kv_row_bytes,
+            })
+        return result
 
 
 def load_static(ctx):

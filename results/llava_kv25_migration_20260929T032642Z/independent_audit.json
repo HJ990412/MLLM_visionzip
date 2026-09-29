@@ -1,0 +1,99 @@
+{
+  "checks": {
+    "completed_marker": true,
+    "gate_hash": true,
+    "gqa_distinct_ids": true,
+    "gqa_hit_vision_zero": true,
+    "gqa_images": true,
+    "gqa_kv_counts": true,
+    "gqa_methods": true,
+    "gqa_new_io_positive": true,
+    "gqa_no_online_scoring": true,
+    "gqa_pixel_vision_one": true,
+    "gqa_raw_copy": true,
+    "gqa_rows": true,
+    "gqa_selected_question_invariant": true,
+    "gqa_stores": true,
+    "gqa_t1_fairness": true,
+    "mt_history_local": true,
+    "mt_smoke_distinct_ids": true,
+    "mt_smoke_hit_vision_zero": true,
+    "mt_smoke_images": true,
+    "mt_smoke_kv_counts": true,
+    "mt_smoke_methods": true,
+    "mt_smoke_new_io_positive": true,
+    "mt_smoke_no_online_scoring": true,
+    "mt_smoke_pixel_vision_one": true,
+    "mt_smoke_raw_copy": true,
+    "mt_smoke_rows": true,
+    "mt_smoke_selected_question_invariant": true,
+    "mt_smoke_stores": true,
+    "mt_smoke_t1_fairness": true,
+    "source:mmimpress/config.py": true,
+    "source:mmimpress/cvpr25.py": true,
+    "source:mmimpress/model.py": true,
+    "source:mmimpress/mt_gqa.py": true,
+    "source:mmimpress/piggyback.py": true,
+    "source:mmimpress/serve.py": true,
+    "source:mmimpress/store.py": true,
+    "source:scripts/49_eval_query_aware_baseline.py": true,
+    "source:scripts/73_eval_mt_gqa_5arm_generated_shard.py": true,
+    "source:scripts/89_eval_llava_kv25.py": true
+  },
+  "created_at_utc": "2026-09-29T03:40:45.088350+00:00",
+  "manifest_gpu_gate_sha256": "5be85ff8afa607dde8a0783abae2ecabaac75558ee69299ce578d5ebdc5a66ed",
+  "manifest_source_sha256": {
+    "mmimpress/config.py": "5d14532936ac55e01d7320ec8877b242471361c1001afb25a9d7fafc4a12c418",
+    "mmimpress/cvpr25.py": "feb5640097056560fadbe596d7ff5aae82745b2d533fccdb8680f4134fada1b1",
+    "mmimpress/model.py": "39437de1b03c41af4f8e9aa219620c6a1544a2a4ef98391679eb0dfd2522c6ba",
+    "mmimpress/mt_gqa.py": "a33c5ef9889bdff2abfcf026782cf9fc3fb5076f5bcbb1b24969864945bb9406",
+    "mmimpress/piggyback.py": "ed45e69ae17c25e64ccbc1ff9bd5afbf608119c6fb23d03e7a046600abcc0092",
+    "mmimpress/serve.py": "4bcba0a5da91176a3fe82c216a9195e14cb245f98cf08d3ec599948ea25745e5",
+    "mmimpress/store.py": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b",
+    "scripts/49_eval_query_aware_baseline.py": "ea6e3d0d3a50580e3c4cde8c578d377b4e7e92f2dcb6313610bf52b10f4c042d",
+    "scripts/73_eval_mt_gqa_5arm_generated_shard.py": "a4db1736d6d5a65549eb0a16d3421d4bd70c53afafa24da7c60d9308236afccc",
+    "scripts/89_eval_llava_kv25.py": "c65132f5aa8c3598cd5f64cc598e6034241946f2f941248d03d202e74224dcbd"
+  },
+  "observed_gpu_gate_sha256": "5be85ff8afa607dde8a0783abae2ecabaac75558ee69299ce578d5ebdc5a66ed",
+  "observed_source_sha256": {
+    "mmimpress/config.py": "5d14532936ac55e01d7320ec8877b242471361c1001afb25a9d7fafc4a12c418",
+    "mmimpress/cvpr25.py": "feb5640097056560fadbe596d7ff5aae82745b2d533fccdb8680f4134fada1b1",
+    "mmimpress/model.py": "39437de1b03c41af4f8e9aa219620c6a1544a2a4ef98391679eb0dfd2522c6ba",
+    "mmimpress/mt_gqa.py": "a33c5ef9889bdff2abfcf026782cf9fc3fb5076f5bcbb1b24969864945bb9406",
+    "mmimpress/piggyback.py": "ed45e69ae17c25e64ccbc1ff9bd5afbf608119c6fb23d03e7a046600abcc0092",
+    "mmimpress/serve.py": "4bcba0a5da91176a3fe82c216a9195e14cb245f98cf08d3ec599948ea25745e5",
+    "mmimpress/store.py": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b",
+    "scripts/49_eval_query_aware_baseline.py": "ea6e3d0d3a50580e3c4cde8c578d377b4e7e92f2dcb6313610bf52b10f4c042d",
+    "scripts/73_eval_mt_gqa_5arm_generated_shard.py": "a4db1736d6d5a65549eb0a16d3421d4bd70c53afafa24da7c60d9308236afccc",
+    "scripts/89_eval_llava_kv25.py": "c65132f5aa8c3598cd5f64cc598e6034241946f2f941248d03d202e74224dcbd"
+  },
+  "paired_from_raw": {
+    "gqa": {
+      "image_clusters": 40,
+      "quality_new_minus_old": -0.009999999999999998,
+      "ttft_ms_new_minus_old": 0.9238392952829599
+    },
+    "mt_smoke": {
+      "image_clusters": 4,
+      "quality_new_minus_old": 0.0,
+      "ttft_ms_new_minus_old": -15.132999222259969
+    }
+  },
+  "passed": true,
+  "passed_count": 39,
+  "raw_sha256": {
+    "gqa": {
+      "results": "c5022341316996b0e3bf73de7158d9474d5074e3266db40d0a8a78a940ec646f",
+      "run": "c5022341316996b0e3bf73de7158d9474d5074e3266db40d0a8a78a940ec646f"
+    },
+    "mt_smoke": {
+      "results": "aace0ed6b3dd15cc5d6698d52289177fe3d06d8550601e8356f5a92532591945",
+      "run": "aace0ed6b3dd15cc5d6698d52289177fe3d06d8550601e8356f5a92532591945"
+    }
+  },
+  "results_dir": "/home/dblab/hj/mllm_v2/results/llava_kv25_migration_20260929T032642Z",
+  "run_dir": "/home/dblab/hj/mllm_v2/runs/llava_kv25_migration_20260929T032642Z",
+  "schema_version": "llava-kv25-independent-postrun-audit-v1",
+  "scope": "read-only recomputation from completed raw, retained store metadata paths, source files and frozen GPU gate; does not replace CPU/GPU correctness suites",
+  "total_checks": 39
+}
