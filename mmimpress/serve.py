@@ -1063,6 +1063,15 @@ class ImageContext:
         from pathlib import Path
         self.dir = Path(store_dir)
         self.meta = load_meta(self.dir)
+        if self.meta.get("storage_policy") == "prefix25":
+            from mmimpress.prefix25 import validate_llava_prefix_meta, verify_integrity
+            validate_llava_prefix_meta(self.meta)
+        has_integrity = (self.dir / "integrity.json").exists()
+        if self.meta.get("storage_policy") == "prefix25" and not has_integrity:
+            raise ValueError("prefix25 store lacks its integrity completion envelope")
+        if has_integrity:
+            from mmimpress.prefix25 import verify_integrity
+            self.integrity_activation = verify_integrity(self.dir)
         nl = self.meta.get("newline_stored", self.meta["newline_idx"])
         if nl and isinstance(nl[0], list):
             self._separator_positions = [
@@ -1259,9 +1268,336 @@ class ImageContext:
         for li in range(L):
             for kind in ("k", "v"):
                 path = self.dir / f"layer_{li:02d}" / f"{kind}.bin"
-                assert path.stat().st_size == vn * row_bytes, \
+                assert path.stat().st_size == int(m.get("payload_rows", vn)) * row_bytes, \
                     f"invalid visual-KV file length: {path}"
         self._visual_kv_layout_validated = True
+
+    def validate_contextual_visual_kv_layout(self):
+        """Validate the separate original-token selection layout at activation.
+
+        The dominant-only validator above remains strict.  This gate checks
+        the new policy's budget, complete permutation, stable physical order,
+        and saved selection artifact before any timed cache hit.  Descriptor
+        cosine decisions are independently checked by the GPU correctness
+        gate against keys from the same normal vision forward.
+        """
+        if getattr(self, "_contextual_visual_kv_layout_validated", False):
+            return
+        from mmimpress.cvpr25 import (permutation_sha256,
+                                      visionzip_repack_order,
+                                      visual_kv_budget_count)
+        from mmimpress.piggyback import stable_json_sha256
+
+        m = self.meta
+        policy = "visionzip_contextual_original_v1"
+        assert m.get("physical_layout") == policy
+        assert m.get("layout_method") == policy
+        assert m.get("layout_policy_version") == policy
+        assert m.get("reordered") is True
+        assert m.get("order_is_per_layer") is False
+        assert m.get("global_order_all_layers") is True
+        assert m.get("layout_source") == "turn1_normal_inference_piggyback"
+        assert m.get("layout_uses_dataset_question") is False
+        assert m.get("llm_used_for_layout_scoring") is False
+        assert int(m.get("calibration_questions", -1)) == 0
+        assert m.get("separator_policy") == "stable_tail_plus_sidecar"
+        assert m.get("separator_tail") is True
+        assert m.get("key_descriptor_payload_persisted") is False
+        assert m.get("dtype") == "float16"
+        assert int(m["chunk_size"]) == 64
+        vn, layers = int(m["v_token_num"]), int(m["num_layers"])
+        separators = [int(x) for x in m["newline_idx"]]
+        assert separators == sorted(set(separators))
+        assert all(0 <= x < vn for x in separators)
+        n = vn - len(separators)
+        assert n > 0 and int(m["n_spatial"]) == n
+        assert int(m["prefix_len"]) == int(m["v_token_start"]) + vn
+        assert int(m["n_chunks_per_layer"]) == (vn + 63) // 64
+        order = [int(x) for x in m["order"]]
+        assert len(order) == vn and sorted(order) == list(range(vn))
+        assert order[n:] == separators
+        assert m.get("permutation_sha256") == permutation_sha256(order)
+        inverse = [0] * vn
+        for stored, original in enumerate(order):
+            inverse[original] = stored
+        assert m.get("inverse_permutation_sha256") == \
+            permutation_sha256(inverse)
+        assert all(self.separator_positions(li) == list(range(n, vn))
+                   for li in range(layers))
+
+        artifact = torch.load(self.dir / "visionzip_layout.pt",
+                              map_location="cpu", weights_only=True)
+        assert artifact.get("schema_version") == 3
+        assert artifact.get("layout_policy_version") == policy
+        scores = torch.as_tensor(artifact["token_score_original"]).float().flatten()
+        assert scores.numel() == vn
+        assert torch.isfinite(scores[[i for i in range(vn)
+                                      if i not in set(separators)]]).all()
+        assert [int(x) for x in artifact["newline_original"]] == separators
+        assert [int(x) for x in artifact["stored_to_original"]] == order
+        assert [int(x) for x in artifact["original_to_stored"]] == inverse
+        plan = artifact["selection_plan"]
+        plan_sha = stable_json_sha256(plan)
+        assert plan_sha == m.get("selection_plan_sha256")
+        assert plan_sha == artifact.get("selection_plan_sha256")
+        variant = m.get("selection_variant")
+        assert variant in ("dominant", "contextual", "random", "uniform")
+        assert plan["variant"] == variant
+        assert float(plan["alpha"]) == float(m["contextual_alpha"])
+        k = visual_kv_budget_count(n, 0.25)
+        c = int(float(m["contextual_alpha"]) * k)
+        d = k - c
+        assert int(m["k_target"]) == int(plan["k"]) == k
+        assert int(m["k_context"]) == int(plan["k_context"]) == c
+        assert int(m["k_dominant"]) == int(plan["k_dominant"]) == d
+        assert int(plan["n_content"]) == n
+        assert [int(x) for x in plan["stored_to_original"]] == order
+        assert [int(x) for x in plan["original_to_stored"]] == inverse
+        ranked = visionzip_repack_order(scores, separators)[:n]
+        dominant = [int(x) for x in plan["dominant_ids"]]
+        context = [int(x) for x in plan["contextual_ids"]]
+        assert dominant == ranked[:d]
+        assert len(context) == c and len(set(context)) == c
+        assert not set(context).intersection(dominant)
+        selected = set(dominant).union(context)
+        assert len(selected) == k
+        expected_order = ([x for x in ranked if x in selected]
+                          + [x for x in ranked if x not in selected]
+                          + separators)
+        assert order == expected_order
+        assert [int(x) for x in plan["selected_original_ids"]] == order[:k]
+        if c == 0:
+            assert order == visionzip_repack_order(scores, separators)
+        if variant == "dominant":
+            assert c == 0 and context == []
+        if variant in ("contextual", "uniform") and c > 0:
+            remainder = sorted(set(ranked) - set(dominant))
+            expected_targets = [
+                remainder[((2*j+1)*len(remainder))//(2*c)]
+                for j in range(c)]
+            assert [int(x) for x in plan["target_ids"]] == expected_targets
+        if variant == "uniform" and c > 0:
+            assert context == expected_targets
+            assert plan["assignments"] == {}
+            assert plan["representative_ids"] == []
+        if variant == "random" and c > 0:
+            import hashlib
+            import random
+            remainder = sorted(set(ranked) - set(dominant))
+            digest = hashlib.sha256(
+                f"{int(m['selection_seed'])}\0{m['image_id']}".encode("utf-8")
+            ).digest()
+            expected_random = sorted(random.Random(int.from_bytes(
+                digest[:8], "big")).sample(remainder, c))
+            assert sorted(context) == expected_random
+            assert plan["assignments"] == {}
+            assert plan["representative_ids"] == []
+        if variant == "contextual" and c > 0:
+            assert m.get("key_descriptor_source") == \
+                "same_turn1_penultimate_vision_k_proj_head_mean_fp32_l2"
+            targets = [int(x) for x in plan["target_ids"]]
+            reps = [int(x) for x in plan["representative_ids"]]
+            assert len(targets) == len(set(targets)) == c
+            assert len(reps) == len(set(reps)) == c
+            assert set(reps) == set(context)
+            remainder = sorted(set(ranked) - set(dominant))
+            assert targets == [remainder[((2*j+1)*len(remainder))//(2*c)]
+                               for j in range(c)]
+            assignments = {int(key): int(value) for key, value in
+                           plan["assignments"].items()}
+            assert set(assignments) == set(remainder)
+            assert all(value in targets for value in assignments.values())
+            assert all(assignments[target] == target for target in targets)
+            assert sum(int(x) for x in plan["cluster_sizes"]) == len(remainder)
+            assert all(int(x) >= 1 for x in plan["cluster_sizes"])
+            assert all(assignments[rep] == target
+                       for rep, target in zip(reps, targets))
+        row_bytes = int(m["num_heads"]) * int(m["head_dim"]) * 2
+        for li in range(layers):
+            for kind in ("k", "v"):
+                path = self.dir / f"layer_{li:02d}" / f"{kind}.bin"
+                assert path.stat().st_size == vn * row_bytes
+        self._contextual_visual_kv_layout_validated = True
+        self._prefix_layout_validated = policy
+        self._reordered_prefix_store_validated = True
+
+    def validate_spatial_visual_kv_layout(self):
+        """Fail closed on the separate quota-matched spatial original-KV layout.
+
+        This checks durable metadata before timed prefix reads.  The GPU gate
+        independently constructs the spatial selection and gathered K/V; this
+        activation check deliberately does not call the production selector.
+        """
+        if getattr(self, "_spatial_visual_kv_layout_validated", False):
+            return
+        import math
+        from mmimpress.cvpr25 import (permutation_sha256,
+                                      visionzip_repack_order,
+                                      visual_kv_budget_count)
+        from mmimpress.piggyback import stable_json_sha256
+
+        m = self.meta
+        policy = "visionzip_spatial_original_v1"
+        assert m.get("physical_layout") == policy
+        assert m.get("layout_method") == policy
+        assert m.get("layout_policy_version") == policy
+        assert m.get("selection_variant") == "spatial_uniform"
+        assert m.get("spatial_coordinate_policy") == \
+            "base_and_unpadded_high_patch_centers_v1"
+        assert m.get("spatial_quota_policy") == \
+            "index_uniform_base_high_quota_matched_v1"
+        assert m.get("reordered") is True
+        assert m.get("order_is_per_layer") is False
+        assert m.get("global_order_all_layers") is True
+        assert m.get("layout_source") == "turn1_normal_inference_piggyback"
+        assert m.get("layout_uses_dataset_question") is False
+        assert m.get("llm_used_for_layout_scoring") is False
+        assert int(m.get("calibration_questions", -1)) == 0
+        assert m.get("separator_policy") == "stable_tail_plus_sidecar"
+        assert m.get("separator_tail") is True
+        assert m.get("key_descriptor_payload_persisted") is False
+        assert m.get("key_descriptor_source") is None
+        capture = m.get("turn1_capture") or {}
+        assert capture.get("capture_keys") is False
+        assert int(capture.get("key_call_count", -1)) == 0
+        assert m.get("dtype") == "float16"
+        assert int(m["chunk_size"]) == 64
+        vn, layers = int(m["v_token_num"]), int(m["num_layers"])
+        separators = [int(x) for x in m["newline_idx"]]
+        assert separators == sorted(set(separators))
+        assert all(0 <= x < vn for x in separators)
+        n = vn - len(separators)
+        assert n > 0 and int(m["n_spatial"]) == n
+        assert int(m["prefix_len"]) == int(m["v_token_start"]) + vn
+        assert int(m["n_chunks_per_layer"]) == (vn + 63) // 64
+        order = [int(x) for x in m["order"]]
+        assert len(order) == vn and sorted(order) == list(range(vn))
+        assert order[n:] == separators
+        assert m.get("permutation_sha256") == permutation_sha256(order)
+        inverse = [0] * vn
+        for stored, original in enumerate(order):
+            inverse[original] = stored
+        assert m.get("inverse_permutation_sha256") == \
+            permutation_sha256(inverse)
+        assert all(self.separator_positions(li) == list(range(n, vn))
+                   for li in range(layers))
+
+        artifact = torch.load(self.dir / "visionzip_layout.pt",
+                              map_location="cpu", weights_only=True)
+        assert artifact.get("schema_version") == 3
+        assert artifact.get("layout_policy_version") == policy
+        scores = torch.as_tensor(artifact["token_score_original"]).float().flatten()
+        assert scores.numel() == vn
+        assert torch.isfinite(scores[[i for i in range(vn)
+                                      if i not in set(separators)]]).all()
+        assert [int(x) for x in artifact["newline_original"]] == separators
+        assert [int(x) for x in artifact["stored_to_original"]] == order
+        assert [int(x) for x in artifact["original_to_stored"]] == inverse
+        plan = artifact["selection_plan"]
+        plan_sha = stable_json_sha256(plan)
+        assert plan_sha == m.get("selection_plan_sha256")
+        assert plan_sha == artifact.get("selection_plan_sha256")
+        assert plan.get("layout_policy") == policy
+        assert plan.get("variant") == "spatial_uniform"
+        assert float(plan["alpha"]) == float(m["contextual_alpha"]) == 0.2
+        k = visual_kv_budget_count(n, .25)
+        c = k // 5
+        d = k - c
+        assert int(m["k_target"]) == int(plan["k"]) == k
+        assert int(m["k_context"]) == int(plan["k_context"]) == c
+        assert int(m["k_dominant"]) == int(plan["k_dominant"]) == d
+        assert int(plan["n_content"]) == n
+        assert [int(x) for x in plan["stored_to_original"]] == order
+        assert [int(x) for x in plan["original_to_stored"]] == inverse
+        ranked = visionzip_repack_order(scores, separators)[:n]
+        dominant = [int(x) for x in plan["dominant_ids"]]
+        aux = [int(x) for x in plan["contextual_ids"]]
+        assert dominant == ranked[:d]
+        assert len(aux) == len(set(aux)) == c
+        assert not set(aux).intersection(dominant)
+        selected = set(dominant).union(aux)
+        assert len(selected) == k
+        assert order == ([x for x in ranked if x in selected]
+                         + [x for x in ranked if x not in selected]
+                         + separators)
+        assert [int(x) for x in plan["selected_original_ids"]] == order[:k]
+        assert plan["target_ids"] == []
+        assert plan["assignments"] == {}
+        spatial = plan["spatial"]
+        assert spatial["definition"] == \
+            "base_high_quota_matched_2d_stratified_v1"
+        coordinates = spatial["coordinates"]
+        records = coordinates["records"]
+        assert len(records) == vn
+        assert [i for i, record in enumerate(records) if record is None] == separators
+        assert [int(x) for x in coordinates["structural_original_ids"]] == separators
+        base_grid = coordinates["base_grid"]
+        high_grid = coordinates["high_grid"]
+        assert int(base_grid["height"]) == int(base_grid["width"]) == \
+            int(m["base_grid"])
+        assert [int(high_grid["height"]), int(high_grid["width"])] == \
+            [int(x) for x in m["hires_grid"]]
+        for original, record in enumerate(records):
+            if record is None:
+                continue
+            assert int(record["original_visual_id"]) == original
+            branch = record["branch"]
+            assert branch in ("base", "high")
+            grid = base_grid if branch == "base" else high_grid
+            height, width = int(grid["height"]), int(grid["width"])
+            row, col = int(record["row"]), int(record["column"])
+            assert int(record["grid_height"]) == height
+            assert int(record["grid_width"]) == width
+            assert 0 <= row < height and 0 <= col < width
+            assert math.isclose(float(record["x"]), (col + .5) / width,
+                                rel_tol=0, abs_tol=1e-12)
+            assert math.isclose(float(record["y"]), (row + .5) / height,
+                                rel_tol=0, abs_tol=1e-12)
+        remaining = sorted(set(ranked) - set(dominant))
+        index_aux = [remaining[((2*j+1)*len(remaining))//(2*c)]
+                     for j in range(c)]
+        assert [int(x) for x in spatial["index_uniform_aux_ids"]] == index_aux
+        quotas = {branch: sum(records[i]["branch"] == branch
+                              for i in index_aux)
+                  for branch in ("base", "high")}
+        assert spatial["branch_quotas"] == quotas
+        assert {branch: sum(records[i]["branch"] == branch for i in aux)
+                for branch in ("base", "high")} == quotas
+        selected_by_regions = []
+        for branch in ("base", "high"):
+            result = spatial["branch_results"][branch]
+            regions = result["regions"]
+            q = quotas[branch]
+            assert int(result["quota"]) == q and len(regions) == q
+            assert len(result["selected_original_ids"]) == q
+            assert int(result["empty_region_count"]) == \
+                sum(bool(region["originally_empty"]) for region in regions)
+            assert int(result["fallback_count"]) == \
+                sum(bool(region["fallback"]) for region in regions)
+            for position, region in enumerate(regions):
+                original = int(region["selected_original_id"])
+                assert int(region["region_id"]) == position
+                assert records[original]["branch"] == branch
+                assert 0 <= float(region["x_min"]) < float(region["x_max"]) <= 1
+                assert 0 <= float(region["y_min"]) < float(region["y_max"]) <= 1
+                assert math.isclose(float(region["normalized_area"]), 1/q,
+                                    rel_tol=0, abs_tol=1e-12)
+                assert bool(region["fallback"]) == bool(region["originally_empty"])
+                assert int(result["selected_original_ids"][position]) == original
+                selected_by_regions.append(original)
+        assert len(set(selected_by_regions)) == c
+        assert set(selected_by_regions) == set(aux)
+        assert set(spatial["selected_aux_ids"]) == set(aux)
+        assert spatial["added_ids"] == sorted(set(aux) - set(index_aux))
+        assert spatial["removed_ids"] == sorted(set(index_aux) - set(aux))
+        row_bytes = int(m["num_heads"]) * int(m["head_dim"]) * 2
+        for li in range(layers):
+            for kind in ("k", "v"):
+                path = self.dir / f"layer_{li:02d}" / f"{kind}.bin"
+                assert path.stat().st_size == vn * row_bytes
+        self._spatial_visual_kv_layout_validated = True
+        self._prefix_layout_validated = policy
+        self._reordered_prefix_store_validated = True
 
     def validate_qa_select_layout(self):
         """Fail closed unless this is QA-Select's canonical raster store.
@@ -1791,9 +2127,14 @@ class Server:
             if mode != "prefix" or sep_policy != "sidecar":
                 raise ValueError(
                     "visual-KV budget requires prefix mode and separator sidecar")
-            if expected_prefix_layout not in (None, "visionzip_image_only"):
-                raise ValueError("visual-KV budget requires image-only layout")
-            ctx.validate_visual_kv_layout()
+            if expected_prefix_layout in (None, "visionzip_image_only"):
+                ctx.validate_visual_kv_layout()
+            elif expected_prefix_layout == "visionzip_contextual_original_v1":
+                ctx.validate_contextual_visual_kv_layout()
+            elif expected_prefix_layout == "visionzip_spatial_original_v1":
+                ctx.validate_spatial_visual_kv_layout()
+            else:
+                raise ValueError("unsupported visual-KV prefix layout")
         elif budget_unit == "chunk":
             if mode == "prefix":
                 if expected_prefix_layout is None:
@@ -2073,6 +2414,9 @@ class CVPR25ChunkSelector:
         self.static_score_calls = 0
         self.query_score_calls = 0
         self.diversity_calls = 0
+        if ctx.meta.get("storage_policy") == "prefix25":
+            if budget_unit != "visual_kv" or float(budget) > .25 or mode != "prefix":
+                raise ValueError("prefix25 only supports original-content visual_kv budgets <= 0.25")
         if self.budget_unit not in ("chunk", "visual_kv"):
             raise ValueError(f"unsupported budget unit: {self.budget_unit}")
         if self.budget_unit == "visual_kv":
@@ -2194,7 +2538,7 @@ class CVPR25ChunkSelector:
             self.t["chunk_io"] += time.perf_counter() - t0
 
             if self.budget_unit == "visual_kv":
-                row_end = min(len(cids) * cs, vn)
+                row_end = min(len(cids) * cs, int(m.get("payload_rows", vn)))
                 expected_rows = torch.arange(row_end, dtype=torch.long)
                 assert torch.equal(loaded["k"][0], expected_rows)
                 assert torch.equal(loaded["v"][0], expected_rows)

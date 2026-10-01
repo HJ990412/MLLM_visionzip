@@ -1,0 +1,1415 @@
+--- before/mmimpress/serve.py
++++ after/mmimpress/serve.py
+@@ -1063,6 +1063,15 @@
+         from pathlib import Path
+         self.dir = Path(store_dir)
+         self.meta = load_meta(self.dir)
++        if self.meta.get("storage_policy") == "prefix25":
++            from mmimpress.prefix25 import validate_llava_prefix_meta, verify_integrity
++            validate_llava_prefix_meta(self.meta)
++        has_integrity = (self.dir / "integrity.json").exists()
++        if self.meta.get("storage_policy") == "prefix25" and not has_integrity:
++            raise ValueError("prefix25 store lacks its integrity completion envelope")
++        if has_integrity:
++            from mmimpress.prefix25 import verify_integrity
++            self.integrity_activation = verify_integrity(self.dir)
+         nl = self.meta.get("newline_stored", self.meta["newline_idx"])
+         if nl and isinstance(nl[0], list):
+             self._separator_positions = [
+@@ -1259,7 +1268,7 @@
+         for li in range(L):
+             for kind in ("k", "v"):
+                 path = self.dir / f"layer_{li:02d}" / f"{kind}.bin"
+-                assert path.stat().st_size == vn * row_bytes, \
++                assert path.stat().st_size == int(m.get("payload_rows", vn)) * row_bytes, \
+                     f"invalid visual-KV file length: {path}"
+         self._visual_kv_layout_validated = True
+ 
+@@ -2405,6 +2414,9 @@
+         self.static_score_calls = 0
+         self.query_score_calls = 0
+         self.diversity_calls = 0
++        if ctx.meta.get("storage_policy") == "prefix25":
++            if budget_unit != "visual_kv" or float(budget) > .25 or mode != "prefix":
++                raise ValueError("prefix25 only supports original-content visual_kv budgets <= 0.25")
+         if self.budget_unit not in ("chunk", "visual_kv"):
+             raise ValueError(f"unsupported budget unit: {self.budget_unit}")
+         if self.budget_unit == "visual_kv":
+@@ -2526,7 +2538,7 @@
+             self.t["chunk_io"] += time.perf_counter() - t0
+ 
+             if self.budget_unit == "visual_kv":
+-                row_end = min(len(cids) * cs, vn)
++                row_end = min(len(cids) * cs, int(m.get("payload_rows", vn)))
+                 expected_rows = torch.arange(row_end, dtype=torch.long)
+                 assert torch.equal(loaded["k"][0], expected_rows)
+                 assert torch.equal(loaded["v"][0], expected_rows)
+--- before/mmimpress/piggyback.py
++++ after/mmimpress/piggyback.py
+@@ -769,6 +769,7 @@
+     contextual_alpha: float = 0.0,
+     vision_key_descriptors: torch.Tensor | None = None,
+     selection_seed: int = 1234,
++    storage_policy: str = "full",
+ ) -> dict[str, Any]:
+     """Persist the reusable prefix from a completed normal Turn-1 request.
+ 
+@@ -1050,6 +1051,7 @@
+             extra=invariant_metadata, chunk_size=int(chunk_size),
+             probe_heads=0, stored_to_original=stored_to_original,
+             separator_sidecar=True, timing_out=writer_timing,
++            storage_policy=storage_policy,
+         )
+         assert meta["probe_heads"] == 0
+         assert meta["bytes_probe_sidecar"] == 0
+@@ -1152,6 +1154,7 @@
+         total_repack_ms = (float(writer_timing["kv_materialize_ms"])
+                            + float(writer_timing["kv_repack_ms"]))
+         timing_ms = {
++            "prefix_slice_serialization_ms": writer_timing.get("prefix_slice_serialization_ms", 0.0),
+             "token_mapping_ms": float(token_mapping_ms),
+             "descriptor_mapping_ms": float(descriptor_mapping_ms),
+             "clustering_ms": float(clustering_ms),
+--- before/mmimpress/store.py
++++ after/mmimpress/store.py
+@@ -104,7 +104,8 @@
+                       probe_heads: int = PROBE_HEADS,
+                       stored_to_original=None,
+                       separator_sidecar: bool = False,
+-                      timing_out: dict | None = None):
++                      timing_out: dict | None = None,
++                      storage_policy: str = "full"):
+     """Persist one image prefix (token-major + probe sidecar).
+ 
+     layers: list over transformer layers of (k, v), each (1, H, prefix_len, hd)
+@@ -117,6 +118,16 @@
+     H, hd = layers[0][0].shape[1], layers[0][0].shape[3]
+     assert layers[0][0].shape[2] >= prefix_len, layers[0][0].shape
+ 
++    if storage_policy not in ("full", "prefix25"):
++        raise ValueError("unsupported storage policy")
++    n_content = v_num - len(newline_idx)
++    stored_content = (n_content + 3) // 4 if storage_policy == "prefix25" else n_content
++    if storage_policy == "prefix25":
++        if n_content < 1 or stored_to_original is None or not separator_sidecar or probe_heads:
++            raise ValueError("prefix25 requires nonempty repacked content and separate structural KV")
++        if list(stored_to_original)[n_content:] != list(newline_idx) or chunk_size != 64:
++            raise ValueError("prefix25 requires stable structural tail and chunk size 64")
++    disk_rows = stored_content if storage_policy == "prefix25" else v_num
+     perm = None
+     newline_original = [int(i) for i in newline_idx]
+     newline_stored = list(newline_original)
+@@ -130,7 +141,7 @@
+             inverse[original] = stored
+         newline_stored = [inverse[i] for i in newline_original]
+ 
+-    materialize_seconds = repack_seconds = write_seconds = 0.0
++    materialize_seconds = repack_seconds = write_seconds = serialize_seconds = 0.0
+ 
+     def write_bytes(path, payload):
+         nonlocal write_seconds
+@@ -166,11 +177,13 @@
+                 t0 = time.perf_counter()
+                 block = block.index_select(0, perm).contiguous()
+                 repack_seconds += time.perf_counter() - t0
+-            buf = block.numpy().tobytes()
++            t0 = time.perf_counter()
++            buf = block[:disk_rows].numpy().tobytes()
++            serialize_seconds += time.perf_counter() - t0
+             write_bytes(ldir / f"{kind}.bin", buf)
+             total += len(buf)
+             if kind == "k":
+-                pb = block[:, :probe_heads].contiguous().numpy().tobytes()
++                pb = block[:disk_rows, :probe_heads].contiguous().numpy().tobytes()
+                 write_bytes(ldir / "probe_k.bin", pb)
+                 probe_bytes += len(pb)
+             if separator_sidecar:
+@@ -213,6 +226,19 @@
+             "newline_stored": newline_stored,
+             "reordered": True,
+         })
++    if storage_policy == "prefix25":
++        meta.update({
++            "format": "llava_fp16_importance_prefix25_v2",
++            "storage_policy": "prefix25", "original_content_count": n_content,
++            "stored_content_count": stored_content, "payload_rows": disk_rows,
++            "retention_ratio": 0.25, "rounding_policy": "ceil_original_content",
++            "stored_row_to_original": list(stored_to_original)[:stored_content],
++            "full_importance_permutation": list(stored_to_original),
++            "order_semantics": "full virtual GPU permutation; only stored_row_to_original is on disk",
++            "payload_chunks": n_chunks(disk_rows, chunk_size),
++            "valid_rows_last_chunk": (disk_rows - 1) % chunk_size + 1,
++            "padding_rows": 0,
++        })
+     if extra:
+         meta.update(extra)
+     # Repacking metadata must not be able to contradict the actual writer
+@@ -230,6 +256,7 @@
+             "kv_materialize_ms": materialize_seconds * 1e3,
+             "kv_repack_ms": repack_seconds * 1e3,
+             "ssd_write_ms": write_seconds * 1e3,
++            "prefix_slice_serialization_ms": serialize_seconds * 1e3,
+         })
+     return meta
+ 
+@@ -371,7 +398,11 @@
+         m = self.meta
+         v_num, H, hd = m["v_token_num"], m["num_heads"], m["head_dim"]
+         cs = m["chunk_size"]
+-        spans = [chunk_span(ci, v_num, cs) for ci in sorted(set(cids))]
++        disk_rows = int(m.get("payload_rows", v_num))
++        if m.get("storage_policy") == "prefix25" and any(
++                ci < 0 or ci * cs >= disk_rows for ci in cids):
++            raise ValueError("requested chunk is absent from prefix25 store")
++        spans = [chunk_span(ci, disk_rows, cs) for ci in sorted(set(cids))]
+         ranges = [byte_range(s, e, H, hd, self.itemsize) for s, e in spans]
+         blobs = self._read(layer, kind, ranges, counter, kind, len(spans),
+                            max_gap)
+@@ -399,6 +430,8 @@
+         """Whole (v_num, num_heads, head_dim) block for one layer."""
+         m = self.meta
+         v_num, H, hd = m["v_token_num"], m["num_heads"], m["head_dim"]
++        if m.get("storage_policy") == "prefix25":
++            raise ValueError("FullLoad is unavailable for a prefix25 store")
+         nbytes = v_num * H * hd * self.itemsize
+         blobs = self._read(layer, kind, [(0, nbytes)], counter, kind,
+                            m["n_chunks_per_layer"])
+--- before/mmimpress/qwen25/runner.py
++++ after/mmimpress/qwen25/runner.py
+@@ -475,7 +475,7 @@
+         return result
+ 
+     def persist(self, capture: CapturedPrefix, store_dir: str | Path,
+-                layout: str = "repacked") -> dict:
++                layout: str = "repacked", *, storage_policy: str = "full") -> dict:
+         from .store import write_qwen_store
+         if layout not in {"canonical", "repacked"}:
+             raise ValueError(layout)
+@@ -504,7 +504,7 @@
+             Path(store_dir), capture.layers, capture.visual_start,
+             capture.visual_count, capture.prefix_ids,
+             scores=capture.scores if layout == "repacked" else None,
+-            extra=extra, timing_out=timing)
++            extra=extra, timing_out=timing, storage_policy=storage_policy)
+         writer_ms = _ms(t0)
+         return {"store_dir": str(store_dir), "layout": layout,
+                 "persistence_ms": writer_ms + capture.score_ms + capture.capture_clone_ms,
+--- before/mmimpress/qwen25/store.py
++++ after/mmimpress/qwen25/store.py
+@@ -31,6 +31,7 @@
+ 
+ 
+ FORMAT = "qwen25_bf16_visual_kv_v1"
++PREFIX_FORMAT = "qwen25_bf16_importance_prefix25_v2"
+ DEFAULT_CHUNK_SIZE = 64
+ _ROW_ITEMSIZE = 2
+ _REQUIRED_EXTRA = (
+@@ -182,7 +183,8 @@
+ def write_qwen_store(out_dir: str | Path, layers: Any, visual_start: int,
+                      visual_count: int, prefix_ids: Any, scores: Any = None,
+                      extra: dict | None = None, *, chunk_size: int = DEFAULT_CHUNK_SIZE,
+-                     timing_out: dict | None = None) -> dict:
++                     timing_out: dict | None = None,
++                     storage_policy: str = "full") -> dict:
+     """Write a canonical or saliency-repacked Qwen prefix directly from Turn-1 KV.
+ 
+     ``layers`` contains native BF16 pairs in HF cache shape [1,H_kv,seq,D].
+@@ -191,6 +193,10 @@
+     image/model/processor/geometry/position identity and MRoPE positions.
+     The destination must not already exist, which protects previous artifacts.
+     """
++    if storage_policy not in ("full", "prefix25"):
++        raise ValueError("unsupported storage policy")
++    if storage_policy == "prefix25" and (scores is None or chunk_size != 64):
++        raise ValueError("prefix25 requires image-only scores and chunk size 64")
+     started = time.perf_counter()
+     visual_start, visual_count, chunk_size = int(visual_start), int(visual_count), int(chunk_size)
+     prefix_ids = _jsonable(prefix_ids)
+@@ -234,9 +240,10 @@
+     inverse = inverse_permutation(order)
+     permutation_end = time.perf_counter()
+ 
+-    n_chunks = (visual_count + chunk_size - 1) // chunk_size
+-    stored_rows = n_chunks * chunk_size
+-    padding_rows = stored_rows - visual_count
++    stored_content = (visual_count + 3) // 4 if storage_policy == "prefix25" else visual_count
++    n_chunks = (stored_content + chunk_size - 1) // chunk_size
++    stored_rows = stored_content if storage_policy == "prefix25" else n_chunks * chunk_size
++    padding_rows = stored_rows - stored_content
+     structural_indices = [i for i in range(prefix_len)
+                           if i < visual_start or i >= visual_start + visual_count]
+     structural_count = len(structural_indices)
+@@ -257,6 +264,7 @@
+     out_dir.mkdir(parents=True, exist_ok=False)
+     stats = {"materialize_seconds": 0.0, "repack_seconds": 0.0,
+              "write_seconds": 0.0, "fsync_seconds": 0.0}
++    serialize_seconds = 0.0
+     file_records = {}
+     try:
+         # All nonvisual rows, including vision_end after the image, are stored
+@@ -292,6 +300,7 @@
+                     rows = rows.index_select(0, order_cpu)
+                     stats["repack_seconds"] += time.perf_counter() - t0
+                 t0 = time.perf_counter()
++                rows = rows[:stored_content]
+                 if padding_rows:
+                     padded = torch.zeros((stored_rows, heads, head_dim),
+                                          dtype=torch.bfloat16)
+@@ -300,8 +309,11 @@
+                 rows = rows.contiguous()
+                 stats["materialize_seconds"] += time.perf_counter() - t0
+                 rel = f"layer_{li:03d}/{kind}.bin"
++                serialize_start = time.perf_counter()
++                payload = _bf16_bytes(rows)
++                serialize_seconds += time.perf_counter() - serialize_start
+                 file_records[rel] = _write_file(
+-                    layer_dir / f"{kind}.bin", _bf16_bytes(rows), stats)
++                    layer_dir / f"{kind}.bin", payload, stats)
+             layer_fsync_start = time.perf_counter()
+             layer_fd = os.open(layer_dir, os.O_RDONLY)
+             try:
+@@ -313,7 +325,7 @@
+         visual_bytes = sum(record["size"] for name, record in file_records.items()
+                            if name != "structural_kv.bin")
+         meta = {
+-            "format": FORMAT,
++            "format": PREFIX_FORMAT if storage_policy == "prefix25" else FORMAT,
+             "model_family": "Qwen2.5-VL",
+             "layout": "token_major_repacked_bf16" if scores is not None else "token_major_canonical_bf16",
+             "dtype": "bfloat16",
+@@ -332,7 +344,7 @@
+             "chunk_size": chunk_size,
+             "n_chunks": n_chunks,
+             "stored_rows": stored_rows,
+-            "valid_rows_last_chunk": visual_count - (n_chunks - 1) * chunk_size,
++            "valid_rows_last_chunk": stored_content - (n_chunks - 1) * chunk_size,
+             "padding_rows": padding_rows,
+             "row_bytes": row_bytes,
+             "stored_to_original": order,
+@@ -360,6 +372,16 @@
+             "extra": {key: value for key, value in extra.items()
+                       if key not in _REQUIRED_EXTRA},
+         }
++        if storage_policy == "prefix25":
++            meta.update({
++                "storage_policy": "prefix25", "original_content_count": visual_count,
++                "stored_content_count": stored_content, "retention_ratio": .25,
++                "rounding_policy": "ceil_original_content",
++                "full_importance_permutation": order,
++                "stored_to_original": order[:stored_content],
++                "stored_row_to_original": order[:stored_content],
++                "inverse_semantics": "original token to full importance rank, not stored row",
++            })
+         # The metadata file records its own size; decimal digit growth settles
+         # in at most a few iterations. It cannot contain its own SHA digest.
+         for _ in range(10):
+@@ -392,6 +414,7 @@
+         raise
+     if timing_out is not None:
+         timing_out.update({
++            "prefix_slice_serialization_ms": serialize_seconds * 1e3,
+             "permutation_ms": (permutation_end - started) * 1e3,
+             "kv_materialize_ms": stats["materialize_seconds"] * 1e3,
+             "kv_repack_ms": stats["repack_seconds"] * 1e3,
+@@ -491,6 +514,9 @@
+     """
+     n = int(meta["visual_count"])
+     cs = int(meta["chunk_size"])
++    prefix_only = meta.get("format") == PREFIX_FORMAT
++    if prefix_only and (budget_unit != "visual_kv" or float(budget) > .25):
++        raise ValueError("prefix25 requires original-content visual_kv budget <= 0.25")
+     if budget_unit == "chunk":
+         chunks = budget_chunk_count(int(meta["n_chunks"]), float(budget))
+         kept = min(n, chunks * cs)
+@@ -512,7 +538,7 @@
+         chunks = (kept + cs - 1) // cs
+     else:
+         raise ValueError(f"unknown budget unit: {budget_unit}")
+-    disk_rows = chunks * cs
++    disk_rows = min(chunks * cs, meta["stored_content_count"]) if prefix_only else chunks * cs
+     valid_rows = min(n, disk_rows)
+     if not 0 <= kept <= valid_rows or not 0 <= chunks <= meta["n_chunks"]:
+         raise AssertionError("budget plan exceeds valid store geometry")
+@@ -558,7 +584,7 @@
+ 
+     def _validate_meta(self, expected_identity: dict | None) -> None:
+         m = self.meta
+-        if m.get("format") != FORMAT or m.get("dtype") != "bfloat16" \
++        if m.get("format") not in (FORMAT, PREFIX_FORMAT) or m.get("dtype") != "bfloat16" \
+                 or m.get("byte_order") != sys.byteorder \
+                 or m.get("key_rope_state") != "post_mrope":
+             raise ValueError("unsupported or mislabeled Qwen KV store")
+@@ -571,11 +597,21 @@
+         if min(n, p, cs, heads, hd, int(m["num_layers"])) < 1 \
+                 or start < 0 or start + n > p:
+             raise ValueError("invalid store dimensions")
+-        if len(m["prefix_input_ids"]) != p or len(m["stored_to_original"]) != n:
++        prefix_only = m.get("format") == PREFIX_FORMAT
++        order = m["full_importance_permutation"] if prefix_only else m["stored_to_original"]
++        if prefix_only:
++            k = (n + 3) // 4
++            if (m.get("storage_policy") != "prefix25" or m.get("original_content_count") != n
++                    or m.get("stored_content_count") != k or m.get("retention_ratio") != .25
++                    or m.get("rounding_policy") != "ceil_original_content"
++                    or m["stored_to_original"] != order[:k]
++                    or m.get("stored_row_to_original") != order[:k]):
++                raise ValueError("invalid original-content prefix25 mapping/budget")
++        if len(m["prefix_input_ids"]) != p or len(order) != n:
+             raise ValueError("invalid prefix IDs or permutation length")
+-        if inverse_permutation(m["stored_to_original"]) != m["original_to_stored"]:
++        if inverse_permutation(order) != m["original_to_stored"]:
+             raise ValueError("permutation inverse mismatch")
+-        if permutation_sha256(m["stored_to_original"]) != m["permutation_sha256"]:
++        if permutation_sha256(order) != m["permutation_sha256"]:
+             raise ValueError("permutation digest mismatch")
+         if hashlib.sha256(_canonical_json(m["prefix_input_ids"])).hexdigest() != m["prefix_sha256"]:
+             raise ValueError("prefix token digest mismatch")
+@@ -583,10 +619,12 @@
+         if m["structural_indices"] != expected_struct \
+                 or m["structural_count"] != len(expected_struct):
+             raise ValueError("structural prefix index mismatch")
+-        nc = (n + cs - 1) // cs
+-        if m["n_chunks"] != nc or m["stored_rows"] != nc * cs \
+-                or m["padding_rows"] != nc * cs - n \
+-                or m["valid_rows_last_chunk"] != n - (nc - 1) * cs:
++        valid = (n + 3) // 4 if prefix_only else n
++        nc = (valid + cs - 1) // cs
++        disk = valid if prefix_only else nc * cs
++        if m["n_chunks"] != nc or m["stored_rows"] != disk \
++                or m["padding_rows"] != disk - valid \
++                or m["valid_rows_last_chunk"] != valid - (nc - 1) * cs:
+             raise ValueError("chunk geometry mismatch")
+         if m["row_bytes"] != heads * hd * _ROW_ITEMSIZE:
+             raise ValueError("row byte width mismatch")
+--- /dev/null
++++ after/mmimpress/prefix25.py
+@@ -0,0 +1,110 @@
++"""Persistence-ablation receipts and validation; no selector or model changes."""
++from __future__ import annotations
++import contextlib
++import hashlib
++import json
++import os
++from pathlib import Path
++import time
++
++
++def sha(path):
++    h = hashlib.sha256()
++    with Path(path).open('rb') as f:
++        for b in iter(lambda: f.read(8 << 20), b''):
++            h.update(b)
++    return h.hexdigest()
++
++
++def validate_llava_prefix_meta(m):
++    n = int(m['v_token_num']) - len(m['newline_idx'])
++    k = (n + 3) // 4
++    if (n < 1 or m.get('format') != 'llava_fp16_importance_prefix25_v2'
++            or m.get('original_content_count') != n
++            or m.get('n_spatial') != n or m.get('stored_content_count') != k
++            or m.get('retention_ratio') != .25
++            or m.get('rounding_policy') != 'ceil_original_content'
++            or m.get('payload_rows') != k or m.get('padding_rows') != 0
++            or m.get('payload_chunks') != (k + 63) // 64
++            or m.get('valid_rows_last_chunk') != (k - 1) % 64 + 1
++            or m.get('full_importance_permutation') != m['order']
++            or sorted(m['order']) != list(range(m['v_token_num']))
++            or m.get('stored_row_to_original') != m['order'][:k]
++            or m['order'][n:] != m['newline_idx']):
++        raise ValueError('invalid prefix25 original geometry or row mapping')
++
++
++def inventory(path):
++    root = Path(path)
++    return {str(p.relative_to(root)): {'size': p.stat().st_size,
++            'allocated_bytes': p.stat().st_blocks * 512, 'sha256': sha(p)}
++            for p in sorted(root.rglob('*')) if p.is_file()}
++
++
++def seal_integrity(path):
++    """Equal A/B full checksums and durability, inside persistence critical path."""
++    root = Path(path)
++    records = inventory(root)
++    payload = (json.dumps(records, sort_keys=True, indent=2) + '\n').encode()
++    with (root / 'integrity.json').open('xb') as f:
++        f.write(payload)
++        f.flush()
++        os.fsync(f.fileno())
++    # Includes Qwen's parent directory entry (legacy writer syncs store only).
++    for p in (root, root.parent):
++        fd = os.open(p, os.O_RDONLY | os.O_DIRECTORY)
++        try:
++            os.fsync(fd)
++        finally:
++            os.close(fd)
++    records['integrity.json'] = {'size': len(payload), 'sha256': sha(root/'integrity.json'),
++                                'allocated_bytes': (root/'integrity.json').stat().st_blocks * 512}
++    return records
++
++
++def verify_integrity(path):
++    root = Path(path)
++    manifest = root / 'integrity.json'
++    records = json.loads(manifest.read_text())
++    total = 0
++    started = time.perf_counter()
++    for rel, row in records.items():
++        if Path(rel).is_absolute() or '..' in Path(rel).parts:
++            raise ValueError('invalid integrity path')
++        p = root / rel
++        if p.is_symlink() or p.stat().st_size != row['size'] or sha(p) != row['sha256']:
++            raise ValueError(f'payload integrity mismatch: {rel}')
++        total += row['size']
++    return {'integrity_ms': (time.perf_counter()-started)*1000,
++            'integrity_read_bytes': total, 'metadata_bytes': manifest.stat().st_size}
++
++
++def process_io():
++    return {k: int(v) for k, v in (line.split(':') for line in Path('/proc/self/io').read_text().splitlines())}
++
++
++class ReadTrace:
++    """Independent real syscall return trace, with optional store access guard."""
++    def __init__(self, allowed=None):
++        self.allowed = None if allowed is None else Path(allowed).resolve()
++        self.calls = []
++
++    def __enter__(self):
++        self.original = os.pread
++        def traced(fd, count, offset):
++            path = Path(os.readlink(f'/proc/self/fd/{fd}')).resolve()
++            if self.allowed is not None and path.suffix == '.bin' and not path.is_relative_to(self.allowed):
++                raise AssertionError(f'foreign KV payload access: {path}')
++            blob = self.original(fd, count, offset)
++            self.calls.append({'path': str(path), 'offset': offset,
++                               'requested': count, 'returned': len(blob)})
++            return blob
++        os.pread = traced
++        return self
++
++    def __exit__(self, *exc):
++        os.pread = self.original
++
++    def summary(self):
++        return {'bytes': sum(x['returned'] for x in self.calls),
++                'preads': len(self.calls), 'calls': self.calls}
+--- /dev/null
++++ after/scripts/106_prefix25_persistence.py
+@@ -0,0 +1,507 @@
++#!/usr/bin/env python3
++"""Frozen storage-policy ablation: correctness before any model's pilot."""
++from __future__ import annotations
++import argparse, contextlib, copy, gc, hashlib, importlib.util, json, os, random
++import shutil, subprocess, sys, time, traceback, uuid
++from pathlib import Path
++ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
++import numpy as np
++import torch
++from PIL import Image
++from mmimpress.prefix25 import sha, inventory, seal_integrity, verify_integrity, process_io, ReadTrace
++from mmimpress.dataset import exact_score
++ARMS=['recompute','fullload','A','B']; SEED=1234
++
++def load(name,file):
++    spec=importlib.util.spec_from_file_location(name,ROOT/'scripts'/file)
++    mod=importlib.util.module_from_spec(spec);sys.modules[name]=mod;spec.loader.exec_module(mod);return mod
++
++def safe(v):
++    if torch.is_tensor(v):return v.detach().cpu().tolist()
++    if isinstance(v,Path):return str(v)
++    if isinstance(v,dict):return {str(k):safe(x) for k,x in v.items()}
++    if isinstance(v,(list,tuple)):return [safe(x) for x in v]
++    if isinstance(v,np.generic):return v.item()
++    return v
++
++def write(path,obj):
++    path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
++    with path.open('w') as f:json.dump(safe(obj),f,indent=2,allow_nan=False);f.write('\n');f.flush();os.fsync(f.fileno())
++
++def append(path,obj):
++    with Path(path).open('a') as f:f.write(json.dumps(safe(obj),allow_nan=False)+'\n');f.flush();os.fsync(f.fileno())
++
++def exclusive():
++    p=subprocess.run(['nvidia-smi','--query-compute-apps=pid','--format=csv,noheader,nounits'],capture_output=True,text=True,check=True)
++    other=[x.strip() for x in p.stdout.splitlines() if x.strip() and int(x.strip())!=os.getpid()]
++    if other:raise RuntimeError('external GPU work; no concurrent latency allowed: '+str(other))
++
++def capacity():
++    free=shutil.disk_usage(ROOT).free
++    if free<46*2**30:raise RuntimeError(f'capacity reserve: {free/2**30:.2f} GiB free; need 30 GiB + 16 GiB staging')
++
++def freeze(run):
++    run=Path(run); res=ROOT/'results'/run.name
++    manifests={}
++    for name,old in [('gqa','gqa_manifest'),('mt','mt_manifest')]:
++        path=ROOT/'runs/qwen25_port_20260928T054537Z'/old/'manifest.json'
++        source=json.loads(path.read_text()); rows=source['images']
++        assert len(rows)==40 and len({r['image_id'] for r in rows})==40
++        for row in rows:assert Path(row['image_path']).exists() and sha(row['image_path'])==row['image_sha256']
++        manifests[name]={'source_path':str(path),'source_sha256':sha(path),'images':rows,'history':'method_own_generated' if name=='mt' else 'none'}
++    index=json.loads((ROOT/'data/index.json').read_text())
++    assert [[str(q['question_id']) for q in x['questions'][4:10]] for x in index]==[[str(t['question_id']) for t in x['turns']] for x in manifests['gqa']['images']]
++    manifests['smoke']=copy.deepcopy(manifests['gqa']);manifests['smoke']['images']=manifests['smoke']['images'][:4]
++    for row in manifests['smoke']['images']:row['turns']=row['turns'][:3]
++    for name,value in manifests.items():write(run/f'{name}_manifest.json',value)
++    frozen=ROOT/'runs/qwen25_correctness_v2_20260928T081111Z/validation_manifest.json'
++    shutil.copy2(frozen,run/'correctness_manifest.json')
++    revision=(Path.home()/'.cache/huggingface/hub/models--llava-hf--llava-v1.6-vicuna-7b-hf/refs/main').read_text().strip()
++    assert revision=='c916e6cdcd760b4cecd1dd4907f84ac649f93b23'
++    config={'seed':1234,'greedy':True,'max_new_tokens':16,'batch_size':1,'chunk_size':64,'ratio':.25,'arms':ARMS,
++      'llava':{'revision':revision,'quantization':'NF4 double BF16 compute','attention':'eager','store_dtype':'float16','processor':'existing AnyRes'},
++      'qwen':{'revision':'cc594898137f460bfe9f0759e9844b3ce807cfb5','quantization':'NF4 double BF16 compute','attention':'sdpa','store_dtype':'bfloat16','min_pixels':200704,'max_pixels':802816},
++      'bootstrap':{'unit':'image','resamples':10000,'seed':1234},'workload_files':{n:sha(run/f'{n}_manifest.json') for n in manifests},
++      'correctness_file_sha256':sha(run/'correctness_manifest.json'),'prior_v1_status':'FAIL unchanged; this ablation cannot relabel it',
++      'timing':'outer before image decode/input preparation; synchronized first token; E2E through generation plus mandatory capture; one-time persistence and activation separately added'}
++    write(run/'config.json',config);write(res/'config.json',config)
++    contract='''# Prefix25 persistence contract
++
++Frozen before GPU execution. A = original importance-repacked FullStore KV25;
++B = same full CPU materialization, same full stable permutation and repack,
++then serialize content rows [0, ceil(N/4)) only. C=64, short final chunk,
++no real extra rows, no padding in B. Structural/system KV stays separate.
++Original N, positions, geometry and full permutation stay distinct from stored k.
++B rejects chunk budget and any ratio >.25. No pruning, merging or new scoring.
++LLaVA full-size physical buffer and BF16 restoration from FP16 stay unchanged;
++Qwen native BF16 logical compact assembly and original MRoPE stay unchanged.
++
++CPU: N=1,63,64,65,127,128,129,255,256,257,349,2200; zero rejected;
++independent stable-rank/gather; all layer/head KV bits, structural, short EOF,
++invalid identity/mapping/checksum/truncation, double-budget and oversized requests.
++Independent real os.pread returned byte/call traces must equal production counters.
++GPU: five original LLaVA pairs and ten original Qwen v2 pairs, reused validation
++samples (not unseen holdout). Same full-image capture for independent A/B stores.
++Independent score rank and canonical-KV gather; content k, structural, original
++positions and actual masks from prefill through last decode; first/generated IDs
++and prediction exact. LLaVA every generated-step logits atol=1e-4, rtol=1e-4;
++Qwen matched first logits bitwise exact plus all generated IDs exact, stock MRoPE
++and masks, FP32 dense/compact GQA oracle atol=rtol=1e-5. No relaxation after results.
++Release source/capture/reference KV, clear serving contexts, activate B alone and
++require fresh independent B payload reads, zero vision/query-scoring, deterministic
++repeat, history invariance and interleaved image/method isolation. Any required
++FAIL or unexecuted gate blocks that model's performance experiments independently.
++
++Each performance arm executes its own full-image T1 and own physical persistence.
++No shared timing/capture/store. ReComp none; FullLoad canonical; A full; B prefix.
++Full integrity hashes and file/directory/parent fsync inside both A/B total
++persistence. Existing helper components may overlap; total uses a wall boundary.
++/proc/self/io wchar/syscw deltas measure OS successful write returned bytes/calls,
++not NAND traffic. Integrity envelope, system, metadata and padding counted.
++LLaVA saliency hooks run in forward; Qwen saliency computation occurs in VisionScoreCapture.__exit__ after normal
++request generation; outer request E2E includes this and required capture cloning
++exactly once, before persistence. normal_request_e2e_ms records the inner boundary.
++Full CPU copy/repack costs are retained. Serialization timing separate from write.
++Service session = T1 E2E + persistence + one activation + T2 E2E + T3 E2E.
++GQA sum is six independent requests + one-time persistence/activation, not MT.
++Page-cache DONTNEED outside request timers for all stored arms; no NAND cold claim.
++Activation integrity reads are separate and included once in session. Hits do not
++decode image files. Independent tracing overhead is present symmetrically on hits.
++Warmup excluded; methods rotate by image and turn. Never measure with another GPU
++compute process. Seed=1234, greedy max16, unchanged model revisions/backend/processor.
++Smoke 4x3x4; GQA frozen40x6x4; MT frozen40x3x4, own generated history per arm.
++No 4061-dialogue full run. Image-cluster paired bootstrap 10000 seed1234 95% CI.
++MB=1e6 bytes, disk safety>=30 GiB. Keep raw/failures/inventories; delete only this
++run's stores after all image measurements and hash/mapping receipts committed.
++Cleaned payloads require regeneration. No old artifacts changed and no push.
++'''
++    (run/'CONTRACT.md').write_text(contract);(res/'CONTRACT.md').write_text(contract)
++    env={'python':sys.version,'torch':torch.__version__,'cuda':torch.version.cuda,'gpu':subprocess.run(['nvidia-smi'],capture_output=True,text=True).stdout,
++         'packages':subprocess.run([sys.executable,'-m','pip','freeze'],capture_output=True,text=True).stdout}
++    write(run/'environment.json',env)
++    paths=[p for d in ['mmimpress','scripts','tests'] for p in (ROOT/d).rglob('*.py') if '__pycache__' not in p.parts]
++    paths += [run/'CONTRACT.md',run/'config.json',run/'correctness_manifest.json']+[run/f'{n}_manifest.json' for n in manifests]
++    write(run/'gpu_freeze.json',{'files':{str(p.relative_to(ROOT)):sha(p) for p in paths}})
++    print('FROZEN',run,flush=True)
++
++@contextlib.contextmanager
++def qwen_attention_guard(runner, meta, question, history):
++    """Observe every compact prefill/decode attention call and original MRoPE."""
++    import torch.nn.functional as F
++    full,suffix,positions,deltas=runner._cache_hit_ids(meta,question,history)
++    k=(meta['visual_count']+3)//4;prefix=k+meta['structural_count']
++    original=F.scaled_dot_product_attention;seen=[];steps=[]
++    def pre(module,args,kw):
++        qlen=kw['input_ids'].shape[1]
++        step=len(steps);cache=kw.get('past_key_values')
++        before=prefix if step==0 else prefix+suffix.shape[1]+step-1
++        assert int(cache.get_seq_length())==before
++        cp=kw['cache_position'].detach().cpu()
++        assert torch.equal(cp,torch.arange(before,before+qlen))
++        want=positions[:,:,meta['prefix_len']:] if step==0 else torch.full((3,1,1),int(positions.max())+step)
++        assert torch.equal(kw['position_ids'].detach().cpu(),want.cpu())
++        assert kw['attention_mask'].shape[-1]==before+qlen and bool(kw['attention_mask'].all())
++        steps.append({'qlen':qlen,'cache_before':before,'content_visible':k})
++    def attention(q,key,v,attn_mask=None,dropout_p=0.,is_causal=False,**kw):
++        qlen,klen=q.shape[-2],key.shape[-2]
++        want=torch.arange(klen,device=q.device)[None,:] <= torch.arange(klen-qlen,klen,device=q.device)[:,None]
++        if attn_mask is None:
++            actual=torch.ones((qlen,klen),dtype=torch.bool,device=q.device) if not is_causal else torch.ones((qlen,klen),dtype=torch.bool,device=q.device).tril()
++        else:actual=attn_mask[0,0] if attn_mask.dtype==torch.bool else attn_mask[0,0]==0
++        assert torch.equal(actual,want)
++        assert bool(actual[:,:prefix].all()) and klen>=prefix+qlen
++        seen.append((int(qlen),int(klen)))
++        return original(q,key,v,attn_mask=attn_mask,dropout_p=dropout_p,is_causal=is_causal,**kw)
++    h=runner.model.register_forward_pre_hook(pre,with_kwargs=True)
++    F.scaled_dot_product_attention=attention
++    evidence={'steps':steps}
++    try:yield evidence
++    finally:
++        F.scaled_dot_product_attention=original;h.remove()
++        evidence['attention_calls']=len(seen);evidence['layers']=meta['num_layers']
++        assert len(seen)==len(steps)*meta['num_layers']
++
++class Experiment:
++    def __init__(self,run,model):
++        self.run=Path(run);self.model=model;self.base=self.run/model;self.base.mkdir(exist_ok=True)
++        self.e=load('llava_pilot_existing','89_eval_llava_kv25.py')
++        if model=='llava':
++            from mmimpress.model import LlavaRunner
++            from mmimpress.serve import Server
++            self.runner=LlavaRunner().load();self.server=Server(self.runner,max_new_tokens=16)
++            self.ref=load('llava_reference_existing','90_validate_llava_kv25.py')
++            # Existing reference trace assumes full payload EOF; this ablation changes only its independent read plan.
++            self.ref._check_reads=self.check_llava_reads
++        else:
++            from mmimpress.qwen25.runner import Qwen25Runner
++            self.runner=Qwen25Runner().load();self.server=None
++            self.v2=load('qwen_v2_reference_existing','86_validate_qwen25_v2_rerun.py')
++            self.qref=load('qwen_kv25_reference_existing','91_validate_qwen25_kv25.py');self.qref.v2=self.v2
++        self.first_isolation=None
++
++    def check_llava_reads(self,ctx,trace,chunks):
++        meta=ctx.meta; rowbytes=meta['num_heads']*meta['head_dim']*2
++        rows=min(chunks*64,meta.get('payload_rows',meta['v_token_num']))
++        want={str(ctx.dir/f'layer_{li:02d}/{kind}.bin'):(0,rows*rowbytes) for li in range(meta['num_layers']) for kind in ['k','v']}
++        want[str(ctx.dir/'sep_kv.bin')]=(0,(ctx.dir/'sep_kv.bin').stat().st_size)
++        actual={x['path']:(x['offset'],x['returned']) for x in trace.calls}
++        assert actual==want and len(trace.calls)==len(want)
++        assert all(x['returned']==x['requested'] for x in trace.calls)
++        return {'calls':trace.calls,'actual_returned_bytes':sum(x['returned'] for x in trace.calls),'actual_pread_calls':len(trace.calls),'read_ranges_exact':True}
++
++    def pixel(self,image,turn,history,arm,phase):
++        from mmimpress.piggyback import VisionForwardCapture,DecoderVisualHiddenCapture
++        torch.cuda.synchronize();torch.cuda.reset_peak_memory_stats();t0=time.perf_counter()
++        with Image.open(image['image_path']) as src:pil=src.convert('RGB')
++        decode_ms=(time.perf_counter()-t0)*1000
++        if self.model=='qwen':
++            value=self.runner.run_pixels(pil,turn['question'],history,capture=('with_score' if arm in ['A','B'] else 'kv_only' if arm=='fullload' else False),image_sha256=image['image_sha256'])
++            value['ttft_ms']+=decode_ms
++            value['normal_request_e2e_ms']=value['request_e2e_ms']+decode_ms
++            value['request_e2e_ms']=(time.perf_counter()-t0)*1000
++            value['post_generation_capture_ms']=value['request_e2e_ms']-value['normal_request_e2e_ms']
++            value['score_accounting']='post-generation VisionScoreCapture.__exit__; included once in outer request E2E'
++            diag=value.pop('capture',None)
++        else:
++            cap=VisionForwardCapture(self.runner,capture_saliency=arm in ['A','B'])
++            prompt=self.prompt(turn['question'],history,phase)
++            with cap:
++                enc=self.runner.encode_prompt(pil,prompt)
++                vs,vn=self.runner.visual_span(enc['input_ids'])
++                hidden=DecoderVisualHiddenCapture(self.runner,vs,vn) if arm=='fullload' else None
++                with hidden if hidden is not None else contextlib.nullcontext():
++                    value=self.server.recompute(self.runner.to_device(enc),return_past_key_values=arm!='recompute')
++            value['ttft_ms']=(value['first_token_at_s']-t0)*1000
++            value['request_e2e_ms']=(time.perf_counter()-t0)*1000
++            value['prediction']=value['answer'];value['vision_calls']=cap.call_count
++            value['online_query_score_calls']=0
++            value['capture_stats']=cap.stats()
++            diag={'cache':value.pop('captured_past_key_values',None),'enc':enc,'vision':cap,'hidden':hidden}
++        value['image_file_decode_ms']=decode_ms
++        value['peak_gpu_allocated_bytes']=torch.cuda.max_memory_allocated();value['peak_gpu_reserved_bytes']=torch.cuda.max_memory_reserved()
++        return value,diag
++
++    def prompt(self,q,history,phase):
++        if phase!='mt':return self.runner.prompt(q)
++        lines=[]
++        for i,(pq,pa) in enumerate(history,1):lines.extend([f'Q{i}: {pq}',f'A{i}: {pa}'])
++        if lines:lines.append('')
++        lines.extend([f'Current question Q{len(history)+1}: {q}',self.e.SHORT_ANSWER+' ASSISTANT:'])
++        return 'USER: <image>\n'+'\n'.join(lines)
++
++    def persist(self,capture,path,image,arm):
++        capacity();before=process_io();started=time.perf_counter()
++        if self.model=='qwen':
++            receipt=self.runner.persist(capture,path,layout='canonical' if arm=='fullload' else 'repacked',storage_policy='prefix25' if arm=='B' else 'full')
++            meta=receipt['metadata'];timing=receipt['timing_ms']
++        else:
++            from mmimpress.piggyback import persist_captured_visual_prefix,persist_captured_raster_prefix
++            enc=capture['enc'];common=dict(image_id=image['image_id'],model_id=self.runner.model_id,image_input_sha256=image['image_sha256'],extra_metadata={'checkpoint_revision':self.runner.cfg._commit_hash,'processor_revision':self.runner.cfg._commit_hash,'ablation':'prefix25'})
++            if arm=='fullload':
++                receipt=persist_captured_raster_prefix(self.runner,capture['cache'],enc['input_ids'],enc['image_sizes'][0],capture['hidden'].result_cpu(),path,hidden_capture_stats=capture['hidden'],**common)
++            else:
++                receipt=persist_captured_visual_prefix(self.runner,capture['cache'],enc['input_ids'],enc['image_sizes'][0],capture['vision'].result_cpu(),path,capture_stats=capture['vision'],storage_policy='prefix25' if arm=='B' else 'full',**common)
++            meta=receipt['meta'];timing=receipt['timing_ms']
++        hash_started=time.perf_counter();files=seal_integrity(path);hash_ms=(time.perf_counter()-hash_started)*1000
++        total_ms=(time.perf_counter()-started)*1000;after=process_io()
++        n=meta.get('visual_count',meta.get('n_spatial'));s=meta.get('structural_count',len(meta.get('newline_idx',[]))+meta.get('v_token_start',0))
++        k=(n+3)//4 if arm=='B' else n
++        width=2*meta['num_layers']*meta.get('num_kv_heads',meta.get('num_heads'))*meta['head_dim']*2
++        return {'physical_write_id':str(uuid.uuid4()),'store_path':str(path),'model':self.model,'arm':arm,'image_id':image['image_id'],
++          'metadata':meta,'files':files,'timing_ms':timing,'hash_and_seal_ms':hash_ms,'persistence_ms':total_ms,
++          'os_write_bytes':after['wchar']-before['wchar'],'os_write_calls':after['syscw']-before['syscw'],
++          'original_content_bytes':n*width,'stored_valid_content_bytes':k*width,'structural_system_bytes':s*width,
++          'padding_bytes':meta.get('padding_rows',0)*width,'file_logical_bytes':sum(x['size'] for x in files.values()),
++          'allocated_bytes':sum(x['allocated_bytes'] for x in files.values()),
++          'metadata_and_auxiliary_bytes':sum(x['size'] for p,x in files.items() if not p.endswith('.bin') and p!='sys_kv.pt'),
++          'N':n,'stored_k':k,'content_retention':k/n,'durability':'full checksums and file/directory/parent fsync',
++          'capture_cost_in_request':True,'historical_persistence_reused':False}
++
++    def activate(self,path,image,arm):
++        start=time.perf_counter()
++        # Both arms verify the same envelope; Qwen also retains its native payload validator.
++        check={}
++        if self.model=='qwen':
++            check=verify_integrity(path)
++            ctx=self.runner._activate(path,image['image_sha256']);native=self.runner.activation_records[str(path.resolve())]
++        else:
++            from mmimpress.serve import ImageContext
++            ctx=ImageContext(path,self.runner.model.device,require_v_hidden=False)
++            if arm in ['A','B']:ctx.validate_visual_kv_layout()
++            check=ctx.integrity_activation;native={}
++        torch.cuda.synchronize()
++        return ctx,{'activation_ms':(time.perf_counter()-start)*1000,**check,'native':native}
++
++    def close_contexts(self):
++        if self.model=='qwen':
++            for obj in self.runner._stores.values():obj.close()
++            self.runner._stores.clear();self.runner.activation_records.clear()
++        gc.collect();torch.cuda.empty_cache()
++
++    def hit(self,ctx,path,image,turn,history,arm,phase,logits=False):
++        conditioning=time.perf_counter()
++        if self.model=='qwen':cond=ctx.drop_payload_cache()
++        else:ctx.reader.drop_all();cond={'policy':'DONTNEED'}
++        cond['ms']=(time.perf_counter()-conditioning)*1000
++        torch.cuda.synchronize();torch.cuda.reset_peak_memory_stats();start=time.perf_counter()
++        captured=[];handle=None
++        if logits and self.model=='llava':handle=self.runner.model.register_forward_hook(lambda m,a,o:captured.append(o.logits[0,-1].detach().float().cpu()) if hasattr(o,'logits') else None)
++        vision_hits=[]
++        def forbidden_vision(*args, **kwargs):
++            vision_hits.append(1)
++            raise AssertionError('cache hit executed vision forward')
++        vision_handle=self.runner.model.visual.register_forward_pre_hook(forbidden_vision) if self.model=='qwen' else None
++        with ReadTrace(path) as trace:
++            if self.model=='qwen':
++                with qwen_attention_guard(self.runner,ctx.meta,turn['question'],history) if logits else contextlib.nullcontext() as attention_evidence:
++                    value=self.runner.run_cache(path,turn['question'],history,budget_ratio=1. if arm=='fullload' else .25,budget_unit='chunk' if arm=='fullload' else 'visual_kv',image_sha256=image['image_sha256'],return_logits=logits)
++                if logits:value['attention_evidence']=attention_evidence
++            else:
++                from mmimpress.serve import suffix_ids_from_prompt
++                suffix=suffix_ids_from_prompt(self.runner,self.prompt(turn['question'],history,phase)).to(self.runner.model.device)
++                with self.e.QA._NoVisionForward(self.runner) as guard:
++                    if arm=='fullload':value=self.server.request(ctx,mode='fullload',cold=False,suffix_ids=suffix)
++                    else:value=self.server.request_cvpr25(ctx,static=None,budget=.25,budget_unit='visual_kv',mode='prefix',sep_policy='sidecar',cold=False,suffix_ids=suffix,expected_prefix_layout='visionzip_image_only')
++                value['ttft_ms']=(value['first_token_at_s']-start)*1000
++                value['request_e2e_ms']=(time.perf_counter()-start)*1000
++                value['prediction']=value['answer'];value['vision_calls']=guard.calls;value['online_query_score_calls']=value.get('query_score_calls',0)
++        if vision_handle:vision_handle.remove()
++        value['observed_hit_vision_calls']=len(vision_hits)
++        if handle:handle.remove();value['all_logits']=captured
++        count=value['read_io'] if self.model=='qwen' else value['io']
++        assert trace.summary()['bytes']==count['bytes'] and trace.summary()['preads']==count['preads']
++        assert value['vision_calls']==0 and value['online_query_score_calls']==0
++        value['actual_io']=trace.summary();value['conditioning']=cond
++        value['peak_gpu_allocated_bytes']=torch.cuda.max_memory_allocated();value['peak_gpu_reserved_bytes']=torch.cuda.max_memory_reserved()
++        return value
++
++    def identity(self,a,b):
++        assert a['first_token_id']==b['first_token_id']
++        assert a['generated_token_ids']==b['generated_token_ids']
++        assert a['prediction']==b['prediction']
++        if self.model=='qwen':assert torch.equal(a['first_logits'],b['first_logits'])
++        else:
++            assert len(a['all_logits'])==len(b['all_logits'])
++            assert all(torch.allclose(x,y,atol=1e-4,rtol=1e-4) for x,y in zip(a['all_logits'],b['all_logits']))
++
++    def output_proof(self,value):
++        logits=value.get('all_logits',[value.get('first_logits')])
++        return {'first_token_id':value['first_token_id'],'generated_token_ids':value['generated_token_ids'],
++                'prediction':value['prediction'],
++                'logits_sha256':[hashlib.sha256(x.detach().float().cpu().contiguous().numpy().tobytes()).hexdigest() for x in logits if x is not None],
++                'attention_steps':value.get('attention_evidence'),
++                'observed_vision_calls':value.get('observed_hit_vision_calls',value.get('vision_calls'))}
++
++    def llava_case(self,sample,path):
++        from mmimpress.model import cache_layers
++        turn={'question':sample['question']};image=sample
++        val,cap=self.pixel(image,turn,[],'A','gqa');enc=cap['enc'];layers=cache_layers(cap['cache'])
++        vs,vn=self.runner.visual_span(enc['input_ids']);_,_,_,sep=self.runner.anyres_layout(enc['image_sizes'][0],vn)
++        n=vn-len(sep);k=(n+3)//4
++        rank=self.ref._score_rank(self.runner,cap['vision'].result_cpu(),enc['image_sizes'][0],vn,sep)
++        recs={a:self.persist(cap,path/a,image,a) for a in ['A','B']}
++        assert recs['A']['metadata']['order']==recs['B']['metadata']['order']==rank+sep
++        outputs={};evidence={}
++        for arm in ['A','B']:
++            ctx,activation=self.activate(path/arm,image,arm)
++            reference=self.ref._memory_reference(self.server,ctx,turn['question'],layers,rank,k)
++            prod=self.ref._run_with_trace(self.server,ctx,turn['question'],layers,rank,k,budget=.25,budget_unit='visual_kv')
++            actual=dict(prod['result'],logits=prod['logits'])
++            comparison=self.ref._compare_outputs(reference,actual)
++            outputs[arm]=dict(prediction=actual['answer'],all_logits=actual['logits'],**{key:actual[key] for key in ['first_token_id','generated_token_ids']})
++            evidence[arm]={'comparison':comparison,'masks':prod['attention_masks'],'cache':prod['cache'],'positions':prod['position_checks'],'reads':prod['reads']}
++            ctx.close();del ctx,prod,actual,reference
++        self.identity(outputs['A'],outputs['B'])
++        # Source tensors and every source-derived reference are explicitly released.
++        del cap,layers,enc,val;gc.collect();torch.cuda.empty_cache()
++        ctx,activation=self.activate(path/'B',image,'B')
++        fresh=self.hit(ctx,path/'B',image,turn,[],'B','gqa',True);self.identity(outputs['B'],fresh)
++        changed=self.hit(ctx,path/'B',image,{'question':'What is visible?'},[(turn['question'],fresh['prediction'])],'B','mt',True)
++        assert fresh['selected_original_ids']==changed['selected_original_ids']==rank[:k]
++        ctx.close();del ctx
++        if self.first_isolation is not None:
++            old_image,old_path,old_output=self.first_isolation
++            oldctx,_=self.activate(old_path,old_image,'B')
++            inter=self.hit(oldctx,old_path,old_image,{'question':old_image['question']},[],'B','gqa',True)
++            self.identity(old_output,inter);oldctx.close()
++        else:self.first_isolation=(sample,path/'B',outputs['B'])
++        return {'N':n,'k':k,'ratio':k/n,'selected_original_ids':rank[:k],'all_checks':'PASS','evidence':evidence,'fresh_B_only':fresh['actual_io'],'source_released':True,'history_invariant':True,'persistence':recs,'outputs':{a:self.output_proof(v) for a,v in outputs.items()},'fresh_B_output':self.output_proof(fresh)}
++
++    def qwen_case(self,sample,path):
++        turn={'question':sample['question']};val,cap=self.pixel(sample,turn,[],'A','gqa')
++        n=cap.visual_count;k=(n+3)//4;score=cap.scores.float().cpu().tolist();rank=sorted(range(n),key=lambda i:(-score[i],i))
++        reference,logical=self.qref.memory_prefix(cap,rank[:k]);recs={a:self.persist(cap,path/a,sample,a) for a in ['A','B']}
++        outputs={};evidence={}
++        for arm in ['A','B']:
++            ctx,act=self.activate(path/arm,sample,arm);loaded=ctx.load_prefix(.25,budget_unit='visual_kv')
++            assert self.v2.v1._bitwise_layers(reference,loaded.layers)['equal']
++            assert list(loaded.logical_indices)==logical and loaded.kept_visual_tokens==k
++            meta=ctx.meta;order=meta.get('full_importance_permutation',meta['stored_to_original']);assert order==rank
++            full,suffix,positions,deltas=self.runner._cache_hit_ids(meta,sample['question'],())
++            stock,sd=self.v2._stock_positions(self.runner,full,torch.tensor(cap.image_grid_thw))
++            assert torch.equal(stock,positions) and torch.equal(sd,deltas)
++            assert torch.equal(loaded.position_ids,stock[:,:,torch.tensor(logical)])
++            refpath=self.v2.trace_suffix(self.runner,reference,suffix,positions,len(cap.prefix_ids))
++            ssdpath=self.v2.trace_suffix(self.runner,loaded.layers,suffix,positions,len(cap.prefix_ids))
++            comparison=self.v2.path_comparison(refpath,ssdpath);assert comparison['exact_target']
++            expected=self.v2._analytic_mask([True]*len(logical),suffix.shape[1])
++            masks=self.v2._actual_mask_checks(ssdpath,expected);assert masks['all_layers_exact']
++            neg=self.v2._negative_semantic_controls(stock,expected,logical);assert all(neg.values())
++            # Dense vs compact FP32 attention, independent of production assembly.
++            dense=[];dense_mask=torch.zeros((1,len(cap.prefix_ids)),dtype=torch.long);dense_mask[0,logical]=1
++            for key,value in reference:
++                dk=torch.zeros((1,key.shape[1],len(cap.prefix_ids),key.shape[3]),dtype=key.dtype,device=key.device);dv=torch.zeros_like(dk)
++                idx=torch.tensor(logical,device=key.device);dk.index_copy_(2,idx,key);dv.index_copy_(2,idx,value);dense.append((dk,dv))
++            dp=self.v2.trace_suffix(self.runner,dense,suffix,positions,len(cap.prefix_ids),dense_mask)
++            tc=self.runner.model.config.text_config;dim=tc.hidden_size//tc.num_attention_heads
++            o1=self.v2._fp32_oracle(refpath,reference,[True]*len(logical),tc.num_attention_heads,tc.num_key_value_heads,dim)
++            o2=self.v2._fp32_oracle(dp,dense,dense_mask[0].bool().tolist(),tc.num_attention_heads,tc.num_key_value_heads,dim)
++            assert torch.allclose(o1,o2,atol=1e-5,rtol=1e-5)
++            outputs[arm]=self.hit(ctx,path/arm,sample,turn,[],arm,'gqa',True)
++            assert self.v2.path_comparison(refpath,self.v2._result_path(outputs[arm]))['exact_target']
++            evidence[arm]={'matched':comparison,'mask':masks,'negative_controls':neg,'oracle_max_abs':float((o1-o2).abs().max()),'logical_indices':logical,'position_exact':True,'reads':outputs[arm]['actual_io']}
++            del loaded,refpath,ssdpath,dense,dp,o1,o2,dk,dv,key,value
++        self.identity(outputs['A'],outputs['B'])
++        del cap,reference,val;self.close_contexts()
++        ctx,activation=self.activate(path/'B',sample,'B')
++        fresh=self.hit(ctx,path/'B',sample,turn,[],'B','gqa',True);self.identity(outputs['B'],fresh)
++        changed=self.hit(ctx,path/'B',sample,{'question':'What is visible?'},[(sample['question'],fresh['prediction'])],'B','mt',True)
++        assert fresh['selected_visual_original']==changed['selected_visual_original']==sorted(rank[:k])
++        self.close_contexts()
++        if self.first_isolation is not None:
++            oi,op,oo=self.first_isolation;oc,_=self.activate(op,oi,'B');inter=self.hit(oc,op,oi,{'question':oi['question']},[],'B','gqa',True);self.identity(oo,inter);self.close_contexts()
++        else:self.first_isolation=(sample,path/'B',outputs['B'])
++        return {'N':n,'k':k,'ratio':k/n,'selected_original_ids':rank[:k],'all_checks':'PASS','evidence':evidence,'source_released':True,'fresh_B_only':fresh['actual_io'],'history_invariant':True,'persistence':recs,'outputs':{a:self.output_proof(v) for a,v in outputs.items()},'fresh_B_output':self.output_proof(fresh)}
++
++    def correctness(self):
++        samples=json.loads((self.run/'correctness_manifest.json').read_text())['samples']
++        if self.model=='llava':samples=[samples[i] for i in [0,3,4,5,6]]
++        rows=[];gate={'status':'NOT RUN','samples':rows,'threshold':'LLaVA 1e-4/1e-4; Qwen exact','reused_frozen_samples':True}
++        for i,sample in enumerate(samples):
++            path=self.base/'correctness'/f'{i:02d}_{sample["image_id"]}';path.mkdir(parents=True,exist_ok=False)
++            try:
++                evidence=self.llava_case(sample,path) if self.model=='llava' else self.qwen_case(sample,path)
++                rows.append({'image_id':sample['image_id'],'question_id':sample['question_id'],'status':'PASS',**evidence})
++                print(self.model,'GPU',i+1,len(samples),'PASS',flush=True)
++            except Exception:
++                rows.append({'image_id':sample['image_id'],'status':'FAIL','error':traceback.format_exc()});gate['status']='FAIL';write(self.base/'gpu_correctness.json',gate);raise
++            write(self.base/'gpu_correctness.json',gate)
++        gate['status']='PASS';write(self.base/'gpu_correctness.json',gate);return gate
++
++    def clean(self,paths,receipt_path):
++        for path in paths:
++            assert path.resolve().is_relative_to(self.base.resolve()) and not path.is_symlink()
++            before=inventory(path);append(self.base/'cleanup.jsonl',{'stage':'before','path':path,'files':before,'receipt':receipt_path})
++            shutil.rmtree(path)
++            append(self.base/'cleanup.jsonl',{'stage':'after','path':path,'exists':path.exists(),'payload_retained':False})
++
++    def pilot(self,phase):
++        manifest=json.loads((self.run/f'{phase}_manifest.json').read_text());out=self.base/phase;out.mkdir(exist_ok=False)
++        raw=out/'raw_requests.jsonl';persist_file=out/'persistence.jsonl'
++        for ix,image in enumerate(manifest['images']):
++            exclusive();capacity();contexts={};receipts={};paths={};hist={a:[] for a in ARMS};image_rows=[]
++            for ti,turn in enumerate(image['turns']):
++                order=ARMS[(ix+ti)%4:]+ARMS[:(ix+ti)%4]
++                for arm in order:
++                    exclusive();history=hist[arm] if phase=='mt' else []
++                    logical=f'{self.model}/{phase}/{image["image_id"]}/{arm}/{ti+1}'
++                    try:
++                        if ti==0 or arm=='recompute':
++                            value,capture=self.pixel(image,turn,history,arm if ti==0 else 'recompute',phase)
++                            if ti==0 and arm!='recompute':
++                                path=out/'stores'/image['image_id']/arm;receipt=self.persist(capture,path,image,arm)
++                                del capture;gc.collect();torch.cuda.empty_cache()
++                                ctx,activation=self.activate(path,image,arm);receipt['activation']=activation;receipt['phase']=phase
++                                contexts[arm]=ctx;receipts[arm]=receipt;paths[arm]=path;append(persist_file,receipt)
++                            else:del capture
++                            value['actual_io']={'bytes':0,'preads':0,'calls':[]}
++                        else:value=self.hit(contexts[arm],paths[arm],image,turn,history,arm,phase)
++                        row={'logical_request_id':logical,'execution_id':str(uuid.uuid4()),'status':'OK','model':self.model,'phase':phase,'arm':arm,'image_id':image['image_id'],'dialog_id':image.get('dialog_id'),'turn':ti+1,'question_id':turn['question_id'],'question':turn['question'],'gold':turn['gold'],'history':copy.deepcopy(history),'cache_hit':ti>0 and arm!='recompute',
++                             'prediction':value['prediction'],'first_token_id':value['first_token_id'],'generated_token_ids':value['generated_token_ids'],'accuracy':exact_score(value['prediction'],[turn['gold']]),'ttft_ms':value['ttft_ms'],'e2e_ms':value['request_e2e_ms'],'read_bytes':value['actual_io']['bytes'],'preads':value['actual_io']['preads'],'result':value}
++                        append(raw,row);image_rows.append(row)
++                        hist[arm].append((turn['question'],value['prediction']))
++                    except Exception:
++                        append(raw,{'logical_request_id':logical,'execution_id':str(uuid.uuid4()),'status':'FAIL','error':traceback.format_exc()});raise
++            ma,mb=receipts['A']['metadata'],receipts['B']['metadata']
++            pa=ma.get('full_importance_permutation',ma.get('stored_to_original',ma.get('order')))
++            pb=mb['full_importance_permutation']
++            assert pa==pb and receipts['A']['N']==receipts['B']['N']
++            if self.model=='qwen':assert ma['saliency_sha256']==mb['saliency_sha256']
++            # Request-level output identity and mapping compared before store cleanup.
++            for ti in range(1,len(image['turns'])+1):
++                aa=next(r for r in image_rows if r['arm']=='A' and r['turn']==ti);bb=next(r for r in image_rows if r['arm']=='B' and r['turn']==ti)
++                assert aa['generated_token_ids']==bb['generated_token_ids'] and aa['prediction']==bb['prediction'], 'A/B output divergence'
++            for ctx in contexts.values():ctx.close()
++            contexts.clear();self.close_contexts()
++            self.clean(list(paths.values()),persist_file)
++            print(self.model,phase,ix+1,len(manifest['images']),'complete',flush=True)
++        return {'status':'PASS','requests':len(manifest['images'])*len(manifest['images'][0]['turns'])*4}
++
++def main():
++    p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--model',choices=['llava','qwen']);p.add_argument('--freeze',action='store_true');p.add_argument('--correctness-only',action='store_true');args=p.parse_args();run=Path(args.run)
++    if args.freeze:freeze(run);return
++    frozen=json.loads((run/'gpu_freeze.json').read_text())
++    for rel,digest in frozen['files'].items():assert sha(ROOT/rel)==digest,rel
++    cpu=(run/'cpu_regression_v2.log').read_text();assert '\nOK\n' in cpu
++    exclusive();random.seed(SEED);np.random.seed(SEED);torch.manual_seed(SEED);torch.set_num_threads(4)
++    status={'IMPLEMENTATION':'PASS','CPU REGRESSION':'PASS','GPU CORRECTNESS':'NOT RUN','A/B OUTPUT IDENTITY':'NOT RUN','SMOKE':'NOT RUN','GQA PILOT':'NOT RUN','MT PILOT':'NOT RUN','PERSISTENCE/SESSION MEASUREMENT':'NOT RUN','ARTIFACT PROTECTION':'NOT RUN','READY FOR LARGE RERUN':'BLOCKED'}
++    exp=None
++    try:
++        exp=Experiment(run,args.model);exp.correctness();status['GPU CORRECTNESS']='PASS';status['A/B OUTPUT IDENTITY']='PASS'
++        if not args.correctness_only:
++            sample=json.loads((run/'smoke_manifest.json').read_text())['images'][0]
++            for arm in ARMS:
++                val,cap=exp.pixel(sample,sample['turns'][0],[],arm,'smoke');del val,cap
++            write(exp.base/'warmup.json',{'excluded':True,'normal_requests':4})
++            for phase,key in [('smoke','SMOKE'),('gqa','GQA PILOT'),('mt','MT PILOT')]:
++                exp.pilot(phase);status[key]='PASS';write(exp.base/'status.json',status)
++            status['PERSISTENCE/SESSION MEASUREMENT']='PASS'
++    except Exception:
++        err=traceback.format_exc();print(err,flush=True)
++        append(run/'failures.jsonl',{'model':args.model,'error':err,'utc':time.time()})
++        if status['GPU CORRECTNESS']=='NOT RUN':status['GPU CORRECTNESS']='FAIL'
++    finally:
++        base=run/args.model;base.mkdir(exist_ok=True);write(base/'status.json',status)
++        if exp:exp.close_contexts()
++    print(status,flush=True)
++if __name__=='__main__':main()
+--- /dev/null
++++ after/scripts/107_report_prefix25.py
+@@ -0,0 +1,299 @@
++#!/usr/bin/env python3
++"""Independent raw-file audit, cluster bootstrap, and report generation."""
++from __future__ import annotations
++import argparse,csv,difflib,hashlib,json,math,re,sys
++from collections import defaultdict
++from pathlib import Path
++import numpy as np
++ROOT=Path(__file__).resolve().parents[1]
++ARMS=['recompute','fullload','A','B']
++LABEL={'recompute':'ReComp','fullload':'FullLoad','A':'Ours-FullStore-KV25 [A]','B':'Ours-PrefixStore-KV25 [B]'}
++
++def read(path,default=None):return json.loads(path.read_text()) if path.exists() else default
++
++def rows(path):return [json.loads(x) for x in path.read_text().splitlines() if x.strip()] if path.exists() else []
++
++def write(path,v):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(v,indent=2,allow_nan=False)+'\n')
++
++def csvwrite(path,values):
++    if not values:path.write_text('status\nNOT RUN\n');return
++    keys=list(dict.fromkeys(k for r in values for k in r))
++    with path.open('w') as f:
++        w=csv.DictWriter(f,fieldnames=keys);w.writeheader();w.writerows({k:json.dumps(v) if isinstance(v,(list,dict)) else v for k,v in r.items()} for r in values)
++
++def quality(pred,gold,strict=False):
++    def norm(v):return ' '.join(w for w in re.sub(r'[^\w\s]',' ',str(v).lower()).split() if w not in {'a','an','the'})
++    p,g=norm(pred),norm(gold)
++    return float(p==g or (not strict and bool(g) and p.split()[:len(g.split())]==g.split()))
++
++def avg(xs):return float(np.mean(xs)) if xs else None
++
++def stats(xs):return {'mean':avg(xs),'p50':float(np.median(xs)) if xs else None,'p95':float(np.percentile(xs,95)) if xs else None}
++
++def ci(diffs):
++    x=np.asarray(diffs,dtype=float)
++    if not len(x):return {'status':'NOT RUN'}
++    rng=np.random.default_rng(1234);b=x[rng.integers(len(x),size=(10000,len(x)))].mean(1)
++    return {'mean':float(x.mean()),'ci95':[float(y) for y in np.percentile(b,[2.5,97.5])],'clusters':len(x),'resamples':10000,'seed':1234}
++
++def fmt(x):return 'NOT RUN' if x is None else f'{x:.3f}' if isinstance(x,(float,np.floating)) else str(x)
++
++def table(head,rs):return [' | '.join(head),' | '.join(['---']*len(head))]+[' | '.join(fmt(x) for x in row) for row in rs]+['']
++
++def main():
++    p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--models',default='llava,qwen');a=p.parse_args();run=Path(a.run);out=ROOT/'results'/run.name;out.mkdir(exist_ok=True)
++    summary=[];persistence=[];storage=[];sessions=[];analyses={};checks=[];text=['# Prefix25 persistence ablation','',f'Run: `{run}`. All numbers below are generated from this run\'s raw records. MB = 10^6 bytes; GiB = 2^30 bytes.','',
++      'A retains the full importance-repacked store and uses the first ceil(N/4) content rows. B serializes those same content rows only, preserving structural/system KV. Existing full CPU materialization and full repack remain in both paths.','',
++      'GPU validation reuses the prior frozen samples, not an unseen holdout. LLaVA uses its full physical buffer and 1e-4/1e-4 matched-logit tolerance; Qwen uses native BF16 logical compact assembly and bitwise-exact matched first logits. Prior Qwen strict-logits v1 FAIL remains unchanged.','']
++    for model in a.models.split(','):
++        status=read(run/model/'status.json',{});gate=read(run/model/'gpu_correctness.json',{})
++        final_gate=read(run/model/'final_gpu_regression.json',{})
++        text += [f'## {model}','',f'GPU correctness: **{gate.get("status","NOT RUN")}**, {len(gate.get("samples",[]))} recorded samples.','']
++        text += [f'Final format replay: **{final_gate.get("status","NOT RUN")}**. Output token IDs, logit hashes and Qwen decode attention steps are retained in `runs/{run.name}/{model}/final_gpu_regression.json`.','']
++        if gate.get('samples'):
++            text+=table(['Image','Question','N','k','k/N','Status'],[[r['image_id'],r.get('question_id'),r.get('N'),r.get('k'),r.get('ratio'),r['status']] for r in gate['samples']])
++        for phase in ['smoke','gqa','mt']:
++            rr=rows(run/model/phase/'raw_requests.jsonl');pp=rows(run/model/phase/'persistence.jsonl');ok=[r for r in rr if r['status']=='OK']
++            mf=read(run/f'{phase}_manifest.json',{});expected=sum(len(x['turns']) for x in mf.get('images',[]))*4
++            for row in ok:
++                row['raw_gqa_accuracy']=row['accuracy']
++                row['accuracy']=quality(row['prediction'],row['gold'],strict=phase=='mt')
++            audit={'model':model,'phase':phase,'expected_requests':expected,'actual_requests':len(rr),'successful_requests':len(ok),'errors':[]}
++            cleanup=rows(run/model/'cleanup.jsonl');cleanup_before={r['path']:r for r in cleanup if r['stage']=='before'};cleanup_after={r['path']:r for r in cleanup if r['stage']=='after'}
++            if not rr:
++                audit['status']='NOT RUN';checks.append(audit)
++                if phase!='smoke':text += [f'### {phase}: NOT RUN','', 'Performance is gated on this model\'s required correctness evidence.','']
++                continue
++            def require(cond,msg):
++                if not cond:audit['errors'].append(msg)
++            require(gate.get('status')=='PASS','performance without GPU PASS')
++            require(final_gate.get('status')=='PASS','final source GPU replay incomplete/failed')
++            require(len(ok)==expected,'request count mismatch')
++            require(len({r['logical_request_id'] for r in rr})==len(rr),'duplicate logical request')
++            require(len({r['execution_id'] for r in rr})==len(rr),'duplicate execution ID')
++            require(len(pp)==len(mf['images'])*3,'physical persistence count mismatch')
++            require(len({r['physical_write_id'] for r in pp})==len(pp),'duplicate physical write ID')
++            by={(r['image_id'],r['arm'],r['turn']):r for r in ok};stores={(r['image_id'],r['arm']):r for r in pp}
++            expected_turns={(im['image_id'],t['turn_id']):t for im in mf['images'] for t in im['turns']}
++            require(set(by)=={(iid,arm,t) for iid,t in expected_turns for arm in ARMS},'frozen workload request set mismatch')
++            for row in ok:
++                iid,arm,turn=row['image_id'],row['arm'],row['turn'];v=row['result'];io=v['actual_io'];calls=io['calls']
++                require(row['raw_gqa_accuracy']==quality(row['prediction'],row['gold']),'raw repository GQA score mismatch')
++                require(math.isfinite(row['ttft_ms']) and math.isfinite(row['e2e_ms']) and 0<=row['ttft_ms']<=row['e2e_ms']+1e-3,'invalid timing boundary')
++                expected_turn=expected_turns.get((iid,turn),{})
++                require(all(str(row.get(k))==str(expected_turn.get(k)) for k in ['question_id','question','gold']),'frozen question/gold identity mismatch')
++                require(sum(c['returned'] for c in calls)==row['read_bytes'],f'pread bytes {row["logical_request_id"]}')
++                require(len(calls)==row['preads'],f'pread calls {row["logical_request_id"]}')
++                require(all(c['requested']==c['returned'] for c in calls),'short pread')
++                if row['cache_hit']:
++                    rec=stores[(iid,arm)];m=rec['metadata'];n=rec['N'];k=(n+3)//4 if arm in ['A','B'] else n
++                    require(v['vision_calls']==0 and v['online_query_score_calls']==0,'hit vision/scoring')
++                    require(v.get('image_file_decode_ms') is None,'hit image decoded')
++                    require(all(Path(c['path']).is_relative_to(Path(rec['store_path'])) for c in calls),'foreign payload read')
++                    if arm in ['A','B']:
++                        count=v['kept_tokens'] if model=='qwen' else v['attended_content_kv_count']
++                        require(count==k,'incorrect original-content budget')
++                        selected=v['selected_visual_original'] if model=='qwen' else v['selected_original_ids']
++                        perm=m.get('full_importance_permutation',m.get('stored_to_original',m.get('order')))
++                        require(selected==(sorted(perm[:k]) if model=='qwen' else perm[:k]),'selected IDs mismatch')
++                        if arm=='B':require(v.get('extra_valid_visual_rows',v.get('unused_loaded_real_rows'))==0,'B overread real rows')
++                        width=m.get('num_kv_heads',m.get('num_heads'))*m['head_dim']*2
++                        diskrows=(k if arm=='B' else math.ceil(k/64)*64)
++                        if model=='llava':diskrows=min(diskrows,m['v_token_num']);side=rec['files']['sep_kv.bin']['size']
++                        else:side=m['bytes_structural_kv']
++                        require(row['read_bytes']==2*m['num_layers']*diskrows*width+side,'independent geometry read bytes')
++                else:require(v['vision_calls']==1 and row['read_bytes']==0,'pixel request geometry')
++                if phase=='mt':
++                    expected_hist=[[by[(iid,arm,j)]['question'],by[(iid,arm,j)]['prediction']] for j in range(1,turn)]
++                    require(row['history']==expected_hist,'history not method own generated')
++                else:require(row['history']==[],'independent question includes history')
++                if arm=='B' and (iid,'A',turn) in by:
++                    aa=by[(iid,'A',turn)];require(row['generated_token_ids']==aa['generated_token_ids'],'A/B sequence divergence');require(row['prediction']==aa['prediction'],'A/B prediction divergence')
++            for rec in pp:
++                m=rec['metadata'];n=rec['N'];k=(n+3)//4
++                path=rec['store_path'];before_cleanup=cleanup_before.get(path);after_cleanup=cleanup_after.get(path)
++                require(Path(path).resolve().is_relative_to((run/model/phase/'stores').resolve()),'cleanup path not run-owned')
++                require(before_cleanup is not None and after_cleanup is not None and after_cleanup.get('exists') is False,'cleanup evidence missing')
++                if before_cleanup:
++                    require({k:(v['size'],v['sha256']) for k,v in before_cleanup['files'].items()}=={k:(v['size'],v['sha256']) for k,v in rec['files'].items()},'payload changed between persistence and cleanup')
++
++                require(sum(f['size'] for f in rec['files'].values())==rec['file_logical_bytes'],'store byte sum')
++                require(rec['os_write_bytes']>=rec['file_logical_bytes'],'OS writes smaller than files')
++                if rec['arm']=='B':
++                    require(rec['stored_k']==k and m['original_content_count']==n and m['stored_content_count']==k,'B metadata budget')
++                    require(m['stored_row_to_original']==m['full_importance_permutation'][:k],'B partial mapping')
++                    payload=[x['size'] for f,x in rec['files'].items() if f.endswith('/k.bin') or f.endswith('/v.bin')]
++                    width=m.get('num_kv_heads',m.get('num_heads'))*m['head_dim']*2
++                    require(payload==[k*width]*(2*m['num_layers']),'B payload contains extra real/padded rows')
++                    ma=stores[(rec['image_id'],'A')]['metadata'];full=ma.get('stored_to_original',ma.get('order'))
++                    require(full==m['full_importance_permutation'],'A/B full permutation differs')
++                t=rec['timing_ms'];flat={key:rec[key] for key in ['model','phase','arm','image_id','physical_write_id','persistence_ms','os_write_bytes','os_write_calls','N','stored_k','content_retention']}
++                flat.update({'activation_ms':rec['activation']['activation_ms'],'D2H_ms':t.get('kv_materialize_ms',0),'repack_ms':t.get('kv_repack_ms',0),'permutation_ms':t.get('permutation_ms',0),'serialization_ms':t.get('prefix_slice_serialization_ms',None),'write_ms':t.get('ssd_write_ms',0),'fsync_ms':t.get('fsync_ms',t.get('durability_ms',0)),'hash_and_seal_ms':rec['hash_and_seal_ms']});persistence.append(flat)
++                storage.append({**{k:flat[k] for k in ['model','phase','arm','image_id','physical_write_id','N','stored_k']},**{key:rec[key] for key in ['original_content_bytes','stored_valid_content_bytes','structural_system_bytes','padding_bytes','file_logical_bytes','allocated_bytes','metadata_and_auxiliary_bytes','os_write_bytes','os_write_calls']},'payload_retained':Path(rec['store_path']).exists()})
++                files=rec['files']
++                storage[-1]['metadata_bytes']=sum(v['size'] for name,v in files.items() if name in ['meta.json','integrity.json','visionzip_layout.pt'])
++                storage[-1]['structural_system_logical_bytes']=rec['structural_system_bytes']
++                if model=='llava':
++                    normal=sum(v['size'] for name,v in files.items() if name.endswith('/k.bin') or name.endswith('/v.bin'))
++                    storage[-1]['structural_system_file_bytes_including_duplicate']=files['sys_kv.pt']['size']+files['sep_kv.bin']['size']+normal-rec['stored_valid_content_bytes']
++                    storage[-1]['legacy_probe_bytes']=sum(v['size'] for name,v in files.items() if name.endswith('/probe_k.bin'))
++                else:storage[-1]['structural_system_file_bytes_including_duplicate']=files['structural_kv.bin']['size']
++
++            audit['status']='PASS' if not audit['errors'] else 'FAIL';checks.append(audit)
++            if phase=='smoke':continue
++            text += [f'### {phase}','',f'Raw audit: **{audit["status"]}**; {len(ok)}/{expected} successful requests.','']
++            ss={}
++            for arm in ARMS:
++                vals=[r for r in ok if r['arm']==arm];hits=[r for r in vals if r['turn']>1]
++                prs=[r for r in pp if r['arm']==arm];timings=[r for r in persistence if r['model']==model and r['phase']==phase and r['arm']==arm]
++                aa=[by[(r['image_id'],'A',r['turn'])] for r in vals]
++                s={'model':model,'phase':phase,'arm':arm,'n_requests':len(vals),'n_followup':len(hits),'accuracy_all':avg([r['accuracy'] for r in vals]),'accuracy_hit_or_followup':avg([r['accuracy'] for r in hits]),'first_agreement_vs_A':avg([float(r['first_token_id']==ref['first_token_id']) for r,ref in zip(vals,aa)]),'sequence_agreement_vs_A':avg([float(r['generated_token_ids']==ref['generated_token_ids']) for r,ref in zip(vals,aa)]),
++                   'content_retention':avg([1. if arm in ['recompute','fullload'] else ((stores[(r['image_id'],arm)]['N']+3)//4)/stores[(r['image_id'],arm)]['N'] for r in vals]),
++                   'read_MB_followup':avg([r['read_bytes']/1e6 for r in hits]),'preads_followup':avg([r['preads'] for r in hits]),'ttft_followup':stats([r['ttft_ms'] for r in hits]),'e2e_followup':stats([r['e2e_ms'] for r in hits]),'peak_gpu_MB':avg([r['result']['peak_gpu_allocated_bytes']/1e6 for r in hits]),
++                   'peak_gpu_reserved_MB':avg([r['result']['peak_gpu_reserved_bytes']/1e6 for r in hits]),
++                   'stored_content_MB':avg([r['stored_valid_content_bytes']/1e6 for r in prs]) or 0.,'total_store_MB':avg([r['file_logical_bytes']/1e6 for r in prs]) or 0.,'allocated_MB':avg([r['allocated_bytes']/1e6 for r in prs]) or 0.,'os_write_MB':avg([r['os_write_bytes']/1e6 for r in prs]) or 0.}
++                for key in ['D2H_ms','repack_ms','serialization_ms','write_ms','fsync_ms','persistence_ms','activation_ms']:s[key]=avg([r[key] for r in timings if r[key] is not None]) if timings else 0.
++                h2d=[]
++                for r in hits:
++                    if arm=='recompute':continue
++                    v=r['result'];m=stores[(r['image_id'],arm)]['metadata']
++                    h2d.append(v.get('h2d_kv_bytes',r['read_bytes']+2*m['num_layers']*m.get('v_token_start',0)*m.get('num_heads',0)*m['head_dim']*2))
++                s['H2D_KV_MB']=avg([x/1e6 for x in h2d]);s['H2D_note']='Qwen runner tensor bytes; LLaVA independently inferred from actual payload tensor shapes + system; index/input transfers excluded'
++                s['turn_accuracy']={str(t):avg([r['accuracy'] for r in vals if r['turn']==t]) for t in sorted({r['turn'] for r in vals})}
++                ss[arm]=s;summary.append(s)
++                for iid in sorted({r['image_id'] for r in vals}):
++                    rs=sorted([r for r in vals if r['image_id']==iid],key=lambda r:r['turn']);rec=stores.get((iid,arm));persist=rec['persistence_ms'] if rec else 0.;activate=rec['activation']['activation_ms'] if rec else 0.
++                    sessions.append({'model':model,'phase':phase,'image_id':iid,'arm':arm,'kind':'MT 3-turn standalone session' if phase=='mt' else 'six independent requests + one-time persistence/activation','T1_E2E_ms':rs[0]['e2e_ms'],'persistence_ms':persist,'activation_ms':activate,**{f'T{r["turn"]}_E2E_ms':r['e2e_ms'] for r in rs[1:]},'total_ms':sum(r['e2e_ms'] for r in rs)+persist+activate})
++            text+=['Table 1. Correctness and output identity','']+table(['Method','Content retention','All accuracy','Hit/followup accuracy','First agreement vs A','Sequence agreement vs A'],[[LABEL[a],ss[a]['content_retention'],ss[a]['accuracy_all'],ss[a]['accuracy_hit_or_followup'],ss[a]['first_agreement_vs_A'],ss[a]['sequence_agreement_vs_A']] for a in ARMS])
++            text+=['Table 2. Storage and first persistence (MB/image and ms)','']+table(['Method','Content MB','Total MB','Allocated MB','OS write MB','D2H ms','Repack ms','Write ms','fsync ms','Persistence ms','Activation ms'],[[LABEL[a]]+[ss[a][k] for k in ['stored_content_MB','total_store_MB','allocated_MB','os_write_MB','D2H_ms','repack_ms','write_ms','fsync_ms','persistence_ms','activation_ms']] for a in ARMS])
++            text+=['Table 3. Followup requests (cached arms are hits; ReComp recomputes)','']+table(['Method','Read MB','Preads','TTFT mean/p50/p95 ms','E2E mean ms','H2D KV MB','GPU peak MB'],[[LABEL[a],ss[a]['read_MB_followup'],ss[a]['preads_followup'],'/'.join(fmt(ss[a]['ttft_followup'][k]) for k in ['mean','p50','p95']),ss[a]['e2e_followup']['mean'],ss[a]['H2D_KV_MB'],ss[a]['peak_gpu_MB']] for a in ARMS])
++            sr=[r for r in sessions if r['model']==model and r['phase']==phase];sd={(r['image_id'],r['arm']):r for r in sr}
++            if phase=='mt':
++                mtmeans={arm:{key:avg([r.get(key,0) for r in sr if r['arm']==arm]) for key in ['T1_E2E_ms','persistence_ms','activation_ms','T2_E2E_ms','T3_E2E_ms','total_ms']} for arm in ARMS}
++                text+=['Table 4. MT 3-turn standalone session (ms)','']+table(['Method','T1 E2E','Persistence','Activation','T2 E2E','T3 E2E','Total','Δ vs ReComp','Δ vs A'],[[LABEL[a]]+list(mtmeans[a].values())+[mtmeans[a]['total_ms']-mtmeans['recompute']['total_ms'],mtmeans[a]['total_ms']-mtmeans['A']['total_ms']] for a in ARMS])
++            images=sorted({r['image_id'] for r in ok});paired={}
++            for key in ['ttft_ms','e2e_ms','accuracy']:
++                for subset in ['all','hit']:
++                    ds=[]
++                    for iid in images:
++                        va=[r[key] for r in ok if r['image_id']==iid and r['arm']=='A' and (subset=='all' or r['turn']>1)]
++                        vb=[r[key] for r in ok if r['image_id']==iid and r['arm']=='B' and (subset=='all' or r['turn']>1)]
++                        ds.append(avg(vb)-avg(va))
++                    paired[f'B_minus_A_{subset}_{key}']=ci(ds)
++            for metric in ['persistence_ms','file_logical_bytes','os_write_bytes']:
++                paired['B_minus_A_'+metric]=ci([stores[(i,'B')][metric]-stores[(i,'A')][metric] for i in images])
++            for arm in ['A','B','fullload']:
++                paired[arm+'_minus_ReComp_session_ms']=ci([sd[(i,arm)]['total_ms']-sd[(i,'recompute')]['total_ms'] for i in images])
++            paired['B_minus_A_session_ms']=ci([sd[(i,'B')]['total_ms']-sd[(i,'A')]['total_ms'] for i in images])
++            paired['storage_reduction']=1-sum(stores[(i,'B')]['file_logical_bytes'] for i in images)/sum(stores[(i,'A')]['file_logical_bytes'] for i in images)
++            paired['OS_write_reduction']=1-sum(stores[(i,'B')]['os_write_bytes'] for i in images)/sum(stores[(i,'A')]['os_write_bytes'] for i in images)
++            paired['persistence_reduction']=1-ss['B']['persistence_ms']/ss['A']['persistence_ms']
++            paired['capacity_multiplier_estimate']=ss['A']['total_store_MB']/ss['B']['total_store_MB']
++            paired['analytical_break_even_turns']={}
++            for arm in ['A','B','fullload']:
++                one=avg([sd[(i,arm)]['T1_E2E_ms']-sd[(i,'recompute')]['T1_E2E_ms']+sd[(i,arm)]['persistence_ms']+sd[(i,arm)]['activation_ms'] for i in images])
++                saving=ss['recompute']['e2e_followup']['mean']-ss[arm]['e2e_followup']['mean']
++                paired['analytical_break_even_turns'][arm]={'one_time_extra_ms':one,'assumed_constant_followup_E2E_saving_ms':saving,'turns':max(1,1+math.ceil(one/saving)) if saving>0 else None,'measured_beyond_three_turns':False}
++            analyses[f'{model}/{phase}']=paired
++            text += [f'B total-store reduction: {paired["storage_reduction"]:.2%}; OS write reduction: {paired["OS_write_reduction"]:.2%}; persistence reduction: {paired["persistence_reduction"]:.2%}. Estimated images per fixed SSD capacity: {paired["capacity_multiplier_estimate"]:.3f}×, including metadata and structural files. Cache-hit-rate or eviction benefit was not measured.','',
++                     'Paired differences use 10,000 image-cluster bootstrap resamples (seed 1234). Negative B−A means lower latency. A CI spanning zero is inconclusive.','']
++            text+=table(['Paired metric','Mean B−A','95% CI'],[[key,paired[key]['mean'],'['+', '.join(f'{v:.3f}' for v in paired[key]['ci95'])+']'] for key in ['B_minus_A_persistence_ms','B_minus_A_hit_ttft_ms','B_minus_A_hit_e2e_ms','B_minus_A_session_ms']])
++    csvwrite(out/'latency_quality_summary.csv',summary);write(out/'latency_quality_summary.json',summary)
++    csvwrite(out/'persistence.csv',persistence);csvwrite(out/'storage_metrics.csv',storage);csvwrite(out/'session_metrics.csv',sessions);write(out/'paired_analysis.json',analyses)
++    protect=read(run/'protection_after.json',{'status':'NOT RUN'})
++    audit={'status':'PASS' if checks and all(c['status']=='PASS' for c in checks) and protect.get('status')=='PASS' else 'INCOMPLETE' if not any(c.get('status')=='FAIL' for c in checks) else 'FAIL','checks':checks,'artifact_protection':protect,'independent_of_production_selector':True,'prior_results_used_as_same_run_measurements':False}
++    write(out/'independent_audit.json',audit)
++    text+=['## Interpretation and limits','',
++      'The core A/B evidence is exact selected KV and request-level generated sequences, not equal average accuracy. B retains full CPU materialization and full repack, so their costs cannot disappear with smaller writes. Short final content files remove A\'s chunk-boundary overread; compare raw read bytes and TTFT CIs before attributing a speed change. GPU computation structure remains unchanged. GPU peaks include coexisting arm contexts and are not isolated deployment memory measurements; no memory-reduction claim is made.','',
++      'Persistence is the wall time through the equal full-checksum durability seal. It is not reconstructed by summing nested components. Qwen saliency computation in capture exit and required cloning occur after normal generation; outer T1 E2E includes them once. File hash/seal time includes full hash reads and the final envelope/parent sync. Per-component write timing follows each existing writer; total wall time is the primary comparison.','',
++      'Accuracy uses the existing GQA prefix-tolerant normalized scorer for GQA, and the existing MT pilot strict normalized exact match for MT. The collection raw accuracy field uses the generic GQA scorer; MT report accuracy is independently regenerated from raw prediction and gold, without changing raw files. Allocated bytes are regular-file st_blocks × 512; directory allocation is excluded. Forced source-release GC/empty_cache is experimental isolation outside service timers.','',
++      'Followup H2D is Qwen\'s native tensor-byte counter or LLaVA\'s tensor-shape-derived payload plus system KV bytes. It excludes index/input transfers and is not a bus hardware counter. Allocated/reserved peaks, full read spans, conditioning, and phase timings are in raw records. OS wchar/syscw are successful syscall write traffic, not SSD NAND traffic. DONTNEED is an OS page-cache hint and does not prove cold controller/NAND.','',
++      'All pilot payload stores are cleaned only after their image\'s scheduled measurements and hash/mapping receipts are committed. Correctness stores remain if present; pilot reproduction must regenerate stores. No previously existing store/result/raw was deleted.','',
++      'Original performance source freezes are gpu_freeze_llava.json and gpu_freeze_qwen.json. The pre-Qwen amendment includes scoring in the outer T1 boundary and rejects unsealed incomplete B stores; normal sealed-store KV/attention semantics stay unchanged. final_gpu_freeze.json binds the final GPU replay. Both original measurement source versions are retained.','',
++      'Longer-session break-even values in paired_analysis.json are analytical estimates using measured request E2E and one-time costs with constant mean hit savings. They are separate from the measured MT three-turn sessions. The 4,061-dialogue full experiment was not run.','',
++      f'Artifact protection: {protect.get("status","NOT RUN")}. Independent raw audit: {audit["status"]}.','']
++    text+=['## Decisions from measured results','']
++    for model in ['llava','qwen']:
++        g=read(run/model/'gpu_correctness.json',{});mt=analyses.get(model+'/mt');gqa=analyses.get(model+'/gqa')
++        if g.get('status')!='PASS':
++            text += [f'{model}: selected-KV/output identity is not established; performance/adoption and large-rerun decisions are BLOCKED by the required GPU gate.',''];continue
++        text += [f'{model}: the fixed-sample gate established A/B selected-KV, visible attention and generated-output identity under the frozen model-specific thresholds.','']
++        if mt and gqa:
++            for phase,pa in [('GQA',gqa),('MT',mt)]:
++                diff=pa['B_minus_A_session_ms'];persist=pa['B_minus_A_persistence_ms'];ttft=pa['B_minus_A_hit_ttft_ms']
++                text += [f'{model} {phase}: total store bytes fell {pa["storage_reduction"]:.2%}, OS write bytes fell {pa["OS_write_reduction"]:.2%}, and persistence changed {persist["mean"]:.3f} ms (95% CI {persist["ci95"]}). Hit TTFT changed {ttft["mean"]:.3f} ms (95% CI {ttft["ci95"]}).','']
++            ds=mt['B_minus_A_session_ms'];dr=mt['B_minus_ReComp_session_ms']
++            word='improved' if ds['ci95'][1]<0 else 'regressed' if ds['ci95'][0]>0 else 'has an inconclusive paired difference'
++            text += [f'{model}: the measured MT three-turn standalone session {word} versus A: B−A {ds["mean"]:.3f} ms, CI {ds["ci95"]}. B−ReComp is {dr["mean"]:.3f} ms, CI {dr["ci95"]}. This includes T1, persistence, activation and both hits.','',
++                     f'{model}: fixed-25% adoption has measured capacity/persistence support when the corresponding reductions above are positive. It remains limited to a fixed maximum budget: B rejects larger content requests. Full CPU copy and repack costs remain. Large-rerun readiness requires the independent audit and protection receipt below; bounded per-image cleanup is required for capacity.','']
++        else:text += [f'{model}: pilots are incomplete; capacity/persistence/session adoption conclusions remain BLOCKED.','']
++    text+=['## Final model status','']
++    final_status={}
++    for model in ['llava','qwen']:
++        st=read(run/model/'status.json',{})
++        st['ARTIFACT PROTECTION']=protect.get('status','NOT RUN')
++        checks_model=[c for c in checks if c['model']==model]
++        final_replay=read(run/model/'final_gpu_regression.json',{});st['FINAL SOURCE GPU REPLAY']=final_replay.get('status','NOT RUN')
++        ready=final_replay.get('status')=='PASS' and all(st.get(k)=='PASS' for k in ['IMPLEMENTATION','CPU REGRESSION','GPU CORRECTNESS','A/B OUTPUT IDENTITY','GQA PILOT','MT PILOT','PERSISTENCE/SESSION MEASUREMENT','ARTIFACT PROTECTION']) and all(c['status']=='PASS' for c in checks_model)
++        st['READY FOR LARGE RERUN']='PASS' if ready else 'BLOCKED';final_status[model]=st
++    keys=['IMPLEMENTATION','CPU REGRESSION','GPU CORRECTNESS','A/B OUTPUT IDENTITY','FINAL SOURCE GPU REPLAY','SMOKE','GQA PILOT','MT PILOT','PERSISTENCE/SESSION MEASUREMENT','ARTIFACT PROTECTION','READY FOR LARGE RERUN']
++    text+=table(['Stage','LLaVA','Qwen'],[[k,final_status['llava'].get(k,'NOT RUN'),final_status['qwen'].get(k,'NOT RUN')] for k in keys])
++    failures=rows(run/'failures.jsonl')
++    if failures:
++        text+=['## Preserved failures','']
++        for f in failures:text+=[f'Model `{f.get("model")}`:','```text',f['error'],'```','']
++    ko=['## 핵심 결과','',
++        '두 모델의 CPU/GPU correctness와 A/B 출력 동일성 검증을 통과했다. 모델별 smoke 48요청, GQA 960요청, MT 480요청을 새로 실행했으며, 과거 latency/persistence를 섞지 않았다. 모든 T1은 full-image inference이고 표의 content retention은 hit에서 사용하는 예산이다.','']
++    ko += table(['모델','저장/write 감소 (GQA / MT)','Persistence 감소 (GQA / MT)','MT 세션 B−A','MT 세션 B−ReComp'],[
++        [model, ' / '.join(f'{analyses[model+"/"+ph]["storage_reduction"]:.2%}' for ph in ['gqa','mt']),
++         ' / '.join(f'{analyses[model+"/"+ph]["persistence_reduction"]:.2%}' for ph in ['gqa','mt']),
++         f'{analyses[model+"/mt"]["B_minus_A_session_ms"]["mean"]:.1f} ms',
++         f'{analyses[model+"/mt"]["B_minus_ReComp_session_ms"]["mean"]:.1f} ms']
++        for model in ['llava','qwen'] if model+'/gqa' in analyses and model+'/mt' in analyses])
++    ko += ['고정 25% 정책에서 A를 B로 대체할 근거는 저장량·persistence·A 대비 세션 비용에서 확인됐다. 다만 LLaVA의 짧은 3-turn 세션은 ReComp가 더 빠르다. A/B 동등성은 선택 KV와 생성열을 직접 비교한 결과이며 ReComp 대비 품질 동등성을 뜻하지 않는다. 전체 CPU 복사와 전체 repack 비용은 남아 있다.','',
++           '[MT 세션 비용 그림](session_costs.png) · [벡터 그림](session_costs.svg)','']
++    text[2:2]=ko
++    (out/'REPORT.md').write_text('\n'.join(text));write(out/'status.json',final_status)
++    (out/'REPRODUCE.md').write_text(f'''# Reproduction
++
++Environment: /home/dblab/anaconda3/envs/mllm_ft/bin/python (see run environment.json).
++Input manifests, source before copies, source hashes, GPU freeze, failures and raw
++receipts are retained under `{run}`. Offline cached revisions are fixed in config.
++Create fresh timestamped runs/results paths; do not overwrite this run.
++
++```bash
++PYTHONPATH=.:tests /home/dblab/anaconda3/envs/mllm_ft/bin/python -m unittest -v test_prefix25_persistence test_llava_kv25 test_qwen25_kv25 test_qwen25_store test_image_only_repack test_visdial_turn1_piggyback_core test_qwen25_runner test_qwen25_vision
++# Store CPU output as cpu_regression_v2.log in the new run.
++/home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/106_prefix25_persistence.py --run NEW_RUN --freeze
++HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 /home/dblab/anaconda3/envs/mllm_ft/bin/python -u scripts/106_prefix25_persistence.py --run NEW_RUN --model llava
++HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 /home/dblab/anaconda3/envs/mllm_ft/bin/python -u scripts/106_prefix25_persistence.py --run NEW_RUN --model qwen
++/home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/107_report_prefix25.py --run NEW_RUN
++```
++
++Run models sequentially on an idle GPU. A failed gate blocks that model's pilots.
++CPU unittest discovery uses tests on PYTHONPATH; pytest is not installed.
++Actual command logs are in llava_execution.log/qwen_execution.log and failures.jsonl.
++Pilot payloads are not retained: regenerate them from each arm's own T1.
++Existing artifact protection uses protected_before.jsonl and protection_after.json.
++At least 30 GiB free is mandatory; the driver additionally budgets 16 GiB staging.
++The large full MT experiment is deliberately excluded.
++
++API: both writers default to storage_policy="full". B explicitly uses
++storage_policy="prefix25"; serving uses budget_unit="visual_kv", ratio=.25
++against original N. The LLaVA completion protocol requires seal_integrity(store)
++after its capture writer; the experiment applies the same seal to A and B.
++Unsealed B activation fails. Qwen keeps its native payload-hash checks as well.
++LLaVA v2 keeps v_token_num/n_chunks_per_layer as the original virtual GPU geometry;
++payload_rows/payload_chunks and stored_row_to_original describe actual SSD rows.
++Qwen v2 keeps visual_count as N, full_importance_permutation as the complete rank,
++and stored_to_original/stored_row_to_original as k actual stored rows. Neither
++partial mapping is treated as a complete original permutation.
++
++The original LLaVA/Qwen measurement freezes and source copies are retained.
++The final default replay includes the prospective Qwen timing correction and
++completion-envelope guard. final_gpu_regression.py replays frozen GPU samples
++under final_gpu_freeze.json; original performance rows are not overwritten.
++
++''')
++    print(json.dumps({'audit':audit['status'],'summaries':len(summary),'sessions':len(sessions),'output':str(out)}))
++if __name__=='__main__':main()
+--- /dev/null
++++ after/tests/test_prefix25_persistence.py
+@@ -0,0 +1,104 @@
++"""Actual prefix-only payloads, independent reference and malformed-store tests."""
++import copy
++import json
++import os
++from pathlib import Path
++import tempfile
++from types import SimpleNamespace
++import unittest
++from unittest.mock import patch
++import torch
++from mmimpress.prefix25 import seal_integrity, verify_integrity, ReadTrace, validate_llava_prefix_meta
++from mmimpress.qwen25.store import write_qwen_store, QwenStore, plan_prefix_budget
++from mmimpress.store import write_image_store, ChunkReader
++from mmimpress.serve import ImageContext, CVPR25ChunkSelector, BIAS
++from test_qwen25_kv25 import _fixture as qfixture
++from test_llava_kv25 import _fixture as lfixture
++CASES = (1,63,64,65,127,128,129,255,256,257,349,2200)
++
++class PrefixPersistence(unittest.TestCase):
++    def test_qwen_boundaries_bits_reads_and_negative(self):
++        for n in CASES:
++            with self.subTest(n=n), tempfile.TemporaryDirectory() as tmp:
++                root=Path(tmp); layers,start,p,scores,ids,extra=qfixture(n)
++                a=write_qwen_store(root/'a',layers,start,n,ids,scores,extra)
++                b=write_qwen_store(root/'b',layers,start,n,ids,scores,extra,storage_policy='prefix25')
++                k=(n+3)//4; order=sorted(range(n),key=lambda i:(-scores[i],i))
++                self.assertEqual(b['stored_to_original'],order[:k]);self.assertEqual(b['visual_count'],n)
++                self.assertEqual(b['stored_rows'],k);self.assertEqual(b['padding_rows'],0)
++                logical=sorted([0,1,2,p-1]+[start+i for i in order[:k]])
++                with QwenStore(root/'a') as aa, QwenStore(root/'b') as bb:
++                    x=aa.load_prefix(.25,budget_unit='visual_kv')
++                    with ReadTrace(root/'b') as trace:y=bb.load_prefix(.25,budget_unit='visual_kv')
++                    self.assertEqual(trace.summary()['bytes'],y.io.bytes)
++                    self.assertEqual(trace.summary()['preads'],y.io.preads)
++                    self.assertEqual(y.kept_visual_tokens,k); self.assertEqual(list(y.logical_indices),logical)
++                    for orig,xx,yy in zip(layers,x.layers,y.layers):
++                        for src,av,bv in zip(orig,xx,yy):
++                            self.assertTrue(torch.equal(av.view(torch.int16),bv.view(torch.int16)))
++                            self.assertTrue(torch.equal(src[:,:,logical].view(torch.int16),bv.view(torch.int16)))
++                    for ratio,unit in [(1,'visual_kv'),(.26,'visual_kv'),(.25,'chunk')]:
++                        with self.assertRaises(ValueError):bb.load_prefix(ratio,budget_unit=unit)
++                    self.assertEqual(y.extra_valid_visual_rows,0)
++                with self.assertRaises(ValueError):QwenStore(root/'b',expected_identity={'image_sha256':'b'*64})
++                bad=copy.deepcopy(b);bad['stored_to_original'][0]=(bad['stored_to_original'][0]+1)%max(n,2)
++                for field,val in [('original_content_count',k),('stored_content_count',(k+3)//4)]:
++                    if n!=k and k!=(k+3)//4:
++                        m=copy.deepcopy(b);m[field]=val
++                        obj=object.__new__(QwenStore);obj.meta=m;obj.path=root/'b';obj.metadata_file_bytes=b['bytes_metadata_file']
++                        with self.assertRaises(ValueError):obj._validate_meta(None)
++                f=root/'b/layer_000/k.bin';blob=f.read_bytes();f.write_bytes(bytes([blob[0]^1])+blob[1:])
++                with self.assertRaisesRegex(ValueError,'hash'):QwenStore(root/'b')
++                f.write_bytes(blob[:-2])
++                with self.assertRaisesRegex(ValueError,'size'):QwenStore(root/'b')
++
++    def test_llava_boundaries_full_buffer_mask_and_bits(self):
++        for n in CASES:
++            with self.subTest(n=n),tempfile.TemporaryDirectory() as tmp:
++                root=Path(tmp);meta,rank,layers=lfixture(root/'a',n);k=(n+3)//4
++                reserved={'image_id':'fixture'}
++                extra={key:meta[key] for key in ['physical_layout','layout_method','layout_source','visual_kv_source','layout_uses_dataset_question','llm_used_for_layout_scoring','calibration_questions','global_order_all_layers','separator_tail','separator_policy','permutation_sha256','inverse_permutation_sha256']}
++                b=write_image_store(root/'b',layers,meta['v_token_start'],meta['v_token_num'],meta['prefix_input_ids'],meta['newline_idx'],extra=extra,stored_to_original=meta['order'],separator_sidecar=True,probe_heads=0,storage_policy='prefix25')
++                (root/'b/visionzip_layout.pt').write_bytes((root/'a/visionzip_layout.pt').read_bytes())
++                seal_integrity(root/'b');validate_llava_prefix_meta(b)
++                ctx=ImageContext(root/'b','cpu',drop_cache=False,require_v_hidden=False)
++                try:
++                    ctx.validate_visual_kv_layout(); cache=ctx.cache.new_request()
++                    runner=SimpleNamespace(model=SimpleNamespace(device=torch.device('cpu')))
++                    sel=CVPR25ChunkSelector(runner,ctx,None,.25,'prefix',sep_policy='sidecar',budget_unit='visual_kv')
++                    with patch('torch.cuda.synchronize'),ReadTrace(root/'b') as trace:sel.prepare(None)
++                    self.assertEqual(sel.io.bytes,trace.summary()['bytes']);self.assertEqual(sel.io.preads,trace.summary()['preads'])
++                    self.assertEqual(sel.selected_original_ids,rank[:k]);self.assertEqual(sel.stats()['unused_loaded_real_rows'],0)
++                    expected=[True]*3+[True]*k+[False]*(n-k)+[True]*2
++                    for li,(src_k,src_v) in enumerate(layers):
++                        self.assertEqual((BIAS[li].flatten()==0).tolist(),expected)
++                        for kind,src in [('keys',src_k),('values',src_v)]:
++                            actual=getattr(cache.layers[li],kind)
++                            self.assertEqual(actual.shape[2],n+5)
++                            self.assertTrue(torch.equal(actual[:,:,3:3+k],src[:,:,torch.tensor(rank[:k])+3].to(torch.bfloat16)))
++                    for ratio,unit in [(1,'visual_kv'),(.26,'visual_kv'),(.25,'chunk')]:
++                        with self.assertRaises(ValueError):CVPR25ChunkSelector(runner,ctx,None,ratio,'prefix',sep_policy='sidecar',budget_unit=unit)
++                    with self.assertRaises(ValueError):ctx.reader.read_full(0,'k')
++                finally:ctx.close();BIAS.clear()
++                for rel in ['sep_kv.bin','sys_kv.pt']:
++                    self.assertEqual((root/'a'/rel).read_bytes(),(root/'b'/rel).read_bytes())
++                for li in range(2):
++                    for kind in ['k','v']:
++                        blob=(root/'b'/f'layer_{li:02d}/{kind}.bin').read_bytes()
++                        self.assertEqual(len(blob),k*8)
++                        self.assertEqual(blob,(root/'a'/f'layer_{li:02d}/{kind}.bin').read_bytes()[:k*8])
++                corrupt=copy.deepcopy(b);corrupt['stored_row_to_original'][0]=-1
++                with self.assertRaises(ValueError):validate_llava_prefix_meta(corrupt)
++                f=root/'b/layer_00/k.bin';blob=f.read_bytes();f.write_bytes(blob[:-2])
++                with self.assertRaises(ValueError):verify_integrity(root/'b')
++                with ChunkReader(root/'b',b,False) as reader:
++                    with self.assertRaises(AssertionError):reader.read_chunks(0,'k',[0] if k<=64 else [(k-1)//64])
++
++    def test_zero_and_invalid_storage_policy(self):
++        layers,start,p,scores,ids,extra=qfixture(0)
++        with tempfile.TemporaryDirectory() as tmp:
++            with self.assertRaises(ValueError):write_qwen_store(Path(tmp)/'b',layers,start,0,ids,scores,extra,storage_policy='prefix25')
++            with self.assertRaises(ValueError):write_image_store(Path(tmp)/'l',layers,0,0,[],[],storage_policy='prefix25')
++            with self.assertRaises(ValueError):write_qwen_store(Path(tmp)/'x',layers,start,0,ids,scores,extra,storage_policy='bogus')
++
++if __name__=='__main__':unittest.main()

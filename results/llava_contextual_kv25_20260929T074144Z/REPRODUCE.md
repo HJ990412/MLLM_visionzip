@@ -1,0 +1,3 @@
+# Reproduce this GQA pilot
+
+Frozen run: `/home/dblab/hj/mllm_v2/runs/llava_contextual_kv25_20260929T074144Z`. Use the validated Conda interpreter `/home/dblab/anaconda3/envs/mllm_ft/bin/python` and the cached LLaVA-HF checkpoint at revision `c916e6cdcd760b4cecd1dd4907f84ac649f93b23`. Run the CPU and GPU correctness gates against these exact source hashes before rerunning the smoke and pilot. After stores were cleaned, rebuilding requires each arm's normal image Turn 1 and fresh store persistence. Keep GQA questions[4:10], seed 1234, 64-token chunks, NF4, BF16 compute, FP16 SSD payload, eager attention, and greedy max_new_tokens=16. The raw rows and selection JSON are retained for analysis without rebuilding.

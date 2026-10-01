@@ -1,0 +1,26 @@
+{
+  "policy": "FRESH_IMAGE_STREAMING",
+  "free_bytes_at_freeze": 116469657600,
+  "mount": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/\",\n         \"source\": \"/dev/nvme0n1p2\",\n         \"fstype\": \"ext4\",\n         \"options\": \"rw,relatime,errors=remount-ro\"\n      }\n   ]\n}\n",
+  "largest_image": {
+    "image_id": "n181210",
+    "N": 2880,
+    "k": 720,
+    "v_num": 2928,
+    "boundary_extra_rows": 48,
+    "prior_three_store_bytes": 4781029428,
+    "geometry_provenance": "runs/mt_gqa_5arm_generated_20260923T064333Z/full/generated_history/images/n181210.json",
+    "artifact_sha256": "7854cec605f1783e809da69d8edd5a1bf633612ddcdbc2cdb67d8d7693c530c6"
+  },
+  "largest_image_bundle_bound_bytes": 4848138292,
+  "builder_intermediate_margin_bytes": 4294967296,
+  "raw_checkpoint_growth_bound_bytes": 34359738368,
+  "minimum_reserve_bytes": 32212254720,
+  "peak_working_set_bytes": 9143105588,
+  "maximum_new_payload_bytes": 17179869184,
+  "validation_peak_payload_bound_bytes": 10737418240,
+  "maximum_concurrent_main_images": 1,
+  "conditioning": "successful per-file POSIX_FADV_DONTNEED; no NAND/controller cold claim",
+  "required_initial_free_bytes": 77309411328,
+  "status": "PASS"
+}

@@ -1,0 +1,1538 @@
+--- before/scripts/100_eval_llava_mt_gqa_allhead_kv25.py
++++ after/scripts/100_eval_llava_mt_gqa_allhead_kv25.py
+@@ -0,0 +1,640 @@
++#!/usr/bin/env python3
++"""Frozen five-arm MT-GQA main. Image-atomic adoption; no legacy registry mutation.
++
++Lifecycle and causal prompt follow 73; verified production request helpers
++follow 98. This module never imports 73/89/98 or executes ReKV/Probe3/QA paths.
++"""
++from __future__ import annotations
++import argparse
++from collections import OrderedDict
++from contextlib import contextmanager
++import gc
++import hashlib
++import importlib.util
++import json
++import os
++from pathlib import Path
++import re
++import shutil
++import subprocess
++import sys
++import time
++import traceback
++import uuid
++import numpy as np
++import torch
++from PIL import Image
++ROOT = Path(__file__).resolve().parent.parent
++sys.path.insert(0, str(ROOT))
++METHODS = ('recompute', 'fullload', 'mpic32_ssd', 'sparsevlm_ssd_kv25_allhead', 'ours_kv25')
++ALLHEAD = METHODS[3]
++STORE_KEYS = ('raster', 'mpic', 'image_only')
++SCHEMA = 'llava-mtgqa-allhead-kv25-main-v1'
++MODEL_ID = 'llava-hf/llava-v1.6-vicuna-7b-hf'
++REVISION = 'c916e6cdcd760b4cecd1dd4907f84ac649f93b23'
++INDEX_SHA = '2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224'
++WORKLOAD_SHA = '0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62'
++CONTRACT = ROOT/'docs/llava_mt_gqa_allhead_kv25_main_contract.md'
++SHORT_ANSWER = 'Answer the current question with a single word or short phrase.'
++
++def helper(filename, name):
++    spec = importlib.util.spec_from_file_location(name, ROOT/'scripts'/filename)
++    mod = importlib.util.module_from_spec(spec); sys.modules[name] = mod
++    spec.loader.exec_module(mod)
++    return mod
++
++V = helper('97_validate_sparsevlm_ssd_kv25.py', '_main_allhead_gpu_helpers')
++QA = helper('49_eval_query_aware_baseline.py', '_main_allhead_common_io')
++
++def sha(path):
++    return V.sha(path)
++
++def canonical_hash(value):
++    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False).encode()).hexdigest()
++
++def safe(x):
++    if torch.is_tensor(x): return x.detach().cpu().tolist()
++    if isinstance(x, np.generic): return x.item()
++    if isinstance(x, Path): return str(x)
++    if isinstance(x, dict): return {str(k): safe(v) for k, v in x.items()}
++    if isinstance(x, (tuple, list)): return [safe(v) for v in x]
++    return x
++
++def sync_dir(path):
++    fd = os.open(path, os.O_RDONLY | os.O_DIRECTORY)
++    try: os.fsync(fd)
++    finally: os.close(fd)
++
++def atomic_json(path, value, *, replace=False):
++    path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
++    if path.exists() and not replace: raise FileExistsError(path)
++    temp = path.with_name('.'+path.name+'.'+uuid.uuid4().hex+'.tmp')
++    with temp.open('x') as f:
++        json.dump(safe(value), f, ensure_ascii=False, allow_nan=False, indent=2)
++        f.write('\n'); f.flush(); os.fsync(f.fileno())
++    if replace: os.replace(temp, path)
++    else:
++        # no-clobber publication in the same directory
++        os.link(temp, path); temp.unlink()
++    sync_dir(path.parent)
++
++def append(path, value):
++    with Path(path).open('a') as f:
++        f.write(json.dumps(safe(value), ensure_ascii=False, allow_nan=False, separators=(',', ':'))+'\n')
++        f.flush(); os.fsync(f.fileno())
++
++def load_jsonl(path):
++    with Path(path).open() as f: return [json.loads(s) for s in f if s.strip()]
++
++def source_hashes():
++    names = list((ROOT/'mmimpress').rglob('*.py'))
++    names += [ROOT/'scripts'/n for n in ('49_eval_query_aware_baseline.py', '90_validate_llava_kv25.py',
++        '97_validate_sparsevlm_ssd_kv25.py', '99_audit_sparsevlm_ssd_kv25.py',
++        '100_eval_llava_mt_gqa_allhead_kv25.py', '101_audit_llava_mt_gqa_allhead_kv25.py',
++        '102_validate_llava_mt_gqa_allhead_kv25.py')]
++    return {p.relative_to(ROOT).as_posix(): sha(p) for p in sorted(names)}
++
++def frozen_dialogues():
++    from mmimpress.mt_gqa import workload_sha256
++    path = ROOT/'data/mt_gqa/dialogues.json'
++    if sha(path) != INDEX_SHA: raise RuntimeError('DATASET_IDENTITY_FAIL: index SHA256')
++    doc = json.loads(path.read_text()); ds = doc['dialogues']
++    if workload_sha256(ds) != WORKLOAD_SHA: raise RuntimeError('DATASET_IDENTITY_FAIL: workload SHA256')
++    assert len(ds) == 4061 and len({d['image_id'] for d in ds}) == 398
++    assert sum(len(d['turns']) for d in ds) == 12183
++    qids = []
++    for i, d in enumerate(ds):
++        assert [t['turn_id'] for t in d['turns']] == [1, 2, 3]
++        assert (ROOT/d['image_path']).is_file()
++        qids += [str(t['question_id']) for t in d['turns']]
++    assert len(set(qids)) == 12183
++    return ds
++
++def method_order(ordinal):
++    i = int(ordinal) % 5
++    return METHODS[i:]+METHODS[:i]
++
++def request_id(run_id, phase, method, dialog_id, turn):
++    return f'{SCHEMA}:{run_id}:{phase}:{MODEL_ID}:{method}:{dialog_id}:t{turn}'
++
++def prompt_factory(dialog, turn, method, generated):
++    if method not in METHODS or turn not in (1, 2, 3): raise ValueError('invalid method/turn')
++    if any(t >= turn for t in generated): raise ValueError('future/current answer in history')
++    lines, entries = [], []
++    for t in range(1, turn):
++        prior = dialog['turns'][t-1]; row = generated[t]
++        if row['method_id'] != method or row['dialog_id'] != dialog['dialog_id']:
++            raise ValueError('foreign method/dialogue history')
++        answer = row['prediction']
++        lines += [f"Q{t}: {prior['question'].strip()}", f'A{t}: {answer}']
++        entries.append({'turn_id': t, 'question_id': str(prior['question_id']),
++            'question': prior['question'].strip(), 'answer': answer,
++            'answer_source': 'method_local_generated', 'source_model': MODEL_ID,
++            'source_method_id': method, 'source_dialog_id': dialog['dialog_id'],
++            'source_logical_request_id': row['logical_request_id'],
++            'source_physical_execution_id': row['physical_execution_id']})
++    history = '\n'.join(lines); body = ([history, ''] if history else [])
++    body += [f"Current question Q{turn}: {dialog['turns'][turn-1]['question'].strip()}", f'{SHORT_ANSWER} ASSISTANT:']
++    return 'USER: <image>\n'+'\n'.join(body), history, entries
++
++def strict_score(pred, gold):
++    def norm(v): return ' '.join(w for w in re.sub(r'[^\w\s]', ' ', str(v).lower()).split() if w not in {'a','an','the'})
++    return float(norm(pred) == norm(gold))
++
++def assert_gpu_exclusive():
++    p = subprocess.run(['nvidia-smi','--query-compute-apps=pid,process_name,used_gpu_memory',
++        '--format=csv,noheader,nounits'], check=True, capture_output=True, text=True)
++    other = [s for s in p.stdout.splitlines() if s.strip() and int(s.split(',')[0]) != os.getpid()]
++    if other: raise RuntimeError('GPU_TIMING_CONTAMINATION: '+repr(other))
++
++@contextmanager
++def conditioning_trace():
++    original = os.posix_fadvise; events = []
++    def call(fd, offset, length, advice):
++        path = os.readlink(f'/proc/self/fd/{fd}')
++        try:
++            result = original(fd, offset, length, advice)
++            events.append({'path': path, 'offset': offset, 'length': length, 'advice': advice, 'status': 'SUCCESS'})
++            return result
++        except BaseException as exc:
++            events.append({'path': path, 'status':'FAIL', 'error':repr(exc)}); raise
++    os.posix_fadvise = call
++    try: yield events
++    finally: os.posix_fadvise = original
++
++def text_spans(prompt,question,history,entries):
++    spans=[]
++    if history:
++        start=prompt.index(history);spans.append({'kind':'history','start_char':start,'end_char':start+len(history),
++            'provenance':'method_local_generated_QA','entries':entries})
++    start=prompt.rfind(question)
++    if start<0:raise ValueError('current question absent from prompt')
++    spans.append({'kind':'current_question','start_char':start,'end_char':start+len(question)})
++    image_end=prompt.index('<image>')+len('<image>')
++    covered=sorted((x['start_char'],x['end_char']) for x in spans)
++    cursor=image_end
++    for lo,hi in covered:
++        if cursor<lo:spans.append({'kind':'template','start_char':cursor,'end_char':lo})
++        cursor=max(cursor,hi)
++    if cursor<len(prompt):spans.append({'kind':'template','start_char':cursor,'end_char':len(prompt)})
++    return sorted(spans,key=lambda x:x['start_char'])
++
++
++class PilotCounts:
++    """Actual phase-aware projection calls; first model invocation is prefill."""
++    def __init__(self,runner):self.runner=runner
++    def __enter__(self):
++        self.calls={};self.handles=[];self.model_calls=0;self.phase=None
++        def begin(module,args,kwargs):
++            self.phase='prefill' if self.model_calls==0 else 'decode';self.model_calls+=1
++        self.handles.append(self.runner.model.register_forward_pre_hook(begin,with_kwargs=True))
++        for li,layer in enumerate(self.runner.layers):
++            for kind in ('q','k','v'):
++                def count(mod,args,li=li,kind=kind):
++                    if self.phase is None:raise AssertionError('projection before model phase')
++                    counts=self.calls.setdefault(str(li),{}).setdefault(self.phase,{})
++                    counts[kind]=counts.get(kind,0)+1
++                self.handles.append(getattr(layer.self_attn,kind+'_proj').register_forward_pre_hook(count))
++        return self
++    def __exit__(self,*exc):
++        for h in self.handles:h.remove()
++    def result(self):return self.calls
++
++def normal_request(runner,server,image_path,factory,capture_kind):
++    from contextlib import ExitStack
++    from mmimpress.piggyback import VisionForwardCapture,DecoderVisualHiddenCapture
++    vision=VisionForwardCapture(runner,capture_saliency=capture_kind=='image_only')
++    hidden=None
++    torch.cuda.synchronize();torch.cuda.reset_peak_memory_stats();started=time.perf_counter()
++    prompt,history,entries=factory()
++    with Image.open(image_path) as im:image=im.convert('RGB');image.load()
++    enc,processing=QA._combined_processor(runner,image,prompt)
++    v0,vn=runner.visual_span(enc['input_ids'])
++    if capture_kind in ('raster','mpic','allhead_verify'):hidden=DecoderVisualHiddenCapture(runner,v0,vn)
++    with vision,PilotCounts(runner) as counts,ExitStack() as stack:
++        if hidden is not None:stack.enter_context(hidden)
++        result=server.recompute(runner.to_device(enc),return_past_key_values=capture_kind!='none')
++    returned=time.perf_counter()
++    assert vision.call_count==1
++    result.update(projection_calls=counts.result(),scoring_calls=0,
++                  end_to_end_ttft_ms=(result['first_token_at_s']-started)*1000,
++                  request_e2e_ms=(returned-started)*1000,request_started_at_s=started,
++                  vision_forward_count=vision.call_count,cap_reached=(len(result['generated_token_ids'])==16 and result['generated_token_ids'][-1]!=runner.processor.tokenizer.eos_token_id),peak_gpu_allocated_bytes=torch.cuda.max_memory_allocated(),
++                  peak_gpu_reserved_bytes=torch.cuda.max_memory_reserved(),processor=processing)
++    diag={'prompt':prompt,'history':history,'history_entries':entries,'enc_cpu':enc,'hidden':hidden,'vision':vision,
++          'image_input_sha256':QA._image_input_hash(enc),'v_token_start':v0,'v_token_num':vn}
++    return result,diag
++
++def legacy_hit(runner,server,ctx,factory,method,image_id):
++    with QA._NoVisionForward(runner) as guard:
++        c0=time.perf_counter();ctx.reader.drop_all();conditioning=(time.perf_counter()-c0)*1000
++        torch.cuda.synchronize();torch.cuda.reset_peak_memory_stats();started=time.perf_counter()
++        prompt,history,entries=factory();tokenized=runner.processor.tokenizer(prompt,return_tensors='pt')
++        suffix=QA._suffix_from_tokenized(runner,tokenized).to(runner.model.device)
++        with PilotCounts(runner) as counts,V.ReadTrace() as reads:
++            if method=='fullload':result=server.request(ctx,mode='fullload',suffix_ids=suffix,cold=False)
++            else:result=server.request_cvpr25(ctx,static=None,budget=.25,mode='prefix',budget_unit='visual_kv',
++                 sep_policy='sidecar',cold=False,seed=1234,image_id=image_id,suffix_ids=suffix,
++                 expected_prefix_layout='visionzip_image_only')
++        returned=time.perf_counter()
++    assert sum(r['returned'] for r in reads.calls)==result['io']['bytes']
++    assert len(reads.calls)==result['io']['preads']
++    result.update(projection_calls=counts.result(),scoring_calls=0,
++        end_to_end_ttft_ms=(result['first_token_at_s']-started)*1000,request_e2e_ms=(returned-started)*1000,
++        request_started_at_s=started,vision_forward_count=guard.calls,page_cache_conditioning_ms=conditioning,
++        cap_reached=(len(result['generated_token_ids'])==16 and result['generated_token_ids'][-1]!=runner.processor.tokenizer.eos_token_id),
++        peak_gpu_allocated_bytes=torch.cuda.max_memory_allocated(),peak_gpu_reserved_bytes=torch.cuda.max_memory_reserved(),
++        os_pread_trace=reads.calls)
++    # The next request must not retain any selected visual payload on the GPU.
++    ctx.cache.k=None;ctx.cache.v=None
++    return result,{'prompt':prompt,'history':history,'history_entries':entries,'suffix_input_ids':suffix.cpu().tolist()}
++
++def sparse_hit(runner,server,ctx,factory,method,question):
++    with QA._NoVisionForward(runner) as guard:
++        c0=time.perf_counter();ctx.drop_cache();conditioning=(time.perf_counter()-c0)*1000
++        torch.cuda.synchronize();started=time.perf_counter()
++        prompt,history,entries=factory();spans=text_spans(prompt,question,history,entries)
++        with V.ReadTrace() as reads:
++            result=server.request(ctx,method_id=method,question=question,prompt_text=prompt,
++                                  text_spans=spans,cold=False)
++        returned=time.perf_counter()
++    V.verify_reads(result,reads,ctx.meta,method)
++    result.update(core_ttft_ms=result['end_to_end_ttft_ms'],end_to_end_ttft_ms=(result['first_token_at_s']-started)*1000,
++       request_e2e_ms=(returned-started)*1000,request_started_at_s=started,vision_forward_count=guard.calls,
++       page_cache_conditioning_ms=conditioning,os_pread_trace=reads.calls)
++    return result,{'prompt':prompt,'history':history,'history_entries':entries,'text_spans':spans}
++
++
++class MPICCounts:
++    """MPIC traverses layers directly for prefill, then calls model for decode."""
++    def __init__(self, runner): self.runner = runner
++    def __enter__(self):
++        self.calls = {}; self.handles = []; self.phase = 'prefill'
++        def model_begin(*args): self.phase = 'decode'
++        self.handles.append(self.runner.model.register_forward_pre_hook(model_begin))
++        for li, layer in enumerate(self.runner.layers):
++            for kind in ('q', 'k', 'v'):
++                def count(mod, args, li=li, kind=kind):
++                    d = self.calls.setdefault(str(li), {}).setdefault(self.phase, {})
++                    d[kind] = d.get(kind, 0)+1
++                self.handles.append(getattr(layer.self_attn, kind+'_proj').register_forward_pre_hook(count))
++        return self
++    def __exit__(self, *exc):
++        for h in self.handles: h.remove()
++
++def mpic_hit(runner, server, ctx, factory):
++    with QA._NoVisionForward(runner) as guard:
++        c0 = time.perf_counter(); ctx.reader.drop_all(); condition_ms = (time.perf_counter()-c0)*1000
++        torch.cuda.synchronize(); torch.cuda.reset_peak_memory_stats(); started = time.perf_counter()
++        prompt, history, entries = factory()
++        with MPICCounts(runner) as counts, V.ReadTrace() as reads:
++            result = server.request(ctx, prompt_text=prompt, cold=False)
++        returned = time.perf_counter()
++    assert sum(x['returned'] for x in reads.calls) == result['io']['bytes']
++    assert len(reads.calls) == result['io']['preads']
++    result.update(answer=result['prediction'], projection_calls=counts.calls, scoring_calls=0,
++        end_to_end_ttft_ms=(result['first_token_at_s']-started)*1000,
++        request_e2e_ms=(returned-started)*1000, request_started_at_s=started,
++        vision_forward_count=guard.calls, page_cache_conditioning_ms=condition_ms,
++        cap_reached=len(result['generated_token_ids']) == 16 and result['generated_token_ids'][-1] != runner.processor.tokenizer.eos_token_id,
++        peak_gpu_allocated_bytes=torch.cuda.max_memory_allocated(), peak_gpu_reserved_bytes=torch.cuda.max_memory_reserved(),
++        os_pread_trace=reads.calls)
++    return result, {'prompt':prompt, 'history':history, 'history_entries':entries}
++
++def stored_request(runner, servers, ctx, factory, method, image_id, question):
++    original = [l.self_attn.forward for l in runner.layers]
++    with conditioning_trace() as conditioning:
++        if method == ALLHEAD: value = sparse_hit(runner, servers['allhead'], ctx, factory, method, question)
++        elif method == 'mpic32_ssd': value = mpic_hit(runner, servers['mpic'], ctx, factory)
++        elif method in ('fullload','ours_kv25'): value = legacy_hit(runner, servers['old'], ctx, factory, method, image_id)
++        else: raise ValueError('unknown stored method')
++    result, diag = value
++    assert all(l.self_attn.forward == f for l, f in zip(runner.layers, original)), 'adapter not restored'
++    from mmimpress.serve import BIAS
++    assert not BIAS, 'stale mask after request'
++    assert conditioning and all(e['status'] == 'SUCCESS' for e in conditioning), 'page cache conditioning not verified'
++    result.update(conditioning_events=conditioning, adapter_restored=True,
++        page_cache_conditioning_method='posix_fadvise_DONTNEED', page_cache_conditioning_excluded_from_ttft=True)
++    return result, diag
++
++def captured_canonical_hashes(result, diag):
++    from mmimpress.model import cache_layers
++    v0, vn = diag['v_token_start'], diag['v_token_num']; hashes = {}
++    for li, (key, value) in enumerate(cache_layers(result['captured_past_key_values'])):
++        for kind, tensor in (('k',key), ('v',value)):
++            block = tensor[0, :, v0:v0+vn].permute(1,0,2).to(dtype=torch.float16, device='cpu').contiguous()
++            hashes[f'layer_{li:02d}/{kind}.bin'] = hashlib.sha256(block.numpy().tobytes()).hexdigest()
++    hidden = diag['hidden'].result_cpu().to(torch.float16).contiguous()
++    return {'payload_sha256': hashes, 'visual_hidden_tensor_sha256':hashlib.sha256(hidden.numpy().tobytes()).hexdigest(),
++        'prefix_ids': diag['enc_cpu']['input_ids'][0,:v0+vn].tolist(), 'image_input_sha256':diag['image_input_sha256']}
++
++def persist(runner, result, diag, path, image_id, kind, source):
++    from mmimpress.piggyback import persist_captured_raster_prefix, persist_captured_visual_prefix
++    from mmimpress.mpic import persist_captured_mpic_prefix
++    enc = diag['enc_cpu']; args = (runner,result['captured_past_key_values'],enc['input_ids'],enc['image_sizes'][0])
++    common = dict(image_id=image_id, model_id=MODEL_ID, chunk_size=64,
++        image_input_sha256=diag['image_input_sha256'], extra_metadata={
++            'dataset':'MT-GQA-reconstructed','source_dialog_id':source['dialog_id'],
++            'source_turn_id':1,'source_method_id':source['method_id'],
++            'source_execution_id':source['physical_execution_id'], 'source_logical_request_id':source['logical_request_id'],
++            'run_schema':SCHEMA})
++    if kind == 'mpic':
++        return persist_captured_mpic_prefix(*args, diag['hidden'].result_cpu(), path, hidden_capture_stats=diag['hidden'], **common)
++    if kind == 'raster':
++        # Preserve the validated serializer unchanged, including its unused
++        # bundled probe sidecar. It is never read by any main method.
++        return persist_captured_raster_prefix(*args, diag['hidden'].result_cpu(), path, probe_heads=3,
++            hidden_capture_stats=diag['hidden'], full_integrity_hash=True, **common)
++    return persist_captured_visual_prefix(*args, diag['vision'].result_cpu(), path,
++        capture_stats=diag['vision'], full_integrity_hash=True, **common)
++
++def file_hashes(path):
++    hashes = {}
++    for p in sorted(Path(path).rglob('*')):
++        if p.is_symlink(): raise ValueError('symlink in new store')
++        if p.is_file():
++            if p.stat().st_nlink != 1: raise ValueError('hardlink in new store')
++            hashes[p.relative_to(path).as_posix()] = sha(p)
++    return hashes
++
++def activate(runner, method, path, hashes):
++    from mmimpress.serve import ImageContext
++    from mmimpress.mpic import MPICContext
++    from mmimpress.sparsevlm_ssd_store import CanonicalContext
++    started = time.perf_counter()
++    if method == ALLHEAD:
++        required = {k:v for k,v in hashes.items() if k in ('meta.json','sys_kv.pt','v_hidden.pt','sep_kv.bin') or k.endswith('/k.bin') or k.endswith('/v.bin')}
++        ctx = CanonicalContext(path, head_policy='all', expected_hashes=required)
++    elif method == 'mpic32_ssd':
++        ctx = MPICContext(path, runner.model.device, drop_cache=False, runner=runner)
++        ctx.activation = {'host_metadata_file_bytes':ctx.metadata_resident_bytes, 'gpu_tensor_bytes':0,
++            'visual_payload_resident_bytes':0, 'policy':'immutable metadata only'}
++    else:
++        ctx = ImageContext(path, runner.model.device, drop_cache=False, require_v_hidden=False)
++        if method == 'ours_kv25': ctx.validate_prefix_layout('visionzip_image_only')
++        ctx.activation = {'host_tensor_bytes':sum(t.numel()*t.element_size() for t in ctx.cache.sys_kv.values()),
++            'gpu_tensor_bytes':0, 'visual_payload_resident_bytes':0,
++            'file_bytes':sum((path/n).stat().st_size for n in ('meta.json','sys_kv.pt'))}
++    ctx.activation['outer_wall_ms'] = (time.perf_counter()-started)*1000
++    return ctx
++
++def make_row(runner, result, diag, meta, *, method, dialog, turn, phase, run, attempt, physical_id, ordinal, store_info, config):
++    question = dialog['turns'][turn-1]; n = int(meta['n_spatial']); hit = turn > 1
++    k = (n+3)//4 if hit and method in (ALLHEAD,'ours_kv25') else n
++    logical = request_id(run.name, phase, method, dialog['dialog_id'], turn)
++    suffix = QA._suffix_from_tokenized(runner, runner.processor.tokenizer(diag['prompt'], return_tensors='pt')).cpu().tolist()
++    if result.get('suffix_input_ids') is not None: assert result['suffix_input_ids'] == suffix
++    value = {a:b for a,b in result.items() if a not in ('captured_past_key_values','first_logits','logits')}
++    g = {key:meta.get(key, []) if key=='padding_idx' else meta[key] for key in
++        ('num_heads','head_dim','num_layers','v_token_start','v_token_num','n_spatial','prefix_len','dtype','newline_idx','padding_idx')}
++    return {'schema_version':SCHEMA,'experiment_id':run.name, 'phase':phase, 'attempt_id':attempt,
++        'logical_request_id':logical,'request_id':logical,'physical_execution_id':physical_id,
++        'model_id':MODEL_ID,'model_revision':REVISION,'method_id':method,'image_id':dialog['image_id'],
++        'dialog_id':dialog['dialog_id'],'turn_id':turn,'question_id':str(question['question_id']),
++        'question':question['question'],'gold':question['answers'],'prediction':result['answer'],
++        'score':strict_score(result['answer'], question['answers'][0]),'prompt':diag['prompt'],
++        'history':diag['history'],'history_entries':diag['history_entries'],
++        'prompt_sha256':hashlib.sha256(diag['prompt'].encode()).hexdigest(), 'suffix_input_ids':suffix,
++        'suffix_ids_sha256':canonical_hash(suffix),'history_sha256':hashlib.sha256(diag['history'].encode()).hexdigest(),
++        'config_sha256':config['_file_sha256'],'manifest_sha256':config['_manifest_sha256'],
++        'code_sha256':canonical_hash(config['source_sha256']), 'global_dialog_ordinal':ordinal,
++        'method_order':list(method_order(ordinal)),'method_order_position':method_order(ordinal).index(method),
++        'request_started_at_s':result['request_started_at_s'],'first_token_at_s':result['first_token_at_s'],
++        'request_finished_at_s':result['request_started_at_s']+result['request_e2e_ms']/1000,
++        'ttft_ms':result['end_to_end_ttft_ms'],'request_e2e_ms':result['request_e2e_ms'],
++        'ssd_read_bytes':int(result.get('io',{}).get('bytes',0)), 'ssd_preads':int(result.get('io',{}).get('preads',0)),
++        'N_content':n,'k':k,'content_kv_fraction':k/n,'geometry':g,
++        'budget_unit':'visual_kv' if method in (ALLHEAD,'ours_kv25') else 'full_context',
++        'scoring_head_count':int(meta['num_heads']) if hit and method == ALLHEAD else 0,
++        'scoring_head_policy':'all' if method == ALLHEAD else None,
++        'source_store':store_info if hit and method != 'recompute' else None,
++        'provisioning_mode':'FRESH_IMAGE_STREAMING','result':safe(value)}
++
++def capacity_guard(run):
++    plan = json.loads((run/'storage_plan.json').read_text()); free = shutil.disk_usage(run).free
++    if free < plan['minimum_reserve_bytes']+plan['peak_working_set_bytes']:
++        raise RuntimeError(f'BLOCKED_STORAGE: free={free}; required={plan["minimum_reserve_bytes"]+plan["peak_working_set_bytes"]}')
++    scratch = run/'scratch'
++    owned = sum(p.stat().st_size for p in scratch.rglob('*') if p.is_file() and not p.is_symlink()) if scratch.exists() else 0
++    if owned+plan['largest_image_bundle_bound_bytes'] > plan['maximum_new_payload_bytes']:
++        raise RuntimeError('BLOCKED_STORAGE: retained incomplete payload allowance exceeded')
++    return {'free_bytes':free,'retained_scratch_bytes':owned}
++
++def cleanup_committed(scratch, allowlist, audit, commit):
++    scratch = Path(scratch)
++    if audit.get('status') != 'PASS' or commit.get('status') != 'COMMITTED':
++        raise ValueError('independent audit and atomic image commit required')
++    if scratch.is_symlink() or not scratch.is_dir(): raise ValueError('unsafe scratch root')
++    resolved = scratch.resolve()
++    found = sorted(p.relative_to(scratch).as_posix() for p in scratch.rglob('*') if p.is_file() or p.is_symlink())
++    if found != sorted(allowlist): raise ValueError('cleanup allowlist mismatch')
++    for relative, expected in allowlist.items():
++        p = scratch/relative
++        if p.is_symlink() or p.stat().st_nlink != 1 or not p.resolve().is_relative_to(resolved): raise ValueError('linked/non-owned cleanup path')
++        if sha(p) != expected: raise ValueError('cleanup payload changed')
++    for relative in allowlist: (scratch/relative).unlink()
++    for p in sorted(scratch.rglob('*'), key=lambda x:len(x.parts), reverse=True):
++        if p.is_dir(): p.rmdir()
++    scratch.rmdir(); sync_dir(scratch.parent)
++
++def completed_images(run, phase, config, manifest):
++    audit = helper('101_audit_llava_mt_gqa_allhead_kv25.py', '_main_resume_independent_audit')
++    done = {}
++    for cp in sorted((run/phase/'images').glob('*/COMMITTED.json')):
++        doc = json.loads(cp.read_text()); folder = cp.parent/doc['attempt_id']; raw = folder/'raw.jsonl'
++        if doc['config_sha256'] != config['_file_sha256'] or doc['manifest_sha256'] != config['_manifest_sha256']:
++            raise RuntimeError('resume config/manifest mismatch')
++        if sha(raw) != doc['raw_sha256']: raise RuntimeError('committed raw hash mismatch')
++        receipt = audit.audit_image_rows(load_jsonl(raw), manifest, config, phase, cp.parent.name)
++        if receipt['status'] != 'PASS': raise RuntimeError('resume independent audit failed: '+repr(receipt))
++        done[cp.parent.name] = doc
++    return done
++
++def run_image(runner, servers, dialogs, ordinals, phase, run, manifest, config, diagnostic=None):
++    assert len({d['image_id'] for d in dialogs}) == 1
++    image_id = dialogs[0]['image_id']; parent = run/phase/'images'/image_id
++    parent.mkdir(parents=True, exist_ok=True)
++    if (parent/'COMMITTED.json').exists(): raise FileExistsError('image already committed')
++    attempt = f'attempt_{len(list(parent.glob("attempt_*")))+1:04d}'
++    artifact = parent/attempt; artifact.mkdir(exist_ok=False)
++    scratch = run/'scratch'/phase/image_id/attempt
++    capacity = capacity_guard(run); atomic_json(artifact/'capacity_before.json', capacity)
++    atomic_json(artifact/'scratch_creation.json', {'path':str(scratch),'ownership':run.name,'previously_absent':not scratch.exists()})
++    scratch.mkdir(parents=True, exist_ok=False)
++    paths = {k:scratch/k for k in STORE_KEYS}; metas = {}; hashes = {}; persistence = {}; contexts = {}; store_info = {}
++    rows = []; pending = []; shared_capture = None; success = False
++    source_image_sha = sha(ROOT/dialogs[0]['image_path'])
++    atomic_json(artifact/'image_identity.json', {'image_id':image_id,'image_path':str((ROOT/dialogs[0]['image_path']).resolve()),'sha256':source_image_sha})
++    try:
++        for di, dialog in enumerate(dialogs):
++            ordinal = ordinals[dialog['dialog_id']]; generated = {m:{} for m in METHODS}
++            for turn in (1,2,3):
++                for method in method_order(ordinal):
++                    assert_gpu_exclusive(); physical = str(uuid.uuid4())
++                    logical = request_id(run.name, phase, method, dialog['dialog_id'], turn)
++                    source = {'dialog_id':dialog['dialog_id'],'method_id':method,'physical_execution_id':physical,'logical_request_id':logical}
++                    append(artifact/'attempts.jsonl', dict(source, turn_id=turn, status='STARTED', at_unix=time.time()))
++                    factory = lambda m=method: prompt_factory(dialog, turn, m, generated[m])
++                    capture = {'fullload':'raster','mpic32_ssd':'mpic','ours_kv25':'image_only',ALLHEAD:'allhead_verify'}.get(method,'none') if di==0 and turn==1 else 'none'
++                    if turn == 1 or method == 'recompute':
++                        result, diag = normal_request(runner, servers['old'], ROOT/dialog['image_path'], factory, capture)
++                        # Record the physical request before persistence can fail.
++                        append(artifact/'execution_events.jsonl', dict(source, turn_id=turn, status='EXECUTED',
++                            prediction=result['answer'], generated_token_ids=result['generated_token_ids'],
++                            ttft_ms=result['end_to_end_ttft_ms'],request_e2e_ms=result['request_e2e_ms']))
++                        if capture == 'allhead_verify':
++                            shared_capture = captured_canonical_hashes(result, diag)
++                            shared_capture['source'] = source
++                        elif capture != 'none':
++                            start = time.perf_counter(); p = persist(runner,result,diag,paths[capture],image_id,capture,source)
++                            outer_ms = (time.perf_counter()-start)*1000
++                            persistence[capture] = dict(p, outer_helper_wall_ms=outer_ms, source=source,
++                                capture_accounting='capture and exit materialization already within T1 request E2E; not added again')
++                            metas[capture] = json.loads((paths[capture]/'meta.json').read_text())
++                            if capture == 'mpic': metas[capture]['n_spatial'] = metas[capture]['v_token_num']-len(metas[capture]['newline_idx'])
++                            hashes[capture] = file_hashes(paths[capture])
++                            store_info[capture] = {'path':str(paths[capture]),'meta_sha256':sha(paths[capture]/'meta.json'),
++                                'source':source,'file_sha256':hashes[capture]}
++                            atomic_json(artifact/f'{capture}_persistence.json', persistence[capture])
++                            atomic_json(artifact/f'{capture}_meta.json', metas[capture])
++                            atomic_json(artifact/f'{capture}_hashes.json', hashes[capture])
++                        result.pop('captured_past_key_values', None)
++                        saved = {a:b for a,b in diag.items() if a not in ('enc_cpu','hidden','vision')}
++                        if di == 0 and turn == 1:
++                            pending.append((method,result,saved,physical))
++                            # Full T1 history is not consumed until the end of this turn.
++                            del diag, result
++                            continue
++                        diag = saved
++                    else:
++                        kind = 'mpic' if method=='mpic32_ssd' else 'image_only' if method=='ours_kv25' else 'raster'
++                        if method not in contexts:
++                            contexts[method] = activate(runner,method,paths[kind],hashes[kind])
++                            atomic_json(artifact/f'{method}_activation.json', contexts[method].activation)
++                        result, diag = stored_request(runner,servers,contexts[method],factory,method,image_id,dialog['turns'][turn-1]['question'])
++                        result['metadata_activation'] = contexts[method].activation
++                    kind = 'mpic' if method=='mpic32_ssd' else 'image_only' if method=='ours_kv25' else 'raster'
++                    row = make_row(runner,result,diag,metas[kind],method=method,dialog=dialog,turn=turn,phase=phase,
++                        run=run,attempt=attempt,physical_id=physical,ordinal=ordinal,store_info=store_info.get(kind),config=config)
++                    row['image_sha256'] = source_image_sha
++                    append(artifact/'raw.jsonl', row); rows.append(row); generated[method][turn] = row
++                    append(artifact/'attempts.jsonl', dict(source,turn_id=turn,status='COMPLETED',at_unix=time.time()))
++                    del result, diag
++                if di == 0 and turn == 1:
++                    assert set(metas) == set(STORE_KEYS)
++                    for method, result, diag, physical in pending:
++                        kind = 'mpic' if method=='mpic32_ssd' else 'image_only' if method=='ours_kv25' else 'raster'
++                        row = make_row(runner,result,diag,metas[kind],method=method,dialog=dialog,turn=turn,phase=phase,
++                            run=run,attempt=attempt,physical_id=physical,ordinal=ordinal,store_info=store_info.get(kind),config=config)
++                        row['image_sha256'] = source_image_sha
++                        append(artifact/'raw.jsonl', row); rows.append(row); generated[method][1] = row
++                        append(artifact/'attempts.jsonl', {'physical_execution_id':physical,'logical_request_id':row['logical_request_id'], 'status':'COMPLETED','at_unix':time.time()})
++                    pending.clear(); del result, diag
++                    assert shared_capture is not None
++                    assert all(hashes['raster'][k] == v for k,v in shared_capture['payload_sha256'].items()), 'FullLoad/AllHead captured KV bits differ'
++                    assert shared_capture['prefix_ids'] == metas['raster']['prefix_input_ids']
++                    assert shared_capture['image_input_sha256'] == metas['raster']['image_input_sha256']
++                    hidden = torch.load(paths['raster']/'v_hidden.pt',map_location='cpu',weights_only=True).contiguous()
++                    assert hashlib.sha256(hidden.numpy().tobytes()).hexdigest() == shared_capture['visual_hidden_tensor_sha256']
++                    for kind in STORE_KEYS:
++                        assert metas[kind]['prefix_input_ids'] == metas['raster']['prefix_input_ids']
++                        assert metas[kind]['image_input_sha256'] == metas['raster']['image_input_sha256']
++                    atomic_json(artifact/'shared_canonical_compatibility.json',dict(shared_capture,status='PASS',
++                        scope='AllHead own actual full T1 capture versus FullLoad source T1 store, exact FP16 K/V every layer/head and v_hidden'))
++                    del hidden, shared_capture
++            if diagnostic is not None and di == 0:
++                diagnostic(runner,servers,contexts,paths,hashes,dialog,rows,artifact)
++        # All integrity I/O runs between requests and before cleanup.
++        for kind in STORE_KEYS:
++            assert file_hashes(paths[kind]) == hashes[kind], 'store mutated during requests'
++        atomic_json(artifact/'store_integrity_after.json',{'status':'PASS','file_sha256':hashes})
++        independent = helper('101_audit_llava_mt_gqa_allhead_kv25.py','_main_commit_independent_audit')
++        audit = independent.audit_image_rows(load_jsonl(artifact/'raw.jsonl'),manifest,config,phase,image_id)
++        audit['raw_sha256'] = sha(artifact/'raw.jsonl'); atomic_json(artifact/'independent_audit.json',audit)
++        if audit['status'] != 'PASS': raise RuntimeError('INDEPENDENT_IMAGE_AUDIT_FAIL: '+repr(audit))
++        allowlist = file_hashes(scratch)
++        atomic_json(artifact/'cleanup_allowlist.json',{'scratch':str(scratch),'file_sha256':allowlist,'ownership_run':run.name})
++        commit = {'status':'COMMITTED','image_id':image_id,'attempt_id':attempt,'requests':len(rows),
++            'raw_sha256':audit['raw_sha256'],'audit_sha256':sha(artifact/'independent_audit.json'),
++            'config_sha256':config['_file_sha256'],'manifest_sha256':config['_manifest_sha256'],
++            'first_successful_complete_image_adoption':True}
++        atomic_json(parent/'COMMITTED.json',commit); success = True
++    except BaseException as exc:
++        atomic_json(artifact/'failure.json',{'status':'PARTIAL','error':repr(exc),'traceback':traceback.format_exc(),
++            'completed_uncommitted_rows':len(rows),'main_final_rows_from_this_attempt':0})
++        raise
++    finally:
++        for ctx in contexts.values(): ctx.close()
++        contexts.clear(); gc.collect()
++        if success:
++            cleanup_committed(scratch,allowlist,audit,commit)
++            atomic_json(artifact/'cleanup_receipt.json',{'status':'PASS','removed_new_files':len(allowlist),
++                'recipe':'same frozen config+manifest; rerun this full image into a fresh run; never reuse its generated histories'})
++    return len(rows)
++
++def verify_freeze(run):
++    config = json.loads((run/'config.json').read_text()); manifest = json.loads((run/'manifest.json').read_text())
++    if list(METHODS) != config['methods'] or source_hashes() != config['source_sha256']: raise RuntimeError('FROZEN_SOURCE_CONFIG_MISMATCH')
++    if sha(CONTRACT) != config['contract_sha256']: raise RuntimeError('FROZEN_CONTRACT_MISMATCH')
++    if frozen_dialogues() != manifest['dialogues']: raise RuntimeError('FROZEN_DATASET_MISMATCH')
++    for image_id, item in manifest['image_identity'].items():
++        if sha(ROOT/item['image_path']) != item['sha256']: raise RuntimeError('FROZEN_IMAGE_MISMATCH: '+image_id)
++    config.update(_file_sha256=sha(run/'config.json'),_manifest_sha256=sha(run/'manifest.json'))
++    return config, manifest
++
++def run_phase(runner, servers, run, phase, config, manifest, diagnostic=None):
++    done = completed_images(run,phase,config,manifest)
++    ids = manifest['smoke_dialogue_ids'] if phase in ('smoke','integration') else [d['dialog_id'] for d in manifest['dialogues']]
++    if phase == 'integration': ids = ids[:1]
++    keep = set(ids); groups = OrderedDict(); ordinals = {}
++    for ordinal, d in enumerate(manifest['dialogues']):
++        ordinals[d['dialog_id']] = ordinal
++        if d['dialog_id'] in keep: groups.setdefault(d['image_id'],[]).append(d)
++    expected = len(ids)*15; completed = sum(x['requests'] for x in done.values())
++    for index, (image, ds) in enumerate(groups.items()):
++        if image in done: continue
++        completed += run_image(runner,servers,ds,ordinals,phase,run,manifest,config,diagnostic=diagnostic)
++        progress = {'phase':phase,'status':'RUNNING','completed_final_requests':completed,'expected_requests':expected,
++            'completed_images':len(done)+1,'image_id':image,'at_unix':time.time()}
++        done[image] = {'requests':len(ds)*15}
++        atomic_json(run/f'{phase}_progress.json',progress,replace=True); print(json.dumps(progress),flush=True)
++    assert completed == expected
++    receipt = {'status':'PASS','requests':completed,'expected_requests':expected,'images':len(groups),
++        'independent_image_audit':'PASS','source_sha256':config['source_sha256'],'config_sha256':config['_file_sha256']}
++    path = run/phase/'validation.json'
++    if path.exists():
++        if json.loads(path.read_text()) != receipt: raise RuntimeError('final phase validation mismatch')
++    else: atomic_json(path,receipt)
++    return receipt
++
++def servers_for(runner):
++    from mmimpress.serve import Server
++    from mmimpress.mpic import MPICServer
++    from mmimpress.sparsevlm_ssd_attention import SparseVLMSSDServer
++    return {'old':Server(runner,max_new_tokens=16),'mpic':MPICServer(runner,k_recompute=32,max_new_tokens=16),
++        'allhead':SparseVLMSSDServer(runner,max_new_tokens=16)}
++
++def main():
++    p=argparse.ArgumentParser(); p.add_argument('--run-dir',type=Path,required=True)
++    p.add_argument('--phase',choices=('smoke','main','all'),default='all');p.add_argument('--resume',action='store_true')
++    args=p.parse_args();run=args.run_dir.resolve();config,manifest=verify_freeze(run)
++    gate=json.loads((run/'integration_validation.json').read_text())
++    if gate.get('status')!='PASS' or gate.get('source_sha256')!=config['source_sha256']:raise RuntimeError('INTEGRATION_GATE_NOT_PASS')
++    phases=['smoke','main'] if args.phase=='all' else [args.phase]
++    assert_gpu_exclusive();runner=V.load_runner();servers=servers_for(runner);QA._warmup(runner,servers['old'])
++    try:
++        for phase in phases:
++            if phase=='main':
++                smoke=json.loads((run/'smoke'/'validation.json').read_text())
++                if smoke['status']!='PASS' or smoke['requests']!=60:raise RuntimeError('SMOKE_NOT_PASS')
++            if (run/phase).exists() and not args.resume:raise FileExistsError('use --resume; previous artifacts preserved')
++            run_phase(runner,servers,run,phase,config,manifest)
++        subprocess.run([sys.executable,str(ROOT/'scripts/101_audit_llava_mt_gqa_allhead_kv25.py'),
++            '--run-dir',str(run),'--output-dir',str(ROOT/'results'/run.name)],check=True)
++    except BaseException as exc:
++        error={'status':'PARTIAL','error':repr(exc),'traceback':traceback.format_exc(),
++            'main_final_requests':sum(v['requests'] for v in completed_images(run,'main',config,manifest).values()),
++            'expected':60915,'resume_command':f'{sys.executable} scripts/100_eval_llava_mt_gqa_allhead_kv25.py --run-dir {run} --phase all --resume'}
++        atomic_json(run/('interruption_'+time.strftime('%Y%m%dT%H%M%S')+'.json'),error)
++        print(json.dumps(error),flush=True);raise
++if __name__=='__main__':main()
+--- before/scripts/101_audit_llava_mt_gqa_allhead_kv25.py
++++ after/scripts/101_audit_llava_mt_gqa_allhead_kv25.py
+@@ -0,0 +1,402 @@
++#!/usr/bin/env python3
++"""Independent raw audit/report for main v1; imports no production inference code."""
++from __future__ import annotations
++import argparse
++from collections import Counter, defaultdict
++import csv
++import hashlib
++import importlib.util
++import json
++import math
++from pathlib import Path
++import re
++import sys
++import time
++import numpy as np
++ROOT = Path(__file__).resolve().parent.parent
++METHODS = ('recompute','fullload','mpic32_ssd','sparsevlm_ssd_kv25_allhead','ours_kv25')
++ALLHEAD = METHODS[3]
++LABELS = dict(zip(METHODS, ('ReComp','FullLoad','MPIC-32','SparseVLM-SSD-KV25-AllHead','Ours-KV25')))
++SCHEMA = 'llava-mtgqa-allhead-kv25-main-v1'
++MODEL = 'llava-hf/llava-v1.6-vicuna-7b-hf'
++
++def helper(name, file):
++    spec = importlib.util.spec_from_file_location(name,ROOT/'scripts'/file)
++    m=importlib.util.module_from_spec(spec);sys.modules[name]=m;spec.loader.exec_module(m);return m
++A = helper('_allhead_independent_existing_oracles','99_audit_sparsevlm_ssd_kv25.py')
++sha=A.sha
++
++def canonical(value):
++    return hashlib.sha256(json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False).encode()).hexdigest()
++
++def read_rows(path):
++    with Path(path).open() as f:
++        for line in f:
++            if line.strip():yield json.loads(line)
++
++def dump(path, value):
++    with Path(path).open('x') as f:json.dump(value,f,ensure_ascii=False,allow_nan=False,indent=2);f.write('\n')
++
++def audit_mpic(row, c):
++    r=row['result'];g=row['geometry'];rid=row['request_id'];width=g['num_heads']*g['head_dim']*2
++    expected=Counter()
++    for li in range(g['num_layers']):
++        for kind in ('k.bin','v.bin'):expected[(li,kind,0,g['v_token_num']*width,g['v_token_num']*width)]+=1
++    hidden_size=g['num_heads']*g['head_dim'];embedding=32*hidden_size*2
++    expected[(None,'visual_input.bin',0,embedding,embedding)]+=1
++    actual=Counter()
++    for e in row['result']['os_pread_trace']:
++        p=Path(e['path']);li=int(p.parent.name.split('_')[1]) if p.parent.name.startswith('layer_') else None
++        actual[(li,p.name,e['offset'],e['requested'],e['returned'])]+=1
++    c.require(actual==expected,'mpic_actual_ranges',rid)
++    for k,v in {'k_recompute':32,'retained_image_context_ratio':1.0,'decoder_prefill_pass_count':1,
++        'decode_cache_append_exact':True,'same_source_target_context':True}.items():c.require(r.get(k)==v,'mpic_'+k,rid)
++    c.require(r.get('selected_image_local_rows')==list(range(32)),'mpic_selected_rows',rid)
++    c.require(row['k']==row['N_content'],'mpic_full_retention',rid)
++    c.require(r.get('ssd_embedding_bytes')==embedding,'mpic_embedding_actual_bytes',rid)
++
++def audit_image_rows(rows, manifest, config, phase, image_id):
++    c=A.Checks();ds=[d for d in manifest['dialogues'] if d['image_id']==image_id]
++    if phase in ('smoke','integration'):
++        ids=manifest['smoke_dialogue_ids'][:1] if phase=='integration' else manifest['smoke_dialogue_ids']
++        ds=[d for d in ds if d['dialog_id'] in ids]
++    c.require(bool(ds),'known_image',image_id)
++    expected={(d['dialog_id'],m,t):d['turns'][t-1] for d in ds for m in METHODS for t in (1,2,3)}
++    bykey={(r['dialog_id'],r['method_id'],r['turn_id']):r for r in rows}
++    c.require(set(bykey)==set(expected) and len(rows)==len(expected),'image_completeness',image_id)
++    c.require(len({r['logical_request_id'] for r in rows})==len(rows),'unique_logical_ids',image_id)
++    c.require(len({r['physical_execution_id'] for r in rows})==len(rows),'unique_physical_ids',image_id)
++    ordinals={d['dialog_id']:i for i,d in enumerate(manifest['dialogues'])}
++    ours_sets=[]
++    for key,r in bykey.items():
++        rid=r['request_id'];did,m,t=key;result=r['result'];question=expected.get(key)
++        if question is None:continue
++        c.require(r['schema_version']==SCHEMA and r['model_id']==MODEL,'schema_model',rid)
++        expected_id=f"{SCHEMA}:{r['experiment_id']}:{phase}:{MODEL}:{m}:{did}:t{t}"
++        c.require(rid==r['logical_request_id']==expected_id,'logical_identity',rid)
++        c.require(r['phase']==phase and r['image_id']==image_id,'phase_image',rid)
++        c.require(r['question_id']==str(question['question_id']) and r['question']==question['question'] and r['gold']==question['answers'],'frozen_question_gold',rid)
++        c.require(r['score']==A.independent_score(r['prediction'],r['gold'],phase='mt'),'strict_em_recalculation',rid)
++        c.require(r['prediction']==result['answer'],'raw_decoded_prediction',rid)
++        c.require(r['config_sha256']==config['_file_sha256'] and r['manifest_sha256']==config['_manifest_sha256'],'config_manifest_hash',rid)
++        c.require(r['code_sha256']==canonical(config['source_sha256']),'code_hash',rid)
++        ordinal=ordinals[did];i=ordinal%5;order=list(METHODS[i:]+METHODS[:i])
++        c.require(r['global_dialog_ordinal']==ordinal and r['method_order']==order and r['method_order_position']==order.index(m),'deterministic_rotation',rid)
++        c.require(r['image_sha256']==manifest['image_identity'][image_id]['sha256'],'frozen_image_hash',rid)
++        history=[];entries=[]
++        for prior_t in range(1,t):
++            prev=bykey.get((did,m,prior_t));q=expected.get((did,m,prior_t))
++            if prev is None:c.require(False,'missing_history_source',rid);continue
++            history += [f"Q{prior_t}: {q['question'].strip()}",f"A{prior_t}: {prev['prediction']}"]
++            entries.append({'turn_id':prior_t,'question_id':str(q['question_id']),'question':q['question'].strip(),
++                'answer':prev['prediction'],'answer_source':'method_local_generated','source_model':MODEL,
++                'source_method_id':m,'source_dialog_id':did,'source_logical_request_id':prev['logical_request_id'],
++                'source_physical_execution_id':prev['physical_execution_id']})
++        hist='\n'.join(history);body=([hist,''] if hist else [])
++        body += [f"Current question Q{t}: {question['question'].strip()}",'Answer the current question with a single word or short phrase. ASSISTANT:']
++        prompt='USER: <image>\n'+'\n'.join(body)
++        c.require(r['history']==hist and r['history_entries']==entries,'exact_method_local_history_lineage',rid)
++        c.require(r['prompt']==prompt,'causal_prompt_reconstruction',rid)
++        c.require(r['prompt_sha256']==hashlib.sha256(prompt.encode()).hexdigest(),'prompt_hash',rid)
++        c.require(r['history_sha256']==hashlib.sha256(hist.encode()).hexdigest(),'history_hash',rid)
++        c.require(r['suffix_ids_sha256']==canonical(r['suffix_input_ids']),'suffix_hash',rid)
++        c.require(0<r['ttft_ms']<=r['request_e2e_ms'],'valid_ttft_e2e',rid)
++        c.require(math.isclose(r['ttft_ms'],1000*(r['first_token_at_s']-r['request_started_at_s']),abs_tol=1e-7),'true_ttft_recalculation',rid)
++        c.require(math.isclose(r['request_e2e_ms'],1000*(r['request_finished_at_s']-r['request_started_at_s']),abs_tol=1e-5),'request_e2e_recalculation',rid)
++        tokens=result['generated_token_ids']
++        c.require(1<=len(tokens)<=16 and tokens[0]==result['first_token_id'],'actual_generated_tokens',rid)
++        c.require(result['vision_forward_count']==int(t==1 or m=='recompute'),'vision_call_contract',rid)
++        trace=result.get('os_pread_trace',[])
++        c.require(r['ssd_read_bytes']==sum(e['returned'] for e in trace),'actual_returned_bytes',rid)
++        c.require(r['ssd_preads']==len(trace),'actual_pread_count',rid)
++        c.require(all(e['returned']==e['requested'] for e in trace),'successful_full_requested_reads',rid)
++        c.require(not any('probe_k.bin' in e['path'] for e in trace),'no_probe_read_any_main_method',rid)
++        g=r['geometry'];n=g['v_token_num']-len(set(g['newline_idx'])|set(g['padding_idx']))
++        c.require(n==r['N_content'] and n>0,'actual_content_geometry',rid)
++        if t==1 or m=='recompute':
++            c.require(r['k']==n and r['ssd_read_bytes']==0,'full_pixel_request',rid)
++            c.require(r['source_store'] is None,'pixel_not_cache_hit',rid)
++        else:
++            c.require(result.get('adapter_restored') is True,'adapter_restored',rid)
++            c.require(bool(result.get('conditioning_events')) and all(x['status']=='SUCCESS' for x in result['conditioning_events']),'conditioning_success',rid)
++            conditioned={x['path'] for x in result['conditioning_events']}
++            c.require(all(e['path'] in conditioned for e in trace),'every_read_file_conditioned',rid)
++            src=r['source_store'];c.require(src is not None,'store_provenance',rid)
++            c.require(src['source']['dialog_id']==ds[0]['dialog_id'] and src['source']['method_id']==('fullload' if m==ALLHEAD else m),'first_source_T1_only',rid)
++            source_row=bykey.get((ds[0]['dialog_id'],src['source']['method_id'],1),{})
++            c.require(src['source']['physical_execution_id']==source_row.get('physical_execution_id'),'actual_source_physical_id',rid)
++            ra=dict(r,os_pread_trace=trace)
++            if m==ALLHEAD:
++                A.audit_sparse_hit(ra,c)
++                c.require(r['budget_unit']=='visual_kv' and r['scoring_head_policy']=='all','explicit_allhead_config',rid)
++                c.require(result['suffix_input_ids']==r['suffix_input_ids'],'same_suffix_tokenization',rid)
++                layers=result['layers'];suffix=result['suffix_input_ids'];raters=set(result['rater_ids'])
++                c.require(all(i<len(suffix) for i in raters),'raters_in_actual_suffix',rid)
++                c.require(any(s['kind']=='current_question' for s in result['text_spans']),'current_question_span',rid)
++                c.require(any(s['kind']=='history' for s in result['text_spans']),'history_span',rid)
++            elif m in ('fullload','ours_kv25'):
++                A.audit_existing_hit(ra,c)
++                if m=='ours_kv25':
++                    c.require(r['k']==(n+3)//4 and r['budget_unit']=='visual_kv','native_ours_KV25',rid)
++                    ours_sets.append(result['selected_original_ids'])
++            else:audit_mpic(r,c)
++        if m!=ALLHEAD or t==1:
++            calls=result.get('projection_calls',{})
++        else:calls=result['projection_calls']
++        for li in range(g['num_layers']):
++            observed=calls.get(str(li),{})
++            c.require(observed.get('prefill')=={'q':1,'k':1,'v':1},'one_prefill_projection_each_layer',rid)
++            expected_decode={'q':len(tokens)-1,'k':len(tokens)-1,'v':len(tokens)-1}
++            c.require(observed.get('decode',{'q':0,'k':0,'v':0})==expected_decode,'decode_projection_counts',rid)
++    c.require(not ours_sets or all(x==ours_sets[0] for x in ours_sets),'ours_same_image_selection_invariant',image_id)
++    return dict(c.result(),image_id=image_id,phase=phase,requests=len(rows),expected_requests=len(expected),
++        dialogs=len(ds),allhead_K_reuse='PASS' if not c.failures else 'UNRESOLVED')
++
++def csv_write(path, rows):
++    rows=list(rows)
++    if not rows:return
++    keys=list(dict.fromkeys(k for r in rows for k in r))
++    with Path(path).open('x',newline='') as f:
++        w=csv.DictWriter(f,fieldnames=keys);w.writeheader();w.writerows(rows)
++
++def mean(values):return float(np.mean(values)) if len(values) else None
++
++def io_categories(r):
++    d=dict(full_K_scoring=0,selected_K=0,selected_V=0,structural_other=0)
++    for e in r['result'].get('os_pread_trace',[]):
++        name=Path(e['path']).name
++        if name=='k.bin':key='full_K_scoring' if r['method_id']==ALLHEAD else 'selected_K'
++        elif name=='v.bin':key='selected_V'
++        else:key='structural_other'
++        d[key]+=e['returned']
++    return d
++
++def compact_row(r):
++    result=r['result'];layers=result.get('layers',[]);geo=r['geometry']
++    total_chunks=math.ceil(geo['v_token_num']/64)
++    if r['turn_id']>1:
++        if r['method_id']==ALLHEAD:coverage=mean([len(x['selected_chunk_ids'])/total_chunks for x in layers])
++        elif r['method_id']=='ours_kv25':coverage=math.ceil(r['k']/64)/total_chunks
++        elif r['method_id']=='recompute':coverage=0.0
++        else:coverage=1.0
++    else:coverage=0.0
++    d={k:r[k] for k in ('method_id','image_id','dialog_id','turn_id','score','ttft_ms','request_e2e_ms','ssd_read_bytes','ssd_preads','N_content','k','content_kv_fraction')}
++    d.update(io_categories(r));d['selected_V_chunk_coverage']=coverage
++    d['cap_reached']=bool(result.get('cap_reached',False));d['generated_token_count']=len(result['generated_token_ids'])
++    d['peak_gpu_allocated_bytes']=result.get('peak_gpu_allocated_bytes',0);d['peak_gpu_reserved_bytes']=result.get('peak_gpu_reserved_bytes',0)
++    d['extra_real_rows_mean']=mean([x['plan']['extra_real_rows'] for x in layers]) if layers else result.get('extra_real_rows',0)
++    d['allhead_signature']=canonical([x['selected_token_ids'] for x in layers]) if layers else None
++    d['allhead_unique_layer_selections']=len({canonical(x['selected_token_ids']) for x in layers}) if layers else None
++    d['logical_reused_K_bytes']=result.get('io',{}).get('logical_reused_k_bytes',0)
++    d['duplicated_K_bytes']=result.get('io',{}).get('duplicated_k_bytes',0)
++    d['rater_fallback']=bool(result.get('rater_fallback',False))
++    d['allhead_host_intervals_ms']=json.dumps(result.get('timing',{}).get('host_intervals_ms',{}))
++    d['allhead_cuda_intervals_ms']=json.dumps(result.get('timing',{}).get('cuda_intervals_ms',{}))
++    return d
++
++def summarize(rows):
++    summary=[];budget=[]
++    for m in METHODS:
++        rs=[r for r in rows if r['method_id']==m];hits=[r for r in rs if r['turn_id']>1];t1=[r for r in rs if r['turn_id']==1]
++        if not rs:continue
++        rec={'method_id':m,'label':LABELS[m],'requests':len(rs),'hits':len(hits)}
++        rec.update({f'acc_T{t}':mean([r['score'] for r in rs if r['turn_id']==t]) for t in (1,2,3)})
++        rec.update(all_acc=mean([r['score'] for r in rs]),hit_acc=mean([r['score'] for r in hits]),
++            T1_ttft_mean_ms=mean([r['ttft_ms'] for r in t1]),hit_ttft_mean_ms=mean([r['ttft_ms'] for r in hits]),
++            hit_ttft_p50_ms=float(np.percentile([r['ttft_ms'] for r in hits],50)),
++            hit_ttft_p95_ms=float(np.percentile([r['ttft_ms'] for r in hits],95)),
++            SSD_MB_per_hit=mean([r['ssd_read_bytes']/1e6 for r in hits]),preads_per_hit=mean([r['ssd_preads'] for r in hits]))
++        summary.append(rec)
++        b={'method_id':m,'logical_content_retention':mean([r['content_kv_fraction'] for r in hits])}
++        b.update({k+'_MB':mean([r[k]/1e6 for r in hits]) for k in ('full_K_scoring','selected_K','selected_V','structural_other')})
++        b.update(selected_V_chunk_coverage=mean([r['selected_V_chunk_coverage'] for r in hits]),total_preads_per_hit=rec['preads_per_hit'],
++            full_K_coverage=1.0 if m==ALLHEAD else None,logical_reused_K_MB=mean([r['logical_reused_K_bytes']/1e6 for r in hits]),
++            duplicated_K_MB=mean([r['duplicated_K_bytes']/1e6 for r in hits]))
++        budget.append(b)
++    return summary,budget
++
++def paired(rows):
++    hit=[r for r in rows if r['turn_id']>1];images=sorted({r['image_id'] for r in hit});lookup={(r['dialog_id'],r['turn_id'],r['method_id']):r for r in hit}
++    rng=np.random.default_rng(1234);samples=rng.integers(0,len(images),size=(10000,len(images)))
++    out=[]
++    for m in METHODS[:-1]:
++        totals=np.zeros((len(images),4));base=[];ours=[]
++        for i,image in enumerate(images):
++            for r in hit:
++                if r['method_id']!=m or r['image_id']!=image:continue
++                o=lookup[(r['dialog_id'],r['turn_id'],'ours_kv25')];base.append(r);ours.append(o)
++                totals[i]+=[o['score']-r['score'],o['ttft_ms']-r['ttft_ms'],o['ssd_read_bytes']-r['ssd_read_bytes'],1]
++        res=totals[samples].sum(axis=1);dist=res[:,:3]/res[:,3,None];point=totals[:,:3].sum(0)/totals[:,3].sum()
++        low,high=np.percentile(dist,[2.5,97.5],axis=0)
++        btt=mean([r['ttft_ms'] for r in base]);ott=mean([r['ttft_ms'] for r in ours]);bb=mean([r['ssd_read_bytes'] for r in base]);ob=mean([r['ssd_read_bytes'] for r in ours])
++        out.append({'baseline':m,'direction':'Ours-minus-baseline','delta_hit_acc_pp':point[0]*100,'acc_ci_low_pp':low[0]*100,'acc_ci_high_pp':high[0]*100,
++            'delta_hit_TTFT_ms':point[1],'TTFT_ci_low_ms':low[1],'TTFT_ci_high_ms':high[1],
++            'delta_SSD_bytes':point[2],'SSD_ci_low_bytes':low[2],'SSD_ci_high_bytes':high[2],
++            'TTFT_reduction_percent':100*(1-ott/btt),'SSD_reduction_percent':100*(1-ob/bb) if bb else None,
++            'bootstrap':'image_cluster_request_weighted','resamples':10000,'seed':1234,'images':len(images)})
++    return out
++
++def protection(run):
++    p=helper('_main_protection_fingerprint','69_protect_rekv_artifacts.py');changed=[];checked=0;size=0
++    for row in read_rows(run/'protected_artifacts_before.jsonl'):
++        path=ROOT/row['path'];checked+=1
++        if not path.exists() and not path.is_symlink():changed.append({'path':row['path'],'reason':'MISSING'});continue
++        if 'symlink' in row:
++            import os
++            if not path.is_symlink() or os.readlink(path)!=row['symlink']:changed.append({'path':row['path'],'reason':'SYMLINK_CHANGED'})
++        else:
++            fingerprint,st=p._fingerprint_regular_file(path,p.DEFAULT_POLICY);size+=st.st_size
++            if fingerprint!=row['integrity'] or p._file_metadata(st)!=row['metadata']:changed.append({'path':row['path'],'reason':'CONTENT_OR_METADATA_CHANGED'})
++    before=json.loads((run/'source_before.json').read_text());source_changes=[]
++    for name,digest in before.items():
++        if not (ROOT/name).is_file() or sha(ROOT/name)!=digest:source_changes.append(name)
++    return {'status':'PASS' if not changed and not source_changes else 'FAIL','protected_files':checked,'protected_logical_bytes':size,
++        'changed_artifacts':changed,'changed_existing_source':source_changes,'policy':p.DEFAULT_POLICY.as_dict(),
++        'limitation':'large prior artifacts use nine-window framed SHA256 plus inode/ctime/mtime; full SHA256 for source and small artifacts',
++        'new_source_files':[str(x.relative_to(ROOT)) for x in sorted((ROOT/'scripts').glob('10[012]_*.py'))]}
++
++def session_tables(run, rows, phase='main'):
++    details=[];by=defaultdict(list)
++    for r in rows:by[(r['image_id'],r['dialog_id'],r['method_id'])].append(r)
++    setups={};source_ids={}
++    for cp in (run/phase/'images').glob('*/COMMITTED.json'):
++        commit=json.loads(cp.read_text());folder=cp.parent/commit['attempt_id'];image=cp.parent.name
++        for method in METHODS:
++            kind={'fullload':'raster',ALLHEAD:'raster','mpic32_ssd':'mpic','ours_kv25':'image_only'}.get(method)
++            if kind:
++                p=json.loads((folder/f'{kind}_persistence.json').read_text());a=json.loads((folder/f'{method}_activation.json').read_text())
++                persist=p['timing_ms']['persist_ms'];activate=a['outer_wall_ms']
++                # Hash-verification activation is actual measured setup; never hidden
++                # as ordinary metadata-free serving. Independent deployment is derived.
++                setups[(image,method)]={'persist_ms':persist,'activation_ms':activate,'write_bytes':p['bytes']['total'],
++                    'unused_probe_bytes':p['bytes'].get('probe_sidecar',p.get('meta',{}).get('bytes_probe_sidecar',0)),
++                    'source_dialog_id':p['source']['dialog_id'],'actual_persist_ms':0.0 if method==ALLHEAD else persist}
++                source_ids[image]=p['source']['dialog_id']
++            else:setups[(image,method)]={'persist_ms':0.,'activation_ms':0.,'write_bytes':0,'actual_persist_ms':0.,'source_dialog_id':None,'unused_probe_bytes':0}
++    for (image,did,m),rs in by.items():
++        if len(rs)!=3:raise ValueError('incomplete session')
++        s=setups[(image,m)];source=did==s['source_dialog_id'];request=sum(r['request_e2e_ms'] for r in rs)
++        actual_setup=(s['actual_persist_ms']+s['activation_ms']) if source else 0.
++        details.append({'image_id':image,'dialog_id':did,'method_id':m,'source_dialogue':source,'request_E2E_sum_ms':request,
++            'actual_setup_ms':actual_setup,'actual_stream_session_E2E_ms':request+actual_setup,
++            'derived_standalone_E2E_ms':request+s['persist_ms']+s['activation_ms'],
++            'persistence_ms_image':s['persist_ms'],'measured_write_bytes_image':s['write_bytes'],
++            'scope':'AllHead shares FullLoad canonical store; actual build charged once to FullLoad; standalone is DERIVED' if m==ALLHEAD else 'MEASURED source-only setup; standalone DERIVED'})
++    sums=[]
++    for m in METHODS:
++        rs=[r for r in details if r['method_id']==m];ss=[v for (i,mm),v in setups.items() if mm==m]
++        if not rs:continue
++        sums.append({'method_id':m,'provisioning_policy':'FRESH_IMAGE_STREAMING',
++            'persistence_status':'MEASURED_SHARED_WITH_FULLLOAD' if m==ALLHEAD else 'MEASURED',
++            'persistence_ms_per_image':mean([s['persist_ms'] for s in ss]),
++            'actual_charged_persistence_ms_per_image':mean([s['actual_persist_ms'] for s in ss]),
++            'write_MB_per_image':mean([s['write_bytes']/1e6 for s in ss]),
++            'actual_stream_session_E2E_mean_ms':mean([r['actual_stream_session_E2E_ms'] for r in rs]),
++            'derived_standalone_E2E_mean_ms':mean([r['derived_standalone_E2E_ms'] for r in rs])})
++    return details,sums
++
++def render(audit, summary, budget, comparisons, sessions):
++    lines=['# LLaVA MT-GQA AllHead / KV25 본실험','',
++        f"MAIN 5-ARM: **{audit['MAIN_5_ARM']}**, 실제 final 요청 **{audit['main_requests']:,}/60,915**. READY FOR PAPER MAIN TABLE: **{audit['READY_FOR_PAPER_MAIN_TABLE']}**.",
++        '', '기존 frozen MT-GQA-reconstructed의 method-local generated history이며 strict normalized exact match를 쓴다. 공식 MetaCompress artifact/evaluator 재현은 아니다.',
++        '', '| Method | Acc T1/T2/T3 (%) | All Acc (%) | Hit Acc (%) | T1 TTFT (ms) | Hit TTFT mean/p50/p95 (ms) | SSD MB/hit |',
++        '|---|---:|---:|---:|---:|---:|---:|']
++    for s in summary:
++        lines.append(f"| {s['label']} | {s['acc_T1']*100:.2f}/{s['acc_T2']*100:.2f}/{s['acc_T3']*100:.2f} | {s['all_acc']*100:.2f} | {s['hit_acc']*100:.2f} | {s['T1_ttft_mean_ms']:.2f} | {s['hit_ttft_mean_ms']:.2f}/{s['hit_ttft_p50_ms']:.2f}/{s['hit_ttft_p95_ms']:.2f} | {s['SSD_MB_per_hit']:.2f} |")
++    lines += ['', '| Method | Logical retention | Full-K/scoring MB | Selected-K MB | Selected-V MB | Structural/other MB | V chunk coverage | Preads/hit |','|---|---:|---:|---:|---:|---:|---:|---:|']
++    for b in budget:
++        lines.append(f"| {LABELS[b['method_id']]} | {b['logical_content_retention']:.6f} | {b['full_K_scoring_MB']:.3f} | {b['selected_K_MB']:.3f} | {b['selected_V_MB']:.3f} | {b['structural_other_MB']:.3f} | {b['selected_V_chunk_coverage']:.4f} | {b['total_preads_per_hit']:.2f} |")
++    lines += ['', 'AllHead는 layer별 full K를 한 번 읽고 scoring과 answer attention에 재사용한다. selected-K 추가 읽기와 probe 읽기는 0이며 재사용 K를 bytes 합계에 다시 더하지 않는다. Structural sidecar의 실제 중복 K는 별도 기록한다. MPIC-32는 full context에서 32개 이미지 token을 재계산한다.',
++        '', '| Ours − baseline | Δ Hit Acc (%p), 95% CI | Δ Hit TTFT (ms), 95% CI | TTFT 감소율 (%) | SSD 감소율 (%) |','|---|---:|---:|---:|---:|']
++    for p in comparisons:
++        ssd='N/A (ReComp SSD=0)' if p['SSD_reduction_percent'] is None else f"{p['SSD_reduction_percent']:.2f}"
++        lines.append(f"| {LABELS[p['baseline']]} | {p['delta_hit_acc_pp']:+.3f} [{p['acc_ci_low_pp']:+.3f}, {p['acc_ci_high_pp']:+.3f}] | {p['delta_hit_TTFT_ms']:+.3f} [{p['TTFT_ci_low_ms']:+.3f}, {p['TTFT_ci_high_ms']:+.3f}] | {p['TTFT_reduction_percent']:.2f} | {ssd} |")
++    lines += ['', 'CI는 seed=1234, image-cluster bootstrap 10,000회이고 image의 모든 대화·turn·방법을 함께 resample한다. Point estimate와 동일한 요청 가중 평균이다. CI의 0 포함은 동등성 증거가 아니다. History 차이를 포함한 method-level 비교다.',
++        '', '| Method | Provisioning | Persistence | Actual-stream session E2E (ms) | Derived standalone E2E (ms) |','|---|---|---|---:|---:|']
++    for s in sessions:lines.append(f"| {LABELS[s['method_id']]} | {s['provisioning_policy']} | {s['persistence_status']} ({s['persistence_ms_per_image']:.2f} ms/image) | {s['actual_stream_session_E2E_mean_ms']:.2f} | {s['derived_standalone_E2E_mean_ms']:.2f} |")
++    lines += ['', 'FullLoad와 AllHead는 실제 각자의 source T1에서 FP16 K/V bits·prefix·v_hidden의 동일성을 검증한 canonical store를 공유한다. 기존 검증된 raster serializer가 함께 만드는 미사용 probe sidecar의 쓰기 비용도 canonical persistence에 포함되며, base-only 비용은 별도 측정하지 않았다. 실제 build는 이미지당 한 번 FullLoad source dialogue에 귀속된다. AllHead의 독립 배포와 모든 dialogue의 standalone 비용은 DERIVED이다. T1 capture/exit materialization은 request E2E에 이미 들어 있으므로 다시 더하지 않는다.',
++        '', 'True TTFT는 prompt 작성 전부터 JPEG 읽기/디코딩(픽셀 요청), tokenizer/processor, SSD read/H2D/assembly/prefill, 첫 token materialization과 CUDA sync까지다. 응답 decode 완료 E2E와 구분한다. DONTNEED는 타이머 밖에서 파일별 성공을 기록하며 NAND/controller cold를 보장하지 않는다. Metadata activation 및 hash validation은 별도 setup이다. AllHead host/CUDA stage 구간은 중첩되므로 합산하지 않는다.',
++        '', '두 KV25는 ceil(N/4)의 실제 content attention 예산이며 full original payload를 SSD에 유지한다. Dense GPU cache를 사용하므로 75% GPU 메모리 절감 주장을 하지 않는다. 이미지별 streaming은 동시성/throughput/cache saturation 검증이 아니다. 효율 결론은 이 fixed-budget SSD adaptation과 layout/cache 조건에 한정한다.',
++        '', f"독립 감사: {audit['status']}; AllHead K-read 재사용: {audit['AllHead_K_READ_REUSE']}; Qwen GPU / MT-VQA: NOT RUN.",
++        f"보호 검사: {audit['protection']['status']}; 기존 source 변경 {len(audit['protection']['changed_existing_source'])}건, 기존 artifact 변경 {len(audit['protection']['changed_artifacts'])}건. 큰 기존 파일은 inode/mtime/ctime + 9-window fingerprint 정책이며 전체-byte SHA256 검증으로 과장하지 않는다.",
++        '', '이미지별 N/k/read amplification, selection 변화, cap/실패/retry/중복, metadata와 GPU memory, 중첩 timing은 함께 저장된 CSV/JSON 및 image raw를 참조한다. Validation/smoke/retry는 main final counts와 별도다.']
++    return '\n'.join(lines)+'\n'
++
++def run_audit(run, output):
++    output.mkdir(parents=True,exist_ok=True)
++    if (output/'independent_audit.json').exists():raise FileExistsError('use a new independent audit output directory')
++    config=json.loads((run/'config.json').read_text());config.update(_file_sha256=sha(run/'config.json'),_manifest_sha256=sha(run/'manifest.json'))
++    manifest=json.loads((run/'manifest.json').read_text());checks=A.Checks();small=[];image_receipts=[];sessions=[];attempt_counts=Counter();physical=set();logical=set()
++    phase_counts={};memory=[];selection=[];geometry=[]
++    for phase in ('integration','smoke','main'):
++        count=0
++        for cp in sorted((run/phase/'images').glob('*/COMMITTED.json')):
++            commit=json.loads(cp.read_text());folder=cp.parent/commit['attempt_id'];raw=folder/'raw.jsonl'
++            checks.require(sha(raw)==commit['raw_sha256'],'committed_raw_hash',str(cp))
++            rows=list(read_rows(raw));receipt=audit_image_rows(rows,manifest,config,phase,cp.parent.name);image_receipts.append(receipt)
++            checks.require(receipt['status']=='PASS','independent_image_audit',receipt);count+=len(rows)
++            checks.require((folder/'cleanup_receipt.json').is_file(),'committed_cleanup_receipt',str(folder))
++            checks.require(json.loads((folder/'shared_canonical_compatibility.json').read_text())['status']=='PASS','shared_store_actual_bits',str(folder))
++            if phase=='main':
++                for r in rows:
++                    checks.require(r['logical_request_id'] not in logical and r['physical_execution_id'] not in physical,'global_unique_ids',r['request_id'])
++                    logical.add(r['logical_request_id']);physical.add(r['physical_execution_id']);small.append(compact_row(r))
++                for method in METHODS[1:]:
++                    a=json.loads((folder/f'{method}_activation.json').read_text());memory.append(dict(image_id=cp.parent.name,method_id=method,**a))
++                ours=[r for r in rows if r['method_id']=='ours_kv25' and r['turn_id']>1]
++                ah=[r for r in rows if r['method_id']==ALLHEAD and r['turn_id']>1]
++                signatures=[canonical([x['selected_token_ids'] for x in r['result']['layers']]) for r in ah]
++                selection.append({'image_id':cp.parent.name,'ours_selection_unique_count':len({canonical(r['result']['selected_original_ids']) for r in ours}),
++                    'allhead_request_selection_unique_count':len(set(signatures)),'allhead_requests':len(ah),
++                    'allhead_changed_T2_T3_dialogues':sum(signatures[i]!=signatures[i+1] for i in range(0,len(signatures),2)),
++                    'allhead_mean_unique_layer_selections':mean([len({canonical(x['selected_token_ids']) for x in r['result']['layers']}) for r in ah])})
++                for r in rows:
++                    if r['turn_id']>1 and r['method_id'] in (ALLHEAD,'ours_kv25'):
++                        full=2*r['geometry']['num_layers']*r['geometry']['v_token_num']*r['geometry']['num_heads']*r['geometry']['head_dim']*2
++                        geometry.append({'image_id':r['image_id'],'dialog_id':r['dialog_id'],'turn_id':r['turn_id'],'method_id':r['method_id'],
++                            'N':r['N_content'],'k':r['k'],'k_over_N':r['k']/r['N_content'],'read_bytes':r['ssd_read_bytes'],
++                            'full_original_KV_bytes':full,'physical_read_ratio':r['ssd_read_bytes']/full,
++                            'read_amplification_vs_logical_selected_content':r['ssd_read_bytes']/(2*r['geometry']['num_layers']*r['k']*r['geometry']['num_heads']*r['geometry']['head_dim']*2)})
++            del rows
++        phase_counts[phase]=count
++        for attempt in (run/phase/'images').glob('*/attempt_*'):
++            attempt_counts[phase+'_image_attempts']+=1
++            if (attempt/'failure.json').exists():attempt_counts[phase+'_failed_attempts']+=1
++            if (attempt/'raw.jsonl').exists():attempt_counts[phase+'_completed_physical_rows']+=sum(1 for _ in read_rows(attempt/'raw.jsonl'))
++    complete=phase_counts['main']==60915
++    if complete:
++        checks.require(len({r['image_id'] for r in small})==398 and len({r['dialog_id'] for r in small})==4061,'main_population')
++        for m in METHODS:
++            rs=[r for r in small if r['method_id']==m]
++            checks.require(len(rs)==12183 and sum(r['turn_id']>1 for r in rs)==8122,'per_method_counts',m)
++    checks.require(phase_counts['smoke']==60,'new_main_smoke_60')
++    gate=json.loads((run/'integration_validation.json').read_text());checks.require(gate.get('status')=='PASS','integration_gate')
++    protect=protection(run);checks.require(protect['status']=='PASS','artifact_protection')
++    for name,digest in config['source_sha256'].items():checks.require(sha(ROOT/name)==digest,'final_source_freeze',name)
++    result=checks.result();valid=complete and result['status']=='PASS'
++    result.update(MAIN_5_ARM='VALID' if valid else 'INVALID' if complete else 'PARTIAL' if phase_counts['main'] else 'NOT RUN',
++        main_requests=phase_counts['main'],expected_main_requests=60915,phase_counts=phase_counts,attempt_counts=dict(attempt_counts),
++        protection=protect,AllHead_K_READ_REUSE='PASS' if image_receipts and all(r['status']=='PASS' for r in image_receipts) else 'UNRESOLVED',
++        READY_FOR_PAPER_MAIN_TABLE='YES' if valid else 'NO',QWEN_GPU='NOT RUN',MT_VQA='NOT RUN',
++        source_sha256=config['source_sha256'],image_receipts=image_receipts)
++    summary,budget=summarize(small);comparisons=paired(small) if small else []
++    details,sess=session_tables(run,small) if small else ([],[])
++    csv_write(output/'summary.csv',summary);csv_write(output/'budget_io.csv',budget);csv_write(output/'paired_comparisons.csv',comparisons)
++    csv_write(output/'session_per_dialogue.csv',details);csv_write(output/'session_summary.csv',sess)
++    csv_write(output/'request_diagnostics.csv',small);csv_write(output/'image_budget_io.csv',geometry)
++    csv_write(output/'selection_variation.csv',selection);csv_write(output/'metadata_activation.csv',memory)
++    dump(output/'independent_audit.json',result);dump(output/'protection_final.json',protect)
++    (output/'REPORT.md').write_text(render(result,summary,budget,comparisons,sess))
++    dump(output/'diagnostics.json',{'output_cap_hits':sum(r['cap_reached'] for r in small),'attempts':dict(attempt_counts),
++        'main_final_rows':len(small),'main_final_duplicate_logical_rows':len(small)-len(logical),
++        'main_final_duplicate_physical_rows':len(small)-len(physical),'bootstrap_resamples':10000,'bootstrap_seed':1234})
++    for name in ('config.json','manifest.json','storage_plan.json','environment_before.json','integration_validation.json'):
++        import shutil
++        if not (output/name).exists():shutil.copy2(run/name,output/name)
++    print(json.dumps({k:result[k] for k in ('MAIN_5_ARM','main_requests','status','READY_FOR_PAPER_MAIN_TABLE')}),flush=True)
++    return result
++
++def main():
++    p=argparse.ArgumentParser();p.add_argument('--run-dir',type=Path,required=True);p.add_argument('--output-dir',type=Path,required=True)
++    args=p.parse_args();run_audit(args.run_dir.resolve(),args.output_dir.resolve())
++if __name__=='__main__':main()
+--- before/scripts/102_validate_llava_mt_gqa_allhead_kv25.py
++++ after/scripts/102_validate_llava_mt_gqa_allhead_kv25.py
+@@ -0,0 +1,250 @@
++#!/usr/bin/env python3
++"""Freeze and execute G1-G12 integration, independently of smoke/main."""
++from __future__ import annotations
++import argparse
++import copy
++import difflib
++import importlib.metadata
++import importlib.util
++import json
++import os
++from pathlib import Path
++import platform
++import shutil
++import subprocess
++import sys
++import time
++import traceback
++import torch
++from PIL import Image
++ROOT=Path(__file__).resolve().parent.parent
++sys.path.insert(0,str(ROOT))
++spec=importlib.util.spec_from_file_location('_allhead_main_validation_runner',ROOT/'scripts/100_eval_llava_mt_gqa_allhead_kv25.py')
++M=importlib.util.module_from_spec(spec);sys.modules[spec.name]=M;spec.loader.exec_module(M)
++
++
++def freeze(run):
++    ds=M.frozen_dialogues();image_ids=list(dict.fromkeys(d['image_id'] for d in ds));identity={};geometry=[]
++    for image in image_ids:
++        d=next(x for x in ds if x['image_id']==image);p=ROOT/d['image_path']
++        identity[image]={'image_path':d['image_path'],'sha256':M.sha(p)}
++        old=ROOT/'runs/mt_gqa_5arm_generated_20260923T064333Z/full/generated_history/images'/f'{image}.json'
++        a=json.loads(old.read_text());assert a['source_image_sha256']==identity[image]['sha256']
++        stores=a['store_manifests'];r=stores['raster'];n=r['n_spatial'];k=(n+3)//4
++        geometry.append({'image_id':image,'N':n,'k':k,'v_num':r['v_token_num'],'boundary_extra_rows':min(((k+63)//64)*64,n)-k,
++            'prior_three_store_bytes':sum(stores[x]['total_store_bytes'] for x in ('raster','mpic','image_only')),
++            'geometry_provenance':str(old.relative_to(ROOT)),'artifact_sha256':M.sha(old)})
++    smoke=[next(d['dialog_id'] for d in ds if d['image_id']==image) for image in image_ids[:4]]
++    assert any(g['boundary_extra_rows']>0 for g in geometry[:4])
++    manifest={'schema_version':M.SCHEMA,'dataset':'MT-GQA-reconstructed','index_sha256':M.INDEX_SHA,
++        'workload_sha256':M.WORKLOAD_SHA,'dialogues':ds,'image_identity':identity,'geometry_prior_provenance':geometry,
++        'smoke_dialogue_ids':smoke,'smoke_policy':'first dialogue of first four distinct frozen images, before outputs',
++        'expected_requests':{'integration':15,'smoke':60,'main':60915},'methods':list(M.METHODS)}
++    largest=max(g['prior_three_store_bytes'] for g in geometry)
++    # Existing 398-image metadata provides exact payload geometry, with bounded
++    # new JSON metadata expansion. Never infer space from an old free-space value.
++    bundle=largest+(64<<20);scratch_margin=4<<30;raw=32<<30;reserve=30<<30
++    plan={'policy':'FRESH_IMAGE_STREAMING','free_bytes_at_freeze':shutil.disk_usage(run).free,
++        'mount':subprocess.run(['findmnt','-J','-T',str(run)],check=True,capture_output=True,text=True).stdout,
++        'largest_image':max(geometry,key=lambda g:g['prior_three_store_bytes']),
++        'largest_image_bundle_bound_bytes':bundle,'builder_intermediate_margin_bytes':scratch_margin,
++        'raw_checkpoint_growth_bound_bytes':raw,'minimum_reserve_bytes':reserve,
++        'peak_working_set_bytes':bundle+scratch_margin,'maximum_new_payload_bytes':16<<30,
++        'validation_peak_payload_bound_bytes':10<<30,'maximum_concurrent_main_images':1,
++        'conditioning':'successful per-file POSIX_FADV_DONTNEED; no NAND/controller cold claim'}
++    plan['required_initial_free_bytes']=reserve+raw+max(plan['peak_working_set_bytes'],plan['validation_peak_payload_bound_bytes'])
++    plan['status']='PASS' if plan['free_bytes_at_freeze']>=plan['required_initial_free_bytes'] else 'BLOCKED_STORAGE'
++    model=json.loads((ROOT/'runs/sparsevlm_ssd_kv25_20260930T041926Z/config.json').read_text())
++    config={'schema_version':M.SCHEMA,'methods':list(M.METHODS),'source_sha256':M.source_hashes(),
++        'contract_sha256':M.sha(M.CONTRACT),'model':model,'seed':1234,'batch_size':1,'max_new_tokens':16,
++        'history_policy':'method_local_generated','source_T1':'actual full-image inference per method per dialogue',
++        'scorer':'strict normalized exact match copied unchanged from 73',
++        'budgets':{'ours_kv25':{'budget_unit':'visual_kv','ratio':.25},M.ALLHEAD:{'budget_unit':'visual_kv','ratio':.25,'scoring_head_policy':'all'},'mpic32_ssd':{'k_recompute':32}},
++        'provisioning_policy':'FRESH_IMAGE_STREAMING','store_sharing':'FullLoad/AllHead exact captured FP16 bits required per image',
++        'persistence_scope':'MEASURED canonical bundle including unused serializer probe sidecar; AllHead base-only NOT SEPARATELY MEASURED',
++        'packages':{p:importlib.metadata.version(p) for p in ('torch','transformers','bitsandbytes','numpy','Pillow')},
++        'python':sys.version,'platform':platform.platform(),'QWEN_GPU':'NOT RUN','MT_VQA':'NOT RUN',
++        'source_tests_sha256':{p.relative_to(ROOT).as_posix():M.sha(p) for p in sorted((ROOT/'tests').glob('test_*.py'))}}
++    for name,value in (('storage_plan.json',plan),('manifest.json',manifest),('config.json',config)):
++        M.atomic_json(run/name,value)
++    shutil.copy2(M.CONTRACT,run/'contract.frozen.md')
++    out=ROOT/'results'/run.name;out.mkdir(exist_ok=True)
++    shutil.copy2(M.CONTRACT,out/'contract.frozen.md')
++    before=json.loads((run/'source_before.json').read_text());diff=[]
++    current=list(config['source_sha256'])+['docs/llava_mt_gqa_allhead_kv25_main_contract.md','tests/test_llava_mt_gqa_allhead_main.py']
++    for name in current:
++        old=(run/'source_before'/name).read_text().splitlines(True) if name in before else []
++        new=(ROOT/name).read_text().splitlines(True)
++        if old!=new:diff.extend(difflib.unified_diff(old,new,fromfile='before/'+name,tofile='after/'+name))
++    (run/'source.diff').write_text(''.join(diff));shutil.copy2(run/'source.diff',out/'source.diff')
++    for name in current:
++        dst=run/'source_frozen'/name;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/name,dst)
++    command=f'HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONDONTWRITEBYTECODE=1 {sys.executable}'
++    reproduce=f'''# Reproduction and resume\n\nRun directory: `{run}`. Source/config/manifest changes require a new frozen run; do not edit them while main is active.\n\n```bash\ncd {ROOT}\n{command} scripts/102_validate_llava_mt_gqa_allhead_kv25.py --run-dir {run} --validate\n{command} scripts/100_eval_llava_mt_gqa_allhead_kv25.py --run-dir {run} --phase all --resume\n# After completion, independent re-audit to an unused directory:\n{command} scripts/101_audit_llava_mt_gqa_allhead_kv25.py --run-dir {run} --output-dir {out}_reaudit_01\n```\n\nValidation may be skipped only when integration_validation.json is PASS and its frozen source hashes match. Smoke/main resume skips independently audited atomic image commits only. Incomplete images restart from T1 with new physical IDs; failed attempt/raw/scratch remain. Main requires 60,915 final requests; starting a process is not completion.\n'''
++    (run/'REPRODUCE.md').write_text(reproduce);(out/'REPRODUCE.md').write_text(reproduce)
++    print(json.dumps({'freeze':'PASS','storage':plan['status'],'free_GiB':plan['free_bytes_at_freeze']/2**30,'required_GiB':plan['required_initial_free_bytes']/2**30,
++        'smoke_dialogues':smoke,'largest_image':plan['largest_image']}),flush=True)
++    if plan['status']!='PASS':raise RuntimeError('BLOCKED_STORAGE')
++
++
++def prior_gate():
++    path=ROOT/'runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_full_01/gpu_validation.json'
++    g=json.loads(path.read_text());assert g['GPU_CORRECTNESS']=='PASS'
++    assert all(g['gates'][f'G{i}']=='PASS' for i in range(1,13))
++    assert g['contract_sha256']==M.sha(ROOT/'docs/sparsevlm_ssd_kv25_contract.md')
++    assert all(M.sha(ROOT/n)==v for n,v in g['source_sha256'].items())
++    return {'status':'PASS','path':str(path),'sha256':M.sha(path),'scope':'unchanged production AllHead 10 fixed GPU cases/G1-G12 reused; fresh wrapper tests additionally required'}
++
++
++def integration_diagnostic(runner,servers,contexts,paths,hashes,dialog,rows,artifact):
++    V=M.V;V._ACTIVE_RUN=artifact.parents[3]
++    V._HASH_CACHE[str(paths['raster'].resolve())]=hashes['raster']
++    sample_dir=artifact/'gpu_reference';sample_dir.mkdir()
++    entry={'image_id':dialog['image_id'],'questions':[{'question_id':t['question_id'],'question':t['question']} for t in dialog['turns']]}
++    sample_receipts=[]
++    for turn in (2,3):
++        source=next(r for r in rows if r['method_id']==M.ALLHEAD and r['turn_id']==turn)
++        sample=V.sample(runner,entry,source['question_id'],paths['raster'],sample_dir,
++            methods=(M.ALLHEAD,),prompt_text=source['prompt'],tag=f'_mt_t{turn}')
++        assert sample['methods'][M.ALLHEAD]['serving_result']['generated_token_ids']==source['result']['generated_token_ids']
++        sample_receipts.append({'turn':turn,'status':sample['status'],'reference':sample['methods'][M.ALLHEAD]['matched_memory_reference']})
++    # Use identical actual prompts before and after an AllHead request and an
++    # injected exception. This verifies vanilla, MPIC and Ours instance recovery.
++    original=[l.self_attn.forward for l in runner.layers];before={};after={}
++    tested=('recompute','fullload','mpic32_ssd','ours_kv25')
++    def operation(method):
++        row=next(r for r in rows if r['method_id']==method and r['turn_id']==2)
++        factory=lambda:(row['prompt'],row['history'],row['history_entries'])
++        if method=='recompute':return M.normal_request(runner,servers['old'],ROOT/dialog['image_path'],factory,'none')[0]
++        return M.stored_request(runner,servers,contexts[method],factory,method,dialog['image_id'],dialog['turns'][1]['question'])[0]
++    # MPIC's direct selective prefill does not produce a top-level model hook;
++    # compare exact generated token IDs and prediction plus every decode logit.
++    for method in tested:before[method]=V.captured_call(runner,lambda m=method:operation(m))
++    row=next(r for r in rows if r['method_id']==M.ALLHEAD and r['turn_id']==2)
++    servers['allhead'].request(contexts[M.ALLHEAD],method_id=M.ALLHEAD,prompt_text=row['prompt'],cold=True)
++    def injected(payload):
++        if payload['layer']==3:raise RuntimeError('intentional main adapter exception')
++    try:servers['allhead'].request(contexts[M.ALLHEAD],method_id=M.ALLHEAD,prompt_text=row['prompt'],observer=injected,cold=True)
++    except RuntimeError as exc:assert str(exc)=='intentional main adapter exception'
++    else:raise AssertionError('exception fixture did not fire')
++    from mmimpress.serve import BIAS
++    assert not BIAS and contexts[M.ALLHEAD]._active is None
++    assert all(l.self_attn.forward==f for l,f in zip(runner.layers,original))
++    recovery={}
++    for method in reversed(tested):
++        after[method]=V.captured_call(runner,lambda m=method:operation(m))
++        assert before[method]['generated_token_ids']==after[method]['generated_token_ids']
++        assert before[method]['answer']==after[method]['answer']
++        assert len(before[method]['logits'])==len(after[method]['logits'])
++        for a,b in zip(before[method]['logits'],after[method]['logits']):assert torch.allclose(a,b,atol=1e-4,rtol=1e-4)
++        recovery[method]={'status':'PASS','exact_tokens':True,'matched_logits':len(before[method]['logits']),
++            'first_MPIC_logit':'not exposed by model hook; exact first token and independent MPIC fixtures retained' if method=='mpic32_ssd' else 'checked'}
++    O=M.helper('90_validate_llava_kv25.py','_main_fresh_mask_reference')
++    row=next(r for r in rows if r['method_id']=='ours_kv25' and r['turn_id']==3)
++    with O._AttentionTrace(contexts['ours_kv25'].meta,row['k']) as trace:
++        actual=operation('ours_kv25')
++    assert actual['generated_token_ids']==next(r for r in rows if r['method_id']=='ours_kv25' and r['turn_id']==2)['result']['generated_token_ids']
++    M.atomic_json(artifact/'integration_diagnostic.json',{'status':'PASS','AllHead_memory_reference':sample_receipts,
++        'cross_method_recovery':recovery,'exception_restoration':'PASS','ours_actual_masks':trace.summary(),
++        'diagnostic_requests_excluded_from_main_and_smoke':True})
++
++
++def negative_audit(run,config,manifest):
++    A=M.helper('101_audit_llava_mt_gqa_allhead_kv25.py','_main_negative_audit')
++    cp=next((run/'integration/images').glob('*/COMMITTED.json'));commit=json.loads(cp.read_text())
++    rows=M.load_jsonl(cp.parent/commit['attempt_id']/'raw.jsonl');image=cp.parent.name
++    assert A.audit_image_rows(rows,manifest,config,'integration',image)['status']=='PASS'
++    ah=next(i for i,r in enumerate(rows) if r['method_id']==M.ALLHEAD and r['turn_id']==2)
++    ours=next(i for i,r in enumerate(rows) if r['method_id']=='ours_kv25' and r['turn_id']==2)
++    mutations={
++        'wrong_generated_history':lambda rs:rs[ah]['history_entries'][0].update(answer='FORGED'),
++        'wrong_method_lineage':lambda rs:rs[ah]['history_entries'][0].update(source_method_id='fullload'),
++        'duplicate_logical':lambda rs:rs.append(copy.deepcopy(rs[0])),
++        'missing_row':lambda rs:rs.pop(),
++        'wrong_allhead_budget':lambda rs:rs[ah].update(k=rs[ah]['k']+1),
++        'wrong_projection':lambda rs:rs[ah]['result']['projection_calls']['0']['prefill'].update(q=2),
++        'wrong_OS_bytes':lambda rs:rs[ah].update(ssd_read_bytes=rs[ah]['ssd_read_bytes']+1),
++        'wrong_mask_count':lambda rs:rs[ours]['result']['keep_count_per_layer'].__setitem__(0,1),
++        'wrong_timing':lambda rs:rs[ah].update(ttft_ms=rs[ah]['ttft_ms']/2),
++        'wrong_scoring_heads':lambda rs:rs[ah]['result'].update(scoring_head_ids=[0,1,2])}
++    report={}
++    for name,mutate in mutations.items():
++        altered=copy.deepcopy(rows);mutate(altered)
++        r=A.audit_image_rows(altered,manifest,config,'integration',image)
++        assert r['status']=='FAIL',f'audit accepted {name}'
++        report[name]=r['failure_counts']
++    recovered=M.completed_images(run,'integration',config,manifest)
++    assert list(recovered)==[image] and recovered[image]['requests']==15
++    return {'status':'PASS','negative_cases':report,'resume_committed_image_skip':'PASS','partial_image_rejection':'CPU fixture'}
++
++
++def validate(run):
++    config,manifest=M.verify_freeze(run)
++    final=run/'integration_validation.json'
++    if final.exists():
++        r=json.loads(final.read_text())
++        if r.get('status')=='PASS' and r.get('source_sha256')==config['source_sha256']:print('integration already PASS');return
++        raise FileExistsError('failed validation receipt preserved; use new frozen run or archive pre-main development revision')
++    report={'status':'RUNNING','source_sha256':config['source_sha256'],'config_sha256':config['_file_sha256'],
++        'gates':{f'G{i}':'NOT RUN' for i in range(1,13)},'QWEN_GPU':'NOT RUN','MT_VQA':'NOT RUN'}
++    try:
++        report['prior_production_AllHead']=prior_gate()
++        cmd=[sys.executable,'-m','unittest','discover','-s','tests','-p','test_*.py']
++        with (run/'integration_cpu.log').open('w') as f:p=subprocess.run(cmd,cwd=ROOT,stdout=f,stderr=subprocess.STDOUT)
++        if p.returncode:raise RuntimeError('CPU regression failed')
++        report['CPU']={'status':'PASS','command':cmd,'log_sha256':M.sha(run/'integration_cpu.log')}
++        report['gates']['G1']='PASS';M.capacity_guard(run);M.assert_gpu_exclusive()
++        runner=M.V.load_runner();servers=M.servers_for(runner);M.QA._warmup(runner,servers['old'])
++        report['actual_model']={'q_heads':runner.cfg.text_config.num_attention_heads,'kv_heads':runner.cfg.text_config.num_key_value_heads,
++            'layers':len(runner.layers),'dtype':str(runner.model.dtype),'attention':runner.attn,
++            'load_4bit':runner.load_4bit,'device_map':str(runner.model.hf_device_map)}
++        # Original fixed five GPU fixtures and tolerances; no new selection algorithm.
++        O=M.helper('90_validate_llava_kv25.py','_main_Ours_GPU_reference')
++        entries=json.loads((ROOT/'data/index.json').read_text());samples=[]
++        stores=run/'validation_scratch/ours_five_fixed';stores.mkdir(parents=True,exist_ok=False)
++        for (image,qid),entry in zip(O.FIXED,entries):
++            sample=O._sample(runner,servers['old'],entry,qid,stores);samples.append(sample)
++            M.atomic_json(run/'gpu_ours'/f'{image}.json',sample)
++            # Standalone fixture has no main rows; its independent bit/mask/read
++            # receipt is the durable publication before allowlisted payload cleanup.
++            owned=M.file_hashes(stores/image)
++            M.atomic_json(run/'gpu_ours'/f'{image}_cleanup_allowlist.json',{'scratch':str(stores/image),'files':owned})
++            M.cleanup_committed(stores/image,owned,{'status':sample['status']},{'status':'COMMITTED'})
++            M.atomic_json(run/'gpu_ours'/f'{image}_cleanup_receipt.json',{'status':'PASS','files':len(owned)})
++            print(json.dumps({'GPU_Ours_fixed':image,'status':'PASS'}),flush=True)
++        assert len(samples)==5 and any(x['sentinel_prefill_decode'] for x in samples)
++        report['ours_five_fixed']={'status':'PASS','samples':samples,'atol':1e-4,'rtol':1e-4}
++        integration=M.run_phase(runner,servers,run,'integration',config,manifest,diagnostic=integration_diagnostic)
++        report['fresh_wrapper_integration']=integration
++        report['negative_audit_and_resume']=negative_audit(run,config,manifest)
++        A=M.helper('101_audit_llava_mt_gqa_allhead_kv25.py','_main_pre_smoke_protection')
++        report['protection']=A.protection(run)
++        if report['protection']['status']!='PASS':raise RuntimeError('existing artifact protection failed')
++        report['gates']={f'G{i}':'PASS' for i in range(1,13)}
++        report['gate_evidence']={
++            'G1':'exact full index/workload hashes, five-entry registry, pinned model actual config',
++            'G2':'original five Ours actual masks/cache + fresh MT AllHead Observer exact ceil(N/4)',
++            'G3':'fresh independent OS range audit: all actual heads, no probe/selected-K reread',
++            'G4':'actual per-layer prefill/decode projection hooks and fixed selection/read oracle',
++            'G5':'AllHead fresh MT independent memory reference; original Ours matched-reference fixtures',
++            'G6':'independent real attention mask/positions + sentinel fixtures and decode checks',
++            'G7':'fresh cross-order vanilla/FullLoad/MPIC/Ours logits/token recovery and injected exception',
++            'G8':'fresh own T1 execution/vision counts and exact shared capture bits, MPIC direct counts',
++            'G9':'independent full raw lineage/prompt reconstruction and forged-history negative cases',
++            'G10':'actual OS events vs independent ranges and counter sums; AllHead reused K counted once',
++            'G11':'atomic commit/adoption and partial-image/link/no-clobber CPU fixtures + actual committed resume verification',
++            'G12':'all existing CPU regression suite + new wrapper safety tests + old artifact fingerprint/source SHA256 protection'}
++        report['status']='PASS'
++    except BaseException as exc:
++        report.update(status='FAIL',error=repr(exc),traceback=traceback.format_exc());raise
++    finally:
++        M.atomic_json(final,report)
++        print(json.dumps({'integration_status':report['status'],'gates':report['gates'],'error':report.get('error')}),flush=True)
++
++
++def main():
++    p=argparse.ArgumentParser();p.add_argument('--run-dir',type=Path,required=True);p.add_argument('--freeze',action='store_true');p.add_argument('--validate',action='store_true')
++    args=p.parse_args();run=args.run_dir.resolve()
++    if args.freeze:freeze(run)
++    if args.validate:validate(run)
++if __name__=='__main__':main()
+--- before/docs/llava_mt_gqa_allhead_kv25_main_contract.md
++++ after/docs/llava_mt_gqa_allhead_kv25_main_contract.md
+@@ -0,0 +1,159 @@
++# LLaVA MT-GQA AllHead KV25 main contract
++
++Version `llava-mtgqa-allhead-kv25-main-v1`, frozen before main on 2026-09-30.
++This file specifies requirements; only executed receipts establish PASS.
++Run: `runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/`.
++Results: `results/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/`.
++
++## Fixed population and execution
++
++The complete `data/mt_gqa/dialogues.json` must have SHA256
++`2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224` and ordered
++workload hash `0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62`.
++398 images, 4,061 three-turn dialogues, 12,183 requests/method, 60,915 final
++requests and 40,610 T2/T3 comparison requests. ReComp T2/T3 is a comparison
++cohort, not an SSD cache hit. This is reconstructed MT-GQA, not the exact
++MetaCompress artifact. Membership, questions, gold and order stay frozen.
++The old dataset config's `gold_teacher_forced` describes its original use;
++this run explicitly uses method-local generated history and does not inherit it.
++
++The new runner is `scripts/100_eval_llava_mt_gqa_allhead_kv25.py`; its lifecycle,
++causal prompt, strict scorer, source-only persistence and global dialogue
++ordinal rotation follow 73. Its actual AllHead/native Ours calls follow the
++validated 98 pilot without importing that pilot's registry. Old runners stay
++unchanged. ReKV, Probe3, legacy QA-Token/QA-Chunk, Ours-Chunk25, Qwen inference
++and MT-VQA inference are excluded. Existing CPU fixtures may inspect those
++legacy implementations without performing those experiments.
++
++| Method ID | Actual production entry point | Store / budget |
++|---|---|---|
++| recompute | `mmimpress.serve.Server.recompute` | pixels every turn, full context |
++| fullload | `Server.request(mode='fullload')` | canonical full K/V |
++| mpic32_ssd | `mmimpress.mpic.MPICServer.request(k_recompute=32)` | `MPICContext`; all context, first 32 image rows recomputed |
++| sparsevlm_ssd_kv25_allhead | `SparseVLMSSDServer.request(method_id='sparsevlm_ssd_kv25_allhead')` | `CanonicalContext(head_policy='all')`; native token Top-k |
++| ours_kv25 | `Server.request_cvpr25(mode='prefix', budget=.25, budget_unit='visual_kv', sep_policy='sidecar', expected_prefix_layout='visionzip_image_only')` | image-only repacked first k rows |
++
++Both KV25 methods retain k=(N+3)//4 real content rows at every decoder layer
++and every KV head. N excludes structure/system/padding and must be positive.
++All structure and logical positions remain. Ours reads first ceil(k/64) whole
++chunks for K/V and masks excess rows in prefill/decode. AllHead scores the
++entire original visual candidate set using all actual attention heads and
++current layer hidden states, selecting exact token Top-k independently per
++layer. One normal Q/K/V projection per layer is shared with scoring; decode
++has no selection/read. AllHead full K is read once per layer, reused in answer
++attention; selected V chunks are coalesced. Additional selected-K/probe reads
++are zero. Structural sidecar duplication is actual traffic and is recorded.
++Dense GPU cache is retained: no 75% GPU memory reduction claim.
++
++## Environment, history, timing
++
++Pinned model/processor/tokenizer: llava-hf/llava-v1.6-vicuna-7b-hf,
++revision `c916e6cdcd760b4cecd1dd4907f84ac649f93b23`, loaded from that local snapshot.
++Existing mllm_ft environment; NF4/double quantization, BF16 compute, FP16 SSD,
++eager attention, existing processor-owned AnyRes resolution. No CPU/disk weight
++offload. Seed=1234, batch=1, eval/inference mode, greedy, max_new_tokens=16.
++Actual package/config/model/source hashes are frozen in config and manifest.
++
++Every method and dialogue actually executes full pixels T1. T2/T3 use only that
++method/dialogue's exact decoded previous predictions, including legitimate
++empty answers, EOS and cap. Gold is used only for scoring. Prompt is the 73/89
++causal `USER: <image>` + numbered prior QA + current question and fixed short
++answer instruction. Full source logical/physical/model/method/dialogue/turn
++lineage and lossless prompt/suffix IDs are retained. AllHead raters include the
++entire actual suffix after the image, including history and fixed template.
++
++Global dialogue ordinal modulo 5 gives cyclic method order, unchanged for all
++turns of that dialogue. One GPU, sequential methods. Check foreign compute
++processes before every timed request; never terminate other work. One fixed
++existing warmup before each phase process. Diagnostics, conditioning, hashes,
++logging and cleanup run between timed requests.
++
++True TTFT starts before prompt/input preparation, includes JPEG open/decode
++for pixel requests, tokenizer/processor, preprocessing/vision, SSD/pread, H2D,
++cache assembly, prefill and first-token host materialization + CUDA sync. Full
++request E2E includes final decoding and capture-context exit materialization.
++Hit activation is separately recorded. POSIX_FADV_DONTNEED runs outside TTFT
++and each actual call's success is recorded. No NAND/controller cold claim.
++Metadata-ready includes immutable sys metadata and AllHead host v_hidden;
++no visual K/V remains between requests. Full-K/scoring work is inside TTFT.
++AllHead stage host/CUDA intervals overlap and are never summed into TTFT.
++
++## Source capture, persistence and storage
++
++Fresh image streaming is frozen. Source T1 is the first frozen dialogue of an
++image. FullLoad captures canonical K/V+visual inputs, MPIC captures its own
++canonical K/V+input sidecar, and Ours captures image-only saliency+K/V in their
++normal T1. AllHead's own normal source T1 additionally captures K/V+inputs for
++exact FP16 all-layer/head hash comparison against FullLoad. Only when those
++bits, v_hidden, prefix IDs and image preprocessing match may they share the
++immutable canonical store. These captures create no extra model/vision pass.
++Other dialogues still run actual full T1 but reuse that image's stores.
++
++Use the unchanged validated `persist_captured_raster_prefix`,
++`persist_captured_mpic_prefix` and `persist_captured_visual_prefix` builders.
++The existing raster builder necessarily writes a bundled three-head sidecar;
++this is unused serializer overhead, not a Probe3 method. No main method opens
++or reads it. AllHead is selected explicitly by head_policy=all/method_id,
++never by probe=0. Preserve the builder and measure its complete bundle:
++base-only AllHead persistence is NOT SEPARATELY MEASURED. Disclose unused
++sidecar occupancy/write bytes. FullLoad/AllHead actual build is charged once,
++to FullLoad's source dialogue. Independent AllHead deployment and standalone
++per-dialogue setup are DERIVED, not additional physical measurements.
++
++Persistence timings include existing score postprocessing/repack, write,
++fsync, atomic publication. T1 capture exit materialization is already in T1
++E2E and must not be added again. Record helper wall, integrity hashing and
++activation separately. Physical-stream session is the three actual request
++E2Es plus source-only actual setup. No background overlap is assumed.
++
++Storage plan records current mount/device/free bytes, largest actual image
++geometry and three-store bundle from existing frozen 398-image provenance,
++32 GiB raw/checkpoint growth allowance, 4 GiB build/intermediate margin and
++30 GiB minimum free reserve. Validation stores are separately budgeted. Recheck
++before each image, preserve failed-attempt payload, never lower thresholds.
++Insufficient space is BLOCKED_STORAGE. Only one main image's stores are live.
++Prior artifact protection uses full SHA256 for source/small files and the
++established nine-window fingerprint + inode/mtime/ctime policy for large old
++files; this limitation is explicit. New payloads receive full file hashes.
++
++Each image gets a new scratch path and creation receipt; all raw and lossless
++selection/IO data are fsynced, independently audited, then an image completion
++record is atomically published and its directory fsynced. Only its recorded
++allowlist with matching hashes, no symlink/hardlink, may be deleted. Never
++remove old/external data or raw. Resume verifies the exact source/config/
++manifest/raw hash and independent completeness before skipping an image.
++Uncommitted images rerun from T1 into a new attempt; prior attempts remain.
++No selection by faster TTFT or higher score.
++
++## Gates and reporting
++
++`102_validate_llava_mt_gqa_allhead_kv25.py` first freezes configuration, full
++population and four smoke dialogues (first dialogue of first four distinct
++frozen images, selected before outputs; includes k%64 boundary). It reuses
++unchanged AllHead G1–G12 receipt with matching source hashes, runs fresh Ours
++five fixed GPU fixtures through the original 90 oracle, runs a fresh 15-request
++MT integration chain through the new wrapper, AllHead independent memory
++reference + sentinel + actual projection/read checks on that fresh history,
++and interleaved FullLoad/MPIC/Ours/vanilla output recovery and exception cleanup.
++No tolerances are widened: matched logits atol=rtol=1e-4; score 1e-5, exact
++IDs/masks/KV bits. New negative audit/lifecycle/history tests and existing CPU
++regressions cover G9/G11/G12. Qwen GPU remains NOT RUN. Required unresolved or
++failed gate prevents smoke/main. Then a separate real 4×3×5=60 MT smoke must
++pass independent audit before any of 60,915 main final requests are run.
++
++`101_audit_llava_mt_gqa_allhead_kv25.py` independently reconstructs prompts,
++lineage, strict scores, per-image and global counts, KV25 geometry, all-head
++projection counts, actual OS byte ranges, zero selected-K/probe reads, timing,
++Ours invariance and persistence attribution. It never imports production
++selection/loader code. Tables separate turn/all/hit accuracy, T1/hit TTFT,
++actual returned SSD MB, budget and stage scopes, paired comparisons, session
++and provisioning policy. Image-cluster bootstrap: 10,000, seed1234, entire
++image cluster across all methods/turns/dialogues, request-weighted estimates.
++A zero-containing CI is not equivalence; generated history is part of the
++method-level result, not a pure selector causal contrast.
++
++Final status explicitly states dataset/integration/GPU/smoke/audit/protection,
++MAIN VALID/INVALID/PARTIAL/NOT RUN with actual/expected rows, and paper readiness.
++Never reuse pilot numbers or call a launched/partial process a completed main.
++Failures preserve cause, all physical attempts, final counts and resume command.
++No commit, push, source reset, existing artifact deletion or dependency upgrade.
+--- before/tests/test_llava_mt_gqa_allhead_main.py
++++ after/tests/test_llava_mt_gqa_allhead_main.py
+@@ -0,0 +1,72 @@
++"""Integration safety tests; CPU-only and no model load."""
++import importlib.util
++import json
++import os
++from pathlib import Path
++import tempfile
++import types
++import unittest
++from unittest import mock
++import torch
++ROOT=Path(__file__).resolve().parents[1]
++spec=importlib.util.spec_from_file_location('_new_mt_main_test',ROOT/'scripts/100_eval_llava_mt_gqa_allhead_kv25.py')
++M=importlib.util.module_from_spec(spec);spec.loader.exec_module(M)
++
++class MainSafety(unittest.TestCase):
++    def dialog(self):
++        return {'dialog_id':'d1','turns':[{'turn_id':t,'question_id':f'q{t}','question':f'Question {t}?','answers':['GOLD_SENTINEL']} for t in (1,2,3)]}
++    def row(self,t,method='ours_kv25',dialog='d1',prediction=''):
++        return {'method_id':method,'dialog_id':dialog,'prediction':prediction,'logical_request_id':f'logical{t}','physical_execution_id':f'physical{t}'}
++    def test_exact_empty_generated_answer_and_no_gold_future(self):
++        prompt,hist,entries=M.prompt_factory(self.dialog(),2,'ours_kv25',{1:self.row(1)})
++        self.assertIn('A1: ',hist);self.assertNotIn('GOLD_SENTINEL',prompt);self.assertNotIn('Question 3',prompt)
++        self.assertEqual(entries[0]['answer'],'');self.assertEqual(entries[0]['source_physical_execution_id'],'physical1')
++    def test_foreign_and_future_history_fail_closed(self):
++        for history in ({1:self.row(1,method='fullload')},{1:self.row(1,dialog='d2')},{1:self.row(1),2:self.row(2)}):
++            with self.assertRaises(ValueError):M.prompt_factory(self.dialog(),2,'ours_kv25',history)
++    def test_suffix_span_coverage_with_template_and_history(self):
++        p,h,e=M.prompt_factory(self.dialog(),3,'ours_kv25',{1:self.row(1,prediction='YES!'),2:self.row(2,prediction='b')})
++        spans=M.text_spans(p,'Question 3?',h,e);coverage=[0]*len(p)
++        for s in spans:
++            for i in range(s['start_char'],s['end_char']):coverage[i]+=1
++        self.assertEqual(coverage[p.index('<image>')+7:],[1]*len(coverage[p.index('<image>')+7:]))
++    def test_cleanup_requires_atomic_commit_audit_and_exact_owned_allowlist(self):
++        with tempfile.TemporaryDirectory() as td:
++            s=Path(td)/'scratch';s.mkdir();p=s/'payload';p.write_bytes(b'preserve')
++            files={'payload':M.sha(p)}
++            with self.assertRaises(ValueError):M.cleanup_committed(s,files,{'status':'PASS'},{'status':'RUNNING'})
++            with self.assertRaises(ValueError):M.cleanup_committed(s,{}, {'status':'PASS'},{'status':'COMMITTED'})
++            p.write_bytes(b'changed')
++            with self.assertRaises(ValueError):M.cleanup_committed(s,files,{'status':'PASS'},{'status':'COMMITTED'})
++            self.assertTrue(p.exists())
++    def test_cleanup_refuses_hardlink_and_external_symlink(self):
++        with tempfile.TemporaryDirectory() as td:
++            outside=Path(td)/'old';outside.write_bytes(b'old')
++            s=Path(td)/'scratch';s.mkdir();p=s/'payload';os.link(outside,p)
++            with self.assertRaises(ValueError):M.cleanup_committed(s,{'payload':M.sha(p)},{'status':'PASS'},{'status':'COMMITTED'})
++            p.unlink();p.symlink_to(outside)
++            with self.assertRaises(ValueError):M.cleanup_committed(s,{'payload':M.sha(outside)},{'status':'PASS'},{'status':'COMMITTED'})
++            self.assertEqual(outside.read_bytes(),b'old')
++    def test_mpic_projection_phase_tracks_direct_prefill_then_model_decode(self):
++        class Attn(torch.nn.Module):
++            def __init__(self):
++                super().__init__();self.q_proj=torch.nn.Linear(2,2);self.k_proj=torch.nn.Linear(2,2);self.v_proj=torch.nn.Linear(2,2)
++            def forward(self,x):return self.q_proj(x)+self.k_proj(x)+self.v_proj(x)
++        class Model(torch.nn.Module):
++            def __init__(self):super().__init__();self.attn=Attn()
++            def forward(self,x):return self.attn(x)
++        model=Model();runner=types.SimpleNamespace(model=model,layers=[types.SimpleNamespace(self_attn=model.attn)])
++        with M.MPICCounts(runner) as c:
++            model.attn(torch.zeros(1,2));model(torch.zeros(1,2));model(torch.zeros(1,2))
++        self.assertEqual(c.calls['0']['prefill'],{'q':1,'k':1,'v':1});self.assertEqual(c.calls['0']['decode'],{'q':2,'k':2,'v':2})
++    def test_no_clobber_publication(self):
++        with tempfile.TemporaryDirectory() as td:
++            p=Path(td)/'image.json';M.atomic_json(p,{'status':'COMMITTED'})
++            with self.assertRaises(FileExistsError):M.atomic_json(p,{'status':'BROKEN'})
++            self.assertEqual(json.loads(p.read_text())['status'],'COMMITTED')
++    def test_partial_image_without_commit_is_never_adopted(self):
++        with tempfile.TemporaryDirectory() as td:
++            run=Path(td);a=run/'main/images/x/attempt_0001';a.mkdir(parents=True);(a/'raw.jsonl').write_text('{"partial":true}\n')
++            self.assertEqual(M.completed_images(run,'main',{},{}),{})
++            self.assertTrue((a/'raw.jsonl').exists())
++if __name__=='__main__':unittest.main()

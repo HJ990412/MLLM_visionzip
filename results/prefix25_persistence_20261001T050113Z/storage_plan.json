@@ -1,0 +1,75 @@
+{
+  "free_bytes_start": 229578715136,
+  "free_GiB_start": 213.81184005737305,
+  "minimum_free_bytes": 32212254720,
+  "policy": "one image at a time; clean only this run owned verified stores after completed measurements",
+  "conservative_peak_store_bytes": 17179869184,
+  "historical_files": 103185,
+  "measured": {
+    "llava/gqa": {
+      "fullload": {
+        "mean_total_store_bytes": 1260580799.025,
+        "max_total_store_bytes": 1658895378
+      },
+      "A": {
+        "mean_total_store_bytes": 1187809415.95,
+        "max_total_store_bytes": 1563010605
+      },
+      "B": {
+        "mean_total_store_bytes": 309019011.175,
+        "max_total_store_bytes": 405410837
+      },
+      "max_all_arms_per_image_bytes": 3627316820
+    },
+    "llava/mt": {
+      "fullload": {
+        "mean_total_store_bytes": 1292018927.1,
+        "max_total_store_bytes": 1658895379
+      },
+      "A": {
+        "mean_total_store_bytes": 1217380904.075,
+        "max_total_store_bytes": 1563010611
+      },
+      "B": {
+        "mean_total_store_bytes": 316256399.775,
+        "max_total_store_bytes": 405410895
+      },
+      "max_all_arms_per_image_bytes": 3627316884
+    },
+    "qwen/gqa": {
+      "fullload": {
+        "mean_total_store_bytes": 23730575.725,
+        "max_total_store_bytes": 30621846
+      },
+      "A": {
+        "mean_total_store_bytes": 23730713.5,
+        "max_total_store_bytes": 30621984
+      },
+      "B": {
+        "mean_total_store_bytes": 6279798.25,
+        "max_total_store_bytes": 8202935
+      },
+      "max_all_arms_per_image_bytes": 69446765
+    },
+    "qwen/mt": {
+      "fullload": {
+        "mean_total_store_bytes": 25108420.775,
+        "max_total_store_bytes": 34295192
+      },
+      "A": {
+        "mean_total_store_bytes": 25108558.55,
+        "max_total_store_bytes": 34295329
+      },
+      "B": {
+        "mean_total_store_bytes": 6595469.7,
+        "max_total_store_bytes": 8894603
+      },
+      "max_all_arms_per_image_bytes": 77485124
+    }
+  },
+  "free_bytes_after_pilots": 212884029440,
+  "free_GiB_after_pilots": 198.26370239257812,
+  "pilot_store_cleanup_complete": true,
+  "pilot_payload_regeneration_required": true,
+  "larger_rerun_capacity_policy": "per-session generate/measure/verify/cleanup; retaining every store is not approved or capacity-validated"
+}

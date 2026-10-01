@@ -434,3 +434,75 @@ session 비용은 이번 전환에서 재측정하지 않았고, 더 큰 main ru
 [타이밍 정정](docs/qwen25_kv25_pilot_timing_erratum.md)을 참조한다.
 대용량 run-local store와 원시 요청 로그는 로컬에 보존하고, 여기에는
 계약·요약표·검증·감사 자료를 게시한다.
+
+## 15. KV25 selector 보조 실험 (2026-09-29)
+
+LLaVA의 기존 40-image GQA 개발 workload에서 25% visual KV 예산을 고정하고
+Contextual Representative 및 SpatialUniform 선택을 시험했다. Contextual
+D20+C5의 hit 정답률은 D25보다 +1.0 pp (image-paired 95% CI −3.5~+5.5),
+SpatialUniform5는 IndexUniform5보다 −4.0 pp (−9.5~+1.0)였다.
+두 차이 모두 개선 또는 동등성을 확정하지 못하며 독립 holdout도 아니다.
+[Contextual 보고서](results/llava_contextual_kv25_20260929T074144Z/REPORT.md)와
+[Spatial 보고서](results/llava_spatial_kv25_20260929T091132Z/REPORT.md)에
+검증·선택 차이·SSD I/O와 paired 비교가 있다.
+
+## 16. SparseVLM-SSD-KV25 AllHead baseline (2026-09-30)
+
+원 SparseVLM의 attention 기반 선택을 SSD Visual-KV25에 맞춘 baseline이다.
+Probe3와 32-head AllHead 모두 구현·검증했으며, progressive pruning
+전체 시스템의 재현은 아니다. 40-image GQA 파일럿에서 AllHead의 hit
+정답률/TTFT/SSD read는 62.0% / 901.50 ms / 1174.14 MB였고,
+같은 실행의 Ours-KV25는 56.5% / 309.93 ms / 319.50 MB였다.
+40-dialogue MT 파일럿의 AllHead는 78.75% / 868.66 ms / 1204.07 MB,
+Ours-KV25는 76.25% / 301.02 ms / 327.58 MB였다.
+AllHead는 선택 KV가 25%여도 score 계산에 full K를 읽으므로 SSD read가
+25%가 되지 않는다. [검토 보고서](results/sparsevlm_ssd_kv25_20260930T041926Z/REPORT_REVIEWED.md)와
+[계약](docs/sparsevlm_ssd_kv25_contract.md)을 참조한다.
+
+## 17. LLaVA MT-GQA generated-history AllHead/KV25 main (2026-09-30)
+
+재구성한 MT-GQA 4,061개 3-turn dialogue(398 images)의 5-arm 본실험을
+60,915/60,915 final requests로 완료하고 독립 감사를 통과했다.
+각 방법은 자신의 생성 답변을 다음 turn의 history로 사용한다.
+ReKV는 이번 신규 비교에서 제외했다. 아래 hit 값은 T2–T3 평균이다.
+
+| Method | 전체 정답률 | Hit 정답률 | Hit TTFT | SSD MB/hit |
+|---|---:|---:|---:|---:|
+| ReComp | 66.72% | 68.48% | 533.56 ms | 0.00 |
+| FullLoad | 66.65% | 68.38% | 749.21 ms | 1173.92 |
+| MPIC-32 | 66.77% | 68.55% | 766.71 ms | 1174.18 |
+| SparseVLM-SSD-KV25-AllHead | 66.58% | 68.28% | 852.15 ms | 1184.12 |
+| Ours-KV25 | 65.18% | 66.18% | 269.52 ms | 320.45 |
+
+Ours−AllHead의 hit 정답률 차이는 −2.105 pp (95% CI −2.868~−1.352),
+TTFT 차이는 −582.63 ms (−592.71~−572.45)였다. AllHead는 full K read를
+scoring과 answer attention에 재사용해 중복 K read를 세지 않았다.
+결과는 이 SSD adaptation과 재구성 workload에 한정된다.
+[검토된 본실험 보고서](results/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/analysis_v2/REPORT.md),
+[요약표](results/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/analysis_v2/summary.csv),
+[실험 계약](docs/llava_mt_gqa_allhead_kv25_main_contract.md)에 상세 자료가 있다.
+
+## 18. Qwen MT-GQA main 준비 상태 (2026-10-01)
+
+Qwen2.5-VL generated-history main은 필수 FP32 통합 gate G7 실패로 중단됐다.
+Smoke 0/36, main 0/36,549이며 Qwen 본실험 정확도·TTFT 표는 없다.
+기존 KV25 core GPU 검증 PASS를 이 main의 PASS로 확대하지 않는다.
+[중단 보고서](results/qwen_mt_gqa_kv25_main_20261001T031459Z/validation_blocked/REPORT.md)와
+[계약](docs/qwen_mt_gqa_kv25_main_contract.md)에 재현 근거가 있다.
+
+## 19. Prefix25 persistence ablation (2026-10-01)
+
+FullStore-KV25 [A] 대신 실제 선택 content KV만 기록하는 PrefixStore-KV25
+[B]를 LLaVA와 Qwen에 적용했다. 두 모델에서 A/B 선택 KV와 생성열이 일치했고,
+각각 GQA 960요청·MT 480요청을 새로 측정했다.
+
+| 모델 | MT write 감소 | MT persistence 감소 | MT 3-turn 세션 B−A | MT 세션 B−ReComp |
+|---|---:|---:|---:|---:|
+| LLaVA | 74.02% | 65.83% | −1906.8 ms | +317.9 ms |
+| Qwen | 73.73% | 32.94% | −53.9 ms | −41.4 ms |
+
+짧은 LLaVA 세션에서는 B도 ReComp보다 느렸고, cache hit-rate·eviction 이득은
+측정하지 않았다. [전체 결과](results/prefix25_persistence_20261001T050113Z/REPORT.md)와
+[재현 정보](results/prefix25_persistence_20261001T050113Z/REPRODUCE.md)를 참조한다.
+수 GB 규모 run-local store와 원시 요청 로그는 로컬에 보존하고,
+레포에는 계약·요약·검증·감사 자료만 게시한다.

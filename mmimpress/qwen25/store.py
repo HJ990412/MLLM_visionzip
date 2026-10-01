@@ -31,6 +31,7 @@ from mmimpress.cvpr25 import (budget_chunk_count, permutation_sha256,
 
 
 FORMAT = "qwen25_bf16_visual_kv_v1"
+PREFIX_FORMAT = "qwen25_bf16_importance_prefix25_v2"
 DEFAULT_CHUNK_SIZE = 64
 _ROW_ITEMSIZE = 2
 _REQUIRED_EXTRA = (
@@ -182,7 +183,8 @@ def _write_file(path: Path, payload: bytes, stats: dict) -> dict:
 def write_qwen_store(out_dir: str | Path, layers: Any, visual_start: int,
                      visual_count: int, prefix_ids: Any, scores: Any = None,
                      extra: dict | None = None, *, chunk_size: int = DEFAULT_CHUNK_SIZE,
-                     timing_out: dict | None = None) -> dict:
+                     timing_out: dict | None = None,
+                     storage_policy: str = "full") -> dict:
     """Write a canonical or saliency-repacked Qwen prefix directly from Turn-1 KV.
 
     ``layers`` contains native BF16 pairs in HF cache shape [1,H_kv,seq,D].
@@ -191,6 +193,10 @@ def write_qwen_store(out_dir: str | Path, layers: Any, visual_start: int,
     image/model/processor/geometry/position identity and MRoPE positions.
     The destination must not already exist, which protects previous artifacts.
     """
+    if storage_policy not in ("full", "prefix25"):
+        raise ValueError("unsupported storage policy")
+    if storage_policy == "prefix25" and (scores is None or chunk_size != 64):
+        raise ValueError("prefix25 requires image-only scores and chunk size 64")
     started = time.perf_counter()
     visual_start, visual_count, chunk_size = int(visual_start), int(visual_count), int(chunk_size)
     prefix_ids = _jsonable(prefix_ids)
@@ -234,9 +240,10 @@ def write_qwen_store(out_dir: str | Path, layers: Any, visual_start: int,
     inverse = inverse_permutation(order)
     permutation_end = time.perf_counter()
 
-    n_chunks = (visual_count + chunk_size - 1) // chunk_size
-    stored_rows = n_chunks * chunk_size
-    padding_rows = stored_rows - visual_count
+    stored_content = (visual_count + 3) // 4 if storage_policy == "prefix25" else visual_count
+    n_chunks = (stored_content + chunk_size - 1) // chunk_size
+    stored_rows = stored_content if storage_policy == "prefix25" else n_chunks * chunk_size
+    padding_rows = stored_rows - stored_content
     structural_indices = [i for i in range(prefix_len)
                           if i < visual_start or i >= visual_start + visual_count]
     structural_count = len(structural_indices)
@@ -257,6 +264,7 @@ def write_qwen_store(out_dir: str | Path, layers: Any, visual_start: int,
     out_dir.mkdir(parents=True, exist_ok=False)
     stats = {"materialize_seconds": 0.0, "repack_seconds": 0.0,
              "write_seconds": 0.0, "fsync_seconds": 0.0}
+    serialize_seconds = 0.0
     file_records = {}
     try:
         # All nonvisual rows, including vision_end after the image, are stored
@@ -292,6 +300,7 @@ def write_qwen_store(out_dir: str | Path, layers: Any, visual_start: int,
                     rows = rows.index_select(0, order_cpu)
                     stats["repack_seconds"] += time.perf_counter() - t0
                 t0 = time.perf_counter()
+                rows = rows[:stored_content]
                 if padding_rows:
                     padded = torch.zeros((stored_rows, heads, head_dim),
                                          dtype=torch.bfloat16)
@@ -300,8 +309,11 @@ def write_qwen_store(out_dir: str | Path, layers: Any, visual_start: int,
                 rows = rows.contiguous()
                 stats["materialize_seconds"] += time.perf_counter() - t0
                 rel = f"layer_{li:03d}/{kind}.bin"
+                serialize_start = time.perf_counter()
+                payload = _bf16_bytes(rows)
+                serialize_seconds += time.perf_counter() - serialize_start
                 file_records[rel] = _write_file(
-                    layer_dir / f"{kind}.bin", _bf16_bytes(rows), stats)
+                    layer_dir / f"{kind}.bin", payload, stats)
             layer_fsync_start = time.perf_counter()
             layer_fd = os.open(layer_dir, os.O_RDONLY)
             try:
@@ -313,7 +325,7 @@ def write_qwen_store(out_dir: str | Path, layers: Any, visual_start: int,
         visual_bytes = sum(record["size"] for name, record in file_records.items()
                            if name != "structural_kv.bin")
         meta = {
-            "format": FORMAT,
+            "format": PREFIX_FORMAT if storage_policy == "prefix25" else FORMAT,
             "model_family": "Qwen2.5-VL",
             "layout": "token_major_repacked_bf16" if scores is not None else "token_major_canonical_bf16",
             "dtype": "bfloat16",
@@ -332,7 +344,7 @@ def write_qwen_store(out_dir: str | Path, layers: Any, visual_start: int,
             "chunk_size": chunk_size,
             "n_chunks": n_chunks,
             "stored_rows": stored_rows,
-            "valid_rows_last_chunk": visual_count - (n_chunks - 1) * chunk_size,
+            "valid_rows_last_chunk": stored_content - (n_chunks - 1) * chunk_size,
             "padding_rows": padding_rows,
             "row_bytes": row_bytes,
             "stored_to_original": order,
@@ -360,6 +372,16 @@ def write_qwen_store(out_dir: str | Path, layers: Any, visual_start: int,
             "extra": {key: value for key, value in extra.items()
                       if key not in _REQUIRED_EXTRA},
         }
+        if storage_policy == "prefix25":
+            meta.update({
+                "storage_policy": "prefix25", "original_content_count": visual_count,
+                "stored_content_count": stored_content, "retention_ratio": .25,
+                "rounding_policy": "ceil_original_content",
+                "full_importance_permutation": order,
+                "stored_to_original": order[:stored_content],
+                "stored_row_to_original": order[:stored_content],
+                "inverse_semantics": "original token to full importance rank, not stored row",
+            })
         # The metadata file records its own size; decimal digit growth settles
         # in at most a few iterations. It cannot contain its own SHA digest.
         for _ in range(10):
@@ -392,6 +414,7 @@ def write_qwen_store(out_dir: str | Path, layers: Any, visual_start: int,
         raise
     if timing_out is not None:
         timing_out.update({
+            "prefix_slice_serialization_ms": serialize_seconds * 1e3,
             "permutation_ms": (permutation_end - started) * 1e3,
             "kv_materialize_ms": stats["materialize_seconds"] * 1e3,
             "kv_repack_ms": stats["repack_seconds"] * 1e3,
@@ -491,6 +514,9 @@ def plan_prefix_budget(meta: dict, budget: float = 0.25,
     """
     n = int(meta["visual_count"])
     cs = int(meta["chunk_size"])
+    prefix_only = meta.get("format") == PREFIX_FORMAT
+    if prefix_only and (budget_unit != "visual_kv" or float(budget) > .25):
+        raise ValueError("prefix25 requires original-content visual_kv budget <= 0.25")
     if budget_unit == "chunk":
         chunks = budget_chunk_count(int(meta["n_chunks"]), float(budget))
         kept = min(n, chunks * cs)
@@ -512,7 +538,7 @@ def plan_prefix_budget(meta: dict, budget: float = 0.25,
         chunks = (kept + cs - 1) // cs
     else:
         raise ValueError(f"unknown budget unit: {budget_unit}")
-    disk_rows = chunks * cs
+    disk_rows = min(chunks * cs, meta["stored_content_count"]) if prefix_only else chunks * cs
     valid_rows = min(n, disk_rows)
     if not 0 <= kept <= valid_rows or not 0 <= chunks <= meta["n_chunks"]:
         raise AssertionError("budget plan exceeds valid store geometry")
@@ -558,7 +584,7 @@ class QwenStore:
 
     def _validate_meta(self, expected_identity: dict | None) -> None:
         m = self.meta
-        if m.get("format") != FORMAT or m.get("dtype") != "bfloat16" \
+        if m.get("format") not in (FORMAT, PREFIX_FORMAT) or m.get("dtype") != "bfloat16" \
                 or m.get("byte_order") != sys.byteorder \
                 or m.get("key_rope_state") != "post_mrope":
             raise ValueError("unsupported or mislabeled Qwen KV store")
@@ -571,11 +597,21 @@ class QwenStore:
         if min(n, p, cs, heads, hd, int(m["num_layers"])) < 1 \
                 or start < 0 or start + n > p:
             raise ValueError("invalid store dimensions")
-        if len(m["prefix_input_ids"]) != p or len(m["stored_to_original"]) != n:
+        prefix_only = m.get("format") == PREFIX_FORMAT
+        order = m["full_importance_permutation"] if prefix_only else m["stored_to_original"]
+        if prefix_only:
+            k = (n + 3) // 4
+            if (m.get("storage_policy") != "prefix25" or m.get("original_content_count") != n
+                    or m.get("stored_content_count") != k or m.get("retention_ratio") != .25
+                    or m.get("rounding_policy") != "ceil_original_content"
+                    or m["stored_to_original"] != order[:k]
+                    or m.get("stored_row_to_original") != order[:k]):
+                raise ValueError("invalid original-content prefix25 mapping/budget")
+        if len(m["prefix_input_ids"]) != p or len(order) != n:
             raise ValueError("invalid prefix IDs or permutation length")
-        if inverse_permutation(m["stored_to_original"]) != m["original_to_stored"]:
+        if inverse_permutation(order) != m["original_to_stored"]:
             raise ValueError("permutation inverse mismatch")
-        if permutation_sha256(m["stored_to_original"]) != m["permutation_sha256"]:
+        if permutation_sha256(order) != m["permutation_sha256"]:
             raise ValueError("permutation digest mismatch")
         if hashlib.sha256(_canonical_json(m["prefix_input_ids"])).hexdigest() != m["prefix_sha256"]:
             raise ValueError("prefix token digest mismatch")
@@ -583,10 +619,12 @@ class QwenStore:
         if m["structural_indices"] != expected_struct \
                 or m["structural_count"] != len(expected_struct):
             raise ValueError("structural prefix index mismatch")
-        nc = (n + cs - 1) // cs
-        if m["n_chunks"] != nc or m["stored_rows"] != nc * cs \
-                or m["padding_rows"] != nc * cs - n \
-                or m["valid_rows_last_chunk"] != n - (nc - 1) * cs:
+        valid = (n + 3) // 4 if prefix_only else n
+        nc = (valid + cs - 1) // cs
+        disk = valid if prefix_only else nc * cs
+        if m["n_chunks"] != nc or m["stored_rows"] != disk \
+                or m["padding_rows"] != disk - valid \
+                or m["valid_rows_last_chunk"] != valid - (nc - 1) * cs:
             raise ValueError("chunk geometry mismatch")
         if m["row_bytes"] != heads * hd * _ROW_ITEMSIZE:
             raise ValueError("row byte width mismatch")

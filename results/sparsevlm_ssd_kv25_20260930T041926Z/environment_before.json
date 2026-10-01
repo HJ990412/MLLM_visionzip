@@ -1,0 +1,27 @@
+{
+  "git_status": {
+    "exit_code": 128,
+    "stdout": "",
+    "stderr": "fatal: not a git repository (or any of the parent directories): .git\n"
+  },
+  "disk": {
+    "exit_code": 0,
+    "stdout": "Filesystem         1B-blocks          Used    Available Use% Mounted on\n/dev/nvme0n1p2 1967317549056 1745184497664 122123231232  94% /\n",
+    "stderr": ""
+  },
+  "mount": {
+    "exit_code": 0,
+    "stdout": "TARGET SOURCE         FSTYPE OPTIONS\n/      /dev/nvme0n1p2 ext4   rw,relatime,errors=remount-ro\n",
+    "stderr": ""
+  },
+  "gpu": {
+    "exit_code": 0,
+    "stdout": "Wed Sep 30 13:19:26 2026       \n+---------------------------------------------------------------------------------------+\n| NVIDIA-SMI 535.230.02             Driver Version: 535.230.02   CUDA Version: 12.2     |\n|-----------------------------------------+----------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |\n|                                         |                      |               MIG M. |\n|=========================================+======================+======================|\n|   0  NVIDIA GeForce RTX 4090        Off | 00000000:01:00.0 Off |                  Off |\n|  0%   40C    P8              15W / 450W |     30MiB / 24564MiB |      0%      Default |\n|                                         |                      |                  N/A |\n+-----------------------------------------+----------------------+----------------------+\n                                                                                         \n+---------------------------------------------------------------------------------------+\n| Processes:                                                                            |\n|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |\n|        ID   ID                                                             Usage      |\n|=======================================================================================|\n|    0   N/A  N/A      1905      G   /usr/lib/xorg/Xorg                            9MiB |\n|    0   N/A  N/A      3854      G   /usr/bin/gnome-shell                         10MiB |\n+---------------------------------------------------------------------------------------+\n",
+    "stderr": ""
+  },
+  "packages": {
+    "exit_code": 0,
+    "stdout": "absl-py==2.5.0\naccelerate==1.14.0\naiohappyeyeballs==2.7.1\naiohttp==3.14.1\naiosignal==1.4.0\nanyio==4.14.2\nasttokens==2.4.1\nasync-timeout==5.0.1\nattrs==26.1.0\nav==17.1.0\nbitsandbytes==0.49.2\ncertifi==2026.6.17\ncharset-normalizer==3.4.9\ncomm==0.2.1\ncontourpy==1.3.2\ncycler==0.12.1\ndatasets==5.0.0\ndebugpy==1.8.0\ndecorator==5.1.1\ndill==0.4.1\nexceptiongroup==1.2.0\nexecuting==2.0.1\nfilelock==3.29.0\nfonttools==4.63.0\nfrozenlist==1.8.0\nfsspec==2026.4.0\ngrpcio==1.82.1\nh11==0.16.0\nhf-xet==1.5.1\nhttpcore==1.0.9\nhttpx==0.28.1\nhuggingface_hub==0.36.2\nidna==3.18\nipykernel==6.28.0\nipython==8.19.0\njedi==0.19.1\nJinja2==3.1.6\njupyter_client==8.6.0\njupyter_core==5.7.0\nkiwisolver==1.5.0\nMarkdown==3.10.2\nMarkupSafe==3.0.3\nmatplotlib==3.10.9\nmatplotlib-inline==0.1.6\nmpmath==1.3.0\nmultidict==6.7.1\nmultiprocess==0.70.19\nnest-asyncio==1.5.8\nnetworkx==3.4.2\nnumpy==2.2.6\nnvidia-cublas-cu12==12.1.3.1\nnvidia-cuda-cupti-cu12==12.1.105\nnvidia-cuda-nvrtc-cu12==12.1.105\nnvidia-cuda-runtime-cu12==12.1.105\nnvidia-cudnn-cu12==9.1.0.70\nnvidia-cufft-cu12==11.0.2.54\nnvidia-curand-cu12==10.3.2.106\nnvidia-cusolver-cu12==11.4.5.107\nnvidia-cusparse-cu12==12.1.0.106\nnvidia-nccl-cu12==2.21.5\nnvidia-nvjitlink-cu12==12.9.86\nnvidia-nvtx-cu12==12.1.105\npackaging==26.0\npandas==2.3.3\nparso==0.8.3\npeft==0.19.1\npillow==12.2.0\nprompt-toolkit==3.0.43\npropcache==0.5.2\nprotobuf==7.35.1\npsutil==7.2.2\npure-eval==0.2.2\npyarrow==25.0.0\npyparsing==3.3.2\npython-dateutil==2.9.0.post0\npytz==2026.2\nPyYAML==6.0.3\npyzmq==25.1.2\nqwen-vl-utils==0.0.14\nregex==2026.7.10\nrequests==2.34.2\nsafetensors==0.8.0\nsentencepiece==0.2.2\nsix==1.17.0\nstack-data==0.6.3\nsympy==1.13.1\ntensorboard==2.21.0\ntensorboard-data-server==0.7.2\ntokenizers==0.22.2\ntorch==2.5.1+cu121\ntorchaudio==2.5.1+cu121\ntorchvision==0.20.1+cu121\ntornado==6.4\ntqdm==4.68.4\ntraitlets==5.14.1\ntransformers==4.57.6\ntriton==3.1.0\ntyping_extensions==4.15.0\ntzdata==2026.3\nurllib3==2.7.0\nwcwidth==0.2.13\nWerkzeug==3.1.8\nxxhash==3.8.1\nyarl==1.24.2\n",
+    "stderr": ""
+  }
+}

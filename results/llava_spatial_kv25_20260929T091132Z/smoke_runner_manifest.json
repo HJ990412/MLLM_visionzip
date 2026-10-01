@@ -1,0 +1,155 @@
+{
+  "checkpoint": {
+    "config_sha256": "3ea1ed765b0b79834892d8060cb46162121ef01596e56ca6e168a48a8da08336",
+    "revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+    "snapshot_dir": "/home/dblab/.cache/huggingface/hub/models--llava-hf--llava-v1.6-vicuna-7b-hf/snapshots/c916e6cdcd760b4cecd1dd4907f84ac649f93b23"
+  },
+  "cuda": "12.1",
+  "expected_requests": 96,
+  "frozen_config_sha256": "020dcfa144a0f576d0e14ee856bbf39ba80bed04873837b922bb2762631db723",
+  "frozen_workload": {
+    "full_images": 40,
+    "full_questions": 240,
+    "full_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66",
+    "index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+    "selected_images": 40,
+    "selected_questions": 240,
+    "selected_workload_sha256": "97afe02f924a49cadf0c357175b50185e8f16db12b2dd4402595e2bb99d20f66"
+  },
+  "gpu_correctness_gate": {
+    "GPU_CORRECTNESS": "PASS",
+    "fixed_samples": [
+      [
+        "n355567",
+        "201751701"
+      ],
+      [
+        "n9181",
+        "20929611"
+      ],
+      [
+        "n390187",
+        "201861403"
+      ],
+      [
+        "n133585",
+        "202108008"
+      ],
+      [
+        "n272098",
+        "201535625"
+      ]
+    ],
+    "path": "/home/dblab/hj/mllm_v2/runs/llava_spatial_kv25_20260929T091132Z/gpu_validation.json",
+    "sha256": "45f85fe59a07cb4d884ee97fb72816192e2cb32b5c16aa4abae148000730cf45",
+    "source_sha256": {
+      "mmimpress/contextual_kv25.py": "91270fa9dff78e230c59a55c801d9b99ae37ceb285fb4409f092666335b692a6",
+      "mmimpress/cvpr25.py": "feb5640097056560fadbe596d7ff5aae82745b2d533fccdb8680f4134fada1b1",
+      "mmimpress/model.py": "39437de1b03c41af4f8e9aa219620c6a1544a2a4ef98391679eb0dfd2522c6ba",
+      "mmimpress/piggyback.py": "336a9861b6ee20fdb49db6ad57ea501e4462e9071732647e89e8510a91931908",
+      "mmimpress/serve.py": "3d02d54e26076b8974fc75b1dde2bf37fbe9be83b57a213b27b2ea4bdb2698d9",
+      "mmimpress/spatial_kv25.py": "b43a3c5c6664a7a4c40628fafaaa0b8365957ff9a0f3522e0561cc332d938b28",
+      "mmimpress/store.py": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b",
+      "scripts/90_validate_llava_kv25.py": "f573c858866173e49d02ab8737046ad21dba0a6fdf94de4e0366ff5bcab7ac54",
+      "scripts/92_validate_llava_contextual_kv25.py": "7175662e22941e30b32dcc7dd4075005acd2cd91a2df0a8044c211a3d1753a67",
+      "scripts/94_validate_llava_spatial_kv25.py": "a19614df5e8b81fbbc4ec7993f15b28047fdd6d231e911cc87095efad7ac0c09",
+      "scripts/95_eval_llava_spatial_kv25.py": "80369d968f1fc0afa0b53a5f7e4badc82f645fbedbe1b579ff09284fe078c234"
+    }
+  },
+  "gpu_preflight": {
+    "index": "0",
+    "memory_total_mib": "24564",
+    "memory_used_mib": "30",
+    "name": "NVIDIA GeForce RTX 4090",
+    "utilization_pct": "0"
+  },
+  "host": "dblab",
+  "images": 4,
+  "methods": {
+    "d20_context5": {
+      "alpha": 0.2,
+      "label": "D20+Context5",
+      "variant": "contextual"
+    },
+    "d20_index_uniform5": {
+      "alpha": 0.2,
+      "label": "D20+IndexUniform5",
+      "variant": "uniform"
+    },
+    "d20_random5": {
+      "alpha": 0.2,
+      "label": "D20+Random5",
+      "variant": "random"
+    },
+    "d20_spatial_uniform5": {
+      "alpha": 0.2,
+      "label": "D20+SpatialUniform5",
+      "variant": "spatial_uniform"
+    },
+    "d21_1_c3_9_reference": {
+      "alpha": 0.15625,
+      "label": "D21.1+C3.9 [54:10 reference]",
+      "variant": "contextual"
+    },
+    "d25_c0": {
+      "alpha": 0.0,
+      "label": "D25+C0",
+      "variant": "dominant"
+    },
+    "fullload": {
+      "alpha": null,
+      "label": "FullLoad",
+      "variant": null
+    },
+    "recompute": {
+      "alpha": null,
+      "label": "ReComp",
+      "variant": null
+    }
+  },
+  "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+  "model_config": {
+    "attention_backend": "eager",
+    "chunk_size": 64,
+    "compute_dtype": "bfloat16",
+    "greedy_decoding": true,
+    "load_4bit": true,
+    "max_new_tokens": 16,
+    "ssd_kv_dtype": "float16"
+  },
+  "package_versions": {
+    "Pillow": "12.2.0",
+    "accelerate": "1.14.0",
+    "bitsandbytes": "0.49.2",
+    "numpy": "2.2.6",
+    "psutil": "7.2.2",
+    "torch": "2.5.1+cu121",
+    "transformers": "4.57.6"
+  },
+  "phase": "smoke",
+  "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]",
+  "questions_per_image": 3,
+  "run_id": "llava_spatial_kv25_20260929T091132Z",
+  "schema_version": "llava-spatial-uniform-kv25-v1",
+  "seed": 1234,
+  "source_freeze_sha256": "a725cf4c3a6c907769beebd1bdc8b1e108501d52a81c7b5132f4c1e025996d54",
+  "source_sha256": {
+    "mmimpress/contextual_kv25.py": "91270fa9dff78e230c59a55c801d9b99ae37ceb285fb4409f092666335b692a6",
+    "mmimpress/cvpr25.py": "feb5640097056560fadbe596d7ff5aae82745b2d533fccdb8680f4134fada1b1",
+    "mmimpress/model.py": "39437de1b03c41af4f8e9aa219620c6a1544a2a4ef98391679eb0dfd2522c6ba",
+    "mmimpress/piggyback.py": "336a9861b6ee20fdb49db6ad57ea501e4462e9071732647e89e8510a91931908",
+    "mmimpress/serve.py": "3d02d54e26076b8974fc75b1dde2bf37fbe9be83b57a213b27b2ea4bdb2698d9",
+    "mmimpress/spatial_kv25.py": "b43a3c5c6664a7a4c40628fafaaa0b8365957ff9a0f3522e0561cc332d938b28",
+    "mmimpress/store.py": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b",
+    "scripts/49_eval_query_aware_baseline.py": "ea6e3d0d3a50580e3c4cde8c578d377b4e7e92f2dcb6313610bf52b10f4c042d",
+    "scripts/89_eval_llava_kv25.py": "c65132f5aa8c3598cd5f64cc598e6034241946f2f941248d03d202e74224dcbd",
+    "scripts/92_validate_llava_contextual_kv25.py": "7175662e22941e30b32dcc7dd4075005acd2cd91a2df0a8044c211a3d1753a67",
+    "scripts/93_eval_llava_contextual_kv25.py": "90485c4b414022829d937041edecdcc1a85d18b0cdeb0091281e06a5f075042f",
+    "scripts/94_validate_llava_spatial_kv25.py": "a19614df5e8b81fbbc4ec7993f15b28047fdd6d231e911cc87095efad7ac0c09",
+    "scripts/95_eval_llava_spatial_kv25.py": "80369d968f1fc0afa0b53a5f7e4badc82f645fbedbe1b579ff09284fe078c234"
+  },
+  "started_after_freeze": true,
+  "started_at_utc": "2026-09-29T09:15:17Z",
+  "store_cleanup_policy": "only this run's image-scoped stores after raw/selection/hash/validation fsync; log paths; rebuild required",
+  "torch": "2.5.1+cu121"
+}

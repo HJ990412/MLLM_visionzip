@@ -1,0 +1,57 @@
+{
+  "schema_version": "sparsevlm-final-protection-v1",
+  "mode": "final_stat_and_source_sha256_after_full_rehash",
+  "status": "PASS",
+  "started_at": "2026-09-30T05:36:43.561564+00:00",
+  "finished_at": "2026-09-30T05:36:44.102784+00:00",
+  "elapsed_seconds": 0.5412236307747662,
+  "root": "/home/dblab/hj/mllm_v2",
+  "prior_full_rehash": {
+    "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/protection_rehash.json",
+    "sha256": "e7d8a222031769c9291c8592a19871dc936baebb8da58c8d47feb58422b47eef",
+    "expected_sha256": "e7d8a222031769c9291c8592a19871dc936baebb8da58c8d47feb58422b47eef",
+    "status": "PASS",
+    "finished_at": "2026-09-30T04:45:53.078242+00:00",
+    "artifact_files": 89829,
+    "source_files": 185,
+    "actual_hash_bytes_read": 595245207539
+  },
+  "inventories": {
+    "source_path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/source_before.json",
+    "source_sha256": "3de3fc4ecd5ae52ac1ad9cb1c576ce4bf970ad45eb88333558397e7405ff7b50",
+    "artifact_path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/protected_artifacts_before.jsonl",
+    "artifact_sha256": "947389dccde0443366433414e1f446f153503f764aa7bace73972a42079af1f7",
+    "match_prior_full_rehash": true
+  },
+  "source": {
+    "expected_files": 185,
+    "checked_files": 185,
+    "sha256_recomputed": true,
+    "content_bytes_read": 5508959,
+    "checks": [
+      "SHA256",
+      "byte length",
+      "stable fingerprint during hash"
+    ],
+    "initial_inode_mtime_available": false
+  },
+  "artifacts": {
+    "expected_files": 89829,
+    "checked_files": 89829,
+    "logical_payload_bytes": 595239698580,
+    "content_sha256_recomputed": false,
+    "payload_bytes_read": 0,
+    "checks": [
+      "size",
+      "inode",
+      "mtime_ns",
+      "symlink state"
+    ],
+    "evidence_limit": "Final metadata agreement plus earlier full hash; no fresh per-artifact content SHA256 verification."
+  },
+  "audit_receipt_and_inventory_hash_bytes": 22799034,
+  "failures": [],
+  "existing_artifacts_modified_by_audit": false,
+  "gpu_used": false,
+  "timing_scope": "after_all_latency_benchmarks"
+}

@@ -1,0 +1,131 @@
+{
+  "FP64_dense_compact": {
+    "allclose": true,
+    "exact": false,
+    "max_abs": 1.7763568394002505e-15,
+    "max_relative_excess": 0.0005726856470032049,
+    "mean_abs": 1.0824909157099155e-17,
+    "numel": 215040,
+    "violating_elements": 0,
+    "worst_index": [
+      0,
+      0,
+      6,
+      77
+    ]
+  },
+  "N": 529,
+  "compact_FP32_vs_FP64": {
+    "allclose": false,
+    "exact": false,
+    "max_abs": 3.442589497990034e-05,
+    "max_relative_excess": 3.051846113435967,
+    "mean_abs": 2.659132892404619e-07,
+    "numel": 215040,
+    "violating_elements": 56,
+    "worst_index": [
+      0,
+      10,
+      0,
+      2
+    ]
+  },
+  "dense_FP32_vs_FP64": {
+    "allclose": false,
+    "exact": false,
+    "max_abs": 3.44407961411497e-05,
+    "max_relative_excess": 3.053167097278829,
+    "mean_abs": 2.60726198787094e-07,
+    "numel": 215040,
+    "violating_elements": 39,
+    "worst_index": [
+      0,
+      10,
+      0,
+      2
+    ]
+  },
+  "dialog_id": "mtgqa_000285",
+  "image_id": "n313060",
+  "k": 133,
+  "memory_SSD_row_selected_shape": [
+    [
+      1,
+      4,
+      154,
+      128
+    ],
+    [
+      1,
+      4,
+      154,
+      128
+    ]
+  ],
+  "no_gate_waiver": true,
+  "old_FP32_oracle": {
+    "allclose": false,
+    "exact": false,
+    "max_abs": 2.162158489227295e-05,
+    "max_relative_excess": 1.9552677869796753,
+    "mean_abs": 2.1028299101999437e-08,
+    "numel": 215040,
+    "violating_elements": 16,
+    "worst_index": [
+      0,
+      6,
+      51,
+      5
+    ]
+  },
+  "production_first_logits_hash": "80dff48b06f74fbed506cabe8bbf16d05a759106b4300dc061f6593035fe2a35",
+  "same_suffix_QKV_inputs": {
+    "k_post_mrope": {
+      "allclose": true,
+      "exact": true,
+      "max_abs": 0.0,
+      "max_relative_excess": null,
+      "mean_abs": 0.0,
+      "numel": 30720,
+      "violating_elements": 0,
+      "worst_index": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "q_post_mrope": {
+      "allclose": true,
+      "exact": true,
+      "max_abs": 0.0,
+      "max_relative_excess": null,
+      "mean_abs": 0.0,
+      "numel": 215040,
+      "violating_elements": 0,
+      "worst_index": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "v": {
+      "allclose": true,
+      "exact": true,
+      "max_abs": 0.0,
+      "max_relative_excess": null,
+      "mean_abs": 0.0,
+      "numel": 30720,
+      "violating_elements": 0,
+      "worst_index": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "source_row_physical_id": "9f817237a2804ca2bb85655b9ed2966c",
+  "suffix_length": 60,
+  "turn_id": 2
+}

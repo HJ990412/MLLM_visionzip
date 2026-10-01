@@ -1,0 +1,49 @@
+[
+  {
+    "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke_execution.log",
+    "status": "PRE_REQUEST_STARTUP_FAILURE",
+    "completed_requests": 0,
+    "error": "RuntimeError: existing runner config differs; new run required",
+    "scope": "config equality guard before model load and any request; excluded from request retry counts",
+    "cause": "GPU gate relative/absolute path string mismatch (root execution review); frozen config and source unchanged",
+    "replacement_log": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke_execution_02.log",
+    "replacement_phase_status": "PASS",
+    "evidence": "short traceback plus frozen runner guard order; later phase validation proves successful launch"
+  },
+  {
+    "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_diagnostic_01/gpu_validation.json",
+    "status": "PARTIAL",
+    "error": null,
+    "scope": "pre-pilot correctness diagnostic, excluded from measured request counts"
+  },
+  {
+    "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/final_audit_execution.log",
+    "status": "PRESERVED_LOG",
+    "bytes": 95,
+    "scope": "execution log; no failed-request count inferred from a log filename"
+  },
+  {
+    "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/pilot_execution.log",
+    "status": "PRESERVED_LOG",
+    "bytes": 4922,
+    "scope": "execution log; no failed-request count inferred from a log filename"
+  },
+  {
+    "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/setup_split_execution.log",
+    "status": "PRESERVED_LOG",
+    "bytes": 952,
+    "scope": "execution log; no failed-request count inferred from a log filename"
+  },
+  {
+    "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke_execution.log",
+    "status": "PRESERVED_LOG",
+    "bytes": 434,
+    "scope": "execution log; no failed-request count inferred from a log filename"
+  },
+  {
+    "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke_execution_02.log",
+    "status": "PRESERVED_LOG",
+    "bytes": 956,
+    "scope": "execution log; no failed-request count inferred from a log filename"
+  }
+]

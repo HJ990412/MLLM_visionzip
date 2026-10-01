@@ -1,0 +1,58 @@
+{
+  "cwd": "/home/dblab/hj/mllm_v2",
+  "environment": {
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "OMP_NUM_THREADS": "2",
+    "MKL_NUM_THREADS": "2"
+  },
+  "cpu_new": [
+    "/home/dblab/anaconda3/envs/mllm_ft/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_sparsevlm_ssd*.py",
+    "-v"
+  ],
+  "gpu_new_receipt": [
+    "/home/dblab/anaconda3/envs/mllm_ft/bin/python",
+    "scripts/97_validate_sparsevlm_ssd_kv25.py",
+    "--run-dir",
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_revalidation_NEW_TIMESTAMP",
+    "--limit",
+    "10",
+    "--regression-receipt",
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/legacy_cpu_tests.json"
+  ],
+  "resume_exact": [
+    "/home/dblab/anaconda3/envs/mllm_ft/bin/python",
+    "scripts/98_eval_sparsevlm_ssd_kv25.py",
+    "--run-dir",
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z",
+    "--results-dir",
+    "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z",
+    "--gpu-gate",
+    "runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_full_01/gpu_validation.json",
+    "--phase",
+    "all",
+    "--resume"
+  ],
+  "audit_new_output_only": [
+    "/home/dblab/anaconda3/envs/mllm_ft/bin/python",
+    "scripts/99_audit_sparsevlm_ssd_kv25.py",
+    "--run-dir",
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z",
+    "--output-dir",
+    "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z"
+  ],
+  "notes": [
+    "Use a new, nonexistent GPU receipt directory; prior receipts are preserved.",
+    "Resume requires unchanged frozen source/config and exactly the stored GPU gate path spelling.",
+    "Completed phases/images are not re-executed. Failed attempt raw remains; first independently valid image attempt is adopted.",
+    "Audit refuses existing output artifacts; re-audit to a new output directory.",
+    "No Qwen GPU or full MT-GQA/MT-VQA command is included."
+  ]
+}

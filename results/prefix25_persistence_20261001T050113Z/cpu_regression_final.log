@@ -1,0 +1,49 @@
+test_llava_boundaries_full_buffer_mask_and_bits (test_prefix25_persistence.PrefixPersistence) ... ok
+test_qwen_boundaries_bits_reads_and_negative (test_prefix25_persistence.PrefixPersistence) ... ok
+test_zero_and_invalid_storage_policy (test_prefix25_persistence.PrefixPersistence) ... ok
+test_edges_and_invalid_inputs (test_llava_kv25.BudgetArithmeticTests) ... ok
+test_all_boundary_geometries_and_real_pread_ranges (test_llava_kv25.RealKV25PathTests) ... ok
+test_bad_layout_and_zero_content_fail_closed (test_llava_kv25.RealKV25PathTests) ... ok
+test_question_independence_and_full_retention_logical_identity (test_llava_kv25.RealKV25PathTests) ... ok
+test_short_final_chunk_has_no_padding_bytes (test_llava_kv25.RealKV25PathTests) ... ok
+test_actual_whole_chunk_reads_and_exact_compact_kv (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_legacy_default_and_full_visual_regressions (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_legacy_store_requires_exact_protected_meta_digest (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_unused_finite_rows_do_not_enter_compact_cache (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_virtual_geometry_parity_and_boundaries (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_visual_mode_fails_closed_on_wrong_layout_and_bad_budget (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_activation_identity_and_integrity_fail_closed (test_qwen25_store.QwenStoreTests) ... ok
+test_first_k_reads_only_contiguous_spans_and_counts_actual_bytes (test_qwen25_store.QwenStoreTests) ... ok
+test_fp16_input_cannot_be_mislabeled_bf16 (test_qwen25_store.QwenStoreTests) ... ok
+test_native_bf16_direct_repack_full_round_trip (test_qwen25_store.QwenStoreTests) ... ok
+test_short_pread_retry_is_counted (test_qwen25_store.QwenStoreTests) ... ok
+test_stable_global_order_and_inverse (test_qwen25_store.QwenStoreTests) ... ok
+test_unavailable_page_cache_hint_has_nonnegative_counts (test_qwen25_store.QwenStoreTests) ... ok
+test_direct_write_matches_fresh_raster_then_posthoc_repack (test_image_only_repack.DirectAndPosthocLayoutTests) ... ok
+test_prefix_online_path_cannot_call_any_forbidden_scorer (test_image_only_repack.OnlinePrefixIsolationTests) ... ok
+test_accepts_valid_shared_image_only_layout_and_raster_layout (test_image_only_repack.PrefixLayoutValidatorTests) ... ok
+test_rejects_wrong_provenance_mapping_and_missing_artifact (test_image_only_repack.PrefixLayoutValidatorTests) ... ok
+test_contiguous_first_k_has_exact_actual_bytes_and_preads (test_image_only_repack.RealPrefixIOTests) ... ok
+test_invalid_real_score_and_separator_index_fail_closed (test_image_only_repack.VisionZipOrderTests) ... ok
+test_stable_ties_separator_tail_bijection_and_inverse (test_image_only_repack.VisionZipOrderTests) ... ok
+test_rotation_is_balanced_and_stable_hash_is_order_independent (test_visdial_turn1_piggyback_core.DeterministicHelpersTests) ... ok
+test_atomic_store_has_exact_prefix_layout_and_no_v_hidden (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_existing_target_refused_and_failed_stage_removed (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_post_publication_integrity_failure_does_not_strand_as_error (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_unproven_capture_metadata_is_rejected_before_staging (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_exact_penultimate_capture_only_and_output_unchanged (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_exception_removes_only_our_hooks_and_active_marker (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_fail_closed_on_backend_no_call_or_multiple_calls (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_positional_attention_call_is_bound_by_parameter_name (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_timing_only_never_requests_any_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_same_rgb_bytes_with_different_geometry_are_distinct (test_qwen25_runner.ImageIdentityTests) ... ok
+test_blocked_score_matches_dense_masked_reference (test_qwen25_vision.ReceivedAttentionTests) ... ok
+test_merge_groups_then_reverse_windows (test_qwen25_vision.ReceivedAttentionTests) ... ok
+test_rejects_non_full_last_block (test_qwen25_vision.StockVisionCaptureTests) ... ok
+test_single_stock_forward_capture_equals_dense_visionzip_formula (test_qwen25_vision.StockVisionCaptureTests) ... ok
+
+----------------------------------------------------------------------
+Ran 44 tests in 0.557s
+
+OK

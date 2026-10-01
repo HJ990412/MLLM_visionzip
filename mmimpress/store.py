@@ -104,7 +104,8 @@ def write_image_store(out_dir: Path, layers, v_start: int, v_num: int,
                       probe_heads: int = PROBE_HEADS,
                       stored_to_original=None,
                       separator_sidecar: bool = False,
-                      timing_out: dict | None = None):
+                      timing_out: dict | None = None,
+                      storage_policy: str = "full"):
     """Persist one image prefix (token-major + probe sidecar).
 
     layers: list over transformer layers of (k, v), each (1, H, prefix_len, hd)
@@ -117,6 +118,16 @@ def write_image_store(out_dir: Path, layers, v_start: int, v_num: int,
     H, hd = layers[0][0].shape[1], layers[0][0].shape[3]
     assert layers[0][0].shape[2] >= prefix_len, layers[0][0].shape
 
+    if storage_policy not in ("full", "prefix25"):
+        raise ValueError("unsupported storage policy")
+    n_content = v_num - len(newline_idx)
+    stored_content = (n_content + 3) // 4 if storage_policy == "prefix25" else n_content
+    if storage_policy == "prefix25":
+        if n_content < 1 or stored_to_original is None or not separator_sidecar or probe_heads:
+            raise ValueError("prefix25 requires nonempty repacked content and separate structural KV")
+        if list(stored_to_original)[n_content:] != list(newline_idx) or chunk_size != 64:
+            raise ValueError("prefix25 requires stable structural tail and chunk size 64")
+    disk_rows = stored_content if storage_policy == "prefix25" else v_num
     perm = None
     newline_original = [int(i) for i in newline_idx]
     newline_stored = list(newline_original)
@@ -130,7 +141,7 @@ def write_image_store(out_dir: Path, layers, v_start: int, v_num: int,
             inverse[original] = stored
         newline_stored = [inverse[i] for i in newline_original]
 
-    materialize_seconds = repack_seconds = write_seconds = 0.0
+    materialize_seconds = repack_seconds = write_seconds = serialize_seconds = 0.0
 
     def write_bytes(path, payload):
         nonlocal write_seconds
@@ -166,11 +177,13 @@ def write_image_store(out_dir: Path, layers, v_start: int, v_num: int,
                 t0 = time.perf_counter()
                 block = block.index_select(0, perm).contiguous()
                 repack_seconds += time.perf_counter() - t0
-            buf = block.numpy().tobytes()
+            t0 = time.perf_counter()
+            buf = block[:disk_rows].numpy().tobytes()
+            serialize_seconds += time.perf_counter() - t0
             write_bytes(ldir / f"{kind}.bin", buf)
             total += len(buf)
             if kind == "k":
-                pb = block[:, :probe_heads].contiguous().numpy().tobytes()
+                pb = block[:disk_rows, :probe_heads].contiguous().numpy().tobytes()
                 write_bytes(ldir / "probe_k.bin", pb)
                 probe_bytes += len(pb)
             if separator_sidecar:
@@ -213,6 +226,19 @@ def write_image_store(out_dir: Path, layers, v_start: int, v_num: int,
             "newline_stored": newline_stored,
             "reordered": True,
         })
+    if storage_policy == "prefix25":
+        meta.update({
+            "format": "llava_fp16_importance_prefix25_v2",
+            "storage_policy": "prefix25", "original_content_count": n_content,
+            "stored_content_count": stored_content, "payload_rows": disk_rows,
+            "retention_ratio": 0.25, "rounding_policy": "ceil_original_content",
+            "stored_row_to_original": list(stored_to_original)[:stored_content],
+            "full_importance_permutation": list(stored_to_original),
+            "order_semantics": "full virtual GPU permutation; only stored_row_to_original is on disk",
+            "payload_chunks": n_chunks(disk_rows, chunk_size),
+            "valid_rows_last_chunk": (disk_rows - 1) % chunk_size + 1,
+            "padding_rows": 0,
+        })
     if extra:
         meta.update(extra)
     # Repacking metadata must not be able to contradict the actual writer
@@ -230,6 +256,7 @@ def write_image_store(out_dir: Path, layers, v_start: int, v_num: int,
             "kv_materialize_ms": materialize_seconds * 1e3,
             "kv_repack_ms": repack_seconds * 1e3,
             "ssd_write_ms": write_seconds * 1e3,
+            "prefix_slice_serialization_ms": serialize_seconds * 1e3,
         })
     return meta
 
@@ -371,7 +398,11 @@ class ChunkReader:
         m = self.meta
         v_num, H, hd = m["v_token_num"], m["num_heads"], m["head_dim"]
         cs = m["chunk_size"]
-        spans = [chunk_span(ci, v_num, cs) for ci in sorted(set(cids))]
+        disk_rows = int(m.get("payload_rows", v_num))
+        if m.get("storage_policy") == "prefix25" and any(
+                ci < 0 or ci * cs >= disk_rows for ci in cids):
+            raise ValueError("requested chunk is absent from prefix25 store")
+        spans = [chunk_span(ci, disk_rows, cs) for ci in sorted(set(cids))]
         ranges = [byte_range(s, e, H, hd, self.itemsize) for s, e in spans]
         blobs = self._read(layer, kind, ranges, counter, kind, len(spans),
                            max_gap)
@@ -399,6 +430,8 @@ class ChunkReader:
         """Whole (v_num, num_heads, head_dim) block for one layer."""
         m = self.meta
         v_num, H, hd = m["v_token_num"], m["num_heads"], m["head_dim"]
+        if m.get("storage_policy") == "prefix25":
+            raise ValueError("FullLoad is unavailable for a prefix25 store")
         nbytes = v_num * H * hd * self.itemsize
         blobs = self._read(layer, kind, [(0, nbytes)], counter, kind,
                            m["n_chunks_per_layer"])

@@ -1,0 +1,30 @@
+test_controlled_equal_selection_and_method_order_isolation (test_sparsevlm_ssd_attention.ScopedAttentionTests) ... ok
+test_exception_restores_instances_and_unpatched_output (test_sparsevlm_ssd_attention.ScopedAttentionTests) ... ok
+test_finite_sentinels_do_not_change_actual_prefill_or_decode (test_sparsevlm_ssd_attention.ScopedAttentionTests) ... ok
+test_gqa_and_unknown_policy_fail_closed (test_sparsevlm_ssd_attention.ScopedAttentionTests) ... ok
+test_prefill_one_and_many_tokens_projection_decode_and_masks (test_sparsevlm_ssd_attention.ScopedAttentionTests) ... ok
+test_boundary_budgets_ties_structural_padding_short_chunks (test_sparsevlm_ssd_core.PlanTests) ... ok
+test_invalid_mapping_nan_inf_empty_budget_and_bad_chunks (test_sparsevlm_ssd_core.PlanTests) ... ok
+test_equal_fallback_single_suffix_and_empty (test_sparsevlm_ssd_core.RaterTests) ... ok
+test_official_rater_formula_fp32 (test_sparsevlm_ssd_core.RaterTests) ... ok
+test_valid_suffix_and_long_generated_history_scope (test_sparsevlm_ssd_core.RaterTests) ... ok
+test_causal_prefix_denominator_padding_and_one_token_suffix (test_sparsevlm_ssd_core.ScoreTests) ... ok
+test_full_matrix_oracle_both_policies_and_query_blocks (test_sparsevlm_ssd_core.ScoreTests) ... ok
+test_identical_heads_and_signal_after_head_3 (test_sparsevlm_ssd_core.ScoreTests) ... ok
+test_invalid_heads_ratios_operands_and_empty_raters (test_sparsevlm_ssd_core.ScoreTests) ... ok
+test_negative_future_mask_and_head_slice_are_detected (test_sparsevlm_ssd_core.ScoreTests) ... ok
+test_activation_hash_manifest_and_method_specific_probe_files (test_sparsevlm_ssd_core.StorageTests) ... ok
+test_bits_actual_events_and_allhead_no_probe_or_k_reread (test_sparsevlm_ssd_core.StorageTests) ... ok
+test_eof_short_read_recorded_before_failure (test_sparsevlm_ssd_core.StorageTests) ... ok
+test_finite_unselected_sentinel_does_not_change_answer_attention (test_sparsevlm_ssd_core.StorageTests) ... ok
+test_mapping_tamper_wrong_provenance_and_request_isolation (test_sparsevlm_ssd_core.StorageTests) ... ok
+test_nonadjacent_ranges_coalesce_only_adjacent_chunks (test_sparsevlm_ssd_core.StorageTests) ... ok
+test_known_legacy_patch_rejects_active_bias_and_leaves_global_unchanged (test_sparsevlm_ssd_review.AdapterReviewTests) ... ok
+test_padding_denominator_mask_dense_shape_and_sentinel_are_real (test_sparsevlm_ssd_review.AdapterReviewTests) ... ok
+test_partial_enter_exception_restores_completed_layer_and_existing_owner (test_sparsevlm_ssd_review.AdapterReviewTests) ... ok
+test_unknown_global_patch_fails_closed (test_sparsevlm_ssd_review.AdapterReviewTests) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.078s
+
+OK

@@ -1,0 +1,3015 @@
+{
+  "status": "PASS",
+  "source_sha256": {
+    "mmimpress/__init__.py": "3281e8d1b62de60a6a7ea923e54eab6367fa5a2d38e4fdbe8205d6b03f14b968",
+    "mmimpress/config.py": "5d14532936ac55e01d7320ec8877b242471361c1001afb25a9d7fafc4a12c418",
+    "mmimpress/contextual_kv25.py": "91270fa9dff78e230c59a55c801d9b99ae37ceb285fb4409f092666335b692a6",
+    "mmimpress/convbench.py": "e6edfe6a33d51d8cb8521b6639141afc83f4962caae8ebf7d242a7f40ac48f88",
+    "mmimpress/convbench_judge.py": "7d21260d065bab5f179e0552ae577f3924f3163a608394a692cdf52ce0df75b3",
+    "mmimpress/cvpr25.py": "feb5640097056560fadbe596d7ff5aae82745b2d533fccdb8680f4134fada1b1",
+    "mmimpress/dataset.py": "e5e58ea185275429c7e74bbccde43fd50a276428d64089f2f349616ed65b15a0",
+    "mmimpress/model.py": "39437de1b03c41af4f8e9aa219620c6a1544a2a4ef98391679eb0dfd2522c6ba",
+    "mmimpress/mpic.py": "43c4c6a17c05a18eaf1040602398543e8733691fe0f840fa1a4051585b99f1cb",
+    "mmimpress/mt_gqa.py": "a33c5ef9889bdff2abfcf026782cf9fc3fb5076f5bcbb1b24969864945bb9406",
+    "mmimpress/mt_vqa_v2.py": "9ca6846da1c1c1e952ca7f882161dfa9a38f1f10c45f07b7cc1a750c43c9809d",
+    "mmimpress/multiturn.py": "5dd530952245cbbf836325afbc6525aae07556e00067c75e93384631738eec3a",
+    "mmimpress/multiturn_results.py": "d75a0e7585262e4c32a0b4755242a65e0ad451113e1af1d6081edc6fe79f61ae",
+    "mmimpress/piggyback.py": "336a9861b6ee20fdb49db6ad57ea501e4462e9071732647e89e8510a91931908",
+    "mmimpress/qwen25/__init__.py": "3884791052734addb3d0712b16f8ae281326cd19656f5677ee538b125065af3a",
+    "mmimpress/qwen25/runner.py": "773a5a84d3045bd44459d8f302e423595efaa311fb78862b5466e47416ace66d",
+    "mmimpress/qwen25/store.py": "47e88063eb2ad2f3bd5057845ebb4c2b6c01922a31a7f4d72da49c05c5be447f",
+    "mmimpress/qwen25/vision.py": "de2cdf62588da21e49a66568a32626b23e0b2e8ad6813bea22e0f6c31c6a0e59",
+    "mmimpress/rekv.py": "7d2c32852421dd288b190d9635c4fec295217225e8fd903309cfabde0f744acb",
+    "mmimpress/rekv_store.py": "17c4f9e7d454d739fc86186f68dd7f40374622fa078bfc148bbaef8f8cc7bffb",
+    "mmimpress/reorder.py": "d6c5b40bafc18183cdb8793c7e87d916a2c4cca86751f6d57f83a5a9f4798b3f",
+    "mmimpress/serve.py": "3d02d54e26076b8974fc75b1dde2bf37fbe9be83b57a213b27b2ea4bdb2698d9",
+    "mmimpress/sparsevlm.py": "7b24d592eb36bb5da11fe628d6012192ec1348d5680a8962640251ca73ce2e18",
+    "mmimpress/sparsevlm_ssd_attention.py": "f9d163dde78e798484b1102a61e5db0e90a84dc54ecd235b05237ad7426a3dec",
+    "mmimpress/sparsevlm_ssd_core.py": "9314e6d75a013c0f26a074f3c4429cf23c7f31db4df50d38490d9d05b0f9ea2b",
+    "mmimpress/sparsevlm_ssd_store.py": "dbcca26e9f026ac16e835a682178e2c20bf841c3fad4effe981d39486de13be2",
+    "mmimpress/spatial_kv25.py": "b43a3c5c6664a7a4c40628fafaaa0b8365957ff9a0f3522e0561cc332d938b28",
+    "mmimpress/store.py": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b",
+    "scripts/100_eval_llava_mt_gqa_allhead_kv25.py": "dfb44352ba992cc65f18d996fdb276e918856b4e3b93504a45928458618bd18f",
+    "scripts/101_audit_llava_mt_gqa_allhead_kv25.py": "8f9d23df5769391f48c6d63f7f0776971d0f5bbd5f1675efb62df88654038c1b",
+    "scripts/102_validate_llava_mt_gqa_allhead_kv25.py": "3d06d633ba6cfa2135cb98f3de813544badf6e06e8b990d0cbad9f85326e6602",
+    "scripts/49_eval_query_aware_baseline.py": "ea6e3d0d3a50580e3c4cde8c578d377b4e7e92f2dcb6313610bf52b10f4c042d",
+    "scripts/90_validate_llava_kv25.py": "f573c858866173e49d02ab8737046ad21dba0a6fdf94de4e0366ff5bcab7ac54",
+    "scripts/97_validate_sparsevlm_ssd_kv25.py": "6500848b1ffb0514c2d9f53a78abf8e98ddab5876ed64eaa9c1164060db63faa",
+    "scripts/99_audit_sparsevlm_ssd_kv25.py": "76449ff77ed9fa6db49dabea4d4d5db8d6bdec6d501543729b6cb87f20af63c6"
+  },
+  "config_sha256": "0d0040f130bcb3bf39715e3f01e66cfe529a228a80f28a939cb714979d049815",
+  "gates": {
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS",
+    "G7": "PASS",
+    "G8": "PASS",
+    "G9": "PASS",
+    "G10": "PASS",
+    "G11": "PASS",
+    "G12": "PASS"
+  },
+  "QWEN_GPU": "NOT RUN",
+  "MT_VQA": "NOT RUN",
+  "prior_production_AllHead": {
+    "status": "PASS",
+    "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_full_01/gpu_validation.json",
+    "sha256": "78910e0165176e7fdc4db6ded359a4583f30248df6ed98793e1c0ecff8ff12e1",
+    "scope": "unchanged production AllHead 10 fixed GPU cases/G1-G12 reused; fresh wrapper tests additionally required"
+  },
+  "CPU": {
+    "status": "PASS",
+    "command": [
+      "/home/dblab/anaconda3/envs/mllm_ft/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_*.py"
+    ],
+    "log_sha256": "adc7e244dbd016638f0e8a6753b69d1856ef955deb2766781ff31eeb10495dfd"
+  },
+  "actual_model": {
+    "q_heads": 32,
+    "kv_heads": 32,
+    "layers": 32,
+    "dtype": "torch.bfloat16",
+    "attention": "eager",
+    "load_4bit": true,
+    "device_map": "{'': device(type='cuda', index=0)}"
+  },
+  "ours_five_fixed": {
+    "status": "PASS",
+    "samples": [
+      {
+        "image_id": "n355567",
+        "question_id": "201751701",
+        "N_content": 2112,
+        "N_structural": 32,
+        "k": 528,
+        "m": 9,
+        "selected_original_ids_sha256": "3283e63056347f52fd2280bda498ebb2c084fb4fbf421ac1b17a12f30e67c31e",
+        "reference_vs_ssd": {
+          "all_step_logits_within_frozen_tolerance": true,
+          "first_step_logits_exact": true,
+          "max_abs_logit_delta": 0.0,
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "n_steps": 2,
+          "atol": 0.0001,
+          "rtol": 0.0001
+        },
+        "sentinel_prefill_decode": {
+          "all_step_logits_within_frozen_tolerance": true,
+          "first_step_logits_exact": true,
+          "max_abs_logit_delta": 0.0,
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "n_steps": 2,
+          "atol": 0.0001,
+          "rtol": 0.0001
+        },
+        "full100_canonical_logical": {
+          "all_layer_head_kv_bits": true,
+          "all_layer_keep_mask": true,
+          "keep_count_per_layer": [
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149
+          ],
+          "system_and_separator_bits": true,
+          "canonical_full_logical_bits": true
+        },
+        "legacy_equal_set": null,
+        "different_question_same_selected_ids": true,
+        "interleaved_repeat_no_cache_leak": {
+          "all_step_logits_within_frozen_tolerance": true,
+          "first_step_logits_exact": true,
+          "max_abs_logit_delta": 0.0,
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "n_steps": 2,
+          "atol": 0.0001,
+          "rtol": 0.0001
+        },
+        "cache_exact": {
+          "all_layer_head_kv_bits": true,
+          "all_layer_keep_mask": true,
+          "keep_count_per_layer": [
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565
+          ],
+          "system_and_separator_bits": true,
+          "canonical_full_logical_bits": false
+        },
+        "combined_attention_masks": {
+          "combined_prefill_and_decode_masks_exact": true,
+          "attention_calls": 64,
+          "prefill_layer_calls": 32,
+          "decode_layer_calls": 32,
+          "layers_observed": 32,
+          "system_kept": true,
+          "future_text_masked": true,
+          "padding_absent": true
+        },
+        "original_position_checks": [
+          {
+            "query_length": 30,
+            "first_position": 2149,
+            "last_position": 2178,
+            "total_keys": 2179
+          },
+          {
+            "query_length": 1,
+            "first_position": 2179,
+            "last_position": 2179,
+            "total_keys": 2180
+          }
+        ],
+        "physical_reads": {
+          "actual_pread_calls": 65,
+          "actual_returned_bytes": 318767104,
+          "normal_payload_bytes": 301989888,
+          "separator_bytes": 16777216,
+          "read_ranges_exact": true,
+          "forbidden_sidecar_reads": 0,
+          "calls": [
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/sep_kv.bin",
+              "offset": 0,
+              "requested": 16777216,
+              "returned": 16777216
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_00/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_00/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_01/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_01/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_02/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_02/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_03/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_03/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_04/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_04/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_05/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_05/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_06/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_06/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_07/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_07/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_08/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_08/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_09/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_09/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_10/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_10/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_11/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_11/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_12/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_12/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_13/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_13/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_14/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_14/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_15/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_15/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_16/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_16/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_17/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_17/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_18/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_18/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_19/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_19/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_20/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_20/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_21/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_21/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_22/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_22/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_23/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_23/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_24/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_24/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_25/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_25/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_26/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_26/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_27/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_27/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_28/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_28/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_29/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_29/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_30/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_30/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_31/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n355567/layer_31/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            }
+          ]
+        },
+        "persistence_integrity": {
+          "ok": true,
+          "error": null,
+          "excluded_from_persist_ms": true
+        },
+        "turn1_vision_forward_count": 1,
+        "hit_vision_forward_count": 0,
+        "hit_online_score_calls": 0,
+        "first_token_id": 3869,
+        "generated_token_ids": [
+          3869,
+          2
+        ],
+        "status": "PASS"
+      },
+      {
+        "image_id": "n9181",
+        "question_id": "20929611",
+        "N_content": 2304,
+        "N_structural": 48,
+        "k": 576,
+        "m": 9,
+        "selected_original_ids_sha256": "a84cda1cdac36d837b8842602c5947db9828de7043ad6a4efd87d8285c74635e",
+        "reference_vs_ssd": {
+          "all_step_logits_within_frozen_tolerance": true,
+          "first_step_logits_exact": true,
+          "max_abs_logit_delta": 0.0,
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "n_steps": 2,
+          "atol": 0.0001,
+          "rtol": 0.0001
+        },
+        "sentinel_prefill_decode": null,
+        "full100_canonical_logical": {
+          "all_layer_head_kv_bits": true,
+          "all_layer_keep_mask": true,
+          "keep_count_per_layer": [
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357,
+            2357
+          ],
+          "system_and_separator_bits": true,
+          "canonical_full_logical_bits": true
+        },
+        "legacy_equal_set": {
+          "all_step_logits_within_frozen_tolerance": true,
+          "first_step_logits_exact": true,
+          "max_abs_logit_delta": 0.0,
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "n_steps": 2,
+          "atol": 0.0001,
+          "rtol": 0.0001
+        },
+        "different_question_same_selected_ids": true,
+        "interleaved_repeat_no_cache_leak": null,
+        "cache_exact": {
+          "all_layer_head_kv_bits": true,
+          "all_layer_keep_mask": true,
+          "keep_count_per_layer": [
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629,
+            629
+          ],
+          "system_and_separator_bits": true,
+          "canonical_full_logical_bits": false
+        },
+        "combined_attention_masks": {
+          "combined_prefill_and_decode_masks_exact": true,
+          "attention_calls": 64,
+          "prefill_layer_calls": 32,
+          "decode_layer_calls": 32,
+          "layers_observed": 32,
+          "system_kept": true,
+          "future_text_masked": true,
+          "padding_absent": true
+        },
+        "original_position_checks": [
+          {
+            "query_length": 27,
+            "first_position": 2357,
+            "last_position": 2383,
+            "total_keys": 2384
+          },
+          {
+            "query_length": 1,
+            "first_position": 2384,
+            "last_position": 2384,
+            "total_keys": 2385
+          }
+        ],
+        "physical_reads": {
+          "actual_pread_calls": 65,
+          "actual_returned_bytes": 327155712,
+          "normal_payload_bytes": 301989888,
+          "separator_bytes": 25165824,
+          "read_ranges_exact": true,
+          "forbidden_sidecar_reads": 0,
+          "calls": [
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/sep_kv.bin",
+              "offset": 0,
+              "requested": 25165824,
+              "returned": 25165824
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_00/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_00/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_01/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_01/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_02/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_02/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_03/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_03/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_04/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_04/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_05/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_05/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_06/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_06/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_07/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_07/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_08/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_08/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_09/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_09/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_10/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_10/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_11/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_11/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_12/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_12/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_13/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_13/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_14/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_14/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_15/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_15/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_16/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_16/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_17/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_17/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_18/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_18/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_19/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_19/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_20/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_20/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_21/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_21/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_22/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_22/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_23/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_23/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_24/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_24/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_25/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_25/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_26/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_26/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_27/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_27/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_28/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_28/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_29/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_29/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_30/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_30/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_31/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n9181/layer_31/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            }
+          ]
+        },
+        "persistence_integrity": {
+          "ok": true,
+          "error": null,
+          "excluded_from_persist_ms": true
+        },
+        "turn1_vision_forward_count": 1,
+        "hit_vision_forward_count": 0,
+        "hit_online_score_calls": 0,
+        "first_token_id": 3869,
+        "generated_token_ids": [
+          3869,
+          2
+        ],
+        "status": "PASS"
+      },
+      {
+        "image_id": "n390187",
+        "question_id": "201861403",
+        "N_content": 2208,
+        "N_structural": 48,
+        "k": 552,
+        "m": 9,
+        "selected_original_ids_sha256": "dbcfa057b1896d776ee3cec21bd26b67d6917ac8b830935f5175b2a89fb24e88",
+        "reference_vs_ssd": {
+          "all_step_logits_within_frozen_tolerance": true,
+          "first_step_logits_exact": true,
+          "max_abs_logit_delta": 0.0,
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "n_steps": 3,
+          "atol": 0.0001,
+          "rtol": 0.0001
+        },
+        "sentinel_prefill_decode": {
+          "all_step_logits_within_frozen_tolerance": true,
+          "first_step_logits_exact": true,
+          "max_abs_logit_delta": 0.0,
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "n_steps": 3,
+          "atol": 0.0001,
+          "rtol": 0.0001
+        },
+        "full100_canonical_logical": {
+          "all_layer_head_kv_bits": true,
+          "all_layer_keep_mask": true,
+          "keep_count_per_layer": [
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261,
+            2261
+          ],
+          "system_and_separator_bits": true,
+          "canonical_full_logical_bits": true
+        },
+        "legacy_equal_set": null,
+        "different_question_same_selected_ids": true,
+        "interleaved_repeat_no_cache_leak": null,
+        "cache_exact": {
+          "all_layer_head_kv_bits": true,
+          "all_layer_keep_mask": true,
+          "keep_count_per_layer": [
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605,
+            605
+          ],
+          "system_and_separator_bits": true,
+          "canonical_full_logical_bits": false
+        },
+        "combined_attention_masks": {
+          "combined_prefill_and_decode_masks_exact": true,
+          "attention_calls": 96,
+          "prefill_layer_calls": 32,
+          "decode_layer_calls": 64,
+          "layers_observed": 32,
+          "system_kept": true,
+          "future_text_masked": true,
+          "padding_absent": true
+        },
+        "original_position_checks": [
+          {
+            "query_length": 24,
+            "first_position": 2261,
+            "last_position": 2284,
+            "total_keys": 2285
+          },
+          {
+            "query_length": 1,
+            "first_position": 2285,
+            "last_position": 2285,
+            "total_keys": 2286
+          },
+          {
+            "query_length": 1,
+            "first_position": 2286,
+            "last_position": 2286,
+            "total_keys": 2287
+          }
+        ],
+        "physical_reads": {
+          "actual_pread_calls": 65,
+          "actual_returned_bytes": 327155712,
+          "normal_payload_bytes": 301989888,
+          "separator_bytes": 25165824,
+          "read_ranges_exact": true,
+          "forbidden_sidecar_reads": 0,
+          "calls": [
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/sep_kv.bin",
+              "offset": 0,
+              "requested": 25165824,
+              "returned": 25165824
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_00/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_00/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_01/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_01/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_02/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_02/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_03/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_03/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_04/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_04/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_05/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_05/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_06/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_06/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_07/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_07/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_08/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_08/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_09/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_09/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_10/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_10/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_11/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_11/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_12/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_12/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_13/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_13/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_14/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_14/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_15/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_15/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_16/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_16/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_17/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_17/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_18/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_18/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_19/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_19/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_20/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_20/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_21/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_21/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_22/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_22/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_23/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_23/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_24/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_24/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_25/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_25/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_26/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_26/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_27/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_27/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_28/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_28/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_29/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_29/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_30/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_30/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_31/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n390187/layer_31/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            }
+          ]
+        },
+        "persistence_integrity": {
+          "ok": true,
+          "error": null,
+          "excluded_from_persist_ms": true
+        },
+        "turn1_vision_forward_count": 1,
+        "hit_vision_forward_count": 0,
+        "hit_online_score_calls": 0,
+        "first_token_id": 16843,
+        "generated_token_ids": [
+          16843,
+          23090,
+          2
+        ],
+        "status": "PASS"
+      },
+      {
+        "image_id": "n133585",
+        "question_id": "202108008",
+        "N_content": 2112,
+        "N_structural": 32,
+        "k": 528,
+        "m": 9,
+        "selected_original_ids_sha256": "ae0f2140242de49f3e0e5da0e0b6e8dd4834a275aba211dc80cd0f2505438616",
+        "reference_vs_ssd": {
+          "all_step_logits_within_frozen_tolerance": true,
+          "first_step_logits_exact": true,
+          "max_abs_logit_delta": 0.0,
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "n_steps": 2,
+          "atol": 0.0001,
+          "rtol": 0.0001
+        },
+        "sentinel_prefill_decode": {
+          "all_step_logits_within_frozen_tolerance": true,
+          "first_step_logits_exact": true,
+          "max_abs_logit_delta": 0.0,
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "n_steps": 2,
+          "atol": 0.0001,
+          "rtol": 0.0001
+        },
+        "full100_canonical_logical": {
+          "all_layer_head_kv_bits": true,
+          "all_layer_keep_mask": true,
+          "keep_count_per_layer": [
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149,
+            2149
+          ],
+          "system_and_separator_bits": true,
+          "canonical_full_logical_bits": true
+        },
+        "legacy_equal_set": null,
+        "different_question_same_selected_ids": true,
+        "interleaved_repeat_no_cache_leak": null,
+        "cache_exact": {
+          "all_layer_head_kv_bits": true,
+          "all_layer_keep_mask": true,
+          "keep_count_per_layer": [
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565,
+            565
+          ],
+          "system_and_separator_bits": true,
+          "canonical_full_logical_bits": false
+        },
+        "combined_attention_masks": {
+          "combined_prefill_and_decode_masks_exact": true,
+          "attention_calls": 64,
+          "prefill_layer_calls": 32,
+          "decode_layer_calls": 32,
+          "layers_observed": 32,
+          "system_kept": true,
+          "future_text_masked": true,
+          "padding_absent": true
+        },
+        "original_position_checks": [
+          {
+            "query_length": 24,
+            "first_position": 2149,
+            "last_position": 2172,
+            "total_keys": 2173
+          },
+          {
+            "query_length": 1,
+            "first_position": 2173,
+            "last_position": 2173,
+            "total_keys": 2174
+          }
+        ],
+        "physical_reads": {
+          "actual_pread_calls": 65,
+          "actual_returned_bytes": 318767104,
+          "normal_payload_bytes": 301989888,
+          "separator_bytes": 16777216,
+          "read_ranges_exact": true,
+          "forbidden_sidecar_reads": 0,
+          "calls": [
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/sep_kv.bin",
+              "offset": 0,
+              "requested": 16777216,
+              "returned": 16777216
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_00/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_00/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_01/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_01/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_02/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_02/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_03/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_03/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_04/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_04/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_05/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_05/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_06/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_06/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_07/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_07/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_08/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_08/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_09/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_09/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_10/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_10/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_11/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_11/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_12/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_12/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_13/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_13/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_14/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_14/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_15/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_15/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_16/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_16/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_17/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_17/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_18/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_18/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_19/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_19/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_20/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_20/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_21/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_21/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_22/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_22/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_23/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_23/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_24/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_24/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_25/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_25/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_26/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_26/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_27/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_27/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_28/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_28/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_29/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_29/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_30/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_30/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_31/k.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n133585/layer_31/v.bin",
+              "offset": 0,
+              "requested": 4718592,
+              "returned": 4718592
+            }
+          ]
+        },
+        "persistence_integrity": {
+          "ok": true,
+          "error": null,
+          "excluded_from_persist_ms": true
+        },
+        "turn1_vision_forward_count": 1,
+        "hit_vision_forward_count": 0,
+        "hit_online_score_calls": 0,
+        "first_token_id": 10924,
+        "generated_token_ids": [
+          10924,
+          2
+        ],
+        "status": "PASS"
+      },
+      {
+        "image_id": "n272098",
+        "question_id": "201535625",
+        "N_content": 2880,
+        "N_structural": 48,
+        "k": 720,
+        "m": 12,
+        "selected_original_ids_sha256": "02daa02c11bbcae779bf0081a94d843d1c006fc967ea4bfc5adf5944c2e8e998",
+        "reference_vs_ssd": {
+          "all_step_logits_within_frozen_tolerance": true,
+          "first_step_logits_exact": true,
+          "max_abs_logit_delta": 0.0,
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "n_steps": 3,
+          "atol": 0.0001,
+          "rtol": 0.0001
+        },
+        "sentinel_prefill_decode": {
+          "all_step_logits_within_frozen_tolerance": true,
+          "first_step_logits_exact": true,
+          "max_abs_logit_delta": 0.0,
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "n_steps": 3,
+          "atol": 0.0001,
+          "rtol": 0.0001
+        },
+        "full100_canonical_logical": {
+          "all_layer_head_kv_bits": true,
+          "all_layer_keep_mask": true,
+          "keep_count_per_layer": [
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933,
+            2933
+          ],
+          "system_and_separator_bits": true,
+          "canonical_full_logical_bits": true
+        },
+        "legacy_equal_set": null,
+        "different_question_same_selected_ids": true,
+        "interleaved_repeat_no_cache_leak": null,
+        "cache_exact": {
+          "all_layer_head_kv_bits": true,
+          "all_layer_keep_mask": true,
+          "keep_count_per_layer": [
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773,
+            773
+          ],
+          "system_and_separator_bits": true,
+          "canonical_full_logical_bits": false
+        },
+        "combined_attention_masks": {
+          "combined_prefill_and_decode_masks_exact": true,
+          "attention_calls": 96,
+          "prefill_layer_calls": 32,
+          "decode_layer_calls": 64,
+          "layers_observed": 32,
+          "system_kept": true,
+          "future_text_masked": true,
+          "padding_absent": true
+        },
+        "original_position_checks": [
+          {
+            "query_length": 22,
+            "first_position": 2933,
+            "last_position": 2954,
+            "total_keys": 2955
+          },
+          {
+            "query_length": 1,
+            "first_position": 2955,
+            "last_position": 2955,
+            "total_keys": 2956
+          },
+          {
+            "query_length": 1,
+            "first_position": 2956,
+            "last_position": 2956,
+            "total_keys": 2957
+          }
+        ],
+        "physical_reads": {
+          "actual_pread_calls": 65,
+          "actual_returned_bytes": 427819008,
+          "normal_payload_bytes": 402653184,
+          "separator_bytes": 25165824,
+          "read_ranges_exact": true,
+          "forbidden_sidecar_reads": 0,
+          "calls": [
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/sep_kv.bin",
+              "offset": 0,
+              "requested": 25165824,
+              "returned": 25165824
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_00/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_00/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_01/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_01/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_02/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_02/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_03/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_03/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_04/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_04/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_05/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_05/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_06/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_06/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_07/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_07/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_08/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_08/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_09/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_09/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_10/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_10/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_11/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_11/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_12/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_12/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_13/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_13/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_14/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_14/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_15/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_15/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_16/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_16/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_17/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_17/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_18/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_18/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_19/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_19/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_20/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_20/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_21/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_21/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_22/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_22/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_23/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_23/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_24/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_24/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_25/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_25/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_26/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_26/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_27/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_27/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_28/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_28/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_29/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_29/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_30/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_30/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_31/k.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            },
+            {
+              "path": "/home/dblab/hj/mllm_v2/runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/validation_scratch/ours_five_fixed/n272098/layer_31/v.bin",
+              "offset": 0,
+              "requested": 6291456,
+              "returned": 6291456
+            }
+          ]
+        },
+        "persistence_integrity": {
+          "ok": true,
+          "error": null,
+          "excluded_from_persist_ms": true
+        },
+        "turn1_vision_forward_count": 1,
+        "hit_vision_forward_count": 0,
+        "hit_online_score_calls": 0,
+        "first_token_id": 3872,
+        "generated_token_ids": [
+          3872,
+          329,
+          2
+        ],
+        "status": "PASS"
+      }
+    ],
+    "atol": 0.0001,
+    "rtol": 0.0001
+  },
+  "fresh_wrapper_integration": {
+    "status": "PASS",
+    "requests": 15,
+    "expected_requests": 15,
+    "images": 1,
+    "independent_image_audit": "PASS",
+    "source_sha256": {
+      "mmimpress/__init__.py": "3281e8d1b62de60a6a7ea923e54eab6367fa5a2d38e4fdbe8205d6b03f14b968",
+      "mmimpress/config.py": "5d14532936ac55e01d7320ec8877b242471361c1001afb25a9d7fafc4a12c418",
+      "mmimpress/contextual_kv25.py": "91270fa9dff78e230c59a55c801d9b99ae37ceb285fb4409f092666335b692a6",
+      "mmimpress/convbench.py": "e6edfe6a33d51d8cb8521b6639141afc83f4962caae8ebf7d242a7f40ac48f88",
+      "mmimpress/convbench_judge.py": "7d21260d065bab5f179e0552ae577f3924f3163a608394a692cdf52ce0df75b3",
+      "mmimpress/cvpr25.py": "feb5640097056560fadbe596d7ff5aae82745b2d533fccdb8680f4134fada1b1",
+      "mmimpress/dataset.py": "e5e58ea185275429c7e74bbccde43fd50a276428d64089f2f349616ed65b15a0",
+      "mmimpress/model.py": "39437de1b03c41af4f8e9aa219620c6a1544a2a4ef98391679eb0dfd2522c6ba",
+      "mmimpress/mpic.py": "43c4c6a17c05a18eaf1040602398543e8733691fe0f840fa1a4051585b99f1cb",
+      "mmimpress/mt_gqa.py": "a33c5ef9889bdff2abfcf026782cf9fc3fb5076f5bcbb1b24969864945bb9406",
+      "mmimpress/mt_vqa_v2.py": "9ca6846da1c1c1e952ca7f882161dfa9a38f1f10c45f07b7cc1a750c43c9809d",
+      "mmimpress/multiturn.py": "5dd530952245cbbf836325afbc6525aae07556e00067c75e93384631738eec3a",
+      "mmimpress/multiturn_results.py": "d75a0e7585262e4c32a0b4755242a65e0ad451113e1af1d6081edc6fe79f61ae",
+      "mmimpress/piggyback.py": "336a9861b6ee20fdb49db6ad57ea501e4462e9071732647e89e8510a91931908",
+      "mmimpress/qwen25/__init__.py": "3884791052734addb3d0712b16f8ae281326cd19656f5677ee538b125065af3a",
+      "mmimpress/qwen25/runner.py": "773a5a84d3045bd44459d8f302e423595efaa311fb78862b5466e47416ace66d",
+      "mmimpress/qwen25/store.py": "47e88063eb2ad2f3bd5057845ebb4c2b6c01922a31a7f4d72da49c05c5be447f",
+      "mmimpress/qwen25/vision.py": "de2cdf62588da21e49a66568a32626b23e0b2e8ad6813bea22e0f6c31c6a0e59",
+      "mmimpress/rekv.py": "7d2c32852421dd288b190d9635c4fec295217225e8fd903309cfabde0f744acb",
+      "mmimpress/rekv_store.py": "17c4f9e7d454d739fc86186f68dd7f40374622fa078bfc148bbaef8f8cc7bffb",
+      "mmimpress/reorder.py": "d6c5b40bafc18183cdb8793c7e87d916a2c4cca86751f6d57f83a5a9f4798b3f",
+      "mmimpress/serve.py": "3d02d54e26076b8974fc75b1dde2bf37fbe9be83b57a213b27b2ea4bdb2698d9",
+      "mmimpress/sparsevlm.py": "7b24d592eb36bb5da11fe628d6012192ec1348d5680a8962640251ca73ce2e18",
+      "mmimpress/sparsevlm_ssd_attention.py": "f9d163dde78e798484b1102a61e5db0e90a84dc54ecd235b05237ad7426a3dec",
+      "mmimpress/sparsevlm_ssd_core.py": "9314e6d75a013c0f26a074f3c4429cf23c7f31db4df50d38490d9d05b0f9ea2b",
+      "mmimpress/sparsevlm_ssd_store.py": "dbcca26e9f026ac16e835a682178e2c20bf841c3fad4effe981d39486de13be2",
+      "mmimpress/spatial_kv25.py": "b43a3c5c6664a7a4c40628fafaaa0b8365957ff9a0f3522e0561cc332d938b28",
+      "mmimpress/store.py": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b",
+      "scripts/100_eval_llava_mt_gqa_allhead_kv25.py": "dfb44352ba992cc65f18d996fdb276e918856b4e3b93504a45928458618bd18f",
+      "scripts/101_audit_llava_mt_gqa_allhead_kv25.py": "8f9d23df5769391f48c6d63f7f0776971d0f5bbd5f1675efb62df88654038c1b",
+      "scripts/102_validate_llava_mt_gqa_allhead_kv25.py": "3d06d633ba6cfa2135cb98f3de813544badf6e06e8b990d0cbad9f85326e6602",
+      "scripts/49_eval_query_aware_baseline.py": "ea6e3d0d3a50580e3c4cde8c578d377b4e7e92f2dcb6313610bf52b10f4c042d",
+      "scripts/90_validate_llava_kv25.py": "f573c858866173e49d02ab8737046ad21dba0a6fdf94de4e0366ff5bcab7ac54",
+      "scripts/97_validate_sparsevlm_ssd_kv25.py": "6500848b1ffb0514c2d9f53a78abf8e98ddab5876ed64eaa9c1164060db63faa",
+      "scripts/99_audit_sparsevlm_ssd_kv25.py": "76449ff77ed9fa6db49dabea4d4d5db8d6bdec6d501543729b6cb87f20af63c6"
+    },
+    "config_sha256": "0d0040f130bcb3bf39715e3f01e66cfe529a228a80f28a939cb714979d049815"
+  },
+  "negative_audit_and_resume": {
+    "status": "PASS",
+    "negative_cases": {
+      "wrong_generated_history": {
+        "exact_method_local_history_lineage": 1
+      },
+      "wrong_method_lineage": {
+        "exact_method_local_history_lineage": 1
+      },
+      "duplicate_logical": {
+        "image_completeness": 1,
+        "unique_logical_ids": 1,
+        "unique_physical_ids": 1
+      },
+      "missing_row": {
+        "image_completeness": 1
+      },
+      "wrong_allhead_budget": {
+        "normalized_exact_budget": 1
+      },
+      "wrong_projection": {
+        "projection_reuse": 1,
+        "one_prefill_projection_each_layer": 1
+      },
+      "wrong_OS_bytes": {
+        "actual_returned_bytes": 1
+      },
+      "wrong_mask_count": {
+        "ours_structural_keep": 1
+      },
+      "wrong_timing": {
+        "true_ttft_recalculation": 1
+      },
+      "wrong_scoring_heads": {
+        "actual_score_head_ids": 1
+      }
+    },
+    "resume_committed_image_skip": "PASS",
+    "partial_image_rejection": "CPU fixture"
+  },
+  "protection": {
+    "status": "PASS",
+    "protected_files": 91181,
+    "protected_logical_bytes": 600813925372,
+    "changed_artifacts": [],
+    "changed_existing_source": [],
+    "policy": {
+      "small_file_algorithm": "sha256-full-v1",
+      "large_file_algorithm": "sha256-framed-even-windows-v1",
+      "full_hash_max_bytes": 1048576,
+      "sample_window_bytes": 4096,
+      "sample_count": 9,
+      "file_metadata": [
+        "size_bytes",
+        "mode",
+        "device",
+        "inode",
+        "uid",
+        "gid",
+        "mtime_ns",
+        "ctime_ns"
+      ],
+      "directory_metadata": [
+        "mode",
+        "device",
+        "inode",
+        "uid",
+        "gid"
+      ],
+      "directory_times_excluded": true,
+      "symlinks_followed": false
+    },
+    "limitation": "large prior artifacts use nine-window framed SHA256 plus inode/ctime/mtime; full SHA256 for source and small artifacts",
+    "new_source_files": [
+      "scripts/100_eval_llava_mt_gqa_allhead_kv25.py",
+      "scripts/101_audit_llava_mt_gqa_allhead_kv25.py",
+      "scripts/102_validate_llava_mt_gqa_allhead_kv25.py"
+    ]
+  },
+  "gate_evidence": {
+    "G1": "exact full index/workload hashes, five-entry registry, pinned model actual config",
+    "G2": "original five Ours actual masks/cache + fresh MT AllHead Observer exact ceil(N/4)",
+    "G3": "fresh independent OS range audit: all actual heads, no probe/selected-K reread",
+    "G4": "actual per-layer prefill/decode projection hooks and fixed selection/read oracle",
+    "G5": "AllHead fresh MT independent memory reference; original Ours matched-reference fixtures",
+    "G6": "independent real attention mask/positions + sentinel fixtures and decode checks",
+    "G7": "fresh cross-order vanilla/FullLoad/MPIC/Ours logits/token recovery and injected exception",
+    "G8": "fresh own T1 execution/vision counts and exact shared capture bits, MPIC direct counts",
+    "G9": "independent full raw lineage/prompt reconstruction and forged-history negative cases",
+    "G10": "actual OS events vs independent ranges and counter sums; AllHead reused K counted once",
+    "G11": "atomic commit/adoption and partial-image/link/no-clobber CPU fixtures + actual committed resume verification",
+    "G12": "all existing CPU regression suite + new wrapper safety tests + old artifact fingerprint/source SHA256 protection"
+  }
+}

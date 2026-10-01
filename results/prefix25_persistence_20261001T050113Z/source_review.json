@@ -1,0 +1,97 @@
+{
+  "all_requested_paths_present": true,
+  "files": {
+    "mmimpress/store.py": {
+      "sha256_before": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b",
+      "size_before": 16592
+    },
+    "mmimpress/serve.py": {
+      "sha256_before": "3d02d54e26076b8974fc75b1dde2bf37fbe9be83b57a213b27b2ea4bdb2698d9",
+      "size_before": 128890
+    },
+    "mmimpress/piggyback.py": {
+      "sha256_before": "336a9861b6ee20fdb49db6ad57ea501e4462e9071732647e89e8510a91931908",
+      "size_before": 66948
+    },
+    "mmimpress/cvpr25.py": {
+      "sha256_before": "feb5640097056560fadbe596d7ff5aae82745b2d533fccdb8680f4134fada1b1",
+      "size_before": 19887
+    },
+    "docs/llava_kv25_budget_contract.md": {
+      "sha256_before": "934f982a7d01a8de92e80ad7406ea5a5de0ec09c8a88a0399c2a2f9fd5b98518",
+      "size_before": 7682
+    },
+    "scripts/89_eval_llava_kv25.py": {
+      "sha256_before": "c65132f5aa8c3598cd5f64cc598e6034241946f2f941248d03d202e74224dcbd",
+      "size_before": 63210
+    },
+    "scripts/90_validate_llava_kv25.py": {
+      "sha256_before": "f573c858866173e49d02ab8737046ad21dba0a6fdf94de4e0366ff5bcab7ac54",
+      "size_before": 31018
+    },
+    "mmimpress/qwen25/store.py": {
+      "sha256_before": "47e88063eb2ad2f3bd5057845ebb4c2b6c01922a31a7f4d72da49c05c5be447f",
+      "size_before": 35814
+    },
+    "mmimpress/qwen25/runner.py": {
+      "sha256_before": "773a5a84d3045bd44459d8f302e423595efaa311fb78862b5466e47416ace66d",
+      "size_before": 38498
+    },
+    "mmimpress/qwen25/vision.py": {
+      "sha256_before": "de2cdf62588da21e49a66568a32626b23e0b2e8ad6813bea22e0f6c31c6a0e59",
+      "size_before": 13605
+    },
+    "docs/qwen25_correctness_contract_v2.md": {
+      "sha256_before": "498589b23b43948df28bcc6bcd1e9638f03e57f1b4531029401c6ece86e5f8fb",
+      "size_before": 14210
+    },
+    "docs/qwen25_kv25_budget_contract.md": {
+      "sha256_before": "621e7e0ba1b062d2a6cfec842b286997db1bc91cb8026556b2e802a5444e2f71",
+      "size_before": 10829
+    },
+    "docs/qwen25_kv25_pilot_timing_addendum.md": {
+      "sha256_before": "9793b19b2f1797cf1aff3154b0ebcd5df74b11a03bc9508e3cdf668f9c853e3b",
+      "size_before": 1479
+    },
+    "docs/qwen25_kv25_pilot_timing_erratum.md": {
+      "sha256_before": "1fafcd3e9b96844f3754afa06e9cd2a09f3272fa447d0a650497eac326e50a00",
+      "size_before": 766
+    },
+    "scripts/91_validate_qwen25_kv25.py": {
+      "sha256_before": "d27ddca214f7cbebf18e196657f0d9898208840dc5126af41fd021aaea7b3dc1",
+      "size_before": 34186
+    },
+    "scripts/94_eval_qwen_kv25_pilot.py": {
+      "sha256_before": "f776d199a6853e9412a23a7958202c5dec2d1f670330db2e59c21dd78830ba48",
+      "size_before": 36169
+    },
+    "scripts/95_report_qwen_kv25_pilot.py": {
+      "sha256_before": "c39ba566db9c92b07abcd6e36c32f3e160ed5b793b082da669049655568f2a18",
+      "size_before": 40623
+    },
+    "scripts/96_audit_qwen_kv25_pilot.py": {
+      "sha256_before": "56ce24f8f9714675d7490ec9203f0623495790ca4e6d9bf702f062f2e388e736",
+      "size_before": 43369
+    }
+  },
+  "calls": {
+    "llava_T1": "VisionForwardCapture -> Server.recompute(full image) -> persist_captured_visual_prefix -> anyres_token_scores -> visionzip_repack_order -> write_image_store",
+    "llava_hit": "ImageContext -> Server.request_cvpr25(budget_unit=visual_kv) -> CVPR25ChunkSelector -> ChunkReader -> PrefixCache full buffer -> original eager mask/decode",
+    "qwen_T1": "Qwen25Runner.run_pixels -> VisionScoreCapture.__exit__ (score after request generation) -> CapturedPrefix -> Qwen25Runner.persist -> write_qwen_store",
+    "qwen_hit": "Qwen25Runner.run_cache -> QwenStore.load_prefix -> importance-prefix read -> P2 logical-order assembly -> native BF16 original MRoPE"
+  },
+  "differences_from_previous_reports": [
+    "Current LLaVA serve/piggyback include contextual/spatial work after the cited migration; preserved, default selection_variant=None.",
+    "The cited Qwen migration reused protected stores and explicitly did not remeasure persistence. Those latency/persistence fields are not reused here.",
+    "Empty .git prevents HEAD/status/diff. File SHA256/source copies replace Git revision.",
+    "Qwen saliency computation is deferred to capture exit after the inner generation E2E boundary, despite imprecise old report wording. New Qwen outer T1 boundary includes it once before persistence."
+  ],
+  "forbidden_methods_not_used": [
+    "legacy Chunk25 as A",
+    "raster order for selected Ours KV",
+    "prune before LLM",
+    "full-store extraction as B T1",
+    "truncation of an existing full payload",
+    "external push"
+  ]
+}

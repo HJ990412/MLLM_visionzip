@@ -1,0 +1,99 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "model": "llava",
+      "phase": "smoke",
+      "expected_requests": 48,
+      "actual_requests": 48,
+      "successful_requests": 48,
+      "errors": [],
+      "status": "PASS"
+    },
+    {
+      "model": "llava",
+      "phase": "gqa",
+      "expected_requests": 960,
+      "actual_requests": 960,
+      "successful_requests": 960,
+      "errors": [],
+      "status": "PASS"
+    },
+    {
+      "model": "llava",
+      "phase": "mt",
+      "expected_requests": 480,
+      "actual_requests": 480,
+      "successful_requests": 480,
+      "errors": [],
+      "status": "PASS"
+    },
+    {
+      "model": "qwen",
+      "phase": "smoke",
+      "expected_requests": 48,
+      "actual_requests": 48,
+      "successful_requests": 48,
+      "errors": [],
+      "status": "PASS"
+    },
+    {
+      "model": "qwen",
+      "phase": "gqa",
+      "expected_requests": 960,
+      "actual_requests": 960,
+      "successful_requests": 960,
+      "errors": [],
+      "status": "PASS"
+    },
+    {
+      "model": "qwen",
+      "phase": "mt",
+      "expected_requests": 480,
+      "actual_requests": 480,
+      "successful_requests": 480,
+      "errors": [],
+      "status": "PASS"
+    }
+  ],
+  "artifact_protection": {
+    "status": "PASS",
+    "protected_file_count": 103185,
+    "protected_bytes": 617535518209,
+    "changed_protected_files": [],
+    "allowed_source_changes": [
+      {
+        "path": "mmimpress/serve.py",
+        "before": "3d02d54e26076b8974fc75b1dde2bf37fbe9be83b57a213b27b2ea4bdb2698d9",
+        "after": "a20ce59dec3e4d30e638f7057f135dbe16efb1c25bddd86cd7046446bee9142a"
+      },
+      {
+        "path": "mmimpress/piggyback.py",
+        "before": "336a9861b6ee20fdb49db6ad57ea501e4462e9071732647e89e8510a91931908",
+        "after": "0b13df081a629c743141f1315870ae39a18d41148f27f8317783c980363a9b4b"
+      },
+      {
+        "path": "mmimpress/store.py",
+        "before": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b",
+        "after": "26c61ad5cd7672ca08f81bb74b73f732b55025a863ef9ae3a747fd12bf0f9a7e"
+      },
+      {
+        "path": "mmimpress/qwen25/runner.py",
+        "before": "773a5a84d3045bd44459d8f302e423595efaa311fb78862b5466e47416ace66d",
+        "after": "faf39b64b756a34259ba7f232e8d049a6d78cb7f13497b00a20b8c2b44d1a9c1"
+      },
+      {
+        "path": "mmimpress/qwen25/store.py",
+        "before": "47e88063eb2ad2f3bd5057845ebb4c2b6c01922a31a7f4d72da49c05c5be447f",
+        "after": "ecb34f76fae01247b1a7c8bb70f00e92f55a1cb4ae8503440b81deaf14503497"
+      }
+    ],
+    "unexpected_source_changes": [],
+    "elapsed_seconds": 522.0415871143341,
+    "protected_before_sha256": "a1b20b467b1380a93e71600ee2f8e423c91865033bb8dc2ba7e763ab367b327f",
+    "protected_after_sha256": "b551b5b9cf77b7b82dd7e966fdbf59236fa8cc184b7be1446b13a1505a579015",
+    "git_unavailable": true
+  },
+  "independent_of_production_selector": true,
+  "prior_results_used_as_same_run_measurements": false
+}

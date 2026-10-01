@@ -1,0 +1,100 @@
+{
+  "status": "PASS",
+  "checks": 484,
+  "failure_counts": {},
+  "failures": [],
+  "scope": "independent audit of executed validation evidence and required fail-closed stop, NOT full-main validation",
+  "QWEN_3_ARM_MAIN": "NOT RUN",
+  "main_requests": 0,
+  "expected_main_requests": 36549,
+  "smoke_requests": 0,
+  "expected_smoke_requests": 36,
+  "integration_normal_executed_requests": 13,
+  "integration_committed_requests": 9,
+  "expected_integration_requests": 36,
+  "core_gpu_validation": "PASS 10/10",
+  "GPU_INTEGRATION_UNDER_v2": "FAIL: G7 frozen FP32 oracle; wrapper aggregate UNRESOLVED preserved",
+  "attempts": [
+    {
+      "image_id": "n229548",
+      "attempt_id": "attempt_0001",
+      "normal_executed_requests": 9,
+      "raw_rows": 9,
+      "committed_requests": 9,
+      "status": "COMMITTED",
+      "raw_sha256": "d0449fc88e20f2cedc913f443678cc758bf537fff2350f6d57d0fbba7147968a",
+      "failure": null
+    },
+    {
+      "image_id": "n313060",
+      "attempt_id": "attempt_0001",
+      "normal_executed_requests": 4,
+      "raw_rows": 4,
+      "committed_requests": 0,
+      "status": "INTERRUPTED",
+      "raw_sha256": "dbde4736236a5d6c973ce3553cd2f5ea0525f0efd521d3a712d4389750eaa655",
+      "failure": {
+        "status": "PARTIAL",
+        "error": "AssertionError('independent FP32 oracle')",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/scripts/103_eval_qwen_mt_gqa_kv25_main.py\", line 277, in run_image\n    if diagnostic is not None:diagnostic(runner,dialog,turn,method,row,result,captures,paths,metas,artifact)\n  File \"/home/dblab/hj/mllm_v2/scripts/105_validate_qwen_mt_gqa_kv25_main.py\", line 56, in diagnostic\n    oracle=bool(torch.allclose(ca,de,atol=1e-5,rtol=1e-5));assert oracle,'independent FP32 oracle'\nAssertionError: independent FP32 oracle\n",
+        "completed_uncommitted_rows": 4,
+        "adopted_from_attempt": 0
+      }
+    }
+  ],
+  "image_audits": [
+    {
+      "status": "PASS",
+      "checks": 343,
+      "failure_counts": {},
+      "failures": [],
+      "image_id": "n229548",
+      "phase": "integration",
+      "requests": 9,
+      "expected_requests": 9
+    },
+    {
+      "status": "FAIL",
+      "checks": 160,
+      "failure_counts": {
+        "exact_image_coverage": 1
+      },
+      "failures": [
+        {
+          "check": "exact_image_coverage",
+          "context": "n313060"
+        }
+      ],
+      "image_id": "n313060",
+      "phase": "integration",
+      "requests": 4,
+      "expected_requests": 9
+    }
+  ],
+  "oracle": {
+    "saved_fixture_sha256": "e18292d551360d557b7814bcd13588966a66c66281997f04bcc0453da8085837",
+    "frozen_FP32_allclose": false,
+    "violating_elements": 16,
+    "elements": 215040,
+    "max_abs": 2.162158489227295e-05,
+    "independent_FP32_allclose": false,
+    "independent_FP32_max_abs": 2.162158489227295e-05,
+    "FP64_allclose_1e_minus_12": true,
+    "FP64_max_abs": 1.7763568394002505e-15,
+    "gate_G7": "FAIL",
+    "waiver": false,
+    "tolerance_unchanged": true
+  },
+  "protection": {
+    "status": "PASS",
+    "protected_files": 101576,
+    "protected_logical_bytes": 616910564746,
+    "changed_artifacts": [],
+    "changed_existing_source": [],
+    "limitation": "sources and <=8MiB files full SHA256; larger historical files nine framed 64KiB windows plus inode/size/mtime/ctime; not full-byte proof"
+  },
+  "LLAVA_SOURCE_VERIFIED": "PASS",
+  "CROSS_MODEL_TABLE_READY": "NO: Qwen main not run",
+  "resume_command": "HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONDONTWRITEBYTECODE=1 /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/103_eval_qwen_mt_gqa_kv25_main.py --run-dir /home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_kv25_main_20261001T031459Z --phase all --resume",
+  "resume_condition": "current unchanged integration gate rejects main; fix/resolve G7 under unchanged tolerance and independently validate a prospectively frozen experiment version before main. Do not force PASS, skip the image, change threshold, or overwrite the failed evidence."
+}

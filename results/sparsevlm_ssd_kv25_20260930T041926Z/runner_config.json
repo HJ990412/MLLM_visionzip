@@ -1,0 +1,47 @@
+{
+  "schema_version": "sparsevlm-ssd-kv25-pilot-v1",
+  "methods": [
+    "recompute",
+    "fullload",
+    "sparsevlm_ssd_kv25_probe3",
+    "sparsevlm_ssd_kv25_allhead",
+    "ours_kv25"
+  ],
+  "seed": 1234,
+  "batch_size": 1,
+  "max_new_tokens": 16,
+  "model_id": "llava-hf/llava-v1.6-vicuna-7b-hf",
+  "model_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+  "source_sha256": {
+    "mmimpress/sparsevlm_ssd_core.py": "9314e6d75a013c0f26a074f3c4429cf23c7f31db4df50d38490d9d05b0f9ea2b",
+    "mmimpress/sparsevlm_ssd_store.py": "dbcca26e9f026ac16e835a682178e2c20bf841c3fad4effe981d39486de13be2",
+    "mmimpress/sparsevlm_ssd_attention.py": "f9d163dde78e798484b1102a61e5db0e90a84dc54ecd235b05237ad7426a3dec",
+    "mmimpress/serve.py": "3d02d54e26076b8974fc75b1dde2bf37fbe9be83b57a213b27b2ea4bdb2698d9",
+    "mmimpress/store.py": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b",
+    "mmimpress/piggyback.py": "336a9861b6ee20fdb49db6ad57ea501e4462e9071732647e89e8510a91931908",
+    "mmimpress/model.py": "39437de1b03c41af4f8e9aa219620c6a1544a2a4ef98391679eb0dfd2522c6ba",
+    "scripts/97_validate_sparsevlm_ssd_kv25.py": "6500848b1ffb0514c2d9f53a78abf8e98ddab5876ed64eaa9c1164060db63faa",
+    "scripts/98_eval_sparsevlm_ssd_kv25.py": "b4ee82a0f4663b16f8b12aa4e68b7cae9ecaa9b553a8100bc462038c648a0366",
+    "scripts/49_eval_query_aware_baseline.py": "ea6e3d0d3a50580e3c4cde8c578d377b4e7e92f2dcb6313610bf52b10f4c042d",
+    "scripts/89_eval_llava_kv25.py": "c65132f5aa8c3598cd5f64cc598e6034241946f2f941248d03d202e74224dcbd",
+    "scripts/99_audit_sparsevlm_ssd_kv25.py": "76449ff77ed9fa6db49dabea4d4d5db8d6bdec6d501543729b6cb87f20af63c6",
+    "mmimpress/config.py": "5d14532936ac55e01d7320ec8877b242471361c1001afb25a9d7fafc4a12c418",
+    "mmimpress/dataset.py": "e5e58ea185275429c7e74bbccde43fd50a276428d64089f2f349616ed65b15a0"
+  },
+  "gpu_gate": {
+    "path": "runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_full_01/gpu_validation.json",
+    "sha256": "78910e0165176e7fdc4db6ded359a4583f30248df6ed98793e1c0ecff8ff12e1",
+    "verdict": "PASS"
+  },
+  "contract_sha256": "9dfd747e9d1cdbeb089a972362167c1779fb3b368d8397c7fc92a4426d092214",
+  "attempt_id": "attempt_0001",
+  "attention_backend": "eager",
+  "weight_dtype": "NF4",
+  "compute_dtype": "bfloat16",
+  "SSD_dtype": "float16",
+  "chunk_size": 64,
+  "setup_cost_policy": "GQA persistence NOT_REMEASURED; MT shared canonical+probe bundle measured; AllHead base and Probe3-only costs NOT_SEPARATELY_MEASURED",
+  "T1_policy": "each_method_own_full_image_inference",
+  "history_policy": "MT_method_own_generated;GQA_independent",
+  "timing_boundary": "before prompt/image read/tokenization to first-token materialization and CUDA synchronization"
+}

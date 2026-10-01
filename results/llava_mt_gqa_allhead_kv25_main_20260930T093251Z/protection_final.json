@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "protected_files": 91181,
+  "protected_logical_bytes": 600813925372,
+  "changed_artifacts": [],
+  "changed_existing_source": [],
+  "policy": {
+    "small_file_algorithm": "sha256-full-v1",
+    "large_file_algorithm": "sha256-framed-even-windows-v1",
+    "full_hash_max_bytes": 1048576,
+    "sample_window_bytes": 4096,
+    "sample_count": 9,
+    "file_metadata": [
+      "size_bytes",
+      "mode",
+      "device",
+      "inode",
+      "uid",
+      "gid",
+      "mtime_ns",
+      "ctime_ns"
+    ],
+    "directory_metadata": [
+      "mode",
+      "device",
+      "inode",
+      "uid",
+      "gid"
+    ],
+    "directory_times_excluded": true,
+    "symlinks_followed": false
+  },
+  "limitation": "large prior artifacts use nine-window framed SHA256 plus inode/ctime/mtime; full SHA256 for source and small artifacts",
+  "new_source_files": [
+    "scripts/100_eval_llava_mt_gqa_allhead_kv25.py",
+    "scripts/101_audit_llava_mt_gqa_allhead_kv25.py",
+    "scripts/102_validate_llava_mt_gqa_allhead_kv25.py"
+  ]
+}

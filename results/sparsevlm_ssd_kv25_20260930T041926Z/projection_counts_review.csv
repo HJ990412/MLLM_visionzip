@@ -1,0 +1,16 @@
+phase,method_id,all_requests,hit_requests,prefill_projection_q_min,prefill_projection_q_max,prefill_projection_k_min,prefill_projection_k_max,prefill_projection_v_min,prefill_projection_v_max,source
+smoke,recompute,12,8,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+smoke,fullload,12,8,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+smoke,sparsevlm_ssd_kv25_probe3,12,8,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+smoke,sparsevlm_ssd_kv25_allhead,12,8,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+smoke,ours_kv25,12,8,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+gqa,recompute,240,200,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+gqa,fullload,240,200,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+gqa,sparsevlm_ssd_kv25_probe3,240,200,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+gqa,sparsevlm_ssd_kv25_allhead,240,200,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+gqa,ours_kv25,240,200,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+mt,recompute,120,80,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+mt,fullload,120,80,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+mt,sparsevlm_ssd_kv25_probe3,120,80,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+mt,sparsevlm_ssd_kv25_allhead,120,80,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request
+mt,ours_kv25,120,80,32,32,32,32,32,32,raw-derived io_timing_memory_breakdown.csv; counts summed over all decoder layers per request

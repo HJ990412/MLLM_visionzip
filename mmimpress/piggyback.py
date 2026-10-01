@@ -115,16 +115,26 @@ class VisionForwardCapture:
     one penultimate-attention invocation) occurred.  Hooks are always removed.
     """
 
-    def __init__(self, runner, capture_saliency: bool = False):
+    def __init__(self, runner, capture_saliency: bool = False,
+                 capture_keys: bool = False):
         self.runner = runner
         self.capture_saliency = bool(capture_saliency)
+        self.capture_keys = bool(capture_keys)
+        if self.capture_keys and not self.capture_saliency:
+            raise ValueError("vision keys require same-forward saliency capture")
         self.call_count = 0
         self.saliency_call_count = 0
+        self.key_call_count = 0
         self.vision_elapsed_ms: float | None = None
         self.saliency_reduction_ms: float | None = None
         self.saliency_materialize_ms: float = 0.0
         self.saliency_hook_submit_ms: float = 0.0
         self.saliency_scores: torch.Tensor | None = None
+        self.key_descriptors: torch.Tensor | None = None
+        self.key_reduction_ms: float | None = None
+        self.key_hook_submit_ms: float = 0.0
+        self.key_materialize_ms: float = 0.0
+        self.key_zero_norm_count: int = 0
         self.timing_backend: str | None = None
         self._handles = []
         self._entered = False
@@ -134,7 +144,10 @@ class VisionForwardCapture:
         self._reduction_events = None
         self._prepared_vision_events = None
         self._prepared_reduction_events = None
+        self._prepared_key_events = None
+        self._key_events = None
         self._saliency_device: torch.Tensor | None = None
+        self._keys_device: torch.Tensor | None = None
 
         try:
             self.vision_tower = runner.model.model.vision_tower
@@ -148,6 +161,9 @@ class VisionForwardCapture:
         assert not self.vision_tower.training, \
             "vision capture requires the normal eval-mode serving model"
         self.penultimate_self_attn = encoder_layers[-2].self_attn
+        self.penultimate_k_proj = getattr(self.penultimate_self_attn, "k_proj", None)
+        if self.capture_keys and self.penultimate_k_proj is None:
+            raise AssertionError("penultimate vision attention has no k_proj")
         self.saliency_layer_index = len(encoder_layers) - 2
         self._attention_signature = inspect.signature(
             self.penultimate_self_attn.forward)
@@ -210,6 +226,11 @@ class VisionForwardCapture:
                             torch.cuda.Event(enable_timing=True),
                             torch.cuda.Event(enable_timing=True),
                         )
+                    if self.capture_keys:
+                        self._prepared_key_events = (
+                            torch.cuda.Event(enable_timing=True),
+                            torch.cuda.Event(enable_timing=True),
+                        )
                     # CUDA events are lazily created on first record.  Warm
                     # them here, before the wrapped request starts its timer.
                     stream = torch.cuda.current_stream(model_device)
@@ -217,6 +238,9 @@ class VisionForwardCapture:
                         event.record(stream)
                     if self._prepared_reduction_events is not None:
                         for event in self._prepared_reduction_events:
+                            event.record(stream)
+                    if self._prepared_key_events is not None:
+                        for event in self._prepared_key_events:
                             event.record(stream)
                     stream.synchronize()
             self._handles.append(self.vision_tower.register_forward_pre_hook(
@@ -230,6 +254,9 @@ class VisionForwardCapture:
                 self._handles.append(
                     self.penultimate_self_attn.register_forward_hook(
                         self._attention_forward_hook, with_kwargs=True))
+            if self.capture_keys:
+                self._handles.append(self.penultimate_k_proj.register_forward_hook(
+                    self._key_forward_hook))
         except BaseException:
             self._remove_hooks()
             raise
@@ -316,6 +343,33 @@ class VisionForwardCapture:
             time.perf_counter() - submit_t0) * 1e3
         self._saliency_device = scores.detach()
 
+    def _key_forward_hook(self, module, args, output):
+        self.key_call_count += 1
+        assert self.key_call_count == 1, (
+            "penultimate vision key projection ran more than once")
+        assert torch.is_tensor(output) and output.ndim == 3, (
+            "expected vision key projection shape (crops, CLS+patches, hidden)")
+        heads = int(self.penultimate_self_attn.num_heads)
+        assert output.shape[1] >= 2 and output.shape[2] % heads == 0
+        head_dim = output.shape[2] // heads
+        submit_t0 = time.perf_counter()
+        if output.is_cuda and torch.cuda.is_available():
+            assert self._prepared_key_events is not None
+            start, end = self._prepared_key_events
+            stream = torch.cuda.current_stream(output.device)
+            start.record(stream)
+        else:
+            cpu_t0 = time.perf_counter()
+        self._keys_device = output[:, 1:, :].float().reshape(
+            output.shape[0], output.shape[1] - 1, heads, head_dim,
+        ).mean(dim=2).detach()
+        if output.is_cuda and torch.cuda.is_available():
+            end.record(stream)
+            self._key_events = (start, end)
+        else:
+            self.key_reduction_ms = (time.perf_counter() - cpu_t0) * 1e3
+        self.key_hook_submit_ms = (time.perf_counter() - submit_t0) * 1e3
+
     def _finish_timings_and_scores(self):
         if self._vision_events is not None:
             start, end = self._vision_events
@@ -325,11 +379,28 @@ class VisionForwardCapture:
             start, end = self._reduction_events
             end.synchronize()
             self.saliency_reduction_ms = float(start.elapsed_time(end))
+        if self._key_events is not None:
+            start, end = self._key_events
+            end.synchronize()
+            self.key_reduction_ms = float(start.elapsed_time(end))
         if self.capture_saliency and self._saliency_device is not None:
             t0 = time.perf_counter()
             self.saliency_scores = self._saliency_device.cpu()
             self.saliency_materialize_ms = (time.perf_counter() - t0) * 1e3
             self._saliency_device = None
+        if self.capture_keys and self._keys_device is not None:
+            t0 = time.perf_counter()
+            raw = self._keys_device.cpu()
+            self._keys_device = None
+            assert torch.isfinite(raw).all(), "vision keys contain NaN/Inf"
+            norms = torch.linalg.vector_norm(raw, dim=-1, keepdim=True)
+            self.key_zero_norm_count = int((norms == 0).sum().item())
+            self.key_descriptors = torch.where(
+                norms > 0, raw / norms.clamp_min(torch.finfo(raw.dtype).tiny),
+                torch.zeros_like(raw),
+            )
+            assert torch.isfinite(self.key_descriptors).all()
+            self.key_materialize_ms = (time.perf_counter() - t0) * 1e3
 
     def __exit__(self, exc_type, exc, traceback):
         # Removal comes first so even timing/materialisation failures cannot
@@ -337,6 +408,7 @@ class VisionForwardCapture:
         self._remove_hooks()
         if exc_type is not None:
             self._saliency_device = None
+            self._keys_device = None
             return False
         self._finish_timings_and_scores()
         assert self.call_count == 1, (
@@ -350,6 +422,10 @@ class VisionForwardCapture:
             assert self.saliency_scores is not None
             assert torch.isfinite(self.saliency_scores).all(), \
                 "captured vision saliency contains NaN/Inf"
+        if self.capture_keys:
+            assert self.key_call_count == 1, (
+                f"expected one penultimate vision k_proj call, got {self.key_call_count}")
+            assert self.key_descriptors is not None
         return False
 
     def result_cpu(self) -> torch.Tensor:
@@ -360,6 +436,12 @@ class VisionForwardCapture:
             raise RuntimeError("saliency result is not ready until context exit")
         return self.saliency_scores
 
+    def result_keys_cpu(self) -> torch.Tensor:
+        """Normalized penultimate vision-key patch descriptors on CPU."""
+        if not self.capture_keys or self.key_descriptors is None:
+            raise RuntimeError("vision key capture was not completed")
+        return self.key_descriptors
+
     def stats(self) -> dict[str, Any]:
         """JSON-ready instrumentation summary."""
         reduction = (float(self.saliency_reduction_ms)
@@ -367,8 +449,24 @@ class VisionForwardCapture:
         materialize = float(self.saliency_materialize_ms)
         return {
             "capture_saliency": self.capture_saliency,
+            "capture_keys": self.capture_keys,
             "vision_call_count": int(self.call_count),
             "saliency_call_count": int(self.saliency_call_count),
+            "key_call_count": int(self.key_call_count),
+            "key_reduction_ms": float(self.key_reduction_ms or 0.0),
+            "key_reduce_cuda_ms": (float(self.key_reduction_ms or 0.0)
+                                   if self._key_events is not None else None),
+            "key_hook_submit_ms": float(self.key_hook_submit_ms),
+            "key_materialize_ms": float(self.key_materialize_ms),
+            "key_zero_norm_count": int(self.key_zero_norm_count),
+            "key_descriptor_shape": (None if self.key_descriptors is None
+                                     else list(self.key_descriptors.shape)),
+            "key_descriptor_dtype": (None if self.key_descriptors is None
+                                     else str(self.key_descriptors.dtype)),
+            "key_head_reduction": ("fp32_head_mean" if self.capture_keys
+                                   else None),
+            "key_normalization": ("fp32_l2_zero_stays_zero" if self.capture_keys
+                                  else None),
             "vision_ms": (None if self.vision_elapsed_ms is None
                           else float(self.vision_elapsed_ms)),
             "saliency_reduction_ms": reduction,
@@ -667,6 +765,11 @@ def persist_captured_visual_prefix(
     capture_stats: Mapping[str, Any] | VisionForwardCapture | None = None,
     extra_metadata: Mapping[str, Any] | None = None,
     full_integrity_hash: bool = False,
+    selection_variant: str | None = None,
+    contextual_alpha: float = 0.0,
+    vision_key_descriptors: torch.Tensor | None = None,
+    selection_seed: int = 1234,
+    storage_policy: str = "full",
 ) -> dict[str, Any]:
     """Persist the reusable prefix from a completed normal Turn-1 request.
 
@@ -709,6 +812,15 @@ def persist_captured_visual_prefix(
     if os.path.lexists(destination):
         raise FileExistsError(errno.EEXIST, "refusing to overwrite store",
                               destination)
+    if selection_variant is None:
+        if contextual_alpha != 0.0 or vision_key_descriptors is not None:
+            raise ValueError("legacy layout cannot receive contextual inputs")
+    elif selection_variant not in (
+            "dominant", "contextual", "random", "uniform",
+            "spatial_uniform"):
+        raise ValueError(f"unsupported original-token selection: {selection_variant}")
+    if selection_variant == "spatial_uniform" and vision_key_descriptors is not None:
+        raise ValueError("spatial uniform must not capture vision-key descriptors")
 
     capture_object = (capture_stats if isinstance(
         capture_stats, VisionForwardCapture) else None)
@@ -720,6 +832,13 @@ def persist_captured_visual_prefix(
             torch.as_tensor(per_sub_scores).float().cpu(),
             capture_object.result_cpu(),
         ), "per_sub_scores differ from the completed capture object"
+        if vision_key_descriptors is not None:
+            assert capture_object.capture_keys, (
+                "contextual descriptors require a same-forward key hook")
+            assert torch.equal(
+                torch.as_tensor(vision_key_descriptors).float().cpu(),
+                capture_object.result_keys_cpu(),
+            ), "vision key descriptors differ from the completed capture object"
     else:
         assert capture_stats is not None, (
             "capture_stats are required to prove same-request piggyback "
@@ -742,6 +861,14 @@ def persist_captured_visual_prefix(
             f"invalid Turn-1 capture provenance {key}: "
             f"{capture_document.get(key)!r} != {expected!r}"
         )
+    if vision_key_descriptors is not None:
+        assert capture_document.get("capture_keys") is True
+        assert capture_document.get("key_call_count") == 1
+        assert capture_document.get("key_head_reduction") == "fp32_head_mean"
+        assert capture_document.get("key_normalization") == "fp32_l2_zero_stays_zero"
+    if selection_variant == "spatial_uniform":
+        assert capture_document.get("capture_keys") is False
+        assert int(capture_document.get("key_call_count", 0)) == 0
     assert capture_document.get("vision_ms") is not None, \
         "capture provenance is missing vision timing"
     captured_layer_count = int(capture_document.get("vision_num_layers", -1))
@@ -785,18 +912,67 @@ def persist_captured_visual_prefix(
     )
     token_mapping_ms = (time.perf_counter() - t0) * 1e3
     t0 = time.perf_counter()
-    stored_to_original = visionzip_repack_order(token_scores, newline_idx)
-    original_to_stored = mapping_from_perm(stored_to_original)
+    selection_plan = None
+    descriptor_mapping_ms = 0.0
+    clustering_ms = 0.0
+    geometry_mapping_ms = 0.0
+    spatial_selection_ms = 0.0
+    if selection_variant is None:
+        stored_to_original = visionzip_repack_order(token_scores, newline_idx)
+        original_to_stored = mapping_from_perm(stored_to_original)
+    else:
+        from mmimpress.contextual_kv25 import (
+            anyres_token_descriptors, build_selection_plan,
+        )
+        descriptors = None
+        if vision_key_descriptors is not None:
+            mapping_t0 = time.perf_counter()
+            descriptors = anyres_token_descriptors(
+                runner, torch.as_tensor(vision_key_descriptors).float().cpu(),
+                size, v_num, base_side=base,
+            )
+            descriptor_mapping_ms = (time.perf_counter() - mapping_t0) * 1e3
+        if selection_variant == "spatial_uniform":
+            from mmimpress.spatial_kv25 import (
+                anyres_token_coordinates, build_spatial_selection_plan,
+            )
+            geometry_t0 = time.perf_counter()
+            coordinates = anyres_token_coordinates(
+                runner, size, v_num, base_side=base)
+            geometry_mapping_ms = (time.perf_counter() - geometry_t0) * 1e3
+            spatial_t0 = time.perf_counter()
+            index_plan = build_selection_plan(
+                token_scores, None, newline_idx, contextual_alpha,
+                "uniform", str(image_id), seed=selection_seed,
+            )
+            selection_plan = build_spatial_selection_plan(
+                index_plan, coordinates)
+            spatial_selection_ms = (time.perf_counter() - spatial_t0) * 1e3
+        else:
+            clustering_t0 = time.perf_counter()
+            selection_plan = build_selection_plan(
+                token_scores, descriptors, newline_idx, contextual_alpha,
+                selection_variant, str(image_id), seed=selection_seed,
+            )
+            clustering_ms = (time.perf_counter() - clustering_t0) * 1e3
+        stored_to_original = [int(x) for x in selection_plan["stored_to_original"]]
+        original_to_stored = [int(x) for x in selection_plan["original_to_stored"]]
+        assert stored_to_original[:selection_plan["k"]] == \
+            selection_plan["selected_original_ids"]
     permutation_ms = (time.perf_counter() - t0) * 1e3
     assert stored_to_original[-len(newline_idx):] == list(newline_idx)
 
+    layout_policy = (
+        "visionzip_image_only" if selection_plan is None else
+        "visionzip_spatial_original_v1" if selection_variant == "spatial_uniform"
+        else "visionzip_contextual_original_v1")
     invariant_metadata = {
         "image_id": str(image_id),
         "model": str(model_id or getattr(runner, "model_id", "unknown")),
         "base_grid": int(base),
         "hires_grid": [int(hi_h), int(hi_w)],
-        "physical_layout": "visionzip_image_only",
-        "layout_method": "visionzip_image_only",
+        "physical_layout": layout_policy,
+        "layout_method": layout_policy,
         "layout_source": "turn1_normal_inference_piggyback",
         "visual_kv_source": "turn1_captured_past_key_values",
         "saliency_source": (
@@ -819,6 +995,29 @@ def persist_captured_visual_prefix(
         "inverse_permutation_sha256": permutation_sha256(
             original_to_stored),
     }
+    if selection_plan is not None:
+        invariant_metadata.update({
+            "layout_policy_version": layout_policy,
+            "selection_variant": selection_variant,
+            "contextual_alpha": float(contextual_alpha),
+            "selection_seed": int(selection_seed),
+            "k_target": int(selection_plan["k"]),
+            "k_dominant": int(selection_plan["k_dominant"]),
+            "k_context": int(selection_plan["k_context"]),
+            "selection_plan_sha256": stable_json_sha256(selection_plan),
+            "key_descriptor_source": (
+                "same_turn1_penultimate_vision_k_proj_head_mean_fp32_l2"
+                if vision_key_descriptors is not None else None),
+            "key_descriptor_mapping": (
+                "base_then_tiled_anyres_unpad_structural_zero"
+                if vision_key_descriptors is not None else None),
+            "key_descriptor_payload_persisted": False,
+        })
+        if selection_variant == "spatial_uniform":
+            invariant_metadata.update({
+                "spatial_coordinate_policy": "base_and_unpadded_high_patch_centers_v1",
+                "spatial_quota_policy": "index_uniform_base_high_quota_matched_v1",
+            })
     if image_input_sha256 is not None:
         invariant_metadata["image_input_sha256"] = str(image_input_sha256)
     invariant_metadata["turn1_capture"] = capture_document
@@ -852,6 +1051,7 @@ def persist_captured_visual_prefix(
             extra=invariant_metadata, chunk_size=int(chunk_size),
             probe_heads=0, stored_to_original=stored_to_original,
             separator_sidecar=True, timing_out=writer_timing,
+            storage_policy=storage_policy,
         )
         assert meta["probe_heads"] == 0
         assert meta["bytes_probe_sidecar"] == 0
@@ -876,6 +1076,23 @@ def persist_captured_visual_prefix(
             "separate_prefix_forward": False,
             "image_input_sha256": image_input_sha256,
         }
+        if selection_plan is not None:
+            layout_artifact.update({
+                "schema_version": 3,
+                "layout_policy_version": layout_policy,
+                "selection_plan": selection_plan,
+                "selection_plan_sha256": stable_json_sha256(selection_plan),
+                "descriptor_protocol": None if vision_key_descriptors is None else {
+                    "source": "same_turn1_penultimate_vision_k_proj",
+                    "layer_index": captured_layer_index,
+                    "cls_removed": True,
+                    "head_reduction": "fp32_head_mean",
+                    "dtype": "float32",
+                    "normalization": "l2_zero_stays_zero",
+                    "token_mapping": "base_then_tiled_anyres_unpad_structural_zero",
+                    "payload_persisted": False,
+                },
+            })
         t0 = time.perf_counter()
         torch.save(layout_artifact, staging / "visionzip_layout.pt")
         layout_write_ms = (time.perf_counter() - t0) * 1e3
@@ -937,7 +1154,12 @@ def persist_captured_visual_prefix(
         total_repack_ms = (float(writer_timing["kv_materialize_ms"])
                            + float(writer_timing["kv_repack_ms"]))
         timing_ms = {
+            "prefix_slice_serialization_ms": writer_timing.get("prefix_slice_serialization_ms", 0.0),
             "token_mapping_ms": float(token_mapping_ms),
+            "descriptor_mapping_ms": float(descriptor_mapping_ms),
+            "clustering_ms": float(clustering_ms),
+            "geometry_mapping_ms": float(geometry_mapping_ms),
+            "spatial_selection_ms": float(spatial_selection_ms),
             "permutation_ms": float(permutation_ms),
             "kv_materialize_ms": float(writer_timing["kv_materialize_ms"]),
             "kv_repack_ms": float(writer_timing["kv_repack_ms"]),

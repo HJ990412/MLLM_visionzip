@@ -1,0 +1,124 @@
+{
+  "d20_context5_minus_d20_index_uniform5": {
+    "examples": [],
+    "flip_count": 0,
+    "role": "secondary"
+  },
+  "d20_spatial_uniform5_minus_d20_context5": {
+    "examples": [],
+    "flip_count": 0,
+    "role": "secondary"
+  },
+  "d20_spatial_uniform5_minus_d20_index_uniform5": {
+    "examples": [],
+    "flip_count": 0,
+    "role": "primary"
+  },
+  "d20_spatial_uniform5_minus_d20_random5": {
+    "examples": [],
+    "flip_count": 0,
+    "role": "secondary"
+  },
+  "d20_spatial_uniform5_minus_d25_c0": {
+    "examples": [
+      {
+        "gold": [
+          "small"
+        ],
+        "image_id": "n355567",
+        "method_a": "d20_spatial_uniform5",
+        "method_a_correct": false,
+        "method_a_prediction": "Large",
+        "method_b": "d25_c0",
+        "method_b_correct": true,
+        "method_b_prediction": "Small",
+        "question": "How large is the wire net?",
+        "question_id": "201751873"
+      },
+      {
+        "gold": [
+          "no"
+        ],
+        "image_id": "n9181",
+        "method_a": "d20_spatial_uniform5",
+        "method_a_correct": false,
+        "method_a_prediction": "Yes",
+        "method_b": "d25_c0",
+        "method_b_correct": true,
+        "method_b_prediction": "No",
+        "question": "Is the motorcycle on the right part?",
+        "question_id": "20929384"
+      }
+    ],
+    "flip_count": 2,
+    "role": "practical_baseline"
+  },
+  "d21_1_c3_9_reference_minus_d20_context5": {
+    "examples": [
+      {
+        "gold": [
+          "small"
+        ],
+        "image_id": "n355567",
+        "method_a": "d21_1_c3_9_reference",
+        "method_a_correct": true,
+        "method_a_prediction": "Small",
+        "method_b": "d20_context5",
+        "method_b_correct": false,
+        "method_b_prediction": "Large",
+        "question": "How large is the wire net?",
+        "question_id": "201751873"
+      },
+      {
+        "gold": [
+          "no"
+        ],
+        "image_id": "n9181",
+        "method_a": "d21_1_c3_9_reference",
+        "method_a_correct": false,
+        "method_a_prediction": "Yes",
+        "method_b": "d20_context5",
+        "method_b_correct": true,
+        "method_b_prediction": "No",
+        "question": "Is the motorcycle near the jacket black and metallic?",
+        "question_id": "20929389"
+      }
+    ],
+    "flip_count": 2,
+    "role": "secondary"
+  },
+  "d21_1_c3_9_reference_minus_d25_c0": {
+    "examples": [
+      {
+        "gold": [
+          "no"
+        ],
+        "image_id": "n9181",
+        "method_a": "d21_1_c3_9_reference",
+        "method_a_correct": false,
+        "method_a_prediction": "Yes",
+        "method_b": "d25_c0",
+        "method_b_correct": true,
+        "method_b_prediction": "No",
+        "question": "Is the motorcycle on the right part?",
+        "question_id": "20929384"
+      },
+      {
+        "gold": [
+          "no"
+        ],
+        "image_id": "n9181",
+        "method_a": "d21_1_c3_9_reference",
+        "method_a_correct": false,
+        "method_a_prediction": "Yes",
+        "method_b": "d25_c0",
+        "method_b_correct": true,
+        "method_b_prediction": "No",
+        "question": "Is the motorcycle near the jacket black and metallic?",
+        "question_id": "20929389"
+      }
+    ],
+    "flip_count": 2,
+    "role": "secondary"
+  }
+}

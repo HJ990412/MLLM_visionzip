@@ -1,0 +1,128 @@
+{
+  "status": "PASS",
+  "checks_evaluated": 26,
+  "failure_counts": {},
+  "failure_examples": {},
+  "schema_version": "sparsevlm-ssd-kv25-independent-audit-v1",
+  "phases": {
+    "smoke": {
+      "status": "PASS",
+      "checks_evaluated": 17896,
+      "failure_counts": {},
+      "failure_examples": {},
+      "scope": "complete_provided_cohorts_only",
+      "rows": 60,
+      "independently_rescored": 60,
+      "completed_cohorts": 4,
+      "final_pilot_valid": false,
+      "observed_requests": 60,
+      "expected_requests": 60,
+      "complete_frozen_workload": true,
+      "raw_sha256": "55d568a89d851fd507672075f655b021120f913b463607c8a47a7f0a64e270b1",
+      "raw_path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/raw.jsonl",
+      "pilot_status": "VALID"
+    },
+    "gqa": {
+      "status": "PASS",
+      "checks_evaluated": 440479,
+      "failure_counts": {},
+      "failure_examples": {},
+      "scope": "complete_provided_cohorts_only",
+      "rows": 1200,
+      "independently_rescored": 1200,
+      "completed_cohorts": 40,
+      "final_pilot_valid": false,
+      "observed_requests": 1200,
+      "expected_requests": 1200,
+      "complete_frozen_workload": true,
+      "raw_sha256": "f2b0b2bae732dfaebab8b8820c021b5edb1b99c9699fdd9b64d3621d43e02d3c",
+      "raw_path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/raw.jsonl",
+      "pilot_status": "VALID"
+    },
+    "mt": {
+      "status": "PASS",
+      "checks_evaluated": 180840,
+      "failure_counts": {},
+      "failure_examples": {},
+      "scope": "complete_provided_cohorts_only",
+      "rows": 600,
+      "independently_rescored": 600,
+      "completed_cohorts": 40,
+      "final_pilot_valid": false,
+      "observed_requests": 600,
+      "expected_requests": 600,
+      "complete_frozen_workload": true,
+      "raw_sha256": "56d77e33c6d8318f5a1002ba379ecbf92281152b78984377c95be221248f056e",
+      "raw_path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/raw.jsonl",
+      "pilot_status": "VALID"
+    }
+  },
+  "gates": {
+    "CPU_TEST": "PASS",
+    "GPU_CORRECTNESS": "PASS",
+    "PROJECTION_REUSE": "PASS",
+    "ALLHEAD_K_READ_REUSE": "PASS",
+    "LEGACY_PROTECTION": "PASS",
+    "QWEN_GPU": "NOT RUN",
+    "IMPLEMENTATION": "PASS"
+  },
+  "ready": true,
+  "readiness_reason": "all correctness, projection/I/O, protection and full pilot gates passed",
+  "references": {
+    "config": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/runner_config.json",
+      "sha256": "451154eb051fe7e68508714f83914133c01500cd8c940d36d41cff7cefdbd045"
+    },
+    "manifest": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/manifest.json",
+      "sha256": "15e1690633e67acd2b7a6f107009289b6dacc1c6181386bbbd0d42da4d442096"
+    },
+    "contract": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/contract_freeze_v2.json",
+      "sha256": "504c7739c69392b36165600098e64847a80b0b3f2a8d9ba5339cbe38a7e6a086"
+    },
+    "gpu": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_full_01/gpu_validation.json",
+      "sha256": "78910e0165176e7fdc4db6ded359a4583f30248df6ed98793e1c0ecff8ff12e1"
+    },
+    "cpu": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/cpu_validation_final.json",
+      "sha256": "f4b8f37d83330236231276c1634910f22ec931a65dba146b17eab7668b5c8a56"
+    },
+    "legacy": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/legacy_cpu_tests.json",
+      "sha256": "e7117adb8d332e5fe4f2272b7669927241d85e2f809a70d72bd9992a32fdbb3d"
+    },
+    "protection": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/protection_rehash.json",
+      "sha256": "e7d8a222031769c9291c8592a19871dc936baebb8da58c8d47feb58422b47eef"
+    }
+  },
+  "bootstrap": {
+    "resamples": 10000,
+    "seed": 1234,
+    "cluster": "image_id",
+    "weighting": "request"
+  },
+  "audit_script_sha256": "76449ff77ed9fa6db49dabea4d4d5db8d6bdec6d501543729b6cb87f20af63c6",
+  "source_receipts": [
+    {
+      "source_sha256": {
+        "mmimpress/sparsevlm_ssd_core.py": "9314e6d75a013c0f26a074f3c4429cf23c7f31db4df50d38490d9d05b0f9ea2b",
+        "mmimpress/sparsevlm_ssd_store.py": "dbcca26e9f026ac16e835a682178e2c20bf841c3fad4effe981d39486de13be2",
+        "mmimpress/sparsevlm_ssd_attention.py": "f9d163dde78e798484b1102a61e5db0e90a84dc54ecd235b05237ad7426a3dec",
+        "mmimpress/serve.py": "3d02d54e26076b8974fc75b1dde2bf37fbe9be83b57a213b27b2ea4bdb2698d9",
+        "mmimpress/store.py": "0732fc883b7cab8185c2bdf9349b00e0f316b12a2eb504d7106f3ab7793fd97b",
+        "mmimpress/piggyback.py": "336a9861b6ee20fdb49db6ad57ea501e4462e9071732647e89e8510a91931908",
+        "mmimpress/model.py": "39437de1b03c41af4f8e9aa219620c6a1544a2a4ef98391679eb0dfd2522c6ba",
+        "scripts/97_validate_sparsevlm_ssd_kv25.py": "6500848b1ffb0514c2d9f53a78abf8e98ddab5876ed64eaa9c1164060db63faa",
+        "scripts/98_eval_sparsevlm_ssd_kv25.py": "b4ee82a0f4663b16f8b12aa4e68b7cae9ecaa9b553a8100bc462038c648a0366",
+        "scripts/49_eval_query_aware_baseline.py": "ea6e3d0d3a50580e3c4cde8c578d377b4e7e92f2dcb6313610bf52b10f4c042d",
+        "scripts/89_eval_llava_kv25.py": "c65132f5aa8c3598cd5f64cc598e6034241946f2f941248d03d202e74224dcbd",
+        "scripts/99_audit_sparsevlm_ssd_kv25.py": "76449ff77ed9fa6db49dabea4d4d5db8d6bdec6d501543729b6cb87f20af63c6",
+        "mmimpress/config.py": "5d14532936ac55e01d7320ec8877b242471361c1001afb25a9d7fafc4a12c418",
+        "mmimpress/dataset.py": "e5e58ea185275429c7e74bbccde43fd50a276428d64089f2f349616ed65b15a0"
+      }
+    }
+  ]
+}

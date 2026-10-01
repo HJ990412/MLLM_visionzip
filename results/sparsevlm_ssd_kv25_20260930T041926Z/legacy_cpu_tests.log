@@ -1,0 +1,741 @@
+test_all_variants_are_global_bijective_fixed_budget_plans (test_contextual_kv25.BudgetAndPlanTests) ... ok
+test_alpha_zero_is_exact_existing_dominant_order (test_contextual_kv25.BudgetAndPlanTests) ... ok
+test_contextual_selection_is_question_independent (test_contextual_kv25.BudgetAndPlanTests) ... ok
+test_fixed_budget_and_chunk_boundaries (test_contextual_kv25.BudgetAndPlanTests) ... ok
+test_nonfinite_descriptor_and_bad_variant_fail_closed (test_contextual_kv25.BudgetAndPlanTests) ... ok
+test_uniform_target_positions_and_controls (test_contextual_kv25.BudgetAndPlanTests) ... ok
+test_anyres_horizontal_unpad_and_newline_rows (test_contextual_kv25.DescriptorMappingTests) ... ok
+test_anyres_vertical_unpad_and_newline_rows (test_contextual_kv25.DescriptorMappingTests) ... ok
+test_cls_removed_head_mean_float32_l2_and_zero_norm (test_contextual_kv25.DescriptorMappingTests) ... ok
+test_identical_vectors_target_self_cluster_and_id_ties (test_contextual_kv25.RepresentativeTests) ... ok
+test_zero_centroid_uses_target_and_zero_descriptors_stay_finite (test_contextual_kv25.RepresentativeTests) ... ok
+test_real_persistence_maps_keys_and_preserves_full_original_kv (test_contextual_kv25_integration.ContextualPersistenceTests) ... ok
+test_active_key_hook_preserves_one_normal_vision_output (test_contextual_kv25_integration.ContextualStoreHitTests) ... ok
+test_disabled_key_hook_preserves_legacy_vision_output (test_contextual_kv25_integration.ContextualStoreHitTests) ... ok
+test_policy_activation_hit_io_and_question_invariance (test_contextual_kv25_integration.ContextualStoreHitTests) ... ok
+test_short_final_chunk_has_no_padding_and_all_rows_are_original (test_contextual_kv25_integration.ContextualStoreHitTests) ... ok
+test_context_cap_boundary_and_corruption (test_convbench_analysis.ConvBenchAnalysisTests) ... ok
+test_every_targeted_stage_has_seven_conversation_denominator (test_convbench_analysis.ConvBenchAnalysisTests) ... ok
+test_explicit_smoke_selection_preserves_index_identity (test_convbench_analysis.ConvBenchAnalysisTests) ... ok
+test_judge_analysis_fixed_denominator_keeps_unresolved (test_convbench_analysis.ConvBenchAnalysisTests) ... ok
+test_missing_judge_record_is_zero_win_with_fixed_denominator (test_convbench_analysis.ConvBenchAnalysisTests) ... ok
+test_native_overflow_policy_validates_original_final_and_zero_truncation (test_convbench_analysis.ConvBenchAnalysisTests) ... ok
+test_native_policy_preserves_under_limit_dynamic_cap (test_convbench_analysis.ConvBenchAnalysisTests) ... ok
+test_stage_only_judge_population_and_fixed_denominator (test_convbench_analysis.ConvBenchAnalysisTests) ... ok
+test_committed_store_requires_matching_files_and_sampled_hash (test_convbench_answer_runner.ConvBenchAnswerRunnerTests) ... ok
+test_context_cap_and_server_restoration_contract (test_convbench_answer_runner.ConvBenchAnswerRunnerTests) ... ok
+test_explicit_smoke_ids_preserve_global_ordinals (test_convbench_answer_runner.ConvBenchAnswerRunnerTests) ... ok
+test_generated_history_is_method_specific_and_causal (test_convbench_answer_runner.ConvBenchAnswerRunnerTests) ... ok
+test_immutable_resume_rejects_corruption_and_duplicates (test_convbench_answer_runner.ConvBenchAnswerRunnerTests) ... ok
+test_index_and_source_provenance (test_convbench_answer_runner.ConvBenchAnswerRunnerTests) ... ok
+test_model_forward_counter_counts_decode_steps (test_convbench_answer_runner.ConvBenchAnswerRunnerTests) ... ok
+test_mutated_index_rejected_even_with_its_own_hash (test_convbench_answer_runner.ConvBenchAnswerRunnerTests) ... ok
+test_native_overflow_policy_keeps_original_generated_history (test_convbench_answer_runner.ConvBenchAnswerRunnerTests) ... ok
+test_render_prompt_matches_official_llava_v1 (test_convbench_answer_runner.ConvBenchAnswerRunnerTests) ... ok
+test_request_checkpoints_are_ordered_immutable_and_history_bound (test_convbench_answer_runner.ConvBenchAnswerRunnerTests) ... ok
+test_source_image_fingerprint_covers_unprocessed_and_duplicate_images (test_convbench_answer_runner.ConvBenchAnswerRunnerTests) ... ok
+test_boundary_counts_and_linear_percentile (test_convbench_context_report.ConvBenchContextReportTests) ... ok
+test_rejects_inconsistent_preflight_flag (test_convbench_context_report.ConvBenchContextReportTests) ... ok
+test_bootstrap_resamples_complete_conversations (test_convbench_full_diagnostics.FullDiagnosticsTests) ... ok
+test_fixed_denominator_and_unresolved_zero_win (test_convbench_full_diagnostics.FullDiagnosticsTests) ... ok
+test_stage_only_checkpoint_hash_and_raw_equality (test_convbench_full_diagnostics.FullDiagnosticsTests) ... ok
+test_targeted_artifact_recalculation_and_stage_only_coverage (test_convbench_full_diagnostics.FullDiagnosticsTests) ... ok
+test_cli_resume_and_corrupt_checkpoint_refusal (test_convbench_judge.JudgeSemanticsTest) ... ok
+test_fixed_seven_denominator_with_unresolved_and_missing_judgments (test_convbench_judge.JudgeSemanticsTest) ... ok
+test_original_row_pairwise_mapping_and_official_prompt (test_convbench_judge.JudgeSemanticsTest) ... ok
+test_parser_and_unresolved_fixed_denominator (test_convbench_judge.JudgeSemanticsTest) ... ok
+test_second_pass_recovery_preserves_archived_first_pass (test_convbench_judge.JudgeSemanticsTest) ... ok
+test_smoke_ids_cli_preflight_and_resume_selection_guard (test_convbench_judge.JudgeSemanticsTest) ... ok
+test_smoke_ids_select_exact_official_rows_and_pairwise_positions (test_convbench_judge.JudgeSemanticsTest) ... ok
+test_stage_only_cli_three_records_resume_and_mode_mismatch (test_convbench_judge.JudgeSemanticsTest) ... ok
+test_stage_only_scoring_has_no_overall_population (test_convbench_judge.JudgeSemanticsTest) ... ok
+test_overflow_cap_must_be_bounded (test_convbench_native_probe.NativeProbeCapTests) ... ok
+test_overflow_is_exact_and_does_not_change_config (test_convbench_native_probe.NativeProbeCapTests) ... ok
+test_within_context_uses_production_cap (test_convbench_native_probe.NativeProbeCapTests) ... ok
+test_invalid_method_sets_are_rejected (test_image_only_generalization.BalancedOrderTests) ... ok
+test_rotation_is_deterministic_balanced_and_shard_invariant (test_image_only_generalization.BalancedOrderTests) ... ok
+test_df_style_96_percent_used_boundary_is_rejected (test_image_only_generalization.CapacityGuardTests) ... ok
+test_free_space_boundary_is_fail_closed (test_image_only_generalization.CapacityGuardTests) ... ok
+test_identical_paired_scores_have_exact_zero_delta_interval (test_image_only_generalization.ImageClusterBootstrapTests) ... ok
+test_invalid_bootstrap_inputs_fail_closed (test_image_only_generalization.ImageClusterBootstrapTests) ... ok
+test_resampling_carries_every_question_in_unequal_clusters (test_image_only_generalization.ImageClusterBootstrapTests) ... ok
+test_seeded_result_is_exactly_deterministic (test_image_only_generalization.ImageClusterBootstrapTests) ... ok
+test_accepts_only_owned_image_payload_descendant (test_image_only_generalization.OwnedTemporaryPathTests) ... ok
+test_rejects_broad_or_unexpected_nested_descendants (test_image_only_generalization.OwnedTemporaryPathTests)
+Deletion authority is exactly one image payload, never a subtree. ... ok
+test_rejects_root_outside_relative_and_wrong_owner (test_image_only_generalization.OwnedTemporaryPathTests) ... ok
+test_rejects_symlink_candidate_and_symlink_escape (test_image_only_generalization.OwnedTemporaryPathTests) ... ok
+test_alias_fallback_supports_legacy_nested_profile (test_image_only_generalization.PersistenceProfileTests) ... ok
+test_alias_priority_prefers_flat_aggregate_over_nested_component (test_image_only_generalization.PersistenceProfileTests) ... ok
+test_first_k_is_exact_and_nested_for_all_chunk_counts (test_image_only_generalization.SequentialPrefixTests) ... ok
+test_python_ties_to_even_and_clamping_contract (test_image_only_generalization.SequentialPrefixTests) ... ok
+test_duplicate_question_id_is_rejected_even_outside_eval_slice (test_image_only_generalization.WorkloadResolutionTests) ... ok
+test_expected_identity_mismatch_fails_closed (test_image_only_generalization.WorkloadResolutionTests) ... ok
+test_gqa_slice_is_exactly_questions_one_through_three (test_image_only_generalization.WorkloadResolutionTests) ... ok
+test_vqav2_and_textvqa_slices_are_exact (test_image_only_generalization.WorkloadResolutionTests) ... ok
+test_launcher_forwarded_flags_exist_in_child_clis (test_image_only_generalization_orchestrator.CliCompatibilityTests) ... ok
+test_canonical_dataset_order_hashes_and_counts_are_exact (test_image_only_generalization_orchestrator.FrozenSpecificationTests) ... ok
+test_final_contract_rejects_subsets_reordering_and_weak_guards (test_image_only_generalization_orchestrator.FrozenSpecificationTests) ... ok
+test_dataset_config_revision_mismatch_is_rejected (test_image_only_generalization_orchestrator.ModelRevisionTests) ... ok
+test_local_checkpoint_revision_is_a_present_snapshot (test_image_only_generalization_orchestrator.ModelRevisionTests) ... ok
+test_runner_resume_config_treats_revision_as_invariant (test_image_only_generalization_orchestrator.ModelRevisionTests) ... ok
+test_accepts_only_dedicated_top_level_namespaces (test_image_only_generalization_orchestrator.OutputNamespaceTests) ... ok
+test_atomic_json_never_overwrites_in_exclusive_mode (test_image_only_generalization_orchestrator.OutputNamespaceTests) ... ok
+test_new_roots_are_excluded_but_every_old_file_is_protected (test_image_only_generalization_orchestrator.ProtectionManifestTests) ... ok
+test_prefix_coverage_uses_same_budget_rounding (test_image_only_generalization_runner.CoverageTests) ... ok
+test_exclusive_json_refuses_overwrite (test_image_only_generalization_runner.SafetyTests) ... ok
+test_owned_temp_path_is_exact_image_leaf (test_image_only_generalization_runner.SafetyTests) ... ok
+test_resume_artifact_is_checked_before_skip (test_image_only_generalization_runner.SafetyTests) ... ok
+test_balanced_order_uses_global_ordinal (test_image_only_generalization_runner.WorkloadTests) ... ok
+test_resolve_frozen_workloads (test_image_only_generalization_runner.WorkloadTests) ... ok
+test_direct_write_matches_fresh_raster_then_posthoc_repack (test_image_only_repack.DirectAndPosthocLayoutTests) ... ok
+test_prefix_online_path_cannot_call_any_forbidden_scorer (test_image_only_repack.OnlinePrefixIsolationTests) ... ok
+test_accepts_valid_shared_image_only_layout_and_raster_layout (test_image_only_repack.PrefixLayoutValidatorTests) ... ok
+test_rejects_wrong_provenance_mapping_and_missing_artifact (test_image_only_repack.PrefixLayoutValidatorTests) ... ok
+test_contiguous_first_k_has_exact_actual_bytes_and_preads (test_image_only_repack.RealPrefixIOTests) ... ok
+test_invalid_real_score_and_separator_index_fail_closed (test_image_only_repack.VisionZipOrderTests) ... ok
+test_stable_ties_separator_tail_bijection_and_inverse (test_image_only_repack.VisionZipOrderTests) ... ok
+test_edges_and_invalid_inputs (test_llava_kv25.BudgetArithmeticTests) ... ok
+test_all_boundary_geometries_and_real_pread_ranges (test_llava_kv25.RealKV25PathTests) ... ok
+test_bad_layout_and_zero_content_fail_closed (test_llava_kv25.RealKV25PathTests) ... ok
+test_question_independence_and_full_retention_logical_identity (test_llava_kv25.RealKV25PathTests) ... ok
+test_short_final_chunk_has_no_padding_bytes (test_llava_kv25.RealKV25PathTests) ... ok
+test_k_32_means_leading_rows_not_percent_or_chunks (test_mpic.ActiveRowPlanTests) ... ok
+test_k_n_recomputes_every_image_row_at_its_logical_position (test_mpic.ActiveRowPlanTests) ... ok
+test_k_zero_reuses_the_complete_image_and_recomputes_all_text (test_mpic.ActiveRowPlanTests) ... ok
+test_changing_future_keys_and_values_cannot_change_past_output (test_mpic.CausalMaskTests) ... ok
+test_original_positions_and_valid_key_mask_define_visibility (test_mpic.CausalMaskTests) ... ok
+test_seed_has_exact_prompt_length_and_decode_appends_only_one_row (test_mpic.DynamicCacheSeedTests) ... ok
+test_k_n_overwrites_stale_image_values_and_matches_full_prefill (test_mpic.IntegratedReferenceTests) ... ok
+test_k_zero_matches_full_context_reference_attention (test_mpic.IntegratedReferenceTests) ... ok
+test_dummy_sentinel_is_fully_overwritten_before_attention (test_mpic.LinkedKVAssemblyTests) ... ok
+test_indexed_replacement_preserves_every_nonselected_image_row (test_mpic.LinkedKVAssemblyTests) ... ok
+test_k_32_replaces_exactly_32_rows_and_keeps_the_reused_tail (test_mpic.LinkedKVAssemblyTests) ... ok
+test_k_zero_and_k_n_retain_exact_full_logical_context (test_mpic.LinkedKVAssemblyTests) ... ok
+test_separate_requests_cannot_mutate_source_or_prior_result (test_mpic.LinkedKVAssemblyTests) ... ok
+test_visual_prefix_and_chunk_aligned_reuse_have_exact_accounting (test_mpic.MPICRawReaderTests) ... ok
+test_k_zero_partial_and_full_match_fp32_full_prefill (test_mpic.ProductionSelectivePrefillReferenceTests) ... ok
+test_same_position_is_identity_not_a_second_rope_application (test_mpic.RoPERelocationTests) ... ok
+test_shift_matches_direct_target_rope_and_keeps_source_immutable (test_mpic.RoPERelocationTests) ... ok
+test_added_sibling_is_reported_but_does_not_change_frozen_set (test_mpic_artifact_protection.MPICArtifactProtectionTests) ... ok
+test_changed_prior_file_fails_closed_and_writes_report (test_mpic_artifact_protection.MPICArtifactProtectionTests) ... ok
+test_nested_output_roots_are_exactly_excluded_and_verify (test_mpic_artifact_protection.MPICArtifactProtectionTests) ... ok
+test_rejects_symlinked_mpic_parent (test_mpic_artifact_protection.MPICArtifactProtectionTests) ... ok
+test_rejects_wrong_or_mismatched_output_roots (test_mpic_artifact_protection.MPICArtifactProtectionTests) ... ok
+test_snapshot_uses_full_and_sampled_hashes (test_mpic_artifact_protection.MPICArtifactProtectionTests) ... ok
+test_tampered_manifest_is_rejected (test_mpic_artifact_protection.MPICArtifactProtectionTests) ... ok
+test_cluster_bootstrap_is_deterministic_and_image_clustered (test_mpic_report.MPICReportTests) ... ok
+test_independent_row_validator_accepts_runner_token_semantics (test_mpic_report.MPICReportTests) ... ok
+test_percentile_matches_linear_interpolation (test_mpic_report.MPICReportTests) ... ok
+test_publish_is_no_clobber_and_idempotent (test_mpic_report.MPICReportTests) ... ok
+test_qa_persistence_reports_zero_incremental_store (test_mpic_report.MPICReportTests) ... ok
+test_runner_summary_accepts_sorted_json_keys_and_checks_csv_order (test_mpic_report.MPICReportTests) ... ok
+test_bootstrap_protocol_is_frozen_before_any_output (test_mt_gqa_analysis.AnalyzerFixtureTests) ... ok
+test_end_to_end_writes_all_outputs_and_preserves_source (test_mt_gqa_analysis.AnalyzerFixtureTests) ... ok
+test_existing_destination_is_fail_closed (test_mt_gqa_analysis.AnalyzerFixtureTests) ... ok
+test_missing_matrix_cell_fails_without_publishing (test_mt_gqa_analysis.AnalyzerFixtureTests) ... ok
+test_prefix_tolerant_source_score_is_not_primary_quality (test_mt_gqa_analysis.AnalyzerFixtureTests) ... ok
+test_score_is_independently_recomputed (test_mt_gqa_analysis.AnalyzerFixtureTests) ... ok
+test_dialogue_bootstrap_is_seeded_and_paired (test_mt_gqa_analysis.StatisticsTests) ... ok
+test_exact_mcnemar_uses_two_sided_binomial (test_mt_gqa_analysis.StatisticsTests) ... ok
+test_analyzer_publishes_complete_required_tree (test_mt_gqa_history_analysis.EndToEndTests) ... ok
+test_duplicate_matrix_cell_is_rejected (test_mt_gqa_history_analysis.EndToEndTests) ... ok
+test_generated_history_contamination_fails_before_publication (test_mt_gqa_history_analysis.EndToEndTests) ... ok
+test_exact_mcnemar_uses_binomial_tail (test_mt_gqa_history_analysis.MetricTests) ... ok
+test_gold_renderer_matches_authoritative_helper (test_mt_gqa_history_analysis.MetricTests) ... ok
+test_strict_normalization_does_not_accept_gold_prefix (test_mt_gqa_history_analysis.MetricTests) ... ok
+test_analysis_requires_marker_and_full_hashed_tree (test_mt_gqa_history_orchestration.OrchestratorTests) ... ok
+test_analyzer_receives_both_runs_and_protection_pass (test_mt_gqa_history_orchestration.OrchestratorTests) ... ok
+test_evaluator_commands_are_protocol_scoped_and_smoke_is_explicit (test_mt_gqa_history_orchestration.OrchestratorTests) ... ok
+test_frozen_request_accounting (test_mt_gqa_history_orchestration.OrchestratorTests) ... ok
+test_global_lock_prevents_concurrent_experiments (test_mt_gqa_history_orchestration.OrchestratorTests) ... ok
+test_gpu_preflight_requires_one_idle_gpu_with_headroom (test_mt_gqa_history_orchestration.OrchestratorTests) ... ok
+test_launcher_is_detached_and_does_not_precreate_roots (test_mt_gqa_history_orchestration.OrchestratorTests) ... ok
+test_manifest_is_content_hashed_and_code_locked (test_mt_gqa_history_orchestration.OrchestratorTests) ... ok
+test_nonblocking_run_lock (test_mt_gqa_history_orchestration.OrchestratorTests) ... ok
+test_owned_temporary_cleanup_is_exact (test_mt_gqa_history_orchestration.OrchestratorTests) ... ok
+test_paired_stage_orders_gold_then_generated_for_each_shard (test_mt_gqa_history_orchestration.OrchestratorTests) ... ok
+test_protocol_stage_validation_proves_exact_four_arm_coverage (test_mt_gqa_history_orchestration.OrchestratorTests) ... ok
+test_before_is_computed_before_root_creation_and_after_stays_in_run (test_mt_gqa_history_orchestration.ProtectionTests) ... ok
+test_byte_identical_replacement_is_detected (test_mt_gqa_history_orchestration.ProtectionTests) ... ok
+test_mutation_fails_closed_and_publishes_failure_evidence (test_mt_gqa_history_orchestration.ProtectionTests) ... ok
+test_new_sibling_is_reported_but_does_not_mutate_frozen_set (test_mt_gqa_history_orchestration.ProtectionTests) ... ok
+test_only_exact_new_roots_are_excluded (test_mt_gqa_history_orchestration.ProtectionTests) ... ok
+test_prefix_and_preexisting_empty_root_are_rejected (test_mt_gqa_history_orchestration.ProtectionTests) ... ok
+test_cli_requires_protocol_scoped_nonoverlapping_roots (test_mt_gqa_history_runner.CliContractTests) ... ok
+test_partial_cli_pair_is_explicit (test_mt_gqa_history_runner.CliContractTests) ... ok
+test_exact_request_accounting (test_mt_gqa_history_runner.HistoryRenderingTests) ... ok
+test_generated_history_fails_closed_on_missing_or_future_state (test_mt_gqa_history_runner.HistoryRenderingTests) ... ok
+test_generated_prompt_uses_exact_same_method_lineage (test_mt_gqa_history_runner.HistoryRenderingTests) ... ok
+test_gold_prompt_is_causal_and_teacher_forced (test_mt_gqa_history_runner.HistoryRenderingTests) ... ok
+test_method_rotation_is_balanced_and_seed_frozen (test_mt_gqa_history_runner.HistoryRenderingTests) ... ok
+test_strict_normalized_exact_is_not_prefix_tolerant (test_mt_gqa_history_runner.HistoryRenderingTests) ... ok
+test_duplicate_request_identity_is_rejected (test_mt_gqa_history_runner.ImageValidationTests) ... ok
+test_generated_cross_method_lineage_is_rejected (test_mt_gqa_history_runner.ImageValidationTests) ... ok
+test_gold_and_generated_synthetic_rows_validate (test_mt_gqa_history_runner.ImageValidationTests) ... ok
+test_ours_nonprefix_selection_is_rejected (test_mt_gqa_history_runner.ImageValidationTests) ... ok
+test_all_398_images_are_resolved (test_mt_gqa_index.FullLocalMTGQAIntegrationTests) ... ok
+test_exact_full_contract (test_mt_gqa_index.FullLocalMTGQAIntegrationTests) ... ok
+test_frozen_canonical_hashes (test_mt_gqa_index.FullLocalMTGQAIntegrationTests) ... ok
+test_source_order_membership_is_exact (test_mt_gqa_index.FullLocalMTGQAIntegrationTests) ... ok
+test_atomic_no_clobber_and_deterministic_validation (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_byte_determinism_and_workload_hash_contract (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_causal_teacher_forced_prompt_has_no_future_leakage (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_dialogue_image_path_helper_matches_string_path (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_empty_workload_and_gold_answer_fail_closed (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_missing_image_fails_closed (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_noncanonical_json_and_symlink_output_fail_closed (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_prompt_rejects_noncanonical_turn_id (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_provenance_never_claims_official_identity (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_seed_changes_only_image_order_not_membership (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_source_order_contiguous_membership_and_floor_quota (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_stable_rank_has_frozen_portable_value (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_within_dialogue_normalized_duplicate_fails_closed (test_mt_gqa_index.SyntheticMTGQATests) ... ok
+test_exact_full_request_arithmetic_and_partial_flags (test_mt_gqa_orchestrator.FrozenCliContractTests) ... ok
+test_fresh_stage_log_is_outside_evaluator_owned_directory (test_mt_gqa_orchestrator.FrozenCliContractTests) ... ok
+test_resume_reuses_frozen_shard_size (test_mt_gqa_orchestrator.FrozenCliContractTests) ... ok
+test_snapshot_covers_files_empty_dirs_and_symlink_targets (test_mt_gqa_orchestrator.PreservationTests) ... ok
+test_projection_reads_finalized_persistence_overhead_key (test_mt_gqa_orchestrator.ProjectionTests) ... ok
+test_exact_dialogue_turn_method_matrix (test_mt_gqa_orchestrator.StageCoverageTests) ... ok
+test_incomplete_image_artifact_fails_closed (test_mt_gqa_orchestrator.StageCoverageTests) ... ok
+test_exact_owned_empty_root_is_removed_without_recursive_delete (test_mt_gqa_orchestrator.TempOwnershipTests) ... ok
+test_nonempty_or_wrong_owner_fails_and_preserves_payload (test_mt_gqa_orchestrator.TempOwnershipTests) ... ok
+test_frozen_cli_contract (test_mt_gqa_runner.CliTests) ... ok
+test_cleanup_is_limited_to_one_owned_image_leaf (test_mt_gqa_runner.OwnershipTests) ... ok
+test_exclusive_artifact_refuses_overwrite (test_mt_gqa_runner.OwnershipTests) ... ok
+test_exact_first_k_and_nested_budgets (test_mt_gqa_runner.PrefixContractTests) ... ok
+test_combined_expanded_image_span_yields_exact_cached_suffix (test_mt_gqa_runner.PromptTests) ... ok
+test_prompt_is_gold_teacher_forced_and_causal (test_mt_gqa_runner.PromptTests) ... ok
+test_stored_prompt_is_built_after_cold_conditioning (test_mt_gqa_runner.PromptTests) ... ok
+test_resume_requires_content_hash_and_semantic_contract (test_mt_gqa_runner.ResumeTests) ... ok
+test_bad_top_level_content_hash_is_rejected (test_mt_gqa_runner.WorkloadTests) ... ok
+test_cyclic_order_is_one_order_for_all_dialogue_turns (test_mt_gqa_runner.WorkloadTests) ... ok
+test_image_grouping_and_40_to_60_sharding_are_stable (test_mt_gqa_runner.WorkloadTests) ... ok
+test_list_and_payload_forms_have_identical_request_hash (test_mt_gqa_runner.WorkloadTests) ... ok
+test_partial_slice_preserves_full_global_ordinals (test_mt_gqa_runner.WorkloadTests) ... ok
+test_all_ten_answers_are_required (test_mt_vqa_v2_analysis.EndToEndTests) ... ok
+test_complete_root_tree_hashes_and_report_order (test_mt_vqa_v2_analysis.EndToEndTests) ... ok
+test_cross_method_generated_history_is_rejected (test_mt_vqa_v2_analysis.EndToEndTests) ... ok
+test_ours_selection_change_is_rejected (test_mt_vqa_v2_analysis.EndToEndTests) ... ok
+test_cluster_bootstrap_is_deterministic (test_mt_vqa_v2_analysis.MetricTests) ... ok
+test_pooled_percentile_is_recomputed_from_raw_values (test_mt_vqa_v2_analysis.MetricTests) ... ok
+test_quality_sum_remains_soft (test_mt_vqa_v2_analysis.MetricTests) ... ok
+test_repository_soft_scores_and_normalization (test_mt_vqa_v2_analysis.MetricTests) ... ok
+test_exact_frozen_contract (test_mt_vqa_v2_dataset.FrozenLocalIntegrationTests) ... ok
+test_source_and_image_provenance_are_frozen (test_mt_vqa_v2_dataset.FrozenLocalIntegrationTests) ... ok
+test_atomic_no_clobber_rebuild_validation_and_mutation_failure (test_mt_vqa_v2_dataset.SyntheticReconstructionTests) ... ok
+test_determinism_workload_hash_and_reconstructed_identity (test_mt_vqa_v2_dataset.SyntheticReconstructionTests) ... ok
+test_source_order_membership_is_questions_one_through_three (test_mt_vqa_v2_dataset.SyntheticReconstructionTests) ... ok
+test_validation_rejects_question_reuse_and_wrong_source_position (test_mt_vqa_v2_dataset.SyntheticReconstructionTests) ... ok
+test_analyzer_command_binds_full_contract_and_protection (test_mt_vqa_v2_orchestration.OrchestratorTests) ... ok
+test_completion_marker_deeply_binds_each_image_artifact (test_mt_vqa_v2_orchestration.OrchestratorTests) ... ok
+test_evaluator_commands_are_generated_only_and_smoke_is_explicit (test_mt_vqa_v2_orchestration.OrchestratorTests) ... ok
+test_exact_single_protocol_request_accounting (test_mt_vqa_v2_orchestration.OrchestratorTests) ... ok
+test_launcher_is_detached_offline_and_does_not_precreate_roots (test_mt_vqa_v2_orchestration.OrchestratorTests) ... ok
+test_output_roots_must_be_matching_dedicated_siblings (test_mt_vqa_v2_orchestration.OrchestratorTests) ... ok
+test_vqa_owned_temporary_cleanup_is_exact (test_mt_vqa_v2_orchestration.OrchestratorTests) ... ok
+test_generated_only_request_accounting_is_exact (test_mt_vqa_v2_runner.RequestAndScoringTests) ... ok
+test_generated_prompt_uses_only_same_method_prior_predictions (test_mt_vqa_v2_runner.RequestAndScoringTests) ... ok
+test_repository_vqa_soft_score_and_ten_answer_contract (test_mt_vqa_v2_runner.RequestAndScoringTests) ... ok
+test_vqa_adapter_rechecks_canonical_gold_aliases_and_scores (test_mt_vqa_v2_runner.RequestAndScoringTests) ... ok
+test_vqa_specific_temp_owner_and_dataset_hooks_are_bound (test_mt_vqa_v2_runner.RequestAndScoringTests) ... ok
+test_reordered_prefix_is_exact_first_k_without_static_metadata (test_multiturn.ChunkBudgetTests) ... ok
+test_static_diverse_obeys_25_and_50_percent_chunk_budgets (test_multiturn.ChunkBudgetTests) ... ok
+test_imagehere_mapping_preserves_image_order (test_multiturn.MMDUCanonicalTests) ... ok
+test_prompt_is_gold_teacher_forced_and_has_no_future_leakage (test_multiturn.MMDUCanonicalTests) ... ok
+test_ndcg_uses_only_nonzero_relevance_cutoff (test_multiturn.RetrievalMetricTests) ... ok
+test_sparse_retrieval_metrics_match_hand_calculation (test_multiturn.RetrievalMetricTests) ... ok
+test_duplicate_and_unexpected_request_keys_are_rejected (test_multiturn.SyntheticResultValidationTests) ... ok
+test_invalid_timing_or_method_history_is_rejected (test_multiturn.SyntheticResultValidationTests) ... ok
+test_missing_budget_provenance_and_future_leak_are_rejected (test_multiturn.SyntheticResultValidationTests) ... ok
+test_valid_true_ttft_records_pass_all_timing_invariants (test_multiturn.SyntheticResultValidationTests) ... ok
+test_all_methods_receive_identical_teacher_forced_prompt (test_multiturn.VisDialCanonicalTests) ... ok
+test_history_is_strictly_growing_gold_history (test_multiturn.VisDialCanonicalTests) ... ok
+test_main_subset_has_balanced_dense_rounds (test_multiturn.VisDialCanonicalTests) ... ok
+test_prompt_and_store_calibration_cannot_see_future_turns (test_multiturn.VisDialCanonicalTests) ... ok
+test_ten_turns_share_one_image_store (test_multiturn.VisDialCanonicalTests) ... ok
+test_exact_chunk_read_whole_chunk_mask_accounting_and_stats (test_qa_chunk.QAChunkLayerSelectorTests) ... ok
+test_budget_exactly_matches_ours_rounding_not_token_ceil (test_qa_chunk.QAChunkPlanTests) ... ok
+test_equal_chunk_scores_have_stable_physical_id_tie_break (test_qa_chunk.QAChunkPlanTests) ... ok
+test_mean_uses_only_real_non_separator_rows (test_qa_chunk.QAChunkPlanTests) ... ok
+test_same_scores_are_deterministic_and_query_change_can_move_chunk (test_qa_chunk.QAChunkPlanTests) ... ok
+test_structural_only_chunk_is_never_ranked (test_qa_chunk.QAChunkPlanTests) ... ok
+test_fast_before_after_verification_is_exclusive_and_unchanged (test_qa_chunk_source_store_protection.SourceStoreProtectionTests) ... ok
+test_fast_snapshot_validates_both_layouts_and_all_images (test_qa_chunk_source_store_protection.SourceStoreProtectionTests) ... ok
+test_missing_image_store_and_workload_hash_fail_closed (test_qa_chunk_source_store_protection.SourceStoreProtectionTests) ... ok
+test_optional_full_hash_detects_unsampled_middle_byte_change (test_qa_chunk_source_store_protection.SourceStoreProtectionTests) ... ok
+test_wrong_raster_layout_fails_closed (test_qa_chunk_source_store_protection.SourceStoreProtectionTests) ... ok
+test_missing_or_repeated_full_prefill_fails_closed (test_qa_select.DecoderVisualHiddenCaptureTests) ... ok
+test_same_forward_slice_decode_ignored_and_hooks_removed (test_qa_select.DecoderVisualHiddenCaptureTests) ... ok
+test_sparse_chunk_io_accounting_masking_and_no_fallback (test_qa_select.QASelectLayerSelectorTests) ... ok
+test_accepts_only_identity_raster_with_required_sidecars (test_qa_select.QASelectLayoutValidatorTests) ... ok
+test_rejects_repacking_leakage_and_missing_qa_metadata (test_qa_select.QASelectLayoutValidatorTests) ... ok
+test_query_dependent_deterministic_fixed_quarter_selection (test_qa_select.QASelectPlanTests) ... ok
+test_separator_exclusion_and_exact_token_chunk_run_plan (test_qa_select.QASelectPlanTests) ... ok
+test_atomic_canonical_store_is_identity_and_qa_servable (test_qa_select.RasterPiggybackPersistenceTests) ... ok
+test_failed_atomic_stage_is_removed (test_qa_select.RasterPiggybackPersistenceTests) ... ok
+test_before_refuses_populated_or_unsafe_exclusion_roots (test_query_aware_artifact_protection.ArtifactProtectionTests) ... ok
+test_record_and_verify_allow_changes_only_inside_new_roots (test_query_aware_artifact_protection.ArtifactProtectionTests) ... ok
+test_snapshot_covers_files_directories_and_symlink_targets_only (test_query_aware_artifact_protection.ArtifactProtectionTests) ... ok
+test_tampered_manifest_fails_closed (test_query_aware_artifact_protection.ArtifactProtectionTests) ... ok
+test_verify_reports_added_missing_and_changed_then_fails (test_query_aware_artifact_protection.ArtifactProtectionTests) ... ok
+test_missing_source_verification_is_reported_as_no (test_query_aware_chunk_report.QAChunkReportTests) ... ok
+test_publishes_numbered_report_and_preserves_runner_artifacts (test_query_aware_chunk_report.QAChunkReportTests) ... ok
+test_refuses_tampered_runner_export (test_query_aware_chunk_report.QAChunkReportTests) ... ok
+test_refuses_to_replace_conflicting_analysis (test_query_aware_chunk_report.QAChunkReportTests) ... ok
+test_duplicate_request_ids_fail_closed (test_query_aware_chunk_runner.QueryAwareChunkRunnerTests) ... ok
+test_five_method_metadata_is_stable_and_distinct (test_query_aware_chunk_runner.QueryAwareChunkRunnerTests) ... ok
+test_invocation_cap_is_not_part_of_request_identity (test_query_aware_chunk_runner.QueryAwareChunkRunnerTests) ... ok
+test_launcher_is_detached_and_exposes_resume_checkpoint (test_query_aware_chunk_runner.QueryAwareChunkRunnerTests) ... ok
+test_reference_gates_keep_recompute_exact_and_gate_qa_token_timing (test_query_aware_chunk_runner.QueryAwareChunkRunnerTests) ... ok
+test_request_jsonl_is_durable_unique_and_resume_skippable (test_query_aware_chunk_runner.QueryAwareChunkRunnerTests) ... ok
+test_resume_archives_and_repairs_only_truncated_tail (test_query_aware_chunk_runner.QueryAwareChunkRunnerTests) ... ok
+test_schedule_has_unique_ids_and_balanced_five_way_rotation (test_query_aware_chunk_runner.QueryAwareChunkRunnerTests) ... ok
+test_selection_analysis_records_query_dependence_and_token_overlap (test_query_aware_chunk_runner.QueryAwareChunkRunnerTests) ... ok
+test_source_inventory_detects_metadata_or_payload_stat_change (test_query_aware_chunk_runner.QueryAwareChunkRunnerTests) ... ok
+test_stored_dispatch_preserves_all_four_paths (test_query_aware_chunk_runner.QueryAwareChunkRunnerTests) ... ok
+test_refuses_failed_artifact_protection_and_no_clobber (test_query_aware_report.QueryAwareReportTests) ... ok
+test_refuses_failed_validation_without_publishing (test_query_aware_report.QueryAwareReportTests) ... ok
+test_refuses_wrong_method_id (test_query_aware_report.QueryAwareReportTests) ... ok
+test_writes_numbered_korean_analysis_and_terminal_verdict (test_query_aware_report.QueryAwareReportTests) ... ok
+test_causal_prompt_provenance_checks_actual_prompt (test_query_aware_runner.QueryAwareRunnerSchemaTests) ... ok
+test_output_roots_must_not_overlap (test_query_aware_runner.QueryAwareRunnerSchemaTests) ... ok
+test_reference_equivalence_is_strict_but_tie_tolerant (test_query_aware_runner.QueryAwareRunnerSchemaTests) ... ok
+test_stable_method_ids_labels_and_layouts (test_query_aware_runner.QueryAwareRunnerSchemaTests) ... ok
+test_method_summaries_do_not_contain_comparison (test_query_aware_runner.QueryAwareSelectionAnalysisTests) ... ok
+test_pairwise_per_layer_and_consecutive_jaccard (test_query_aware_runner.QueryAwareSelectionAnalysisTests) ... ok
+test_actual_whole_chunk_reads_and_exact_compact_kv (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_legacy_default_and_full_visual_regressions (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_legacy_store_requires_exact_protected_meta_digest (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_unused_finite_rows_do_not_enter_compact_cache (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_virtual_geometry_parity_and_boundaries (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_visual_mode_fails_closed_on_wrong_layout_and_bad_budget (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_default_gate_requires_every_gpu_gate_pass (test_qwen25_pilot_diagnostic_gate.DiagnosticGateTests) ... ok
+test_diagnostic_accepts_only_numerical_failures (test_qwen25_pilot_diagnostic_gate.DiagnosticGateTests) ... ok
+test_diagnostic_rejects_every_structural_failure (test_qwen25_pilot_diagnostic_gate.DiagnosticGateTests) ... ok
+test_diagnostic_rejects_output_mismatch_and_shape_failure (test_qwen25_pilot_diagnostic_gate.DiagnosticGateTests) ... ok
+test_diagnostic_rejects_stale_adapter_hash (test_qwen25_pilot_diagnostic_gate.DiagnosticGateTests) ... ok
+test_gqa_history_is_empty_after_prior_answers (test_qwen25_pilot_diagnostic_gate.DiagnosticGateTests) ... ok
+test_report_requires_explicit_diagnostic_option (test_qwen25_pilot_diagnostic_gate.DiagnosticGateTests) ... ok
+test_same_rgb_bytes_with_different_geometry_are_distinct (test_qwen25_runner.ImageIdentityTests) ... ok
+test_activation_identity_and_integrity_fail_closed (test_qwen25_store.QwenStoreTests) ... ok
+test_first_k_reads_only_contiguous_spans_and_counts_actual_bytes (test_qwen25_store.QwenStoreTests) ... ok
+test_fp16_input_cannot_be_mislabeled_bf16 (test_qwen25_store.QwenStoreTests) ... ok
+test_native_bf16_direct_repack_full_round_trip (test_qwen25_store.QwenStoreTests) ... ok
+test_short_pread_retry_is_counted (test_qwen25_store.QwenStoreTests) ... ok
+test_stable_global_order_and_inverse (test_qwen25_store.QwenStoreTests) ... ok
+test_unavailable_page_cache_hint_has_nonnegative_counts (test_qwen25_store.QwenStoreTests) ... ok
+test_blocked_score_matches_dense_masked_reference (test_qwen25_vision.ReceivedAttentionTests) ... ok
+test_merge_groups_then_reverse_windows (test_qwen25_vision.ReceivedAttentionTests) ... ok
+test_rejects_non_full_last_block (test_qwen25_vision.StockVisionCaptureTests) ... ok
+test_single_stock_forward_capture_equals_dense_visionzip_formula (test_qwen25_vision.StockVisionCaptureTests) ... ok
+test_consecutive_compact_rope_and_causal_mask (test_rekv.CompactAttentionTests) ... ok
+test_initial_distance_ceiling_and_local_window_share_softmax (test_rekv.CompactAttentionTests) ... ok
+test_installed_llama_attention_adapter_interface (test_rekv.HandoffAndIsolationTests) ... ok
+test_scope_restores_attention_after_exception (test_rekv.HandoffAndIsolationTests) ... ok
+test_stage_a_handoff_excludes_question_and_stage_b_reuses_payload (test_rekv.HandoffAndIsolationTests) ... ok
+test_later_selection_changes_when_previous_selected_v_changes (test_rekv.MultiLayerDependencyTests) ... ok
+test_compaction_keeps_selected_rows_and_separators_once (test_rekv.RepresentativeAndSelectionTests) ... ok
+test_insufficient_valid_candidates_fails_closed (test_rekv.RepresentativeAndSelectionTests) ... ok
+test_k_and_q_pre_rope_mean_then_all_head_flatten (test_rekv.RepresentativeAndSelectionTests) ... ok
+test_nontie_topk_matches_official_and_assembly_is_source_order (test_rekv.RepresentativeAndSelectionTests) ... ok
+test_official_vector_cache_uses_fp32_dot_without_normalization (test_rekv.RepresentativeAndSelectionTests) ... ok
+test_tie_break_lower_physical_id_and_budget_rounding (test_rekv.RepresentativeAndSelectionTests) ... ok
+test_zero_valid_chunks_are_not_ranked_but_budget_is_physical (test_rekv.RepresentativeAndSelectionTests) ... ok
+test_exception_removes_both_projection_hooks (test_rekv_store.ReKVCaptureTests) ... ok
+test_raw_key_rotates_to_same_turn1_cache_in_bf16 (test_rekv_store.ReKVCaptureTests) ... ok
+test_same_forward_projection_capture_and_cleanup (test_rekv_store.ReKVCaptureTests) ... ok
+test_atomic_raw_store_and_contiguous_selected_preads (test_rekv_store.ReKVStoreTests) ... ok
+test_valid_spatial_representatives_use_native_mean_and_partial_count (test_rekv_store.ReKVStoreTests) ... ok
+test_real_pread_accounting_split_is_preserved (test_reorder_prefix.EvalPackingTests) ... ok
+test_prefix_prepare_uses_exact_first_k_and_no_scoring (test_reorder_prefix.PrefixSelectionContractTests) ... ok
+test_prefix_rejects_static_metadata_and_non_sidecar_policy (test_reorder_prefix.PrefixSelectionContractTests) ... ok
+test_raster_shared_and_invalid_permutations_fail_closed (test_reorder_prefix.PrefixStoreValidationTests) ... ok
+test_valid_per_layer_reordered_store_passes_once (test_reorder_prefix.PrefixStoreValidationTests) ... ok
+test_matches_actual_hf_packer_patch_by_patch (test_spatial_kv25.AnyResCoordinatesTests) ... ok
+test_span_mismatch_fails_closed (test_spatial_kv25.AnyResCoordinatesTests) ... ok
+test_54_to_10_integer_allocation_only (test_spatial_kv25.SpatialPlanTests) ... ok
+test_quota_dominant_and_stable_permutation (test_spatial_kv25.SpatialPlanTests) ... ok
+test_zero_auxiliary_budget_is_exact_frozen_uniform_order (test_spatial_kv25.SpatialPlanTests) ... ok
+test_empty_fallback_q_edges_and_id_ties (test_spatial_kv25.SpatialRegionsTests) ... ok
+test_equal_area_exact_q_row_rule_and_bounds (test_spatial_kv25.SpatialRegionsTests) ... ok
+test_half_open_boundary_goes_to_following_region (test_spatial_kv25.SpatialRegionsTests) ... ok
+test_spatial_opt_in_store_and_hit_preserve_original_kv (test_spatial_kv25_integration.SpatialPersistenceTests) ... ok
+test_atomic_publication_refuses_existing_destination (test_visdial_cache_hit_analysis.CacheHitAggregationTests) ... ok
+test_full_load_scatter_remains_na_and_prefill_is_labelled (test_visdial_cache_hit_analysis.CacheHitAggregationTests) ... ok
+test_main_table_uses_actual_bytes_and_recomp_denominator (test_visdial_cache_hit_analysis.CacheHitAggregationTests) ... ok
+test_percentile_matches_linear_interpolation (test_visdial_cache_hit_analysis.CacheHitAggregationTests) ... ok
+test_existing_normalized_generative_match_semantics (test_visdial_cache_hit_analysis.QualityMetricTests) ... ok
+test_candidate_branches_are_cropped_and_likelihood_is_shifted (test_visdial_official_quality.CandidateScoringTests) ... ok
+test_stable_original_order_tie_ranks (test_visdial_official_quality.CandidateScoringTests) ... ok
+test_every_semantic_config_change_blocks_resume (test_visdial_official_quality.OutputAndResumeTests) ... ok
+test_required_aggregate_outputs_and_readme_are_written (test_visdial_official_quality.OutputAndResumeTests) ... ok
+test_validation_rejects_nan_ndcg_and_wrong_static_budget (test_visdial_official_quality.OutputAndResumeTests) ... ok
+test_validation_rejects_ranks_not_derived_from_scores (test_visdial_official_quality.OutputAndResumeTests) ... ok
+test_rotation_is_balanced_and_stable_hash_is_order_independent (test_visdial_turn1_piggyback_core.DeterministicHelpersTests) ... ok
+test_atomic_store_has_exact_prefix_layout_and_no_v_hidden (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_existing_target_refused_and_failed_stage_removed (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_post_publication_integrity_failure_does_not_strand_as_error (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_unproven_capture_metadata_is_rejected_before_staging (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_exact_penultimate_capture_only_and_output_unchanged (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_exception_removes_only_our_hooks_and_active_marker (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_fail_closed_on_backend_no_call_or_multiple_calls (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_positional_attention_call_is_bound_by_parameter_name (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_timing_only_never_requests_any_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_no_vision_guard_is_active_before_cache_conditioning (test_visdial_turn1_piggyback_runner.StoredRequestInstrumentationTests) ... ok
+test_fixture_is_deterministic_in_memory_rgb (test_visdial_turn1_piggyback_runner.SyntheticWarmupTests) ... ok
+test_warmup_uses_real_call_shape_and_discards_returned_cache (test_visdial_turn1_piggyback_runner.SyntheticWarmupTests) ... ok
+
+----------------------------------------------------------------------
+Ran 387 tests in 6.911s
+
+OK
+{
+  "status": "complete",
+  "n_judgments": 16,
+  "quality": {
+    "ReComp": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    },
+    "FullLoad": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    },
+    "Prefix25": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    },
+    "Prefix45": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    }
+  }
+}
+{
+  "status": "complete",
+  "n_judgments": 16,
+  "quality": {
+    "ReComp": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    },
+    "FullLoad": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    },
+    "Prefix25": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    },
+    "Prefix45": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    }
+  }
+}

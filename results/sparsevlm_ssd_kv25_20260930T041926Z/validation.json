@@ -1,0 +1,550 @@
+{
+  "schema_version": "sparsevlm-ssd-kv25-final-validation-v1",
+  "status": "PASS",
+  "finalized_at": "2026-09-30T05:37:00.389663+00:00",
+  "run_dir": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z",
+  "results_dir": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z",
+  "verdicts": {
+    "IMPLEMENTATION_PROBE3": "PASS",
+    "IMPLEMENTATION_ALLHEAD": "PASS",
+    "CPU_TEST": "PASS",
+    "GPU_CORRECTNESS": "PASS",
+    "PROJECTION_REUSE": "PASS",
+    "ALLHEAD_K_READ_REUSE": "PASS",
+    "SMOKE_5_ARM_PILOT": "VALID",
+    "GQA_5_ARM_PILOT": "VALID",
+    "MT_5_ARM_PILOT": "VALID",
+    "LEGACY_OURS_QWEN_CPU_PROTECTION": "PASS",
+    "QWEN_GPU": "NOT RUN",
+    "MT_GQA_4061_DIALOGUE_MAIN": "NOT RUN",
+    "MT_VQA_FULL": "NOT RUN",
+    "READY_FOR_LLAVA_MT_GQA_BASELINE_INTEGRATION": "YES"
+  },
+  "ready": true,
+  "readiness_basis": "Frozen implementation, CPU 25/387/17/7, G1-G12 GPU, independent GPU receipt audit, official scripts/99 complete 60/1200/600-request raw audit, valid timing, and final protection all PASS.",
+  "SOURCE_METRIC_FIDELITY": {
+    "status": "PASS_WITH_EXPLICIT_ADAPTATION",
+    "faithful_metric_scope": "original SparseVLM text-rater formula (adapted FP32 computation) and post-softmax head/rater visual attention mean",
+    "adaptation": "query-dependent SSD-resident cached-KV retrieval with exact fixed ceil(N_content/4) per layer",
+    "probe3_additional_approximation": "fixed first three scoring heads; selected tokens retain every KV head",
+    "allhead_policy": "all attention heads; original full visual K online read and same-request K reuse",
+    "excluded_original_features": [
+      "progressive hidden-token pruning",
+      "adaptive layer schedule",
+      "token recycling/merging"
+    ],
+    "original_full_algorithm_or_published_performance_reproduction_claimed": false,
+    "contract": {
+      "path": "/home/dblab/hj/mllm_v2/docs/sparsevlm_ssd_kv25_contract.md",
+      "sha256": "9dfd747e9d1cdbeb089a972362167c1779fb3b368d8397c7fc92a4426d092214"
+    },
+    "official_source_pin": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/official_source/official_source_pin.json",
+      "sha256": "ab262a4ba7ea65bdb24a27a6af8a737908329ed31204749c4123163f09e83246"
+    }
+  },
+  "test_counts": {
+    "core_store_adapter_CPU": 25,
+    "legacy_ours_qwen_CPU": 387,
+    "independent_audit_CPU": 17,
+    "pilot_runner_CPU": 7
+  },
+  "GPU_gates": {
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS",
+    "G7": "PASS",
+    "G8": "PASS",
+    "G9": "PASS",
+    "G10": "PASS",
+    "G11": "PASS",
+    "G12": "PASS"
+  },
+  "phases": {
+    "smoke": {
+      "status": "VALID",
+      "requests": 60,
+      "timing_valid": true,
+      "runner_receipt": {
+        "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/validation.json",
+        "sha256": "e88b16ce607154af7dc9fe6a6c0de374be3c0a908e7e7f51956495fb951ecb38",
+        "bytes": 346
+      },
+      "official_raw_path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/raw.jsonl",
+      "official_raw_sha256": "55d568a89d851fd507672075f655b021120f913b463607c8a47a7f0a64e270b1",
+      "raw_reaggregated_by_finalizer": false
+    },
+    "gqa": {
+      "status": "VALID",
+      "requests": 1200,
+      "timing_valid": true,
+      "runner_receipt": {
+        "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/validation.json",
+        "sha256": "7beeda802e2a73cc0291136c8a23f0b974dd85d2f069d7e348ff35742443319b",
+        "bytes": 350
+      },
+      "official_raw_path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/raw.jsonl",
+      "official_raw_sha256": "f2b0b2bae732dfaebab8b8820c021b5edb1b99c9699fdd9b64d3621d43e02d3c",
+      "raw_reaggregated_by_finalizer": false
+    },
+    "mt": {
+      "status": "VALID",
+      "requests": 600,
+      "timing_valid": true,
+      "runner_receipt": {
+        "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/validation.json",
+        "sha256": "1de1c075509e7b97f6441bae2806eeda2f242dd4fb11c35383b3825675fb7fc8",
+        "bytes": 348
+      },
+      "official_raw_path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/raw.jsonl",
+      "official_raw_sha256": "56d77e33c6d8318f5a1002ba379ecbf92281152b78984377c95be221248f056e",
+      "raw_reaggregated_by_finalizer": false
+    }
+  },
+  "official_raw_analysis": {
+    "producer": "scripts/99_audit_sparsevlm_ssd_kv25.py",
+    "script_sha256": "76449ff77ed9fa6db49dabea4d4d5db8d6bdec6d501543729b6cb87f20af63c6",
+    "receipt": {
+      "path": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/independent_audit.json",
+      "sha256": "fd99344fe77c72ac317fd91a6154b82a1689e86fa9976533a7b590dbcca61e8b",
+      "bytes": 5699
+    },
+    "artifacts": {
+      "REPORT.md": {
+        "path": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/REPORT.md",
+        "sha256": "ef14d2e28248789ec02694539b19cfdfaaa6de442cd58ec60160c2d3238c0bf9",
+        "bytes": 16372
+      },
+      "summary.csv": {
+        "path": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/summary.csv",
+        "sha256": "510e237a2bee34da674f9e909a59363c8a4e212a670891e85543e30f8a8602ab",
+        "bytes": 3687
+      },
+      "paired_comparisons.csv": {
+        "path": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/paired_comparisons.csv",
+        "sha256": "9df8ad8ae56ba7644eea992ebb91f0a6e68dcea3a82f0111be49c52037f00405",
+        "bytes": 13913
+      },
+      "io_timing_memory_breakdown.csv": {
+        "path": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/io_timing_memory_breakdown.csv",
+        "sha256": "3def092e037b15398b0faf2ff3f39f3491d4c69b962b961f2160626bb88e5fe9",
+        "bytes": 1013122
+      },
+      "controlled_head_policy.csv": {
+        "path": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/controlled_head_policy.csv",
+        "sha256": "4e16e5f8c80af1af2cf977be17564cdb48dffe6696f0b349e5bcdf78699288a5",
+        "bytes": 131529
+      },
+      "setup_costs.csv": {
+        "path": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/setup_costs.csv",
+        "sha256": "488d06f1774f43d0dae8b4c75160b8ab5fa2f883c8f025a87452da1816523717",
+        "bytes": 3198939
+      },
+      "independent_audit.json": {
+        "path": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/independent_audit.json",
+        "sha256": "fd99344fe77c72ac317fd91a6154b82a1689e86fa9976533a7b590dbcca61e8b",
+        "bytes": 5699
+      }
+    },
+    "raw_reaggregated_by_finalizer": false
+  },
+  "receipts": {
+    "config": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/config.json",
+      "sha256": "9b4fa0887a8857a9f416eb4e88f5573ec5eb1a94d96de0bad95531d38c4649fc",
+      "bytes": 1987
+    },
+    "runner_config": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/runner_config.json",
+      "sha256": "451154eb051fe7e68508714f83914133c01500cd8c940d36d41cff7cefdbd045",
+      "bytes": 2714
+    },
+    "manifest": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/manifest.json",
+      "sha256": "15e1690633e67acd2b7a6f107009289b6dacc1c6181386bbbd0d42da4d442096",
+      "bytes": 84000
+    },
+    "source_freeze": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/source_freeze.json",
+      "sha256": "bccd2dd6162989f96c54fe78870707c616a5c7835374c46c04fdc5360fc6f093",
+      "bytes": 1565
+    },
+    "contract_freeze": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/contract_freeze_v2.json",
+      "sha256": "504c7739c69392b36165600098e64847a80b0b3f2a8d9ba5339cbe38a7e6a086",
+      "bytes": 1191
+    },
+    "storage_plan": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/storage_plan.json",
+      "sha256": "ae4278ae8e2337e844ae7f68f6ed8e34ac7b9f1b31e1925d2c7e5cd5ee3b59c9",
+      "bytes": 725
+    },
+    "CPU_25": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/cpu_validation_final.json",
+      "sha256": "f4b8f37d83330236231276c1634910f22ec931a65dba146b17eab7668b5c8a56",
+      "bytes": 478
+    },
+    "legacy_CPU_387": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/legacy_cpu_tests.json",
+      "sha256": "e7117adb8d332e5fe4f2272b7669927241d85e2f809a70d72bd9992a32fdbb3d",
+      "bytes": 1821
+    },
+    "audit_CPU_17": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/audit_cpu_validation.json",
+      "sha256": "38322f81cc053102309a2bfd3d7462198f10fc70a2db2e7862abd0bd7db3350e",
+      "bytes": 785
+    },
+    "runner_CPU_7": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/runner_cpu_validation.json",
+      "sha256": "6e419056207046b5ed16940bc634a7d93f2fbcf891ebdf613a00944880fef169",
+      "bytes": 719
+    },
+    "GPU_G1_G12": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_full_01/gpu_validation.json",
+      "sha256": "78910e0165176e7fdc4db6ded359a4583f30248df6ed98793e1c0ecff8ff12e1",
+      "bytes": 251456122
+    },
+    "GPU_independent_receipt_audit": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_independent_audit.json",
+      "sha256": "98e3d399f8c75c048008b444cc14e2358d7af3601aec9d918ae66581ab10362d",
+      "bytes": 31281
+    },
+    "independent_raw_audit_99": {
+      "path": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/independent_audit.json",
+      "sha256": "fd99344fe77c72ac317fd91a6154b82a1689e86fa9976533a7b590dbcca61e8b",
+      "bytes": 5699
+    },
+    "protection_full_rehash": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/protection_rehash.json",
+      "sha256": "e7d8a222031769c9291c8592a19871dc936baebb8da58c8d47feb58422b47eef",
+      "bytes": 1027
+    },
+    "protection_final_stat": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/protection_final.json",
+      "sha256": "541282a75e63daa0ab8b0f8413d1737969273f3fbd7682df68f4e64fe6ce51bc",
+      "bytes": 2142
+    },
+    "phase_smoke": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/validation.json",
+      "sha256": "e88b16ce607154af7dc9fe6a6c0de374be3c0a908e7e7f51956495fb951ecb38",
+      "bytes": 346
+    },
+    "phase_gqa": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/validation.json",
+      "sha256": "7beeda802e2a73cc0291136c8a23f0b974dd85d2f069d7e348ff35742443319b",
+      "bytes": 350
+    },
+    "phase_mt": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/validation.json",
+      "sha256": "1de1c075509e7b97f6441bae2806eeda2f242dd4fb11c35383b3825675fb7fc8",
+      "bytes": 348
+    },
+    "optional_fresh_setup_diagnostic": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/setup_split_01/receipt.json",
+      "sha256": "d9e31eca14e7872b8dd9fa3727b477626e50460010cf9dd27523a9d12846b9f0",
+      "bytes": 41082
+    }
+  },
+  "frozen_source_sha256": {
+    "mmimpress/sparsevlm_ssd_attention.py": "f9d163dde78e798484b1102a61e5db0e90a84dc54ecd235b05237ad7426a3dec",
+    "mmimpress/sparsevlm_ssd_core.py": "9314e6d75a013c0f26a074f3c4429cf23c7f31db4df50d38490d9d05b0f9ea2b",
+    "mmimpress/sparsevlm_ssd_store.py": "dbcca26e9f026ac16e835a682178e2c20bf841c3fad4effe981d39486de13be2",
+    "scripts/97_validate_sparsevlm_ssd_kv25.py": "6500848b1ffb0514c2d9f53a78abf8e98ddab5876ed64eaa9c1164060db63faa",
+    "scripts/98_eval_sparsevlm_ssd_kv25.py": "b4ee82a0f4663b16f8b12aa4e68b7cae9ecaa9b553a8100bc462038c648a0366",
+    "scripts/99_audit_sparsevlm_ssd_kv25.py": "76449ff77ed9fa6db49dabea4d4d5db8d6bdec6d501543729b6cb87f20af63c6",
+    "tests/test_sparsevlm_ssd_attention.py": "469805eba243b3abaa2205e9b3759e9908dca1c3955b49128c961a80dd15384d",
+    "tests/test_sparsevlm_ssd_core.py": "0702302b98280d97a839dd150ca90a742a50cf20c168f23522bfa749bdf024c6",
+    "tests/test_sparsevlm_ssd_review.py": "174c287db226d4048be380bfbbb179a31f4cb6a095929cc8b9fb160c8fb22947",
+    "tests/test_sparsevlm_ssd_runner.py": "d3c63bd3a58f2c2440e6a152466ee5585d74013a4e526edd8049f4c24fbb6e6e",
+    "docs/sparsevlm_ssd_kv25_contract.md": "9dfd747e9d1cdbeb089a972362167c1779fb3b368d8397c7fc92a4426d092214"
+  },
+  "analysis_source_sha256": {
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/verify_final_protection.py": "27a8ce47497f6683dc868da44bd815dc5e352019f534fe73cef38467462fcf65",
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/finalize_validation.py": "7fbfe50ff299c41325990dd8c19e042d50b9b8c759c39bd1962b7c1b5445e477",
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/setup_split_diagnostic.py": "e6ab99934b8bcdcc4d1772773263bf2f72e55d4c502a41172997eccbc4bcd7ec",
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/build_supplement.py": "e0d6d715791efec33f81bb38f6ba7c181e1007013da63e1ffd29d5e70b478b41"
+  },
+  "analysis_source_scope": "run-owned supplemental tooling, separate from unchanged production source_freeze and source.diff",
+  "frozen_model_revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+  "configuration_sha256": "451154eb051fe7e68508714f83914133c01500cd8c940d36d41cff7cefdbd045",
+  "manifest_sha256": "15e1690633e67acd2b7a6f107009289b6dacc1c6181386bbbd0d42da4d442096",
+  "setup_measurement_scope": {
+    "GQA_and_smoke_persistence": "NOT_REMEASURED",
+    "MT_shared_canonical_probe_bundle": "MEASURED_ATTEMPT_COST",
+    "primary_pilot_AllHead_base_Probe3_increment": "NOT_SEPARATELY_MEASURED",
+    "optional_separate_fresh_T1_setup": {
+      "status": "PASS",
+      "scope": "single-sample fresh T1 serializer split diagnostic",
+      "used_for_serving_readiness": false,
+      "used_for_pilot_latency_or_quality": false,
+      "replaces_pilot_bundle_measurement": false,
+      "receipt": {
+        "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/setup_split_01/receipt.json",
+        "sha256": "d9e31eca14e7872b8dd9fa3727b477626e50460010cf9dd27523a9d12846b9f0",
+        "bytes": 41082
+      }
+    }
+  },
+  "protection_scope": {
+    "prior_full_SHA256_rehash": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/protection_rehash.json",
+      "sha256": "e7d8a222031769c9291c8592a19871dc936baebb8da58c8d47feb58422b47eef",
+      "bytes": 1027
+    },
+    "final_source_SHA256_and_artifact_stat": {
+      "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/protection_final.json",
+      "sha256": "541282a75e63daa0ab8b0f8413d1737969273f3fbd7682df68f4e64fe6ce51bc",
+      "bytes": 2142
+    },
+    "final_artifact_content_SHA256_recomputed": false
+  },
+  "artifact_copies": [
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/source.diff",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/source.diff",
+      "sha256": "ee37c88891ac8cb31dd01c147c51b106f03327de6b96e86350d8db4e3243a03a",
+      "bytes": 245045,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/config.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/config.json",
+      "sha256": "9b4fa0887a8857a9f416eb4e88f5573ec5eb1a94d96de0bad95531d38c4649fc",
+      "bytes": 1987,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/runner_config.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/runner_config.json",
+      "sha256": "451154eb051fe7e68508714f83914133c01500cd8c940d36d41cff7cefdbd045",
+      "bytes": 2714,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/manifest.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/manifest.json",
+      "sha256": "15e1690633e67acd2b7a6f107009289b6dacc1c6181386bbbd0d42da4d442096",
+      "bytes": 84000,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/storage_plan.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/storage_plan.json",
+      "sha256": "ae4278ae8e2337e844ae7f68f6ed8e34ac7b9f1b31e1925d2c7e5cd5ee3b59c9",
+      "bytes": 725,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/store_footprint.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/store_footprint.json",
+      "sha256": "ed27fc70bda6aef30527eb0fd9261c7e5469eedd7aad9bf611b02177176aaf45",
+      "bytes": 37344,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/reproduction_commands.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/reproduction_commands.json",
+      "sha256": "f28bb0d40714dcbab35306ecff818540d03bfe79c89287c6084374683be0a013",
+      "bytes": 1995,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/source_freeze.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/source_freeze.json",
+      "sha256": "bccd2dd6162989f96c54fe78870707c616a5c7835374c46c04fdc5360fc6f093",
+      "bytes": 1565,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/source_before.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/source_before.json",
+      "sha256": "3de3fc4ecd5ae52ac1ad9cb1c576ce4bf970ad45eb88333558397e7405ff7b50",
+      "bytes": 29441,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/contract_freeze_v2.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/contract_freeze_v2.json",
+      "sha256": "504c7739c69392b36165600098e64847a80b0b3f2a8d9ba5339cbe38a7e6a086",
+      "bytes": 1191,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/contract_source_evidence.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/contract_source_evidence.json",
+      "sha256": "3af3a8b7ca46b9feeb88f11ac82e76a8f96c91dfdc8c33b98e59c9f9f1c4dbf1",
+      "bytes": 5214,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/environment_before.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/environment_before.json",
+      "sha256": "94d4a9fdb4d5ef49d353a40b3901779071ff8d419a70cce01eb9b85a02b7511b",
+      "bytes": 4593,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/sparsevlm_ssd_kv25_contract.frozen_v2.md",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/sparsevlm_ssd_kv25_contract.frozen_v2.md",
+      "sha256": "9dfd747e9d1cdbeb089a972362167c1779fb3b368d8397c7fc92a4426d092214",
+      "bytes": 32565,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/cpu_validation_final.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/cpu_validation_final.json",
+      "sha256": "f4b8f37d83330236231276c1634910f22ec931a65dba146b17eab7668b5c8a56",
+      "bytes": 478,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/cpu_validation_final.log",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/cpu_validation_final.log",
+      "sha256": "4dd97ab7666b64fb2dc120e8b9f21c0c8fc9cfb870143d7be3e00191ce461f52",
+      "bytes": 2699,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/legacy_cpu_tests.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/legacy_cpu_tests.json",
+      "sha256": "e7117adb8d332e5fe4f2272b7669927241d85e2f809a70d72bd9992a32fdbb3d",
+      "bytes": 1821,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/legacy_cpu_tests.log",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/legacy_cpu_tests.log",
+      "sha256": "2e1a0beef2ecbf22920f18091c925144fec0213c4ba07c15892e51fa3289d55f",
+      "bytes": 49035,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/audit_cpu_validation.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/audit_cpu_validation.json",
+      "sha256": "38322f81cc053102309a2bfd3d7462198f10fc70a2db2e7862abd0bd7db3350e",
+      "bytes": 785,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_independent_audit.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/gpu_independent_audit.json",
+      "sha256": "98e3d399f8c75c048008b444cc14e2358d7af3601aec9d918ae66581ab10362d",
+      "bytes": 31281,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/protection_rehash.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/protection_rehash.json",
+      "sha256": "e7d8a222031769c9291c8592a19871dc936baebb8da58c8d47feb58422b47eef",
+      "bytes": 1027,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/protection_final.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/protection_final.json",
+      "sha256": "541282a75e63daa0ab8b0f8413d1737969273f3fbd7682df68f4e64fe6ce51bc",
+      "bytes": 2142,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/protected_artifacts_before.jsonl",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/protected_artifacts_before.jsonl",
+      "sha256": "947389dccde0443366433414e1f446f153503f764aa7bace73972a42079af1f7",
+      "bytes": 22768566,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/official_source/official_source_pin.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/official_source/official_source_pin.json",
+      "sha256": "ab262a4ba7ea65bdb24a27a6af8a737908329ed31204749c4123163f09e83246",
+      "bytes": 921,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/runner_cpu_validation.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/runner_cpu_validation.json",
+      "sha256": "6e419056207046b5ed16940bc634a7d93f2fbcf891ebdf613a00944880fef169",
+      "bytes": 719,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/docs/sparsevlm_ssd_kv25_contract.md",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/sparsevlm_ssd_kv25_contract.md",
+      "sha256": "9dfd747e9d1cdbeb089a972362167c1779fb3b368d8397c7fc92a4426d092214",
+      "bytes": 32565,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/finalize_validation.py",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/reproduction_scripts/finalize_validation.py",
+      "sha256": "7fbfe50ff299c41325990dd8c19e042d50b9b8c759c39bd1962b7c1b5445e477",
+      "bytes": 26680,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/verify_final_protection.py",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/reproduction_scripts/verify_final_protection.py",
+      "sha256": "27a8ce47497f6683dc868da44bd815dc5e352019f534fe73cef38467462fcf65",
+      "bytes": 8311,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/setup_split_diagnostic.py",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/reproduction_scripts/setup_split_diagnostic.py",
+      "sha256": "e6ab99934b8bcdcc4d1772773263bf2f72e55d4c502a41172997eccbc4bcd7ec",
+      "bytes": 20208,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/build_supplement.py",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/reproduction_scripts/build_supplement.py",
+      "sha256": "e0d6d715791efec33f81bb38f6ba7c181e1007013da63e1ffd29d5e70b478b41",
+      "bytes": 35978,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/validation.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/phase_receipts/smoke/validation.json",
+      "sha256": "e88b16ce607154af7dc9fe6a6c0de374be3c0a908e7e7f51956495fb951ecb38",
+      "bytes": 346,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/validation.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/phase_receipts/gqa/validation.json",
+      "sha256": "7beeda802e2a73cc0291136c8a23f0b974dd85d2f069d7e348ff35742443319b",
+      "bytes": 350,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/validation.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/phase_receipts/mt/validation.json",
+      "sha256": "1de1c075509e7b97f6441bae2806eeda2f242dd4fb11c35383b3825675fb7fc8",
+      "bytes": 348,
+      "action": "CREATE_EXCLUSIVE"
+    },
+    {
+      "source": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/setup_split_01/receipt.json",
+      "destination": "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/optional_fresh_setup_diagnostic.json",
+      "sha256": "d9e31eca14e7872b8dd9fa3727b477626e50460010cf9dd27523a9d12846b9f0",
+      "bytes": 41082,
+      "action": "CREATE_EXCLUSIVE"
+    }
+  ],
+  "GPU_large_receipt_reference": {
+    "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_full_01/gpu_validation.json",
+    "sha256": "78910e0165176e7fdc4db6ded359a4583f30248df6ed98793e1c0ecff8ff12e1",
+    "bytes": 251456122,
+    "role": "frozen full GPU correctness receipt; retained in run directory"
+  },
+  "finalizer": {
+    "path": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/finalize_validation.py",
+    "sha256": "7fbfe50ff299c41325990dd8c19e042d50b9b8c759c39bd1962b7c1b5445e477",
+    "gpu_used": false,
+    "benchmarks_executed": false,
+    "existing_artifacts_overwritten": false
+  }
+}

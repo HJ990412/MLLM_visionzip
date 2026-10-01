@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "created_at_utc": "2026-09-30T05:41:04.647475+00:00",
+  "scope": "presentation review only; no model or raw re-execution",
+  "checks": {
+    "all_1860_raw_derived_prefill_counters_q_k_v_each_32": true,
+    "every_phase_method_hit_projection_measured": true,
+    "GQA_MT_first_two_tables_exactly_preserved": true,
+    "frozen_REPORT_source99_validation_SUPPLEMENT_unchanged": true
+  },
+  "corrections": [
+    "controls projection NOT RUN was rendering omission; actual counters reported",
+    "Q/K/V column changes from layer sum to separate per-request sums",
+    "controls selector absent timing rendered NOT_INSTRUMENTED instead of synthetic zero",
+    "single-image separate-serializer setup diagnostic added without replacing pilot setup"
+  ],
+  "inputs": {
+    "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/REPORT.md": "ef14d2e28248789ec02694539b19cfdfaaa6de442cd58ec60160c2d3238c0bf9",
+    "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/SUPPLEMENT.md": "93484b47231d6b35a162e8c27e468d6a037011fd92c0f6c032d8a509e869f722",
+    "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/independent_audit.json": "fd99344fe77c72ac317fd91a6154b82a1689e86fa9976533a7b590dbcca61e8b",
+    "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/supplement_validation.json": "e5ab75fc7609e414063f1dce3310718c51070685ac8b7345d6f570ef03b9792f",
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/validation.json": "cde871c3343543f725b6d57341eeacf7148fd09d4c130d6767c60224cf5b5b7a",
+    "/home/dblab/hj/mllm_v2/scripts/99_audit_sparsevlm_ssd_kv25.py": "76449ff77ed9fa6db49dabea4d4d5db8d6bdec6d501543729b6cb87f20af63c6",
+    "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/io_timing_memory_breakdown.csv": "3def092e037b15398b0faf2ff3f39f3491d4c69b962b961f2160626bb88e5fe9",
+    "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/attention_interval_summary.csv": "9abbff5b917430673a864cfb8e570512a40aab280c7bcaaa0f5c26cb866e2dfa",
+    "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/summary.csv": "510e237a2bee34da674f9e909a59363c8a4e212a670891e85543e30f8a8602ab",
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/setup_split_01/receipt.json": "d9e31eca14e7872b8dd9fa3727b477626e50460010cf9dd27523a9d12846b9f0"
+  },
+  "outputs": {
+    "REPORT_REVIEWED.md": "f148f880119fe9164556d5cd1f0c922c755aeb906f3b56033cdf6dc6320b742d",
+    "projection_counts_review.csv": "2be1a817aadff0878e3457f8a19f38dbc86b9b96d1de6cdbcb89d471fb3eb58f"
+  },
+  "raw_reprocessed": false,
+  "original_files_modified": false
+}

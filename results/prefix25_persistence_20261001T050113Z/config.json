@@ -1,0 +1,42 @@
+{
+  "seed": 1234,
+  "greedy": true,
+  "max_new_tokens": 16,
+  "batch_size": 1,
+  "chunk_size": 64,
+  "ratio": 0.25,
+  "arms": [
+    "recompute",
+    "fullload",
+    "A",
+    "B"
+  ],
+  "llava": {
+    "revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+    "quantization": "NF4 double BF16 compute",
+    "attention": "eager",
+    "store_dtype": "float16",
+    "processor": "existing AnyRes"
+  },
+  "qwen": {
+    "revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+    "quantization": "NF4 double BF16 compute",
+    "attention": "sdpa",
+    "store_dtype": "bfloat16",
+    "min_pixels": 200704,
+    "max_pixels": 802816
+  },
+  "bootstrap": {
+    "unit": "image",
+    "resamples": 10000,
+    "seed": 1234
+  },
+  "workload_files": {
+    "gqa": "40e23fa7aeb22495717fc7eede1227de3a6b4811fde022d9cda71ef73c5e3895",
+    "mt": "d935dd7f65adee6c05a7c9ce5dbe38f22dbdc9fda9ac989703892817e8118e46",
+    "smoke": "7a7718554c1374c82722748386b7e32589fdf66972ff0873035ad70d2771a577"
+  },
+  "correctness_file_sha256": "420e1a5904d5da690ac22c0787b163564077f1ba481e3c4575e7ce296a34ee52",
+  "prior_v1_status": "FAIL unchanged; this ablation cannot relabel it",
+  "timing": "outer before image decode/input preparation; synchronized first token; E2E through generation plus mandatory capture; one-time persistence and activation separately added"
+}

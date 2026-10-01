@@ -1,0 +1,2464 @@
+{
+  "created_at_utc": "2026-09-30T05:38:06.784610+00:00",
+  "analysis_script": "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/build_supplement.py",
+  "analysis_script_sha256": "e0d6d715791efec33f81bb38f6ba7c181e1007013da63e1ffd29d5e70b478b41",
+  "production_source_changed": false,
+  "original_artifacts_overwritten": false,
+  "inputs": {
+    "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/independent_audit.json": {
+      "sha256": "fd99344fe77c72ac317fd91a6154b82a1689e86fa9976533a7b590dbcca61e8b",
+      "bytes": 5699
+    },
+    "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/summary.csv": {
+      "sha256": "510e237a2bee34da674f9e909a59363c8a4e212a670891e85543e30f8a8602ab",
+      "bytes": 3687
+    },
+    "/home/dblab/hj/mllm_v2/results/sparsevlm_ssd_kv25_20260930T041926Z/io_timing_memory_breakdown.csv": {
+      "sha256": "3def092e037b15398b0faf2ff3f39f3491d4c69b962b961f2160626bb88e5fe9",
+      "bytes": 1013122
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/runner_config.json": {
+      "sha256": "451154eb051fe7e68508714f83914133c01500cd8c940d36d41cff7cefdbd045",
+      "bytes": 2714
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/store_footprint.json": {
+      "sha256": "ed27fc70bda6aef30527eb0fd9261c7e5469eedd7aad9bf611b02177176aaf45",
+      "bytes": 37344
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/raw.jsonl": {
+      "sha256": "55d568a89d851fd507672075f655b021120f913b463607c8a47a7f0a64e270b1",
+      "bytes": 34059694
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/raw.jsonl": {
+      "sha256": "f2b0b2bae732dfaebab8b8820c021b5edb1b99c9699fdd9b64d3621d43e02d3c",
+      "bytes": 848283563
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/raw.jsonl": {
+      "sha256": "56d77e33c6d8318f5a1002ba379ecbf92281152b78984377c95be221248f056e",
+      "bytes": 350259143
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n133585/attempt_0001/independent_audit.json": {
+      "sha256": "a8b85c2067a3f97ee100216de5ff75ceb49ff636f5f67249e879a1123513ad34",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n133585/attempt_0001/raw.jsonl": {
+      "sha256": "b509ecb7bede9ff4f3a16ab4921e735bc016df9aa5d2bdead3df78f75f824fb9",
+      "bytes": 8209345
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n133585/attempt_0001/attempt_events.jsonl": {
+      "sha256": "e03c69eae561eea37060bb5681be428dfe5998f7a6e7975f865a1b5492d6da75",
+      "bytes": 8058466
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n355567/attempt_0001/independent_audit.json": {
+      "sha256": "1300d7b37ec3ba7b93f2ccb8e692302c12beb285ee9e9b030c1ea7ff711123a3",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n355567/attempt_0001/raw.jsonl": {
+      "sha256": "4f076092a0da1d8ca280227eb696e5197f78c8681cadb324f82ecb21b9a4c3b6",
+      "bytes": 8180233
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n355567/attempt_0001/attempt_events.jsonl": {
+      "sha256": "e6f9873b2bf9a635f10e85dea18bcb6e0ecbfe8db9f36c37ae13fbe98787567d",
+      "bytes": 8029232
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n390187/attempt_0001/independent_audit.json": {
+      "sha256": "1c76f913ed7293c4fddf28e736fecb825cb656298563c40c7bac306b21d226ae",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n390187/attempt_0001/raw.jsonl": {
+      "sha256": "7c2a4671e96a9f361c6077cb7e6c28c56c1eda1b9ae9eb5d8b00fc8dad60886c",
+      "bytes": 8651223
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n390187/attempt_0001/attempt_events.jsonl": {
+      "sha256": "9d7cb3c8c95d12ee83758fd3c48839e6e3f9ce8f1e84669d0efe322455cfe13d",
+      "bytes": 8480663
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n9181/attempt_0001/independent_audit.json": {
+      "sha256": "db58c68ea755a31fb926b737f2bf763d5fd25782e211dc2b2a8b0c656ed44f95",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n9181/attempt_0001/raw.jsonl": {
+      "sha256": "1d4db5e68f0e38e21d1fb33fedb89f6783cfe2fec439fd951d80f31f6c7ff1b5",
+      "bytes": 9018893
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n9181/attempt_0001/attempt_events.jsonl": {
+      "sha256": "6a67ada85fb29679b5743b5bac74b5b7818c1d454e1c3938a4e1616d8af08a28",
+      "bytes": 8864399
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n133585/attempt_0001/independent_audit.json": {
+      "sha256": "8e02991b466c1d2464dcd43ac508bd80aea12258715c2c7bfc48390477383241",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n133585/attempt_0001/raw.jsonl": {
+      "sha256": "1df041d3823e8724f034fbe05fe05eeeb0927f1bc5d37853b5e8104de714dc2d",
+      "bytes": 20484321
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n133585/attempt_0001/attempt_events.jsonl": {
+      "sha256": "d7a3ff0430445471561dc82fe9e7d7a874c69e4dccd3aff98f7456081b2e6d1e",
+      "bytes": 20125769
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n154856/attempt_0001/independent_audit.json": {
+      "sha256": "5100e38c561e09572f0f2ce2d0b9233b1a80a2ddf73a4e817dff1e187e37f2ec",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n154856/attempt_0001/raw.jsonl": {
+      "sha256": "720d7513b3c3b219f78e49fc967af261c004a3e085704f43324e26cd278695a7",
+      "bytes": 13955215
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n154856/attempt_0001/attempt_events.jsonl": {
+      "sha256": "13fa02a3897760021ff3c118dfa02470af3d2c5d46e3a51b94bf55971889ae4f",
+      "bytes": 13610125
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16425/attempt_0001/independent_audit.json": {
+      "sha256": "740c9a0682f96dda6051d8aec671ed26b20ed1491d83932c6c5ef41d07dda89e",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16425/attempt_0001/raw.jsonl": {
+      "sha256": "d6c455229ba924743b947ff6af25d37565b36c1b22be50f9d210373e1412b683",
+      "bytes": 23029353
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16425/attempt_0001/attempt_events.jsonl": {
+      "sha256": "975f4cd60a5e0b7c85fb0402a4e968271106ffabc0b8721777e371e35dc7cd8c",
+      "bytes": 22595904
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n166008/attempt_0001/independent_audit.json": {
+      "sha256": "c655eaa6e124ab083e967b9ffe5323474ac21bbe6bfa3905818267a82d9cd542",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n166008/attempt_0001/raw.jsonl": {
+      "sha256": "e801904ff105b6eb6290a7a29d491ffd06fc9e8a3703c9721da50723be8a258e",
+      "bytes": 22346219
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n166008/attempt_0001/attempt_events.jsonl": {
+      "sha256": "5f232c8ceb66e0fd741023d258d20860b40af80fb7cf66c9b9a95c037defd2f4",
+      "bytes": 21951248
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16656/attempt_0001/independent_audit.json": {
+      "sha256": "37b86428a2462c70503c149e25e726f0a1da4810d8ff6c0a1bf6c9cad3f1883a",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16656/attempt_0001/raw.jsonl": {
+      "sha256": "71642d7b9e541d8f61a89513721dc98bc4ff583eff2297822799c45094fa23ab",
+      "bytes": 22197155
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16656/attempt_0001/attempt_events.jsonl": {
+      "sha256": "1528fe8391695d02cb02c03039b37c9ac018a8abd2cd16508973fc5805e05b4a",
+      "bytes": 21796983
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n195249/attempt_0001/independent_audit.json": {
+      "sha256": "94af85ef3eac9695105f090045004b0ed427d92757c5a07b296f772a202a7073",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n195249/attempt_0001/raw.jsonl": {
+      "sha256": "8e6980229655cf7548b878c780c6d9feb6bae91804a0e02e00f568e2bfe73f11",
+      "bytes": 17692242
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n195249/attempt_0001/attempt_events.jsonl": {
+      "sha256": "2e07d450850059a2b9127a039fa636de08c2c75f89ff7b10f26c437ab14b4d57",
+      "bytes": 17342996
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n199286/attempt_0001/independent_audit.json": {
+      "sha256": "987dfba80b01b091d8c9c568d2f3f2ea746d24dd0a2282eda4ac52d94a9b9c28",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n199286/attempt_0001/raw.jsonl": {
+      "sha256": "5dd22e67127a1af40a1880636e3abb6cf2ef0ab287c09bd02906cfd94bb6b052",
+      "bytes": 21425376
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n199286/attempt_0001/attempt_events.jsonl": {
+      "sha256": "40a0b8effe1e131e049e6e7080c97d218c7d76e42d6863ab57ee7b481f506265",
+      "bytes": 21067012
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n234722/attempt_0001/independent_audit.json": {
+      "sha256": "264a92fe817f177a6cfbace36a22f2534347bc6231ee2fa7c740a70aece496ae",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n234722/attempt_0001/raw.jsonl": {
+      "sha256": "b33ba00eb025cef6ee1ea30c58dc7e80af80aa9f36a69d037a69ee5db5f0d9f4",
+      "bytes": 22253854
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n234722/attempt_0001/attempt_events.jsonl": {
+      "sha256": "55dcaa5b6cee625c8a08236c1ec03c76977aa179297467d73a4a597597bfa984",
+      "bytes": 21874654
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n244826/attempt_0001/independent_audit.json": {
+      "sha256": "cd27ba3e74825a8eac8154c372d3a2a7fa6418f8ffa22dcfc099ce2b323833e0",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n244826/attempt_0001/raw.jsonl": {
+      "sha256": "232eb19f339c939076db1ebde5efe9490aba664908f8ea8a2464c8f921a39a96",
+      "bytes": 18602476
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n244826/attempt_0001/attempt_events.jsonl": {
+      "sha256": "5f128be710ca24093dbf494b60a03100ccfb0be04e8bbfd8c1ef0341b732fde7",
+      "bytes": 18266271
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n262929/attempt_0001/independent_audit.json": {
+      "sha256": "d64341578d7b671b9dee530d8781abd3aaa53455f1ccca303005412eccd10afd",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n262929/attempt_0001/raw.jsonl": {
+      "sha256": "7e2c4ce85e16f52c42b0a0679ffd5284f19459cf5c6db585f235f0292ba0f187",
+      "bytes": 20724787
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n262929/attempt_0001/attempt_events.jsonl": {
+      "sha256": "53c2cafddcbd816f3a9d8f73b44bd074829bc88de31911747d849aac8fa22be1",
+      "bytes": 20364090
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n272098/attempt_0001/independent_audit.json": {
+      "sha256": "1cc7566267464729785d8e8aa9c762a028be6eeb84093faaba6d52a66e873a9d",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n272098/attempt_0001/raw.jsonl": {
+      "sha256": "9bbb536f6e537a9d903caaf999926c2ea6ea6df2674020fff018c0710e6ef7d5",
+      "bytes": 27679696
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n272098/attempt_0001/attempt_events.jsonl": {
+      "sha256": "7fd0caffa56b7eb0e8628681d94e8d1614474b6a700f981045506646d37920b6",
+      "bytes": 27235242
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n281241/attempt_0001/independent_audit.json": {
+      "sha256": "4cd2b550a29b95cae75e52954c72908f58f59a36256728c1dcc1a2b646e0def5",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n281241/attempt_0001/raw.jsonl": {
+      "sha256": "46f4fbb467c8bc5c71c956ecc22a58f2ae7d5c825782dc22676a400cb5e3de35",
+      "bytes": 20763860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n281241/attempt_0001/attempt_events.jsonl": {
+      "sha256": "074ee65caa1424124ac16134c1f0b37fbcea843b1f16f106cb9a66e7c5e9aed0",
+      "bytes": 20388504
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n293477/attempt_0001/independent_audit.json": {
+      "sha256": "00ed4fd6e13ca229d7cce3c472d48c0e5071fc927624cbc136c9a9ac4784eff0",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n293477/attempt_0001/raw.jsonl": {
+      "sha256": "91b952067737abace9154839a36c3b9eafe7164d1ebe55c8ef898f9ec5b81131",
+      "bytes": 22310629
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n293477/attempt_0001/attempt_events.jsonl": {
+      "sha256": "ec7ac53eebfc581cd8e83ffae3f215574d75800af756f44aae6123aa27517430",
+      "bytes": 21924796
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n298104/attempt_0001/independent_audit.json": {
+      "sha256": "afb6a884d8d9e06233ac266953d2a583934ea4686472febf6169ac0ba4ac30ac",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n298104/attempt_0001/raw.jsonl": {
+      "sha256": "67317196fcfdfbf91269a1b97173d027ae372bd8acbc0933c954762743026481",
+      "bytes": 20753794
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n298104/attempt_0001/attempt_events.jsonl": {
+      "sha256": "8d2e8cba88f5a6af028b4eb35e9bc470186a7316370df188f61584d359bdcd5f",
+      "bytes": 20371000
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n302387/attempt_0001/independent_audit.json": {
+      "sha256": "fa273e016f8b5fe372f91b4d3d26b1995c7ee6f0f7a0b2345f027fae8c0c0692",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n302387/attempt_0001/raw.jsonl": {
+      "sha256": "dcc75e009482fd8cd760588490fdb8bbb16617560692b1e33f0c6a9d4f4b5387",
+      "bytes": 22531386
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n302387/attempt_0001/attempt_events.jsonl": {
+      "sha256": "01e6ec103c3323c11d6940fcf04970c5ff10513295674c2e06d594bd0c361efb",
+      "bytes": 22165611
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n314171/attempt_0001/independent_audit.json": {
+      "sha256": "87cdb2249fb4ac4ce1f689cd6e567151edc1b671d8467fb566d7898bc42be3d7",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n314171/attempt_0001/raw.jsonl": {
+      "sha256": "02cd15d05983d6fc470719475357dbaa4abf472c6301e0ce5251a083581f7a99",
+      "bytes": 20731997
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n314171/attempt_0001/attempt_events.jsonl": {
+      "sha256": "12327d82dcd7918ddf06ca0b50e6806b2e7c749253eeba640fb058c795ba44eb",
+      "bytes": 20365383
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n329479/attempt_0001/independent_audit.json": {
+      "sha256": "a60449c386a895b4d929d2feb47df2c0082ddcdaf5a6682505b5d7e6e4e6dd81",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n329479/attempt_0001/raw.jsonl": {
+      "sha256": "f65515daa03ef38d1af8e49d40f1449b2a065646b3c55268bc3ee8c37094dfbd",
+      "bytes": 20773791
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n329479/attempt_0001/attempt_events.jsonl": {
+      "sha256": "f52f7181df996150f0ea72d764f952bf53168c2eb894bb0639bed5b75d4eabba",
+      "bytes": 20390629
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n331357/attempt_0001/independent_audit.json": {
+      "sha256": "78f99bdbfa30c6f9077c212ffbde3d5cfd78853b88c47edd149f3698dc61c789",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n331357/attempt_0001/raw.jsonl": {
+      "sha256": "9cc662be430b63ee63e5086ba33a7580dc4b74cdcacd8d6d361dba63b5935c7f",
+      "bytes": 19430134
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n331357/attempt_0001/attempt_events.jsonl": {
+      "sha256": "c68dc7c2f44e8cde538fcb9d420932f020c2c73cf4cd33f8eec1a00d43fb964b",
+      "bytes": 18991851
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n355567/attempt_0001/independent_audit.json": {
+      "sha256": "8f14addc53e4fd87a1a2414ddaff93e84f25d35fd0dd14b1cf97fe42a691aea2",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n355567/attempt_0001/raw.jsonl": {
+      "sha256": "9b16c2d2dda0e09bdc7716d0f224025cd2a2a072b364527c48caef885d988f75",
+      "bytes": 20405760
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n355567/attempt_0001/attempt_events.jsonl": {
+      "sha256": "883c88044995217f5dd49c097e518271b75f689b5387be23f91d5c8e8dd0c5d4",
+      "bytes": 20041986
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n37274/attempt_0001/independent_audit.json": {
+      "sha256": "44fc43dbcf1034d4b45e96b98e43ba7cddc617c61148f468fdf76e6f536f4a58",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n37274/attempt_0001/raw.jsonl": {
+      "sha256": "a9224e762e3e7c67d0fb4316e0a5bc1a8f7bd91619dbb01bf931d0ece2cd97e9",
+      "bytes": 22316408
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n37274/attempt_0001/attempt_events.jsonl": {
+      "sha256": "7799a02d1fbd7575c70eb45f93e526972b652e32e33d45059c61a3899c8de458",
+      "bytes": 21953426
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n390187/attempt_0001/independent_audit.json": {
+      "sha256": "b7817f7ce31420df4f1248c50aac2819152591d8706219380bcb27c4c6c17a50",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n390187/attempt_0001/raw.jsonl": {
+      "sha256": "90f6c6ae81a6d8da070c6424b089cb996b95408f67033e4575312c5e8ec16b4a",
+      "bytes": 21593251
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n390187/attempt_0001/attempt_events.jsonl": {
+      "sha256": "ecaec488806540338f2a4248bbf94544bbf47793d6aef82da1ab2d95357cf5d0",
+      "bytes": 21183142
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n406334/attempt_0001/independent_audit.json": {
+      "sha256": "9559d0916853faceab77d6da7bc56311739a4b185936982889d0d51a841e06a3",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n406334/attempt_0001/raw.jsonl": {
+      "sha256": "db5ce3b3268b26c79c96eec09d0343c96287fc0aa88541965839022eb3085604",
+      "bytes": 20436569
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n406334/attempt_0001/attempt_events.jsonl": {
+      "sha256": "a7f373e04af60de567a0eddea15459ad2edf7f9245e82b626fecde43a33b4d5a",
+      "bytes": 20043568
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n437064/attempt_0001/independent_audit.json": {
+      "sha256": "ecc291e003d735d446f4b9d6b2b0402d9b28e8cb69f8611e470258bde7a63dd7",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n437064/attempt_0001/raw.jsonl": {
+      "sha256": "76fe9afb8d94d77cf3ff775087b101c40f27a82d3375fae89bdbbff36939d1b6",
+      "bytes": 20394726
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n437064/attempt_0001/attempt_events.jsonl": {
+      "sha256": "e60527e70ca1a9c0fcb7ca525d4b75302da48dbbe8a7e0b25fc73dc35bfa2ec9",
+      "bytes": 20030767
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n44249/attempt_0001/independent_audit.json": {
+      "sha256": "a6210b2af35b168cd8e8c60ee581398c32e7e3d348a9ea0261cc4dec6a9c8168",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n44249/attempt_0001/raw.jsonl": {
+      "sha256": "0f770f0f33829056b0df178248a1dd48f520ee68449fe54a7e18520c7d135575",
+      "bytes": 20526409
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n44249/attempt_0001/attempt_events.jsonl": {
+      "sha256": "b3d84a5c8cf8f2a01b0399b6528767611195bf202d68546191c2558d704c98ca",
+      "bytes": 20169599
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n450919/attempt_0001/independent_audit.json": {
+      "sha256": "ddf9f612ffb4f6257ffac62539f69a2d103a3c25e723ebdc0b7ad25178974556",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n450919/attempt_0001/raw.jsonl": {
+      "sha256": "5a7fcee8e60b94bb81b41e86bd844bb3d715a08ddd5310636517e61c5d1c38af",
+      "bytes": 22531532
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n450919/attempt_0001/attempt_events.jsonl": {
+      "sha256": "f353979cd65e9c37ae1e9528a4046158fecf68166d3334434b6d5cd94e2bf25e",
+      "bytes": 22156812
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n470131/attempt_0001/independent_audit.json": {
+      "sha256": "074cdbe553f6457e5230f1c07939dd02b369168bfbcaf8c1631bfd385cb881eb",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n470131/attempt_0001/raw.jsonl": {
+      "sha256": "a3f82edd7869ce5ea9ca3488a8aec24ee995ce112e81e6c345af18b7fa540d7b",
+      "bytes": 20438073
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n470131/attempt_0001/attempt_events.jsonl": {
+      "sha256": "1314777a536ba6a44c53b84ef9217cb9ddf2322114e62b20effabfb1935a4416",
+      "bytes": 20040529
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n472825/attempt_0001/independent_audit.json": {
+      "sha256": "f422ec9afd388f7bb40f98ab4b3cf0f6b2bcf319a41eea2657766ddd49fb316a",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n472825/attempt_0001/raw.jsonl": {
+      "sha256": "c6e9b07f781aa72910256780febc5ca6b29a22a36195721bdac9d0d9253e4247",
+      "bytes": 22283967
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n472825/attempt_0001/attempt_events.jsonl": {
+      "sha256": "16cdd5e6fdf430b85b857476c4f2572ab9ed9dcc88a8d0a39b484db7f444e4b8",
+      "bytes": 21912733
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n48494/attempt_0001/independent_audit.json": {
+      "sha256": "a73dd1a035808f3966596f28fd5d0cf23aee7a2f19748596716329ec7f903717",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n48494/attempt_0001/raw.jsonl": {
+      "sha256": "3dc55b014c3e31dfc3325d4aca3046f446126985cb46f5eab502e7328f79fa0f",
+      "bytes": 14091020
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n48494/attempt_0001/attempt_events.jsonl": {
+      "sha256": "c8f0bab571b5f39a33006fbedc2a192f6d8cc25ee753ea03d7a4ae96e8cf2612",
+      "bytes": 13739122
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n494918/attempt_0001/independent_audit.json": {
+      "sha256": "a7c559933d91b7d9859d2efdbcaf1d208ca36eaf4984f572ef94e446e68d87cc",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n494918/attempt_0001/raw.jsonl": {
+      "sha256": "f80ee1c2ec1e7bdc118f9a419f9e69647e4e399095475338b57f35c05703a583",
+      "bytes": 22554718
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n494918/attempt_0001/attempt_events.jsonl": {
+      "sha256": "287bf5d8473b8e61f31d9f31cc58b21bb797a4f71756390c5462dc141fafc6ac",
+      "bytes": 22178313
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n498140/attempt_0001/independent_audit.json": {
+      "sha256": "c8535ea412ce702a0de7dff7f9836cbe7e82ad4be25f6f6497be29b97a64c79b",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n498140/attempt_0001/raw.jsonl": {
+      "sha256": "bc207dc48b47e9109291b8814249531a67c2720ab88105e8586df03fca83bf5e",
+      "bytes": 20484308
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n498140/attempt_0001/attempt_events.jsonl": {
+      "sha256": "4e38354535011498a51d1124b3d1c878df785a1418f903f5da4c3bcb40e1daa1",
+      "bytes": 20101718
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n51002/attempt_0001/independent_audit.json": {
+      "sha256": "939bc8e4c225a6bf7562345ab7efa7c3837b7528d5c8ca33afcd112ff770237d",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n51002/attempt_0001/raw.jsonl": {
+      "sha256": "da889f09485cd26610ca3e98b8c8dcf8ad6905f2a4c85e468611378144ba63c7",
+      "bytes": 20535280
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n51002/attempt_0001/attempt_events.jsonl": {
+      "sha256": "832a245d2d04d60146c9440f0f8c42f133df8abc0841ff5a1a6cdee1eebce505",
+      "bytes": 20137503
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n522733/attempt_0001/independent_audit.json": {
+      "sha256": "27270f918e82bf8959ba50a84100c8cae7d38cd94732e57cc4cdbb832cac1fd9",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n522733/attempt_0001/raw.jsonl": {
+      "sha256": "9690d447dab120bc6f0d280bb6126943794309af039a939b3307695b8f953773",
+      "bytes": 22258394
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n522733/attempt_0001/attempt_events.jsonl": {
+      "sha256": "8e9382695407b139ed037316e3528edac44e8d6a4ea3328a27040ae562cc3179",
+      "bytes": 21843729
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n52544/attempt_0001/independent_audit.json": {
+      "sha256": "f501cdfcb69bc03447138d23ae08289e32f6b5374c032b4f972afda3b600d384",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n52544/attempt_0001/raw.jsonl": {
+      "sha256": "aecbc7db91960880f91097b91141f816e58fccb5dcaafffa8dbf975359482f3a",
+      "bytes": 20694940
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n52544/attempt_0001/attempt_events.jsonl": {
+      "sha256": "383ba2fc70d44b57e99e00f3384326ca0f87a83b7a2b3e75b456effa6eb9efa8",
+      "bytes": 20281709
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n527589/attempt_0001/independent_audit.json": {
+      "sha256": "474753654469d3688f494e667fd0adaa27750e3f77204e2a3079e8d87543caf3",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n527589/attempt_0001/raw.jsonl": {
+      "sha256": "84e761b5baabc964cbf7edad9698e42cdf14708b9af900668710040c9b28d9dc",
+      "bytes": 22232673
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n527589/attempt_0001/attempt_events.jsonl": {
+      "sha256": "f6cdafd2df635f3d31c9afe5b7d82b9b247235486bc7890f809d26f85e088699",
+      "bytes": 21836113
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n540852/attempt_0001/independent_audit.json": {
+      "sha256": "cac880e18e4664692c6c013c7ddf073cf5b45ba7a25d5f22fa8a5f483b8db43e",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n540852/attempt_0001/raw.jsonl": {
+      "sha256": "29f62c137e809c25ccea66a2ddce034b24aba679daad3e22920149e3049ba361",
+      "bytes": 25276592
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n540852/attempt_0001/attempt_events.jsonl": {
+      "sha256": "34d4c1faadd7a355c785fea0abb1e1499374d0ac5af93b9c135002ed5aa093e1",
+      "bytes": 24897732
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n567860/attempt_0001/independent_audit.json": {
+      "sha256": "7fa897ac6285f4fa4eb562b91905616f7ab5e1174d2b7b790f73e80e81fcb55c",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n567860/attempt_0001/raw.jsonl": {
+      "sha256": "69938a0b92d13bbec98e9ac4ecf812246b2c848ee5ed4a0e97d15d70a9867371",
+      "bytes": 22207216
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n567860/attempt_0001/attempt_events.jsonl": {
+      "sha256": "3d1f8fb2b212072ac3cfec1f17f468dfb890c8dc3b9a2aeb0a613798c516df75",
+      "bytes": 21845262
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n58220/attempt_0001/independent_audit.json": {
+      "sha256": "e2c7fce0051a9e368249d9d6239f6828d0b5b1266e3c5cdffa5786006ce2128d",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n58220/attempt_0001/raw.jsonl": {
+      "sha256": "76cf2a2ed0d547cb9f5484dab6cd54a0875645e68b84c4fd8ac6ab3591ba3099",
+      "bytes": 22321358
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n58220/attempt_0001/attempt_events.jsonl": {
+      "sha256": "9a28004149588865ab7d82c19ad02d7e68b173530b7c8de70651eeb9f0a7edf1",
+      "bytes": 21928294
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n67005/attempt_0001/independent_audit.json": {
+      "sha256": "d56894c2419729efe722f17468005a1e22bb95a0dde0d799472113d5e57e3b5b",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n67005/attempt_0001/raw.jsonl": {
+      "sha256": "02a81fa1c6dc5d247df0050c651ac85dccfe594fce8d4ea923250db453188f18",
+      "bytes": 22484244
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n67005/attempt_0001/attempt_events.jsonl": {
+      "sha256": "b8de8b052eebad43dc3270967efe1f58710587c680960d155d76850688d79eea",
+      "bytes": 22075367
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n90294/attempt_0001/independent_audit.json": {
+      "sha256": "3303f21a4b0c37acefb3e3adee2353bdf78674cc1fd992d93d3cbdaea389117c",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n90294/attempt_0001/raw.jsonl": {
+      "sha256": "6077a232524bfbf5372fe53394fc784c15da45c25736e44ffb1d78b462ab830c",
+      "bytes": 22029414
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n90294/attempt_0001/attempt_events.jsonl": {
+      "sha256": "0f477418d8d975f36ba7218b48921f5fa0d358d7715ce9a31a88a55c2002d324",
+      "bytes": 21586073
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n9181/attempt_0001/independent_audit.json": {
+      "sha256": "76bdf64b851aabf136e49569f9d2f8d73df2fa9f10ebb7cd985d13c40df8310b",
+      "bytes": 333
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n9181/attempt_0001/raw.jsonl": {
+      "sha256": "edc20a25ccd4d07b79bdc3ede7763e3d7a77d996d024eb25b12c9b03915622b1",
+      "bytes": 22500426
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n9181/attempt_0001/attempt_events.jsonl": {
+      "sha256": "27a990fae04bf88fc21fcabc9540a1ff60ec165bda1ee6865b2c92f93f28c2b5",
+      "bytes": 22132034
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000037/attempt_0001/independent_audit.json": {
+      "sha256": "5f40b666980618f6da6142d47142c4ecff61ea9234819b79cffc0174a9063261",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000037/attempt_0001/raw.jsonl": {
+      "sha256": "2d97d5d534fd278482c6aa8c56524602f7f90b6d0fdb923399b85ee7ad67d338",
+      "bytes": 8378082
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000037/attempt_0001/attempt_events.jsonl": {
+      "sha256": "97e5bb45175ea6d47fcab245f34f5a877a8ce1a7090fa3793641b9cf48736a88",
+      "bytes": 8202315
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000286/attempt_0001/independent_audit.json": {
+      "sha256": "8947e05bb051ad70b29d4ea9588ed59ebd2723189d4528cbd5d606f0ba5859eb",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000286/attempt_0001/raw.jsonl": {
+      "sha256": "a93ebd80285b91522d57729a4ba972415cd647b835d618c52633625ea59b5bf8",
+      "bytes": 11204210
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000286/attempt_0001/attempt_events.jsonl": {
+      "sha256": "6551c90a30f912aa575da28d016c75069827057a075416960267bec8da5e768a",
+      "bytes": 11032504
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000512/attempt_0001/independent_audit.json": {
+      "sha256": "c3bdaf8e9e8bcd650c57b3f3df86de05be6ca3943e76e8423a7560c6cd733bd6",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000512/attempt_0001/raw.jsonl": {
+      "sha256": "799c43e3046b31f6b04a7c1cadd4922ab9907dd1bd3a59136c8bdf4d876c81db",
+      "bytes": 8261139
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000512/attempt_0001/attempt_events.jsonl": {
+      "sha256": "22b654072fda077a817de2f23843812179e7780e24e088a50aadd507c0ed7bb8",
+      "bytes": 8089227
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000530/attempt_0001/independent_audit.json": {
+      "sha256": "dd0e4275818ffee3f5607407ef42a00af68990b2169eb2c048b4378c5fcbc9f9",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000530/attempt_0001/raw.jsonl": {
+      "sha256": "6c8b911e1e14cda919155bda01b939eb32b0d915e625c8a8ba4be99d88793c42",
+      "bytes": 8292774
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000530/attempt_0001/attempt_events.jsonl": {
+      "sha256": "37e08a8a912c4cbba1e0d1ff0500496b1b977e7a5283d79117231149bcacc69b",
+      "bytes": 8133218
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000793/attempt_0001/independent_audit.json": {
+      "sha256": "531f93e4973bc3deffb3a054503dabade95b4560aa135ee756d9e5669c90375d",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000793/attempt_0001/raw.jsonl": {
+      "sha256": "40a14de889e1d652aacdc8e7b905b971c96b4f3dddbaf147b0bb889a521eb20c",
+      "bytes": 9010794
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000793/attempt_0001/attempt_events.jsonl": {
+      "sha256": "17db4962e1dfc2af20e78af3393fce33f742a234a8bf425452845660487351da",
+      "bytes": 8846323
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000842/attempt_0001/independent_audit.json": {
+      "sha256": "8a32987be05eb66a728e8a5967ddc3689d75d418a26ab687b1c77d98aeef9851",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000842/attempt_0001/raw.jsonl": {
+      "sha256": "311cf3a907a05a5a9351d5435814bd8008185ecd1ff4ad22cb6e3a259d24e28f",
+      "bytes": 8998772
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000842/attempt_0001/attempt_events.jsonl": {
+      "sha256": "40552f877affd470d12cb7c5f888f55d33ea4d9693e76bedeb25f9a7f8a4eaed",
+      "bytes": 8838884
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001049/attempt_0001/independent_audit.json": {
+      "sha256": "a7d5c5aa3b85a87a32e6c30a0afbbce9f88168a0d0c508de28f2e6e2d7ec014d",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001049/attempt_0001/raw.jsonl": {
+      "sha256": "ffe0861e4a695cf73bb70fca3aef672eaa86432c648c35e88d271fbb580c9fd1",
+      "bytes": 8355811
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001049/attempt_0001/attempt_events.jsonl": {
+      "sha256": "e1f7a9b77429bb46eb6e7b5553eb3c88d880ae5743cdd53b00a65470123f93b0",
+      "bytes": 8179272
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001321/attempt_0001/independent_audit.json": {
+      "sha256": "4184191828311a3a1b13f9e31d37ae6c44286f23c5cbb6ca1378e2c707da8e52",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001321/attempt_0001/raw.jsonl": {
+      "sha256": "ccca2089b3b846674d1a0bd0b99d128cea86febc98c0428c157becacc632b903",
+      "bytes": 9210974
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001321/attempt_0001/attempt_events.jsonl": {
+      "sha256": "da6c006afcdde578e48c295acd22d65e612119475ca6bb188920f78dde5a7e0d",
+      "bytes": 8996397
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001372/attempt_0001/independent_audit.json": {
+      "sha256": "9ca970f322ac6c1c83f89756d1f1a1eb67c2780601b20b2bee1ec129dce2fc2d",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001372/attempt_0001/raw.jsonl": {
+      "sha256": "536d172c54d6478754c3cd0fd6fd3fbd1bdf650f682a7ae937f921c2da10a242",
+      "bytes": 8995459
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001372/attempt_0001/attempt_events.jsonl": {
+      "sha256": "215e75dfadd520c7556797d18ea3584958ce2fea0d6ccfd2492f959517ebfc83",
+      "bytes": 8824526
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001405/attempt_0001/independent_audit.json": {
+      "sha256": "5341d216c56c44823692a4f581d8d8e6fdcaeef40ee1e26fe703b6ce76ee17f1",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001405/attempt_0001/raw.jsonl": {
+      "sha256": "5f7fc9b99751b75e764159a43da84f4ff358ec5bc0ca8f65cc80291ceef0c156",
+      "bytes": 8972304
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001405/attempt_0001/attempt_events.jsonl": {
+      "sha256": "0221e17da436d6f816e48b457c051ce15361d566bc7008dd0f9e57a9c10ddd67",
+      "bytes": 8779890
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001642/attempt_0001/independent_audit.json": {
+      "sha256": "cd56216c891df0abaab006f6c4ac1abc65af097d13f80570e4180d005987d33a",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001642/attempt_0001/raw.jsonl": {
+      "sha256": "6ed284b0f7bc90a6242ea14b75bdc22069be7b1b270145fe007e7edff8f780f1",
+      "bytes": 8231992
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001642/attempt_0001/attempt_events.jsonl": {
+      "sha256": "124e5a71ee0525d5b9e4b80473bc47f2f91a90bab537798bf3a1bc0c99cbaf4a",
+      "bytes": 8036634
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001777/attempt_0001/independent_audit.json": {
+      "sha256": "06f27fd810058f69b72a58fb0bffe8b407d12bcfe567cab397cd2639767d6ec6",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001777/attempt_0001/raw.jsonl": {
+      "sha256": "9bfbcd8ee6c128aa734bc33a718195aec103eaa76225cbecf7f7ff308e911226",
+      "bytes": 8895900
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001777/attempt_0001/attempt_events.jsonl": {
+      "sha256": "1b833b93d192c1721b1dab1243a2d7daac7b00ebb60e6314de133ec05cc87db3",
+      "bytes": 8730384
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001850/attempt_0001/independent_audit.json": {
+      "sha256": "e06c53e21c3d0c94eae712b16716eeb987d74c3be55f20ce485cf9a8d7dcbae9",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001850/attempt_0001/raw.jsonl": {
+      "sha256": "79a4ddd9dc4845018e382504bc819ed1a0653f1c73c65dee80dcfa3f2a73b4d2",
+      "bytes": 7513020
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001850/attempt_0001/attempt_events.jsonl": {
+      "sha256": "32f5c7b74bec528f139f0430b9249e149281c0cd6b685a1b785c44fcf4bbfb54",
+      "bytes": 7339661
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002021/attempt_0001/independent_audit.json": {
+      "sha256": "91869d00d129b7b21f8a7b9098741d76e3ed12dc17d2876d7a174c569873f9b0",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002021/attempt_0001/raw.jsonl": {
+      "sha256": "d7000ede49a8142994ac4c4f225ceae78de37b20719028839f05abb6b3d78411",
+      "bytes": 8205478
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002021/attempt_0001/attempt_events.jsonl": {
+      "sha256": "63e6acf05f837eaf799363c577cc8d9133a83e7ac374c558427e2b61d31a8b27",
+      "bytes": 8022868
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002046/attempt_0001/independent_audit.json": {
+      "sha256": "2919ce52ae70e727cf0ea45c6ffea3891eac82e3e156fbafee015103eebdb93c",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002046/attempt_0001/raw.jsonl": {
+      "sha256": "bfce5c6d4c11011a454ef3e2a04ddde802312fae624894abb7eb94fea443611f",
+      "bytes": 8997416
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002046/attempt_0001/attempt_events.jsonl": {
+      "sha256": "6c1a06b2548a0afb3eb48f0fccbe67041a958d1b7bf27177da04dff15ef3e017",
+      "bytes": 8829345
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002083/attempt_0001/independent_audit.json": {
+      "sha256": "b81b6df3bce36fe9869db37f7818851cac07d4ef5a24f1a0c5066ca852a3ada3",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002083/attempt_0001/raw.jsonl": {
+      "sha256": "4f396c2cfda29be87abe0abb3e7fdb46463695411d985855ee1b65462e8f67c6",
+      "bytes": 8929763
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002083/attempt_0001/attempt_events.jsonl": {
+      "sha256": "6a35005244db4e2c18890b72d6d7720292d30b2f3509b97a0c3f49651952233d",
+      "bytes": 8744356
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002170/attempt_0001/independent_audit.json": {
+      "sha256": "f6b5fda5915d72a40e85045d4ec1020ed3d5fb8e38a4c6059f574d2c1d4bb572",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002170/attempt_0001/raw.jsonl": {
+      "sha256": "4a8697e9ef7c704fea53de9fb430cc9e22d911bfb1a8889cf25e61345dbebb05",
+      "bytes": 8290130
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002170/attempt_0001/attempt_events.jsonl": {
+      "sha256": "f931698597d92375e4a635cadaa730d571c6ac8a89156107e467e6db32f27d66",
+      "bytes": 8106678
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002245/attempt_0001/independent_audit.json": {
+      "sha256": "ea7b1c6c067b16096095b3e0591945d4a48642840def81dc4993abab565bef04",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002245/attempt_0001/raw.jsonl": {
+      "sha256": "5ee44cf9ea5e13b4de842bfaf98d148d00259c4cd30e53be0992071134c8efef",
+      "bytes": 8219581
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002245/attempt_0001/attempt_events.jsonl": {
+      "sha256": "e7cc1d55d486648db31dc99f1acfbbfddaa9f0111efa57b673cf89a56cb9e00d",
+      "bytes": 8051438
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002345/attempt_0001/independent_audit.json": {
+      "sha256": "801d2e231af95d13156d2f09602327c687564734f0bffa8c5274c2ccbd308538",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002345/attempt_0001/raw.jsonl": {
+      "sha256": "f5eb8591a388f7b2ca433402c70e81759cdb9d9cc812b47c933ed8e5c433d492",
+      "bytes": 8198836
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002345/attempt_0001/attempt_events.jsonl": {
+      "sha256": "bfcbe68e393485725e7b5d36f3cb6ee58fa5ae160a9ffe9e9b3d0177cb24f2c7",
+      "bytes": 8011417
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002489/attempt_0001/independent_audit.json": {
+      "sha256": "d6e059578fa3ec7ba84e27b1c71fabf9bc281b8b291f81e61cf17698a33e1c10",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002489/attempt_0001/raw.jsonl": {
+      "sha256": "9a7d3440134734203a5a77d43824bbca5c102acfcd408ec86bdfc739d1525d80",
+      "bytes": 8330866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002489/attempt_0001/attempt_events.jsonl": {
+      "sha256": "4b2b8092ae8d2fa20e730a17e8a15982474f4e9388c2167aeda97d9919b89534",
+      "bytes": 8171617
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002542/attempt_0001/independent_audit.json": {
+      "sha256": "e07bac3d47361fdaa7edd0a9c2b5972411c21c3ca8e860560ba841fe68beb0ec",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002542/attempt_0001/raw.jsonl": {
+      "sha256": "a8e6da31d5f9144534b6e2f66b277b05d737a5e156eb9d6c15ccea66f41e4aeb",
+      "bytes": 11199173
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002542/attempt_0001/attempt_events.jsonl": {
+      "sha256": "b3270f06d95dcc901fc96cf6b38abde3c60f17fd267b51c165316c8f774d0fc4",
+      "bytes": 11022137
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002621/attempt_0001/independent_audit.json": {
+      "sha256": "92c05af71ddd20bf0016d65872433aa39678b6db687554bea32d18f0bef4bbfa",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002621/attempt_0001/raw.jsonl": {
+      "sha256": "a76e08b90e6261f588414f10a6e7b73b50900c51180e7c4b64bf660b8c37aaa6",
+      "bytes": 8264066
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002621/attempt_0001/attempt_events.jsonl": {
+      "sha256": "bc855ea26bd8cf7bbb26323b63d11a8c890caf5bbe48b73ed2e3be09f7fa82c9",
+      "bytes": 8090827
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002627/attempt_0001/independent_audit.json": {
+      "sha256": "63c9befde776cc2d82afe9546452e8b680da233d821274c5a9a4b628e5fa1752",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002627/attempt_0001/raw.jsonl": {
+      "sha256": "2f449cd4c1d43010c029f1d491b7cd65e971f6b8f928e392a28396f4010fc794",
+      "bytes": 8353642
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002627/attempt_0001/attempt_events.jsonl": {
+      "sha256": "34056ce4fcf7f25c11ee34924bfd0ab478ebc0ebfe964dff8e608769eb2d25a9",
+      "bytes": 8187421
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002724/attempt_0001/independent_audit.json": {
+      "sha256": "9f8783c14966fa3d12f097aaa5685e5a904c3295c172cdf3fff4e35cf8583e26",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002724/attempt_0001/raw.jsonl": {
+      "sha256": "a58500c884cd1096a9acf5a19485df9c3bf86bfb33e8083876785bcbcbbc74a2",
+      "bytes": 9335434
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002724/attempt_0001/attempt_events.jsonl": {
+      "sha256": "bb19dd6f00e1f8905f207958836056c61ecd2f15cfa6823ba6ea8a49059ff8a1",
+      "bytes": 9158276
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002749/attempt_0001/independent_audit.json": {
+      "sha256": "337d90b991e65fe79fd6472b737be038c0c65eb38274111985431aa3b88f2314",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002749/attempt_0001/raw.jsonl": {
+      "sha256": "a1c71403aecf167f8ceef0b3252c8a9e1c8091765557ad6141d5be898b474e4f",
+      "bytes": 8987181
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002749/attempt_0001/attempt_events.jsonl": {
+      "sha256": "ecec8d0740d94d9d850fd3dd37b5f61625aa35b6ea68bbe80dbb37e66879f284",
+      "bytes": 8815548
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002808/attempt_0001/independent_audit.json": {
+      "sha256": "654fdebb45bc9ca5954f5e507ab763e13e012bea2a635799050d7e61ac82ff69",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002808/attempt_0001/raw.jsonl": {
+      "sha256": "1c38266507fa6e650ebe413021e3ad62b913f57d910b061ce3bd6ad72987eed4",
+      "bytes": 8257374
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002808/attempt_0001/attempt_events.jsonl": {
+      "sha256": "3b9be9c72eec7e055227616973546b4be0271fc20b067b4e9ad7d8f810631402",
+      "bytes": 8083010
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002814/attempt_0001/independent_audit.json": {
+      "sha256": "374f185709f58e972489643f127709712e6413b9bd03b5b62306fd8b04a892d5",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002814/attempt_0001/raw.jsonl": {
+      "sha256": "4a89c10d0fdbb6d9d066f4b8fb96e5e74c8505ca72bed9cf42ee018c7e3a0f2d",
+      "bytes": 7856186
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002814/attempt_0001/attempt_events.jsonl": {
+      "sha256": "530f975317636ac0676dbc5841b8a396a9cd60ddbf6b1c0512f26df8994359f3",
+      "bytes": 7687743
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002881/attempt_0001/independent_audit.json": {
+      "sha256": "186ec3adb8e4a45a4d90136ff3248f477d17c4d63f92bb5822217b41461324ea",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002881/attempt_0001/raw.jsonl": {
+      "sha256": "ed5050ba9aa85f84d0052487b3797e51ff227a09428b2a66a115da0745d2c254",
+      "bytes": 8230350
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002881/attempt_0001/attempt_events.jsonl": {
+      "sha256": "5be1ac2c912bffc6f30dff7063418f454d6dab9fa2aa64e043ed8a3262a6da10",
+      "bytes": 8049498
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002979/attempt_0001/independent_audit.json": {
+      "sha256": "ab05b22192691e5caa912196090941d7622114d3000e51e936db63b9e61c6e78",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002979/attempt_0001/raw.jsonl": {
+      "sha256": "45a099e169851861922ce5637f8f20aa0f199ee9834442fcd943006070384a0d",
+      "bytes": 9010260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002979/attempt_0001/attempt_events.jsonl": {
+      "sha256": "9ca8b4830d6dc163e9e4326f4b8e2eb5ba21991c1a384fa926bb894909ef9d25",
+      "bytes": 8837494
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003177/attempt_0001/independent_audit.json": {
+      "sha256": "437629a2f0b4a35d90eb9d7e9a05bf1377d51a1094e6f6f729bdbe2bdb8b0bbd",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003177/attempt_0001/raw.jsonl": {
+      "sha256": "5fb4ee064ea68dde0e77922c683b85422c281f22e8035d1e9a0bce8d0b786c15",
+      "bytes": 9026500
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003177/attempt_0001/attempt_events.jsonl": {
+      "sha256": "5a942903cd52d4048cff437fbd83d017de591d2dca333933382282e52c24688d",
+      "bytes": 8842313
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003365/attempt_0001/independent_audit.json": {
+      "sha256": "aab88c09a2adfa5d0d9ec4f5ac6a9b657489e8de113367212c6511dfcd0fee20",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003365/attempt_0001/raw.jsonl": {
+      "sha256": "c75a57fe53bba8b43efd800b667446c467496a693cf6d2d33b659300906f7206",
+      "bytes": 9072799
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003365/attempt_0001/attempt_events.jsonl": {
+      "sha256": "8c7e5d9a02514a4c9185dc5d0fc7ed81b0f325dd7812fa66cab21dbc927dc72b",
+      "bytes": 8904707
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003417/attempt_0001/independent_audit.json": {
+      "sha256": "5fddb592d74374a64ce44fb2f718160beb88a127c0fc4f98bcd74be3bac0ddb4",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003417/attempt_0001/raw.jsonl": {
+      "sha256": "6853164e0d3c307040b984c73ee208e6904fa189f4f3fefc83a1a69889699ef6",
+      "bytes": 8977442
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003417/attempt_0001/attempt_events.jsonl": {
+      "sha256": "b5ce79689e93ddd0727c56dd92f9cf1c1e3c9fc1c7f6d5a929503581119a326c",
+      "bytes": 8810466
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003437/attempt_0001/independent_audit.json": {
+      "sha256": "29149ab6b8aa069a948abb94a9c745a954c80fb642855b80495bee6717d8d00a",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003437/attempt_0001/raw.jsonl": {
+      "sha256": "662cac2b9671d3d42b34522c41529196995f7fa4c02866609358d544b9f69bcc",
+      "bytes": 9352316
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003437/attempt_0001/attempt_events.jsonl": {
+      "sha256": "2123b94c97bb3df723ad9aa3d58c47bcc25a156d5c40271f2161c5fa48840f60",
+      "bytes": 9184848
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003482/attempt_0001/independent_audit.json": {
+      "sha256": "f1c00ab75ee1c04d68cd20ab27638f3cbe555e54a1d767953c356d321c9972c5",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003482/attempt_0001/raw.jsonl": {
+      "sha256": "144ec7926a366191c5030bdd2e3983338b0c2c02cf2a71b12899508cc098843e",
+      "bytes": 8332891
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003482/attempt_0001/attempt_events.jsonl": {
+      "sha256": "54b1e31165c6bb893816cc5478a9928c52d353b692345dfec0e856c19f88c553",
+      "bytes": 8162183
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003581/attempt_0001/independent_audit.json": {
+      "sha256": "aa90634db620ad6402249ea7372de6abddb9bb6086ed04a20c6196db9dda30c2",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003581/attempt_0001/raw.jsonl": {
+      "sha256": "043bcb4df52624481fe57f999ca3ee6adc51aa3e8faa9c01da0b80d2f29e11c1",
+      "bytes": 8936372
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003581/attempt_0001/attempt_events.jsonl": {
+      "sha256": "7790e171c0a38272306a50c2aabf1772ba9b7466bf1e5ea26bec204d5820eb6c",
+      "bytes": 8752742
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003603/attempt_0001/independent_audit.json": {
+      "sha256": "05c544c4a602859b7025ce941bfd48861c6bdab5171c05e1a2c239899813b6ab",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003603/attempt_0001/raw.jsonl": {
+      "sha256": "1d34696eb76794248c9041252218e19711341e07470441e41665fadeecef6cd1",
+      "bytes": 8249304
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003603/attempt_0001/attempt_events.jsonl": {
+      "sha256": "611423ba454649e7b27f181012ffe811f98cf122f83cd90f2744be19c037bc7d",
+      "bytes": 8077698
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003808/attempt_0001/independent_audit.json": {
+      "sha256": "b56c666f0a7931552ba5c303db36dee60d0971dcced3eb6956fb3145423f238c",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003808/attempt_0001/raw.jsonl": {
+      "sha256": "a12d63b5ced762738b135c7fa4cede5c7e6f077870881e926f157d86cfaf6e70",
+      "bytes": 9048372
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003808/attempt_0001/attempt_events.jsonl": {
+      "sha256": "c394f0b6c91dcedf5028ca40e80d2921c425227ce823d93e2e3e727442958240",
+      "bytes": 8868626
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003870/attempt_0001/independent_audit.json": {
+      "sha256": "7a5260a290232bbb9f77d207acebfc4249a8f9ebf02cec4b09b6d784e3874890",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003870/attempt_0001/raw.jsonl": {
+      "sha256": "90098eb9314e7ba1812aedb47faffbe67e23ec15888b5d462be519c42e2e85dc",
+      "bytes": 8268516
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003870/attempt_0001/attempt_events.jsonl": {
+      "sha256": "5a72b91a04d142e9999ca5d643fbab661e421722467bab68891752e6a9725e33",
+      "bytes": 8094889
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003895/attempt_0001/independent_audit.json": {
+      "sha256": "bb3be2f8e19fdf8140eb35f45a2bf8bafd261004061f41e5c9a7922ddcde1db1",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003895/attempt_0001/raw.jsonl": {
+      "sha256": "429814cafefd06c061203940406949be813ea4dd1641fb3ea9e7d99f5dcf1a57",
+      "bytes": 8952796
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003895/attempt_0001/attempt_events.jsonl": {
+      "sha256": "35ad2d29846a67069c5df6e85cdff32f97145257a0e7ab2850c527f94b7b6035",
+      "bytes": 8782664
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003924/attempt_0001/independent_audit.json": {
+      "sha256": "3af952b2a7aa92b0ac05283734a2a6a2adff681f009eb7651a6d351e1b4594e2",
+      "bytes": 332
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003924/attempt_0001/raw.jsonl": {
+      "sha256": "2c86366a4d5d4eb92c6e6179b2260d8f4c976492645add6ae41e2e84789525f3",
+      "bytes": 9054868
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003924/attempt_0001/attempt_events.jsonl": {
+      "sha256": "cf5b8e164712966187c5d60723f074b102c7a925a13c189108bc3e0acfc52d44",
+      "bytes": 8887126
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n133585/attempt_0001/fullload_activation.json": {
+      "sha256": "d4eccffd4e418ea16acd774b2f352726aced2080929220d9ba01a50f5c74d6a5",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n133585/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "f20e9fbede791e2edcb3cf08e1ee965c7e1c2614922de6143f84bca7f556d9f3",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n133585/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "ac9aa13259634bbc02ea4a64ce2b7de96b4ae13295b2de0dfbe78cc89ea5bdad",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n133585/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "63db76a6cf56fc4d3e0d63c36a86e57765dfd8587455f4fccce5833f745d6356",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n154856/attempt_0001/fullload_activation.json": {
+      "sha256": "15edced0854e17f887feae891bc7527235fc7680b4ee715ffc4c25ecfe1bba97",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n154856/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "2846d935963783b4b23897c982d39a01329368b60d5a15cd3a7ed9b494dcd031",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n154856/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "b2bebfeb0607a3ab2eef5a6fdd4a001c2a5a6a380634f9b46d860f3ebdf5a800",
+      "bytes": 6731
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n154856/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "ebe3dc6937205423f0e23e77d4185c30f0c39a6c6834f61d927bdec2d113d68f",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16425/attempt_0001/fullload_activation.json": {
+      "sha256": "14a377d13194ccda17d006ed67d8ed351729db8c5c7ea2c74ce35957c14cd0bd",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16425/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "d4153a1d3d783cbf901466839ddbc8f8543ca1d36e6e8b95a264a1bbd8b69f36",
+      "bytes": 9865
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16425/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "f6003f2b9e65fb7705d3c84745518f28dcd7df4ec60ebc2c37dcf819df176bb2",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16425/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "39286fc34ca020bc0cdd3a30a97ca23ccb40e12b901d44fd3d985db942a2dce8",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n166008/attempt_0001/fullload_activation.json": {
+      "sha256": "90d2c5096413f7bf12feedb1b1a50e9e2c0f565352ba70be34c605ab013aed0e",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n166008/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "9277bafad091299ac6198f53a69bba2ebc8be1161168ecbbaca1cb1082bba226",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n166008/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "7f9977e404e618c90d68b3cc02450cc07977fed82d6c1be6a22a69ebea5e5f36",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n166008/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "0e2d5ef9791f795b797b11da3f2c0be9d36755b4b7b76f5f9168ad49e6499f65",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16656/attempt_0001/fullload_activation.json": {
+      "sha256": "1a94b30a24b619d83b3245261db5fa211ed0220b5edf9e6d4a66be5f60e19003",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16656/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "2bea35895caac52778968464208bf2ee06b0c6d9ca38482ae3e2497670186114",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16656/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "8c051f8f6205b2d705d324f8c9543d16da5fffeaeb03ef1e280a588ea02d142c",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n16656/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "2d16a75453bb8f2f838539dbc79f0209bd8044175c8c4c379d9886088a0fc358",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n195249/attempt_0001/fullload_activation.json": {
+      "sha256": "54412b12047b8bc08d5d00e8531410c96b5844f3c20bb9dbc3db90f6246799e0",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n195249/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "48c84ccb23e5dc202d799b78935f454f6594f152a2ff21b1aea2c5a9bb196ab4",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n195249/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "1e40b0d4c7bce20f07fbd557c6e985537031976da46907bac380c7f301aea89f",
+      "bytes": 6731
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n195249/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "18f9ba65cc06119ff125ed68693ba5bd00f68ef0e0834e38e5038c8d568e3e95",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n199286/attempt_0001/fullload_activation.json": {
+      "sha256": "6bd0a34803c33366a4c17ceede0b9495ee19b3b6878dc13ac11f202fc433ef33",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n199286/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "b1ca9ba8ca7ad805a97db838af7aa12f6f7751449858c82e3b9aa18e80632c98",
+      "bytes": 9865
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n199286/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "8cd3b71123457cacfe77d72b5798d8cd85fa1c0ed5b5816c7fee88b149ef39d9",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n199286/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "d4f626ab0bf4fdd32289f27622e831469b0565d4314910bfa615ea3922381914",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n234722/attempt_0001/fullload_activation.json": {
+      "sha256": "d0240943d4ab48344689b8f67609aecaef3cc01fe76a45979b08f9ab687844e1",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n234722/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "bd79942253ab2f5ce4cc863909d23403fc4ddf2b4b4afad559ae4818fb8ee05a",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n234722/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "f40e90cd04d94e2160b6173311fbb9b4ac500def2367b8b70af6610416779748",
+      "bytes": 6727
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n234722/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "823e736f8c6595220160b65156c106d822acfd8c116a27bdb76f16afed42e3b0",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n244826/attempt_0001/fullload_activation.json": {
+      "sha256": "13d1d1ca541fde7bb4c5dd05e1d0c35aee02481e33c4b212643db23eec1e1dc9",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n244826/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "bf3fb2ea10a38b6e8ad84928f142df9aba2dafdd4ba0bef00d8afdd8782f224c",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n244826/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "317e50cfbae362644926a86713325192a58b3f0313efe0df4f94376267c00b12",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n244826/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "bc046fd91f04705658412ca2cf82c59c7375681b44108cf59bd688b5f28a4902",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n262929/attempt_0001/fullload_activation.json": {
+      "sha256": "3300ecf57121a06fd2aa6e99fe8b2e5180b36446c4e142c9348f3b03de066501",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n262929/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "6fcd6e25828f411a7aae7d8c9ad3fb412e47a32da55c4b00e41fe741dc47a414",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n262929/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "16e020104ef10cd692a91ab86701640a87fc8a0fe658913c99cf5e3170720d6c",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n262929/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "6b4f564b145c09577f5d9642ec8fb87960d7f481a36c7df27cca538efd6682df",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n272098/attempt_0001/fullload_activation.json": {
+      "sha256": "88270ccb8eafd9ee64960ad70527412e018f223855f5a18e67b2566ae7574d3e",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n272098/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "53a411db677981b722b22d0ea028177e482d80832699d43d6457808a980f8c89",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n272098/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "2ad383cbf8dcf36d7a106cf1ff27a620ebe9b30977dccec6cbd154c57122fded",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n272098/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "f756e29b669eaf5b6dbc24acba1e3f3aa7399d39672844482f22238465924800",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n281241/attempt_0001/fullload_activation.json": {
+      "sha256": "2e7b4bf9e58a85f3112f8b86fdbfb128a353e9093a025fffb14f104318a2c25e",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n281241/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "c644ae1db095375bccbf86d087827c91acc7180e2271184b7b7bf965d6de10a3",
+      "bytes": 9865
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n281241/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "2bb8785c64e42d26c2d3265dd6fbc3e303c93f28d3ccf41f9e46b84feab3a8dc",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n281241/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "5d87a4f516fa99c8e8c87ed18e89d9a7c84340d544dd52402129fd34c16baee9",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n293477/attempt_0001/fullload_activation.json": {
+      "sha256": "e862a990f8458bbbf92644d442d09594ab135a3b468e67a6f653db7a84f27031",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n293477/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "b9d5ed4f5114f0bd58fad86582d30db08ac67df6917e65dd0ecdc31fce95b804",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n293477/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "ce8dfbda015b48ac5eb04249f6c7ccee68c10aec18050464fbdcf2d5ef9ff8e1",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n293477/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "7f60efb44ff20796e7221af9d5eae098f0e06cab087e79b720fc2ca66a283694",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n298104/attempt_0001/fullload_activation.json": {
+      "sha256": "fa6e084727b52e7a06b4a6df2712f6f67f1087c5fb4fca550aaccbdf92176753",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n298104/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "f3b0c06e8c100700232a2ab85147f0e6c763fe099024fcc34fe7b32ae98cf3f1",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n298104/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "9e37e75db1f8e7ba04cd00e5655c10434c572fd6bb70ddcb34433a16bfc2b5d8",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n298104/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "6f6cae81858a7ba736b0e2f042d9c0f4d680cb4d0af86b5dab6a309ca1232213",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n302387/attempt_0001/fullload_activation.json": {
+      "sha256": "4aa36d6d9217cc3557132f5995b60ced88836220adf756dd1d10d499b1a9d914",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n302387/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "ebbe17a70a3a45ccc8f834cd05a6021705ddbcce143f5109ba968f94ea9e5931",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n302387/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "f105344c6b2964667bbdadc74c54bb1125525b823c9aa37a383e1b5b05288eb0",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n302387/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "5dd78d9a3606db3fe873eeea90016ebf324e17b673dab65f935e22697cd6cc61",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n314171/attempt_0001/fullload_activation.json": {
+      "sha256": "325139599885d278ed9df5339db1bd3fdc1671bc14fe882747386a0d900ecf48",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n314171/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "35824da7487d1661063573e9b37c76ca8a76256201033bb0e4192c1f100cfbec",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n314171/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "e2533256be8d5b047090bf9e0ef3d090cd19edde894850ad595ced4ecd8023d5",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n314171/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "58506fe6c8cba57fdc50a38739bad5c9c54941d5beb561e5c64cbeb7dc9a1890",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n329479/attempt_0001/fullload_activation.json": {
+      "sha256": "74d3e6926c9e91d4bf295af7fc1c82e198cbeecc0ff7e9cf38e82e1df975e504",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n329479/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "577fcf16825339d540043a83e37475f502a78803f1965c9c47c29127574b3424",
+      "bytes": 9865
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n329479/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "2d0fb1bd483a3861216e05b8427874efa3cc72204119057ffe1bdcb652d465ec",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n329479/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "c053a595b06ad33620f41be38bcfb09da7aa26040705217123d2bf51ba0c1f68",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n331357/attempt_0001/fullload_activation.json": {
+      "sha256": "3c45e5cd95d2fed89775648f6479441265f8c908e82d558778bb9eb2f0a3547a",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n331357/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "49e52423a9f54b2c4b9f26e0876c007aafa15066c5074fae14aae79c2219f944",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n331357/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "2f31d8000a51eb93667bddcfcc23ab3024577f3ae7a0eb388d73aaeadb2d3e9c",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n331357/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "9d2e0a32fb6a258ca887a4e91a463d4bd8fe5ebc1cecef49c34d1c45a221fc93",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n355567/attempt_0001/fullload_activation.json": {
+      "sha256": "2aafbe3964f762e8a0f8a638cafd1ac765100e1157e6c5494c4fe16ae05095a5",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n355567/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "947888aa48fe8cbe668987c4a69ee5aa0deb64eaf18324a675a629def2e19b06",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n355567/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "d34ab6ba44ad327af0ef24fab91404f03d002801b13a462dfcbc5cdfcab1219c",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n355567/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "f95a11cba53a90b38657dbcb62e146c13df14eac75632fe0be93c6aadcb681d6",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n37274/attempt_0001/fullload_activation.json": {
+      "sha256": "6f4265d36a8ecb1345bc0de46ab5568da7f317901cddf105bf87dfbac7eddd43",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n37274/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "8852e1d15f5fcf0de8dd5985a5b5a66705781c16ba6e972827e449ee3063935d",
+      "bytes": 9864
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n37274/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "12e0d4657d4c6f6cce10db669ebe3f4bdac2e80231b3ddc507bc1fddb8b9dcf5",
+      "bytes": 6729
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n37274/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "b70c04f9b0ceea0910e019e7c9bf99be0abd61c598e4166a9227f715b9f49cea",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n390187/attempt_0001/fullload_activation.json": {
+      "sha256": "98996e7690ea40f1e00799fd1f507f0bab7e594baac854ab88c00eae4139b95e",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n390187/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "640b6a2b5ea7e220be2d80c73d01564f080f3736acd2e1e7155b5ca7fa61ca32",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n390187/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "9f7f5e7cd08f13ce2eab5e95e4e07ed5aeb7e2cdf401c1697f48d18572c63b73",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n390187/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "5ab211871e18b97e043f0d45be0f06b75f4b3f524a08672040cf6a6c24b62c12",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n406334/attempt_0001/fullload_activation.json": {
+      "sha256": "cd24527661f43d004df0dc290ade9145e0a8eba74544488b6ed967a6b81fa891",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n406334/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "2fa24f0cc1b2bee2d5cfe87c6c89bb6810d78be61e9fb39f18e93cbf66d32b53",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n406334/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "35dad059f380346d6f159f90feb8f1f5771afc48300617f161cbd6960037378d",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n406334/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "5a802d93ce309a1582b63bdee260430823c80965b7427c8e62e22c0d4eccf93b",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n437064/attempt_0001/fullload_activation.json": {
+      "sha256": "097aeb0adcde742988349afb9dd65470ad39670a5c4c91fb1e2c2d39185dc239",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n437064/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "0fbc68f48009d5cd28fcac9360ec37c7c76859b42547ce07fcbefdd4d66ddac5",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n437064/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "42ed14a1b9191a83f417ec5a87dec04487325795b781f8bf99458de6c04eef65",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n437064/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "fc3a5b93981b079999df3259237b6b8851fdf72e0da4da9c39d5befa5d38cde4",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n44249/attempt_0001/fullload_activation.json": {
+      "sha256": "d90975e468d3a53f15a04ffc6e9aace2e53dbbed592837e587bbd70f7ee3431d",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n44249/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "20f91c9571fb2fab0c8210637d3924b1becc789d4f4c71bc608cd34babe89eba",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n44249/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "bdb8347c7af1c7d4bb3993792d3874ddc0a5cf9b9d31d7cc383ec1acfa80b8b2",
+      "bytes": 6729
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n44249/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "21836f41876758e0ad9580fce05d2ad42dfe8a9410d5096c2278242591df96ee",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n450919/attempt_0001/fullload_activation.json": {
+      "sha256": "2409110258010060ba22295b0845eb0f1f57eb86094e6e9ad1ca6889b2834062",
+      "bytes": 258
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n450919/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "5209156cf2910b4abf762cbcf8a809cb1c5eae517d9cf14f27dcb8435d69e74c",
+      "bytes": 9865
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n450919/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "edb74368d6540f6f184a53332b5e14fef938d44c2a27bab8d9f6b062ff81831a",
+      "bytes": 6729
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n450919/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "24bd87852b16b9ba7d541394a70cc538da4116ddf0b9fa50a3237df6683a7650",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n470131/attempt_0001/fullload_activation.json": {
+      "sha256": "878235db8bf9394690f65ee27a3b3e7bcd9e3e0b5e5dc26a1c73bae6a3fe47b5",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n470131/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "57467f6728943edf9f6eaaf3e0e46360c50aad2e93766bfe814f6b89fcd5a2c7",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n470131/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "b303dafe0efdca639820568dd17f351fcbdc218f172be8c90a2900056b2422e4",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n470131/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "c5a909212c2864d40f7ca17c2d4f12bf623366a574c5c05c39d63206e780c6d7",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n472825/attempt_0001/fullload_activation.json": {
+      "sha256": "b667b470a241f04c3b5af8e05fbbb1d1cef8bce06c3395a91b239faf9d7ab78b",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n472825/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "a19ad6dde9a458ca229728132f795d77f5b74c87427371c70d05290902f502f4",
+      "bytes": 9862
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n472825/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "28248d4ad24d9b54d26b4e61b21aef7d9ea908e9a148936712630fbcfb0fcf7a",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n472825/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "74804f9df8a8bf2e62e4b3dd73d9b887486d9bf173fd06cc1ba157061dc513ee",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n48494/attempt_0001/fullload_activation.json": {
+      "sha256": "94d29844c0838a5a7998b413ac20bf5b6f1e14c603039d197ad3618ab1ab21f9",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n48494/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "f2b6a2f879436aa8529557482209b8d92e677b1563540409d36770b59f799878",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n48494/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "5110c3a0ca7dccbbf512e3fc1568d1ac350caeeabea1af852f9ef5187b87629b",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n48494/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "79f808c08915a3af1e4d2a7b58aed318c931812b2f8143cda965681bf0a18f54",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n494918/attempt_0001/fullload_activation.json": {
+      "sha256": "e4ef741930b73cffff561b1cec36ba55fbd6514277506a82e40eb79d62f66b40",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n494918/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "e3b4feda8b070abf14be7c2dea95730bd26328d746953be2f7153253dde0a5d7",
+      "bytes": 9865
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n494918/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "6836b31acdaf305a525f86942888fb5697bd3fe7a099e7912799169cd873169a",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n494918/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "590403cabc7a256f8506881a01735c7d519c46c6896b99465f0c6dad8227d7c9",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n498140/attempt_0001/fullload_activation.json": {
+      "sha256": "fd5025e16e01f712b3d16b1f5937b1f1380a35695039a5ce9e1c2eb8c9a4d00b",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n498140/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "ba39e7b9322607df26af48338c1622b0b9a9bda3896f2080be6b73e4bb21962d",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n498140/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "30c36b64752e2f57c3f0a4ee69812fed22ee1f30d75fffb24d0637de93c3b674",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n498140/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "15e99dbfa2aa89551a1d12351c4aa0bdf14ecff04d4a2a8a671c6b7d57811edd",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n51002/attempt_0001/fullload_activation.json": {
+      "sha256": "756039cdcd59661802865b4ddc8e8c384e2a53a32887bc2c4773fbb1894053e6",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n51002/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "fffdbf5853ebb0245ee135c2effac318f0922258f0ae8d1d747e41919e243305",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n51002/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "f9fd9f9462ac1f7d380cadf28d73f703046c5bf29d4658caa4d94185e266e8d8",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n51002/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "8bcf3cf9d366c67250b1aaceded691139e46493b2b22c802a6f5add3cbacda63",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n522733/attempt_0001/fullload_activation.json": {
+      "sha256": "2b6652c6f57cf8a8580bd88542da5df44d78a5bd4d23945261b26cdfe1dec1c1",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n522733/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "b4c14029ae98247b78425f400defce22c865a84ebd0eb134ebb180152f5ac2cd",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n522733/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "887bc56947a40604572c3e670c16b349309528732caf222dfc977497061504f1",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n522733/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "2fefcf28b80f8282dab678c197ecc19e484a2152a2d0c4361618a9104b5961d6",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n52544/attempt_0001/fullload_activation.json": {
+      "sha256": "3a452de89aa385b7794ecf1ef0f9a7dcbc472ab04098cc4573d9617f0ae26c4c",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n52544/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "bfe20062b1fbb369293b4422e15189dc4a382a9b9fea280d612e5e93e6198ba6",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n52544/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "06cd08ddbf4668975f6817d9508c60a7b0411c056fe144967cc3456a6e6d65c7",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n52544/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "265976677140c2505fdbe4fdd1bfbcb54d97aeadacfb51b75c4d4ea40b2d2d9e",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n527589/attempt_0001/fullload_activation.json": {
+      "sha256": "147f41852f2da66da2e21f37d657a54cabfd34168cddc7ffcb6839049eeafa31",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n527589/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "7ef966b3c84fac4287d23248a045b2ac94de35036e79ac4f05407c6012f150e2",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n527589/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "fe5a89d9b588978b0ab0302f43e665a7b4e61b5b74bd9242a6248fcd8b819cb1",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n527589/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "15ca041e7475c2b53df775ddfbebe8d6edaf3c0f6b449c46b98102f615e44e88",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n540852/attempt_0001/fullload_activation.json": {
+      "sha256": "207d4ec1819d86e7c37b996acbffa2ff1740e140f08ab4c8942161fd4fe72fe0",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n540852/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "e5bdfa74ded7fe4a906f296fcde61de88112f65ecf9a48b867b5b618fc84f38b",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n540852/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "daa5e4c416e5f1fa9f3ddb938f77f3bbe5ba5a71cc0f6c5a716defd9ef154920",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n540852/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "192050282adcb1306bda47219c9ade8477f5da231b91ca6f2e1fde2f1b588c13",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n567860/attempt_0001/fullload_activation.json": {
+      "sha256": "e00df042c75dac175a383e2ee9605dca416e2c4df8199ab6b7ccdc116fc2e98d",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n567860/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "9595f3f503cff79e0e51ca888d0b54bcdccd76b4bca32039b2d065b2412d5fd5",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n567860/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "75702b75a0805b8648ab515322377cbc72e5ae3a65b0d4e7917abdb08f7b08c4",
+      "bytes": 6728
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n567860/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "f650a8fe8d2b7729d80595ff0edb980246dff2182a3662b57bb25d42972b2902",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n58220/attempt_0001/fullload_activation.json": {
+      "sha256": "97032799a9422d6926d8ab07d0ecacd6896a3cf2bea82c2dcbd82ca3cce97388",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n58220/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "54bbf2fee2cd5327337b04245995d08557fd713255d122cd31e59cb4a9e3cf9f",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n58220/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "862317459f92e61e7e97c1b3d38ca991807b9a0b5faa4c289f6260b575ac8d4e",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n58220/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "de8c600e7711d75d803ef602f14cfb458289f4600c89d93b6ef917b942914f8b",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n67005/attempt_0001/fullload_activation.json": {
+      "sha256": "5a9f555d478ee7c65f3fcd2a06b29759a7a56082c9d599a14fbd3703a5f8fd46",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n67005/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "66d37516264f6df9fc3129042799e7fbee2b9ff4ccc860c65b0ba3e514165455",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n67005/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "8c6b6493944e642cf3652f2f5931f88cb9bdc09f289b31ce1b1dfe6fe9bb91d5",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n67005/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "dff5a3b2438103f76398c38d5a11a418901608898faeeb78257673bde942a072",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n90294/attempt_0001/fullload_activation.json": {
+      "sha256": "5aa05b8032175c4167266373779c6261e8545fbf44f6b512c6c23c62ab2374fe",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n90294/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "2819d0e18177d9618b1215caef107d061931c36c7b3077f07a846ef5a8d52de9",
+      "bytes": 9865
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n90294/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "4248ebe9e856858172e51e04e0607a0d064a9b865532788aa38d98a17213aa13",
+      "bytes": 6729
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n90294/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "a29b82a1db576be8c27cd2224f418b81fef1fb962678d0baef7659545454678d",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n9181/attempt_0001/fullload_activation.json": {
+      "sha256": "66cc738adae3a964bacdd82d0fe896f081c1bd931514c819db75abb8ffe44964",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n9181/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "f8239d033f1c252ed61e62eac4591fcf989a3dc54c2cc4327fcb4dfd8606de6d",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n9181/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "a4464238116529baf2a956fc77ffee517735c787f4bea1f651bf0a624d0f25a1",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gqa/images/n9181/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "5dfbf6eee4c0801de96825e9af8d2eeea9f59ec312fd09f5bc9795d33eb29003",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000037/attempt_0001/fullload_activation.json": {
+      "sha256": "c3356dc008c4903ea2e712b7c5f7ca880fe6cdd5db55c4fc162a8ecf22b8caf7",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000037/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "50fbfcee6804d0287201d0b9a490bc6df5d241e8f9ed824b22a94449cff07595",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000037/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "838064aab1d73bdcdbe7284e17e7b241fb7121a34d48c614f75cc37946f5c67a",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000037/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "9cbf2a1343868a164cb4ab8872b53f8a5dedfe2facb3474fa52291de1f9b7ac8",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000286/attempt_0001/fullload_activation.json": {
+      "sha256": "2def874caae121e53378f983438ae67cb5ce141c6d7d824931ba78eb91bb5a99",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000286/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "8d9d6a4a5ada9a045d4f254e0bb4c8c8e5e48ec9839475792a71822ee8971ceb",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000286/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "5164cfe8afe5e171d75b86a371c77749ca60f925516e55d70c84682c41941b67",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000286/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "be32393bea9bf0ff3e63ad5f6804317d993f15ada222c4232629ef649815be02",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000512/attempt_0001/fullload_activation.json": {
+      "sha256": "8a8c82d54afc33c29acc8f81d0181772b552e10330785e8b09f2ef9395bcc84a",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000512/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "254c7a3d1cad6e08ea5a20b734b613b14ec0b981d90a18133d424641d5ce6872",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000512/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "74b4a09329c948dede6585ed56acb8619029981c45ea3eaebf22ad6dad927046",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000512/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "8a699d082c1c051fea334e1f9b672503d9de3a28dad94233b5ae4d2efad61821",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000530/attempt_0001/fullload_activation.json": {
+      "sha256": "88757c23d31e105791ec83f48d94cb185f8b0020972bfce7ecde4b691a095079",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000530/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "69b23c6d4f7693d1fffe439cba7a62b8160faaf15dd51d7e11fc26f10e7ea169",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000530/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "744150b8cd7e55914ca7b4d99f4963177ff00ed56af2c36e9380d341aac19396",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000530/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "bd2e112e7824142f01e3d9ed04bcfc460e4c73adfb563e7f3b14bcfb1e0f0654",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000793/attempt_0001/fullload_activation.json": {
+      "sha256": "383e3e21aaf09df006ea9ccebc4ffe2310c8d745dedf28fb7b44c818c5bf8bc5",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000793/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "97461e2f4ae0d87df66524b743710406c498dd4df20330dab3665f8d116fde77",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000793/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "0ad4d2d70e87860f69dcdedc55f435d5254f85e323e7f2b7a7180783980ad383",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000793/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "06aaebba05a7a369fdebaf30c4d514d8ff70df2f317c16a910c98474910eeed4",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000842/attempt_0001/fullload_activation.json": {
+      "sha256": "1d61c34f6e33ff827b66603630b43b2823c57b1fc57f2160ce83637a96bf30ff",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000842/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "9f56c0cf0d4e7b3c5636e9d6dd4dd94d97f07ed03d701acf81f79cc758eca491",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000842/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "7470429e7bdb4a9186bfb53562c3ce1c3402f2602ba00f82ee5d04490635bb83",
+      "bytes": 6723
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_000842/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "a93158d21bb00ab83c61444e5a268e2ec76a577ce3558325a5977d68cf82d36d",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001049/attempt_0001/fullload_activation.json": {
+      "sha256": "ebb6b0e7ceab9953af234d8f5a97620cc97c54a9ff41979b76853dd08d82325d",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001049/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "9bb127dc1bbe60270eea08f0e5fdbd36bbd8fa5e65d16bcd3844f2ae32ec9212",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001049/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "626e876e0966f6661af898ac9d3c1a6d14523afd5284e3a259eb5f2f2633ec7a",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001049/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "53cf41d0555a35bd7f5d506f4d242b3a3bd7b6394992605cec8486bd58a662a1",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001321/attempt_0001/fullload_activation.json": {
+      "sha256": "f9adf2cdfee1ab6264fe5f7d22bb544d5adc4a9242b412aea79bce54e9c616cf",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001321/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "0a4b1c69718285f2bc6d619ca66dacbb92005d8948fa10f2ae82143dc2d00149",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001321/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "41378381896d18e10b86aa9aa65b7596c02925247b2c1e4bce5e53591528c3a4",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001321/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "47fe41046d1fbdb3fa3bafb6a509c1fa64cd8b406ae834437434fbf85e2dd470",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001372/attempt_0001/fullload_activation.json": {
+      "sha256": "c207c7641d4dfdb2d13b0a688b286625a94adc1dc50b5ebaeaf17d2e7cfbc8cd",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001372/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "837d1b32a956578cce85908e8d8ed2b5945c7e94915f23ccfe9072363b19aa64",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001372/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "758497d81b7201d562cdbdc7e48d70987ee89cc7f9e801f43625b00c952249b0",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001372/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "97bc6adfc73ac7f22aafb209d0321c2cf585bbe9a5963af27df2da3f18d06447",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001405/attempt_0001/fullload_activation.json": {
+      "sha256": "25b18c830a8ca8488f1487f7efb9412daad0c2e94dc91e7e8b460dead5a8ccae",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001405/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "71dd90d9f43139ee820f413925b017f955c991d532d5a172a18fc9c52d88f8e8",
+      "bytes": 9859
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001405/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "c07c1f8a8cd37c877f9f1ad97099571cba450fb4039d94442c0a83a212948854",
+      "bytes": 6723
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001405/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "aa24f066328ebd9f36452c84c4c2571f93e944eec3f09d812b33531896211cb2",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001642/attempt_0001/fullload_activation.json": {
+      "sha256": "950d5f682b2dd01fcfb310fe8af08c52a8b8c8d91edc39844839c3ebea8e921d",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001642/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "c6ad27d1d81cfee82f3705678918d7944cb58073469ec71132b55f21a4cf87cc",
+      "bytes": 9859
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001642/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "c6b5b2a962d436dc365449e2afe10404d14bdb75f26d3a693c418b9018ce6cd4",
+      "bytes": 6723
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001642/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "ab712212732598fc0f4dfbd37c4b64e859c05d403a470c3427a7a55306e210f9",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001777/attempt_0001/fullload_activation.json": {
+      "sha256": "5c346d7a74d23b2c40256a8bae9caf55d141235acdf169aba30784ad1dd5eb31",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001777/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "09ec203afccaee0f6d8ed057d28998d8a008cdd6f04ff2b814295a1220679891",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001777/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "9b5ef34ef60b1bab226358408441f70eaddca0bdb4678c4456bb7ceeb38e0a87",
+      "bytes": 6723
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001777/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "d70c4e82e19952caaec593ee762f41da54e476d9956d1c7874f702d9fcc4ca5f",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001850/attempt_0001/fullload_activation.json": {
+      "sha256": "8be39c7b8d73f65e0fcb50181d9728a7ff80360815f869464ed7d81e639c38c8",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001850/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "22e2f96aa561f8565b33a39e96e75ad8eee3ca82b414448b91ac0b9e43854244",
+      "bytes": 9859
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001850/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "0944317551e3381267a1971ec0128b91e517042c33cf8b16afd6891ead7a1c8b",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_001850/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "42edfc5bee8616b4e31724595c25dad01566b560795b07fe7327d7bf4a3c06f6",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002021/attempt_0001/fullload_activation.json": {
+      "sha256": "86db17262e27512b4c8ba7648dff954f45334db0a43ec06fbf2fd1cad83148ec",
+      "bytes": 252
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002021/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "59d81a948628eb34ea6026ac2757282f673156f41ded2b3177c5fd1ad0b1b036",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002021/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "d96b64feb636c6f282f318a451d07779deb3acbb08574e59c9c34b464c4bdfa1",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002021/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "932572df9d3a31208cd7883bf86eeb1bf7813374e901b7b4741ff0a991a07527",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002046/attempt_0001/fullload_activation.json": {
+      "sha256": "f8b7c59c44528d736d78d9b8cc1dc6250ebde298ebce0e1bb9665d9f97124c8f",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002046/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "dab76124d436d495e04bb1b54d553280802b3e62c988548bb42ed468c8ef65ba",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002046/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "de3cff7672799afb758bca05ad3842dbe6c9d5efe96a14b9ce46a1d013c00d96",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002046/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "890c25a359f61e647432099af81e081ff12d237970d9d04eabcd3a18abf2bb0d",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002083/attempt_0001/fullload_activation.json": {
+      "sha256": "b8fc22036720c02b1df4998f979221dfc79e591f1cea33ed8d8274be3b886b1d",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002083/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "309268b9816486f92fa019f70668260669b6b9db05328940fc32169375be461e",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002083/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "60b35cd2b77161b56da84eefd4e7a3a51d35d8b29c19df61abf965c37dd87b5b",
+      "bytes": 6723
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002083/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "432f0a03d1e1b43d0da8e56ad5be2fdfac653b739d7b307a4a87cccda86d6b38",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002170/attempt_0001/fullload_activation.json": {
+      "sha256": "30c80c99fb3b26f85a58268002e0f5008eba98f5966c32e2c559ac0d5b0c0d3a",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002170/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "bc6552077f7b21ecc5603d2f960fe92faffe708f603d8a6b3f76078b080f983b",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002170/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "7ca0f9910b88b9b7f21a24b4c499b9ca647194019c150088a8bc934d9c9988a9",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002170/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "e4175ae4a9c060e8b6dd08860af0b51ab48e4108bf19898571b994a9fef3a2fc",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002245/attempt_0001/fullload_activation.json": {
+      "sha256": "57361cc989a66a3f9cf935a8242ef7e7a73de211007dcc5116f0f46fd93669b2",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002245/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "cda57b4f389f5cceb40e31250e2fcfaf23f0e1389e86794caea3dac329745c26",
+      "bytes": 9858
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002245/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "f298e80d669450459461d9f00187f9ae8da7780104f8d764b273126844d7d32e",
+      "bytes": 6722
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002245/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "8ab0bfeb955a8f40b05330c26784f9c6e349f32c3bbad52d48830bec738629be",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002345/attempt_0001/fullload_activation.json": {
+      "sha256": "6fb55c2fe2f936439f30f69e39d44d3ce9a0744f0434a8abdf0aa0edd17f7f55",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002345/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "9e81846ad40692b97fbbb0b0409f3c9a7be40f18d0a2dcf8325b988c412e65ca",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002345/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "e75162a316097e0e8adb04f4bb42cc098dc340bc85c4cf167297f21e14139d28",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002345/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "21f59e7c7d3affe5fa3ae628f9358dd9784d9320a070a7d64dae7a82b69d7184",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002489/attempt_0001/fullload_activation.json": {
+      "sha256": "cfc4e232732624b64ed998c0aa8e6c7cdd1ede581d22cb8cade12f9aab67b654",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002489/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "e699fb9a890593daad5a293a4ea8162799febde75aba5ce1afa8e09d0655041f",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002489/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "b896326b129f58a25878d57cf82a2887d23da5e45c0f05e9373ffc38ac79af82",
+      "bytes": 6723
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002489/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "7896f95bae6869421cfc89801f951a78e66ba53e09b111c8e69e4cb5cb1d61c9",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002542/attempt_0001/fullload_activation.json": {
+      "sha256": "32e62cd13bd5b19ac7825a098f5d22771356dc0441ae26dbc64037e1b7ec40a0",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002542/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "3ae8b237b6a0be6edee9c82ee90e6e8b3ee52d0ac1ad91a68a93bc8cc6872b38",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002542/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "4270017d17a1b2fac64e69374458ac18391f5f5034e270e08021748994f5772e",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002542/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "423a7fa1d9fb785b53d4edee91f9fbf9ad3e1c5fceb796d76f93ad7fe6da4caa",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002621/attempt_0001/fullload_activation.json": {
+      "sha256": "d58c1957610b0507f6b1e8d6bd983267fa2765d5caf9d2df75ae9e7a2fde9caa",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002621/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "8b49e2d3ee154c594420fa757e8f62f2ae236d09440d0af50bf96e89258a4d3a",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002621/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "acae0b73843520f1cb980852a103b1ab4778e6c0590389386766cf101cf0898b",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002621/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "23032c29cdff5eb401a84995b3b295fcfd5a3a1a04748c27410c0880c5fd23b9",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002627/attempt_0001/fullload_activation.json": {
+      "sha256": "28f5d0b9ee9f8254cb752eaef5e0379b680b500165d93c382c386de0a89b6993",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002627/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "99cdc02a8f940be076305d9d0fbb135c268c9e7a4913886f85d57ce5a47fc31b",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002627/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "5fec8facec7122dcaf7dbb6f803d171f4be42dd6b499015cb836682beae04000",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002627/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "38d75b4478fb7b31133121d5048711f0d4cdff1bf287ac27ce5d0976bb34e6c8",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002724/attempt_0001/fullload_activation.json": {
+      "sha256": "714ea44dba8453ae1271b64b0cc7d2136ff8c470290fcd7516dff27fc6b3dbb5",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002724/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "9b180e738966e8e9cb556fbb80e0045df7ca0b55e9a427d7c9aa15d7f150d281",
+      "bytes": 9857
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002724/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "40b4c014a4b6c2d8ff61b3fb0144a1cb71adc8effef4b58f8dc6882f5b07df78",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002724/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "c38a75cab26d19dff8fcf4a1d81196670e0091e7833df0e63c3bf3c119f4aba2",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002749/attempt_0001/fullload_activation.json": {
+      "sha256": "867418e4e3c54e54fe0204a50738c9f60760d03a06c0f409ae338ff40e02b360",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002749/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "922564e5fd4c200f789820512b1e3ec9bfc5102da07485fd81e2086a8651914c",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002749/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "d32b07a7c95afbc56d3ecef64b87443a4706c876acc6972f699056ad19dd2e08",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002749/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "961bbef9a3d840295b171813af9c61f0cc3ef4ff9c7fb001d27a353dbd2188d7",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002808/attempt_0001/fullload_activation.json": {
+      "sha256": "f4155d2de47bf295e1420a85ee47dc036c44a89f6eb87eadba7b22b24dfa1235",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002808/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "28be9b93fd9a848e1ba810dec06a7a0ddb6aae0282c124cd9cbc7f0f48073ad6",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002808/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "e6d5863d5c41a8eed3f844430d4cde5f9ca08b70f9add26743a85779e42ce6a9",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002808/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "460646c23a8a40310812e4384ceb335cd7191dbbc4318b74bed76261af3e3d85",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002814/attempt_0001/fullload_activation.json": {
+      "sha256": "1c779e8c58574df394a0dbf766e9576aa5089f9fb3d8737acb3ea3d16577a2d0",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002814/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "bae81e33178d4437b794e4f9f5bba0a52b6ba0b2afd391893fea49d6e80c7759",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002814/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "3317c5d9d7b12b1b04be570f78c4a4d626654961b61296a3a120d6ee12d92ac2",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002814/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "3f58bf80620d31086844cc8c3b1adf8c9097ae061ae29c2be287053dd27e6b07",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002881/attempt_0001/fullload_activation.json": {
+      "sha256": "56fdb0990480b4619aa66d768c02fbba8dec5d4be65afe1517834cf61b7d9c3f",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002881/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "491f7f6b4b58cb191d6779a45676842677528452b13e375365f84f1521a4cd1b",
+      "bytes": 9859
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002881/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "baafa6fe806fbdc3366a33cab6c90ae298ff5d993b79a93da3df028d72c67b78",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002881/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "bf5ebefad990107ed462ab63a2daa0a1c0c5594bfc5b7c1f9949f07ac3e7e107",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002979/attempt_0001/fullload_activation.json": {
+      "sha256": "d42edbc2861d645ec886408148ae5e7d34e4e83987f9698cd3d6dd1ceb60da3a",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002979/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "195d9e23aa9878305320a3ae908ccef4db88dbccf33e36a15d053eb7e4225981",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002979/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "c96157e971c524811c2fa4b9734ea00d9ec06e68c8f489e8e5df9c64b764148f",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_002979/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "14c8c3885c0430dc72e00ba32caac08e745211b1c7ab0d3da7ff1d6032a78821",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003177/attempt_0001/fullload_activation.json": {
+      "sha256": "5a7a4a11982155ca70ab9a0489cbc57431930d7f092c1a16cf0eaf833066e2ee",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003177/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "e9adc61d28922d2abd0d30e2d0a2e317b1a78ce780625aa544ced0cc2c938864",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003177/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "b6598ed7890c2ad4355a13500aa5d571b7fc99ea9c2ec58c1897eabebaee12e2",
+      "bytes": 6723
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003177/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "c9ded346ae9d9e20493620be5cd414dc248e0292cd70f5dda7cfa3cbaf0784db",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003365/attempt_0001/fullload_activation.json": {
+      "sha256": "0c68ee93d8c49ba03c6d8c5e3ae279f4a5822e79776938228d01f30517e12137",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003365/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "c670661132d25b37b8ea66120de1d9917cf49eef72e1234292fb16374f2068bf",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003365/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "c41bbb78c1cda7b8a0dd25c5bad797c5e7f1291219a66452cc1b5368fb2efc8c",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003365/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "9175aa160dd764e2c73999aa1344cfc06e100bd97590f13a70f10e7f64f521fc",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003417/attempt_0001/fullload_activation.json": {
+      "sha256": "3dacc212ceace104220032ad7f3984d50a1ef9ee2e017d0e754b1401a734ea18",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003417/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "be1fabe126c6c2b1168ec1cefc833c3dd749e66175b3feb7ff953f1b99a602de",
+      "bytes": 9859
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003417/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "e3945464ea448df456da7f47ae2bfc4da4535568e216cfd3fb6862eacfeb356d",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003417/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "adbe99bd61a2b6991ca88a187e9688b6161c839424dc0c2d85385ea1d9b6bb89",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003437/attempt_0001/fullload_activation.json": {
+      "sha256": "db39169475599fecbe176e0c6f1255f1ffc02776b4ed8d28c09b3ec6697ae71a",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003437/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "4b3ad8965f68c5d1d28a82a08885b354cab32a7301d076985dc75a43fd3faa09",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003437/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "1d444a8b280b71e3d704ddcec054acce71580b5d193e362b3a87437d43e5cf98",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003437/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "5f11cc7a72a672a27dbef61d5ee420044e1a84b42903505b62b7055f777d66f8",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003482/attempt_0001/fullload_activation.json": {
+      "sha256": "ef7ffc4e46a8b90b8de3f6765cc9ac539d85a28af7337675148228daf1815b31",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003482/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "910e1c7c4cd09901596cf61be3313e7066bba6b84338f050ba3d77819b678a97",
+      "bytes": 9859
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003482/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "7dd6d21a52602cc3f8d3c851510c9b71aa389883b86af5e2a98b91a8b4eef309",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003482/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "10344f36086890f8553f6ad6d41e7abceadf4019b19756e75fbd093baab15904",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003581/attempt_0001/fullload_activation.json": {
+      "sha256": "8bcedf4539be6a834b3b10c8d822b2add88ba1f56b2e7f9c935e37cc09b5d188",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003581/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "7af4a64e2b8ca4daccb9ac1b957215c23a29ee111e7c1bb8baab80023a4799e7",
+      "bytes": 9859
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003581/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "0b177986ab36944bc026dad7442ae7245977637495b1750eb9d5a0a81584344c",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003581/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "a5aa38b8ebd1ca10393f5dca23f98c4aa597f21628e5c4866fdec33126e03afc",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003603/attempt_0001/fullload_activation.json": {
+      "sha256": "8882dfe059f4910333bff8c5f84b01697970c0cb51c240e441c43ceeb2b5734c",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003603/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "1d8e3460879db325caf5103a53c69f1c1ed3185849ac5c71614c3eb327de586c",
+      "bytes": 9859
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003603/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "41889dd9bee9fe56305534bd360fb38f9211b3e094bce9d8a2a67d493d7e791e",
+      "bytes": 6723
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003603/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "24003d49cba04e3616d8bb65f2da77b584909db17c68e7d800dcb510bd520448",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003808/attempt_0001/fullload_activation.json": {
+      "sha256": "e18628639f8cf84ca6ec944edd8b5e1400b666c708feff3c6779c74c3e9ddb22",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003808/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "b05f3144df8e3d95f22557382aef06c09b8393df6c775b7f0c4c8638494063d7",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003808/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "a5727a255863cefaa4ba41a4c1d8fe85e1abb85f8ab8a3dbda9bab975ddadc02",
+      "bytes": 6723
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003808/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "cc57238ec388c20c068be4e000a847c0d5147f4b219be553fab01877ba8a4acf",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003870/attempt_0001/fullload_activation.json": {
+      "sha256": "51254f18b11767f068fb629883f57dbb39b69a746174a7bcfaadfc2861db5e75",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003870/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "127bd94ad00cad176ddd5b133a13d78df092ad2cdc580d133bb387bfad8df8ef",
+      "bytes": 9859
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003870/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "cab25338f839f8d8707594a3490dad651e902053be3d273569061d0a208c99e6",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003870/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "d656b81bfbcf7b32c6185f42db3745c9f6f4cff3715d7b2c9f71a1edcdd7060e",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003895/attempt_0001/fullload_activation.json": {
+      "sha256": "c81612037415ccc33a83eac2ec7787631d06eaf9d493b973a75582143336b437",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003895/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "8b73490812f6ad03cf33394abfefba309cc551618351f697d12fc4271577735c",
+      "bytes": 9859
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003895/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "d4a8d50071b974f2e48d6b45ddd18e5312375dc852678696f6d8e9f94c3b913d",
+      "bytes": 6723
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003895/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "a2af78af886d8fefa3fb04f8c3639957a28417def53e2a8552f68233e80e2a13",
+      "bytes": 253
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003924/attempt_0001/fullload_activation.json": {
+      "sha256": "e120451e3056e29023deb4e995c2db5ed84f31cc1d6709cba57a777040bf0664",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003924/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "550b715b562726e4f368254aa091c7ab77557b07ed767f7071524bce76392688",
+      "bytes": 9860
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003924/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "19fc92ecf5ab763ad5bf1f909685f08868cb2364c1e90e7d7b5aad033ac3df9f",
+      "bytes": 6724
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/mt/images/mtgqa_003924/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "d962fb18bb4975dee9b8c69e58726970409845aa9957e3c5dcb913b63c6b9d12",
+      "bytes": 254
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n133585/attempt_0001/fullload_activation.json": {
+      "sha256": "d010c92a2e7b6818b65152c1c46c40adb10b4686db2177306dea6e3703b121d3",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n133585/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "ed1469cd9568ae509f077b64868f3460b703e73552e3447f7ad11103895f1fbf",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n133585/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "cc1a58712e0cede412804ff36e7ea9d57c1032aeb811a8edc9cd67c5c601f479",
+      "bytes": 6729
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n133585/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "5a14f84d696041a06e0823a57b900b4f0910d166efbda42747a568e39fb63fd2",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n355567/attempt_0001/fullload_activation.json": {
+      "sha256": "2e7068622768ef77412a84878363f41758b7abf78bb157b020b6767ee49e38e7",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n355567/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "9c8b9fd8f23e1457545537fe57342f65496be38041df03ee1170691710243a3a",
+      "bytes": 9866
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n355567/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "50dd7d1296545c70371416df2dea91e7afcb37aafcd59e0ec9f9f094c371f4b1",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n355567/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "75c60f2a40019015cb5b29f40ed7fd018d90f95db2e40710342b9a823738b6f7",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n390187/attempt_0001/fullload_activation.json": {
+      "sha256": "ee9dfa2a2d91dff11837e4d688bc756dfacd3a5861afb0fd5c6fe2faf8cf3314",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n390187/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "e956d87fa5a10674ce50693140f8a88cf07319829ad3551066c2e9ef660ba532",
+      "bytes": 9865
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n390187/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "2d4b6322db569827e16d2a5fc2ff2550c7fc3f69ecb5673069842c15d8fa2636",
+      "bytes": 6729
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n390187/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "d6859a97dca05c2c66b3e53b3170dce69fa70048568e9428ab2aeeda127a45f6",
+      "bytes": 259
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n9181/attempt_0001/fullload_activation.json": {
+      "sha256": "31e0ec189710e547e59c25d4a8b90c9cbf0bd0a25bed114ee57673e5acfb5854",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n9181/attempt_0001/sparsevlm_ssd_kv25_probe3_activation.json": {
+      "sha256": "bbf84d4dc51253030f8db228994db8aa3b19c48059cd4fa40c0a45c5290fe7d3",
+      "bytes": 9865
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n9181/attempt_0001/sparsevlm_ssd_kv25_allhead_activation.json": {
+      "sha256": "da4a4a103d3ae287847ee0f9a799df8c5495cc9c783d9fc61bdf84aefdbd127a",
+      "bytes": 6730
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/images/n9181/attempt_0001/ours_kv25_activation.json": {
+      "sha256": "7033ff297c1e189952816df9aae731bcc6ad0bda520cc2aa49be14941c70f371",
+      "bytes": 260
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_independent_audit.json": {
+      "sha256": "98e3d399f8c75c048008b444cc14e2358d7af3601aec9d918ae66581ab10362d",
+      "bytes": 31281
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/protection_rehash.json": {
+      "sha256": "e7d8a222031769c9291c8592a19871dc936baebb8da58c8d47feb58422b47eef",
+      "bytes": 1027
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/protection_final.json": {
+      "sha256": "541282a75e63daa0ab8b0f8413d1737969273f3fbd7682df68f4e64fe6ce51bc",
+      "bytes": 2142
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/validation.json": {
+      "sha256": "cde871c3343543f725b6d57341eeacf7148fd09d4c130d6767c60224cf5b5b7a",
+      "bytes": 28121
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/reproduction_commands.json": {
+      "sha256": "f28bb0d40714dcbab35306ecff818540d03bfe79c89287c6084374683be0a013",
+      "bytes": 1995
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/source_freeze.json": {
+      "sha256": "bccd2dd6162989f96c54fe78870707c616a5c7835374c46c04fdc5360fc6f093",
+      "bytes": 1565
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/source.diff": {
+      "sha256": "ee37c88891ac8cb31dd01c147c51b106f03327de6b96e86350d8db4e3243a03a",
+      "bytes": 245045
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/contract_freeze_v2.json": {
+      "sha256": "504c7739c69392b36165600098e64847a80b0b3f2a8d9ba5339cbe38a7e6a086",
+      "bytes": 1191
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_full_01/gpu_validation.json": {
+      "sha256": "78910e0165176e7fdc4db6ded359a4583f30248df6ed98793e1c0ecff8ff12e1",
+      "bytes": 251456122
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke_execution.log": {
+      "sha256": "778de0f5a77d937ff62767e0200289ceeaf4297d4b8f77ee659e209208e44852",
+      "bytes": 434
+    },
+    "/home/dblab/hj/mllm_v2/scripts/98_eval_sparsevlm_ssd_kv25.py": {
+      "sha256": "b4ee82a0f4663b16f8b12aa4e68b7cae9ecaa9b553a8100bc462038c648a0366",
+      "bytes": 33002
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/smoke/validation.json": {
+      "sha256": "e88b16ce607154af7dc9fe6a6c0de374be3c0a908e7e7f51956495fb951ecb38",
+      "bytes": 346
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/gpu_diagnostic_01/gpu_validation.json": {
+      "sha256": "aab5fe68d8df9a3723d877cfef9900d7765cec3d9fa0ef4912574923d84d8889",
+      "bytes": 18715016
+    },
+    "/home/dblab/hj/mllm_v2/runs/sparsevlm_ssd_kv25_20260930T041926Z/setup_split_01/receipt.json": {
+      "sha256": "d9e31eca14e7872b8dd9fa3727b477626e50460010cf9dd27523a9d12846b9f0",
+      "bytes": 41082
+    }
+  },
+  "outputs": {
+    "SUPPLEMENT.md": "93484b47231d6b35a162e8c27e468d6a037011fd92c0f6c032d8a509e869f722",
+    "activation_summary.csv": "5ce09c7154ff252d9581890629bc90d89d8bb02a4e97421ca1d933503be782f3",
+    "activation_receipts.csv": "e09c0cadc41eca8db426a750b5b20e097e916fbbd10d5f32ffa0f0849e24a901",
+    "turn_accuracy.csv": "c60611d37de44c84d8f7308a6edc81c7a681f08445b7e2f6a6c4a507560345c7",
+    "attention_interval_summary.csv": "9abbff5b917430673a864cfb8e570512a40aab280c7bcaaa0f5c26cb866e2dfa",
+    "attempt_adoption.csv": "a181769479d334735be69d9707afcef33e0086de13b369d37c507a08cdbb229e",
+    "request_diagnostics.csv": "571d79a7a056e79da9d0b4bac8ccd1a0f1db2aa34efa9c8f5d10b975aa9ca36e",
+    "store_footprint_summary.csv": "4a07f6c4587fba7c19d5ed9deb09e4f8428cb73e5efc13885a84f57469a7b054",
+    "controlled_validation_summary.json": "e25b7d9ae87581cc940a3aeefdaf66665de0b268bc978b7bbb8a9ebe2bbcdd6f",
+    "preserved_failures.json": "53b2f76916f3c5da14262690492ca6e02f3b92d07f79d559cc16b65997d44d87",
+    "setup_split_summary.csv": "2431dfd079fe645f6a6d3484d8189fae662db538fd8f60c90df803eb1442cb56",
+    "supplement_validation.json": "e5ab75fc7609e414063f1dce3310718c51070685ac8b7345d6f570ef03b9792f"
+  },
+  "note": "supplement_provenance.json excludes its own hash to avoid a recursive digest"
+}

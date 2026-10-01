@@ -475,7 +475,7 @@ class Qwen25Runner:
         return result
 
     def persist(self, capture: CapturedPrefix, store_dir: str | Path,
-                layout: str = "repacked") -> dict:
+                layout: str = "repacked", *, storage_policy: str = "full") -> dict:
         from .store import write_qwen_store
         if layout not in {"canonical", "repacked"}:
             raise ValueError(layout)
@@ -504,7 +504,7 @@ class Qwen25Runner:
             Path(store_dir), capture.layers, capture.visual_start,
             capture.visual_count, capture.prefix_ids,
             scores=capture.scores if layout == "repacked" else None,
-            extra=extra, timing_out=timing)
+            extra=extra, timing_out=timing, storage_policy=storage_policy)
         writer_ms = _ms(t0)
         return {"store_dir": str(store_dir), "layout": layout,
                 "persistence_ms": writer_ms + capture.score_ms + capture.capture_clone_ms,

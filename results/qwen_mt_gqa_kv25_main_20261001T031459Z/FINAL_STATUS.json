@@ -1,0 +1,19 @@
+{
+  "execution_state": "BLOCKED_VALIDATION",
+  "QWEN_3_ARM_MAIN": "NOT RUN",
+  "main_final_requests": 0,
+  "expected_main_requests": 36549,
+  "smoke_requests": 0,
+  "integration_normal_executed_requests": 13,
+  "integration_committed_requests": 9,
+  "core_gpu_validation": "PASS 10/10",
+  "gpu_integration": "FAIL G7 / UNRESOLVED aggregate",
+  "independent_evidence_audit": "PASS",
+  "protected_artifacts": "PASS",
+  "CROSS_MODEL_TABLE_READY": "NO",
+  "cause": "frozen FP32 oracle failed at n313060/mtgqa_000285/Ours-KV25/T2; 16 of 215040 elements exceed atol=rtol=1e-5",
+  "at_unix": 1790826326.6615741,
+  "report": "/home/dblab/hj/mllm_v2/results/qwen_mt_gqa_kv25_main_20261001T031459Z/validation_blocked/REPORT.md",
+  "resume_command": "HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONDONTWRITEBYTECODE=1 /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/103_eval_qwen_mt_gqa_kv25_main.py --run-dir /home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_kv25_main_20261001T031459Z --phase all --resume",
+  "resume_condition": "current unchanged integration gate rejects main; fix/resolve G7 under unchanged tolerance and independently validate a prospectively frozen experiment version before main. Do not force PASS, skip the image, change threshold, or overwrite the failed evidence."
+}
