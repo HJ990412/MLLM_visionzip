@@ -1,0 +1,49 @@
+{
+  "model": "qwen",
+  "status": "BLOCKED",
+  "full_main_coverage": "NOT RUN",
+  "main_requests": 0,
+  "expected_main_requests": 36549,
+  "phase_counts": {
+    "integration": 9,
+    "smoke": 0,
+    "main": 0
+  },
+  "physical_attempts": {
+    "integration_image_attempts": 2,
+    "integration_STARTED": 13,
+    "integration_COMPLETED": 12,
+    "integration_failed_image_attempts": 1
+  },
+  "failures": [
+    {
+      "phase": "integration",
+      "path": "/home/dblab/hj/mllm_v2/runs/mt_gqa_B_llava5_qwen3_20261001T093921Z/qwen/integration/images/n313060/attempt_0001",
+      "failure": {
+        "status": "PARTIAL",
+        "error": "AssertionError('independent FP32 oracle: original atol=rtol=1e-5')",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/scripts/110_eval_qwen_mt_gqa_B.py\", line 277, in run_image\n    if diagnostic is not None:diagnostic(runner,dialog,turn,method,row,result,captures,paths,metas,artifact)\n  File \"/home/dblab/hj/mllm_v2/scripts/115_validate_qwen_mt_gqa_B.py\", line 65, in diagnostic\n    assert oracle,'independent FP32 oracle: original atol=rtol=1e-5'\nAssertionError: independent FP32 oracle: original atol=rtol=1e-5\n",
+        "completed_uncommitted_rows": 4,
+        "adopted_from_attempt": 0
+      }
+    }
+  ],
+  "core_gpu": "PASS",
+  "integration": "FAIL",
+  "smoke": "NOT RUN",
+  "independent_image_receipts": [
+    {
+      "status": "PASS",
+      "checks": 343,
+      "failure_counts": {},
+      "failures": [],
+      "image_id": "n229548",
+      "phase": "integration",
+      "requests": 9,
+      "expected_requests": 9
+    }
+  ],
+  "history_lineage": "NOT RUN",
+  "selection_budget": "NOT RUN",
+  "quality_rescoring": "NOT RUN"
+}

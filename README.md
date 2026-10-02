@@ -506,3 +506,34 @@ FullStore-KV25 [A] 대신 실제 선택 content KV만 기록하는 PrefixStore-K
 [재현 정보](results/prefix25_persistence_20261001T050113Z/REPRODUCE.md)를 참조한다.
 수 GB 규모 run-local store와 원시 요청 로그는 로컬에 보존하고,
 레포에는 계약·요약·검증·감사 자료만 게시한다.
+
+## 20. LLaVA MT-GQA PrefixStore-KV25 B main (2026-10-02)
+
+기존 FullStore Ours 대신 선택한 visual-content KV만 직렬화하는
+PrefixStore-KV25 [B]를 새 5-arm 본실험에 넣었다. 재구성 MT-GQA 398 images,
+4,061개 3-turn dialogue에서 60,915/60,915요청을 실행하고 독립 감사를 통과했다.
+각 방법은 자신이 생성한 답변을 다음 turn의 history로 사용한다. ReKV·Probe3는
+이 비교에 포함하지 않았다. Followup은 T2–T3 요청의 평균이다.
+
+| Method | 전체 정답률 | Followup 정답률 | Followup TTFT | SSD MB/followup |
+|---|---:|---:|---:|---:|
+| ReComp | 66.716% | 68.481% | 533.24 ms | 0.00 |
+| FullLoad | 66.650% | 68.382% | 781.71 ms | 1173.92 |
+| MPIC-32 | 66.765% | 68.555% | 793.12 ms | 1174.18 |
+| SparseVLM-SSD-KV25-AllHead | 66.585% | 68.284% | 877.51 ms | 1184.12 |
+| PrefixStore-KV25 [B] | 65.181% | 66.178% | 262.58 ms | 308.05 |
+
+B의 followup 정답률은 ReComp보다 2.302 pp 낮았다(이미지 단위 paired
+95% CI −3.052~−1.540). B의 평균 store 크기는 이미지당 309.676 MB로
+FullLoad의 1264.667 MB보다 작다. 실제 공유-store stream에 귀속한
+3-turn session은 B가 ReComp보다 458.8 ms 짧았지만, 이미지별 setup을
+매 dialogue에 다시 부과한 standalone-equivalent 환산에서는 300.7 ms
+길었다. 후자는 독립 cold-new-image session 실측이 아니다.
+
+같은 실험의 Qwen 3-arm은 필수 FP32 통합 gate 실패로 smoke와 main을
+실행하지 않았다(0/36,549). Qwen 본실험 성능 수치는 없다.
+[최종 보고서](results/mt_gqa_B_llava5_qwen3_20261001T093921Z/REPORT.md),
+[품질표](results/mt_gqa_B_llava5_qwen3_20261001T093921Z/final/llava/quality.csv),
+[지연·I/O 표](results/mt_gqa_B_llava5_qwen3_20261001T093921Z/final/llava/latency.csv),
+[계약](docs/mt_gqa_B_main_contract.md)을 참조한다.
+대용량 실행 store와 요청별 진단 CSV는 로컬에 보존한다.
