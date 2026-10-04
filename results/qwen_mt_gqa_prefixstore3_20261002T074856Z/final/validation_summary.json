@@ -1,0 +1,193 @@
+{
+  "status": "PASS",
+  "stages": {
+    "LEGACY G7 STATUS": "FAIL (preserved and reproduced)",
+    "G7 ROOT-CAUSE ATTRIBUTION": "PASS: FP32 operation shape/rounding in validator",
+    "VALIDATOR/IMPLEMENTATION CHANGE": "validator + experiment adapter only; existing inference unchanged",
+    "FINAL SOURCE FREEZE": "PASS",
+    "CPU REGRESSION": "PASS",
+    "MATCHED GPU CORRECTNESS": "PASS",
+    "INDEPENDENT SEMANTIC VALIDATION": "PASS",
+    "GENERATED-HISTORY INTEGRATION": "PASS",
+    "ADDITIONAL 8 DIALOGUES": "PASS",
+    "NEGATIVE FIXTURES": "PASS",
+    "MAIN-RUNNER SMOKE": "PASS",
+    "FULL MAIN COVERAGE": "PASS: 36,549 / 36,549",
+    "HISTORY/SELECTION/I/O AUDIT": "PASS",
+    "QUALITY RESCORING": "PASS",
+    "SESSION ACCOUNTING": "PASS",
+    "RAW REPRODUCIBILITY": "PASS",
+    "ARTIFACT PROTECTION": "PASS"
+  },
+  "diagnostics": [
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/integration/images/n210269/attempt_0001/semantic_mtgqa_001937_T2/validation.json",
+      "sha256": "fbf8e6c386b7e75cfd4c60e4c9a69ee3e557faddfe573c0b6c0512a30915d5de",
+      "legacy": "PASS",
+      "FP64_max": 1.7763568394002505e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/integration/images/n210269/attempt_0001/semantic_mtgqa_001937_T3/validation.json",
+      "sha256": "c59425538402994743a214b7346e230f60132ab0a8489ff7be11f488d9b80d22",
+      "legacy": "PASS",
+      "FP64_max": 2.4868995751603507e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/integration/images/n229548/attempt_0001/semantic_mtgqa_000001_T2/validation.json",
+      "sha256": "5e08d11df15e9905a755ee0225f9dbcb6b8b45b68c19b59c926387812635ef54",
+      "legacy": "PASS",
+      "FP64_max": 2.3092638912203256e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/integration/images/n229548/attempt_0001/semantic_mtgqa_000001_T3/validation.json",
+      "sha256": "883097000b8af2b98f9d4989ddde07e77f2011dbebf5adcac991cb97ed5a9134",
+      "legacy": "FAIL",
+      "FP64_max": 2.842170943040401e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/integration/images/n313060/attempt_0001/semantic_mtgqa_000285_T2/validation.json",
+      "sha256": "fbdaaef91ed667573c6c4513296113ab449664d4fdcf8fb808a3c57a12233247",
+      "legacy": "FAIL",
+      "FP64_max": 2.4868995751603507e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/integration/images/n313060/attempt_0001/semantic_mtgqa_000285_T3/validation.json",
+      "sha256": "8eca78b45d1edd9e52738a216b2a621230e0aadb4ab3965ae8e48027aae9aafa",
+      "legacy": "PASS",
+      "FP64_max": 2.4868995751603507e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/integration/images/n71728/attempt_0001/semantic_mtgqa_002643_T2/validation.json",
+      "sha256": "f006798ec5fc7e1b5e67b270c96401e306805f9ce238bcdfb1dcb1fedb3dcc55",
+      "legacy": "PASS",
+      "FP64_max": 2.842170943040401e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/integration/images/n71728/attempt_0001/semantic_mtgqa_002643_T3/validation.json",
+      "sha256": "dd7c689ccfc0a5272767440e31bbbeae87dcc7a42994ac2270a8e3605a89299b",
+      "legacy": "PASS",
+      "FP64_max": 3.197442310920451e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n216553/attempt_0001/semantic_mtgqa_001260_T2/validation.json",
+      "sha256": "f5979ec88c20989d76ebb08841622c7fd84114b5193121e7efb7ba2533443f5d",
+      "legacy": "PASS",
+      "FP64_max": 3.552713678800501e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n216553/attempt_0001/semantic_mtgqa_001260_T3/validation.json",
+      "sha256": "b542ad6c183622a2f2381ef383113c0050bd6c454d45d15f982372fb298ab055",
+      "legacy": "PASS",
+      "FP64_max": 3.907985046680551e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n222297/attempt_0001/semantic_mtgqa_001762_T2/validation.json",
+      "sha256": "964f439877624d759dee16789309b6683e3c558b99cb4373c1f35ce50890c335",
+      "legacy": "PASS",
+      "FP64_max": 2.4868995751603507e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n222297/attempt_0001/semantic_mtgqa_001762_T3/validation.json",
+      "sha256": "9597fad09917ddb63470034051d465761f8da087974717e71556757873e17198",
+      "legacy": "FAIL",
+      "FP64_max": 3.552713678800501e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n223750/attempt_0001/semantic_mtgqa_002173_T2/validation.json",
+      "sha256": "cfb90717c6686e954b24b75a18b1df2809466d5ac9ee345ab2a80d79a2a25f40",
+      "legacy": "PASS",
+      "FP64_max": 2.842170943040401e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n223750/attempt_0001/semantic_mtgqa_002173_T3/validation.json",
+      "sha256": "38bf270484f554722619977b63c6912d702ff4581c833c5be527a1fc08990434",
+      "legacy": "PASS",
+      "FP64_max": 2.4868995751603507e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n314630/attempt_0001/semantic_mtgqa_002065_T2/validation.json",
+      "sha256": "3b3fb9fcf0a7e02b2aaf56fde9521525df15ab8e1d527dbfa0c4b07cee0dcd78",
+      "legacy": "PASS",
+      "FP64_max": 2.1316282072803006e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n314630/attempt_0001/semantic_mtgqa_002065_T3/validation.json",
+      "sha256": "60e26bbc632e3ac44bcd1d49e9e2bf2d75ba9a6fff3c4aca7ffa771ea4147008",
+      "legacy": "PASS",
+      "FP64_max": 2.842170943040401e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n380113/attempt_0001/semantic_mtgqa_000551_T2/validation.json",
+      "sha256": "29170db30731ced857b566af9410df52ac61ed705f38d305a277494dfa71ef28",
+      "legacy": "PASS",
+      "FP64_max": 3.197442310920451e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n380113/attempt_0001/semantic_mtgqa_000551_T3/validation.json",
+      "sha256": "cf86dee26e51112cfef088a4dcb333786847bb949d5f034b6fcb78c501728883",
+      "legacy": "PASS",
+      "FP64_max": 3.197442310920451e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n413761/attempt_0001/semantic_mtgqa_001357_T2/validation.json",
+      "sha256": "a2b6c30280dbe496eaa2cfeec6b55ff3bdc11ed7d6e2c69f6d3dd51861296272",
+      "legacy": "PASS",
+      "FP64_max": 3.197442310920451e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n413761/attempt_0001/semantic_mtgqa_001357_T3/validation.json",
+      "sha256": "db9a836f0bacec9e2cb3b0d8d8a2dc09871f0fca36a2dcc9d06e22492dfa703b",
+      "legacy": "PASS",
+      "FP64_max": 3.197442310920451e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n451187/attempt_0001/semantic_mtgqa_002357_T2/validation.json",
+      "sha256": "976425cacefd5a3193703ce8f91bf6b4622c39a483a569277b89b116eeab231f",
+      "legacy": "PASS",
+      "FP64_max": 2.842170943040401e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n451187/attempt_0001/semantic_mtgqa_002357_T3/validation.json",
+      "sha256": "a263d7b675a16a9443ad7dd8ff78fc12e900df8acf7dbd54c37565739816ecf9",
+      "legacy": "PASS",
+      "FP64_max": 2.842170943040401e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n527290/attempt_0001/semantic_mtgqa_000668_T2/validation.json",
+      "sha256": "c578fa1c1208c61fd8823a5d317a61b2198295fe0abba5a2417a3b3a22b9c610",
+      "legacy": "PASS",
+      "FP64_max": 3.552713678800501e-14,
+      "matched": "PASS"
+    },
+    {
+      "path": "/home/dblab/hj/mllm_v2/runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/additional/integration/images/n527290/attempt_0001/semantic_mtgqa_000668_T3/validation.json",
+      "sha256": "6e857ef42769b92034f874bd4a4b39c85aaf6e80ac19a292205a410406cd5f37",
+      "legacy": "PASS",
+      "FP64_max": 3.197442310920451e-14,
+      "matched": "PASS"
+    }
+  ],
+  "legacy_G7": "FAIL"
+}

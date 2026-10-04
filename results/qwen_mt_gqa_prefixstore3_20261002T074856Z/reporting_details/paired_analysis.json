@@ -1,0 +1,83 @@
+{
+  "rows": [
+    {
+      "baseline": "recompute",
+      "direction": "B-minus-baseline",
+      "scope": "per_dialogue",
+      "metric": "physical_stream_session_ms",
+      "point": -113.64785930310596,
+      "ci_low": -115.59267429467917,
+      "ci_high": -111.69169849339279,
+      "resamples": 10000,
+      "seed": 1234,
+      "images": 398,
+      "weighting": "pooled sums/counts with paired image cluster resampling"
+    },
+    {
+      "baseline": "recompute",
+      "direction": "B-minus-baseline",
+      "scope": "per_dialogue",
+      "metric": "derived_standalone_session_ms",
+      "point": -67.50701860325424,
+      "ci_low": -69.21196468916546,
+      "ci_high": -65.77988555617583,
+      "resamples": 10000,
+      "seed": 1234,
+      "images": 398,
+      "weighting": "pooled sums/counts with paired image cluster resampling"
+    },
+    {
+      "baseline": "recompute",
+      "direction": "B-minus-baseline",
+      "scope": "image_macro_setup",
+      "metric": "outer_writer_wall_ms",
+      "point": 45.96897125730862,
+      "ci_low": 45.697584929647874,
+      "ci_high": 46.260434742016606,
+      "resamples": 10000,
+      "seed": 1234,
+      "images": 398,
+      "weighting": "pooled sums/counts with paired image cluster resampling"
+    },
+    {
+      "baseline": "fullload",
+      "direction": "B-minus-baseline",
+      "scope": "per_dialogue",
+      "metric": "physical_stream_session_ms",
+      "point": -38.59498497886215,
+      "ci_low": -39.390841664671804,
+      "ci_high": -37.81515419343988,
+      "resamples": 10000,
+      "seed": 1234,
+      "images": 398,
+      "weighting": "pooled sums/counts with paired image cluster resampling"
+    },
+    {
+      "baseline": "fullload",
+      "direction": "B-minus-baseline",
+      "scope": "per_dialogue",
+      "metric": "derived_standalone_session_ms",
+      "point": -63.33592258693274,
+      "ci_low": -64.48611225690452,
+      "ci_high": -62.228786986152514,
+      "resamples": 10000,
+      "seed": 1234,
+      "images": 398,
+      "weighting": "pooled sums/counts with paired image cluster resampling"
+    },
+    {
+      "baseline": "fullload",
+      "direction": "B-minus-baseline",
+      "scope": "image_macro_setup",
+      "metric": "outer_writer_wall_ms",
+      "point": -18.324717224093536,
+      "ci_low": -18.734793932043747,
+      "ci_high": -17.930433020287023,
+      "resamples": 10000,
+      "seed": 1234,
+      "images": 398,
+      "weighting": "pooled sums/counts with paired image cluster resampling"
+    }
+  ],
+  "original_durable_endpoint_analysis": "/home/dblab/hj/mllm_v2/results/qwen_mt_gqa_prefixstore3_20261002T074856Z/final/paired_analysis.json"
+}

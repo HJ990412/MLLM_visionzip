@@ -1,0 +1,13 @@
+{
+  "minimum_reserve_bytes": 32212254720,
+  "peak_working_set_bytes": 4294967296,
+  "largest_image_bundle_bound_bytes": 1073741824,
+  "maximum_new_payload_bytes": 21474836480,
+  "raw_growth_bound_bytes": 10737418240,
+  "validation_growth_bound_bytes": 25769803776,
+  "failed_payload_bound_bytes": 10737418240,
+  "required_initial_free_bytes": 83751862272,
+  "free_bytes_at_freeze": 187236012032,
+  "mount": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/\",\n         \"source\": \"/dev/nvme0n1p2\",\n         \"fstype\": \"ext4\",\n         \"options\": \"rw,relatime,errors=remount-ro\"\n      }\n   ]\n}\n",
+  "scratch_cleanup": "only run-owned exact allowlist after independent image audit, hashes, atomic commit"
+}

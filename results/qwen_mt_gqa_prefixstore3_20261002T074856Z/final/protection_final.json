@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "protected_files": 121105,
+  "protected_logical_bytes": 658920621405,
+  "changed_artifacts": [],
+  "changed_existing_source": [],
+  "policy": {
+    "small_file_algorithm": "sha256-full-v1",
+    "large_file_algorithm": "sha256-framed-even-windows-v1",
+    "full_hash_max_bytes": 8388608,
+    "sample_window_bytes": 65536,
+    "sample_count": 9,
+    "file_metadata": [
+      "size_bytes",
+      "mode",
+      "device",
+      "inode",
+      "uid",
+      "gid",
+      "mtime_ns",
+      "ctime_ns"
+    ],
+    "directory_metadata": [
+      "mode",
+      "device",
+      "inode",
+      "uid",
+      "gid"
+    ],
+    "directory_times_excluded": true,
+    "symlinks_followed": false
+  },
+  "limitation": "historical files above 8 MiB use nine 64 KiB windows plus inode/mtime/ctime, not full SHA; existing source/small artifacts and all new artifacts use full SHA"
+}

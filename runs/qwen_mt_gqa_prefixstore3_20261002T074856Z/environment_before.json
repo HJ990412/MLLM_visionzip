@@ -1,0 +1,95 @@
+{
+  "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]",
+  "python_executable": "/home/dblab/anaconda3/envs/mllm_ft/bin/python",
+  "torch": "2.5.1+cu121",
+  "torch_config": "PyTorch built with:\n  - GCC 9.3\n  - C++ Version: 201703\n  - Intel(R) oneAPI Math Kernel Library Version 2024.2-Product Build 20240605 for Intel(R) 64 architecture applications\n  - Intel(R) MKL-DNN v3.5.3 (Git Hash 66f0cb9eb66affd2da3bf5f8d897376f04aae6af)\n  - OpenMP 201511 (a.k.a. OpenMP 4.5)\n  - LAPACK is enabled (usually provided by MKL)\n  - NNPACK is enabled\n  - CPU capability usage: AVX2\n  - CUDA Runtime 12.1\n  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90\n  - CuDNN 90.1  (built against CUDA 12.4)\n  - Magma 2.6.1\n  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=12.1, CUDNN_VERSION=9.1.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_FBGEMM -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wsuggest-override -Wno-psabi -Wno-error=old-style-cast -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, TORCH_VERSION=2.5.1, USE_CUDA=ON, USE_CUDNN=ON, USE_CUSPARSELT=1, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=1, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, \n",
+  "nvidia_smi": "Fri Oct  2 17:14:19 2026       \n+---------------------------------------------------------------------------------------+\n| NVIDIA-SMI 535.230.02             Driver Version: 535.230.02   CUDA Version: 12.2     |\n|-----------------------------------------+----------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |\n|                                         |                      |               MIG M. |\n|=========================================+======================+======================|\n|   0  NVIDIA GeForce RTX 4090        Off | 00000000:01:00.0 Off |                  Off |\n|  0%   41C    P8              15W / 450W |     33MiB / 24564MiB |      0%      Default |\n|                                         |                      |                  N/A |\n+-----------------------------------------+----------------------+----------------------+\n                                                                                         \n+---------------------------------------------------------------------------------------+\n| Processes:                                                                            |\n|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |\n|        ID   ID                                                             Usage      |\n|=======================================================================================|\n|    0   N/A  N/A      1905      G   /usr/lib/xorg/Xorg                            9MiB |\n|    0   N/A  N/A      3854      G   /usr/bin/gnome-shell                         10MiB |\n+---------------------------------------------------------------------------------------+\n",
+  "pip_freeze": "absl-py==2.5.0\naccelerate==1.14.0\naiohappyeyeballs==2.7.1\naiohttp==3.14.1\naiosignal==1.4.0\nanyio==4.14.2\nasttokens==2.4.1\nasync-timeout==5.0.1\nattrs==26.1.0\nav==17.1.0\nbitsandbytes==0.49.2\ncertifi==2026.6.17\ncharset-normalizer==3.4.9\ncomm==0.2.1\ncontourpy==1.3.2\ncycler==0.12.1\ndatasets==5.0.0\ndebugpy==1.8.0\ndecorator==5.1.1\ndill==0.4.1\nexceptiongroup==1.2.0\nexecuting==2.0.1\nfilelock==3.29.0\nfonttools==4.63.0\nfrozenlist==1.8.0\nfsspec==2026.4.0\ngrpcio==1.82.1\nh11==0.16.0\nhf-xet==1.5.1\nhttpcore==1.0.9\nhttpx==0.28.1\nhuggingface_hub==0.36.2\nidna==3.18\nipykernel==6.28.0\nipython==8.19.0\njedi==0.19.1\nJinja2==3.1.6\njupyter_client==8.6.0\njupyter_core==5.7.0\nkiwisolver==1.5.0\nMarkdown==3.10.2\nMarkupSafe==3.0.3\nmatplotlib==3.10.9\nmatplotlib-inline==0.1.6\nmpmath==1.3.0\nmultidict==6.7.1\nmultiprocess==0.70.19\nnest-asyncio==1.5.8\nnetworkx==3.4.2\nnumpy==2.2.6\nnvidia-cublas-cu12==12.1.3.1\nnvidia-cuda-cupti-cu12==12.1.105\nnvidia-cuda-nvrtc-cu12==12.1.105\nnvidia-cuda-runtime-cu12==12.1.105\nnvidia-cudnn-cu12==9.1.0.70\nnvidia-cufft-cu12==11.0.2.54\nnvidia-curand-cu12==10.3.2.106\nnvidia-cusolver-cu12==11.4.5.107\nnvidia-cusparse-cu12==12.1.0.106\nnvidia-nccl-cu12==2.21.5\nnvidia-nvjitlink-cu12==12.9.86\nnvidia-nvtx-cu12==12.1.105\npackaging==26.0\npandas==2.3.3\nparso==0.8.3\npeft==0.19.1\npillow==12.2.0\nprompt-toolkit==3.0.43\npropcache==0.5.2\nprotobuf==7.35.1\npsutil==7.2.2\npure-eval==0.2.2\npyarrow==25.0.0\npyparsing==3.3.2\npython-dateutil==2.9.0.post0\npytz==2026.2\nPyYAML==6.0.3\npyzmq==25.1.2\nqwen-vl-utils==0.0.14\nregex==2026.7.10\nrequests==2.34.2\nsafetensors==0.8.0\nsentencepiece==0.2.2\nsix==1.17.0\nstack-data==0.6.3\nsympy==1.13.1\ntensorboard==2.21.0\ntensorboard-data-server==0.7.2\ntokenizers==0.22.2\ntorch==2.5.1+cu121\ntorchaudio==2.5.1+cu121\ntorchvision==0.20.1+cu121\ntornado==6.4\ntqdm==4.68.4\ntraitlets==5.14.1\ntransformers==4.57.6\ntriton==3.1.0\ntyping_extensions==4.15.0\ntzdata==2026.3\nurllib3==2.7.0\nwcwidth==0.2.13\nWerkzeug==3.1.8\nxxhash==3.8.1\nyarl==1.24.2\n",
+  "model": {
+    "SSD_dtype": "bfloat16",
+    "attention": "sdpa",
+    "batch_size": 1,
+    "compute_dtype": "bfloat16",
+    "config_file_sha256": {
+      "chat_template.json": "ad60d90252ed0b0705ba14e2d0ad0fec0beac1ea955642b54059b36052d8bc96",
+      "config.json": "77d9ec7321cc572e3579e2c84799c9cadaded63c49ce93b101733349fc330c43",
+      "generation_config.json": "0a3aea82869fe29f20dc95ccf3e2bcff380eca1f5ad6447a4a4b37110b08e43e",
+      "model.safetensors.index.json": "73b333b0b16e5286ddba615d2caebcd495cf7e616f52eb217a81781393d79de9",
+      "preprocessor_config.json": "f2058c716eef96ccaed1cc1e2d0c08306b62586d535b28d9d08e691b2fab7ca0",
+      "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "tokenizer_config.json": "4abd3520120e266da84c0864fee064d1fb10806f02225911a47253dd38dc5f56",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "decoder_layers": 28,
+    "greedy": true,
+    "head_dim": 128,
+    "image_token_id": 151655,
+    "max_new_tokens": 16,
+    "max_pixels": 802816,
+    "min_pixels": 200704,
+    "model_id": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "native_KV_heads": 4,
+    "revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+    "seed": 1234,
+    "snapshot": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/snapshots/cc594898137f460bfe9f0759e9844b3ce807cfb5",
+    "tokenizer_json": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/snapshots/cc594898137f460bfe9f0759e9844b3ce807cfb5/tokenizer.json",
+    "vision_end_token_id": 151653,
+    "vision_start_token_id": 151652,
+    "weight_files": {
+      "model-00001-of-00005.safetensors": {
+        "bytes": 3900233256,
+        "resolved": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/blobs/e97b877e47fde53a6c6e77aafb36e58e91ee9d95c4a3eeac6f1b5c0e6a1c986e"
+      },
+      "model-00002-of-00005.safetensors": {
+        "bytes": 3864726320,
+        "resolved": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/blobs/a9a300a43b4724eee2abe7c18ceb26768d0ab011eb0cad19d9bfd2476a24d024"
+      },
+      "model-00003-of-00005.safetensors": {
+        "bytes": 3864726424,
+        "resolved": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/blobs/111223d173e00bbee81cba1216fad28668df3476706b7fd26f4d5b50f8b3a507"
+      },
+      "model-00004-of-00005.safetensors": {
+        "bytes": 3864733680,
+        "resolved": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/blobs/ef47f634fa57d46ee134edcc09f34085a47da1e16c12a2abe0d67118be6d72ed"
+      },
+      "model-00005-of-00005.safetensors": {
+        "bytes": 1089994880,
+        "resolved": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/blobs/0c859795ad3a627a9b95bcb762e059d5b768a4a36fdd4affeff269d93fdecc67"
+      }
+    },
+    "weights": "NF4 double quantization"
+  },
+  "weight_full_sha256": {
+    "model-00001-of-00005.safetensors": {
+      "path": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/snapshots/cc594898137f460bfe9f0759e9844b3ce807cfb5/model-00001-of-00005.safetensors",
+      "resolved": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/blobs/e97b877e47fde53a6c6e77aafb36e58e91ee9d95c4a3eeac6f1b5c0e6a1c986e",
+      "bytes": 3900233256,
+      "sha256": "e97b877e47fde53a6c6e77aafb36e58e91ee9d95c4a3eeac6f1b5c0e6a1c986e"
+    },
+    "model-00002-of-00005.safetensors": {
+      "path": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/snapshots/cc594898137f460bfe9f0759e9844b3ce807cfb5/model-00002-of-00005.safetensors",
+      "resolved": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/blobs/a9a300a43b4724eee2abe7c18ceb26768d0ab011eb0cad19d9bfd2476a24d024",
+      "bytes": 3864726320,
+      "sha256": "a9a300a43b4724eee2abe7c18ceb26768d0ab011eb0cad19d9bfd2476a24d024"
+    },
+    "model-00003-of-00005.safetensors": {
+      "path": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/snapshots/cc594898137f460bfe9f0759e9844b3ce807cfb5/model-00003-of-00005.safetensors",
+      "resolved": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/blobs/111223d173e00bbee81cba1216fad28668df3476706b7fd26f4d5b50f8b3a507",
+      "bytes": 3864726424,
+      "sha256": "111223d173e00bbee81cba1216fad28668df3476706b7fd26f4d5b50f8b3a507"
+    },
+    "model-00004-of-00005.safetensors": {
+      "path": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/snapshots/cc594898137f460bfe9f0759e9844b3ce807cfb5/model-00004-of-00005.safetensors",
+      "resolved": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/blobs/ef47f634fa57d46ee134edcc09f34085a47da1e16c12a2abe0d67118be6d72ed",
+      "bytes": 3864733680,
+      "sha256": "ef47f634fa57d46ee134edcc09f34085a47da1e16c12a2abe0d67118be6d72ed"
+    },
+    "model-00005-of-00005.safetensors": {
+      "path": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/snapshots/cc594898137f460bfe9f0759e9844b3ce807cfb5/model-00005-of-00005.safetensors",
+      "resolved": "/home/dblab/.cache/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct/blobs/0c859795ad3a627a9b95bcb762e059d5b768a4a36fdd4affeff269d93fdecc67",
+      "bytes": 1089994880,
+      "sha256": "0c859795ad3a627a9b95bcb762e059d5b768a4a36fdd4affeff269d93fdecc67"
+    }
+  },
+  "git": "no usable Git metadata; source snapshots/hash maps authoritative"
+}

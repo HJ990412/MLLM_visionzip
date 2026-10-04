@@ -537,3 +537,55 @@ FullLoad의 1264.667 MB보다 작다. 실제 공유-store stream에 귀속한
 [지연·I/O 표](results/mt_gqa_B_llava5_qwen3_20261001T093921Z/final/llava/latency.csv),
 [계약](docs/mt_gqa_B_main_contract.md)을 참조한다.
 대용량 실행 store와 요청별 진단 CSV는 로컬에 보존한다.
+
+## 21. Qwen MT-GQA PrefixStore-KV25 B main (2026-10-02)
+
+앞선 Qwen 중단 실행과 별개로, Qwen2.5-VL의 새 3-arm 본실험을 완료했다.
+재구성 MT-GQA 398 images, 4,061개 3-turn dialogue에서
+36,549/36,549 final requests를 실행하고 독립 감사를 통과했다.
+ReComp, FullLoad, PrefixStore-KV25 [B] 각각 자신의 생성 답변을 다음
+turn의 history로 사용한다. Followup은 T2–T3이며 정답률은 strict
+normalized exact match다. 기존 LLaVA 실험은 다시 실행하지 않았다.
+
+| Method | T1 정답률 | T2 정답률 | T3 정답률 | 전체 정답률 | Followup 정답률 | Followup TTFT 평균/p95 | SSD MB/followup |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| ReComp | 60.749% | 61.660% | 61.069% | 61.159% | 61.364% | 113.279 / 126.619 ms | 0.000 |
+| FullLoad | 60.749% | 61.709% | 61.093% | 61.184% | 61.401% | 71.777 / 79.072 ms | 24.407 |
+| PrefixStore-KV25 [B] | 60.749% | 57.892% | 57.843% | 58.828% | 57.868% | 54.010 / 56.384 ms | 6.371 |
+
+B의 followup 평균 TTFT는 ReComp 대비 52.32%, FullLoad 대비 24.75%
+짧았지만, followup 정답률은 각각 3.497 pp와 3.534 pp 낮았다.
+이미지 단위 paired bootstrap 95% CI는 각각 −4.260~−2.743 pp,
+−4.302~−2.784 pp다. 생성 history 차이까지 포함한 방법 수준 비교이며,
+정답률이 동등하다는 결과가 아니다. ReComp의 KV read 0은 이미지 파일
+I/O까지 0이라는 뜻이 아니고, DONTNEED는 cold NAND를 보장하지 않는다.
+
+| Method | 이미지당 store MB | Persistence 평균 | Activation 평균 | 공유-stream 3-turn session | Standalone-equivalent session |
+|---|---:|---:|---:|---:|---:|
+| ReComp | — | — | — | 399.590 ms | 399.590 ms |
+| FullLoad | 24.342 | 64.294 ms | 14.151 ms | 324.537 ms | 395.419 ms |
+| PrefixStore-KV25 [B] | 6.400 | 45.969 ms | 5.115 ms | 285.942 ms | 332.083 ms |
+
+B는 content KV를 이미지별 ceil(N/4)개 보존하며, pooled 보존율은
+25.127%다. 구조 토큰은 유지하고 content padding은 기록하지 않는다.
+Persistence와 session은 기록된 outer writer-return endpoint 기준이다.
+기존 final/의 inner durable-publication 분석은 그대로 보존했다.
+공유-stream은 실제 이미지별 setup을 한 번만 귀속한다. Standalone-equivalent는
+같은 setup을 매 dialogue에 재부과한 환산값으로, 독립 cold-session 실측이
+아니며 비-source capture 추가 비용은 NOT_MEASURED다.
+
+기존 G7 FP32 dense/compact 1e-5 비교의 FAIL은 유지했다. 고정 입력에 대한
+연산 shape별 FP32 반올림 차이를 진단하고, 새로운 사전 고정 검증에서
+동일-shape 독립 참조와 실제 BF16 KV·위치·mask·logits·생성 ID 일치를 확인했다.
+별도의 all-layer FP64 attention 참조는 1e-12 기준을 통과했다.
+본실험 추론은 기존 BF16/SDPA 그대로이며 FP64는 검증에만 사용했다.
+통합·추가 8-dialogue·동일 이미지·negative fixture·smoke 검증도 통과했다.
+
+[최종 보고서](results/qwen_mt_gqa_prefixstore3_20261002T074856Z/REPORT.md),
+[품질표](results/qwen_mt_gqa_prefixstore3_20261002T074856Z/final/quality.csv),
+[지연·I/O 표](results/qwen_mt_gqa_prefixstore3_20261002T074856Z/final/latency.csv),
+[outer-endpoint session 표](results/qwen_mt_gqa_prefixstore3_20261002T074856Z/reporting_details/session_summary.csv),
+[G7 진단](results/qwen_mt_gqa_prefixstore3_20261002T074856Z/G7_REVIEW.md),
+[실험 계약](results/qwen_mt_gqa_prefixstore3_20261002T074856Z/CONTRACT.md),
+[재현 정보](results/qwen_mt_gqa_prefixstore3_20261002T074856Z/REPRODUCE.md)를 참조한다.
+대용량 raw·tensor·store와 요청별 상세 CSV는 로컬에 보존한다.
