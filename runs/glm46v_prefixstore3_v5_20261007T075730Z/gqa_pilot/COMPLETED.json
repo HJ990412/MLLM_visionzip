@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "phase": "gqa_pilot",
+  "requests": 720,
+  "audit": {
+    "status": "PASS",
+    "requests": 720,
+    "expected_requests": 720,
+    "coverage_complete": true,
+    "missing_requests": 0,
+    "missing_evidence": {},
+    "failures": [],
+    "workload_ordered_sha256": "1c5b4f0409cec26387e47510fa85b09a940edd4568f1d1eea160303d2f67671f",
+    "images": 40,
+    "actual_generated_history": true,
+    "history_representation": "actual native generated body excluding one terminal EOS",
+    "history_native_policy": "actual-generated-body/terminal-EOS-only-v1",
+    "source": "independent raw membership/history/selection/I/O audit",
+    "note": "Native KV/logits/position/attention correctness is a separate required gate."
+  },
+  "images": 40,
+  "freeze_sha256": "bd19161f73a93b76f55111adb0f3a0e1c68bed70ed3cf14053263d1e68b02ca0",
+  "setup_events": 160
+}

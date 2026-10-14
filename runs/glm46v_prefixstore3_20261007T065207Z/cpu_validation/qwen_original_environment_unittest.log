@@ -1,0 +1,24 @@
+test_activation_identity_and_integrity_fail_closed (test_qwen25_store.QwenStoreTests) ... ok
+test_first_k_reads_only_contiguous_spans_and_counts_actual_bytes (test_qwen25_store.QwenStoreTests) ... ok
+test_fp16_input_cannot_be_mislabeled_bf16 (test_qwen25_store.QwenStoreTests) ... ok
+test_native_bf16_direct_repack_full_round_trip (test_qwen25_store.QwenStoreTests) ... ok
+test_short_pread_retry_is_counted (test_qwen25_store.QwenStoreTests) ... ok
+test_stable_global_order_and_inverse (test_qwen25_store.QwenStoreTests) ... ok
+test_unavailable_page_cache_hint_has_nonnegative_counts (test_qwen25_store.QwenStoreTests) ... ok
+test_blocked_score_matches_dense_masked_reference (test_qwen25_vision.ReceivedAttentionTests) ... ok
+test_merge_groups_then_reverse_windows (test_qwen25_vision.ReceivedAttentionTests) ... ok
+test_rejects_non_full_last_block (test_qwen25_vision.StockVisionCaptureTests) ... ok
+test_single_stock_forward_capture_equals_dense_visionzip_formula (test_qwen25_vision.StockVisionCaptureTests) ... ok
+test_same_rgb_bytes_with_different_geometry_are_distinct (test_qwen25_runner.ImageIdentityTests) ... ok
+test_actual_whole_chunk_reads_and_exact_compact_kv (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_legacy_default_and_full_visual_regressions (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_legacy_store_requires_exact_protected_meta_digest (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_unused_finite_rows_do_not_enter_compact_cache (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_virtual_geometry_parity_and_boundaries (test_qwen25_kv25.QwenKV25Tests) ... ok
+test_visual_mode_fails_closed_on_wrong_layout_and_bad_budget (test_qwen25_kv25.QwenKV25Tests) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 1.152s
+
+OK
+transformers=4.57.6

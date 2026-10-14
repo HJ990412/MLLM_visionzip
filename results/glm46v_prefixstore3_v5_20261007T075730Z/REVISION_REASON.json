@@ -1,0 +1,18 @@
+{
+  "previous_run": "runs/glm46v_prefixstore3_v4_20261007T072841Z",
+  "previous_main_adopted_requests": 333,
+  "previous_main_completed": false,
+  "previous_failed_image_adopted_requests": 0,
+  "previous_partial_raw_requests": 21,
+  "previous_failed_output_requests": 1,
+  "previous_pilots": {
+    "gqa": 720,
+    "mt": 360
+  },
+  "reason": "Separate VQA scoring answer from actual native generated assistant body for history; controlled stock-generate/manual diagnosis matched logits/IDs and showed actual-native-body dialogue semantics. Remove output-quality string rejection; retain all malformed/empty/cap/stray-delimiter outcomes without retries. Numerical/position/KV/identity gates unchanged.",
+  "history_policy": "actual-generated-body/terminal-EOS-only-v1",
+  "max_new_tokens": 32,
+  "scorer_unchanged": true,
+  "old_main_not_mixed": true,
+  "checkpoint_shared_read_only": true
+}

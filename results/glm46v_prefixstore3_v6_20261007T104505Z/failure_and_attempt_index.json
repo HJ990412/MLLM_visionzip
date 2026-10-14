@@ -1,0 +1,79 @@
+{
+  "v6_final_main_failed_attempts": 0,
+  "v6_final_main_retries": 0,
+  "prior_requests_not_mixed_into_v6": true,
+  "entries": [
+    {
+      "run": "runs/glm46v_prefixstore3_20261007T065207Z",
+      "kind": "validation",
+      "path": "runs/glm46v_prefixstore3_20261007T065207Z/validation/attempt_20261007T071330714753Z/receipt.json",
+      "status": "FAIL",
+      "successful_samples": 0,
+      "failure_reasons": [
+        "vision/merger/lm_head must remain native BF16"
+      ],
+      "included_in_v5_main": false,
+      "included_in_v6_main": false
+    },
+    {
+      "run": "runs/glm46v_prefixstore3_20261007T065207Z",
+      "kind": "validation",
+      "path": "runs/glm46v_prefixstore3_20261007T065207Z/validation/attempt_20261007T071615022603Z/receipt.json",
+      "status": "PASS",
+      "successful_samples": 6,
+      "failure_reasons": [],
+      "included_in_v5_main": false,
+      "included_in_v6_main": false
+    },
+    {
+      "run": "runs/glm46v_prefixstore3_v4_20261007T072841Z",
+      "kind": "validation",
+      "path": "runs/glm46v_prefixstore3_v4_20261007T072841Z/validation/attempt_20261007T073334766334Z/receipt.json",
+      "status": "PASS",
+      "successful_samples": 6,
+      "failure_reasons": [],
+      "included_in_v5_main": false,
+      "included_in_v6_main": false
+    },
+    {
+      "run": "runs/glm46v_prefixstore3_v4_20261007T072841Z",
+      "kind": "main_attempt_failure",
+      "path": "runs/glm46v_prefixstore3_v4_20261007T072841Z/main/images/n204894/attempt_001/FAILURE.json",
+      "status": "FAIL",
+      "image_id": "n204894",
+      "reason": "RuntimeError('non-thinking output invalid: main:mtgqa_000040:recompute:T2, The kid (or child) is wearing the crown.</think>The kid (or child) is wearing the crown.<|end_of_box|><|user|>')",
+      "included_in_v5_main": false,
+      "included_in_v6_main": false
+    },
+    {
+      "run": "runs/glm46v_prefixstore3_v5_20261007T075730Z",
+      "kind": "validation",
+      "path": "runs/glm46v_prefixstore3_v5_20261007T075730Z/validation/attempt_20261007T080624757356Z/receipt.json",
+      "status": "PASS",
+      "successful_samples": 6,
+      "failure_reasons": [],
+      "included_in_v5_main": false,
+      "included_in_v6_main": false
+    },
+    {
+      "run": "/home/dblab/hj/mllm_v2/runs/glm46v_prefixstore3_v5_20261007T075730Z",
+      "kind": "completed_previous_revision",
+      "status": "QUALIFIED_SETUP_SCOPE",
+      "requests": 36549,
+      "reason": "Complete outer setup identity/wrapper endpoint was NOT_MEASURED; raw/inference evidence retained.",
+      "included_in_v6_main": false
+    },
+    {
+      "run": "/home/dblab/hj/mllm_v2/runs/glm46v_prefixstore3_v6_20261007T104505Z",
+      "kind": "validation",
+      "path": "/home/dblab/hj/mllm_v2/runs/glm46v_prefixstore3_v6_20261007T104505Z/validation/attempt_20261007T105407522369Z/receipt.json",
+      "status": "PASS",
+      "included_in_v6_main": false
+    }
+  ],
+  "additional_preserved_diagnostics": [
+    "results/glm46v_prefixstore3_20261007T065207Z/STORE_REVIEW.md",
+    "results/glm46v_prefixstore3_v4_20261007T072841Z/NON_THINKING_DIAGNOSIS.md",
+    "results/glm46v_prefixstore3_v5_20261007T075730Z/REPORT_BEFORE_OUTER_SCOPE_REVIEW.md"
+  ]
+}

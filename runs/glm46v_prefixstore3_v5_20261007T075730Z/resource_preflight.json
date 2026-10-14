@@ -1,0 +1,43 @@
+{
+  "disk_total_bytes": 1967317549056,
+  "disk_free_bytes": 156069412864,
+  "minimum_reserve_bytes": 32212254720,
+  "maximum_new_checkpoint_bytes": 23622320128,
+  "maximum_main_store_bytes": 42949672960,
+  "maximum_raw_bytes": 10737418240,
+  "maximum_validation_bytes": 25769803776,
+  "maximum_failed_attempt_bytes": 10737418240,
+  "largest_content_store_bytes": 41943040,
+  "mount": {
+    "command": [
+      "findmnt",
+      "-J",
+      "-T",
+      "/home/dblab/hj/mllm_v2/runs/glm46v_prefixstore3_v5_20261007T075730Z"
+    ],
+    "returncode": 0,
+    "stdout": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/\",\n         \"source\": \"/dev/nvme0n1p2\",\n         \"fstype\": \"ext4\",\n         \"options\": \"rw,relatime,errors=remount-ro\"\n      }\n   ]\n}\n",
+    "stderr": ""
+  },
+  "nvidia": {
+    "command": [
+      "nvidia-smi",
+      "--query-gpu=index,name,memory.total,memory.free,utilization.gpu",
+      "--format=csv"
+    ],
+    "returncode": 0,
+    "stdout": "index, name, memory.total [MiB], memory.free [MiB], utilization.gpu [%]\n0, NVIDIA GeForce RTX 4090, 24564 MiB, 24184 MiB, 0 %\n",
+    "stderr": ""
+  },
+  "other_gpu": {
+    "command": [
+      "nvidia-smi",
+      "--query-compute-apps=pid,process_name,used_gpu_memory",
+      "--format=csv"
+    ],
+    "returncode": 0,
+    "stdout": "pid, process_name, used_gpu_memory [MiB]\n",
+    "stderr": ""
+  },
+  "note": "sandbox masks CUDA; actual GPU execution requires authorized unsandboxed command"
+}

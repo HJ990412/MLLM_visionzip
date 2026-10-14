@@ -1,0 +1,9 @@
+........................................................................ [ 83%]
+..............                                                           [100%]
+=============================== warnings summary ===============================
+tests/test_glm46v_runner.py: 13 warnings
+  /home/dblab/hj/mllm_v2/.venv-glm46v/lib/python3.10/site-packages/transformers/models/glm46v/processing_glm46v.py:174: DeprecationWarning: __array__ implementation doesn't accept a copy keyword, so passing copy=False failed. __array__ must implement 'dtype' and 'copy' keyword arguments. To learn more, see the migration guide https://numpy.org/devdocs/numpy_2_0_migration_guide.html#adapting-to-changes-in-the-copy-keyword
+    array_ids = np.array(input)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+86 passed, 13 warnings in 3.38s

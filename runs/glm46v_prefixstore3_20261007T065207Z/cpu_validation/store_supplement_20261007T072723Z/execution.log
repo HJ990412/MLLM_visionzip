@@ -1,0 +1,30 @@
+CPU exact manifest N=1 full/B PASS, elapsed=0.152s
+CPU exact manifest N=4 full/B PASS, elapsed=0.104s
+CPU exact manifest N=5 full/B PASS, elapsed=0.115s
+CPU exact manifest N=249 full/B PASS, elapsed=0.491s
+CPU exact manifest N=252 full/B PASS, elapsed=0.490s
+CPU exact manifest N=253 full/B PASS, elapsed=0.501s
+CPU exact manifest N=256 full/B PASS, elapsed=0.502s
+CPU exact manifest N=257 full/B PASS, elapsed=0.490s
+CPU exact manifest N=508 full/B PASS, elapsed=0.839s
+CPU exact manifest N=509 full/B PASS, elapsed=0.849s
+CPU exact manifest N=512 full/B PASS, elapsed=0.839s
+CPU exact manifest N=513 full/B PASS, elapsed=0.845s
+Diagnostic relocation + CPU reactivation n264887 full PASS
+Diagnostic relocation + CPU reactivation n264887 prefix25 PASS
+Diagnostic relocation + CPU reactivation n153293 full PASS
+Diagnostic relocation + CPU reactivation n153293 prefix25 PASS
+Diagnostic relocation + CPU reactivation n302358 full PASS
+Diagnostic relocation + CPU reactivation n302358 prefix25 PASS
+Diagnostic relocation + CPU reactivation n150962 full PASS
+Diagnostic relocation + CPU reactivation n150962 prefix25 PASS
+Diagnostic relocation + CPU reactivation n170941 full PASS
+Diagnostic relocation + CPU reactivation n170941 prefix25 PASS
+Diagnostic relocation + CPU reactivation n100552 full PASS
+Diagnostic relocation + CPU reactivation n100552 prefix25 PASS
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/runs/glm46v_prefixstore3_20261007T065207Z/cpu_validation/store_supplement_20261007T072723Z/audit_store_supplement.py", line 325, in <module>
+    main()
+  File "/home/dblab/hj/mllm_v2/runs/glm46v_prefixstore3_20261007T065207Z/cpu_validation/store_supplement_20261007T072723Z/audit_store_supplement.py", line 313, in main
+    assert all(digest_file(ROOT / rel) == expected for rel, expected in freeze["source_sha256"].items())
+AssertionError

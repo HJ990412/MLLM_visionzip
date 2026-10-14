@@ -589,3 +589,47 @@ Persistence와 session은 기록된 outer writer-return endpoint 기준이다.
 [실험 계약](results/qwen_mt_gqa_prefixstore3_20261002T074856Z/CONTRACT.md),
 [재현 정보](results/qwen_mt_gqa_prefixstore3_20261002T074856Z/REPRODUCE.md)를 참조한다.
 대용량 raw·tensor·store와 요청별 상세 CSV는 로컬에 보존한다.
+
+## 22. GLM-4.6V-Flash MT-GQA PrefixStore-KV25 B main (2026-10-07)
+
+최종 v6 실행은 재구성 MT-GQA 398 images, 4,061개 3-turn dialogue에서
+3-arm 36,549/36,549요청을 완료했다. GQA 720요청·MT 360요청 파일럿도 완료했다.
+모든 dialogue T1은 full pixels이며, 다음 turn에는 각 방법의 실제 생성 body를
+native chat template로 전달한다. Prediction은 native answer-box span을 추출한
+strict normalized EM이다. 기존 LLaVA/Qwen main은 재실행하지 않았다.
+
+| Method | 전체 EM | Followup EM | Followup TTFT 평균/p95 | KV MB/followup | Store MB/image | 공유-stream session | Derived standalone session |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| ReComp | 61.216% | 61.635% | 126.523 / 149.011 ms | 0.000 | — | 641.398 ms | 641.398 ms |
+| FullLoad | 61.159% | 61.549% | 73.477 / 76.761 ms | 15.180 | 15.170 | 543.477 ms | 614.079 ms |
+| PrefixStore-KV25 [B] | 58.852% | 58.089% | 60.578 / 63.024 ms | 4.397 | 4.420 | 513.202 ms | 569.204 ms |
+
+Followup은 T2–T3 요청 가중 평균, store는 이미지 평균, MB=10^6 bytes다.
+B의 평균 TTFT는 ReComp 대비 52.12%, FullLoad 대비 17.56% 감소했지만,
+followup EM은 각각 3.546 pp와 3.460 pp 낮았다. 이미지 단위 paired bootstrap
+95% CI는 −4.416~−2.692 pp와 −4.328~−2.597 pp로 정확도 동등성을 뜻하지 않는다.
+Native KV는 40 layers × 2 KV heads × 128 dim의 BF16, 40 KiB/token이며
+B는 ceil(original N/4) content와 구조 19행을 보존한다.
+
+세 arm은 RTX4090, decoder NF4/BF16, SDPA, batch1, seed1234,
+enable_thinking=False, cap32로 고정했다. GLM cap32는 이전 LLaVA/Qwen cap16과
+다르므로 모델 간 latency를 같은 조건의 paired 비교로 해석하지 않는다.
+TTFT는 첫 native token까지이며 first lexical answer latency는 NOT_MEASURED다.
+Cap/malformed R3/F3/B2건도 품질 분모에 포함했고 empty/thinking은 0건이었다.
+
+Session은 identity 준비부터 wrapper 반환까지 caller outer setup을 포함한다.
+공유-stream은 실제 이미지별 setup을 한 번 귀속하고, standalone은 같은 setup을
+매 dialogue에 재부과한 DERIVED 값이다. 독립 cold-session 실측이 아니며
+비-source capture 증분은 NOT_MEASURED다. OS pread와 DONTNEED는 cold NAND를
+보장하지 않는다. 이전 v3/v4 실패·v5 qualified setup 결과는 별도 보존했다.
+Native GPU 6사례·FP64 attention 480비교와 독립 796-store 감사를 통과했다.
+
+[최종 보고서](results/glm46v_prefixstore3_v6_20261007T104505Z/REPORT.md),
+[품질표](results/glm46v_prefixstore3_v6_20261007T104505Z/final/quality.csv),
+[지연표](results/glm46v_prefixstore3_v6_20261007T104505Z/final/latency.csv),
+[독립 검토](results/glm46v_prefixstore3_v6_20261007T104505Z/FINAL_ANALYSIS_REVIEW.md),
+[재현 정보](results/glm46v_prefixstore3_v6_20261007T104505Z/REPRODUCE.md)에 상세 자료가 있다.
+[세 모델 요약표](results/mt_gqa_three_models_summary_20261012/summary.csv)와
+[저장 prediction의 raw-EM 사후 재채점](results/mt_gqa_raw_em_20261013/final/RAW_EM_REPORT.md)도
+별도로 보존했다. Raw EM은 정규화하지 않은 저장 문자열 비교이며 위 normalized EM을
+대체하지 않는다. 대용량 raw·store·weights와 요청별 상세 CSV는 로컬에 보존한다.

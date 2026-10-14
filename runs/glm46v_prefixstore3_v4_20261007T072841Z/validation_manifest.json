@@ -1,0 +1,272 @@
+{
+  "selected_before_model_outputs": true,
+  "seed": 1234,
+  "selection_rule": "min/max processor N, each side k%64, longest single native question; ID tie break",
+  "criteria": {
+    "minimum_N": "n264887",
+    "maximum_N": "n153293",
+    "k_mod64_lower": "n302358",
+    "k_mod64_upper": "n150962",
+    "longest_question_sequence": "n170941"
+  },
+  "samples": [
+    {
+      "image_path": "/home/dblab/hj/SparseVLMs/playground/data/eval/gqa/data/images/n264887.jpg",
+      "image_sha256": "a5ccd2547d9b301ab5b5084804e3ce755721b3f152f4c87cedd097cc15c09238",
+      "original_hw": [
+        197,
+        500
+      ],
+      "image_grid_thw": [
+        [
+          1,
+          14,
+          36
+        ]
+      ],
+      "N_content": 126,
+      "k": 32,
+      "k_mod_64": 32,
+      "native_pixels_tensor_bytes": 2370816,
+      "image_id": "n264887",
+      "dialog_id": "mtgqa_000801",
+      "question": "What item of furniture is it?",
+      "other_question": "What is the large item of furniture in the scene?",
+      "long_question": "What is the large item of furniture in the scene?",
+      "history": [],
+      "canonical_ordinal": 800
+    },
+    {
+      "image_path": "/home/dblab/hj/SparseVLMs/playground/data/eval/gqa/data/images/n153293.jpg",
+      "image_sha256": "aafd936cb5f112caae8369f88b05153c8a34f65a7949566396ae78382c906a13",
+      "original_hw": [
+        640,
+        640
+      ],
+      "image_grid_thw": [
+        [
+          1,
+          46,
+          46
+        ]
+      ],
+      "N_content": 529,
+      "k": 133,
+      "k_mod_64": 5,
+      "native_pixels_tensor_bytes": 9953664,
+      "image_id": "n153293",
+      "dialog_id": "mtgqa_003034",
+      "question": "What color are the towels made of cloth, black or white?",
+      "other_question": "What are the folded towels sitting inside of?",
+      "long_question": "What color are the towels made of cloth, black or white?",
+      "history": [],
+      "canonical_ordinal": 3033
+    },
+    {
+      "image_path": "/home/dblab/hj/SparseVLMs/playground/data/eval/gqa/data/images/n302358.jpg",
+      "image_sha256": "3f4976c7e01ad6e993c1e2167554f622eb1439322af57990ef1f4e583af6fdc2",
+      "original_hw": [
+        304,
+        640
+      ],
+      "image_grid_thw": [
+        [
+          1,
+          22,
+          46
+        ]
+      ],
+      "N_content": 253,
+      "k": 64,
+      "k_mod_64": 0,
+      "native_pixels_tensor_bytes": 4760448,
+      "image_id": "n302358",
+      "dialog_id": "mtgqa_002874",
+      "question": "Is the person near the grass sitting on a bench?",
+      "other_question": "Is the sky clear and high?",
+      "long_question": "Is the person near the grass sitting on a bench?",
+      "history": [],
+      "canonical_ordinal": 2873
+    },
+    {
+      "image_path": "/home/dblab/hj/SparseVLMs/playground/data/eval/gqa/data/images/n150962.jpg",
+      "image_sha256": "5185bde3ff2815561229f2922422d2eab4a0ca25b0ebba59526f1b643937fbc9",
+      "original_hw": [
+        389,
+        500
+      ],
+      "image_grid_thw": [
+        [
+          1,
+          28,
+          36
+        ]
+      ],
+      "N_content": 252,
+      "k": 63,
+      "k_mod_64": 63,
+      "native_pixels_tensor_bytes": 4741632,
+      "image_id": "n150962",
+      "dialog_id": "mtgqa_001084",
+      "question": "What is the window made of, glass or plastic?",
+      "other_question": "Is the door behind the mat open and rectangular?",
+      "long_question": "Is the pot to the right or to the left of the chair?",
+      "history": [],
+      "canonical_ordinal": 1083
+    },
+    {
+      "image_path": "/home/dblab/hj/SparseVLMs/playground/data/eval/gqa/data/images/n170941.jpg",
+      "image_sha256": "671d2a60eb698b3cea13b56974fa626ae8fff4a7765a5dfa26a758815d8b2b6b",
+      "original_hw": [
+        480,
+        640
+      ],
+      "image_grid_thw": [
+        [
+          1,
+          34,
+          46
+        ]
+      ],
+      "N_content": 391,
+      "k": 98,
+      "k_mod_64": 34,
+      "native_pixels_tensor_bytes": 7357056,
+      "image_id": "n170941",
+      "dialog_id": "mtgqa_000183",
+      "question": "Do both the plate that is to the left of the other plate and the coffee mug on top of the table have round shape?",
+      "other_question": "Do you see plates near the fork that is on the left?",
+      "long_question": "Do both the plate that is to the left of the other plate and the coffee mug on top of the table have round shape?",
+      "history": [],
+      "canonical_ordinal": 177
+    }
+  ],
+  "same_image_dialogues": [
+    {
+      "dialog_id": "mtgqa_002992",
+      "image_dialogue_index": 1,
+      "image_id": "n100552",
+      "image_path": "../SparseVLMs/playground/data/eval/gqa/data/images/n100552.jpg",
+      "turns": [
+        {
+          "answers": [
+            "fence"
+          ],
+          "image_source_position": 0,
+          "question": "The elephant is in front of what?",
+          "question_id": "20542972",
+          "source_position": 659,
+          "turn_id": 1
+        },
+        {
+          "answers": [
+            "elephant"
+          ],
+          "image_source_position": 1,
+          "question": "What kind of animal is the fence behind of?",
+          "question_id": "20543092",
+          "source_position": 794,
+          "turn_id": 2
+        },
+        {
+          "answers": [
+            "elephant"
+          ],
+          "image_source_position": 2,
+          "question": "What animal is inside the zoo?",
+          "question_id": "20542959",
+          "source_position": 1135,
+          "turn_id": 3
+        }
+      ]
+    },
+    {
+      "dialog_id": "mtgqa_002993",
+      "image_dialogue_index": 2,
+      "image_id": "n100552",
+      "image_path": "../SparseVLMs/playground/data/eval/gqa/data/images/n100552.jpg",
+      "turns": [
+        {
+          "answers": [
+            "white"
+          ],
+          "image_source_position": 3,
+          "question": "Which color is the container made of metal?",
+          "question_id": "20543134",
+          "source_position": 2178,
+          "turn_id": 1
+        },
+        {
+          "answers": [
+            "dry"
+          ],
+          "image_source_position": 4,
+          "question": "Is the ground dry or wet?",
+          "question_id": "20543116",
+          "source_position": 2610,
+          "turn_id": 2
+        },
+        {
+          "answers": [
+            "zoo"
+          ],
+          "image_source_position": 5,
+          "question": "What is the elephant inside of?",
+          "question_id": "20542963",
+          "source_position": 2672,
+          "turn_id": 3
+        }
+      ]
+    }
+  ],
+  "same_image_identity": {
+    "image_path": "/home/dblab/hj/SparseVLMs/playground/data/eval/gqa/data/images/n100552.jpg",
+    "image_sha256": "d14ac5db6dbeb4cec3bb9d6bd5fa6c4325979dcdeafe1529658b7d8fe5b66c1d",
+    "original_hw": [
+      516,
+      640
+    ],
+    "image_grid_thw": [
+      [
+        1,
+        36,
+        46
+      ]
+    ],
+    "N_content": 414,
+    "k": 104,
+    "k_mod_64": 40,
+    "native_pixels_tensor_bytes": 7789824
+  },
+  "source_workload_sha256": "0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62",
+  "synthetic_gpu_stress": {
+    "seed": 1234,
+    "height": 896,
+    "width": 896,
+    "expected_N": 1024,
+    "question": "Do both the plate that is to the left of the other plate and the coffee mug on top of the table have round shape?"
+  },
+  "synthetic_chunk_boundaries_N": [
+    1,
+    4,
+    5,
+    249,
+    252,
+    253,
+    256,
+    257,
+    508,
+    509,
+    512,
+    513
+  ],
+  "tolerance": {
+    "native_bits": "exact",
+    "same_shape_logits": "exact",
+    "generated_ids": "exact",
+    "attention_fp64_atol": 1e-12,
+    "attention_fp64_rtol": 1e-12,
+    "fp32_diagnostic_atol": 1e-05,
+    "fp32_diagnostic_rtol": 1e-05
+  }
+}

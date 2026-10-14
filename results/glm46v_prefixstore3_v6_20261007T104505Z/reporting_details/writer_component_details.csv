@@ -1,0 +1,23 @@
+method_id,field,measured_count,mean,p50,p95,accounting
+fullload,kv_materialize_ms,398,3.4120681604379834,3.399897599592805,3.9665314834564924,nested in measured outer writer return; never summed into it again
+fullload,kv_repack_ms,398,2.9109740435571676,2.9305678326636553,3.4127432154491544,nested in measured outer writer return; never summed into it again
+fullload,serialization_ms,398,1.0751699326775181,1.090888399630785,1.3150917133316398,nested in measured outer writer return; never summed into it again
+fullload,ssd_write_ms,398,4.265884032248327,4.347472218796611,5.075653060339391,nested in measured outer writer return; never summed into it again
+fullload,fsync_ms,398,40.203963657934686,39.59953971207142,46.98019949719309,nested in measured outer writer return; never summed into it again
+fullload,total_persistence_ms,398,63.034137702738896,63.49778245203197,71.55176061205566,nested in measured outer writer return; never summed into it again
+fullload,full_cpu_materialized_bytes,398,15133279.195979899,14909440.0,17735680.0,nested in measured outer writer return; never summed into it again
+fullload,full_cpu_content_repacked_bytes,398,14355039.195979899,14131200.0,16957440.0,nested in measured outer writer return; never summed into it again
+fullload,os_write_bytes,398,15170401.042713568,14946192.0,17777127.0,nested in measured outer writer return; never summed into it again
+fullload,os_write_calls,398,83,83.0,83.0,nested in measured outer writer return; never summed into it again
+fullload,store_allocated_bytes,398,15504420.020100502,15405056.0,18034688.0,nested in measured outer writer return; never summed into it again
+ours_prefixstore_kv25,kv_materialize_ms,398,3.404374234378338,3.3972326200455427,3.9854893228039145,nested in measured outer writer return; never summed into it again
+ours_prefixstore_kv25,kv_repack_ms,398,2.9866022862793513,2.9975823126733303,3.4462654963135715,nested in measured outer writer return; never summed into it again
+ours_prefixstore_kv25,serialization_ms,398,0.4809883823290692,0.46431971713900566,0.5770069314166903,nested in measured outer writer return; never summed into it again
+ours_prefixstore_kv25,ssd_write_ms,398,1.4074027535959555,1.4188920613378286,1.6608757199719548,nested in measured outer writer return; never summed into it again
+ours_prefixstore_kv25,fsync_ms,398,36.632201076255896,35.87301401421428,42.865028558298945,nested in measured outer writer return; never summed into it again
+ours_prefixstore_kv25,total_persistence_ms,398,51.98136086098326,51.61209427751601,58.94564073532818,nested in measured outer writer return; never summed into it again
+ours_prefixstore_kv25,full_cpu_materialized_bytes,398,15133279.195979899,14909440.0,17735680.0,nested in measured outer writer return; never summed into it again
+ours_prefixstore_kv25,full_cpu_content_repacked_bytes,398,14355039.195979899,14131200.0,16957440.0,nested in measured outer writer return; never summed into it again
+ours_prefixstore_kv25,os_write_bytes,398,4420474.155778894,4376718.0,5077301.3,nested in measured outer writer return; never summed into it again
+ours_prefixstore_kv25,os_write_calls,398,83,83.0,83.0,nested in measured outer writer return; never summed into it again
+ours_prefixstore_kv25,store_allocated_bytes,398,4738814.713567839,4591616.0,5251072.0,nested in measured outer writer return; never summed into it again

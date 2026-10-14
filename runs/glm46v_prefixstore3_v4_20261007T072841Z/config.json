@@ -1,0 +1,133 @@
+{
+  "model_id": "zai-org/GLM-4.6V-Flash",
+  "checkpoint_revision": "411bb4d77144a3f03accbf4b780f5acb8b7cde4e",
+  "processor_revision": "411bb4d77144a3f03accbf4b780f5acb8b7cde4e",
+  "processor_settings": {
+    "size": {
+      "shortest_edge": 12544,
+      "longest_edge": 1605632
+    },
+    "use_fast": true,
+    "enable_thinking": false
+  },
+  "checkpoint_metadata": {
+    "config.json": {
+      "sha256": "ef88f66ef623085cd86f5fd14bd6647a0b7175b9a25773049b82611d4ac82181",
+      "bytes": 1580
+    },
+    "generation_config.json": {
+      "sha256": "e9527bdf03e7d4971f9cacdbcf81a5fe04b10b64fc478bba6bf389cc0e597b72",
+      "bytes": 239
+    },
+    "tokenizer.json": {
+      "sha256": "9340665016419c825c4bdabbcc9acc43b7ca2c68ce142724afa829abb1be5efd",
+      "bytes": 19970699
+    },
+    "video_preprocessor_config.json": {
+      "sha256": "00001992801fc96770b436f735a11066dab59173314e258a08504fa03ca23133",
+      "bytes": 369
+    },
+    "chat_template.jinja": {
+      "sha256": "bf6cfe131f9af1cdbe0e1e4bda8cd56154e63d95d50df697155654bde7b387fd",
+      "bytes": 4605
+    },
+    "preprocessor_config.json": {
+      "sha256": "02cc50c36240882ae35e8cd4077a25a379664108185d728d261cb785aefeccff",
+      "bytes": 367
+    },
+    "tokenizer_config.json": {
+      "sha256": "13809913afa65678aff5d54d888720c30cb000d0e9a85799ef22d1ca9dfdf228",
+      "bytes": 7341
+    },
+    "model.safetensors.index.json": {
+      "sha256": "a74197619c081601ce39a5d2e31a1a56b7b5a4a62ffbfd5c0dd5fef8615eff8d",
+      "bytes": 66392
+    },
+    "README.md": {
+      "sha256": "84849e79dce9bd27688af744cd10bf7ffb14f92dda0c31dfedaad510b802db2f",
+      "bytes": 8363
+    }
+  },
+  "checkpoint_weights": {
+    "model-00001-of-00004.safetensors": {
+      "sha256": "058745e42d1003c9fb6d1707838902478cd5acb0d7cb277a7e074ceaecf06402",
+      "bytes": 5320911456,
+      "download_receipt": [
+        "411bb4d77144a3f03accbf4b780f5acb8b7cde4e",
+        "058745e42d1003c9fb6d1707838902478cd5acb0d7cb277a7e074ceaecf06402",
+        "1791356578.1176207"
+      ]
+    },
+    "model-00002-of-00004.safetensors": {
+      "sha256": "56e35e399921aa4d20ee0e20639bbb7e86e7036b11b74b643487d591206f071c",
+      "bytes": 5303216664,
+      "download_receipt": [
+        "411bb4d77144a3f03accbf4b780f5acb8b7cde4e",
+        "56e35e399921aa4d20ee0e20639bbb7e86e7036b11b74b643487d591206f071c",
+        "1791356562.7610235"
+      ]
+    },
+    "model-00003-of-00004.safetensors": {
+      "sha256": "7f57230ee36c64f3c5d2986674ddba5db3df26df828db1833f4792d4ef21ce48",
+      "bytes": 5303216664,
+      "download_receipt": [
+        "411bb4d77144a3f03accbf4b780f5acb8b7cde4e",
+        "7f57230ee36c64f3c5d2986674ddba5db3df26df828db1833f4792d4ef21ce48",
+        "1791356541.5055025"
+      ]
+    },
+    "model-00004-of-00004.safetensors": {
+      "sha256": "8c12ad6165dc9a2895a46547d611ed24990eae6fb357dddf066e239582fece2e",
+      "bytes": 4658299264,
+      "download_receipt": [
+        "411bb4d77144a3f03accbf4b780f5acb8b7cde4e",
+        "8c12ad6165dc9a2895a46547d611ed24990eae6fb357dddf066e239582fece2e",
+        "1791356530.311649"
+      ]
+    }
+  },
+  "methods": [
+    "recompute",
+    "fullload",
+    "ours_prefixstore_kv25"
+  ],
+  "seed": 1234,
+  "greedy": true,
+  "max_new_tokens": 32,
+  "answer_extraction": "native-final-answer-box-v1; raw generated IDs/text preserved; strict scorer unchanged",
+  "quantization": "decoder-only NF4 double quantization/BF16 compute; BF16 unquantized vision/merger/lm_head",
+  "backend": "sdpa",
+  "native_KV": {
+    "layers": 40,
+    "heads": 2,
+    "head_dim": 128,
+    "dtype": "BF16",
+    "bytes_per_token": 40960
+  },
+  "source_sha256": {
+    "docs/glm46v_architecture.md": "618e04bb467db3cefba8b989b4a29093fd3b3e9ba55d9bb1b0126caceedf78aa",
+    "docs/glm46v_baseline_audit.md": "55fa9eb39521dc0c62b0a4541e5da0190683c1f4e40b5f8c03429926577f03f0",
+    "docs/glm46v_prefixstore3_contract.md": "7ae8757384e40733542ba95ec2376c5587e05cdf694eeb58aafb2214491d83e2",
+    "mmimpress/glm46v/__init__.py": "66c3b1e0e9341d12762a0918acd6cfa9742ee4d949efc90673176cf14ce4233b",
+    "mmimpress/glm46v/analysis.py": "520f2c709b465acceeec2511edd86f9748eed33405cae20aa1f4eef70ae218f8",
+    "mmimpress/glm46v/runner.py": "c2b6f2b821420fcc92228e10683d9312f6c6ea8015b28f76bc3a58312fba2a73",
+    "mmimpress/glm46v/store.py": "7064adc822702613d6a235aa62447045ba6a5678cec0fd92457896e4f515a8e1",
+    "mmimpress/glm46v/vision.py": "ce499225aef56967a5279274231f1a1d73a1c8810ca44b7348987c52c2376335",
+    "scripts/119_prepare_glm46v_prefixstore3.py": "1445a70c0afd808aeee9a70dce930aaf311c84faf2dcdcfe30561c3cdde99807",
+    "scripts/120_validate_glm46v_prefixstore3.py": "a9c24a831f8326700b4e36a9e0d005af625cba56d8e686292cdccdd8ab5accf3",
+    "scripts/121_eval_glm46v_prefixstore3.py": "58bc81a1f6e07c3e6ab9a7d129880b6f9637ecd21643255f7aa44787295587ec",
+    "scripts/122_report_glm46v_prefixstore3.py": "4a52c0831ae349707a09b8368978d7f343ddfae2d83cc39f59f40f8cbd85f66a",
+    "scripts/123_freeze_glm46v_revision.py": "ab7d507ce2cbc68268d1ebef31d9879ada550fc3947918f628bbe963ce352c84",
+    "tests/test_glm46v_analysis.py": "09d7ee7265e0d0a6b67ac942738c5fa3a965e6e0afa4b9195a669338b42aaa4c",
+    "tests/test_glm46v_runner.py": "7c36a3833c3c2b33c771366b8707a6f3b2a38f2566c84f0a85fbf506a2dc8f20",
+    "tests/test_glm46v_store.py": "0d1aedaa7222c23c111c0b07a5003dfc18ea2d4dbde4c9e8e933f77704bbfe5f",
+    "tests/test_glm46v_validation.py": "879395ce68b885569df8818fa3a34ace60019c511cc99bd4b5ec85d415c4b111",
+    "tests/test_glm46v_vision.py": "6cbce6f1a08ecfbd3b17b3258bf290d12ce22af9771d09e2f5d4fd23cd070dde",
+    "tests/test_glm46v_workflow.py": "a79c3ef1878c45f278ac368ad57cf879ab0f43898c0dc8da8acd03d6f8ba3122"
+  },
+  "contract_sha256": "7ae8757384e40733542ba95ec2376c5587e05cdf694eeb58aafb2214491d83e2",
+  "workload_sha256": "0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62",
+  "validation_manifest_sha256": "9a73f3c8513482955958bec3c1462211326ca29e1c5c98c5ace43813e2edab7e",
+  "created_at": "2026-10-07T07:32:09.322256+00:00",
+  "gpu_validation": "REQUIRED_BEFORE_PILOT"
+}

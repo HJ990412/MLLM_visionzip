@@ -1,0 +1,53 @@
+{
+  "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]",
+  "executable": "/home/dblab/hj/mllm_v2/.venv-glm46v/bin/python",
+  "platform": "Linux-6.5.0-14-generic-x86_64-with-glibc2.35",
+  "packages": {
+    "torch": "2.5.1+cu121",
+    "torchvision": "0.20.1+cu121",
+    "transformers": "5.13.1",
+    "bitsandbytes": "0.49.2",
+    "accelerate": "1.14.0",
+    "huggingface_hub": "1.33.0",
+    "tokenizers": "0.22.2",
+    "Pillow": "12.2.0",
+    "numpy": "2.2.6",
+    "pytest": "8.4.2"
+  },
+  "cuda_build": "12.1",
+  "cuda_available": true,
+  "transformers_sources": {
+    "models/glm4v/__init__.py": "9cb56a81b9687c6d7f40804916d9e809770fac99baf85aa998d05b3c84f4b4c3",
+    "models/glm4v/modeling_glm4v.py": "0f2a156edaa0503d70ade6a6c3f019a95230823fc1a52e2e01a20af4f8ec747d",
+    "models/glm4v/configuration_glm4v.py": "e298106ab6c2c3e435b194c702474bf51e32179fc9a2fc10ace87ed17d28af78",
+    "models/glm4v/modular_glm4v.py": "93388d4288e24b79b27207bbca8f600b3a6cb349eff6185e6ab15508129c3b54",
+    "models/glm4v/image_processing_pil_glm4v.py": "c260f1d6b26118267120f6b072511b1ad63af6c1996cf56ccfe3d35e2351b6c5",
+    "models/glm4v/video_processing_glm4v.py": "634f09008c18d45bbcf52f93e0ec4dddca112b46d4ad23d797160a0cdbbb3c94",
+    "models/glm4v/image_processing_glm4v.py": "bf393cb71c62d53fa629018ce890ae0b0fb9da1451c9657ac8c5b6927bc9da9f",
+    "models/glm4v/processing_glm4v.py": "89945d9b6d43701cf60e43b3278fd11f0533e4d0f7627527526bf98c66ac3aae",
+    "models/glm46v/modeling_glm46v.py": "cf9c152c412bb25e069724bdc1153b4f85c937c28ae324f50046453fc86ba3ed",
+    "models/glm46v/configuration_glm46v.py": "bbc61252a4f49bf94b909a9d5bf0dfb395022d5264e9f2555ee743f23960146d",
+    "models/glm46v/video_processing_glm46v.py": "f046c7edfe298ca8c8e98811bf199ee5f9b4082d82f188b2599e0dfbbe2fb64e",
+    "models/glm46v/__init__.py": "c428ff943304adfa7b90a4e276415e298aa8d74e457288469164e061c2bd124c",
+    "models/glm46v/modular_glm46v.py": "d99995ee8e28887aea68e499eb229071ca9af8edbc5c6bf3db772c22b98b6f78",
+    "models/glm46v/image_processing_glm46v.py": "41fa88e258a4b291f167d77085eee989dbebff1776c336121e2f4185b6e0eef1",
+    "models/glm46v/image_processing_pil_glm46v.py": "3506c3f76284c90d3ed9d4e44e5091cb09ceb4fcd8f382cb2a90aa18923c7598",
+    "models/glm46v/processing_glm46v.py": "6d785b95e35a6c9417178042c0a428913672486433f70eba9222f1c51e640d1c",
+    "cache_utils.py": "16bbbba2394c0151af53009800e5a4052479417a8c7e5edfbd5ef128a46fcbc1",
+    "masking_utils.py": "ad7b312bc3830894a198760520cc1baf02e35d327d216d41f00b0c61e9604334",
+    "integrations/sdpa_attention.py": "fdf62fb0eb9b5dc0a6796a7e526015865267f271a0d5ac8377968ad05d1454b8"
+  },
+  "transformers_origin": "PyPI wheel transformers==5.13.1; exact installed source hashes",
+  "inherited_environment": "read-only mllm_ft Torch and dependencies; GLM venv overrides Transformers only",
+  "pip_freeze": {
+    "command": [
+      "/home/dblab/hj/mllm_v2/.venv-glm46v/bin/python",
+      "-m",
+      "pip",
+      "freeze"
+    ],
+    "returncode": 0,
+    "stdout": "absl-py==2.5.0\naccelerate==1.14.0\naiohappyeyeballs==2.7.1\naiohttp==3.14.1\naiosignal==1.4.0\nannotated-doc==0.0.5\nanyio==4.14.2\nasttokens==2.4.1\nasync-timeout==5.0.1\nattrs==26.1.0\nav==17.1.0\nbitsandbytes==0.49.2\ncertifi==2026.6.17\ncharset-normalizer==3.4.9\nclick==8.5.0\ncomm==0.2.1\ncontourpy==1.3.2\ncycler==0.12.1\ndatasets==5.0.0\ndebugpy==1.8.0\ndecorator==5.1.1\ndill==0.4.1\nexceptiongroup==1.2.0\nexecuting==2.0.1\nfilelock==3.29.0\nfonttools==4.63.0\nfrozenlist==1.8.0\nfsspec==2026.4.0\ngrpcio==1.82.1\nh11==0.16.0\nhf-xet==1.7.0\nhttpcore==1.0.9\nhttpx==0.28.1\nhuggingface_hub==1.33.0\nidna==3.18\niniconfig==2.3.1\nipykernel==6.28.0\nipython==8.19.0\njedi==0.19.1\nJinja2==3.1.6\njupyter_client==8.6.0\njupyter_core==5.7.0\nkiwisolver==1.5.0\nMarkdown==3.10.2\nmarkdown-it-py==4.2.0\nMarkupSafe==3.0.3\nmatplotlib==3.10.9\nmatplotlib-inline==0.1.6\nmdurl==0.1.2\nmpmath==1.3.0\nmultidict==6.7.1\nmultiprocess==0.70.19\nnest-asyncio==1.5.8\nnetworkx==3.4.2\nnumpy==2.2.6\nnvidia-cublas-cu12==12.1.3.1\nnvidia-cuda-cupti-cu12==12.1.105\nnvidia-cuda-nvrtc-cu12==12.1.105\nnvidia-cuda-runtime-cu12==12.1.105\nnvidia-cudnn-cu12==9.1.0.70\nnvidia-cufft-cu12==11.0.2.54\nnvidia-curand-cu12==10.3.2.106\nnvidia-cusolver-cu12==11.4.5.107\nnvidia-cusparse-cu12==12.1.0.106\nnvidia-nccl-cu12==2.21.5\nnvidia-nvjitlink-cu12==12.9.86\nnvidia-nvtx-cu12==12.1.105\npackaging==26.0\npandas==2.3.3\nparso==0.8.3\npeft==0.19.1\npillow==12.2.0\npluggy==1.6.0\nprompt-toolkit==3.0.43\npropcache==0.5.2\nprotobuf==7.35.1\npsutil==7.2.2\npure-eval==0.2.2\npyarrow==25.0.0\nPygments==2.21.0\npyparsing==3.3.2\npytest==8.4.2\npython-dateutil==2.9.0.post0\npytz==2026.2\nPyYAML==6.0.3\npyzmq==25.1.2\nqwen-vl-utils==0.0.14\nregex==2026.7.10\nrequests==2.34.2\nrich==15.0.0\nsafetensors==0.8.0\nsentencepiece==0.2.2\nshellingham==1.5.4\nsix==1.17.0\nstack-data==0.6.3\nsympy==1.13.1\ntensorboard==2.21.0\ntensorboard-data-server==0.7.2\ntokenizers==0.22.2\ntomli==2.4.1\ntorch==2.5.1+cu121\ntorchaudio==2.5.1+cu121\ntorchvision==0.20.1+cu121\ntornado==6.4\ntqdm==4.68.4\ntraitlets==5.14.1\ntransformers==5.13.1\ntriton==3.1.0\ntyper==0.27.3\ntyping_extensions==4.15.0\ntzdata==2026.3\nurllib3==2.7.0\nwcwidth==0.2.13\nWerkzeug==3.1.8\nxxhash==3.8.1\nyarl==1.24.2\n",
+    "stderr": ""
+  }
+}

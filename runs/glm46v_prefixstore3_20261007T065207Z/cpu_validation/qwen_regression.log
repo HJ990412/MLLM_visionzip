@@ -1,0 +1,60 @@
+..........F.......                                                       [100%]
+=================================== FAILURES ===================================
+_ StockVisionCaptureTests.test_single_stock_forward_capture_equals_dense_visionzip_formula _
+
+self = <test_qwen25_vision.StockVisionCaptureTests testMethod=test_single_stock_forward_capture_equals_dense_visionzip_formula>
+
+    def test_single_stock_forward_capture_equals_dense_visionzip_formula(self):
+        torch.manual_seed(1234)
+        config = self.config_type(
+            depth=2,
+            hidden_size=32,
+            intermediate_size=64,
+            num_heads=4,
+            patch_size=2,
+            spatial_merge_size=2,
+            temporal_patch_size=2,
+            window_size=8,
+            out_hidden_size=32,
+            fullatt_block_indexes=[1],
+        )
+        config._attn_implementation = "sdpa"
+        visual = self.visual_type(config).eval()
+        model = types.SimpleNamespace(visual=visual, training=False)
+        grid = torch.tensor([[1, 4, 8]])
+        pixels = torch.randn(32, 3 * 2 * 2 * 2)
+        attn = visual.blocks[-1].attn
+        observed = {}
+    
+        def pre_hook(module, args, kwargs):
+            observed["position_embeddings"] = kwargs["position_embeddings"]
+    
+        def qkv_hook(module, args, output):
+            observed["qkv"] = output.detach()
+    
+        pre_handle = attn.register_forward_pre_hook(pre_hook, with_kwargs=True)
+        qkv_handle = attn.qkv.register_forward_hook(qkv_hook)
+        before = (
+            len(visual._forward_pre_hooks),
+            len(visual._forward_hooks),
+            len(attn._forward_pre_hooks),
+            len(attn.qkv._forward_hooks),
+        )
+        try:
+            with torch.inference_mode():
+                with VisionScoreCapture(model, query_block_size=3) as capture:
+                    merged = visual(pixels, grid)
+                normal = visual(pixels, grid)
+>           self.assertTrue(torch.equal(merged, normal))
+E           TypeError: equal(): argument 'input' (position 1) must be Tensor, not BaseModelOutputWithPooling
+
+tests/test_qwen25_vision.py:102: TypeError
+=============================== warnings summary ===============================
+tests/test_qwen25_vision.py::StockVisionCaptureTests::test_single_stock_forward_capture_equals_dense_visionzip_formula
+  /home/dblab/hj/mllm_v2/mmimpress/qwen25/vision.py:229: FutureWarning: `Qwen2_5_VisionTransformerPretrainedModel.get_window_index` is deprecated and will be removed in v5.11. Use `get_vision_window_index` from `transformers.vision_utils` instead.
+    window_index, _ = self.visual.get_window_index(grid)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_qwen25_vision.py::StockVisionCaptureTests::test_single_stock_forward_capture_equals_dense_visionzip_formula
+1 failed, 17 passed, 1 warning in 1.92s

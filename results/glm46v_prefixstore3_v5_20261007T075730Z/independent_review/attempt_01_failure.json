@@ -1,0 +1,18 @@
+{
+  "status": "FAIL",
+  "kind": "reviewer assertion assumed pixel k means attended rows",
+  "actual_example": [
+    {
+      "image_id": "n100552",
+      "dialog_id": "mtgqa_002992",
+      "method_id": "ours_prefixstore_kv25",
+      "turn_id": 1,
+      "N_content": 414,
+      "k": 104,
+      "vision_calls": 1,
+      "ssd_read_bytes": 0
+    }
+  ],
+  "correction": "Production k records stored budget for Ours even pixel requests. Full T1 proof uses actual full prompt/image token IDs, one native vision call and zero SSD read; do not infer T1 pre-pruning from storage budget metadata.",
+  "source_sha256": "90009be6db6868e8cb6db09a11df617a53ee2861e1dc600017721837254ffb71"
+}

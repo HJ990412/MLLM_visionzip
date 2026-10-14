@@ -1,0 +1,13 @@
+[transformers] The `use_fast` parameter is deprecated and will be removed in a future version. Use `backend="torchvision"` instead of `use_fast=True`, or `backend="pil"` instead of `use_fast=False`.
+Loading weights:   0%|          | 0/704 [00:00<?, ?it/s]Loading weights:   0%|          | 1/704 [00:00<01:22,  8.49it/s]Loading weights:   0%|          | 2/704 [00:00<01:19,  8.78it/s]Loading weights:   4%|▍         | 28/704 [00:00<00:05, 115.31it/s]Loading weights:   8%|▊         | 57/704 [00:00<00:03, 170.69it/s]Loading weights:  13%|█▎        | 95/704 [00:00<00:02, 239.49it/s]Loading weights:  17%|█▋        | 122/704 [00:00<00:02, 247.49it/s]Loading weights:  23%|██▎       | 161/704 [00:00<00:01, 275.02it/s]Loading weights:  28%|██▊       | 199/704 [00:00<00:01, 304.53it/s]Loading weights:  33%|███▎      | 230/704 [00:00<00:01, 300.09it/s]Loading weights:  38%|███▊      | 264/704 [00:01<00:01, 310.29it/s]Loading weights:  42%|████▏     | 296/704 [00:01<00:01, 307.52it/s]Loading weights:  47%|████▋     | 330/704 [00:01<00:01, 299.66it/s]Loading weights:  52%|█████▏    | 368/704 [00:01<00:01, 320.73it/s]Loading weights:  57%|█████▋    | 401/704 [00:01<00:00, 313.61it/s]Loading weights:  62%|██████▏   | 434/704 [00:01<00:00, 301.60it/s]Loading weights:  67%|██████▋   | 472/704 [00:01<00:00, 319.19it/s]Loading weights:  72%|███████▏  | 505/704 [00:01<00:00, 315.31it/s]Loading weights:  84%|████████▎ | 589/704 [00:01<00:00, 461.76it/s]Loading weights:  99%|█████████▉| 696/704 [00:02<00:00, 620.18it/s]Loading weights: 100%|██████████| 704/704 [00:02<00:00, 338.96it/s]
+{"phase": "main", "image_id": "n229548", "status": "COMMITTED", "requests": 99}
+{"phase": "main", "image_id": "n181355", "status": "COMMITTED", "requests": 198}
+{"phase": "main", "image_id": "n95369", "status": "COMMITTED", "requests": 36}
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/scripts/121_eval_glm46v_prefixstore3.py", line 301, in <module>
+    evaluate(args.run_dir.resolve(),args.phase,args.resume)
+  File "/home/dblab/hj/mllm_v2/scripts/121_eval_glm46v_prefixstore3.py", line 276, in evaluate
+    receipt=evaluate_image(runner,run,phase,iid,group,attempt)
+  File "/home/dblab/hj/mllm_v2/scripts/121_eval_glm46v_prefixstore3.py", line 187, in evaluate_image
+    raise RuntimeError(f'non-thinking output invalid: {logical}, {row["generated_text_with_special_tokens"]}')
+RuntimeError: non-thinking output invalid: main:mtgqa_000040:recompute:T2, The kid (or child) is wearing the crown.</think>The kid (or child) is wearing the crown.<|end_of_box|><|user|>

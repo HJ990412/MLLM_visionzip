@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "independent_cpu_only": true,
+  "receipts": [
+    {
+      "name": "main_manifest.json",
+      "source": "/home/dblab/hj/mllm_v2/data/mt_gqa/dialogues.json",
+      "source_sha256": "2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224",
+      "frozen": "/home/dblab/hj/mllm_v2/runs/glm46v_prefixstore3_20261007T065207Z/manifests/main_manifest.json",
+      "frozen_sha256": "2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224",
+      "byte_identical": true,
+      "images": 398,
+      "entries": 4061,
+      "requests_per_arm": 12183,
+      "expected_final_requests_3arm": 36549,
+      "ordered_sequence_sha256": "0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62",
+      "history_policy": "method_own_generated",
+      "model_geometry": "NOT_MEASURED; inherited Qwen geometry excluded"
+    },
+    {
+      "name": "gqa_pilot_manifest.json",
+      "source": "/home/dblab/hj/mllm_v2/runs/prefix25_persistence_20261001T050113Z/gqa_manifest.json",
+      "source_sha256": "40e23fa7aeb22495717fc7eede1227de3a6b4811fde022d9cda71ef73c5e3895",
+      "frozen": "/home/dblab/hj/mllm_v2/runs/glm46v_prefixstore3_20261007T065207Z/manifests/gqa_pilot_manifest.json",
+      "frozen_sha256": "40e23fa7aeb22495717fc7eede1227de3a6b4811fde022d9cda71ef73c5e3895",
+      "byte_identical": true,
+      "images": 40,
+      "entries": 40,
+      "requests_per_arm": 240,
+      "expected_final_requests_3arm": 720,
+      "ordered_sequence_sha256": "1c5b4f0409cec26387e47510fa85b09a940edd4568f1d1eea160303d2f67671f",
+      "history_policy": "none",
+      "model_geometry": "NOT_MEASURED; inherited Qwen geometry excluded"
+    },
+    {
+      "name": "mt_pilot_manifest.json",
+      "source": "/home/dblab/hj/mllm_v2/runs/prefix25_persistence_20261001T050113Z/mt_manifest.json",
+      "source_sha256": "d935dd7f65adee6c05a7c9ce5dbe38f22dbdc9fda9ac989703892817e8118e46",
+      "frozen": "/home/dblab/hj/mllm_v2/runs/glm46v_prefixstore3_20261007T065207Z/manifests/mt_pilot_manifest.json",
+      "frozen_sha256": "d935dd7f65adee6c05a7c9ce5dbe38f22dbdc9fda9ac989703892817e8118e46",
+      "byte_identical": true,
+      "images": 40,
+      "entries": 40,
+      "requests_per_arm": 120,
+      "expected_final_requests_3arm": 360,
+      "ordered_sequence_sha256": "11e81bbe855953db59aa0d1bf095744ca6b9b4b653ed5555c2507b450cb5f99b",
+      "history_policy": "method_own_generated",
+      "model_geometry": "NOT_MEASURED; inherited Qwen geometry excluded"
+    }
+  ],
+  "main_image_identity_sha256": "7863b5a500ad29357286a6996098d14436bd8bb9b4635230929510e95cb2d6b7",
+  "main_source_dialogues_sha256": "3e815c0e72022c6f7f496df9c964b322d226bcd078b2303ee8b392e434427f21",
+  "main_image_hashes_verified": 398,
+  "main_dialogues_match_latest_qwen_manifest": true,
+  "note": "Original membership/raw/gold untouched. Copied pilot methods/processor metadata are historical evidence only; GLM config must override model settings and method IDs without selecting new membership."
+}

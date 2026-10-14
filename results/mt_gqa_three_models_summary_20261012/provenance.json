@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "collection_date_client": "2026-10-12",
+  "source_csv_units": {
+    "LLaVA_accuracy": "fraction",
+    "Qwen_accuracy": "fraction",
+    "GLM_accuracy": "percent"
+  },
+  "accuracy_recomputed_from_correct_counts": true,
+  "method_id_normalization": {
+    "qwen_ours_prefixstore_kv25": "ours_prefixstore_kv25"
+  },
+  "source_files_sha256_before_and_after": {
+    "results/mt_gqa_B_llava5_qwen3_20261001T093921Z/final/llava/quality.csv": "af9344e7286405aed4f3ba035cf7e2c703d299357d280d040f21b0518bdb1cca",
+    "results/mt_gqa_B_llava5_qwen3_20261001T093921Z/final/llava/latency.csv": "352c464112fa056207f08d63ad84f09f6949ed7405ac9ad5946ed918d5f674e8",
+    "results/mt_gqa_B_llava5_qwen3_20261001T093921Z/final/llava/storage_summary.csv": "ead658455acc59895407a07e5143c679144352cd279d6ad52cfec0cbd041bf22",
+    "results/mt_gqa_B_llava5_qwen3_20261001T093921Z/final/llava/session_summary.csv": "092248510a27c3e932d95c6ba49fa24da39aebd8a3721080b7286f4e4b8edc59",
+    "results/mt_gqa_B_llava5_qwen3_20261001T093921Z/REPORT.md": "e9f85f518454b2762fc46b2a512242edae0c739be44e713ffda8d293063022fa",
+    "results/mt_gqa_B_llava5_qwen3_20261001T093921Z/final/llava/paired_analysis.csv": "6f8c8dfb59d9bd07397c44ebbb03df53bbddf8882bc167e292bb826dc8a486d3",
+    "runs/mt_gqa_B_llava5_qwen3_20261001T093921Z/llava/config.json": "5192284243415e7337fcf56f17906828ded482e25210614b9e331412e6dddb7e",
+    "results/qwen_mt_gqa_prefixstore3_20261002T074856Z/final/quality.csv": "ab17cd5b8fa54666b742c40100029b4d6a03a90fe9d485ca0eab34eaa1f34953",
+    "results/qwen_mt_gqa_prefixstore3_20261002T074856Z/final/latency.csv": "45afc4eccb033d8a09329d69ee9c8dbde5ef7252cb0bcbc1a4e578a43f20c91b",
+    "results/qwen_mt_gqa_prefixstore3_20261002T074856Z/final/storage_summary.csv": "6c57ce2e49d4b868b0686d46c133d439394ad1ffd2b7318ee4cd618e2de18b8e",
+    "results/qwen_mt_gqa_prefixstore3_20261002T074856Z/reporting_details/session_summary.csv": "bf7f48c4fee17449bbaec7b7727fd03c6c78ec2b9034cbbbd317d8482585c905",
+    "results/qwen_mt_gqa_prefixstore3_20261002T074856Z/reporting_details/store_io_summary.csv": "425184d0f4275e8c8eed82ebbeb905b1c861e363eb348aa0d7135fdb616c8758",
+    "results/qwen_mt_gqa_prefixstore3_20261002T074856Z/REPORT.md": "06623fbc7d77c6928000ede7a1ad77351d428e54246dce54a7868036247c02a4",
+    "results/qwen_mt_gqa_prefixstore3_20261002T074856Z/final/paired_analysis.csv": "658b412458c54d212d79121fe2e844233b3539d132e6d9b291305ed26c4e5e1f",
+    "results/qwen_mt_gqa_prefixstore3_20261002T074856Z/reporting_details/paired_analysis.csv": "89381ec2cf0be84579fc74c2e0e586e3eb45868f54899ac8a8c181f55f079665",
+    "runs/qwen_mt_gqa_prefixstore3_20261002T074856Z/config.json": "1c7e8ffe822ebb3bf44f73bd0b14f88c974a529499b8b9ead562d3403156b584",
+    "results/glm46v_prefixstore3_v6_20261007T104505Z/final/quality.csv": "e59fe21e1ae69e4fdf66a3f7e2d13fce99cdee45046d59f9ceb820d16082a505",
+    "results/glm46v_prefixstore3_v6_20261007T104505Z/final/latency.csv": "e52414c033a03ebb545284f1e109674155d62ec546baf421941c5164e9b6c55b",
+    "results/glm46v_prefixstore3_v6_20261007T104505Z/final/storage_summary.csv": "a3f7f665cf0ba461c45ba16fee1322cc0462b0b7e5909d64936a6fc11cfcac6f",
+    "results/glm46v_prefixstore3_v6_20261007T104505Z/final/session_summary.csv": "22be5631a80eb8e8f7170d4ced8b273c1ea5caf9058fffa688868ba3f04e0ba8",
+    "results/glm46v_prefixstore3_v6_20261007T104505Z/REPORT.md": "22cb16aed91776b9d36a3812c2978015d5491aa1069487ad324d4e318eb1f75b",
+    "results/glm46v_prefixstore3_v6_20261007T104505Z/final/paired_analysis.csv": "11dde07ecf20e1a91a38bf2f48ad8a37c2293fc2ac611bd6507414c37ad10456",
+    "runs/glm46v_prefixstore3_v6_20261007T104505Z/config.json": "a00c8b581725755800ffd2194bcbc4cf5c2efc33b4b7c6dabfc0a774ea918d71"
+  },
+  "models": 3,
+  "methods": 11,
+  "common_3arm_rows": 9,
+  "source_runs_modified": false,
+  "GPU_experiments_rerun": false,
+  "limits": [
+    "Cross-model rows describe independent model-native runs; paired CIs are within each model only.",
+    "LLaVA eager/FP16 store/anyres and Qwen SDPA/BF16 store/native resolution use cap16; GLM SDPA/BF16/native resolution uses cap32.",
+    "GLM TTFT usually ends on a native answer-boundary control; first lexical answer latency is NOT_MEASURED.",
+    "LLaVA FullLoad canonical store includes unused probe sidecars shared with AllHead; independent base-only setup is NOT_MEASURED.",
+    "Qwen FullLoad stores/reads padding; GLM full and B payloads have no padding.",
+    "AllHead logical footprint includes a shared canonical bundle while physical build is attributed once to FullLoad.",
+    "Standalone-equivalent is DERIVED and excludes NOT_MEASURED hypothetical non-source T1 capture increment.",
+    "OS returned bytes are not NAND physical traffic; ReComp KV read zero does not mean image I/O zero.",
+    "This collection reuses published analyses; it does not resample models jointly or rerun bootstrap."
+  ],
+  "generated_files": {
+    "aggregate.py": "cd6819ca8c27b46d338c9dbdfe37baf895a76bc7711c7e3e4e7b0ecc6adba0f9",
+    "summary.csv": "bd016effccdb4e939b4bc493a92180fdaa7e512b82bee8409489a3adfca176be",
+    "paired_analysis.csv": "0ec1bb13e9fbab4fb26db1482eabab310281883827fe44a3c10da37ec4760635",
+    "model_settings.csv": "8a6bada217646664701a6e2f6c655a284d5b6b1cf661a519a90e6d9022b94d9a",
+    "KV25_vs_baselines.csv": "6e7bd9875f29cc928d4014261147d0c601ec93d3060c1b9570d8db81fcfae023"
+  }
+}
