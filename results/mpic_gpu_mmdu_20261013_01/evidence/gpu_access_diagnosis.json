@@ -1,0 +1,33 @@
+{
+  "date_client": "2026-10-13",
+  "timezone": "Asia/Seoul",
+  "sandbox": {
+    "nvidia_smi": "driver communication failed",
+    "CUDA_available": false,
+    "CUDA_devices": 0,
+    "CUDA_tensor_error": "RuntimeError: No CUDA GPUs are available",
+    "nvidia_character_devices": "not exposed",
+    "kernel_module_visible": "535.230.02"
+  },
+  "host": {
+    "nvidia_smi": "PASS",
+    "GPU": "NVIDIA GeForce RTX 4090",
+    "driver": "535.230.02",
+    "nvidia_reported_CUDA": "12.2",
+    "torch": "2.5.1+cu121",
+    "compiled_CUDA": "12.1",
+    "transformers": "4.57.6",
+    "bitsandbytes": "0.49.2",
+    "CUDA_available": true,
+    "CUDA_devices": 1,
+    "small_tensor_check": "torch.arange(16,device=cuda:0); (x*x).sum(); synchronize",
+    "result": 1240.0,
+    "free_bytes_at_probe": 24882774016,
+    "total_bytes": 25391333376,
+    "other_compute_jobs": "none; Xorg/gnome graphics present"
+  },
+  "classification": "GPU device isolation in sandbox, not a broken selected Python environment or host driver",
+  "driver_reinstalled": false,
+  "jobs_terminated": false,
+  "source": "observed tool results; host execution used require_escalated auto-review"
+}

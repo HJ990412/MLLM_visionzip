@@ -1,0 +1,90 @@
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.32s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.28s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.06s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.12s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+{"stage": "functional", "case": "single", "k": 0, "policy": "global", "tokens": 1192}
+{"stage": "functional", "case": "single", "k": 32, "policy": "global", "tokens": 1192}
+{"stage": "functional", "case": "single", "k": 32, "policy": "per_image", "tokens": 1192}
+{"stage": "functional", "case": "single", "k": null, "policy": "per_image", "tokens": 1192}
+{"stage": "functional", "case": "prefix_changed", "k": 0, "policy": "global", "tokens": 1196}
+{"stage": "functional", "case": "prefix_changed", "k": 32, "policy": "global", "tokens": 1196}
+{"stage": "functional", "case": "prefix_changed", "k": 32, "policy": "per_image", "tokens": 1196}
+{"stage": "functional", "case": "prefix_changed", "k": null, "policy": "per_image", "tokens": 1196}
+{"stage": "functional", "case": "interleaved", "k": 0, "policy": "global", "tokens": 2373}
+{"stage": "functional", "case": "interleaved", "k": 32, "policy": "global", "tokens": 2373}
+{"stage": "functional", "case": "interleaved", "k": 32, "policy": "per_image", "tokens": 2373}
+{"stage": "functional", "case": "interleaved", "k": null, "policy": "per_image", "tokens": 2373}
+{"stage": "functional", "case": "reordered", "k": 0, "policy": "global", "tokens": 2373}
+{"stage": "functional", "case": "reordered", "k": 32, "policy": "global", "tokens": 2373}
+{"stage": "functional", "case": "reordered", "k": 32, "policy": "per_image", "tokens": 2373}
+{"stage": "functional", "case": "reordered", "k": null, "policy": "per_image", "tokens": 2373}
+{"stage": "functional", "case": "fixed_history_t2", "k": 0, "policy": "global", "tokens": 2389}
+{"stage": "functional", "case": "fixed_history_t2", "k": 32, "policy": "global", "tokens": 2389}
+{"stage": "functional", "case": "fixed_history_t2", "k": 32, "policy": "per_image", "tokens": 2389}
+{"stage": "functional", "case": "fixed_history_t2", "k": null, "policy": "per_image", "tokens": 2389}
+{"stage": "functional", "case": "fixed_history_t3", "k": 0, "policy": "global", "tokens": 2407}
+{"stage": "functional", "case": "fixed_history_t3", "k": 32, "policy": "global", "tokens": 2407}
+{"stage": "functional", "case": "fixed_history_t3", "k": 32, "policy": "per_image", "tokens": 2407}
+{"stage": "functional", "case": "fixed_history_t3", "k": null, "policy": "per_image", "tokens": 2407}
+{"stage": "functional", "case": "frozen_dialogue_t1", "k": 0, "policy": "global", "tokens": 2384}
+{"stage": "functional", "case": "frozen_dialogue_t1", "k": 32, "policy": "global", "tokens": 2384}
+{"stage": "functional", "case": "frozen_dialogue_t1", "k": 32, "policy": "per_image", "tokens": 2384}
+{"stage": "functional", "case": "frozen_dialogue_t1", "k": null, "policy": "per_image", "tokens": 2384}
+{"stage": "measured", "dialogue": "31", "turn": 1, "method": "prefix_caching", "ttft_ms": 534.634608309716, "output_tokens": 143, "peak_gpu_bytes": 8470558720}
+{"stage": "measured", "dialogue": "31", "turn": 1, "method": "full_reuse", "ttft_ms": 88.79899699240923, "output_tokens": 168, "peak_gpu_bytes": 9189158400}
+{"stage": "measured", "dialogue": "31", "turn": 1, "method": "mpic_global32", "ttft_ms": 102.33057383447886, "output_tokens": 116, "peak_gpu_bytes": 9161469440}
+{"stage": "measured", "dialogue": "31", "turn": 1, "method": "mpic_per_image32", "ttft_ms": 108.6928159929812, "output_tokens": 116, "peak_gpu_bytes": 9161469440}
+{"stage": "measured", "dialogue": "31", "turn": 2, "method": "prefix_caching", "ttft_ms": 72.74651993066072, "output_tokens": 147, "peak_gpu_bytes": 9373226496}
+{"stage": "measured", "dialogue": "31", "turn": 2, "method": "full_reuse", "ttft_ms": 104.45299185812473, "output_tokens": 224, "peak_gpu_bytes": 9581344256}
+{"stage": "measured", "dialogue": "31", "turn": 2, "method": "mpic_global32", "ttft_ms": 124.6536741964519, "output_tokens": 153, "peak_gpu_bytes": 9414865920}
+{"stage": "measured", "dialogue": "31", "turn": 2, "method": "mpic_per_image32", "ttft_ms": 135.87328093126416, "output_tokens": 153, "peak_gpu_bytes": 9414865920}
+{"stage": "measured", "dialogue": "31", "turn": 3, "method": "prefix_caching", "ttft_ms": 75.32858802005649, "output_tokens": 149, "peak_gpu_bytes": 9653836800}
+{"stage": "measured", "dialogue": "31", "turn": 3, "method": "full_reuse", "ttft_ms": 135.6429159641266, "output_tokens": 208, "peak_gpu_bytes": 10082390016}
+{"stage": "measured", "dialogue": "31", "turn": 3, "method": "mpic_global32", "ttft_ms": 181.40290398150682, "output_tokens": 131, "peak_gpu_bytes": 9697627136}
+{"stage": "measured", "dialogue": "31", "turn": 3, "method": "mpic_per_image32", "ttft_ms": 190.5820220708847, "output_tokens": 166, "peak_gpu_bytes": 9713939456}
+{"stage": "measured", "dialogue": "40", "turn": 1, "method": "prefix_caching", "ttft_ms": 258.8489446789026, "output_tokens": 256, "peak_gpu_bytes": 6729385984}
+{"stage": "measured", "dialogue": "40", "turn": 1, "method": "full_reuse", "ttft_ms": 70.66243467852473, "output_tokens": 256, "peak_gpu_bytes": 7366378496}
+{"stage": "measured", "dialogue": "40", "turn": 1, "method": "mpic_global32", "ttft_ms": 77.54933927208185, "output_tokens": 256, "peak_gpu_bytes": 7360693248}
+{"stage": "measured", "dialogue": "40", "turn": 1, "method": "mpic_per_image32", "ttft_ms": 77.64646736904979, "output_tokens": 256, "peak_gpu_bytes": 7360693248}
+{"stage": "measured", "dialogue": "40", "turn": 2, "method": "prefix_caching", "ttft_ms": 82.40120997652411, "output_tokens": 146, "peak_gpu_bytes": 7624911872}
+{"stage": "measured", "dialogue": "40", "turn": 2, "method": "full_reuse", "ttft_ms": 103.58282504603267, "output_tokens": 256, "peak_gpu_bytes": 7907225088}
+{"stage": "measured", "dialogue": "40", "turn": 2, "method": "mpic_global32", "ttft_ms": 124.29372081533074, "output_tokens": 193, "peak_gpu_bytes": 7806881280}
+{"stage": "measured", "dialogue": "40", "turn": 2, "method": "mpic_per_image32", "ttft_ms": 124.27054578438401, "output_tokens": 193, "peak_gpu_bytes": 7806881280}
+{"stage": "measured", "dialogue": "40", "turn": 3, "method": "prefix_caching", "ttft_ms": 365.05331099033356, "output_tokens": 256, "peak_gpu_bytes": 9276966400}
+{"stage": "measured", "dialogue": "40", "turn": 3, "method": "full_reuse", "ttft_ms": 150.74644377455115, "output_tokens": 256, "peak_gpu_bytes": 10390936576}
+{"stage": "measured", "dialogue": "40", "turn": 3, "method": "mpic_global32", "ttft_ms": 288.32554817199707, "output_tokens": 256, "peak_gpu_bytes": 10019153920}
+{"stage": "measured", "dialogue": "40", "turn": 3, "method": "mpic_per_image32", "ttft_ms": 295.0413101352751, "output_tokens": 256, "peak_gpu_bytes": 10019153920}
+{"stage": "measured", "dialogue": "25", "turn": 1, "method": "prefix_caching", "ttft_ms": 242.96072404831648, "output_tokens": 120, "peak_gpu_bytes": 6658032640}
+{"stage": "measured", "dialogue": "25", "turn": 1, "method": "full_reuse", "ttft_ms": 70.80701971426606, "output_tokens": 138, "peak_gpu_bytes": 7299448832}
+{"stage": "measured", "dialogue": "25", "turn": 1, "method": "mpic_global32", "ttft_ms": 77.82643521204591, "output_tokens": 120, "peak_gpu_bytes": 7289864192}
+{"stage": "measured", "dialogue": "25", "turn": 1, "method": "mpic_per_image32", "ttft_ms": 77.93710986152291, "output_tokens": 120, "peak_gpu_bytes": 7289864192}
+{"stage": "measured", "dialogue": "25", "turn": 2, "method": "prefix_caching", "ttft_ms": 331.4155312255025, "output_tokens": 101, "peak_gpu_bytes": 8709362688}
+{"stage": "measured", "dialogue": "25", "turn": 2, "method": "full_reuse", "ttft_ms": 103.46717713400722, "output_tokens": 4, "peak_gpu_bytes": 9539023360}
+{"stage": "measured", "dialogue": "25", "turn": 2, "method": "mpic_global32", "ttft_ms": 141.5306138806045, "output_tokens": 256, "peak_gpu_bytes": 9479591936}
+{"stage": "measured", "dialogue": "25", "turn": 2, "method": "mpic_per_image32", "ttft_ms": 152.4737891741097, "output_tokens": 256, "peak_gpu_bytes": 9478338560}
+{"stage": "measured", "dialogue": "25", "turn": 3, "method": "prefix_caching", "ttft_ms": 72.5216381251812, "output_tokens": 106, "peak_gpu_bytes": 9559603200}
+{"stage": "measured", "dialogue": "25", "turn": 3, "method": "full_reuse", "ttft_ms": 105.1708897575736, "output_tokens": 174, "peak_gpu_bytes": 9660839424}
+{"stage": "measured", "dialogue": "25", "turn": 3, "method": "mpic_global32", "ttft_ms": 227.60911332443357, "output_tokens": 218, "peak_gpu_bytes": 9838806528}
+{"stage": "measured", "dialogue": "25", "turn": 3, "method": "mpic_per_image32", "ttft_ms": 247.07714933902025, "output_tokens": 243, "peak_gpu_bytes": 9841692160}
+{"stage": "measured", "dialogue": "69", "turn": 1, "method": "prefix_caching", "ttft_ms": 568.6839539557695, "output_tokens": 183, "peak_gpu_bytes": 8481795072}
+{"stage": "measured", "dialogue": "69", "turn": 1, "method": "full_reuse", "ttft_ms": 90.84552386775613, "output_tokens": 200, "peak_gpu_bytes": 9214906880}
+{"stage": "measured", "dialogue": "69", "turn": 1, "method": "mpic_global32", "ttft_ms": 104.42860284820199, "output_tokens": 213, "peak_gpu_bytes": 9221829120}
+{"stage": "measured", "dialogue": "69", "turn": 1, "method": "mpic_per_image32", "ttft_ms": 109.36809610575438, "output_tokens": 197, "peak_gpu_bytes": 9213309440}
+{"stage": "measured", "dialogue": "69", "turn": 2, "method": "prefix_caching", "ttft_ms": 80.39735211059451, "output_tokens": 177, "peak_gpu_bytes": 9452005376}
+{"stage": "measured", "dialogue": "69", "turn": 2, "method": "full_reuse", "ttft_ms": 120.29984407126904, "output_tokens": 182, "peak_gpu_bytes": 9691605504}
+{"stage": "measured", "dialogue": "69", "turn": 2, "method": "mpic_global32", "ttft_ms": 162.71720314398408, "output_tokens": 256, "peak_gpu_bytes": 9618308608}
+{"stage": "measured", "dialogue": "69", "turn": 2, "method": "mpic_per_image32", "ttft_ms": 169.3061268888414, "output_tokens": 174, "peak_gpu_bytes": 9557919744}
+{"stage": "measured", "dialogue": "69", "turn": 3, "method": "prefix_caching", "ttft_ms": 82.6532281935215, "output_tokens": 256, "peak_gpu_bytes": 9834033664}
+{"stage": "measured", "dialogue": "69", "turn": 3, "method": "full_reuse", "ttft_ms": 137.75227777659893, "output_tokens": 230, "peak_gpu_bytes": 10138627584}
+{"stage": "measured", "dialogue": "69", "turn": 3, "method": "mpic_global32", "ttft_ms": 236.4059668034315, "output_tokens": 256, "peak_gpu_bytes": 10037405696}
+{"stage": "measured", "dialogue": "69", "turn": 3, "method": "mpic_per_image32", "ttft_ms": 232.08037624135613, "output_tokens": 256, "peak_gpu_bytes": 9932785152}
+{"stage": "measured", "dialogue": "35", "turn": 1, "method": "prefix_caching", "ttft_ms": 244.21735294163227, "output_tokens": 256, "peak_gpu_bytes": 6738970624}
+{"stage": "measured", "dialogue": "35", "turn": 1, "method": "full_reuse", "ttft_ms": 72.1683856099844, "output_tokens": 222, "peak_gpu_bytes": 7363576832}
+{"stage": "measured", "dialogue": "35", "turn": 1, "method": "mpic_global32", "ttft_ms": 79.41237278282642, "output_tokens": 256, "peak_gpu_bytes": 7376667648}
+{"stage": "measured", "dialogue": "35", "turn": 1, "method": "mpic_per_image32", "ttft_ms": 80.10039804503322, "output_tokens": 256, "peak_gpu_bytes": 7374996480}
+{"stage": "measured", "dialogue": "35", "turn": 2, "method": "prefix_caching", "ttft_ms": 83.21550581604242, "output_tokens": 256, "peak_gpu_bytes": 7709708288}
+{"stage": "measured", "dialogue": "35", "turn": 2, "method": "full_reuse", "ttft_ms": 102.71746339276433, "output_tokens": 256, "peak_gpu_bytes": 7890341376}
+{"stage": "measured", "dialogue": "35", "turn": 2, "method": "mpic_global32", "ttft_ms": 123.37411288172007, "output_tokens": 256, "peak_gpu_bytes": 7854244864}
+{"stage": "measured", "dialogue": "35", "turn": 2, "method": "mpic_per_image32", "ttft_ms": 123.27838316559792, "output_tokens": 256, "peak_gpu_bytes": 7854244864}
+{"stage": "measured", "dialogue": "35", "turn": 3, "method": "prefix_caching", "ttft_ms": 402.8043639846146, "output_tokens": 256, "peak_gpu_bytes": 9431206400}
+{"stage": "measured", "dialogue": "35", "turn": 3, "method": "full_reuse", "ttft_ms": 151.01112006232142, "output_tokens": 4, "peak_gpu_bytes": 10404690432}
+{"stage": "measured", "dialogue": "35", "turn": 3, "method": "mpic_global32", "ttft_ms": 347.25967375561595, "output_tokens": 256, "peak_gpu_bytes": 10208594432}
+{"stage": "measured", "dialogue": "35", "turn": 3, "method": "mpic_per_image32", "ttft_ms": 355.194719042629, "output_tokens": 256, "peak_gpu_bytes": 10207767040}

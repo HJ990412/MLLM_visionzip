@@ -1,0 +1,94 @@
+{
+  "normal_suffix_logits_vs_k0": {
+    "allclose": true,
+    "max_abs": 1.6391277313232422e-07,
+    "mean_abs": 2.3948230065684584e-08,
+    "rtol": 1e-05,
+    "atol": 1e-06
+  },
+  "normal": {
+    "answer": "ペ Census priv",
+    "first_token_id": 31501,
+    "ttft": 0.002011687960475683,
+    "decode_latency": 0.001873362809419632,
+    "e2e_latency": 0.003885050769895315,
+    "prefill_ms": 1.9067199900746346,
+    "generated_tokens": 3,
+    "generated_token_ids": [
+      31501,
+      20121,
+      5999
+    ],
+    "generated_token_count": 3,
+    "n_raters": 0,
+    "io": {
+      "preads": 6,
+      "bytes": 147456,
+      "mb": 0.147456,
+      "ms": 0.021523330360651016,
+      "chunk_units": 12,
+      "per_kind": {
+        "k": {
+          "bytes": 73728,
+          "seconds": 1.3195909559726715e-05,
+          "preads": 3,
+          "units": 6
+        },
+        "v": {
+          "bytes": 73728,
+          "seconds": 8.327420800924301e-06,
+          "preads": 3,
+          "units": 6
+        }
+      }
+    },
+    "core_started_at_s": 3374026.821680744,
+    "first_token_at_s": 3374026.823692432,
+    "model_finished_at_s": 3374026.825565795,
+    "postprocess_finished_at_s": 3374026.825614105,
+    "touched_chunk_fraction": 1.0,
+    "logical_kv_ratio": 1.0,
+    "fallback_rate": 0.0,
+    "probe_rate": 0.0,
+    "mean_jaccard": null,
+    "threshold": 0.31799312913450123,
+    "k_keep": 24,
+    "hook_ms": 0.21534878760576248
+  },
+  "single_token_suffix": {
+    "answer": "aine",
+    "first_token_id": 9874,
+    "ttft": 0.0010567349381744862,
+    "decode_latency": 1.0907184332609177e-05,
+    "e2e_latency": 0.0010676421225070953,
+    "prefill_ms": 0.9391619823873043,
+    "generated_tokens": 1,
+    "generated_token_ids": [
+      9874
+    ],
+    "generated_token_count": 1,
+    "n_raters": 0,
+    "io": {
+      "preads": 0,
+      "bytes": 0,
+      "mb": 0.0,
+      "ms": 0.0,
+      "chunk_units": 0,
+      "per_kind": {}
+    },
+    "core_started_at_s": 3374026.836234721,
+    "first_token_at_s": 3374026.837291456,
+    "model_finished_at_s": 3374026.837302363,
+    "postprocess_finished_at_s": 3374026.837340951,
+    "touched_chunk_fraction": 1.0,
+    "logical_kv_ratio": 1.0,
+    "fallback_rate": 0.0,
+    "probe_rate": 0.0,
+    "mean_jaccard": null,
+    "threshold": 0.31799312913450123,
+    "k_keep": 24,
+    "hook_ms": 0.0
+  },
+  "single_token_suffix_issue": "FAIL",
+  "CPU_shim": "CUDA sync no-op; PrefixCache dtype FP32; diagnostic FP32 source; no GPU timing claim"
+}

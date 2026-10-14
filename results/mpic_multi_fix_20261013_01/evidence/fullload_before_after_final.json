@@ -1,0 +1,60 @@
+{
+  "status": "PASS (bug reproduced then fixed)",
+  "device": "CPU",
+  "records": [
+    {
+      "version": "before",
+      "io": {
+        "preads": 0,
+        "bytes": 0,
+        "mb": 0.0,
+        "ms": 0.0,
+        "chunk_units": 0,
+        "per_kind": {}
+      },
+      "image_K_nonzero": [
+        0,
+        0
+      ],
+      "image_V_nonzero": [
+        0,
+        0
+      ]
+    },
+    {
+      "version": "after",
+      "io": {
+        "preads": 4,
+        "bytes": 10240,
+        "mb": 0.01024,
+        "ms": 0.02133753150701523,
+        "chunk_units": 4,
+        "per_kind": {
+          "k": {
+            "bytes": 5120,
+            "seconds": 1.746276393532753e-05,
+            "preads": 2,
+            "units": 2
+          },
+          "v": {
+            "bytes": 5120,
+            "seconds": 3.874767571687698e-06,
+            "preads": 2,
+            "units": 2
+          }
+        }
+      },
+      "image_K_nonzero": [
+        640,
+        640
+      ],
+      "image_V_nonzero": [
+        640,
+        640
+      ]
+    }
+  ],
+  "old_source_sha256": "a20ce59dec3e4d30e638f7057f135dbe16efb1c25bddd86cd7046446bee9142a",
+  "new_source_sha256": "975bc86782f92b27d267f6bc56535333271960f338d9024f04de6266cb93afc1",
+  "GPU": "NOT VERIFIED"
+}

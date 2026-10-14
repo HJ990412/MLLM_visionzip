@@ -1,0 +1,74 @@
+[
+  {
+    "condition": "ssd_cold",
+    "method": "prefix_caching",
+    "n": 15,
+    "TTFT_mean_ms": 233.13833984235922,
+    "pread_syscall_mean_ms": 0.0,
+    "MPIC_prefill_inclusive_mean_ms": null,
+    "warning": "Inclusive prefill contains preads/H2D/attention/projection/install/checks. Do not add intervals. Separate H2D or attention-only GPU event timing was not measured."
+  },
+  {
+    "condition": "ssd_cold",
+    "method": "full_reuse",
+    "n": 15,
+    "TTFT_mean_ms": 738.7687522297105,
+    "pread_syscall_mean_ms": 351.0759454530974,
+    "MPIC_prefill_inclusive_mean_ms": null,
+    "warning": "Inclusive prefill contains preads/H2D/attention/projection/install/checks. Do not add intervals. Separate H2D or attention-only GPU event timing was not measured."
+  },
+  {
+    "condition": "ssd_cold",
+    "method": "mpic_global32",
+    "n": 15,
+    "TTFT_mean_ms": 818.7468674965203,
+    "pread_syscall_mean_ms": 346.28346050158143,
+    "MPIC_prefill_inclusive_mean_ms": 811.2455870645741,
+    "warning": "Inclusive prefill contains preads/H2D/attention/projection/install/checks. Do not add intervals. Separate H2D or attention-only GPU event timing was not measured."
+  },
+  {
+    "condition": "ssd_cold",
+    "method": "mpic_per_image32",
+    "n": 15,
+    "TTFT_mean_ms": 831.4014424569905,
+    "pread_syscall_mean_ms": 353.909040397654,
+    "MPIC_prefill_inclusive_mean_ms": 824.0559266880155,
+    "warning": "Inclusive prefill contains preads/H2D/attention/projection/install/checks. Do not add intervals. Separate H2D or attention-only GPU event timing was not measured."
+  },
+  {
+    "condition": "gpu_resident",
+    "method": "prefix_caching",
+    "n": 15,
+    "TTFT_mean_ms": 233.19218882049122,
+    "pread_syscall_mean_ms": 0.0,
+    "MPIC_prefill_inclusive_mean_ms": null,
+    "warning": "Inclusive prefill contains preads/H2D/attention/projection/install/checks. Do not add intervals. Separate H2D or attention-only GPU event timing was not measured."
+  },
+  {
+    "condition": "gpu_resident",
+    "method": "full_reuse",
+    "n": 15,
+    "TTFT_mean_ms": 107.20842064668734,
+    "pread_syscall_mean_ms": 0.0,
+    "MPIC_prefill_inclusive_mean_ms": null,
+    "warning": "Inclusive prefill contains preads/H2D/attention/projection/install/checks. Do not add intervals. Separate H2D or attention-only GPU event timing was not measured."
+  },
+  {
+    "condition": "gpu_resident",
+    "method": "mpic_global32",
+    "n": 15,
+    "TTFT_mean_ms": 159.94132366031408,
+    "pread_syscall_mean_ms": 0.0,
+    "MPIC_prefill_inclusive_mean_ms": 152.8503155025343,
+    "warning": "Inclusive prefill contains preads/H2D/attention/projection/install/checks. Do not add intervals. Separate H2D or attention-only GPU event timing was not measured."
+  },
+  {
+    "condition": "gpu_resident",
+    "method": "mpic_per_image32",
+    "n": 15,
+    "TTFT_mean_ms": 165.26150600984693,
+    "pread_syscall_mean_ms": 0.0,
+    "MPIC_prefill_inclusive_mean_ms": 158.1313437471787,
+    "warning": "Inclusive prefill contains preads/H2D/attention/projection/install/checks. Do not add intervals. Separate H2D or attention-only GPU event timing was not measured."
+  }
+]

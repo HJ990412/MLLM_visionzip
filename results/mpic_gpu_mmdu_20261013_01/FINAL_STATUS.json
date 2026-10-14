@@ -1,0 +1,64 @@
+{
+  "status": "PASS (bounded pretrained GPU pilot; adapted implementation)",
+  "client_date": "2026-10-13",
+  "GPU_access": "PASS host / FAIL sandbox device exposure",
+  "MPIC_core_GPU": "PASS",
+  "FullLoad_GPU_suffix1_and_request_isolation": "PASS",
+  "GPU_boundary_cases": 28,
+  "GPU_boundary_layer_observations": 896,
+  "fixed_history_four_method_requests": 12,
+  "completed_dialogues_per_method_per_condition": 5,
+  "completed_turns_per_method_per_condition": 15,
+  "conditions": [
+    "ssd_cold",
+    "gpu_resident"
+  ],
+  "methods": [
+    "prefix_caching",
+    "full_reuse",
+    "mpic_global32",
+    "mpic_per_image32"
+  ],
+  "method_requests": 120,
+  "generation_failures": 0,
+  "OOM": 0,
+  "retries": 0,
+  "fallbacks": 0,
+  "length_cap_per_condition": 25,
+  "historical_36": {
+    "status": "PASS (specific bug-trigger reconstruction)",
+    "non_trigger": 36,
+    "unverified": 0,
+    "minimum_suffix": 23
+  },
+  "judge": {
+    "status": "FAIL (1 incomplete evaluation; 59 valid)",
+    "requests": 60,
+    "valid": 59,
+    "failed": 1,
+    "format_recovered_without_score_inference": 7,
+    "paired_common_turns": 14,
+    "exact_paper_judge": "NOT VERIFIED",
+    "scores_source": "ssd_final_verified/quality_paired.json"
+  },
+  "SSD_GPU_output_equivalence": "PASS 60/60",
+  "exact_official_source_and_multi_image_k": "NOT VERIFIED",
+  "mixed_hit_miss_MMDU_measurement": "NOT APPLICABLE (all-hit)",
+  "host_mixed_preparation": "PASS",
+  "GPU_H2D_miss_overlap_implementation": "FAIL (paper transfer overlap not implemented)",
+  "pread_CUDA_kernel_overlap_quantification": "NOT VERIFIED",
+  "physical_NAND_cold": "NOT VERIFIED",
+  "other_backbone_GPU": "NOT VERIFIED",
+  "full_paper_reproduction": "NOT VERIFIED",
+  "source_provenance": "PASS measured sources; initial transient gate script snapshot NOT VERIFIED; repeated final-source gates PASS",
+  "baseline_label": [
+    "MPIC-32 (adapted, global k)",
+    "MPIC-32 (adapted, per-image k)"
+  ],
+  "reports": [
+    "REPORT.md",
+    "REPRODUCE.md"
+  ],
+  "legacy_single_image_main_not_recertified": true,
+  "existing_experiments_rerun": false
+}

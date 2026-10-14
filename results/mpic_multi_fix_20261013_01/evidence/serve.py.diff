@@ -1,0 +1,85 @@
+--- serve.py.before
++++ mmimpress/serve.py
+@@ -370,7 +370,10 @@
+     def _hook(self, li, layer):
+         def hook(module, args, kwargs):
+             h = args[0] if args else kwargs["hidden_states"]
+-            if h.shape[1] == 1 or li in self.done:
++            # A new request may legitimately prefill just one suffix token.
++            # Request-local completion, rather than token count, distinguishes
++            # the initial prefill from subsequent autoregressive decode calls.
++            if li in self.done:
+                 return                     # decoding: selection stays frozen
+             t0 = time.perf_counter()
+             self._run(li, layer, h, kwargs)
+@@ -1721,6 +1724,43 @@
+     return ids[i + 1:]
+ 
+ 
++def validate_full_load_contract(runner, ctx, *, prompt_text=None,
++                                question=None, cache_id=None, suffix_ids=None):
++    """Fail closed on mismatched fixed-prefix cache inputs before any I/O.
++
++    A suffix-only caller explicitly accepts the prefix supplied by ``ctx``;
++    it cannot assert the contents of text it did not supply. A full prompt
++    caller must match the stored pre-image IDs exactly. The context itself is
++    the cache identity unless a separate request cache_id is supplied.
++    """
++    meta = ctx.meta
++    if cache_id is not None and str(cache_id) != str(meta.get("image_id")):
++        raise ValueError("FullLoad request cache_id does not match image cache")
++    if ctx.cache.meta != meta or ctx.reader.meta != meta:
++        raise ValueError("FullLoad context/cache metadata mismatch")
++    if prompt_text is not None and question is not None:
++        raise ValueError("provide question or prompt_text, not both")
++    prompt = prompt_text if prompt_text is not None else (
++        runner.prompt(question) if question is not None else None)
++    if prompt is None:
++        return "explicit_suffix_with_context_owned_prefix"
++    ids = runner.processor.tokenizer(prompt, return_tensors="pt").input_ids[0]
++    locations = (ids == runner.image_token_id).nonzero(as_tuple=True)[0]
++    if locations.numel() != 1:
++        raise ValueError("FullLoad fixed-prefix cache requires one image")
++    start = int(locations[0])
++    source = [int(x) for x in meta["prefix_input_ids"]]
++    if (start != int(meta["v_token_start"])
++            or ids[:start].tolist() != source[:start]
++            or source[start:] != [runner.image_token_id] * int(meta["v_token_num"])):
++        raise ValueError("FullLoad request prefix does not match cached prefix")
++    if suffix_ids is not None:
++        supplied = torch.as_tensor(suffix_ids).detach().cpu()
++        if supplied.ndim != 1 or not torch.equal(supplied, ids[start + 1:].cpu()):
++            raise ValueError("FullLoad supplied suffix does not match full prompt")
++    return "full_prompt_prefix_and_optional_cache_id_verified"
++
++
+ # ------------------------------------------------------------------- server
+ class Server:
+     def __init__(self, runner, ratio=RETENTION_RATIO, probe=PROBE_HEADS,
+@@ -1805,7 +1845,7 @@
+ 
+     @torch.no_grad()
+     def request(self, ctx, question=None, mode="impress", cold=True,
+-                prompt_text=None, suffix_ids=None):
++                prompt_text=None, suffix_ids=None, cache_id=None):
+         """Serve one question with true-TTFT and end-to-end timing.
+ 
+         ``ttft`` ends immediately after the first output token is available;
+@@ -1815,6 +1855,9 @@
+         all three timers, matching the original experiment boundary.
+         """
+         BIAS.clear()
++        contract = (validate_full_load_contract(
++            self.runner, ctx, prompt_text=prompt_text, question=question,
++            cache_id=cache_id, suffix_ids=suffix_ids) if mode == "fullload" else None)
+         if cold:
+             ctx.reader.drop_all()
+         counter = IOCounter()
+@@ -1861,6 +1904,7 @@
+             "first_token_at_s": timing["first_token_at"],
+             "model_finished_at_s": timing["finished_at"],
+             "postprocess_finished_at_s": time.perf_counter(),
++            "cache_contract": contract,
+             **sel.stats(),
+         }
+ 

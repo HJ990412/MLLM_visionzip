@@ -1,0 +1,53 @@
+{
+  "status": "PASS (both measured runs and their repeated functional gates)",
+  "measured_sources_identical": true,
+  "initial_gate_script_snapshot": "NOT VERIFIED: SHA was recorded but transient full script snapshot not retained; both later complete gates were executed with archived final source. Core module hashes match all three runs.",
+  "primary_functional_path": "mmdu_ssd_attempt1/dialog_31/gpu_functional.json",
+  "runs": [
+    {
+      "run": "gpu_gate_attempt1",
+      "script_sha256": "e69c0cb3f16a9805e6de2ef177f1babd959f5b093785ab27c2d9d4b5420208c3",
+      "matches_final_script": false,
+      "exact_script_snapshot_available": false,
+      "core_module_hashes_match": {
+        "mmimpress/serve.py": true,
+        "mmimpress/mpic.py": true,
+        "mmimpress/mpic_multi.py": true,
+        "mmimpress/mmdu_mpic.py": true
+      },
+      "actual_functional_cases": 28,
+      "functional_status": "PASS",
+      "all_selected_max_abs": 0.0
+    },
+    {
+      "run": "mmdu_ssd_attempt1",
+      "script_sha256": "80b2e40964262b0c44eace79035d466f1e30d46b23478f03f0c255471eaa4634",
+      "matches_final_script": true,
+      "exact_script_snapshot_available": true,
+      "core_module_hashes_match": {
+        "mmimpress/serve.py": true,
+        "mmimpress/mpic.py": true,
+        "mmimpress/mpic_multi.py": true,
+        "mmimpress/mmdu_mpic.py": true
+      },
+      "actual_functional_cases": 28,
+      "functional_status": "PASS",
+      "all_selected_max_abs": 0.0
+    },
+    {
+      "run": "mmdu_gpu_resident",
+      "script_sha256": "80b2e40964262b0c44eace79035d466f1e30d46b23478f03f0c255471eaa4634",
+      "matches_final_script": true,
+      "exact_script_snapshot_available": true,
+      "core_module_hashes_match": {
+        "mmimpress/serve.py": true,
+        "mmimpress/mpic.py": true,
+        "mmimpress/mpic_multi.py": true,
+        "mmimpress/mmdu_mpic.py": true
+      },
+      "actual_functional_cases": 28,
+      "functional_status": "PASS",
+      "all_selected_max_abs": 0.0
+    }
+  ]
+}

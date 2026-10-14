@@ -1,0 +1,109 @@
+{
+  "records": [
+    {
+      "timeline": [
+        {
+          "kind": "hit_read",
+          "image_id": "mmdu:31:image1",
+          "thread": 140185760417600,
+          "start_s": 3397132.638768711,
+          "end_s": 3397132.844623622
+        },
+        {
+          "kind": "miss_compute",
+          "image_id": "mmdu:31:image2",
+          "thread": 140185760417600,
+          "start_s": 3397132.844627487,
+          "end_s": 3397133.776705243
+        }
+      ],
+      "io": {
+        "preads": 65,
+        "bytes": 616824832,
+        "mb": 616.824832,
+        "ms": 57.28837056085467,
+        "chunk_units": 1248,
+        "per_kind": {
+          "embedding": {
+            "bytes": 262144,
+            "seconds": 3.577815368771553e-05,
+            "preads": 1,
+            "units": 32
+          },
+          "kv_k": {
+            "bytes": 308281344,
+            "seconds": 0.028796080965548754,
+            "preads": 32,
+            "units": 608
+          },
+          "kv_v": {
+            "bytes": 308281344,
+            "seconds": 0.028456511441618204,
+            "preads": 32,
+            "units": 608
+          }
+        }
+      },
+      "wall_ms": 1137.9451607353985,
+      "host_task_overlap_ms": 0.0,
+      "parallel_requested": false,
+      "mixed": true,
+      "fallback": false,
+      "GPU_kernel_overlap": "NOT VERIFIED by host timestamps alone"
+    },
+    {
+      "timeline": [
+        {
+          "kind": "hit_read",
+          "image_id": "mmdu:31:image1",
+          "thread": 140159580370496,
+          "start_s": 3397134.356020725,
+          "end_s": 3397135.094399337
+        },
+        {
+          "kind": "miss_compute",
+          "image_id": "mmdu:31:image2",
+          "thread": 140185760417600,
+          "start_s": 3397134.356109398,
+          "end_s": 3397135.280542456
+        }
+      ],
+      "io": {
+        "preads": 65,
+        "bytes": 616824832,
+        "mb": 616.824832,
+        "ms": 69.48904413729906,
+        "chunk_units": 1248,
+        "per_kind": {
+          "embedding": {
+            "bytes": 262144,
+            "seconds": 0.002035793848335743,
+            "preads": 1,
+            "units": 32
+          },
+          "kv_k": {
+            "bytes": 308281344,
+            "seconds": 0.034143231343477964,
+            "preads": 32,
+            "units": 608
+          },
+          "kv_v": {
+            "bytes": 308281344,
+            "seconds": 0.033310018945485353,
+            "preads": 32,
+            "units": 608
+          }
+        }
+      },
+      "wall_ms": 924.8338048346341,
+      "host_task_overlap_ms": 738.2899392396212,
+      "parallel_requested": true,
+      "mixed": true,
+      "fallback": false,
+      "GPU_kernel_overlap": "NOT VERIFIED by host timestamps alone"
+    }
+  ],
+  "serial_parallel_logits": "PASS",
+  "GPU_overlap": "NOT VERIFIED until CUDA trace demonstrates intersection with actual pread intervals",
+  "preparation_includes": "miss native multimodal forward, KV capture, FP16 SSD persist; hit worker actual pread"
+}

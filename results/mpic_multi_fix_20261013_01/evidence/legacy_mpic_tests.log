@@ -1,0 +1,22 @@
+test_k_32_means_leading_rows_not_percent_or_chunks (test_mpic.ActiveRowPlanTests) ... ok
+test_k_n_recomputes_every_image_row_at_its_logical_position (test_mpic.ActiveRowPlanTests) ... ok
+test_k_zero_reuses_the_complete_image_and_recomputes_all_text (test_mpic.ActiveRowPlanTests) ... ok
+test_changing_future_keys_and_values_cannot_change_past_output (test_mpic.CausalMaskTests) ... ok
+test_original_positions_and_valid_key_mask_define_visibility (test_mpic.CausalMaskTests) ... ok
+test_seed_has_exact_prompt_length_and_decode_appends_only_one_row (test_mpic.DynamicCacheSeedTests) ... ok
+test_k_n_overwrites_stale_image_values_and_matches_full_prefill (test_mpic.IntegratedReferenceTests) ... ok
+test_k_zero_matches_full_context_reference_attention (test_mpic.IntegratedReferenceTests) ... ok
+test_dummy_sentinel_is_fully_overwritten_before_attention (test_mpic.LinkedKVAssemblyTests) ... ok
+test_indexed_replacement_preserves_every_nonselected_image_row (test_mpic.LinkedKVAssemblyTests) ... ok
+test_k_32_replaces_exactly_32_rows_and_keeps_the_reused_tail (test_mpic.LinkedKVAssemblyTests) ... ok
+test_k_zero_and_k_n_retain_exact_full_logical_context (test_mpic.LinkedKVAssemblyTests) ... ok
+test_separate_requests_cannot_mutate_source_or_prior_result (test_mpic.LinkedKVAssemblyTests) ... ok
+test_visual_prefix_and_chunk_aligned_reuse_have_exact_accounting (test_mpic.MPICRawReaderTests) ... ok
+test_k_zero_partial_and_full_match_fp32_full_prefill (test_mpic.ProductionSelectivePrefillReferenceTests) ... ok
+test_same_position_is_identity_not_a_second_rope_application (test_mpic.RoPERelocationTests) ... ok
+test_shift_matches_direct_target_rope_and_keeps_source_immutable (test_mpic.RoPERelocationTests) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.903s
+
+OK

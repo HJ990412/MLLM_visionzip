@@ -1,0 +1,96 @@
+{
+  "scope": "bounded historical samples; first file per run family, <=40 rows/file and byte cap",
+  "bytes_read": 67119987,
+  "byte_cap": 67108864,
+  "candidate_raw_files": 2478,
+  "candidate_run_families": 24,
+  "scanned": [
+    {
+      "path": "runs/convbench_context/targeted_7_complete_analysis/raw.jsonl",
+      "records_read": 84,
+      "stored_fullload_requests": 14,
+      "suffix_tokens": [],
+      "unknown_suffix": 14
+    },
+    {
+      "path": "runs/convbench_full/smoke_1_analysis/raw.jsonl",
+      "records_read": 12,
+      "stored_fullload_requests": 2,
+      "suffix_tokens": [],
+      "unknown_suffix": 2
+    },
+    {
+      "path": "runs/glm46v_prefixstore3_20261007T065207Z/gqa_pilot/images/n133585/attempt_001/raw.jsonl",
+      "records_read": 18,
+      "stored_fullload_requests": 0,
+      "suffix_tokens": [],
+      "unknown_suffix": 0
+    },
+    {
+      "path": "runs/glm46v_prefixstore3_v4_20261007T072841Z/gqa_pilot/images/n133585/attempt_001/raw.jsonl",
+      "records_read": 18,
+      "stored_fullload_requests": 0,
+      "suffix_tokens": [],
+      "unknown_suffix": 0
+    },
+    {
+      "path": "runs/glm46v_prefixstore3_v5_20261007T075730Z/gqa_pilot/images/n133585/attempt_001/raw.jsonl",
+      "records_read": 18,
+      "stored_fullload_requests": 0,
+      "suffix_tokens": [],
+      "unknown_suffix": 0
+    },
+    {
+      "path": "runs/glm46v_prefixstore3_v6_20261007T104505Z/gqa_pilot/images/n133585/attempt_001/raw.jsonl",
+      "records_read": 18,
+      "stored_fullload_requests": 0,
+      "suffix_tokens": [],
+      "unknown_suffix": 0
+    },
+    {
+      "path": "runs/llava_contextual_kv25_20260929T074144Z/raw.jsonl",
+      "records_read": 2160,
+      "stored_fullload_requests": 200,
+      "suffix_tokens": [],
+      "unknown_suffix": 200
+    },
+    {
+      "path": "runs/llava_mt_gqa_allhead_kv25_main_20260930T093251Z/integration/images/n229548/attempt_0001/raw.jsonl",
+      "records_read": 15,
+      "stored_fullload_requests": 2,
+      "suffix_tokens": [
+        46,
+        73
+      ],
+      "unknown_suffix": 0
+    },
+    {
+      "path": "runs/llava_spatial_kv25_20260929T091132Z/raw.jsonl",
+      "records_read": 1560,
+      "stored_fullload_requests": 161,
+      "suffix_tokens": [],
+      "unknown_suffix": 161
+    }
+  ],
+  "confirmed_trigger_requests": [],
+  "unscanned_run_families": [
+    "mmdu_multiturn",
+    "mpic_baseline",
+    "mt_gqa_5arm_generated_20260923T064333Z",
+    "mt_gqa_B_llava5_qwen3_20261001T093921Z",
+    "mt_gqa_full",
+    "query_aware_baseline",
+    "qwen25_correctness_v2_20260928T081111Z",
+    "qwen25_kv25_migration_20260929T042949Z",
+    "qwen25_port_20260928T054537Z",
+    "qwen_mt_gqa_kv25_main_20261001T031459Z",
+    "qwen_mt_gqa_prefixstore3_20261002T074856Z",
+    "rekv_baseline",
+    "sparsevlm_ssd_kv25_20260930T041926Z",
+    "visdial_multiturn",
+    "visdial_turn1_piggyback_e2e_ttft"
+  ],
+  "full_corpus_impact": "NOT VERIFIED",
+  "fixed_template_main": "9 original LLaVA requests previously rechecked: suffix34/56/74, no suffix1 trigger",
+  "recommended_reruns": "only verified suffix1 stored requests and sessions with unvalidated changed prefixes; no automatic full rerun"
+}

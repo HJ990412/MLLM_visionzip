@@ -228,7 +228,8 @@ def legacy_hit(runner,server,ctx,factory,method,image_id):
         prompt,history,entries=factory();tokenized=runner.processor.tokenizer(prompt,return_tensors='pt')
         suffix=QA._suffix_from_tokenized(runner,tokenized).to(runner.model.device)
         with PilotCounts(runner) as counts,V.ReadTrace() as reads:
-            if method=='fullload':result=server.request(ctx,mode='fullload',suffix_ids=suffix,cold=False)
+            if method=='fullload':result=server.request(ctx,mode='fullload',suffix_ids=suffix,cold=False,
+                                                      prompt_text=prompt,cache_id=image_id)
             else:result=server.request_cvpr25(ctx,static=None,budget=.25,mode='prefix',budget_unit='visual_kv',
                  sep_policy='sidecar',cold=False,seed=1234,image_id=image_id,suffix_ids=suffix,
                  expected_prefix_layout='visionzip_image_only')

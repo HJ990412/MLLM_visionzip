@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/audits/mpic_20261013_cpu_01/scripts/cpu_probe.py", line 501, in <module>
+    main()
+  File "/home/dblab/hj/mllm_v2/audits/mpic_20261013_cpu_01/scripts/cpu_probe.py", line 383, in main
+    full = Server(runner, max_new_tokens=3).request(fullctx, mode="fullload", suffix_ids=suffix_ids, cold=False)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/dblab/hj/mllm_v2/mmimpress/serve.py", line 1836, in request
+    sel = LayerSelector(self.runner, ctx, rr, self.ratio, self.probe,
+  File "/home/dblab/hj/mllm_v2/mmimpress/serve.py", line 316, in __init__
+    self.k_keep = sv.topk_budget(m["n_spatial"], ratio)
+KeyError: 'n_spatial'

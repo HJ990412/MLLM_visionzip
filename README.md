@@ -633,3 +633,54 @@ Native GPU 6사례·FP64 attention 480비교와 독립 796-store 감사를 통�
 [저장 prediction의 raw-EM 사후 재채점](results/mt_gqa_raw_em_20261013/final/RAW_EM_REPORT.md)도
 별도로 보존했다. Raw EM은 정규화하지 않은 저장 문자열 비교이며 위 normalized EM을
 대체하지 않는다. 대용량 raw·store·weights와 요청별 상세 CSV는 로컬에 보존한다.
+
+## 23. MPIC 다중 이미지 검증·MMDU GPU 파일럿 (2026-10-13)
+
+새 LLaVA 다중 이미지 경로에서 모든 text와 선두 image token만 연산하고,
+나머지 full image KV를 유지하는 selective prefill을 구현·검증했다.
+원래 interleaving, logical position/1-D RoPE, causal mask, attention 전 K/V 교체를
+검사했다. Global k32와 per-image k32를 구분하며 두 번째 이미지는 각각 0개와
+32개가 active다. 공식 multi-image k 규칙은 NOT VERIFIED이므로 두 방법은
+각각 MPIC-32 (adapted, global k), MPIC-32 (adapted, per-image k)로 표기한다.
+
+고정 MMDU 5대화의 첫 3턴을 4방법·SSD/GPU 상주 조건에서 각각 60요청,
+총 120요청 실행했다. 방법마다 자기 generated history만 사용했다.
+생성 실패·OOM·retry·fallback은 0건이며 두 조건의 출력·입력·history는
+60/60 일치했다. 아래는 방법당 15요청 평균이고 MB=10^6 bytes다.
+
+| Method | SSD TTFT | GPU 상주 TTFT | SSD KV MB/request | 공통 14턴 judge overall /10 |
+|---|---:|---:|---:|---:|
+| Prefix caching | 233.14 ms | 233.19 ms | 0.00 | 6.86 |
+| Full reuse | 738.77 ms | 107.21 ms | 1027.60 | 5.93 |
+| MPIC-32 (adapted, global k) | 818.75 ms | 159.94 ms | 1027.87 | 6.07 |
+| MPIC-32 (adapted, per-image k) | 831.40 ms | 165.26 ms | 1028.04 | 6.43 |
+
+Full reuse는 two-pass image-KV linking adaptation으로 기존 fixed-prefix FullLoad와
+다른 계약이다. Prefix caching은 exact prompt-prefix KV를 GPU에 유지하므로
+캐시 residency가 같지 않다. MPIC은 chunk64 정렬 때문에 k32도 full range를 읽는다.
+모델은 LLaVA-v1.6-Vicuna-7B NF4/BF16/eager, image KV는 FP16, greedy cap256이다.
+25/60응답이 cap에 도달했고 진단 assertion overhead가 TTFT에 포함됐다.
+고정 method 순서의 작은 파일럿이므로 전체 MMDU 성능·통계적 우열을 확정하지 않는다.
+
+품질은 실제 로컬 Qwen2.5-VL visual judge 평가 60건 중 59건이 유효했다.
+Full reuse의 1건 N/A를 FAIL로 유지하고, 위 점수는 네 방법 공통 14턴만 비교했다.
+GPU 상주 출력이 같아 같은 평가를 연결했으며 judge를 두 번 실행한 결과가 아니다.
+원 논문의 judge·공식 시스템 재현은 NOT VERIFIED다. Host mixed hit-read/miss
+준비는 검증했지만 hit H2D/miss compute overlap은 미구현이며 OS DONTNEED도
+cold NAND를 보장하지 않는다. 전체 MMDU나 MT-GQA main을 새로 실행하지 않았다.
+
+기존 FullLoad의 suffix1 초기 prefill을 decode로 오인하던 guard를 request-local
+완료 상태로 수정하고 prefix/cache ID/suffix 일치를 I/O 전에 검사하도록 했다.
+GPU suffix1/2·A/B/A/B cache isolation을 통과했고, 과거 미검증 36요청을
+원본 prompt/suffix hash로 복원해 해당 suffix1 trigger가 없음을 확인했다.
+이는 과거 모든 품질·position 계약을 재인증하는 결과가 아니다.
+
+[GPU 파일럿 보고서](results/mpic_gpu_mmdu_20261013_01/REPORT.md),
+[최종 상태](results/mpic_gpu_mmdu_20261013_01/FINAL_STATUS.json),
+[SSD 요약표](results/mpic_gpu_mmdu_20261013_01/ssd_final_verified/summary.csv),
+[GPU 상주 요약표](results/mpic_gpu_mmdu_20261013_01/gpu_resident_verified/summary.csv),
+[CPU 구현·수정 기록](results/mpic_multi_fix_20261013_01/REPORT.md),
+[초기 독립 감사](audits/mpic_20261013_cpu_01/AUDIT_REPORT.md),
+[재현 정보](results/mpic_gpu_mmdu_20261013_01/REPRODUCE.md)에 근거가 있다.
+Bounded 요청·judge 결과와 감사 자료는 게시하고, KV payload·tensor·대용량 profiler는
+로컬에 보존한다. 초기 CPU-only NOT VERIFIED 기록을 GPU PASS로 덮어쓰지 않았다.

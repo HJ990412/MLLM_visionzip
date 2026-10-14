@@ -1,0 +1,34 @@
+{
+  "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+  "revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+  "precision": "NF4 double quant/BF16 compute/FP16 SSD",
+  "backend": "eager",
+  "engine": "Transformers 4.57.6",
+  "seed": 1234,
+  "methods": [
+    "prefix_caching",
+    "full_reuse",
+    "mpic32"
+  ],
+  "k": 32,
+  "k_policy": "per_image (adapted, not official-rule claim)",
+  "turns": 3,
+  "generation_cap": 256,
+  "decoding": "greedy EOS",
+  "history": "method-local generated, no gold substitution",
+  "condition": "ssd_cold",
+  "cache_creation_in_TTFT": false,
+  "TTFT": "outer request start before prompt/tokenization/preprocessing -> first argmax host materialization + CUDA sync",
+  "warmup": "per-method separate first-turn fixture, never included in raw measurement",
+  "quality_judge": "NOT VERIFIED (not executed)",
+  "paper_generation_cap": "NOT SPECIFIED in MPIC manuscript",
+  "official_MMDU_generator_cap": 2048,
+  "smoke_cap_is_adaptation": true,
+  "source_sha256": {
+    "mmimpress/serve.py": "975bc86782f92b27d267f6bc56535333271960f338d9024f04de6266cb93afc1",
+    "mmimpress/mpic.py": "43c4c6a17c05a18eaf1040602398543e8733691fe0f840fa1a4051585b99f1cb",
+    "mmimpress/mpic_multi.py": "f4f23000a889c5d013a016936c128f4f3f23c7a8171d4d1e98004b55d47c2868",
+    "mmimpress/mmdu_mpic.py": "9fdaf9b32f78f8b57aed82d17ca7ea9b72993597c0653fa2ebd7cf3925c428d7",
+    "scripts/125_eval_mpic_mmdu_smoke.py": "c882122d51e8f8b1de2cac1c900e2f282cddb1b360537da644905a0413535d0f"
+  }
+}
