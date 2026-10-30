@@ -1,0 +1,15 @@
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:05,  1.37s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:03<00:04,  1.61s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:04<00:03,  1.66s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:06<00:01,  1.69s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:06<00:00,  1.34s/it]
+{"semantic": "mtvqa25k_004248", "turn": 2, "status": "PASS", "legacy_G7": "PASS", "fp32_max": 6.139278411865234e-06, "fp64_max": 2.842170943040401e-14}
+{"semantic": "mtvqa25k_004248", "turn": 3, "status": "PASS", "legacy_G7": "PASS", "fp32_max": 6.556510925292969e-06, "fp64_max": 2.4868995751603507e-14}
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/scripts/139_validate_mtvqa25k_gpu.py", line 113, in <module>
+    p=argparse.ArgumentParser();p.add_argument('--run',type=Path,required=True);p.add_argument('--model',choices=['llava','qwen','glm'],required=True);a=p.parse_args();main(a.run.resolve(),a.model)
+  File "/home/dblab/hj/mllm_v2/scripts/139_validate_mtvqa25k_gpu.py", line 77, in main
+    M.run_image(runner,[d],{d['dialog_id']:ordinal},'gate',phasepath,manifest,config,diagnostic=P.diagnostic)
+  File "/home/dblab/hj/mllm_v2/scripts/110_eval_qwen_mt_gqa_B.py", line 285, in run_image
+    receipt=aud.audit_image_rows(read_rows(artifact/'raw.jsonl'),manifest,config,phase,iid,artifact)
+  File "/home/dblab/hj/mllm_v2/mmimpress/mtvqa25k/adapter.py", line 154, in audit
+    report=old_audit(rows,manifest,config,phase,image_id,artifact)
+  File "/home/dblab/hj/mllm_v2/scripts/111_audit_qwen_mt_gqa_B.py", line 71, in audit_image_rows
+    c.require(meta['code_revision']==config['core_model_store_revision'],'core_store_revision',m)
+KeyError: 'core_model_store_revision'

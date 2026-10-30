@@ -1,0 +1,2 @@
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+{"model": "qwen", "images": 25000, "N_min": 256, "N_max": 529, "blocked": 0}

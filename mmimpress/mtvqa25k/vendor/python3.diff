@@ -1,0 +1,20 @@
+--- upstream/vqaEval.py
++++ python3/vqaEval.py
+@@ -81,7 +81,7 @@
+ 		accQA       = []
+ 		accQuesType = {}
+ 		accAnsType  = {}
+-		print "computing accuracy"
++		print("computing accuracy")
+ 		step = 0
+ 		for quesId in quesIds:
+ 			for ansDic in gts[quesId]['answers']:
+@@ -125,7 +125,7 @@
+ 			step = step + 1
+ 
+ 		self.setAccuracy(accQA, accQuesType, accAnsType)
+-		print "Done computing accuracy"
++		print("Done computing accuracy")
+ 
+ 	def processPunctuation(self, inText):
+ 		outText = inText

@@ -684,3 +684,58 @@ GPU suffix1/2·A/B/A/B cache isolation을 통과했고, 과거 미검증 36요�
 [재현 정보](results/mpic_gpu_mmdu_20261013_01/REPRODUCE.md)에 근거가 있다.
 Bounded 요청·judge 결과와 감사 자료는 게시하고, KV payload·tensor·대용량 profiler는
 로컬에 보존한다. 초기 CPU-only NOT VERIFIED 기록을 GPU PASS로 덮어쓰지 않았다.
+
+## 24. MT-VQA-v2-reconstructed-25k 본실험 (2026-10-30)
+
+VQAv2 validation 독립 질문을 이미지별 3턴으로 묶은 새 재구성 workload에서
+25,000 images/dialogues, 방법당 75,000요청을 실행했다. 최종 v3는 LLaVA 5-arm
+375,000, Qwen 3-arm 225,000, GLM 3-arm 225,000으로 총 825,000/825,000요청을
+완료하고 모델별 독립 분석을 통과했다. Smoke·기존250 파일럿·새40 파일럿·gate는
+main 분모에 합치지 않았다. 저자 subset/순서 또는 MetaCompress 공식 재현은 아니다.
+
+Primary는 고정 GT-Vision-Lab/VQA evaluator의 ten-answer leave-one-out
+VQA score (%)이며 이전 MT-GQA normalized EM과 다르다. 해당 revision의
+conditional normalization도 유지했다. 각 방법은 자기 native 생성 history를 사용하고
+GLM은 scoring answer-box span과 literal history body를 구분한다.
+
+| 모델 | Method | 전체 VQA score | Followup VQA score | Followup TTFT | KV MB/followup | Setup 포함 3-turn session |
+|---|---|---:|---:|---:|---:|---:|
+| LLaVA | ReComp | 51.7799% | 51.7728% | 530.147 ms | 0.000 | 1679.793 ms |
+| LLaVA | FullLoad | 51.7851% | 51.7806% | 755.791 ms | 1172.376 | 4541.380 ms |
+| LLaVA | MPIC-32 SSD | 51.8072% | 51.8138% | 774.574 ms | 1172.638 | 4418.585 ms |
+| LLaVA | SparseVLM-SSD-KV25-AllHead | 51.6455% | 51.5712% | 844.591 ms | 1183.515 | 4770.998 ms (DERIVED) |
+| LLaVA | PrefixStore-KV25 [B] | 50.6715% | 50.1102% | 262.460 ms | 307.755 | 1953.998 ms |
+| Qwen | ReComp | 75.1252% | 75.1720% | 112.812 ms | 0.000 | 404.507 ms |
+| Qwen | FullLoad | 75.1005% | 75.1350% | 70.760 ms | 24.330 | 398.835 ms |
+| Qwen | PrefixStore-KV25 [B] | 72.0063% | 70.4936% | 53.995 ms | 6.366 | 338.656 ms |
+| GLM | ReComp | 49.6445% | 48.8068% | 126.383 ms | 0.000 | 655.577 ms |
+| GLM | FullLoad | 49.6307% | 48.7860% | 75.665 ms | 15.160 | 636.403 ms |
+| GLM | PrefixStore-KV25 [B] | 48.1372% | 46.5458% | 60.796 ms | 4.392 | 588.169 ms |
+
+Followup은 T2–T3의 50,000요청/방법 평균이며 MB=10^6 bytes다.
+이미지당 dialogue가 하나이므로 세 요청 E2E와 첫 persistence/activation을 모두 부과한다.
+AllHead는 FullLoad와 공유한 build를 독립 배포에 재부과한 DERIVED session을 표시했다.
+실제 공유-stream 귀속은 3008.427 ms이며 독립 cold-session 실측으로 해석하지 않는다.
+
+B−ReComp의 followup VQA score 차이는 LLaVA −1.6626 pp
+(paired image-cluster 95% CI −1.8456~−1.4816), Qwen −4.6784 pp
+(−4.9140~−4.4328), GLM −2.2610 pp (−2.4992~−2.0226)였다.
+LLaVA는 TTFT가 줄어도 setup 포함 session은 ReComp보다 274.205 ms 길었다.
+Qwen·GLM은 각각 65.851 ms·67.408 ms 짧았지만 점수 손실을 동반한다.
+효과는 각 모델 안에서 비교하며 모델 간 결과를 합치거나 정확도 동등성을 주장하지 않는다.
+
+Seed1234/batch1/greedy, 기존 모델별 NF4·native KV/backend/해상도를 유지했다.
+LLaVA/Qwen cap16, GLM cap32이며 empty·EOS-only·cap 출력도 분모에 포함했다.
+기존250 개발 데이터와 이미지 166개·질문 199개가 겹쳐 unseen holdout은 아니다.
+ReComp KV read=0은 이미지 I/O=0이 아니고 OS 반환 bytes/DONTNEED는 cold NAND를
+보장하지 않는다. 초기 v1/v2 실패와 legacy FP32 FAIL은 별도 보존했다.
+
+[완료 상태](results/mt_vqa_v2_reconstructed_25k_v3_20261021T100500Z/MAIN_REPORT.md),
+[LLaVA main](results/mt_vqa_v2_reconstructed_25k_v3_20261021T100500Z/llava/main/REPORT.md),
+[Qwen main](results/mt_vqa_v2_reconstructed_25k_v3_20261021T100500Z/qwen/main/REPORT.md),
+[GLM main](results/mt_vqa_v2_reconstructed_25k_v3_20261021T100500Z/glm/main/REPORT.md),
+[scorer 검증](results/mt_vqa_v2_reconstructed_25k_v3_20261021T100500Z/SCORER_VALIDATION.md),
+[실험 계약](docs/mt_vqa_v2_reconstructed_25k_contract.md),
+[재현 정보](results/mt_vqa_v2_reconstructed_25k_v3_20261021T100500Z/REPRODUCE.md)를 참조한다.
+코드·요약표·검증/완료 receipt·해시와 provenance를 게시하며, 원본 이미지·전체 manifest·
+raw journal·KV payload와 요청별 대용량 CSV는 로컬에 보존한다.
