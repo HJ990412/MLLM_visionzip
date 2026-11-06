@@ -1,0 +1,77 @@
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.31s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.32s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.10s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.16s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/scripts/152_profile_layer_sensitivity.py", line 497, in <module>
+    main()
+  File "/home/dblab/hj/mllm_v2/scripts/152_profile_layer_sensitivity.py", line 477, in main
+    profile(run, manifest, args.max_images, print)
+  File "/home/dblab/hj/mllm_v2/scripts/152_profile_layer_sensitivity.py", line 327, in profile
+    lg = first_logits(runner.model, cache, suffix, prefix_len)
+  File "/home/dblab/hj/mllm_v2/scripts/152_profile_layer_sensitivity.py", line 194, in first_logits
+    out = model(input_ids=suffix.unsqueeze(0), attention_mask=torch.ones(1, prefix_len + n, dtype=torch.long, device=dev),
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/utils/generic.py", line 918, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/llava_next/modeling_llava_next.py", line 666, in forward
+    outputs = self.model(
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/utils/generic.py", line 918, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/llava_next/modeling_llava_next.py", line 507, in forward
+    outputs = self.language_model(
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/utils/generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 395, in forward
+    hidden_states = decoder_layer(
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 309, in forward
+    hidden_states = self.mlp(hidden_states)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 155, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/bitsandbytes/nn/modules.py", line 556, in forward
+    return bnb.matmul_4bit(x, weight, bias=bias, quant_state=quant_state).to(inp_dtype)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/bitsandbytes/autograd/_functions.py", line 401, in matmul_4bit
+    return MatMul4Bit.apply(A, B, out, bias, quant_state)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/bitsandbytes/autograd/_functions.py", line 315, in forward
+    output = torch.nn.functional.linear(A, F.dequantize_4bit(B, quant_state).to(A.dtype).t(), bias)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/bitsandbytes/functional.py", line 1050, in dequantize_4bit
+    out = torch.ops.bitsandbytes.dequantize_4bit.default(
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/_ops.py", line 716, in __call__
+    return self._op(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/_compile.py", line 32, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 632, in _fn
+    return fn(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/library.py", line 566, in func_no_dynamo
+    return func(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/bitsandbytes/backends/cuda/ops.py", line 363, in _
+    out = torch.empty(shape, dtype=dtype, device=A.device)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 86.00 MiB. GPU 0 has a total capacity of 23.65 GiB of which 66.06 MiB is free. Including non-PyTorch memory, this process has 23.55 GiB memory in use. Of the allocated memory 22.18 GiB is allocated by PyTorch, and 928.86 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+EXIT 1

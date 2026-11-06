@@ -1,0 +1,99 @@
+{
+ "run": "runs/layer_budget_kv25_20261105T125754Z",
+ "contract": "docs/layer_budget_kv25_contract.md",
+ "contract_sha256": "12993920bcf3f9f2b936c1e6b9f3ce60d17d4346e3a534406f96ff667a9c71a7",
+ "contract_version": 1,
+ "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+ "revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+ "quantization": "NF4 double, BF16 compute",
+ "attention": "eager",
+ "store_dtype": "float16",
+ "chunk_size": 64,
+ "seed": 1234,
+ "greedy": true,
+ "max_new_tokens": 16,
+ "total_ratio": 0.25,
+ "r_min": 0.1,
+ "r_max": 0.6,
+ "num_layers": 32,
+ "budget_policy": "layerwise_v1",
+ "phase1": {
+  "cal": "data/vqav2/index.json",
+  "questions_per_image": 5,
+  "probe": {
+   "probe_images": 10,
+   "probe_questions": 50,
+   "per_variant_forward_ms": 39.047120486793574,
+   "per_question_s": 2.651898367255926,
+   "per_image_t1_and_cache_s": 0.9439825938083232,
+   "projected_total_s_5_per_image": 3550.8686075219885,
+   "projected_total_s_3_per_image": 2224.9194238940254,
+   "limit_s": 14400,
+   "questions_per_image_decision": 5
+  },
+  "limit_s": 14400,
+  "variants": "FULL, U, R_l (l=0..31), D_l (l=0..31); first-token KL/NLL/argmax; FULL and U full greedy decode"
+ },
+ "candidates": [
+  "U",
+  "A1-0.5",
+  "A1-1",
+  "A1-2",
+  "A2",
+  "F-front",
+  "F-back"
+ ],
+ "dev": {
+  "workload": "runs/prefix25_persistence_20261001T050113Z/gqa_manifest.json",
+  "images": 40,
+  "questions": 240,
+  "arms": [
+   "recompute",
+   "fullload",
+   "U",
+   "A1-0.5",
+   "A1-1",
+   "A1-2",
+   "A2",
+   "F-front",
+   "F-back"
+  ],
+  "selection_rule": "highest DEV hit accuracy among A1-0.5/A1-1/A1-2/A2; ties -> A2, A1-1, A1-0.5, A1-2; F-front admitted to HOLD if within +-0.5 pp of SELECTED"
+ },
+ "hold": {
+  "workload": "data/mt_gqa/dialogues.json",
+  "images": 398,
+  "dialogues": 4061,
+  "requests_per_arm": 12183,
+  "arms": [
+   "recompute",
+   "fullload",
+   "ours_prefixstore_kv25",
+   "ours_prefixstore_kv25_layerwise_<SELECTED>",
+   "(conditional) ours_prefixstore_kv25_layerwise_F-front"
+  ]
+ },
+ "decision_rule": {
+  "GO": "delta>=+1.0pp & CI excludes 0 & SSD MB/followup <= uniform*1.02 & TTFT mean <= uniform*1.05",
+  "PARTIAL": "delta>=+0.5pp with CI incl. 0, or exactly one of bytes/TTFT violated",
+  "NO-GO": "otherwise",
+  "front_heavy_note": "F-front >= SELECTED-0.5pp -> front-heavy schedule, not profiling"
+ },
+ "bootstrap": {
+  "unit": "image",
+  "resamples": 10000,
+  "seed": 1234
+ },
+ "phase1_freeze_sha256": "fb594109a32f6e8418276683465e139bb73c43c05e467149ebea80cba7bbe799",
+ "environment": {
+  "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]",
+  "torch": "2.5.1+cu121",
+  "cuda": "12.1",
+  "transformers": "4.57.6",
+  "gpu": "NVIDIA GeForce RTX 4090, 535.230.02"
+ },
+ "disk_free_bytes_at_config": 80725082112,
+ "phase1_freeze_amendments": [
+  "phase1_freeze_amendment_serve.json"
+ ]
+}

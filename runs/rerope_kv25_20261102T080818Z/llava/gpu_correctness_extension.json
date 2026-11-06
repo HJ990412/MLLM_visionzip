@@ -1,0 +1,10 @@
+{
+  "status": "FAIL",
+  "samples": [
+    {
+      "image_id": "n355567",
+      "status": "FAIL",
+      "error": "Traceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/scripts/136_eval_rerope_kv25.py\", line 301, in correctness\n    ext['samples'].append(self.correctness_extension(sample, path, gate['samples'][i]))\n  File \"/home/dblab/hj/mllm_v2/scripts/136_eval_rerope_kv25.py\", line 373, in correctness_extension\n    'two_step_vs_compact_hit': self.ref._compare_outputs(two, dict(chit, logits=chit['all_logits']))}\n  File \"/home/dblab/hj/mllm_v2/scripts/90_validate_llava_kv25.py\", line 455, in _compare_outputs\n    assert allclose and same_first and same_tokens and same_answer, verdict\nAssertionError: {'all_step_logits_within_frozen_tolerance': False, 'first_step_logits_exact': False, 'max_abs_logit_delta': 0.15625, 'first_token_exact': True, 'generated_token_ids_exact': True, 'answer_exact': True, 'n_steps': 2, 'atol': 0.0001, 'rtol': 0.0001}\n"
+    }
+  ]
+}

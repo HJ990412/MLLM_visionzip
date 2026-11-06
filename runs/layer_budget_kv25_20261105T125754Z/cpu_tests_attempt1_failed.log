@@ -1,0 +1,422 @@
+........................................................................The tokenizer you are loading from '/home/dblab/hj/mllm_v2/runs/glm46v_prefixstore3_20261007T065207Z/checkpoint' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+E....................E.........E.......................................................E..............................................................................................................................................................................................................................................................................................................................E............................E.....................................................................................
+======================================================================
+ERROR: setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/tests/test_glm46v_runner.py", line 229, in setUpClass
+    cls.core.get_vision_position_ids = types.MethodType(Glm4vModel.get_vision_position_ids, cls.core)
+AttributeError: type object 'Glm4vModel' has no attribute 'get_vision_position_ids'
+
+======================================================================
+ERROR: test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/tests/test_glm46v_validation.py", line 106, in test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits
+    from transformers.models.glm4v.modeling_glm4v import apply_rotary_pos_emb
+ImportError: cannot import name 'apply_rotary_pos_emb' from 'transformers.models.glm4v.modeling_glm4v' (/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/glm4v/modeling_glm4v.py)
+
+======================================================================
+ERROR: test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/tests/test_glm46v_vision.py", line 140, in _check_actual_native_sdpa_hook_preserves_output_and_qk_score
+    canonical = model(pixels, grid_thw=grid).pooler_output.clone()
+AttributeError: 'Tensor' object has no attribute 'pooler_output'
+
+======================================================================
+ERROR: test_prefix_online_path_cannot_call_any_forbidden_scorer (test_image_only_repack.OnlinePrefixIsolationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/tests/test_image_only_repack.py", line 416, in test_prefix_online_path_cannot_call_any_forbidden_scorer
+    selector.prepare(text_emb=None)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/dblab/hj/mllm_v2/mmimpress/serve.py", line 2647, in prepare
+    else self.k_target)
+AttributeError: 'CVPR25ChunkSelector' object has no attribute 'k_target'
+
+======================================================================
+ERROR: test_override_equal_start_is_base_and_positions (test_recompute_kv25.Serving)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/tests/test_recompute_kv25.py", line 355, in test_override_equal_start_is_base_and_positions
+    base = server._decode(cache(), suffix, 20)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/dblab/hj/mllm_v2/mmimpress/recompute_kv25.py", line 604, in _decode
+    return super()._decode(cache, suffix_ids, prefix_len)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/dblab/hj/mllm_v2/mmimpress/serve.py", line 1819, in _decode
+    torch.cuda.synchronize()
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/cuda/__init__.py", line 952, in synchronize
+    _lazy_init()
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/cuda/__init__.py", line 319, in _lazy_init
+    torch._C._cuda_init()
+RuntimeError: No CUDA GPUs are available
+
+======================================================================
+ERROR: test_prefix_prepare_uses_exact_first_k_and_no_scoring (test_reorder_prefix.PrefixSelectionContractTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/tests/test_reorder_prefix.py", line 83, in test_prefix_prepare_uses_exact_first_k_and_no_scoring
+    selector.prepare(text_emb=None)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/dblab/hj/mllm_v2/mmimpress/serve.py", line 2647, in prepare
+    else self.k_target)
+AttributeError: 'CVPR25ChunkSelector' object has no attribute 'k_target'
+
+----------------------------------------------------------------------
+Ran 592 tests in 9.047s
+
+FAILED (errors=6)
+{
+  "status": "complete",
+  "n_judgments": 16,
+  "quality": {
+    "ReComp": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    },
+    "FullLoad": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    },
+    "Prefix25": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    },
+    "Prefix45": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    }
+  }
+}
+{
+  "status": "complete",
+  "n_judgments": 16,
+  "quality": {
+    "ReComp": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    },
+    "FullLoad": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    },
+    "Prefix25": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    },
+    "Prefix45": {
+      "S1": 100.0,
+      "S2": 100.0,
+      "S3": 100.0,
+      "Avg": 100.0,
+      "overall_official_secondary": 100.0,
+      "n_conversations": 1,
+      "denominators_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "model_wins_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "valid_decisions_by_turn": {
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "overall_official_secondary": 1
+      },
+      "unresolved_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "missing_by_turn": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "overall_official_secondary": 0
+      },
+      "total_valid_decisions": 4,
+      "total_unresolved": 0,
+      "total_missing": 0,
+      "unresolved_rate": 0.0
+    }
+  }
+}

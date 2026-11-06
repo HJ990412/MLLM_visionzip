@@ -1,0 +1,587 @@
+{
+  "status": "PASS",
+  "samples": [
+    {
+      "image_id": "n14",
+      "dialog_id": "mtgqa_003651",
+      "a_b_main_reproduction": {
+        "t1": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 3869,
+            "margin": 4.375
+          }
+        },
+        "t2": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 3869,
+            "margin": 2.625
+          }
+        },
+        "t3": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 11189,
+            "margin": 0.625
+          }
+        },
+        "evaluable": true
+      },
+      "b_path_equivalence": {
+        "ok": true,
+        "max_abs_first_logit_delta": 0.0,
+        "atol": 0.0001,
+        "tokens_equal": true,
+        "prefill_len": [
+          671,
+          671
+        ],
+        "real_vs_committed_t1_tokens_equal": true,
+        "hf_merge_prefix_embeds_equal": true
+      },
+      "c_memory_structural_identity": {
+        "ok": true,
+        "rows": 5,
+        "layers": 32,
+        "mismatches": []
+      },
+      "d_hit_vs_standalone": [
+        {
+          "image_id": "n14",
+          "dialog_id": "mtgqa_003651",
+          "turn_id": 2,
+          "hit_request_id": "llava-mtgqa-vz-e2e-v1:vz_pruned_e2e_mtgqa_20261102T120205Z:correctness:llava-hf/llava-v1.6-vicuna-7b-hf:vz_pruned_e2e:mtgqa_003651:t2",
+          "standalone_prefill_len": 689,
+          "hit_answer": "Yes",
+          "standalone_answer": "Yes",
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "max_abs_first_logit_delta": 0.078125,
+          "hit_top2": {
+            "argmax": 3869,
+            "margin": 2.875
+          },
+          "standalone_top2": {
+            "argmax": 3869,
+            "margin": 2.875
+          },
+          "hit_tokens": [
+            3869,
+            2
+          ],
+          "standalone_tokens": [
+            3869,
+            2
+          ],
+          "gated": false
+        },
+        {
+          "image_id": "n14",
+          "dialog_id": "mtgqa_003651",
+          "turn_id": 3,
+          "hit_request_id": "llava-mtgqa-vz-e2e-v1:vz_pruned_e2e_mtgqa_20261102T120205Z:correctness:llava-hf/llava-v1.6-vicuna-7b-hf:vz_pruned_e2e:mtgqa_003651:t3",
+          "standalone_prefill_len": 705,
+          "hit_answer": "Street sign",
+          "standalone_answer": "Street sign",
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "max_abs_first_logit_delta": 0.125,
+          "hit_top2": {
+            "argmax": 7103,
+            "margin": 1.125
+          },
+          "standalone_top2": {
+            "argmax": 7103,
+            "margin": 1.125
+          },
+          "hit_tokens": [
+            7103,
+            1804,
+            2
+          ],
+          "standalone_tokens": [
+            7103,
+            1804,
+            2
+          ],
+          "gated": false
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "image_id": "n184551",
+      "dialog_id": "mtgqa_000889",
+      "a_b_main_reproduction": {
+        "t1": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 1939,
+            "margin": 1.625
+          }
+        },
+        "t2": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 10428,
+            "margin": 1.125
+          }
+        },
+        "t3": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 8037,
+            "margin": 0.625
+          }
+        },
+        "evaluable": true
+      },
+      "b_path_equivalence": {
+        "ok": true,
+        "max_abs_first_logit_delta": 0.0,
+        "atol": 0.0001,
+        "tokens_equal": true,
+        "prefill_len": [
+          660,
+          660
+        ],
+        "real_vs_committed_t1_tokens_equal": true,
+        "hf_merge_prefix_embeds_equal": true
+      },
+      "c_memory_structural_identity": {
+        "ok": true,
+        "rows": 5,
+        "layers": 32,
+        "mismatches": []
+      },
+      "d_hit_vs_standalone": [
+        {
+          "image_id": "n184551",
+          "dialog_id": "mtgqa_000889",
+          "turn_id": 2,
+          "hit_request_id": "llava-mtgqa-vz-e2e-v1:vz_pruned_e2e_mtgqa_20261102T120205Z:correctness:llava-hf/llava-v1.6-vicuna-7b-hf:vz_pruned_e2e:mtgqa_000889:t2",
+          "standalone_prefill_len": 690,
+          "hit_answer": "Right",
+          "standalone_answer": "Right",
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "max_abs_first_logit_delta": 0.125,
+          "hit_top2": {
+            "argmax": 10428,
+            "margin": 1.125
+          },
+          "standalone_top2": {
+            "argmax": 10428,
+            "margin": 1.0
+          },
+          "hit_tokens": [
+            10428,
+            2
+          ],
+          "standalone_tokens": [
+            10428,
+            2
+          ],
+          "gated": false
+        },
+        {
+          "image_id": "n184551",
+          "dialog_id": "mtgqa_000889",
+          "turn_id": 3,
+          "hit_request_id": "llava-mtgqa-vz-e2e-v1:vz_pruned_e2e_mtgqa_20261102T120205Z:correctness:llava-hf/llava-v1.6-vicuna-7b-hf:vz_pruned_e2e:mtgqa_000889:t3",
+          "standalone_prefill_len": 707,
+          "hit_answer": "White",
+          "standalone_answer": "White",
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "max_abs_first_logit_delta": 0.125,
+          "hit_top2": {
+            "argmax": 15066,
+            "margin": 0.0
+          },
+          "standalone_top2": {
+            "argmax": 8037,
+            "margin": 0.125
+          },
+          "hit_tokens": [
+            8037,
+            2
+          ],
+          "standalone_tokens": [
+            8037,
+            2
+          ],
+          "gated": false
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "image_id": "n350732",
+      "dialog_id": "mtgqa_003912",
+      "a_b_main_reproduction": {
+        "t1": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 1939,
+            "margin": 4.5
+          }
+        },
+        "t2": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 2315,
+            "margin": 1.5
+          }
+        },
+        "t3": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 2315,
+            "margin": 5.75
+          }
+        },
+        "evaluable": true
+      },
+      "b_path_equivalence": {
+        "ok": true,
+        "max_abs_first_logit_delta": 0.0,
+        "atol": 0.0001,
+        "tokens_equal": true,
+        "prefill_len": [
+          601,
+          601
+        ],
+        "real_vs_committed_t1_tokens_equal": true,
+        "hf_merge_prefix_embeds_equal": true
+      },
+      "c_memory_structural_identity": {
+        "ok": true,
+        "rows": 6,
+        "layers": 32,
+        "mismatches": []
+      },
+      "d_hit_vs_standalone": [
+        {
+          "image_id": "n350732",
+          "dialog_id": "mtgqa_003912",
+          "turn_id": 2,
+          "hit_request_id": "llava-mtgqa-vz-e2e-v1:vz_pruned_e2e_mtgqa_20261102T120205Z:correctness:llava-hf/llava-v1.6-vicuna-7b-hf:vz_pruned_e2e:mtgqa_003912:t2",
+          "standalone_prefill_len": 619,
+          "hit_answer": "Man",
+          "standalone_answer": "Man",
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "max_abs_first_logit_delta": 0.125,
+          "hit_top2": {
+            "argmax": 2315,
+            "margin": 1.625
+          },
+          "standalone_top2": {
+            "argmax": 2315,
+            "margin": 1.625
+          },
+          "hit_tokens": [
+            2315,
+            2
+          ],
+          "standalone_tokens": [
+            2315,
+            2
+          ],
+          "gated": false
+        },
+        {
+          "image_id": "n350732",
+          "dialog_id": "mtgqa_003912",
+          "turn_id": 3,
+          "hit_request_id": "llava-mtgqa-vz-e2e-v1:vz_pruned_e2e_mtgqa_20261102T120205Z:correctness:llava-hf/llava-v1.6-vicuna-7b-hf:vz_pruned_e2e:mtgqa_003912:t3",
+          "standalone_prefill_len": 636,
+          "hit_answer": "Man",
+          "standalone_answer": "Man",
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "max_abs_first_logit_delta": 0.1875,
+          "hit_top2": {
+            "argmax": 2315,
+            "margin": 6.75
+          },
+          "standalone_top2": {
+            "argmax": 2315,
+            "margin": 6.75
+          },
+          "hit_tokens": [
+            2315,
+            2
+          ],
+          "standalone_tokens": [
+            2315,
+            2
+          ],
+          "gated": false
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "image_id": "n481655",
+      "dialog_id": "mtgqa_002083",
+      "a_b_main_reproduction": {
+        "t1": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 3869,
+            "margin": 1.625
+          }
+        },
+        "t2": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 19941,
+            "margin": 2.0
+          }
+        },
+        "t3": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 19941,
+            "margin": 3.375
+          }
+        },
+        "evaluable": true
+      },
+      "b_path_equivalence": {
+        "ok": true,
+        "max_abs_first_logit_delta": 0.0,
+        "atol": 0.0001,
+        "tokens_equal": true,
+        "prefill_len": [
+          650,
+          650
+        ],
+        "real_vs_committed_t1_tokens_equal": true,
+        "hf_merge_prefix_embeds_equal": true
+      },
+      "c_memory_structural_identity": {
+        "ok": true,
+        "rows": 10,
+        "layers": 32,
+        "mismatches": []
+      },
+      "d_hit_vs_standalone": [
+        {
+          "image_id": "n481655",
+          "dialog_id": "mtgqa_002083",
+          "turn_id": 2,
+          "hit_request_id": "llava-mtgqa-vz-e2e-v1:vz_pruned_e2e_mtgqa_20261102T120205Z:correctness:llava-hf/llava-v1.6-vicuna-7b-hf:vz_pruned_e2e:mtgqa_002083:t2",
+          "standalone_prefill_len": 678,
+          "hit_answer": "Left",
+          "standalone_answer": "Left",
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "max_abs_first_logit_delta": 0.125,
+          "hit_top2": {
+            "argmax": 19941,
+            "margin": 3.125
+          },
+          "standalone_top2": {
+            "argmax": 19941,
+            "margin": 3.125
+          },
+          "hit_tokens": [
+            19941,
+            2
+          ],
+          "standalone_tokens": [
+            19941,
+            2
+          ],
+          "gated": false
+        },
+        {
+          "image_id": "n481655",
+          "dialog_id": "mtgqa_002083",
+          "turn_id": 3,
+          "hit_request_id": "llava-mtgqa-vz-e2e-v1:vz_pruned_e2e_mtgqa_20261102T120205Z:correctness:llava-hf/llava-v1.6-vicuna-7b-hf:vz_pruned_e2e:mtgqa_002083:t3",
+          "standalone_prefill_len": 699,
+          "hit_answer": "Left",
+          "standalone_answer": "Left",
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "max_abs_first_logit_delta": 0.125,
+          "hit_top2": {
+            "argmax": 19941,
+            "margin": 3.375
+          },
+          "standalone_top2": {
+            "argmax": 19941,
+            "margin": 3.375
+          },
+          "hit_tokens": [
+            19941,
+            2
+          ],
+          "standalone_tokens": [
+            19941,
+            2
+          ],
+          "gated": false
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "image_id": "n548534",
+      "dialog_id": "mtgqa_001827",
+      "a_b_main_reproduction": {
+        "t1": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 3869,
+            "margin": 3.5
+          }
+        },
+        "t2": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 11680,
+            "margin": 2.625
+          }
+        },
+        "t3": {
+          "prompt_equal": true,
+          "prediction_equal": true,
+          "tokens_equal": true,
+          "first_token_top2": {
+            "argmax": 3869,
+            "margin": 3.0
+          }
+        },
+        "evaluable": true
+      },
+      "b_path_equivalence": {
+        "ok": true,
+        "max_abs_first_logit_delta": 0.0,
+        "atol": 0.0001,
+        "tokens_equal": true,
+        "prefill_len": [
+          602,
+          602
+        ],
+        "real_vs_committed_t1_tokens_equal": true,
+        "hf_merge_prefix_embeds_equal": true
+      },
+      "c_memory_structural_identity": {
+        "ok": true,
+        "rows": 5,
+        "layers": 32,
+        "mismatches": []
+      },
+      "d_hit_vs_standalone": [
+        {
+          "image_id": "n548534",
+          "dialog_id": "mtgqa_001827",
+          "turn_id": 2,
+          "hit_request_id": "llava-mtgqa-vz-e2e-v1:vz_pruned_e2e_mtgqa_20261102T120205Z:correctness:llava-hf/llava-v1.6-vicuna-7b-hf:vz_pruned_e2e:mtgqa_001827:t2",
+          "standalone_prefill_len": 620,
+          "hit_answer": "Cabinets",
+          "standalone_answer": "Cabinets",
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "max_abs_first_logit_delta": 0.125,
+          "hit_top2": {
+            "argmax": 11680,
+            "margin": 2.375
+          },
+          "standalone_top2": {
+            "argmax": 11680,
+            "margin": 2.5
+          },
+          "hit_tokens": [
+            11680,
+            262,
+            1691,
+            2
+          ],
+          "standalone_tokens": [
+            11680,
+            262,
+            1691,
+            2
+          ],
+          "gated": false
+        },
+        {
+          "image_id": "n548534",
+          "dialog_id": "mtgqa_001827",
+          "turn_id": 3,
+          "hit_request_id": "llava-mtgqa-vz-e2e-v1:vz_pruned_e2e_mtgqa_20261102T120205Z:correctness:llava-hf/llava-v1.6-vicuna-7b-hf:vz_pruned_e2e:mtgqa_001827:t3",
+          "standalone_prefill_len": 641,
+          "hit_answer": "Yes",
+          "standalone_answer": "Yes",
+          "first_token_exact": true,
+          "generated_token_ids_exact": true,
+          "answer_exact": true,
+          "max_abs_first_logit_delta": 0.125,
+          "hit_top2": {
+            "argmax": 3869,
+            "margin": 2.625
+          },
+          "standalone_top2": {
+            "argmax": 3869,
+            "margin": 2.625
+          },
+          "hit_tokens": [
+            3869,
+            2
+          ],
+          "standalone_tokens": [
+            3869,
+            2
+          ],
+          "gated": false
+        }
+      ],
+      "status": "PASS"
+    }
+  ],
+  "g4a_evaluated_samples": 5
+}

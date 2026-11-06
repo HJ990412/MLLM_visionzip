@@ -1,0 +1,55 @@
+{
+  "seed": 1234,
+  "greedy": true,
+  "max_new_tokens": 16,
+  "chunk_size": 64,
+  "ratio": 0.25,
+  "arms": [
+    "recompute",
+    "fullload",
+    "ours",
+    "orig",
+    "compact",
+    "rerope",
+    "pruned"
+  ],
+  "position_policy": {
+    "ours": "original",
+    "orig": "original",
+    "compact": "compact",
+    "rerope": "compact"
+  },
+  "kv_context": {
+    "ours": "full_turn1",
+    "orig": "reduced_prefill",
+    "compact": "reduced_prefill",
+    "rerope": "full_turn1"
+  },
+  "llava": {
+    "revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+    "quantization": "NF4 double BF16 compute",
+    "attention": "eager",
+    "store_dtype": "float16"
+  },
+  "reference_runs": {
+    "rev3": "/home/dblab/hj/mllm_v2/runs/recompute_kv25_ablation_20261102T061243Z",
+    "rev2_stopped": "/home/dblab/hj/mllm_v2/runs/recompute_kv25_ablation_20261102T045423Z",
+    "prefix25": "/home/dblab/hj/mllm_v2/runs/prefix25_persistence_20261001T050113Z"
+  },
+  "reference_gqa_manifest_sha256": "40e23fa7aeb22495717fc7eede1227de3a6b4811fde022d9cda71ef73c5e3895",
+  "index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+  "min_free_bytes": 21474836480,
+  "bootstrap": {
+    "unit": "image",
+    "resamples": 10000,
+    "seed": 1234,
+    "joint_contrasts": true
+  },
+  "evidence_sha256": "879706ccdd71510b0d90404012cf7a1d6b3659c796789cbaa82975d42a2d6eea",
+  "workload_files": {
+    "gqa": "40e23fa7aeb22495717fc7eede1227de3a6b4811fde022d9cda71ef73c5e3895",
+    "smoke": "973a58940a5f884c948cadbec1e9c96e4b1f17619dacea520809d8c386b67a2d",
+    "correctness": "420e1a5904d5da690ac22c0787b163564077f1ba481e3c4575e7ce296a34ee52"
+  },
+  "contract_sha256": "49b0e886868b24803a2e1640b7094811a33491c0e1304a39bcf3d4831334c61b"
+}

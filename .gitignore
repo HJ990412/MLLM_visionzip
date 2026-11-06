@@ -119,3 +119,16 @@ env/
 # MT-VQA-v2 25k: retain raw/manifests/KV locally; force-add curated evidence.
 /runs/mt_vqa_v2_reconstructed_25k_*/
 /results/mt_vqa_v2_reconstructed_25k_*/
+
+# KV25 context/position/pruning/layer-budget experiments: keep payloads local.
+# Curated reports, validation receipts and reproduction metadata are force-added.
+/runs/recompute_kv25_ablation_*/
+/results/recompute_kv25_ablation_*/
+/runs/rerope_kv25_*/
+/results/rerope_kv25_*/
+/runs/vz_pruned_e2e_mtgqa_*/
+/results/vz_pruned_e2e_mtgqa_*/
+/runs/posshift_dose_*/
+/results/posshift_dose_*/
+/runs/layer_budget_kv25_*/
+/results/layer_budget_kv25_*/

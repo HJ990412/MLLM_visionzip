@@ -1,0 +1,1750 @@
+{
+  "status": "PASS",
+  "samples": [
+    {
+      "image_id": "n355567",
+      "question_id": "201751701",
+      "N": 2112,
+      "k": 528,
+      "G1": "PASS",
+      "G2": "PASS",
+      "noise_floor": {
+        "reduced_len": 565,
+        "common_prefix_rows": 0,
+        "prefix_only": {
+          "sys_max_k": 0.0,
+          "sys_max_v": 0.0,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null,
+          "last_S_k": 0.009193141123746565,
+          "last_S_v": 0.01996872356501593,
+          "layer0_S_k": 0.0,
+          "layer0_S_v": 0.0
+        },
+        "orig_reduced": {
+          "sys_max_k": 0.007968898194142619,
+          "sys_max_v": 0.014507693770052682,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null,
+          "last_S_k": 0.21438415480526987,
+          "last_S_v": 0.4195303503393373,
+          "layer0_S_k": 0.002660914084302271,
+          "layer0_S_v": 0.0023880820271723747
+        },
+        "truncated_same_len": {
+          "sys_max_k": 0.007968898194142619,
+          "sys_max_v": 0.014507693770052682,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null
+        },
+        "truncated_half_len": {
+          "sys_max_k": 0.007336588850806795,
+          "sys_max_v": 0.01454588665169677,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null
+        },
+        "context_over_floor": {
+          "k": 23.320011290972104,
+          "v": 21.009372430510812
+        },
+        "context_over_single_row": {
+          "k": null,
+          "v": null
+        }
+      },
+      "structural_identity_bf16_memory": {
+        "orig": {
+          "ok": true,
+          "rows": 5,
+          "layers": 32,
+          "mismatches": []
+        },
+        "compact": {
+          "ok": true,
+          "rows": 5,
+          "layers": 32,
+          "mismatches": []
+        }
+      },
+      "checks": {
+        "a_reference_reproduced": {
+          "tokens_and_prediction": true,
+          "logits_sha256_equal": true
+        },
+        "b_override_equals_base": true,
+        "c_orig": {
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 2,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 64,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 32,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": [
+            {
+              "query_length": 30,
+              "first_position": 2149,
+              "last_position": 2178,
+              "total_keys": 2179
+            },
+            {
+              "query_length": 1,
+              "first_position": 2179,
+              "last_position": 2179,
+              "total_keys": 2180
+            }
+          ],
+          "reads": {
+            "actual_returned_bytes": 293601280,
+            "actual_pread_calls": 65
+          }
+        },
+        "d_compact": {
+          "text_position_start": 565,
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 2,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 64,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 32,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": {
+            "calls": 2,
+            "prefill_first_position": 565,
+            "verified": true,
+            "text_position_start": 565
+          },
+          "reads": {
+            "actual_returned_bytes": 293601280,
+            "actual_pread_calls": 65
+          }
+        },
+        "d_posshift": {
+          "text_position_start": 565,
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 16,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 512,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 480,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": {
+            "calls": 16,
+            "prefill_first_position": 565,
+            "verified": true,
+            "text_position_start": 565
+          },
+          "reads": {
+            "actual_returned_bytes": 293601280,
+            "actual_pread_calls": 65
+          }
+        },
+        "e_question_invariance_io_sentinel": {
+          "ours": {
+            "selected_unchanged": true,
+            "read_bytes": 293601280,
+            "preads": 65,
+            "text_position_start": 2149,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 565,
+              "sentinel_visible": false
+            }
+          },
+          "orig": {
+            "selected_unchanged": true,
+            "read_bytes": 293601280,
+            "preads": 65,
+            "text_position_start": 2149,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 565,
+              "sentinel_visible": false
+            }
+          },
+          "compact": {
+            "selected_unchanged": true,
+            "read_bytes": 293601280,
+            "preads": 65,
+            "text_position_start": 565,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 565,
+              "sentinel_visible": false
+            }
+          },
+          "posshift": {
+            "selected_unchanged": true,
+            "read_bytes": 293601280,
+            "preads": 65,
+            "text_position_start": 565,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 565,
+              "sentinel_visible": false
+            }
+          }
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "image_id": "n9181",
+      "question_id": "20929611",
+      "N": 2304,
+      "k": 576,
+      "G1": "PASS",
+      "G2": "PASS",
+      "noise_floor": {
+        "reduced_len": 629,
+        "common_prefix_rows": 0,
+        "prefix_only": {
+          "sys_max_k": 0.0,
+          "sys_max_v": 0.0,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null,
+          "last_S_k": 0.00969153461478025,
+          "last_S_v": 0.0208670990564295,
+          "layer0_S_k": 0.0,
+          "layer0_S_v": 0.0
+        },
+        "orig_reduced": {
+          "sys_max_k": 0.007968898194142619,
+          "sys_max_v": 0.014507693770052682,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null,
+          "last_S_k": 0.21917161331161136,
+          "last_S_v": 0.41870065526489236,
+          "layer0_S_k": 0.002686071199542416,
+          "layer0_S_v": 0.002421841551744603
+        },
+        "truncated_same_len": {
+          "sys_max_k": 0.007968898194142619,
+          "sys_max_v": 0.014507693770052682,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null
+        },
+        "truncated_half_len": {
+          "sys_max_k": 0.007336588850806795,
+          "sys_max_v": 0.01454588665169677,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null
+        },
+        "context_over_floor": {
+          "k": 22.6147480273516,
+          "v": 20.065110829858437
+        },
+        "context_over_single_row": {
+          "k": null,
+          "v": null
+        }
+      },
+      "structural_identity_bf16_memory": {
+        "orig": {
+          "ok": true,
+          "rows": 5,
+          "layers": 32,
+          "mismatches": []
+        },
+        "compact": {
+          "ok": true,
+          "rows": 5,
+          "layers": 32,
+          "mismatches": []
+        }
+      },
+      "checks": {
+        "a_reference_reproduced": {
+          "tokens_and_prediction": true,
+          "logits_sha256_equal": true
+        },
+        "b_override_equals_base": true,
+        "c_orig": {
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 2,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 64,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 32,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": [
+            {
+              "query_length": 27,
+              "first_position": 2357,
+              "last_position": 2383,
+              "total_keys": 2384
+            },
+            {
+              "query_length": 1,
+              "first_position": 2384,
+              "last_position": 2384,
+              "total_keys": 2385
+            }
+          ],
+          "reads": {
+            "actual_returned_bytes": 327155712,
+            "actual_pread_calls": 65
+          }
+        },
+        "d_compact": {
+          "text_position_start": 629,
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 2,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 64,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 32,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": {
+            "calls": 2,
+            "prefill_first_position": 629,
+            "verified": true,
+            "text_position_start": 629
+          },
+          "reads": {
+            "actual_returned_bytes": 327155712,
+            "actual_pread_calls": 65
+          }
+        },
+        "d_posshift": {
+          "text_position_start": 629,
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 16,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629,
+              629
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 512,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 480,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": {
+            "calls": 16,
+            "prefill_first_position": 629,
+            "verified": true,
+            "text_position_start": 629
+          },
+          "reads": {
+            "actual_returned_bytes": 327155712,
+            "actual_pread_calls": 65
+          }
+        },
+        "e_question_invariance_io_sentinel": {
+          "ours": {
+            "selected_unchanged": true,
+            "read_bytes": 327155712,
+            "preads": 65,
+            "text_position_start": 2357,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 629,
+              "sentinel_visible": false
+            }
+          },
+          "orig": {
+            "selected_unchanged": true,
+            "read_bytes": 327155712,
+            "preads": 65,
+            "text_position_start": 2357,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 629,
+              "sentinel_visible": false
+            }
+          },
+          "compact": {
+            "selected_unchanged": true,
+            "read_bytes": 327155712,
+            "preads": 65,
+            "text_position_start": 629,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 629,
+              "sentinel_visible": false
+            }
+          },
+          "posshift": {
+            "selected_unchanged": true,
+            "read_bytes": 327155712,
+            "preads": 65,
+            "text_position_start": 629,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 629,
+              "sentinel_visible": false
+            }
+          }
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "image_id": "n390187",
+      "question_id": "201861403",
+      "N": 2208,
+      "k": 552,
+      "G1": "PASS",
+      "G2": "PASS",
+      "noise_floor": {
+        "reduced_len": 605,
+        "common_prefix_rows": 0,
+        "prefix_only": {
+          "sys_max_k": 0.0,
+          "sys_max_v": 0.0,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null,
+          "last_S_k": 0.010339471923917891,
+          "last_S_v": 0.023097774984295168,
+          "layer0_S_k": 0.0,
+          "layer0_S_v": 0.0
+        },
+        "orig_reduced": {
+          "sys_max_k": 0.007968898194142619,
+          "sys_max_v": 0.014507693770052682,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null,
+          "last_S_k": 0.21256385068822287,
+          "last_S_v": 0.4156054524917202,
+          "layer0_S_k": 0.0026946525914082744,
+          "layer0_S_v": 0.002424961351628758
+        },
+        "truncated_same_len": {
+          "sys_max_k": 0.007968898194142619,
+          "sys_max_v": 0.014507693770052682,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null
+        },
+        "truncated_half_len": {
+          "sys_max_k": 0.007336588850806795,
+          "sys_max_v": 0.01454588665169677,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null
+        },
+        "context_over_floor": {
+          "k": 20.558482314411755,
+          "v": 17.993311164140362
+        },
+        "context_over_single_row": {
+          "k": null,
+          "v": null
+        }
+      },
+      "structural_identity_bf16_memory": {
+        "orig": {
+          "ok": true,
+          "rows": 5,
+          "layers": 32,
+          "mismatches": []
+        },
+        "compact": {
+          "ok": true,
+          "rows": 5,
+          "layers": 32,
+          "mismatches": []
+        }
+      },
+      "checks": {
+        "a_reference_reproduced": {
+          "tokens_and_prediction": true,
+          "logits_sha256_equal": true
+        },
+        "b_override_equals_base": true,
+        "c_orig": {
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 3,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 96,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 64,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": [
+            {
+              "query_length": 24,
+              "first_position": 2261,
+              "last_position": 2284,
+              "total_keys": 2285
+            },
+            {
+              "query_length": 1,
+              "first_position": 2285,
+              "last_position": 2285,
+              "total_keys": 2286
+            }
+          ],
+          "reads": {
+            "actual_returned_bytes": 314572800,
+            "actual_pread_calls": 65
+          }
+        },
+        "d_compact": {
+          "text_position_start": 605,
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 3,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 96,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 64,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": {
+            "calls": 3,
+            "prefill_first_position": 605,
+            "verified": true,
+            "text_position_start": 605
+          },
+          "reads": {
+            "actual_returned_bytes": 314572800,
+            "actual_pread_calls": 65
+          }
+        },
+        "d_posshift": {
+          "text_position_start": 605,
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 16,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605,
+              605
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 512,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 480,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": {
+            "calls": 16,
+            "prefill_first_position": 605,
+            "verified": true,
+            "text_position_start": 605
+          },
+          "reads": {
+            "actual_returned_bytes": 314572800,
+            "actual_pread_calls": 65
+          }
+        },
+        "e_question_invariance_io_sentinel": {
+          "ours": {
+            "selected_unchanged": true,
+            "read_bytes": 314572800,
+            "preads": 65,
+            "text_position_start": 2261,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 605,
+              "sentinel_visible": false
+            }
+          },
+          "orig": {
+            "selected_unchanged": true,
+            "read_bytes": 314572800,
+            "preads": 65,
+            "text_position_start": 2261,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 605,
+              "sentinel_visible": false
+            }
+          },
+          "compact": {
+            "selected_unchanged": true,
+            "read_bytes": 314572800,
+            "preads": 65,
+            "text_position_start": 605,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 605,
+              "sentinel_visible": false
+            }
+          },
+          "posshift": {
+            "selected_unchanged": true,
+            "read_bytes": 314572800,
+            "preads": 65,
+            "text_position_start": 605,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 605,
+              "sentinel_visible": false
+            }
+          }
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "image_id": "n133585",
+      "question_id": "202108008",
+      "N": 2112,
+      "k": 528,
+      "G1": "PASS",
+      "G2": "PASS",
+      "noise_floor": {
+        "reduced_len": 565,
+        "common_prefix_rows": 0,
+        "prefix_only": {
+          "sys_max_k": 0.0,
+          "sys_max_v": 0.0,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null,
+          "last_S_k": 0.009647057906931373,
+          "last_S_v": 0.021111041016542872,
+          "layer0_S_k": 0.0,
+          "layer0_S_v": 0.0
+        },
+        "orig_reduced": {
+          "sys_max_k": 0.007968898194142619,
+          "sys_max_v": 0.014507693770052682,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null,
+          "last_S_k": 0.22459536158439278,
+          "last_S_v": 0.44239183700930107,
+          "layer0_S_k": 0.002679732596726873,
+          "layer0_S_v": 0.0024279686725717305
+        },
+        "truncated_same_len": {
+          "sys_max_k": 0.007968898194142619,
+          "sys_max_v": 0.014507693770052682,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null
+        },
+        "truncated_half_len": {
+          "sys_max_k": 0.007336588850806795,
+          "sys_max_v": 0.01454588665169677,
+          "common_deep_max_k": null,
+          "common_deep_max_v": null
+        },
+        "context_over_floor": {
+          "k": 23.281228717723558,
+          "v": 20.955472383509527
+        },
+        "context_over_single_row": {
+          "k": null,
+          "v": null
+        }
+      },
+      "structural_identity_bf16_memory": {
+        "orig": {
+          "ok": true,
+          "rows": 5,
+          "layers": 32,
+          "mismatches": []
+        },
+        "compact": {
+          "ok": true,
+          "rows": 5,
+          "layers": 32,
+          "mismatches": []
+        }
+      },
+      "checks": {
+        "a_reference_reproduced": {
+          "tokens_and_prediction": true,
+          "logits_sha256_equal": true
+        },
+        "b_override_equals_base": true,
+        "c_orig": {
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 2,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 64,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 32,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": [
+            {
+              "query_length": 24,
+              "first_position": 2149,
+              "last_position": 2172,
+              "total_keys": 2173
+            },
+            {
+              "query_length": 1,
+              "first_position": 2173,
+              "last_position": 2173,
+              "total_keys": 2174
+            }
+          ],
+          "reads": {
+            "actual_returned_bytes": 293601280,
+            "actual_pread_calls": 65
+          }
+        },
+        "d_compact": {
+          "text_position_start": 565,
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 2,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 64,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 32,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": {
+            "calls": 2,
+            "prefill_first_position": 565,
+            "verified": true,
+            "text_position_start": 565
+          },
+          "reads": {
+            "actual_returned_bytes": 293601280,
+            "actual_pread_calls": 65
+          }
+        },
+        "d_posshift": {
+          "text_position_start": 565,
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 16,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565,
+              565
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 512,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 480,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": {
+            "calls": 16,
+            "prefill_first_position": 565,
+            "verified": true,
+            "text_position_start": 565
+          },
+          "reads": {
+            "actual_returned_bytes": 293601280,
+            "actual_pread_calls": 65
+          }
+        },
+        "e_question_invariance_io_sentinel": {
+          "ours": {
+            "selected_unchanged": true,
+            "read_bytes": 293601280,
+            "preads": 65,
+            "text_position_start": 2149,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 565,
+              "sentinel_visible": false
+            }
+          },
+          "orig": {
+            "selected_unchanged": true,
+            "read_bytes": 293601280,
+            "preads": 65,
+            "text_position_start": 2149,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 565,
+              "sentinel_visible": false
+            }
+          },
+          "compact": {
+            "selected_unchanged": true,
+            "read_bytes": 293601280,
+            "preads": 65,
+            "text_position_start": 565,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 565,
+              "sentinel_visible": false
+            }
+          },
+          "posshift": {
+            "selected_unchanged": true,
+            "read_bytes": 293601280,
+            "preads": 65,
+            "text_position_start": 565,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 565,
+              "sentinel_visible": false
+            }
+          }
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "image_id": "n272098",
+      "question_id": "201535625",
+      "N": 2880,
+      "k": 720,
+      "G1": "PASS",
+      "G2": "PASS",
+      "noise_floor": {
+        "reduced_len": 773,
+        "common_prefix_rows": 1,
+        "prefix_only": {
+          "sys_max_k": 0.0,
+          "sys_max_v": 0.0,
+          "common_deep_max_k": 0.0,
+          "common_deep_max_v": 0.0,
+          "last_S_k": 0.010270483292715689,
+          "last_S_v": 0.02191924446084909,
+          "layer0_S_k": 0.0,
+          "layer0_S_v": 0.0
+        },
+        "orig_reduced": {
+          "sys_max_k": 0.007260700104710468,
+          "sys_max_v": 0.013400639667945292,
+          "common_deep_max_k": 0.014011658560909739,
+          "common_deep_max_v": 0.027014689745843375,
+          "last_S_k": 0.22236600499204162,
+          "last_S_v": 0.4220177548985516,
+          "layer0_S_k": 0.0,
+          "layer0_S_v": 0.0
+        },
+        "truncated_same_len": {
+          "sys_max_k": 0.007260700104710468,
+          "sys_max_v": 0.013400639667945292,
+          "common_deep_max_k": 0.014011658560909739,
+          "common_deep_max_v": 0.027014689745843375
+        },
+        "truncated_half_len": {
+          "sys_max_k": 0.007642338947044588,
+          "sys_max_v": 0.014520671734187082,
+          "common_deep_max_k": 0.01653984150077645,
+          "common_deep_max_v": 0.02970475126934133
+        },
+        "context_over_floor": {
+          "k": 21.650977724656258,
+          "v": 19.253298426975245
+        },
+        "context_over_single_row": {
+          "k": 15.87007020085451,
+          "v": 15.62178795569864
+        }
+      },
+      "structural_identity_bf16_memory": {
+        "orig": {
+          "ok": true,
+          "rows": 6,
+          "layers": 32,
+          "mismatches": []
+        },
+        "compact": {
+          "ok": true,
+          "rows": 6,
+          "layers": 32,
+          "mismatches": []
+        }
+      },
+      "checks": {
+        "a_reference_reproduced": {
+          "tokens_and_prediction": true,
+          "logits_sha256_equal": true
+        },
+        "b_override_equals_base": true,
+        "c_orig": {
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 3,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 96,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 64,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": [
+            {
+              "query_length": 22,
+              "first_position": 2933,
+              "last_position": 2954,
+              "total_keys": 2955
+            },
+            {
+              "query_length": 1,
+              "first_position": 2955,
+              "last_position": 2955,
+              "total_keys": 2956
+            }
+          ],
+          "reads": {
+            "actual_returned_bytes": 402653184,
+            "actual_pread_calls": 65
+          }
+        },
+        "d_compact": {
+          "text_position_start": 773,
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 3,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 96,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 64,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": {
+            "calls": 3,
+            "prefill_first_position": 773,
+            "verified": true,
+            "text_position_start": 773
+          },
+          "reads": {
+            "actual_returned_bytes": 402653184,
+            "actual_pread_calls": 65
+          }
+        },
+        "d_posshift": {
+          "text_position_start": 773,
+          "comparison": {
+            "all_step_logits_within_frozen_tolerance": true,
+            "first_step_logits_exact": true,
+            "max_abs_logit_delta": 0.0,
+            "first_token_exact": true,
+            "generated_token_ids_exact": true,
+            "answer_exact": true,
+            "n_steps": 16,
+            "atol": 0.0001,
+            "rtol": 0.0001
+          },
+          "cache": {
+            "all_layer_head_kv_bits": true,
+            "all_layer_keep_mask": true,
+            "keep_count_per_layer": [
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773,
+              773
+            ],
+            "system_and_separator_bits": true,
+            "canonical_full_logical_bits": false
+          },
+          "masks": {
+            "combined_prefill_and_decode_masks_exact": true,
+            "attention_calls": 512,
+            "prefill_layer_calls": 32,
+            "decode_layer_calls": 480,
+            "layers_observed": 32,
+            "system_kept": true,
+            "future_text_masked": true,
+            "padding_absent": true
+          },
+          "positions": {
+            "calls": 16,
+            "prefill_first_position": 773,
+            "verified": true,
+            "text_position_start": 773
+          },
+          "reads": {
+            "actual_returned_bytes": 402653184,
+            "actual_pread_calls": 65
+          }
+        },
+        "e_question_invariance_io_sentinel": {
+          "ours": {
+            "selected_unchanged": true,
+            "read_bytes": 402653184,
+            "preads": 65,
+            "text_position_start": 2933,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 773,
+              "sentinel_visible": false
+            }
+          },
+          "orig": {
+            "selected_unchanged": true,
+            "read_bytes": 402653184,
+            "preads": 65,
+            "text_position_start": 2933,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 773,
+              "sentinel_visible": false
+            }
+          },
+          "compact": {
+            "selected_unchanged": true,
+            "read_bytes": 402653184,
+            "preads": 65,
+            "text_position_start": 773,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 773,
+              "sentinel_visible": false
+            }
+          },
+          "posshift": {
+            "selected_unchanged": true,
+            "read_bytes": 402653184,
+            "preads": 65,
+            "text_position_start": 773,
+            "sentinel": {
+              "layers": 32,
+              "visible_rows_per_layer": 773,
+              "sentinel_visible": false
+            }
+          }
+        }
+      },
+      "status": "PASS"
+    }
+  ]
+}

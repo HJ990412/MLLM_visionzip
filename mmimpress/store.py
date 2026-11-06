@@ -65,6 +65,19 @@ def byte_range(tok_start: int, tok_end: int, width: int, head_dim: int,
     return tok_start * row, (tok_end - tok_start) * row
 
 
+def payload_rows_for_layer(meta: dict, layer: int) -> int:
+    """Rows actually present on disk in ``layer_{layer}/{k,v}.bin``.
+
+    ``prefix25`` stores keep one ``payload_rows`` for every layer; the
+    ``prefix25_layerwise`` policy records ``payload_rows_per_layer``.  Full
+    stores hold every visual row.
+    """
+    per_layer = meta.get("payload_rows_per_layer")
+    if per_layer is not None:
+        return int(per_layer[int(layer)])
+    return int(meta.get("payload_rows", meta["v_token_num"]))
+
+
 def chunks_for_tokens(tokens, v_num: int, chunk_size: int = CHUNK_SIZE):
     """Sorted unique chunk ids covering the given STORED token positions."""
     return sorted({int(t) // chunk_size for t in tokens})
@@ -105,11 +118,19 @@ def write_image_store(out_dir: Path, layers, v_start: int, v_num: int,
                       stored_to_original=None,
                       separator_sidecar: bool = False,
                       timing_out: dict | None = None,
-                      storage_policy: str = "full"):
+                      storage_policy: str = "full",
+                      layer_budget: dict | None = None):
     """Persist one image prefix (token-major + probe sidecar).
 
     layers: list over transformer layers of (k, v), each (1, H, prefix_len, hd)
             -- the HF DynamicCache layout.
+
+    ``storage_policy="prefix25_layerwise"`` writes layer ``l`` with exactly
+    ``k_l`` content rows, where ``k_l`` is recomputed here from the frozen
+    ``layer_budget`` ratio vector (``mmimpress.layer_budget``) so the on-disk
+    counts can never disagree with the vector.  The permutation, separator
+    sidecar, system KV and every other byte are produced exactly as for
+    ``prefix25``.
     """
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -118,16 +139,36 @@ def write_image_store(out_dir: Path, layers, v_start: int, v_num: int,
     H, hd = layers[0][0].shape[1], layers[0][0].shape[3]
     assert layers[0][0].shape[2] >= prefix_len, layers[0][0].shape
 
-    if storage_policy not in ("full", "prefix25"):
+    if storage_policy not in ("full", "prefix25", "prefix25_layerwise"):
         raise ValueError("unsupported storage policy")
+    if (layer_budget is not None) != (storage_policy == "prefix25_layerwise"):
+        raise ValueError("layer_budget is required by, and only by, prefix25_layerwise")
     n_content = v_num - len(newline_idx)
-    stored_content = (n_content + 3) // 4 if storage_policy == "prefix25" else n_content
-    if storage_policy == "prefix25":
+    prefix_like = storage_policy in ("prefix25", "prefix25_layerwise")
+    stored_content = (n_content + 3) // 4 if prefix_like else n_content
+    if prefix_like:
         if n_content < 1 or stored_to_original is None or not separator_sidecar or probe_heads:
             raise ValueError("prefix25 requires nonempty repacked content and separate structural KV")
         if list(stored_to_original)[n_content:] != list(newline_idx) or chunk_size != 64:
             raise ValueError("prefix25 requires stable structural tail and chunk size 64")
-    disk_rows = stored_content if storage_policy == "prefix25" else v_num
+    rows_per_layer = None
+    if storage_policy == "prefix25_layerwise":
+        from mmimpress.layer_budget import (POLICY, budget_sha256,
+                                            layer_keep_counts,
+                                            total_row_budget, validate_ratios)
+        ratios = validate_ratios(layer_budget["layer_keep_ratios"], len(layers),
+                                 layer_budget.get("total_ratio", 0.25),
+                                 layer_budget["r_min"], layer_budget["r_max"])
+        if layer_budget.get("layer_budget_sha256") != budget_sha256(ratios):
+            raise ValueError("layer budget SHA256 does not match its ratios")
+        if layer_budget.get("policy", POLICY) != POLICY:
+            raise ValueError("unsupported layer budget policy")
+        rows_per_layer = layer_keep_counts(ratios, n_content, len(layers),
+                                           layer_budget.get("total_ratio", 0.25),
+                                           layer_budget["r_min"], layer_budget["r_max"])
+        assert sum(rows_per_layer) == total_row_budget(n_content, len(layers)) \
+            == len(layers) * stored_content
+    disk_rows = stored_content if prefix_like else v_num
     perm = None
     newline_original = [int(i) for i in newline_idx]
     newline_stored = list(newline_original)
@@ -177,13 +218,15 @@ def write_image_store(out_dir: Path, layers, v_start: int, v_num: int,
                 t0 = time.perf_counter()
                 block = block.index_select(0, perm).contiguous()
                 repack_seconds += time.perf_counter() - t0
+            layer_rows = (rows_per_layer[li] if rows_per_layer is not None
+                          else disk_rows)
             t0 = time.perf_counter()
-            buf = block[:disk_rows].numpy().tobytes()
+            buf = block[:layer_rows].numpy().tobytes()
             serialize_seconds += time.perf_counter() - t0
             write_bytes(ldir / f"{kind}.bin", buf)
             total += len(buf)
             if kind == "k":
-                pb = block[:disk_rows, :probe_heads].contiguous().numpy().tobytes()
+                pb = block[:layer_rows, :probe_heads].contiguous().numpy().tobytes()
                 write_bytes(ldir / "probe_k.bin", pb)
                 probe_bytes += len(pb)
             if separator_sidecar:
@@ -237,6 +280,32 @@ def write_image_store(out_dir: Path, layers, v_start: int, v_num: int,
             "order_semantics": "full virtual GPU permutation; only stored_row_to_original is on disk",
             "payload_chunks": n_chunks(disk_rows, chunk_size),
             "valid_rows_last_chunk": (disk_rows - 1) % chunk_size + 1,
+            "padding_rows": 0,
+        })
+    if storage_policy == "prefix25_layerwise":
+        max_rows = max(rows_per_layer)
+        meta.update({
+            "format": "llava_fp16_importance_prefix25_layerwise_v1",
+            "storage_policy": "prefix25_layerwise",
+            "budget_policy": "layerwise_v1",
+            "original_content_count": n_content,
+            "uniform_equivalent_content_count": stored_content,
+            "stored_content_count_per_layer": list(rows_per_layer),
+            "stored_content_count_total": int(sum(rows_per_layer)),
+            "payload_rows_per_layer": list(rows_per_layer),
+            "retention_ratio": 0.25,
+            "rounding_policy": "hamilton_largest_remainder_total_ceil_original_content",
+            "layer_budget_id": str(layer_budget["alloc_id"]),
+            "layer_keep_ratios": [float(x) for x in layer_budget["layer_keep_ratios"]],
+            "layer_keep_counts": list(rows_per_layer),
+            "layer_budget_sha256": str(layer_budget["layer_budget_sha256"]),
+            "layer_budget_r_min": float(layer_budget["r_min"]),
+            "layer_budget_r_max": float(layer_budget["r_max"]),
+            "stored_row_to_original": list(stored_to_original)[:max_rows],
+            "full_importance_permutation": list(stored_to_original),
+            "order_semantics": "full virtual GPU permutation; layer l stores stored_row_to_original[:layer_keep_counts[l]]",
+            "payload_chunks_per_layer": [n_chunks(r, chunk_size) for r in rows_per_layer],
+            "valid_rows_last_chunk_per_layer": [((r - 1) % chunk_size + 1) if r else 0 for r in rows_per_layer],
             "padding_rows": 0,
         })
     if extra:
@@ -398,8 +467,8 @@ class ChunkReader:
         m = self.meta
         v_num, H, hd = m["v_token_num"], m["num_heads"], m["head_dim"]
         cs = m["chunk_size"]
-        disk_rows = int(m.get("payload_rows", v_num))
-        if m.get("storage_policy") == "prefix25" and any(
+        disk_rows = payload_rows_for_layer(m, layer)
+        if m.get("storage_policy") in ("prefix25", "prefix25_layerwise") and any(
                 ci < 0 or ci * cs >= disk_rows for ci in cids):
             raise ValueError("requested chunk is absent from prefix25 store")
         spans = [chunk_span(ci, disk_rows, cs) for ci in sorted(set(cids))]
@@ -430,7 +499,7 @@ class ChunkReader:
         """Whole (v_num, num_heads, head_dim) block for one layer."""
         m = self.meta
         v_num, H, hd = m["v_token_num"], m["num_heads"], m["head_dim"]
-        if m.get("storage_policy") == "prefix25":
+        if m.get("storage_policy") in ("prefix25", "prefix25_layerwise"):
             raise ValueError("FullLoad is unavailable for a prefix25 store")
         nbytes = v_num * H * hd * self.itemsize
         blobs = self._read(layer, kind, [(0, nbytes)], counter, kind,

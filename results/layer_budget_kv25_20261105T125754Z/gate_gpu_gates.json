@@ -1,0 +1,684 @@
+{
+ "status": "PASS",
+ "atol": 0.0001,
+ "rtol": 0.0001,
+ "vectors": {
+  "U": "54ea273e1a38b1e8b02b96237381f982344cd28ca8466162876e161cdb8ff3ba",
+  "F-front": "d4314f59fc8e53564b366074d507bf6ab87fa88267da96e68b13fad44e7627de"
+ },
+ "samples": [
+  {
+   "image_id": "n355567",
+   "question_id": "201751701",
+   "N": 2112,
+   "k_u": 528,
+   "G1_store": {
+    "payload_files": 99,
+    "payload_bytes_identical": true,
+    "shared_meta_keys": 52,
+    "meta_keys_identical": true,
+    "payload_bytes": 296252458
+   },
+   "k_per_layer_F": [
+    845,
+    824,
+    804,
+    783,
+    763,
+    743,
+    722,
+    702,
+    681,
+    661,
+    640,
+    620,
+    600,
+    579,
+    559,
+    538,
+    518,
+    497,
+    477,
+    456,
+    436,
+    416,
+    395,
+    375,
+    354,
+    334,
+    313,
+    293,
+    273,
+    252,
+    232,
+    211
+   ],
+   "G1_serving": {
+    "masks_identical": true,
+    "first_token_identical": true,
+    "generated_ids_identical": true,
+    "reads_identical": {
+     "calls": 65,
+     "bytes": 293601280
+    },
+    "logits_bitwise": true,
+    "logits_max_abs_delta": 0.0
+   },
+   "G1_prior_reference": {
+    "tokens_and_prediction_reproduced": true,
+    "logits_sha256_equal": true,
+    "B_U_logits_sha256_equal": true
+   },
+   "G2_B_F": {
+    "all_step_logits_within_1e-4": true,
+    "first_logits_bitwise": true,
+    "all_logits_bitwise": true,
+    "max_abs_delta": 0.0,
+    "first_token_exact": true,
+    "tokens_exact": true,
+    "answer_exact": true,
+    "steps": 2,
+    "sentinel_reference_bitwise_identical": true,
+    "mask_calls": 64,
+    "reads": {
+     "calls": 65,
+     "bytes": 293601280
+    }
+   },
+   "G2_B_U": {
+    "all_step_logits_within_1e-4": true,
+    "first_logits_bitwise": true,
+    "all_logits_bitwise": true,
+    "max_abs_delta": 0.0,
+    "first_token_exact": true,
+    "tokens_exact": true,
+    "answer_exact": true,
+    "steps": 2,
+    "sentinel_reference_bitwise_identical": true,
+    "mask_calls": 64,
+    "reads": {
+     "calls": 65,
+     "bytes": 293601280
+    }
+   },
+   "G4": {
+    "B_F": {
+     "k_per_layer_unchanged": true,
+     "selected_ids_unchanged": true,
+     "vision_and_query_score_calls_zero": true,
+     "bytes": 293601280,
+     "preads": 65,
+     "fresh_hit_reproduces_traced": true,
+     "fresh_logits_sha256_equal_traced": true
+    },
+    "B_U": {
+     "k_per_layer_unchanged": true,
+     "selected_ids_unchanged": true,
+     "vision_and_query_score_calls_zero": true,
+     "bytes": 293601280,
+     "preads": 65,
+     "fresh_hit_reproduces_traced": true,
+     "fresh_logits_sha256_equal_traced": true
+    }
+   },
+   "bytes_layerwise_equal_uniform": true,
+   "persistence": {
+    "B": {
+     "persistence_ms": 529.3590351939201,
+     "file_logical_bytes": 296328052,
+     "os_write_bytes": 296328052
+    },
+    "B_U": {
+     "persistence_ms": 530.4604722186923,
+     "file_logical_bytes": 296329733,
+     "os_write_bytes": 296329733
+    },
+    "B_F": {
+     "persistence_ms": 524.7579058632255,
+     "file_logical_bytes": 296332532,
+     "os_write_bytes": 296332532
+    }
+   },
+   "status": "PASS"
+  },
+  {
+   "image_id": "n9181",
+   "question_id": "20929611",
+   "N": 2304,
+   "k_u": 576,
+   "G1_store": {
+    "payload_files": 99,
+    "payload_bytes_identical": true,
+    "shared_meta_keys": 52,
+    "meta_keys_identical": true,
+    "payload_bytes": 329809450
+   },
+   "k_per_layer_F": [
+    922,
+    899,
+    877,
+    855,
+    832,
+    810,
+    788,
+    766,
+    743,
+    721,
+    699,
+    676,
+    654,
+    632,
+    609,
+    587,
+    565,
+    543,
+    520,
+    498,
+    476,
+    453,
+    431,
+    409,
+    386,
+    364,
+    342,
+    320,
+    297,
+    275,
+    253,
+    230
+   ],
+   "G1_serving": {
+    "masks_identical": true,
+    "first_token_identical": true,
+    "generated_ids_identical": true,
+    "reads_identical": {
+     "calls": 65,
+     "bytes": 327155712
+    },
+    "logits_bitwise": true,
+    "logits_max_abs_delta": 0.0
+   },
+   "G1_prior_reference": {
+    "tokens_and_prediction_reproduced": true,
+    "logits_sha256_equal": true,
+    "B_U_logits_sha256_equal": true
+   },
+   "G2_B_F": {
+    "all_step_logits_within_1e-4": true,
+    "first_logits_bitwise": true,
+    "all_logits_bitwise": true,
+    "max_abs_delta": 0.0,
+    "first_token_exact": true,
+    "tokens_exact": true,
+    "answer_exact": true,
+    "steps": 2,
+    "sentinel_reference_bitwise_identical": true,
+    "mask_calls": 64,
+    "reads": {
+     "calls": 65,
+     "bytes": 327155712
+    }
+   },
+   "G2_B_U": {
+    "all_step_logits_within_1e-4": true,
+    "first_logits_bitwise": true,
+    "all_logits_bitwise": true,
+    "max_abs_delta": 0.0,
+    "first_token_exact": true,
+    "tokens_exact": true,
+    "answer_exact": true,
+    "steps": 2,
+    "sentinel_reference_bitwise_identical": true,
+    "mask_calls": 64,
+    "reads": {
+     "calls": 65,
+     "bytes": 327155712
+    }
+   },
+   "G4": {
+    "B_F": {
+     "k_per_layer_unchanged": true,
+     "selected_ids_unchanged": true,
+     "vision_and_query_score_calls_zero": true,
+     "bytes": 327155712,
+     "preads": 65,
+     "fresh_hit_reproduces_traced": true,
+     "fresh_logits_sha256_equal_traced": true
+    },
+    "B_U": {
+     "k_per_layer_unchanged": true,
+     "selected_ids_unchanged": true,
+     "vision_and_query_score_calls_zero": true,
+     "bytes": 327155712,
+     "preads": 65,
+     "fresh_hit_reproduces_traced": true,
+     "fresh_logits_sha256_equal_traced": true
+    }
+   },
+   "bytes_layerwise_equal_uniform": true,
+   "persistence": {
+    "B": {
+     "persistence_ms": 582.4522534385324,
+     "file_logical_bytes": 329890887,
+     "os_write_bytes": 329890887
+    },
+    "B_U": {
+     "persistence_ms": 575.8855892345309,
+     "file_logical_bytes": 329892568,
+     "os_write_bytes": 329892568
+    },
+    "B_F": {
+     "persistence_ms": 570.3606866300106,
+     "file_logical_bytes": 329895641,
+     "os_write_bytes": 329895641
+    }
+   },
+   "status": "PASS"
+  },
+  {
+   "image_id": "n390187",
+   "question_id": "201861403",
+   "N": 2208,
+   "k_u": 552,
+   "G1_store": {
+    "payload_files": 99,
+    "payload_bytes_identical": true,
+    "shared_meta_keys": 52,
+    "meta_keys_identical": true,
+    "payload_bytes": 317225386
+   },
+   "k_per_layer_F": [
+    883,
+    862,
+    840,
+    819,
+    798,
+    776,
+    755,
+    734,
+    712,
+    691,
+    670,
+    648,
+    627,
+    605,
+    584,
+    563,
+    541,
+    520,
+    499,
+    477,
+    456,
+    434,
+    413,
+    392,
+    370,
+    349,
+    328,
+    306,
+    285,
+    264,
+    242,
+    221
+   ],
+   "G1_serving": {
+    "masks_identical": true,
+    "first_token_identical": true,
+    "generated_ids_identical": true,
+    "reads_identical": {
+     "calls": 65,
+     "bytes": 314572800
+    },
+    "logits_bitwise": true,
+    "logits_max_abs_delta": 0.0
+   },
+   "G1_prior_reference": {
+    "tokens_and_prediction_reproduced": true,
+    "logits_sha256_equal": true,
+    "B_U_logits_sha256_equal": true
+   },
+   "G2_B_F": {
+    "all_step_logits_within_1e-4": true,
+    "first_logits_bitwise": true,
+    "all_logits_bitwise": true,
+    "max_abs_delta": 0.0,
+    "first_token_exact": true,
+    "tokens_exact": true,
+    "answer_exact": true,
+    "steps": 3,
+    "sentinel_reference_bitwise_identical": true,
+    "mask_calls": 96,
+    "reads": {
+     "calls": 65,
+     "bytes": 314572800
+    }
+   },
+   "G2_B_U": {
+    "all_step_logits_within_1e-4": true,
+    "first_logits_bitwise": true,
+    "all_logits_bitwise": true,
+    "max_abs_delta": 0.0,
+    "first_token_exact": true,
+    "tokens_exact": true,
+    "answer_exact": true,
+    "steps": 3,
+    "sentinel_reference_bitwise_identical": true,
+    "mask_calls": 96,
+    "reads": {
+     "calls": 65,
+     "bytes": 314572800
+    }
+   },
+   "G4": {
+    "B_F": {
+     "k_per_layer_unchanged": true,
+     "selected_ids_unchanged": true,
+     "vision_and_query_score_calls_zero": true,
+     "bytes": 314572800,
+     "preads": 65,
+     "fresh_hit_reproduces_traced": true,
+     "fresh_logits_sha256_equal_traced": true
+    },
+    "B_U": {
+     "k_per_layer_unchanged": true,
+     "selected_ids_unchanged": true,
+     "vision_and_query_score_calls_zero": true,
+     "bytes": 314572800,
+     "preads": 65,
+     "fresh_hit_reproduces_traced": true,
+     "fresh_logits_sha256_equal_traced": true
+    }
+   },
+   "bytes_layerwise_equal_uniform": true,
+   "persistence": {
+    "B": {
+     "persistence_ms": 572.3657486960292,
+     "file_logical_bytes": 317304352,
+     "os_write_bytes": 317304352
+    },
+    "B_U": {
+     "persistence_ms": 549.0251760929823,
+     "file_logical_bytes": 317306033,
+     "os_write_bytes": 317306033
+    },
+    "B_F": {
+     "persistence_ms": 550.6428629159927,
+     "file_logical_bytes": 317308993,
+     "os_write_bytes": 317308993
+    }
+   },
+   "status": "PASS"
+  },
+  {
+   "image_id": "n133585",
+   "question_id": "202108008",
+   "N": 2112,
+   "k_u": 528,
+   "G1_store": {
+    "payload_files": 99,
+    "payload_bytes_identical": true,
+    "shared_meta_keys": 52,
+    "meta_keys_identical": true,
+    "payload_bytes": 296252458
+   },
+   "k_per_layer_F": [
+    845,
+    824,
+    804,
+    783,
+    763,
+    743,
+    722,
+    702,
+    681,
+    661,
+    640,
+    620,
+    600,
+    579,
+    559,
+    538,
+    518,
+    497,
+    477,
+    456,
+    436,
+    416,
+    395,
+    375,
+    354,
+    334,
+    313,
+    293,
+    273,
+    252,
+    232,
+    211
+   ],
+   "G1_serving": {
+    "masks_identical": true,
+    "first_token_identical": true,
+    "generated_ids_identical": true,
+    "reads_identical": {
+     "calls": 65,
+     "bytes": 293601280
+    },
+    "logits_bitwise": true,
+    "logits_max_abs_delta": 0.0
+   },
+   "G1_prior_reference": {
+    "tokens_and_prediction_reproduced": true,
+    "logits_sha256_equal": true,
+    "B_U_logits_sha256_equal": true
+   },
+   "G2_B_F": {
+    "all_step_logits_within_1e-4": true,
+    "first_logits_bitwise": true,
+    "all_logits_bitwise": true,
+    "max_abs_delta": 0.0,
+    "first_token_exact": true,
+    "tokens_exact": true,
+    "answer_exact": true,
+    "steps": 2,
+    "sentinel_reference_bitwise_identical": true,
+    "mask_calls": 64,
+    "reads": {
+     "calls": 65,
+     "bytes": 293601280
+    }
+   },
+   "G2_B_U": {
+    "all_step_logits_within_1e-4": true,
+    "first_logits_bitwise": true,
+    "all_logits_bitwise": true,
+    "max_abs_delta": 0.0,
+    "first_token_exact": true,
+    "tokens_exact": true,
+    "answer_exact": true,
+    "steps": 2,
+    "sentinel_reference_bitwise_identical": true,
+    "mask_calls": 64,
+    "reads": {
+     "calls": 65,
+     "bytes": 293601280
+    }
+   },
+   "G4": {
+    "B_F": {
+     "k_per_layer_unchanged": true,
+     "selected_ids_unchanged": true,
+     "vision_and_query_score_calls_zero": true,
+     "bytes": 293601280,
+     "preads": 65,
+     "fresh_hit_reproduces_traced": true,
+     "fresh_logits_sha256_equal_traced": true
+    },
+    "B_U": {
+     "k_per_layer_unchanged": true,
+     "selected_ids_unchanged": true,
+     "vision_and_query_score_calls_zero": true,
+     "bytes": 293601280,
+     "preads": 65,
+     "fresh_hit_reproduces_traced": true,
+     "fresh_logits_sha256_equal_traced": true
+    }
+   },
+   "bytes_layerwise_equal_uniform": true,
+   "persistence": {
+    "B": {
+     "persistence_ms": 620.6760071218014,
+     "file_logical_bytes": 296328081,
+     "os_write_bytes": 296328081
+    },
+    "B_U": {
+     "persistence_ms": 599.1284819319844,
+     "file_logical_bytes": 296329762,
+     "os_write_bytes": 296329762
+    },
+    "B_F": {
+     "persistence_ms": 577.6286097243428,
+     "file_logical_bytes": 296332612,
+     "os_write_bytes": 296332612
+    }
+   },
+   "status": "PASS"
+  },
+  {
+   "image_id": "n272098",
+   "question_id": "201535625",
+   "N": 2880,
+   "k_u": 720,
+   "G1_store": {
+    "payload_files": 99,
+    "payload_bytes_identical": true,
+    "shared_meta_keys": 52,
+    "meta_keys_identical": true,
+    "payload_bytes": 405313834
+   },
+   "k_per_layer_F": [
+    1152,
+    1124,
+    1096,
+    1068,
+    1041,
+    1013,
+    985,
+    957,
+    929,
+    901,
+    873,
+    845,
+    818,
+    790,
+    762,
+    734,
+    706,
+    678,
+    650,
+    622,
+    595,
+    567,
+    539,
+    511,
+    483,
+    455,
+    427,
+    399,
+    372,
+    344,
+    316,
+    288
+   ],
+   "G1_serving": {
+    "masks_identical": true,
+    "first_token_identical": true,
+    "generated_ids_identical": true,
+    "reads_identical": {
+     "calls": 65,
+     "bytes": 402653184
+    },
+    "logits_bitwise": true,
+    "logits_max_abs_delta": 0.0
+   },
+   "G1_prior_reference": {
+    "tokens_and_prediction_reproduced": true,
+    "logits_sha256_equal": true,
+    "B_U_logits_sha256_equal": true
+   },
+   "G2_B_F": {
+    "all_step_logits_within_1e-4": true,
+    "first_logits_bitwise": true,
+    "all_logits_bitwise": true,
+    "max_abs_delta": 0.0,
+    "first_token_exact": true,
+    "tokens_exact": true,
+    "answer_exact": true,
+    "steps": 3,
+    "sentinel_reference_bitwise_identical": true,
+    "mask_calls": 96,
+    "reads": {
+     "calls": 65,
+     "bytes": 402653184
+    }
+   },
+   "G2_B_U": {
+    "all_step_logits_within_1e-4": true,
+    "first_logits_bitwise": true,
+    "all_logits_bitwise": true,
+    "max_abs_delta": 0.0,
+    "first_token_exact": true,
+    "tokens_exact": true,
+    "answer_exact": true,
+    "steps": 3,
+    "sentinel_reference_bitwise_identical": true,
+    "mask_calls": 96,
+    "reads": {
+     "calls": 65,
+     "bytes": 402653184
+    }
+   },
+   "G4": {
+    "B_F": {
+     "k_per_layer_unchanged": true,
+     "selected_ids_unchanged": true,
+     "vision_and_query_score_calls_zero": true,
+     "bytes": 402653184,
+     "preads": 65,
+     "fresh_hit_reproduces_traced": true,
+     "fresh_logits_sha256_equal_traced": true
+    },
+    "B_U": {
+     "k_per_layer_unchanged": true,
+     "selected_ids_unchanged": true,
+     "vision_and_query_score_calls_zero": true,
+     "bytes": 402653184,
+     "preads": 65,
+     "fresh_hit_reproduces_traced": true,
+     "fresh_logits_sha256_equal_traced": true
+    }
+   },
+   "bytes_layerwise_equal_uniform": true,
+   "persistence": {
+    "B": {
+     "persistence_ms": 948.0092525482178,
+     "file_logical_bytes": 405410838,
+     "os_write_bytes": 405410838
+    },
+    "B_U": {
+     "persistence_ms": 848.6137762665749,
+     "file_logical_bytes": 405412550,
+     "os_write_bytes": 405412550
+    },
+    "B_F": {
+     "persistence_ms": 851.1710409075022,
+     "file_logical_bytes": 405416313,
+     "os_write_bytes": 405416313
+    }
+   },
+   "status": "PASS"
+  }
+ ],
+ "G1": "PASS",
+ "G2": "PASS",
+ "G4": "PASS"
+}

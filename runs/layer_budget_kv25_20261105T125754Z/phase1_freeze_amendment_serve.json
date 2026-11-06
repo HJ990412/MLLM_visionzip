@@ -1,0 +1,10 @@
+{
+ "utc": 1793885345.9079854,
+ "file": "mmimpress/serve.py",
+ "sha256_at_phase1_freeze": "75dedacd5a9d2a014d14f3cd04165fedea332302c90e8069fb2d91843bf4284b",
+ "sha256_now": "0ac222b60650370a24d0045cedbe0d9e8c15b3d72c7a8c8e4ce6f760a136f30f",
+ "reason": "CPU gate attempt 1 (gate_cpu_attempt1_failed.log) exposed a regression in CVPR25ChunkSelector.prepare: the chunk-budget path referenced k_target, which only exists for visual_kv budgets. Fix restricts k_visible to the visual_kv branch.",
+ "phase1_impact": "none: Phase 1 (scripts/152) uses bias_from_keep and Server._decode only, not CVPR25ChunkSelector; the running Phase 1 process imported serve.py before the change. The chunk-budget path is used by no arm of this experiment.",
+ "diff": "-            k_visible = (self.k_per_layer[li] if self.layerwise else self.k_target)\n-            if self.budget_unit == \"visual_kv\":\n+            if self.budget_unit == \"visual_kv\":\n+                k_visible = (self.k_per_layer[li] if self.layerwise else self.k_target)",
+ "policy": "DEV/HOLD freezes (gpu_freeze_dev.json, hold/config.json source_sha256) bind the fixed file."
+}

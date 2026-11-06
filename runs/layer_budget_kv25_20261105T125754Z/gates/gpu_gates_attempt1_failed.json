@@ -1,0 +1,11 @@
+{
+ "status": "FAIL",
+ "atol": 0.0001,
+ "rtol": 0.0001,
+ "vectors": {
+  "U": "54ea273e1a38b1e8b02b96237381f982344cd28ca8466162876e161cdb8ff3ba",
+  "F-front": "d4314f59fc8e53564b366074d507bf6ab87fa88267da96e68b13fad44e7627de"
+ },
+ "samples": [],
+ "error": "Traceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/scripts/154_validate_layer_budget_kv25.py\", line 492, in stage_gpu\n    gate[\"samples\"].append(gpu_case(exp, s, path, docs, ref_out[s[\"image_id\"]]))\n  File \"/home/dblab/hj/mllm_v2/scripts/154_validate_layer_budget_kv25.py\", line 403, in gpu_case\n    assert not diff, f\"G1 shared meta keys differ: {diff}\"\nAssertionError: G1 shared meta keys differ: ['ablation']\n"
+}

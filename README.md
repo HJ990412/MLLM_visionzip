@@ -739,3 +739,151 @@ ReComp KV read=0은 이미지 I/O=0이 아니고 OS 반환 bytes/DONTNEED는 col
 [재현 정보](results/mt_vqa_v2_reconstructed_25k_v3_20261021T100500Z/REPRODUCE.md)를 참조한다.
 코드·요약표·검증/완료 receipt·해시와 provenance를 게시하며, 원본 이미지·전체 manifest·
 raw journal·KV payload와 요청별 대용량 CSV는 로컬에 보존한다.
+
+## 25. Full-context KV25 vs reduced-token Recompute KV25 ablation (2026-11-02)
+
+LLaVA GQA 40 images × 6턴(hit 200/arm)에서 Ours-KV25 [B]와, 같은 S·k·저장 순서·bytes로
+system+S+separator만 별도 prefill해 KV를 다시 계산한 Recomp-KV25를 비교했다.
+Orig는 원래 position ID, Compact는 연속 position을 쓰고, PosShift는 Ours store의
+text 시작만 `v0+k+n_sep`로 옮긴 진단 arm이다. 모든 gate(G1–G7)를 통과했다.
+G2는 rev. 3이며, rev.-2 run이 n51002에서 shape-rounding 때문에 중단된 뒤 품질 결과를
+열람하기 전에 개정했다. 구조 행은 same-length truncation 대조와 bit-identity로 검사한다.
+
+| Arm | Hit acc. | Ours−arm (95% CI) | Hit TTFT mean | Prefill-only Δ/image |
+|---|---:|---:|---:|---:|
+| FullLoad | 63.00% | — | 691.16 ms | — |
+| Ours-KV25 | 56.50% | — | 265.71 ms | 0 |
+| Recomp-KV25-Orig | 56.00% | +0.50 pp (−2.50~+3.50) | 262.17 ms | 87.81 ms |
+| Recomp-KV25-Compact | 60.50% | −4.00 pp (−8.00~+0.00) | 266.27 ms | 87.79 ms |
+| Ours-KV25-PosShift | 0.00% | +56.50 pp (+48.50~+64.00) | 265.85 ms | 0 |
+
+사전 규칙상 Ours−Orig는 차이가 없음을 보여 주지 못했다(동등성 아님).
+Ours−Compact도 CI 상한이 정확히 0이라 "차이 없음 표시"로 분류하지만 경계 사례다.
+Orig−Compact는 −4.50 pp(−8.00~−0.50)로 Compact가 높았다.
+PosShift 붕괴는 Ours store에 원래 text position이 필요함을 보여 준다.
+BF16 shape rounding이 context가 같은 행에도 deep-layer drift를 만든다(single row 최대 0.032 rel L2, context 효과 0.21/0.40).
+그래서 1 pp 미만 차이는 해석하지 않는다. 40 cluster·개발 세트·LLaVA 한정이며 Stage 2와 Qwen은 실행하지 않았다.
+[전체 결과](results/recompute_kv25_ablation_20261102T061243Z/REPORT.md),
+[실험 계약](docs/recompute_kv25_ablation_contract.md),
+[재현 정보](results/recompute_kv25_ablation_20261102T061243Z/REPRODUCE.md)를 참조한다.
+
+## 26. Ours-ReRoPE와 Pruned-T1 (2026-11-02)
+
+25절의 2×2(문맥 × 위치)를 한 run에서 완성했다. Ours-ReRoPE는 전체 문맥 Ours KV의
+S·sep 행 Key만 persistence 시점에 연속 위치로 한 번 재회전(FP64, FP16 저장)한 store이고,
+Pruned-T1은 캐시 없이 sys + (S ∪ sep) + 질문을 연속 위치로 한 번 prefill하는 첫 턴이다.
+GQA 40 images × 6턴, 7 arm, 모든 gate(G1–G7, G-a~G-d) 통과. rev.3 arm 재현율 100%.
+첫 두 run은 측정 전에 중단됐고(스크립트 결함, 디스크 floor) 기록으로 보존했다.
+
+| Context \ Position | 원래 위치 | 연속 위치 |
+|---|---:|---:|
+| 전체 T1 문맥 | 56.50% (Ours-KV25) | 57.00% (Ours-ReRoPE) |
+| 축소 prefill 문맥 | 56.00% (Recomp-Orig) | 60.50% (Recomp-Compact) |
+
+ReRoPE−Ours +0.50 pp (−4.50~+5.50), ReRoPE−Compact −3.50 pp (−8.00~+1.00)로 차이 미입증.
+공동 bootstrap 요인 효과: 문맥 −1.50 pp (−4.25~+1.50), 위치 +2.50 pp (−1.00~+6.00),
+교호작용 +4.00 pp (−1.00~+9.00). 모두 CI가 0을 포함한다.
+Pruned-T1 vs full-token 단독 추론: T1 −5.00 pp (−15.00~+5.00), T2–T6 −1.50 pp (−6.50~+3.00),
+전체 −2.08 pp (−6.25~+2.08). 대화 단위: [T1 full + Ours] 57.08%, [T1 full + ReRoPE] 57.50%,
+[전부 Pruned] 60.42%, 차이는 모두 미입증. ReRoPE 재회전 비용은 이미지당 7.31 ms
+(Recomp 축소 prefill 87.7 ms). Pruned-T1 TTFT는 compose 측정이라 효율 비교에 쓰지 않는다.
+개발 세트 반복 사용으로 모든 결론은 탐색적이며 1 pp 미만 차이는 해석하지 않는다.
+[전체 결과](results/rerope_kv25_20261102T093759Z/REPORT.md),
+[실험 계약](docs/rerope_kv25_contract.md),
+[재현 정보](results/rerope_kv25_20261102T093759Z/REPRODUCE.md)를 참조한다.
+
+## 27. VZ-Pruned-E2E vs Ours-KV25 vs ReComp, 전체 MT-GQA (2026-11-03)
+
+26절의 Pruned-T1을 실제 serving 경로로 올려(vision tower 1회 → image-only saliency →
+[sys | keep | question] 연속 위치 1회 prefill, 그 prefix KV를 store에 저장, T2–T3는 Compact
+규칙으로 hit) B main과 같은 재구성 MT-GQA 398 images / 4,061 dialogues × 3턴에서
+ReComp, Ours-KV25(B 경로)와 비교했다. 36,549 요청 모두 완료, 모든 gate(G1–G8) 통과.
+G2: 구조 행은 전 layer bit-identical, layer-0 K 재정렬 rel L2 최대 4.6e-3(상한 1e-2),
+oracle 비 최대 1.07(상한 1.5), 음성 대조 최소 1.10(> 0.1). G6: ReComp·Ours 각각 12,183 요청이
+B main과 토큰 단위로 100% 일치. G8: 20 images × T2,T3 hit과 cache-less 단일 prefill이
+40/40 토큰 동일. 앞선 두 freeze run은 측정 전 중단(audit 동점 규칙, 용량 guard)이라
+기록으로 보존했다.
+
+| Arm | T1 EM | Hit EM (T2–T3) | All EM | T1 TTFT (ms) | Hit TTFT (ms) |
+|---|---:|---:|---:|---:|---:|
+| ReComp | 63.19 | 68.48 | 66.72 | 522.6 | 529.3 |
+| Ours-KV25 | 63.19 | 66.18 | 65.18 | 522.7 | 246.4 |
+| VZ-Pruned-E2E | 60.99 | 66.58 | 64.72 | 159.6 | 243.7 |
+
+사전 지정 primary endpoint(Ours − VZ): T1 +2.19 pp [+1.10, +3.26] (차이 있음),
+all +0.46 pp [−0.23, +1.15] (미입증). Secondary(탐색적): Ours − VZ hit −0.41 pp
+[−1.19, +0.37] 미입증, Ours·VZ 모두 ReComp 대비 hit/all에서 −1.5~−2.3 pp 열위(CI 0 제외).
+VZ T1 TTFT는 Ours 대비 −363 ms [−369, −357] (LM prefill 627 vs 2,242 토큰), hit TTFT 차이
++2.7 ms(Ours − VZ). 대화 단위 shared-stream session: ReComp 1,666 / Ours 1,172 / VZ 804 ms.
+Store 용량은 두 arm 동일(309.7 MB/image), VZ persistence +10.9 ms/image. 같은 재구성
+MT-GQA를 재사용했으므로 VZ 비교는 사전 등록된 탐색적 비교이며 1 pp 미만 차이는
+해석하지 않는다.
+[전체 결과](results/vz_pruned_e2e_mtgqa_20261102T120205Z/REPORT.md),
+[실험 계약](docs/vz_pruned_e2e_mtgqa_contract.md),
+[재현 정보](results/vz_pruned_e2e_mtgqa_20261102T120205Z/REPRODUCE.md)를 참조한다.
+
+## 28. PosShift 용량-반응 진단 (2026-11-03)
+
+25절 PosShift의 hit EM 0%(0/200)가 구현 결함인지 확인하기 위해 같은 40 GQA images × T2–T6에서
+Ours store(전체 T1 문맥, 원래 위치 Key)를 다시 만들고 text 시작 위치만 `(v0+V) − δ`로 옮겼다.
+δ=0은 기준 경로와 모든 step logits가 bit-identical(200/200), 기준 경로는 25절 Ours 행을 토큰 단위로
+재현(200/200), δmax는 25절 PosShift 행을 재현(200/200)했다. 모든 gate 통과.
+
+| δ | 0 | 1 | 4 | 16 | 64 | 256 | 1024 | max (1080–2160) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Hit EM % | 56.5 | 58.0 | 57.5 | 58.5 | 57.0 | 15.5 | 0.0 | 0.0 |
+| 첫 토큰 = 기준 % | 100 | 95.0 | 89.0 | 89.5 | 88.5 | 14.0 | 0.0 | 0.0 |
+| 16-token cap % | 0 | 0 | 0 | 0 | 0 | 32.5 | 100 | 100 |
+
+사전 고정 판독: δ\*(EM ≤ 5%) = 1024 → **점진**. 64 position까지는 EM 차이가 CI 안에 있고(+0.5~+2.0 pp,
+모두 0 포함), 256에서 −41.0 pp [−50.5, −32.0], 1024 이상에서 0%와 형식 붕괴(개행·기호·기능어 반복)가
+나타난다. 25절의 0%는 구현 결함이 아니라 위치 불일치 크기의 결과로 읽으며, 25절 사전 판정은 그대로다.
+진단 목적의 탐색적 곡선이고 attention 분포는 측정하지 않았다.
+[전체 결과](results/posshift_dose_20261103T060151Z/REPORT.md),
+[실험 계약](docs/posshift_dose_contract.md),
+[재현 정보](results/posshift_dose_20261103T060151Z/REPRODUCE.md)를 참조한다.
+
+## 29. Layer-wise KV25 budget allocation (2026-11-06)
+
+전체 content KV 예산은 그대로 두고 layer별 보존 행 수만 다르게 배분했다.
+32-layer LLaVA의 고정 ratio vector와 Hamilton 배분으로 이미지마다
+Σ k_l = 32 × ceil(original N/4)를 만족한다. 기존 image-only saliency 순서,
+구조 행·원래 position·full T1 capture는 유지하고 layer별 파일은 정확히 k_l행에서
+끝난다. Uniform vector는 기존 PrefixStore-KV25와 payload·mask·생성 token이 같다.
+
+CAL은 VQAv2 250 images/1,250질문, DEV는 GQA 40 images/240질문이다.
+CAL sensitivity로 7개 vector를 만들고 DEV에서 A1-2를 선택한 뒤,
+MT-GQA-reconstructed 398 images/4,061 dialogues의 4-arm HOLD를
+48,732/48,732요청으로 완료했다. 독립 감사 PASS이며 실패·skip·resume는 0이다.
+DEV의 40이미지는 모두 HOLD에 포함되므로 독립 unseen holdout이라고 주장하지 않는다.
+
+| Method | 전체 EM | Followup EM | Followup TTFT | SSD MB/followup | Shared-stream session | Standalone-equivalent session |
+|---|---:|---:|---:|---:|---:|---:|
+| ReComp | 66.716% | 68.481% | 529.27 ms | 0.000 | 1665.8 ms | 1665.8 ms |
+| FullLoad | 66.650% | 68.382% | 736.50 ms | 1173.919 | 2362.0 ms | 4956.6 ms |
+| B-uniform | 65.181% | 66.178% | 248.94 ms | 308.050 | 1183.3 ms | 1886.8 ms |
+| B-A1-2 | 66.051% | 67.483% | 279.80 ms | 308.050 | 1243.2 ms | 1933.8 ms |
+
+Followup은 T2–T3, strict normalized EM이며 MB=10^6 bytes다. B-A1-2는
+B-uniform보다 +1.305 pp(이미지 단위 paired bootstrap 95% CI +0.560~+2.046)
+높았지만 ReComp보다 −0.997 pp(−1.663~−0.341) 낮았다.
+SSD bytes는 동일해 ≤1.02× 조건을 통과했지만 TTFT는 +30.855 ms로
+≤1.05× 조건을 충족하지 못했다. 따라서 실행은 완료됐어도 사전 판정은 **PARTIAL**이다.
+파일 크기별 pread 진단도 보존했으며, 성능을 맞추려고 serving I/O 경로를 바꾸지 않았다.
+
+Shared-stream은 실제 이미지 setup을 한 번 귀속하고 standalone은 이를 매 dialogue에
+다시 부과한 DERIVED 값이다. 독립 cold-session 실측이 아니며 standalone에서
+B-A1-2는 ReComp보다 268.003 ms 길었다. Dense GPU buffer는 유지하므로
+GPU 메모리 75% 절감이나 cache saturation/hit-rate 이득을 주장하지 않는다.
+Qwen·GLM은 실행하지 않았다. 초기 gate 실패·소스 freeze amendment·공용 코드 diff는
+별도 보존하며, 이전 실험 수치를 이번 allocation의 결과로 재사용하지 않았다.
+보고기의 gate/protection 표기 변경 전 frozen 사본도 보존했다.
+
+[전체 결과](results/layer_budget_kv25_20261105T125754Z/REPORT.md),
+[HOLD 품질표](results/layer_budget_kv25_20261105T125754Z/hold/quality.csv),
+[HOLD 지연·I/O](results/layer_budget_kv25_20261105T125754Z/hold/latency_io.csv),
+[최종 판정](results/layer_budget_kv25_20261105T125754Z/decision.json),
+[실행 기록](results/layer_budget_kv25_20261105T125754Z/execution_record.json),
+[실험 계약](docs/layer_budget_kv25_contract.md),
+[재현 정보](results/layer_budget_kv25_20261105T125754Z/REPRODUCE.md)를 참조한다.
+소스·요약표·그림·검증·재현 자료를 게시하고 대용량 raw·tensor·KV payload는 로컬에 보존한다.

@@ -1,0 +1,70 @@
+{
+  "arms": [
+    "recompute",
+    "fullload",
+    "U",
+    "A1-0.5",
+    "A1-1",
+    "A1-2",
+    "A2",
+    "F-front",
+    "F-back"
+  ],
+  "kv25_arms": [
+    "U",
+    "A1-0.5",
+    "A1-1",
+    "A1-2",
+    "A2",
+    "F-front",
+    "F-back"
+  ],
+  "candidates": [
+    "A1-0.5",
+    "A1-1",
+    "A1-2",
+    "A2"
+  ],
+  "tie_order": [
+    "A2",
+    "A1-1",
+    "A1-0.5",
+    "A1-2"
+  ],
+  "vectors_sha256": {
+    "U": "54ea273e1a38b1e8b02b96237381f982344cd28ca8466162876e161cdb8ff3ba",
+    "A1-0.5": "8b3ee44bc6f28561a4b20ae93acb28f6f23bf0f77008b2b07b0a49e437fbc070",
+    "A1-1": "db03541455183dc44dd1abdce26a74c01a65a011be40c184da1f1835653a5781",
+    "A1-2": "2c2295cfbe876adc7d9a5e2253f1e1ead13bda3718e7b30e7f34779e03bfa8c7",
+    "A2": "9d2846ced0d21c1bb81f40d07f20ab46fca2e3379e799d549181c24eff9e7a60",
+    "F-front": "d4314f59fc8e53564b366074d507bf6ab87fa88267da96e68b13fad44e7627de",
+    "F-back": "a6b5884a2102ab4b090bd8e573991c6dd332288884e4d6eba00b531737ada0c9"
+  },
+  "store_policy": {
+    "fullload": "raster(full)",
+    "U": "prefix25 (existing writer)",
+    "A1-0.5": "prefix25_layerwise",
+    "A1-1": "prefix25_layerwise",
+    "A1-2": "prefix25_layerwise",
+    "A2": "prefix25_layerwise",
+    "F-front": "prefix25_layerwise",
+    "F-back": "prefix25_layerwise"
+  },
+  "t1_policy": "one executed normal full-pixel T1 per image (with saliency + decoder-hidden capture); T1 row recorded per arm as shared",
+  "workload_files": {
+    "gqa": "40e23fa7aeb22495717fc7eede1227de3a6b4811fde022d9cda71ef73c5e3895",
+    "smoke": "973a58940a5f884c948cadbec1e9c96e4b1f17619dacea520809d8c386b67a2d"
+  },
+  "contract_sha256": "12993920bcf3f9f2b936c1e6b9f3ce60d17d4346e3a534406f96ff667a9c71a7",
+  "min_free_bytes": 42949672960,
+  "bootstrap": {
+    "unit": "image",
+    "resamples": 10000,
+    "seed": 1234
+  },
+  "gates": {
+    "cpu_tests.json": "c32174598f4129ab1b9d809249cc42e3ea928a96f4441a355a15d5483a1fe253",
+    "g3_budget_invariance.json": "c446b8c330f0b08684285c73bbd6a9c9919d23fd1d19da87aa20abe26e0ecb69",
+    "gpu_gates.json": "15a9de4de6be4b016d870a84f053be0d9ad95367f294ef3407680ff5c9b96640"
+  }
+}

@@ -1,0 +1,25 @@
+{
+ "verdict": "PARTIAL",
+ "selected": "ours_prefixstore_kv25_layerwise_A1-2",
+ "delta_followup_pp": 1.305097266683083,
+ "ci95_pp": [
+  0.5601320359370435,
+  2.0458592947441754
+ ],
+ "ci_excludes_zero": true,
+ "ssd_mb_selected": 308.0497329012558,
+ "ssd_mb_uniform": 308.0497329012558,
+ "ssd_ok_1.02": true,
+ "ttft_mean_selected": 279.79645869510955,
+ "ttft_mean_uniform": 248.9409703725563,
+ "ttft_ok_1.05": false,
+ "followup_pct": {
+  "recompute": 68.48066978576706,
+  "fullload": 68.38217187884757,
+  "ours_prefixstore_kv25": 66.17828121152426,
+  "ours_prefixstore_kv25_layerwise_A1-2": 67.48337847820733
+ },
+ "rule": "GO: delta>=+1.0pp & CI excludes 0 & MB<=1.02x & TTFT<=1.05x; PARTIAL: delta>=+0.5pp with CI incl. 0, or GO with exactly one of MB/TTFT violated; else NO-GO",
+ "audit_status": "PASS",
+ "final": true
+}

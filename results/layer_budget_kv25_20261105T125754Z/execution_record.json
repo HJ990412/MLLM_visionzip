@@ -1,0 +1,48 @@
+{
+ "timeline_utc": {
+  "run_created": "2026-11-05T12:57:54Z",
+  "contract_frozen": "2026-11-05T13:08:50Z",
+  "phase1_probe_oom_attempt": "2026-11-05T13:11:25Z (failed, log phase1_probe_oom.log; fixed: no_grad)",
+  "phase1_full": "2026-11-05T13:17Z -> 14:13:52Z (~56 min, 1250 questions / 250 images)",
+  "cpu_gate_attempt1_failed": "2026-11-05T13:27:28Z",
+  "cpu_gate_pass": "2026-11-05T13:29:01Z",
+  "phase2_vectors": "2026-11-05T14:14:22Z",
+  "g3_pass": "2026-11-05T14:14:41Z",
+  "gpu_gate_attempts_failed": [
+   "2026-11-05T14:14:45Z",
+   "2026-11-05T14:15:27Z"
+  ],
+  "gpu_gate_pass": "2026-11-05T14:16:38Z",
+  "dev_smoke": "2026-11-05T14:17Z -> 14:18:13Z",
+  "dev_gqa": "2026-11-05T14:18Z -> 14:36:07Z (~18 min)",
+  "dev_io_diagnostic": "2026-11-05T14:38:21Z",
+  "hold_freeze": "2026-11-05T14:38:34Z",
+  "hold_smoke": "2026-11-05T14:38Z -> 14:40:30Z (48/48 PASS)",
+  "hold_main": "2026-11-05T14:40:41Z -> 23:02:26Z (30104.7 s = 8 h 22 min, 48732/48732 requests, 0 failures, 0 skips, no resume)",
+  "report": "2026-11-05T23:09Z"
+ },
+ "request_counts": {
+  "phase1_cal_questions": 1250,
+  "phase1_variant_forwards_per_question": 66,
+  "dev_requests_per_arm": 240,
+  "dev_arms": 9,
+  "dev_hit_requests_per_arm": 200,
+  "hold_requests_per_arm": 12183,
+  "hold_arms": 4,
+  "hold_total": 48732,
+  "hold_followups_per_arm": 8122
+ },
+ "failures_and_retries": [
+  "Phase 1 timing probe attempt 1: CUDA OOM (autograd enabled); harness fix, re-run; log kept",
+  "CPU gate attempt 1: 6 errors (2 harness regressions in serve.py chunk-budget path, recorded as phase1 freeze amendment; 1 from CUDA hidden; 3 GLM pre-existing env errors recorded separately)",
+  "GPU gate attempt 1: meta diff on 'ablation' label key (harness skip-set fix)",
+  "GPU gate attempt 2: KeyError k_per_layer for prefix25 arm (harness fix)",
+  "No measurement thresholds changed; no HOLD failures, skips or resumes"
+ ],
+ "ttft_root_cause": {
+  "finding": "Layerwise serving reads identical bytes (308.05 MB/followup, 65 preads) but TTFT mean is 1.124x uniform on HOLD (279.80 vs 248.94 ms; paired +30.9 ms [29.7, 32.0]).",
+  "cause": "Cold pread throughput per file depends on file size: ~2.0 GB/s for ~2 MB back-layer files vs ~3.6-4.0 GB/s for 5-6 MB files (block read_ahead_kb = 128). A1-2 moves rows from mid/back layers (small files) to layers 0-2 (clipped at 0.60), so the same bytes are spread over more small reads.",
+  "evidence": "runs/<RUN>/llava/dev_io_diagnostic_pread_by_size.json; DEV TTFT U 209 vs A1-2 243 ms",
+  "not_changed": "Serving I/O path left unchanged (contract: one contiguous read per layer, 64+1 preads); TTFT rule applied as pre-registered."
+ }
+}

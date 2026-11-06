@@ -1,0 +1,32 @@
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.30s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.25s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.03s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.10s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+{"image": 1, "of": 10, "image_id": "524637", "N": 2304, "seconds": 14.61}
+{"image": 2, "of": 10, "image_id": "262531", "N": 1920, "seconds": 13.78}
+{"image": 3, "of": 10, "image_id": "265916", "N": 2880, "seconds": 15.2}
+{"image": 4, "of": 10, "image_id": "134010", "N": 2304, "seconds": 14.22}
+{"image": 5, "of": 10, "image_id": "265069", "N": 2016, "seconds": 13.77}
+{"image": 6, "of": 10, "image_id": "133693", "N": 2016, "seconds": 14.1}
+{"image": 7, "of": 10, "image_id": "527575", "N": 2304, "seconds": 14.29}
+{"image": 8, "of": 10, "image_id": "2239", "N": 2112, "seconds": 14.0}
+{"image": 9, "of": 10, "image_id": "2388", "N": 2304, "seconds": 14.32}
+{"image": 10, "of": 10, "image_id": "526188", "N": 2304, "seconds": 14.27}
+{
+ "n_questions": 50,
+ "n_images": 10,
+ "spearman_rho_sR_vs_klD": 0.623900293255132,
+ "accuracy": {
+  "FULL_em": 0.68,
+  "U_em": 0.64,
+  "FULL_vqa": 0.7866666666666667,
+  "U_vqa": 0.7466666666666666,
+  "U_first_agrees_full": 0.88,
+  "U_first_matches_gold": 0.68,
+  "FULL_first_matches_gold": 0.7
+ },
+ "timing_ms": {
+  "per_variant_forward_mean": 39.047120486793574,
+  "question_total_mean": 2651.898367255926,
+  "image_t1_and_cache_mean": 943.9825938083231
+ }
+}
+EXIT 0

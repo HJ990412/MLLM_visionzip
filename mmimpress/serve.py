@@ -1069,8 +1069,12 @@ class ImageContext:
         if self.meta.get("storage_policy") == "prefix25":
             from mmimpress.prefix25 import validate_llava_prefix_meta, verify_integrity
             validate_llava_prefix_meta(self.meta)
+        elif self.meta.get("storage_policy") == "prefix25_layerwise":
+            from mmimpress.prefix25 import validate_llava_prefix_layerwise_meta
+            validate_llava_prefix_layerwise_meta(self.meta)
         has_integrity = (self.dir / "integrity.json").exists()
-        if self.meta.get("storage_policy") == "prefix25" and not has_integrity:
+        if self.meta.get("storage_policy") in ("prefix25", "prefix25_layerwise") \
+                and not has_integrity:
             raise ValueError("prefix25 store lacks its integrity completion envelope")
         if has_integrity:
             from mmimpress.prefix25 import verify_integrity
@@ -1268,10 +1272,11 @@ class ImageContext:
         assert int(artifact.get("calibration_questions", -1)) == 0
 
         row_bytes = int(m["num_heads"]) * int(m["head_dim"]) * 2
+        from mmimpress.store import payload_rows_for_layer
         for li in range(L):
             for kind in ("k", "v"):
                 path = self.dir / f"layer_{li:02d}" / f"{kind}.bin"
-                assert path.stat().st_size == int(m.get("payload_rows", vn)) * row_bytes, \
+                assert path.stat().st_size == payload_rows_for_layer(m, li) * row_bytes, \
                     f"invalid visual-KV file length: {path}"
         self._visual_kv_layout_validated = True
 
@@ -2461,6 +2466,11 @@ class CVPR25ChunkSelector:
         if ctx.meta.get("storage_policy") == "prefix25":
             if budget_unit != "visual_kv" or float(budget) > .25 or mode != "prefix":
                 raise ValueError("prefix25 only supports original-content visual_kv budgets <= 0.25")
+        self.layerwise = ctx.meta.get("storage_policy") == "prefix25_layerwise"
+        if self.layerwise:
+            if budget_unit != "visual_kv" or float(budget) != .25 or mode != "prefix":
+                raise ValueError("prefix25_layerwise serves only the frozen 0.25 "
+                                 "visual_kv budget in prefix mode")
         if self.budget_unit not in ("chunk", "visual_kv"):
             raise ValueError(f"unsupported budget unit: {self.budget_unit}")
         if self.budget_unit == "visual_kv":
@@ -2486,8 +2496,32 @@ class CVPR25ChunkSelector:
             self.visual_chunk_ids = list(range(
                 (self.k_target + int(m["chunk_size"]) - 1)
                 // int(m["chunk_size"])))
-            self.selected_stored_ids = list(range(self.k_target))
-            self.selected_original_ids = [int(x) for x in order[:self.k_target]]
+            self.k_per_layer = None
+            self.visual_chunk_ids_per_layer = None
+            if self.layerwise:
+                # Per-layer visible rows [0, k_l) of the same global order.
+                # k_l is recomputed from the frozen vector and must equal the
+                # store's recorded counts; the metadata validator already
+                # proved the files hold exactly k_l rows.
+                from mmimpress.layer_budget import layer_keep_counts
+                counts = layer_keep_counts(
+                    m["layer_keep_ratios"], n_content, int(m["num_layers"]),
+                    0.25, float(m["layer_budget_r_min"]),
+                    float(m["layer_budget_r_max"]))
+                if counts != [int(x) for x in m["layer_keep_counts"]]:
+                    raise ValueError("layerwise keep counts disagree with store")
+                if sum(counts) != int(m["num_layers"]) * self.k_target:
+                    raise ValueError("layerwise budget differs from uniform total")
+                self.k_per_layer = counts
+                cs = int(m["chunk_size"])
+                self.visual_chunk_ids_per_layer = [
+                    list(range((k + cs - 1) // cs)) for k in counts]
+                self.k_max = max(counts)
+                self.selected_stored_ids = list(range(self.k_max))
+                self.selected_original_ids = [int(x) for x in order[:self.k_max]]
+            else:
+                self.selected_stored_ids = list(range(self.k_target))
+                self.selected_original_ids = [int(x) for x in order[:self.k_target]]
         assert self.mode == "prefix" or self.static is not None, \
             f"{self.mode} requires static metadata"
         if self.mode == "prefix":
@@ -2551,7 +2585,8 @@ class CVPR25ChunkSelector:
             force = (self.static["sep_chunks"][li]
                      if self.sep_policy == "force" else [])
             if self.budget_unit == "visual_kv":
-                cids = self.visual_chunk_ids
+                cids = (self.visual_chunk_ids_per_layer[li] if self.layerwise
+                        else self.visual_chunk_ids)
             else:
                 cids, _ = choose_chunks(
                     self.mode, li, self.static, self.budget, force=force,
@@ -2582,7 +2617,8 @@ class CVPR25ChunkSelector:
             self.t["chunk_io"] += time.perf_counter() - t0
 
             if self.budget_unit == "visual_kv":
-                row_end = min(len(cids) * cs, int(m.get("payload_rows", vn)))
+                from mmimpress.store import payload_rows_for_layer
+                row_end = min(len(cids) * cs, payload_rows_for_layer(m, li))
                 expected_rows = torch.arange(row_end, dtype=torch.long)
                 assert torch.equal(loaded["k"][0], expected_rows)
                 assert torch.equal(loaded["v"][0], expected_rows)
@@ -2608,7 +2644,9 @@ class CVPR25ChunkSelector:
                     ctx.cache.write(li, kind, rows, vals)
             keep = torch.zeros(vn, dtype=torch.bool)
             if self.budget_unit == "visual_kv":
-                keep[:self.k_target] = True
+                k_visible = (self.k_per_layer[li] if self.layerwise
+                             else self.k_target)
+                keep[:k_visible] = True
             else:
                 keep[loaded["k"][0]] = True      # legacy whole-chunk budget
             if self.sep_policy == "sidecar":
@@ -2618,8 +2656,12 @@ class CVPR25ChunkSelector:
                 ctx.cache.write(li, "v", sp, self._sep[1][li])
                 keep[sp] = True
             if self.budget_unit == "visual_kv":
-                assert int(keep[:self.n_content].sum()) == self.k_target
+                assert int(keep[:self.n_content].sum()) == k_visible
                 assert bool(keep[self.n_content:].all())
+                if self.layerwise:
+                    # Every loaded row is visible and vice versa: the
+                    # layerwise payload ends exactly at k_l (short EOF).
+                    assert row_end == k_visible, (li, row_end, k_visible)
             self.kept_tokens_per_layer.append(int(keep.sum()))
             BIAS[li] = bias_from_keep(keep, m, dev)
             torch.cuda.synchronize()
@@ -2661,7 +2703,57 @@ class CVPR25ChunkSelector:
                 "scatter_ms": self.t["scatter"] * 1e3,
                 "hook_ms": 0.0,
                 "budget_unit": self.budget_unit}
-        if self.budget_unit == "visual_kv":
+        if self.budget_unit == "visual_kv" and self.layerwise:
+            m = self.ctx.meta
+            L = int(m["num_layers"])
+            assert len(self.loaded_real_rows_per_layer) == L
+            assert self.loaded_real_rows_per_layer == self.k_per_layer
+            assert all(x == 0 for x in self.loaded_structural_rows_per_layer)
+            assert self.kept_tokens_per_layer == [
+                k + self.n_structural for k in self.k_per_layer]
+            row_bytes = (int(m["num_heads"]) * int(m["head_dim"])
+                         * np.dtype(m["dtype"]).itemsize)
+            per_layer_bytes = [2 * k * row_bytes for k in self.k_per_layer]
+            result.update({
+                "ratio": float(self.budget),
+                "budget_policy": "layerwise_v1",
+                "layer_budget_id": str(m["layer_budget_id"]),
+                "layer_budget_sha256": str(m["layer_budget_sha256"]),
+                "layer_keep_ratios": [float(x) for x in m["layer_keep_ratios"]],
+                "N_content": self.n_content,
+                "N_structural": self.n_structural,
+                "k_target": None,
+                "k_uniform_equivalent": self.k_target,
+                "k_total": int(sum(self.k_per_layer)),
+                "k_per_layer": list(self.k_per_layer),
+                "k_max": int(self.k_max),
+                "attended_content_kv_count": None,
+                "attended_content_kv_count_per_layer": list(self.k_per_layer),
+                "normal_chunks_read_per_layer": [
+                    len(c) for c in self.visual_chunk_ids_per_layer],
+                "normal_chunks_read": None,
+                "actual_loaded_real_rows_per_layer": list(self.loaded_real_rows_per_layer),
+                "unused_loaded_real_rows": 0,
+                "actual_loaded_structural_rows": 0,
+                "selected_stored_ids": self.selected_stored_ids,
+                "selected_original_ids": self.selected_original_ids,
+                "selection_rule": "layer l attends stored rows [0, k_l) = "
+                                  "selected_original_ids[:k_per_layer[l]]",
+                "keep_count_per_layer": self.kept_tokens_per_layer,
+                "planned_normal_read_spans": self.planned_normal_read_spans,
+                "planned_normal_read_bytes_per_layer": per_layer_bytes,
+                "logical_content_retention_ratio":
+                    sum(self.k_per_layer) / (L * self.n_content),
+                "logical_content_retention_ratio_per_layer": [
+                    k / self.n_content for k in self.k_per_layer],
+                "structural_included_visual_retention_ratio":
+                    (sum(self.k_per_layer) / L + self.n_structural)
+                    / int(m["v_token_num"]),
+                "logical_required_content_bytes": int(sum(per_layer_bytes)),
+                "unused_loaded_real_bytes": 0,
+                "structural_bytes_in_normal_payload": 0,
+            })
+        elif self.budget_unit == "visual_kv":
             assert len(self.loaded_real_rows_per_layer) == \
                 int(self.ctx.meta["num_layers"])
             assert len(set(self.loaded_real_rows_per_layer)) == 1

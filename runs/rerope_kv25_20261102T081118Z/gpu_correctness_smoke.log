@@ -1,0 +1,36 @@
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.40s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.33s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.09s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.16s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+G4 1 5 PASS
+G4 2 5 PASS
+G4 3 5 PASS
+G4 4 5 PASS
+G4 5 5 PASS
+G4-ext 1 5 PASS
+G4-ext 2 5 PASS
+G4-ext 3 5 PASS
+G4-ext 4 5 PASS
+G4-ext 5 5 PASS
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/scripts/136_eval_rerope_kv25.py", line 502, in main
+    exp.pilot(phase)
+  File "/home/dblab/hj/mllm_v2/scripts/136_eval_rerope_kv25.py", line 407, in pilot
+    receipt, _, control = self.persist_arm(capture, image, arm, path)
+  File "/home/dblab/hj/mllm_v2/scripts/134_eval_recompute_kv25_ablation.py", line 175, in persist_arm
+    capacity(); before = process_io(); started = time.perf_counter()
+  File "/home/dblab/hj/mllm_v2/scripts/134_eval_recompute_kv25_ablation.py", line 62, in capacity
+    raise RuntimeError(f'disk floor: {free/2**30:.2f} GiB free < 20 GiB')
+RuntimeError: disk floor: 19.95 GiB free < 20 GiB
+
+{'G4 GPU CORRECTNESS': 'PASS', 'SMOKE': 'FAIL'}
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/scripts/136_eval_rerope_kv25.py", line 521, in <module>
+    main()
+  File "/home/dblab/hj/mllm_v2/scripts/136_eval_rerope_kv25.py", line 502, in main
+    exp.pilot(phase)
+  File "/home/dblab/hj/mllm_v2/scripts/136_eval_rerope_kv25.py", line 407, in pilot
+    receipt, _, control = self.persist_arm(capture, image, arm, path)
+  File "/home/dblab/hj/mllm_v2/scripts/134_eval_recompute_kv25_ablation.py", line 175, in persist_arm
+    capacity(); before = process_io(); started = time.perf_counter()
+  File "/home/dblab/hj/mllm_v2/scripts/134_eval_recompute_kv25_ablation.py", line 62, in capacity
+    raise RuntimeError(f'disk floor: {free/2**30:.2f} GiB free < 20 GiB')
+RuntimeError: disk floor: 19.95 GiB free < 20 GiB

@@ -1,0 +1,11 @@
+{
+ "status": "FAIL",
+ "atol": 0.0001,
+ "rtol": 0.0001,
+ "vectors": {
+  "U": "54ea273e1a38b1e8b02b96237381f982344cd28ca8466162876e161cdb8ff3ba",
+  "F-front": "d4314f59fc8e53564b366074d507bf6ab87fa88267da96e68b13fad44e7627de"
+ },
+ "samples": [],
+ "error": "Traceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/scripts/154_validate_layer_budget_kv25.py\", line 494, in stage_gpu\n    gate[\"samples\"].append(gpu_case(exp, s, path, docs, ref_out[s[\"image_id\"]]))\n  File \"/home/dblab/hj/mllm_v2/scripts/154_validate_layer_budget_kv25.py\", line 419, in gpu_case\n    served[arm] = production_traced(exp, ctx, path / arm, sample, turn[\"question\"], layers, ranking, counts)\n  File \"/home/dblab/hj/mllm_v2/scripts/154_validate_layer_budget_kv25.py\", line 326, in production_traced\n    assert value[\"k_per_layer\"] == counts and value[\"attended_content_kv_count_per_layer\"] == counts\nKeyError: 'k_per_layer'\n"
+}

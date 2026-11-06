@@ -770,8 +770,13 @@ def persist_captured_visual_prefix(
     vision_key_descriptors: torch.Tensor | None = None,
     selection_seed: int = 1234,
     storage_policy: str = "full",
+    layer_budget: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Persist the reusable prefix from a completed normal Turn-1 request.
+
+    ``storage_policy="prefix25_layerwise"`` additionally requires a frozen
+    ``layer_budget`` document (``mmimpress.layer_budget.budget_document``);
+    the writer recomputes each layer's row count from it.
 
     Parameters
     ----------
@@ -1052,6 +1057,8 @@ def persist_captured_visual_prefix(
             probe_heads=0, stored_to_original=stored_to_original,
             separator_sidecar=True, timing_out=writer_timing,
             storage_policy=storage_policy,
+            layer_budget=(dict(layer_budget) if layer_budget is not None
+                          else None),
         )
         assert meta["probe_heads"] == 0
         assert meta["bytes_probe_sidecar"] == 0

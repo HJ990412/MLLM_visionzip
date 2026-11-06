@@ -1,0 +1,28 @@
+{
+  "selected": "A1-2",
+  "candidate_hit_accuracy": {
+    "A1-0.5": 0.585,
+    "A1-1": 0.59,
+    "A1-2": 0.595,
+    "A2": 0.5
+  },
+  "f_front_hit_accuracy": 0.565,
+  "f_front_admitted_to_hold": false,
+  "f_front_minus_selected_pp": -3.0000000000000027,
+  "rule": "max DEV hit accuracy; ties -> A2, A1-1, A1-0.5, A1-2; F-front admitted if within +-0.5 pp",
+  "hold_arms": [
+    "recompute",
+    "fullload",
+    "ours_prefixstore_kv25",
+    "ours_prefixstore_kv25_layerwise_A1-2"
+  ],
+  "vectors_sha256": {
+    "U": "54ea273e1a38b1e8b02b96237381f982344cd28ca8466162876e161cdb8ff3ba",
+    "A1-0.5": "8b3ee44bc6f28561a4b20ae93acb28f6f23bf0f77008b2b07b0a49e437fbc070",
+    "A1-1": "db03541455183dc44dd1abdce26a74c01a65a011be40c184da1f1835653a5781",
+    "A1-2": "2c2295cfbe876adc7d9a5e2253f1e1ead13bda3718e7b30e7f34779e03bfa8c7",
+    "A2": "9d2846ced0d21c1bb81f40d07f20ab46fca2e3379e799d549181c24eff9e7a60",
+    "F-front": "d4314f59fc8e53564b366074d507bf6ab87fa88267da96e68b13fad44e7627de",
+    "F-back": "a6b5884a2102ab4b090bd8e573991c6dd332288884e4d6eba00b531737ada0c9"
+  }
+}

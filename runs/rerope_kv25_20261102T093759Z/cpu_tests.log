@@ -1,0 +1,58 @@
+test_joint_bootstrap (test_rerope_kv25.Contrasts) ... ok
+test_failures (test_rerope_kv25.Gates) ... ok
+test_pass_and_records (test_rerope_kv25.Gates) ... ok
+test_rows_are_fp16_exact_copies_of_bf16 (test_rerope_kv25.Gates) ... ok
+test_compare_recorded_never_raises (test_rerope_kv25.Positions) ... ok
+test_top2_margin (test_rerope_kv25.Positions) ... ok
+test_verify (test_rerope_kv25.Positions) ... ok
+test_rejects_original_plan (test_rerope_kv25.ReRotation) ... ok
+test_rows_and_exactness (test_rerope_kv25.ReRotation) ... ok
+test_visible_rows_only (test_recompute_kv25.CacheSentinel) ... ok
+test_guard (test_recompute_kv25.Cleanup) ... ok
+test_inventory (test_recompute_kv25.Cleanup) ... ok
+test_boundaries (test_recompute_kv25.Plan) ... ok
+test_expected_positions (test_recompute_kv25.Plan) ... ok
+test_rejects_bad_inputs (test_recompute_kv25.Plan) ... ok
+test_matches_hf_and_composes (test_recompute_kv25.Rope) ... ok
+test_override_equal_start_is_base_and_positions (test_recompute_kv25.Serving) ... ok
+test_bootstrap (test_recompute_kv25.Stats) ... ok
+test_control_rows_must_match_structure (test_recompute_kv25.StoreGates) ... ok
+test_identical_context_fails_implementation_check (test_recompute_kv25.StoreGates) ... ok
+test_identity_sentinel_and_pass (test_recompute_kv25.StoreGates) ... ok
+test_layer0_mismatch_and_unrotated_fail (test_recompute_kv25.StoreGates) ... ok
+test_rev3_structural_gate (test_recompute_kv25.StoreGates)
+Any structural-row change fails bit-identity; vs-Ours bounds are report-only. ... ok
+test_sentinel_detected_on_disk (test_recompute_kv25.StoreGates) ... ok
+test_structural_rows_and_identity (test_recompute_kv25.StoreGates) ... ok
+test_within_tolerance (test_recompute_kv25.StoreGates) ... ok
+test_llava_boundaries_full_buffer_mask_and_bits (test_prefix25_persistence.PrefixPersistence) ... ok
+test_qwen_boundaries_bits_reads_and_negative (test_prefix25_persistence.PrefixPersistence) ... ok
+test_zero_and_invalid_storage_policy (test_prefix25_persistence.PrefixPersistence) ... ok
+test_edges_and_invalid_inputs (test_llava_kv25.BudgetArithmeticTests) ... ok
+test_all_boundary_geometries_and_real_pread_ranges (test_llava_kv25.RealKV25PathTests) ... ok
+test_bad_layout_and_zero_content_fail_closed (test_llava_kv25.RealKV25PathTests) ... ok
+test_question_independence_and_full_retention_logical_identity (test_llava_kv25.RealKV25PathTests) ... ok
+test_short_final_chunk_has_no_padding_bytes (test_llava_kv25.RealKV25PathTests) ... ok
+test_direct_write_matches_fresh_raster_then_posthoc_repack (test_image_only_repack.DirectAndPosthocLayoutTests) ... ok
+test_prefix_online_path_cannot_call_any_forbidden_scorer (test_image_only_repack.OnlinePrefixIsolationTests) ... ok
+test_accepts_valid_shared_image_only_layout_and_raster_layout (test_image_only_repack.PrefixLayoutValidatorTests) ... ok
+test_rejects_wrong_provenance_mapping_and_missing_artifact (test_image_only_repack.PrefixLayoutValidatorTests) ... ok
+test_contiguous_first_k_has_exact_actual_bytes_and_preads (test_image_only_repack.RealPrefixIOTests) ... ok
+test_invalid_real_score_and_separator_index_fail_closed (test_image_only_repack.VisionZipOrderTests) ... ok
+test_stable_ties_separator_tail_bijection_and_inverse (test_image_only_repack.VisionZipOrderTests) ... ok
+test_rotation_is_balanced_and_stable_hash_is_order_independent (test_visdial_turn1_piggyback_core.DeterministicHelpersTests) ... ok
+test_atomic_store_has_exact_prefix_layout_and_no_v_hidden (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_existing_target_refused_and_failed_stage_removed (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_post_publication_integrity_failure_does_not_strand_as_error (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_unproven_capture_metadata_is_rejected_before_staging (test_visdial_turn1_piggyback_core.PiggybackPersistenceTests) ... ok
+test_exact_penultimate_capture_only_and_output_unchanged (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_exception_removes_only_our_hooks_and_active_marker (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_fail_closed_on_backend_no_call_or_multiple_calls (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_positional_attention_call_is_bound_by_parameter_name (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+test_timing_only_never_requests_any_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests) ... ok
+
+----------------------------------------------------------------------
+Ran 52 tests in 0.722s
+
+OK

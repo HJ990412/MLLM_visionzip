@@ -1,0 +1,32 @@
+{
+ "measured_at_utc": 1793884447.6666193,
+ "free_bytes_now": 80726790144,
+ "free_gib_now": 75.18268203735352,
+ "mount": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/\",\n         \"source\": \"/dev/nvme0n1p2\",\n         \"fstype\": \"ext4\",\n         \"options\": \"rw,relatime,errors=remount-ro\"\n      }\n   ]\n}\n",
+ "policy": "FRESH_IMAGE_STREAMING (one live HOLD image at a time; stores deleted after audit+commit)",
+ "hold": {
+  "arms_min": 4,
+  "arms_max": 5,
+  "live_stores_per_image": "raster (<=1.38 GB) + 1 prefix25 (<=0.34 GB) + 1-2 prefix25_layerwise (<=0.34 GB each)",
+  "largest_image_bundle_bound_bytes": 2396376000,
+  "builder_intermediate_margin_bytes": 4294967296,
+  "peak_working_set_bytes": 6691343296,
+  "raw_and_evidence_growth_bound_bytes": 26843545600,
+  "raw_growth_basis": "prior 5-arm B main run directory = 23 GB (runs/mt_gqa_B_llava5_qwen3_20261001T093921Z, du -sh)",
+  "minimum_reserve_bytes": 32212254720
+ },
+ "dev": {
+  "live_stores_per_image": "raster + 8 KV25 stores (<= ~4.2 GB), deleted per image",
+  "raw_bound_bytes": 2147483648
+ },
+ "phase1": {
+  "bound_bytes": 1073741824
+ },
+ "results_and_protection_bound_bytes": 2147483648,
+ "required_initial_free_bytes": 71115852736,
+ "required_initial_free_gib": 66.23179906606674,
+ "margin_bytes": 9610937408,
+ "status": "PASS",
+ "hold_recheck_rule": "before HOLD main: free >= minimum_reserve + peak_working_set + raw_and_evidence_growth_bound, else BLOCKED (no deletion of existing artifacts)",
+ "prior_main_required_initial_free_bytes": 109521666048
+}

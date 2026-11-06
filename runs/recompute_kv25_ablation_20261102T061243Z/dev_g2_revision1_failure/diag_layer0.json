@@ -1,0 +1,440 @@
+{
+ "n355567": {
+  "T": 2179,
+  "prefix_len": 2149,
+  "reduced_len": 565,
+  "t1_repeat": {
+   "layer0_S_k": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "layer0_S_v": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "sys_k_by_layer_rel_l2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sys_v_by_layer_rel_l2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sys_v_last": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "S_k_last_rel_l2": 0.0,
+   "S_v_last_rel_l2": 0.0
+  },
+  "full_seq_reduced_path": {
+   "layer0_S_k": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "layer0_S_v": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "sys_k_by_layer_rel_l2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sys_v_by_layer_rel_l2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sys_v_last": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "S_k_last_rel_l2": 0.0,
+   "S_v_last_rel_l2": 0.0
+  },
+  "prefix_only_shape_control": {
+   "layer0_S_k": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "layer0_S_v": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "sys_k_by_layer_rel_l2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sys_v_by_layer_rel_l2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sys_v_last": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "S_k_last_rel_l2": 0.009193,
+   "S_v_last_rel_l2": 0.019969
+  },
+  "orig_reduced": {
+   "layer0_S_k": {
+    "ok": false,
+    "rel_l2": 0.002661,
+    "max_abs": 0.046875,
+    "cosine": 0.999996,
+    "bit_exact_fraction": 0.781981
+   },
+   "layer0_S_v": {
+    "ok": true,
+    "rel_l2": 0.002388,
+    "max_abs": 0.003906,
+    "cosine": 0.999997,
+    "bit_exact_fraction": 0.621813
+   },
+   "sys_k_by_layer_rel_l2": [
+    0.002212,
+    0.005211,
+    0.006823,
+    0.006871,
+    0.006459,
+    0.006624,
+    0.00638,
+    0.007911
+   ],
+   "sys_v_by_layer_rel_l2": [
+    0.002513,
+    0.012458,
+    0.012694,
+    0.013296,
+    0.012596,
+    0.01174,
+    0.012146,
+    0.014016
+   ],
+   "sys_v_last": {
+    "ok": false,
+    "rel_l2": 0.0129,
+    "max_abs": 0.042969,
+    "cosine": 0.999909,
+    "bit_exact_fraction": 0.15415
+   },
+   "S_k_last_rel_l2": 0.214384,
+   "S_v_last_rel_l2": 0.41953
+  },
+  "fp32_oracle_vs_ours": {
+   "k": {
+    "rows": 528,
+    "rel_l2": 0.003338,
+    "max_abs": 0.04451,
+    "cosine": 0.999995,
+    "bit_exact_fraction": 0.0
+   },
+   "v": {
+    "rows": 528,
+    "rel_l2": 0.002433,
+    "max_abs": 0.00249,
+    "cosine": 0.999996,
+    "bit_exact_fraction": 9e-06
+   },
+   "k_max_err_over_pair_norm": 0.5705869772579258
+  },
+  "fp32_oracle_vs_orig": {
+   "k": {
+    "rows": 528,
+    "rel_l2": 0.003537,
+    "max_abs": 0.053046,
+    "cosine": 0.999994,
+    "bit_exact_fraction": 0.0
+   },
+   "v": {
+    "rows": 528,
+    "rel_l2": 0.002775,
+    "max_abs": 0.002769,
+    "cosine": 0.999995,
+    "bit_exact_fraction": 9e-06
+   },
+   "k_max_err_over_pair_norm": 0.7569405254166074
+  }
+ },
+ "n9181": {
+  "T": 2384,
+  "prefix_len": 2357,
+  "reduced_len": 629,
+  "t1_repeat": {
+   "layer0_S_k": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "layer0_S_v": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "sys_k_by_layer_rel_l2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sys_v_by_layer_rel_l2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sys_v_last": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "S_k_last_rel_l2": 0.0,
+   "S_v_last_rel_l2": 0.0
+  },
+  "full_seq_reduced_path": {
+   "layer0_S_k": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "layer0_S_v": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "sys_k_by_layer_rel_l2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sys_v_by_layer_rel_l2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sys_v_last": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "S_k_last_rel_l2": 0.0,
+   "S_v_last_rel_l2": 0.0
+  },
+  "prefix_only_shape_control": {
+   "layer0_S_k": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "layer0_S_v": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "sys_k_by_layer_rel_l2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sys_v_by_layer_rel_l2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "sys_v_last": {
+    "ok": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0,
+    "cosine": 1.0,
+    "bit_exact_fraction": 1.0
+   },
+   "S_k_last_rel_l2": 0.009692,
+   "S_v_last_rel_l2": 0.020867
+  },
+  "orig_reduced": {
+   "layer0_S_k": {
+    "ok": false,
+    "rel_l2": 0.002686,
+    "max_abs": 0.0625,
+    "cosine": 0.999996,
+    "bit_exact_fraction": 0.778689
+   },
+   "layer0_S_v": {
+    "ok": true,
+    "rel_l2": 0.002422,
+    "max_abs": 0.003906,
+    "cosine": 0.999997,
+    "bit_exact_fraction": 0.621038
+   },
+   "sys_k_by_layer_rel_l2": [
+    0.002212,
+    0.005211,
+    0.006823,
+    0.006871,
+    0.006459,
+    0.006624,
+    0.00638,
+    0.007911
+   ],
+   "sys_v_by_layer_rel_l2": [
+    0.002513,
+    0.012458,
+    0.012694,
+    0.013296,
+    0.012596,
+    0.01174,
+    0.012146,
+    0.014016
+   ],
+   "sys_v_last": {
+    "ok": false,
+    "rel_l2": 0.0129,
+    "max_abs": 0.042969,
+    "cosine": 0.999909,
+    "bit_exact_fraction": 0.15415
+   },
+   "S_k_last_rel_l2": 0.219172,
+   "S_v_last_rel_l2": 0.418701
+  },
+  "fp32_oracle_vs_ours": {
+   "k": {
+    "rows": 576,
+    "rel_l2": 0.003344,
+    "max_abs": 0.046535,
+    "cosine": 0.999995,
+    "bit_exact_fraction": 0.0
+   },
+   "v": {
+    "rows": 576,
+    "rel_l2": 0.002458,
+    "max_abs": 0.002749,
+    "cosine": 0.999996,
+    "bit_exact_fraction": 1.4e-05
+   },
+   "k_max_err_over_pair_norm": 1.7252231750738733
+  },
+  "fp32_oracle_vs_orig": {
+   "k": {
+    "rows": 576,
+    "rel_l2": 0.00355,
+    "max_abs": 0.053545,
+    "cosine": 0.999994,
+    "bit_exact_fraction": 0.0
+   },
+   "v": {
+    "rows": 576,
+    "rel_l2": 0.002819,
+    "max_abs": 0.003397,
+    "cosine": 0.999995,
+    "bit_exact_fraction": 1.2e-05
+   },
+   "k_max_err_over_pair_norm": 1.761723850601612
+  }
+ }
+}

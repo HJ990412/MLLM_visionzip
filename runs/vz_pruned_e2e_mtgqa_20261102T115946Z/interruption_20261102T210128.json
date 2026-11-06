@@ -1,0 +1,6 @@
+{
+  "status": "PARTIAL",
+  "error": "RuntimeError('BLOCKED_STORAGE: retained incomplete payload allowance exceeded')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/scripts/147_eval_vz_pruned_e2e_mtgqa.py\", line 718, in main\n    exp.run_phase(phase, audit_module)\n  File \"/home/dblab/hj/mllm_v2/scripts/147_eval_vz_pruned_e2e_mtgqa.py\", line 604, in run_phase\n    completed += self.run_image(ds, phase, audit_module)\n  File \"/home/dblab/hj/mllm_v2/scripts/147_eval_vz_pruned_e2e_mtgqa.py\", line 453, in run_image\n    atomic_json(artifact / 'capacity_before.json', capacity_guard(run))\n  File \"/home/dblab/hj/mllm_v2/scripts/147_eval_vz_pruned_e2e_mtgqa.py\", line 215, in capacity_guard\n    raise RuntimeError('BLOCKED_STORAGE: retained incomplete payload allowance exceeded')\nRuntimeError: BLOCKED_STORAGE: retained incomplete payload allowance exceeded\n",
+  "resume_command": "/home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/147_eval_vz_pruned_e2e_mtgqa.py --run /home/dblab/hj/mllm_v2/runs/vz_pruned_e2e_mtgqa_20261102T115946Z --gpu correctness,smoke,integration,main --resume"
+}

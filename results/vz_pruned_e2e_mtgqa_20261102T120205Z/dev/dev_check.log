@@ -1,0 +1,53 @@
+loaded 8.68988299369812
+{"phase": "smoke", "status": "RUNNING", "completed_final_requests": 18, "expected_requests": 18, "completed_images": 1, "image_id": "n229548", "at_unix": 1793620412.3951042}
+smoke 18 requests wall 15.790455341339111
+recompute 1 0001 'Helicopter' 612.9 671.0 0 2496 {'argmax': 6162, 'margin': 4.5}
+ours_prefixstore_kv25 1 0001 'Helicopter' 613.8 670.6 0 2496 {'argmax': 6162, 'margin': 4.5}
+vz_pruned_e2e 1 0001 'Helicopter' 178.5 234.6 0 624 {'argmax': 6162, 'margin': 4.75}
+recompute 2 0001 'Helicopter' 632.0 690.0 0 2496 {'argmax': 6162, 'margin': 5.25}
+ours_prefixstore_kv25 2 0001 'Helicopter' 306.0 364.9 352321536 624 {'argmax': 6162, 'margin': 4.375}
+vz_pruned_e2e 2 0001 'Helicopter' 293.3 351.9 352321536 624 {'argmax': 6162, 'margin': 5.5}
+recompute 3 0001 'Top' 618.1 637.8 0 2496 {'argmax': 7488, 'margin': 4.5}
+ours_prefixstore_kv25 3 0001 'Top' 276.2 296.0 352321536 624 {'argmax': 7488, 'margin': 2.0}
+vz_pruned_e2e 3 0001 'Top' 267.9 288.0 352321536 624 {'argmax': 7488, 'margin': 1.875}
+ours_prefixstore_kv25 1 0002 'Heavy' 619.8 658.6 0 2496 {'argmax': 940, 'margin': 0.5}
+vz_pruned_e2e 1 0002 'Heavy' 180.1 218.0 0 624 {'argmax': 940, 'margin': 0.875}
+recompute 1 0002 'Heavy' 619.3 658.8 0 2496 {'argmax': 940, 'margin': 0.5}
+ours_prefixstore_kv25 2 0002 'Helicopter' 271.9 331.1 352321536 624 {'argmax': 6162, 'margin': 3.75}
+vz_pruned_e2e 2 0002 'Helicopter' 264.6 325.1 352321536 624 {'argmax': 6162, 'margin': 3.625}
+recompute 2 0002 'Helicopter' 613.3 670.9 0 2496 {'argmax': 6162, 'margin': 4.75}
+ours_prefixstore_kv25 3 0002 'Yes' 271.3 292.0 352321536 624 {'argmax': 3869, 'margin': 0.625}
+vz_pruned_e2e 3 0002 'Yes' 271.4 291.6 352321536 624 {'argmax': 3869, 'margin': 0.625}
+recompute 3 0002 'Yes' 627.0 646.6 0 2496 {'argmax': 3869, 'margin': 0.875}
+GATES PASS {'selection_digest_equal': True, 'payload_sizes_equal': True, 'k': [624, 624], 'permutation_equal': True, 't1_selection_sha256': '4855950956220e62154767da07f56c52233c46efbddbc0c4f9832b45a4c1ae8f'} True {'sentinel_rows': 0, 'text_position_start': 677, 'expected': 677} {'ok': True, 'rows': 5, 'layers': 32, 'mismatches': []} wall 2945.6809628754854
+  gate structural_bitident_k entries 32 fail 0 {'rows': 5, 'mismatched_rows': 0}
+  gate structural_bitident_v entries 32 fail 0 {'rows': 5, 'mismatched_rows': 0}
+  gate layer0_v entries 1 fail 0 {'S': {'rows': 624, 'rel_l2': 0.0, 'max_abs': 0.0, 'cosine': 1.0, 'bit_exact_fraction': 1.0}}
+  gate vz_layer0_k_realigned_S entries 1 fail 0 {'rows': 624, 'rel_l2': 0.0038053703405775802}
+  gate vz_layer0_k_oracle_ratio_S entries 1 fail 0 {'oracle_ratio': 0.9907026310764482}
+  gate vz_neg_layer0_k_unrealigned_S entries 1 fail 0 {'rows': 624, 'rel_l2': 1.192573380459227}
+  gate vz_layer0_k_realigned_sep entries 1 fail 0 {'rows': 48, 'rel_l2': 0.003825165841807918}
+  gate vz_layer0_k_oracle_ratio_sep entries 1 fail 0 {'oracle_ratio': 1.0019914713194906}
+  gate vz_neg_layer0_k_unrealigned_sep entries 1 fail 0 {'rows': 48, 'rel_l2': 1.236638755554911}
+report_only keys ['sys_layer0_k', 'sys_layer0_v', 'sys_deep_k', 'sys_deep_v', 'rev3_layer0_k_realigned', 'rev3_neg_layer0_k_unaligned_moved_rows']
+layer last k_S_realigned 0.2553335071157406 v_S 0.5071104468908336 layer0 k_S_realigned 0.0038053703405775802
+image_only persist ms 701.3 bytes 355064649 synthetic None
+vz persist ms 708.2 bytes 355064704 synthetic {'synthetic_assembly_ms': 3.45651526004076, 'prefix_rows': 677, 'prefix_len': 2549, 'sentinel': 4096.0}
+g8 [{"image_id": "n229548", "dialog_id": "mtgqa_000001", "turn_id": 2, "hit_request_id": "llava-mtgqa-vz-e2e-v1:vz_pruned_e2e_mtgqa_dev:smoke:llava-hf/llava-v1.6-vicuna-7b-hf:vz_pruned_e2e:mtgqa_000001:t2", "standalone_prefill_len": 723, "hit_answer": "Helicopter", "standalone_answer": "Helicopter", "first_token_exact": true, "generated_token_ids_exact": true, "answer_exact": true, "max_abs_first_logit_delta": 0.125, "hit_top2": {"argmax": 6162, "margin": 5.5}, "standalone_top2": {"argmax": 6162, "margin": 5.5}, "hit_tokens": [6162, 293, 19959, 2], "standalone_tokens": [6162, 293, 19959, 2], "gated": false}, {"image_id": "n229548", "dialog_id": "mtgqa_000001", "turn_id": 3, "hit_request_id": "llava-mtgqa-vz-e2e-v1:vz_pruned_e2e_mtgqa_dev:smoke:llava-hf/llava-v1.6-vicuna-7b-hf:vz_pruned_e2e:mtgqa_000001:t3", "standalone_prefill_len": 750, "hit_answer": "Top", "standalone_answer": "Top", "first_token_exact": true, "generated_token_ids_exact": true, "answer_exact": true, "max_abs_first_logit_delta": 0.125, "hit_top2": {"argmax": 7488, "margin": 1.875}, "standalone_top2": {"argmax": 7488, "margin": 1.875}, "hit_tokens": [7488, 2], "standalone_tokens": [7488, 2], "gated": false}]
+audit PASS {}
+vz T1 breakdown {'image_decode': 2.158679999411106, 'processor_and_h2d': 16.1433769389987, 'vision_projector_pack_saliency': 40.49039911478758, 'saliency_order_plan': 0.9709969162940979, 'embed_assembly': 0.19899290055036545, 'prefill_to_first_token': 118.53183899074793} 706
+PATH EQUIVALENCE {'ok': True, 'max_abs_first_logit_delta': 0.0, 'atol': 0.0001, 'tokens_equal': True, 'prefill_len': (706, 706), 'prefix_embeds_equal': True} real tokens [6162, 293, 19959, 2] committed [6162, 293, 19959, 2]
+B-repro recompute 1 True True True
+B-repro ours_prefixstore_kv25 1 True True True
+B-repro recompute 2 True True True
+B-repro ours_prefixstore_kv25 2 True True True
+B-repro recompute 3 True True True
+B-repro ours_prefixstore_kv25 3 True True True
+B-repro ours_prefixstore_kv25 1 True True True
+B-repro recompute 1 True True True
+B-repro ours_prefixstore_kv25 2 True True True
+B-repro recompute 2 True True True
+B-repro ours_prefixstore_kv25 3 True True True
+B-repro recompute 3 True True True
+run_audit FAIL {'independent_image_audit': 1}
+DEV CHECK DONE

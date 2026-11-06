@@ -34,6 +34,51 @@ def validate_llava_prefix_meta(m):
         raise ValueError('invalid prefix25 original geometry or row mapping')
 
 
+def validate_llava_prefix_layerwise_meta(m):
+    """Fail-closed geometry/mapping check for ``prefix25_layerwise`` stores.
+
+    Recomputes every ``k_l`` from the frozen ratio vector and the original
+    content count, so a store whose metadata, vector or row counts disagree
+    with each other is rejected before activation.
+    """
+    from mmimpress.layer_budget import (budget_sha256, validate_keep_counts,
+                                        total_row_budget)
+    n = int(m['v_token_num']) - len(m['newline_idx'])
+    L = int(m['num_layers'])
+    counts = m.get('layer_keep_counts')
+    ratios = m.get('layer_keep_ratios')
+    try:
+        validate_keep_counts(counts, ratios, n, L, 0.25,
+                             float(m.get('layer_budget_r_min')),
+                             float(m.get('layer_budget_r_max')))
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f'invalid layerwise budget: {exc}') from exc
+    k_max = max(counts)
+    if (n < 1 or m.get('format') != 'llava_fp16_importance_prefix25_layerwise_v1'
+            or m.get('storage_policy') != 'prefix25_layerwise'
+            or m.get('budget_policy') != 'layerwise_v1'
+            or m.get('original_content_count') != n
+            or m.get('n_spatial') != n
+            or m.get('uniform_equivalent_content_count') != (n + 3) // 4
+            or m.get('stored_content_count_per_layer') != counts
+            or m.get('payload_rows_per_layer') != counts
+            or m.get('stored_content_count_total') != sum(counts)
+            or sum(counts) != total_row_budget(n, L)
+            or 'payload_rows' in m
+            or m.get('retention_ratio') != .25
+            or m.get('rounding_policy') != 'hamilton_largest_remainder_total_ceil_original_content'
+            or m.get('padding_rows') != 0
+            or m.get('layer_budget_sha256') != budget_sha256(ratios)
+            or not isinstance(m.get('layer_budget_id'), str) or not m['layer_budget_id']
+            or m.get('payload_chunks_per_layer') != [(k + 63) // 64 for k in counts]
+            or m.get('valid_rows_last_chunk_per_layer') != [((k - 1) % 64 + 1) if k else 0 for k in counts]
+            or m.get('full_importance_permutation') != m['order']
+            or sorted(m['order']) != list(range(m['v_token_num']))
+            or m.get('stored_row_to_original') != m['order'][:k_max]
+            or m['order'][n:] != m['newline_idx']):
+        raise ValueError('invalid prefix25_layerwise geometry or row mapping')
+
+
 def inventory(path):
     root = Path(path)
     return {str(p.relative_to(root)): {'size': p.stat().st_size,
