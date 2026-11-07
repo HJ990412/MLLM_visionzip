@@ -1,0 +1,34 @@
+{
+ "measured_at_utc": 1793951247.6780858,
+ "free_bytes_now": 70657900544,
+ "free_gib_now": 65.8052978515625,
+ "packed_store_max_bytes_estimate": 403177472,
+ "hold": {
+  "arms": 7,
+  "stored_arms": 6,
+  "live_stores_per_image": "raster (<=1.38 GB) + 5 packed (<=0.40 GB each)",
+  "largest_image_bundle_bound_bytes": 3397887360,
+  "builder_intermediate_margin_bytes": 4294967296,
+  "peak_working_set_bytes": 7692854656,
+  "raw_and_evidence_growth_bound_bytes": 8589934592,
+  "raw_growth_basis": "v1 4-arm HOLD main directory = 1.9 GB -> 7 arms ~3.4 GB",
+  "minimum_reserve_bytes": 32212254720,
+  "policy": "FRESH_IMAGE_STREAMING: one live image; stores built -> measured -> audited -> committed -> run-local scratch deleted by exact SHA allowlist",
+  "required_free_bytes": 48495043968
+ },
+ "dev": {
+  "live_stores_per_image": "raster + 2 unpacked + 7 packed (<= 5 GB), deleted per image",
+  "raw_bound_bytes": 8589934592,
+  "peak_working_set_bytes": 9305564544
+ },
+ "phase1_prior_bound_bytes": 1073741824,
+ "results_and_protection_bound_bytes": 2147483648,
+ "required_initial_free_bytes": 60306204032,
+ "required_initial_free_gib": 56.16452920436859,
+ "margin_bytes": 10351696512,
+ "status": "PASS",
+ "deletion_scope": [
+  "runs/<RUN>/hold/scratch/** (exact allowlist)",
+  "runs/<RUN>/llava/dev_stores/** (guarded_rmtree)"
+ ]
+}

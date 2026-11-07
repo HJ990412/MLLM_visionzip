@@ -1,0 +1,26 @@
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.29s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.26s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.07s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.12s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/scripts/159_eval_layer_budget_v2_dev.py", line 490, in main
+    exp.pilot(phase)
+  File "/home/dblab/hj/mllm_v2/scripts/159_eval_layer_budget_v2_dev.py", line 249, in pilot
+    append(raw, self.row(source_id, phase, image, "T1_source", 0, turns[0], value))
+  File "/home/dblab/hj/mllm_v2/scripts/159_eval_layer_budget_v2_dev.py", line 226, in row
+    key, vec, kind, directcopy = store_of(arm)
+  File "/home/dblab/hj/mllm_v2/scripts/159_eval_layer_budget_v2_dev.py", line 112, in store_of
+    assert arm.endswith("_packed"), arm
+AssertionError: T1_source
+
+{'SMOKE': 'FAIL'}
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/scripts/159_eval_layer_budget_v2_dev.py", line 507, in <module>
+    main()
+  File "/home/dblab/hj/mllm_v2/scripts/159_eval_layer_budget_v2_dev.py", line 490, in main
+    exp.pilot(phase)
+  File "/home/dblab/hj/mllm_v2/scripts/159_eval_layer_budget_v2_dev.py", line 249, in pilot
+    append(raw, self.row(source_id, phase, image, "T1_source", 0, turns[0], value))
+  File "/home/dblab/hj/mllm_v2/scripts/159_eval_layer_budget_v2_dev.py", line 226, in row
+    key, vec, kind, directcopy = store_of(arm)
+  File "/home/dblab/hj/mllm_v2/scripts/159_eval_layer_budget_v2_dev.py", line 112, in store_of
+    assert arm.endswith("_packed"), arm
+AssertionError: T1_source

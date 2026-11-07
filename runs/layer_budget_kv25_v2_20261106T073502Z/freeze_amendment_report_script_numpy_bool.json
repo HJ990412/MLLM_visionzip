@@ -1,0 +1,7 @@
+{
+ "file": "scripts/160_report_layer_budget_v2.py",
+ "reason": "report script edited after HOLD main completed: decide() compared numpy floats and produced numpy.bool_ values that json.dump refused (TypeError) on the first real HOLD report; fixed by casting to Python bool/float and adding a numpy-aware json default. No measurement code touched; HOLD main_execution_complete.json already PASS; decision rule and thresholds unchanged",
+ "sha256_before": "120edf6e2035d244014435e3cebfea7861904fc64edaf3d41a1905da771febd3",
+ "sha256_now": "47ec5a38a2d6729ec79502d0aeb036d07922bf040de4cb93ab6c2fa28c3281cb",
+ "utc": 1794001781.346677
+}

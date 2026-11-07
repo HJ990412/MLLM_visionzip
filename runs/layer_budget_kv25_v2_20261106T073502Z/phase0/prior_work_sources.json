@@ -1,0 +1,28 @@
+{
+ "vl_cache": {
+  "official_code": "NOT_FOUND (GitHub search 2026-11-06; VL-Cache/VL-Cache, dezhanTu/VL-Cache, tudezhan/VL-Cache: not found)",
+  "unofficial_repo": "github.com/bhzadjnty7/Efficient-VLM-Inference commit 8705205cf05c556c43bf37aacf4bde730f150926 (notebook; defers to the paper; not used)",
+  "paper": "arXiv 2410.23317 (ICLR 2025)",
+  "definitions": "Eq.1 ThresholdFilter(A,p)_ij = A_ij if A_ij >= p*max_j A_ij else 0; p = 1%; Eq.2 gamma = #zeros/#causal; Alg.1 post-vision rows Q[m-tau:m], beta_l = clip((1-gamma_l)/Z * alpha*L, 0.01, 1)"
+ },
+ "squeezeattention": {
+  "repo": "github.com/hetailang/SqueezeAttention",
+  "commit": "a1933d18b09c668312cbabdfd7b1fa73888c0f6f",
+  "file": "utils_hh/modify_llama_drop.py",
+  "cosine": "L314: cosine_similarity(layer input hidden_states, residual + self_attn output, dim=1); mean over prompt tokens",
+  "groups": "L527-543: KMeans(n_clusters=3) on per-layer cosine; class3 = highest centre -> budget `percent` (KV_class3); classes 1+2 share (L*ini_size - |c3|*percent)/(L-|c3|)",
+  "readme_example": "--ini_size 0.21 --KV_class3 0.08"
+ },
+ "pyramidkv": {
+  "repo": "github.com/Zefan-Cai/PyramidKV",
+  "commit": "68cd9551a63fedf362ddb0edb008badd04c24996",
+  "file": "pyramidkv/pyramidkv_utils.py",
+  "schedule": "L360-370: min_num=(cap-w)//beta; max_num=(cap-w)*2-min_num; steps=(max_num-min_num)//(L-1); capacity_l=max_num-l*steps; beta default 20"
+ },
+ "copied_files_sha256": {
+  "squeezeattention_modify_llama_drop.py": "11156fffcb4e1664e8b157fc4cff6cece7c5ef7639ac551be24a3bcdceb1123e",
+  "pyramidkv_utils.py": "a8a1e8139a8c24a03df87ba0b8362296a613a7b7a38dd4a026087d7ac2b37ce4",
+  "vlcache_2410.23317.txt": "17644c4e5643256e472c884359a07ee4d812a738c1b2ea8a5b822cc6063e73ce",
+  "vlcache_2410.23317.pdf": "f4848462253e1227bbd06cb3496e9267992f2919a0946aa49d8fe967e3cddb8c"
+ }
+}

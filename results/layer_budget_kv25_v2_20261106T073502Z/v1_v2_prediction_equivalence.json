@@ -1,0 +1,28 @@
+{
+ "check": "cross-run HOLD prediction equivalence, v1 unpacked (65 preads) vs v2 packed (1 preadv), same dialogues/turns/history",
+ "v1_run": "runs/layer_budget_kv25_20261105T125754Z",
+ "v2_run": "runs/layer_budget_kv25_v2_20261106T073502Z",
+ "v1_rows": 48732,
+ "v2_rows": 48732,
+ "common": 48732,
+ "per_method": {
+  "U": {
+   "compared": 12183,
+   "prediction_differences": 0
+  },
+  "A1-2": {
+   "compared": 12183,
+   "prediction_differences": 0
+  },
+  "recompute": {
+   "compared": 12183,
+   "prediction_differences": 0
+  },
+  "fullload": {
+   "compared": 12183,
+   "prediction_differences": 0
+  }
+ },
+ "status": "PASS",
+ "utc": 1794001847.0217805
+}

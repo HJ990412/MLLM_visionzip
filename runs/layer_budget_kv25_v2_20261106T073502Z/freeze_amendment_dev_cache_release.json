@@ -1,0 +1,21 @@
+{
+ "file": "scripts/159_eval_layer_budget_v2_dev.py",
+ "reason": "DEV GQA attempt 1 hit CUDA OOM after 4 images: each of the 10 live contexts kept its last request's dense GPU prefix cache alive (PrefixCache.k/v, ~1.1 GB each). Harness fix: release ctx.cache.k/v after every hit (as the HOLD runner does). No measured value changed; smoke re-run on the fixed code; stale run-local dev_stores removed.",
+ "sha256_before": "b53145140d7ab227c9af7acc99ae0e4ba1638e4947f3df13503298a3e6784c46",
+ "sha256_now": "6bf2e6d2413429d2c23c482bbc8e0729b010c2613b59cb7da664a955b845843c",
+ "utc": 1793953301.9993243,
+ "failed_attempt": "llava/gqa_attempt1_failed_oom",
+ "smoke_prechange": "llava/smoke_attempt4_pass_prechange",
+ "stale_stores_removed": [
+  "runs/layer_budget_kv25_v2_20261106T073502Z/llava/dev_stores/gqa/n272098/A1-2_packed/meta.json",
+  "runs/layer_budget_kv25_v2_20261106T073502Z/llava/dev_stores/gqa/n272098/A1-2_unpacked/meta.json",
+  "runs/layer_budget_kv25_v2_20261106T073502Z/llava/dev_stores/gqa/n272098/PYR-beta_packed/meta.json",
+  "runs/layer_budget_kv25_v2_20261106T073502Z/llava/dev_stores/gqa/n272098/PYR_packed/meta.json",
+  "runs/layer_budget_kv25_v2_20261106T073502Z/llava/dev_stores/gqa/n272098/SA-2g_offline_packed/meta.json",
+  "runs/layer_budget_kv25_v2_20261106T073502Z/llava/dev_stores/gqa/n272098/SA_offline_packed/meta.json",
+  "runs/layer_budget_kv25_v2_20261106T073502Z/llava/dev_stores/gqa/n272098/U_packed/meta.json",
+  "runs/layer_budget_kv25_v2_20261106T073502Z/llava/dev_stores/gqa/n272098/U_unpacked/meta.json",
+  "runs/layer_budget_kv25_v2_20261106T073502Z/llava/dev_stores/gqa/n272098/VLC_offline_packed/meta.json",
+  "runs/layer_budget_kv25_v2_20261106T073502Z/llava/dev_stores/gqa/n272098/fullload/meta.json"
+ ]
+}

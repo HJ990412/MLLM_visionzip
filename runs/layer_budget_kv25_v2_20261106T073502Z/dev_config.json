@@ -1,0 +1,80 @@
+{
+  "arms": [
+    "recompute",
+    "fullload",
+    "U_unpacked",
+    "A1-2_unpacked",
+    "U_packed",
+    "A1-2_packed",
+    "VLC_offline_packed",
+    "SA_offline_packed",
+    "SA-2g_offline_packed",
+    "PYR_packed",
+    "PYR-beta_packed",
+    "A1-2_packed_directcopy"
+  ],
+  "accuracy_arms": [
+    "recompute",
+    "fullload",
+    "U_packed",
+    "A1-2_packed",
+    "VLC_offline_packed",
+    "SA_offline_packed",
+    "SA-2g_offline_packed",
+    "PYR_packed",
+    "PYR-beta_packed"
+  ],
+  "latency_arms": [
+    "U_unpacked",
+    "U_packed",
+    "A1-2_unpacked",
+    "A1-2_packed",
+    "VLC_offline_packed",
+    "SA_offline_packed",
+    "PYR_packed",
+    "A1-2_packed_directcopy"
+  ],
+  "repeats": 3,
+  "selected": "A1-2",
+  "vectors_sha256": {
+    "U": "54ea273e1a38b1e8b02b96237381f982344cd28ca8466162876e161cdb8ff3ba",
+    "A1-2": "2c2295cfbe876adc7d9a5e2253f1e1ead13bda3718e7b30e7f34779e03bfa8c7",
+    "VLC_offline": "912fdc936aae07727292c3af6df22ff7e8ff4333accf54d746df99481838914d",
+    "SA_offline": "cf6cf739ddb509ae0c53f307a3e376c30cfa5b782a09b7d61ac2f00c0bd51c50",
+    "SA-2g_offline": "54587bef0bce1885802d08d2a0d761f5151a47cec320f8a3df75cc1f94dda298",
+    "PYR": "d4314f59fc8e53564b366074d507bf6ab87fa88267da96e68b13fad44e7627de",
+    "PYR-beta": "e374616b5a028402f8c479159f458f83690c96c24728307e00113f206a4cd483"
+  },
+  "store_policy": {
+    "fullload": "raster(full)",
+    "U_unpacked": "prefix25 (existing writer/serving = v1 ours_prefixstore_kv25)",
+    "A1-2_unpacked": "prefix25_layerwise (v1)",
+    "U_packed": "prefix25_packed",
+    "A1-2_packed": "prefix25_packed",
+    "VLC_offline_packed": "prefix25_packed",
+    "SA_offline_packed": "prefix25_packed",
+    "SA-2g_offline_packed": "prefix25_packed",
+    "PYR_packed": "prefix25_packed",
+    "PYR-beta_packed": "prefix25_packed",
+    "A1-2_packed_directcopy": "served from the A1-2_packed store with slice copy"
+  },
+  "t1_policy": "one executed normal full-pixel T1 per image (saliency + decoder-hidden capture); T1 row recorded per arm as shared",
+  "workload_files": {
+    "gqa": "40e23fa7aeb22495717fc7eede1227de3a6b4811fde022d9cda71ef73c5e3895",
+    "smoke": "626a8860478ff2fdef8d1696a2771a2a7469c648f95cd4dd213a87f1c661ab07"
+  },
+  "contract_sha256": "2898995f3097f7009d8e5604f297315501a42c271b205d0c8cc98e20097ef598",
+  "min_free_bytes": 42949672960,
+  "bootstrap": {
+    "unit": "image",
+    "resamples": 10000,
+    "seed": 1234
+  },
+  "gates": {
+    "cpu_tests.json": "0e31396af3513baecf54d8287e65c56fba01379b2cd0601ac46636ca9b8e8739",
+    "g3_budget_invariance.json": "7a88d037b4b2d511451394ee682c74be7cd37891c269c48bf4b4549ad970a3e0",
+    "gpu_gates.json": "90743637138e3d566ca045d61a3d3695fe039bdb040e9d0f814382086829b753",
+    "g8_vector_reproducibility.json": "e9a2c95aa078af09c33d430281860ba54584e2c9f0b50813bb8ccd1fe12df86c",
+    "g9_io_microbench.json": "8bb2204869df1eda6f880e4df5151e7a4662e93bf00073f52a6eb33225bb7e9c"
+  }
+}

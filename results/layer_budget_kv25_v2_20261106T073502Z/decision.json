@@ -1,0 +1,73 @@
+{
+ "verdict": "GO",
+ "selected": "ours_prefixstore_kv25_A1-2_packed",
+ "control": "ours_prefixstore_kv25_U_packed",
+ "delta_followup_pp": 1.305097266683083,
+ "ci95_pp": [
+  0.5601320359370435,
+  2.0458592947441754
+ ],
+ "ci_excludes_zero": true,
+ "ssd_mb_selected": 308.0497329012558,
+ "ssd_mb_uniform": 308.0497329012558,
+ "ssd_ok_1.02": true,
+ "ttft_mean_selected": 215.61990940954368,
+ "ttft_mean_uniform": 212.0599805581989,
+ "ttft_ratio": 1.0167873676210575,
+ "ttft_ok_1.05": true,
+ "followup_pct": {
+  "recompute": 68.48066978576706,
+  "fullload": 68.38217187884757,
+  "ours_prefixstore_kv25_U_packed": 66.17828121152426,
+  "ours_prefixstore_kv25_A1-2_packed": 67.48337847820733,
+  "ours_prefixstore_kv25_VLC_offline_packed": 67.05245013543463,
+  "ours_prefixstore_kv25_SA_offline_packed": 64.92243289830091,
+  "ours_prefixstore_kv25_PYR_packed": 67.11401132725929
+ },
+ "rule": "GO: delta>=+1.0pp & CI excludes 0 & MB<=1.02x & TTFT<=1.05x; PARTIAL: delta>=+0.5pp with CI incl. 0, or GO with exactly one of MB/TTFT violated; else NO-GO",
+ "secondary": {
+  "v1_verdict": "PARTIAL",
+  "v1_delta_followup_pp": 1.305097266683083,
+  "v1_ci95_pp": [
+   0.5601320359370435,
+   2.0458592947441754
+  ],
+  "v1_ttft_ratio": 1.1239470075029274,
+  "U_packed_vs_v1_U_unpacked_ttft_ratio_cross_run": 0.8518483518512374,
+  "v1_U_unpacked_ttft_mean_ms": 248.941,
+  "A1-2_packed_vs_v1_A1-2_unpacked_ttft_ratio_cross_run": 0.7706325659035286,
+  "v1_A1-2_unpacked_ttft_mean_ms": 279.796,
+  "packed_ttft_spread_vs_U_packed": {
+   "A1-2_packed": 0.01678736762105748,
+   "VLC_offline_packed": 0.01206185225924239,
+   "SA_offline_packed": 0.022112080257265188,
+   "PYR_packed": 0.01595467986168142
+  },
+  "spread_within_2pct": false,
+  "prior_work_vs_A1-2": {
+   "VLC_offline_packed": {
+    "delta_pp_A12_minus": 0.4309283427727161,
+    "ci95": [
+     -0.09448207295097245,
+     0.9653487473300368
+    ]
+   },
+   "SA_offline_packed": {
+    "delta_pp_A12_minus": 2.560945579906427,
+    "ci95": [
+     1.7475177049440813,
+     3.381798759708977
+    ]
+   },
+   "PYR_packed": {
+    "delta_pp_A12_minus": 0.36936715094804234,
+    "ci95": [
+     -0.2033541517718015,
+     0.9328897408491796
+    ]
+   }
+  }
+ },
+ "audit_status": "PASS",
+ "final": true
+}

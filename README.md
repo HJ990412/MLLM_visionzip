@@ -887,3 +887,57 @@ Qwen·GLM은 실행하지 않았다. 초기 gate 실패·소스 freeze amendment
 [실험 계약](docs/layer_budget_kv25_contract.md),
 [재현 정보](results/layer_budget_kv25_20261105T125754Z/REPRODUCE.md)를 참조한다.
 소스·요약표·그림·검증·재현 자료를 게시하고 대용량 raw·tensor·KV payload는 로컬에 보존한다.
+
+## 30. Layer-wise KV25 v2: Packed PrefixStore + allocation baselines (2026-11-07)
+
+v1의 layer별 파일 대신 K/V·separator를 이미지당 한 packed 파일에 직접 기록하고,
+hit마다 pinned host buffer로 os.preadv 1회 읽도록 했다. Uniform과 layerwise 모두
+같은 packed 경로를 쓰며 payload·mask·생성 결과의 unpacked 동등성을 검증했다.
+기존 dense GPU buffer·scatter·원래 position·image-only saliency 순서·총 KV 예산은 유지했다.
+Pinned buffer 준비는 activation에 포함하고 요청 TTFT 바깥에서 수행한다.
+
+LLaVA MT-GQA-reconstructed 398 images/4,061 dialogues × 3턴의 7-arm HOLD를
+85,281/85,281요청으로 완료했다. 독립 감사 PASS, 실패·skip·resume는 0이다.
+A1-2는 v1에서 선택한 vector를 사전 고정했고, v2 결과를 보고 다시 선택하지 않았다.
+
+| Method | 전체 EM | Followup EM | Followup TTFT | SSD MB/followup | Hit read syscalls |
+|---|---:|---:|---:|---:|---|
+| ReComp | 66.716% | 68.481% | 531.17 ms | 0.00 | 0 |
+| FullLoad | 66.650% | 68.382% | 762.42 ms | 1173.92 | 64 pread |
+| U_packed | 65.181% | 66.178% | 212.06 ms | 308.05 | 1 preadv |
+| A1-2_packed | 66.051% | 67.483% | 215.62 ms | 308.05 | 1 preadv |
+| VLC_offline_packed | 65.764% | 67.052% | 214.62 ms | 308.05 | 1 preadv |
+| SA_offline_packed | 64.344% | 64.922% | 216.75 ms | 308.05 | 1 preadv |
+| PYR_packed | 65.805% | 67.114% | 215.44 ms | 308.05 | 1 preadv |
+
+Followup은 T2–T3 strict normalized EM이며 MB=10^6 bytes다. A1-2−U는
++1.305 pp(이미지 단위 paired bootstrap 95% CI +0.560~+2.046), bytes는 동일하고
+TTFT 비율은 1.017×로 ≤1.05×를 통과했다. 따라서 v2 사전 판정은 **GO**다.
+29절 v1의 PARTIAL을 바꾸는 것이 아니라 새 packed 실행의 판정이다.
+v1과 공유한 48,732요청의 저장 prediction은 모두 같았으며, v1→v2 TTFT 비교는
+cross-run이므로 같은 실행 안의 paired 효과나 CI로 해석하지 않는다.
+
+VLC/SA는 VL-Cache·SqueezeAttention의 online 기준을 CAL 평균의 고정 vector로
+옮긴 offline adaptation이다. PYR은 고정 PyramidKV형 schedule이며 원 시스템의
+완전한 재현을 주장하지 않는다. A1-2−VLC +0.431 pp(CI −0.094~+0.965),
+A1-2−PYR +0.369 pp(−0.203~+0.933)는 우월성·동등성 모두 미입증이다.
+A1-2−SA는 +2.561 pp(+1.748~+3.382)지만 이 offline 조건에 한정한다.
+부차 지표인 packed vector 간 TTFT ±2% 범위는 SA +2.2%로 충족하지 못했다.
+
+Shared-stream session은 U/A1-2가 1118.4/1125.8 ms이지만, setup을 매 dialogue에
+재부과한 standalone-equivalent는 1906.1/1919.3 ms로 ReComp 1670.3 ms보다 길다.
+후자는 DERIVED이며 독립 cold-session 실측이 아니다. DEV 40이미지가 HOLD에
+포함되므로 unseen holdout은 아니고, dense GPU buffer를 유지해 메모리 절감을
+주장하지 않는다. OS read와 DONTNEED는 cold NAND를 보장하지 않는다.
+SA-2g/PYR-beta/directcopy는 DEV 진단이며 HOLD arm에 포함하지 않았다.
+Qwen·GLM 추가 실험은 없고, 실패 시도와 freeze amendment·보고기 frozen 사본을 보존했다.
+
+[전체 결과](results/layer_budget_kv25_v2_20261106T073502Z/REPORT.md),
+[HOLD 품질표](results/layer_budget_kv25_v2_20261106T073502Z/hold/quality.csv),
+[HOLD 지연·I/O](results/layer_budget_kv25_v2_20261106T073502Z/hold/latency_io.csv),
+[paired 비교](results/layer_budget_kv25_v2_20261106T073502Z/hold/paired_analysis.csv),
+[최종 판정](results/layer_budget_kv25_v2_20261106T073502Z/decision.json),
+[v1/v2 prediction 대조](results/layer_budget_kv25_v2_20261106T073502Z/v1_v2_prediction_equivalence.json),
+[실험 계약](docs/layer_budget_kv25_v2_contract.md),
+[재현 정보](results/layer_budget_kv25_v2_20261106T073502Z/REPRODUCE.md)를 참조한다.
+코드·요약표·그림·검증·재현 자료를 게시하며 대용량 raw·KV payload·외부 논문 사본은 로컬에 보존한다.

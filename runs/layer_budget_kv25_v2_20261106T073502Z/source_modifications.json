@@ -1,0 +1,23 @@
+{
+ "reference": "v1 hold/config.json source_sha256",
+ "changed_existing_files": [
+  "scripts/157_report_layer_budget_kv25.py"
+ ],
+ "missing": [],
+ "known_v1_post_hold_edits": {
+  "scripts/157_report_layer_budget_kv25.py": "v1 report script edited after the v1 HOLD freeze (v1 REPORT protection PASS); not imported by v2"
+ },
+ "new_files_planned": [
+  "docs/layer_budget_kv25_v2_contract.md",
+  "mmimpress/packed_store.py",
+  "mmimpress/packed_serve.py",
+  "tests/test_packed_store.py",
+  "scripts/158_allocate_prior_work_vectors.py",
+  "scripts/159_eval_layer_budget_v2_dev.py",
+  "scripts/160_report_layer_budget_v2.py",
+  "scripts/161_validate_packed_store_v2.py",
+  "scripts/162_eval_layer_budget_v2_hold.py",
+  "papers/layer_budget_kv25_v2_packed_prompt.md"
+ ],
+ "note": "v2 adds modules; v1-frozen store/serving modules must be unchanged"
+}

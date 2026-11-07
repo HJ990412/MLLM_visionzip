@@ -1,0 +1,89 @@
+{
+ "status": "PASS",
+ "tool": "GNU coreutils dd (fio not installed)",
+ "read_ahead_kb": "128",
+ "sizes": [
+  "256KB",
+  "1MB",
+  "4MB",
+  "16MB",
+  "64MB",
+  "256MB"
+ ],
+ "reps": 5,
+ "summary": {
+  "256KB/buffered_cold": {
+   "gbps_mean": 0.870259964991417,
+   "gbps_min": 0.7843010540361837,
+   "gbps_max": 0.949074979182506,
+   "n": 5
+  },
+  "256KB/direct": {
+   "gbps_mean": 1.1000204513863254,
+   "gbps_min": 0.9733009077914122,
+   "gbps_max": 1.186773387418058,
+   "n": 5
+  },
+  "1MB/buffered_cold": {
+   "gbps_mean": 1.479292538365697,
+   "gbps_min": 1.3031049802715382,
+   "gbps_max": 1.583980374266603,
+   "n": 5
+  },
+  "1MB/direct": {
+   "gbps_mean": 2.373896929107875,
+   "gbps_min": 1.9317337735070448,
+   "gbps_max": 2.6543808665539346,
+   "n": 5
+  },
+  "4MB/buffered_cold": {
+   "gbps_mean": 1.9502595913667662,
+   "gbps_min": 1.814286579404971,
+   "gbps_max": 2.0467207995003123,
+   "n": 5
+  },
+  "4MB/direct": {
+   "gbps_mean": 3.505546116545567,
+   "gbps_min": 3.170968912543849,
+   "gbps_max": 3.8182798048212074,
+   "n": 5
+  },
+  "16MB/buffered_cold": {
+   "gbps_mean": 2.383382301218364,
+   "gbps_min": 2.233189531817583,
+   "gbps_max": 2.5137117411915595,
+   "n": 5
+  },
+  "16MB/direct": {
+   "gbps_mean": 5.913205224758867,
+   "gbps_min": 5.545032274270152,
+   "gbps_max": 6.154517975055025,
+   "n": 5
+  },
+  "64MB/buffered_cold": {
+   "gbps_mean": 2.3934639988287043,
+   "gbps_min": 2.3491332458213003,
+   "gbps_max": 2.4592541125683898,
+   "n": 5
+  },
+  "64MB/direct": {
+   "gbps_mean": 6.340471848456387,
+   "gbps_min": 6.024783998276295,
+   "gbps_max": 6.47762704993195,
+   "n": 5
+  },
+  "256MB/buffered_cold": {
+   "gbps_mean": 3.212922304811385,
+   "gbps_min": 3.053963552960611,
+   "gbps_max": 3.380471364867639,
+   "n": 5
+  },
+  "256MB/direct": {
+   "gbps_mean": 6.728281419913766,
+   "gbps_min": 6.686564023365009,
+   "gbps_max": 6.793168655337778,
+   "n": 5
+  }
+ },
+ "csv_sha256": "523a2325d283010acd6882cefdf13d33f7320bc95e04a02688373ca8543d2381"
+}

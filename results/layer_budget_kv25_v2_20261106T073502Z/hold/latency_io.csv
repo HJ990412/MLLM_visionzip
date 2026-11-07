@@ -1,0 +1,8 @@
+method,name,ttft_mean_ms,ttft_p50_ms,ttft_p95_ms,e2e_mean_ms,e2e_p50_ms,e2e_p95_ms,ssd_mb_per_followup,read_calls_mean,pread_calls_mean,preadv_calls_mean,followups,chunk_io_ms_mean,scatter_ms_mean,packed_read_ms_mean,prefill_ms_mean
+recompute,ReComp,531.172,533.21,596.549,559.756,563.395,644.158,0,0,0,0,8122,,,,513.525
+fullload,FullLoad,762.424,755.147,917.437,791.561,785.538,947.164,1173.92,64,64,0,8122,,,,756.247
+ours_prefixstore_kv25_U_packed,U_packed,212.06,212.775,239.011,241.101,237.93,285.913,308.05,1,0,1,8122,83.0419,82.647,83.0293,40.2664
+ours_prefixstore_kv25_A1-2_packed,A1-2_packed,215.62,215.277,242.32,244.807,240.408,293.502,308.05,1,0,1,8122,84.4887,84.7584,84.4761,40.3302
+ours_prefixstore_kv25_VLC_offline_packed,VLC_offline_packed,214.618,213.683,245.451,243.739,240.305,290.459,308.05,1,0,1,8122,85.906,82.2816,85.8935,40.4073
+ours_prefixstore_kv25_SA_offline_packed,SA_offline_packed,216.749,216.028,246.71,245.988,243.287,293.297,308.05,1,0,1,8122,86.2332,83.4133,86.2206,41.0531
+ours_prefixstore_kv25_PYR_packed,PYR_packed,215.443,215.769,244.153,244.584,243.379,288.416,308.05,1,0,1,8122,86.6525,81.6411,86.64,41.0515

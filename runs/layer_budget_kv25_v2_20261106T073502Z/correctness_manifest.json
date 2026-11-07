@@ -1,0 +1,135 @@
+{
+  "configuration": {
+    "attention_backend": "sdpa",
+    "budget_ratio": 0.25,
+    "checkpoint_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+    "chunk_size": 64,
+    "history_policy": "none_independent_gqa_questions",
+    "max_new_tokens": 16,
+    "max_pixels": 802816,
+    "methods": [
+      "recompute",
+      "fullload",
+      "ours25"
+    ],
+    "min_pixels": 200704,
+    "model_id": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "quality_metric": "mmimpress.dataset.exact_score",
+    "seed": 1234
+  },
+  "dataset": "gqa",
+  "manifest_sha256": "6458545772438ef1b41cd35bbe7ec17c319be6f779d1b939fc9a94e0ada928a8",
+  "samples": [
+    {
+      "gold": "yes",
+      "image_id": "n355567",
+      "image_path": "/home/dblab/hj/mllm_v2/data/images/n355567.png",
+      "image_sha256": "6b09d6ab2c13d108951fd6d53522fcb80e6cfd5bb3e1f2925e1001919343a39f",
+      "question": "Is the clock to the right of the lady near the tennis ball?",
+      "question_id": "201751701"
+    },
+    {
+      "gold": "yes",
+      "image_id": "n355567",
+      "image_path": "/home/dblab/hj/mllm_v2/data/images/n355567.png",
+      "image_sha256": "6b09d6ab2c13d108951fd6d53522fcb80e6cfd5bb3e1f2925e1001919343a39f",
+      "question": "Does the person to the left of the lady look happy and modern?",
+      "question_id": "201751740"
+    },
+    {
+      "gold": "small",
+      "image_id": "n355567",
+      "image_path": "/home/dblab/hj/mllm_v2/data/images/n355567.png",
+      "image_sha256": "6b09d6ab2c13d108951fd6d53522fcb80e6cfd5bb3e1f2925e1001919343a39f",
+      "question": "How large is the wire net?",
+      "question_id": "201751873"
+    },
+    {
+      "gold": "yes",
+      "image_id": "n9181",
+      "image_path": "/home/dblab/hj/mllm_v2/data/images/n9181.png",
+      "image_sha256": "ac182f551b61e27ea511c8ffcfc80e72b7d01be4b167728c930831ef3f70ed57",
+      "question": "Is the brown cowboy hat below the small sign?",
+      "question_id": "20929611"
+    },
+    {
+      "gold": "motorcycle",
+      "image_id": "n390187",
+      "image_path": "/home/dblab/hj/mllm_v2/data/images/n390187.png",
+      "image_sha256": "2550d40f00da42f705fa8a0b35e0e04604bebeb5ac4681490193f887a7bf98b4",
+      "question": "What's the person riding?",
+      "question_id": "201861403"
+    },
+    {
+      "gold": "blue",
+      "image_id": "n133585",
+      "image_path": "/home/dblab/hj/mllm_v2/data/images/n133585.png",
+      "image_sha256": "f793752325818dfe2cf222cc33acb25a6b3b42752d4f06bed5d30f6ea94b03c5",
+      "question": "What is the color of the hat?",
+      "question_id": "202108008"
+    },
+    {
+      "gold": "donuts",
+      "image_id": "n272098",
+      "image_path": "/home/dblab/hj/mllm_v2/data/images/n272098.png",
+      "image_sha256": "1d66191c8466c538e8cd896bbc7be3e10e6c6bce37862272d404f8422169f796",
+      "question": "How is that food called?",
+      "question_id": "201535625"
+    },
+    {
+      "gold": "female",
+      "image_id": "n472825",
+      "image_path": "/home/dblab/hj/mllm_v2/data/images/n472825.png",
+      "image_sha256": "ec35519d5d6154402d47060919db5e241e7e3c79ace552663bbe9fbd31b36259",
+      "question": "What is the gender of the skateboarder to the right of the lamp?",
+      "question_id": "202101069"
+    },
+    {
+      "gold": "dirty",
+      "image_id": "n450919",
+      "image_path": "/home/dblab/hj/mllm_v2/data/images/n450919.png",
+      "image_sha256": "6ad0a0460fcb573a0a4c084d6b082d0bde0d53c12ef72f3c29299e343eb228c3",
+      "question": "How clean is the mud near the grass?",
+      "question_id": "2093976"
+    },
+    {
+      "gold": "blender",
+      "image_id": "n37274",
+      "image_path": "/home/dblab/hj/mllm_v2/data/images/n37274.png",
+      "image_sha256": "9a47a85bd7e779d3ba33c9d246ce24479f8dfb5e915e3dba39c852ad885bcd52",
+      "question": "What is sitting atop the crate?",
+      "question_id": "202144724"
+    }
+  ],
+  "schema_version": "qwen25-correctness-v2-fixed-workload-v1",
+  "selection": {
+    "rule": "frozen original three: index row 0 questions 5-7; deterministic new seven: index rows 1-7 question 5",
+    "zero_based_image_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "zero_based_question_indices": [
+      4,
+      5,
+      6
+    ]
+  },
+  "source_hashes": {
+    "data/index.json": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a",
+    "docs/qwen25_port_contract.md": "98f606e26e5953fd645a58a80754080308a73962ceb2963f0b99c87bace940bd",
+    "mmimpress/qwen25/runner.py": "be63757fca6007eda27a102054f389bc54f15cef8a8c24b11bc2851ec3345be3",
+    "mmimpress/qwen25/store.py": "9dff059be4a0105c449c894b6a5daf21ed32935bcb5cc525471f184a679e2a58",
+    "mmimpress/qwen25/vision.py": "de2cdf62588da21e49a66568a32626b23e0b2e8ad6813bea22e0f6c31c6a0e59",
+    "runs/qwen25_port_20260928T054537Z/gqa_manifest/config.json": "3ebec29c3392bcf2dda27ce6d0466a2a1834a6032b58a68ea98413ddaa1954be",
+    "runs/qwen25_port_validate_gpu_20260928_0625_sdpa_frozen/validation.json": "57667cb4dc3ccc4fd4b8b8b9c949bc80d02fa31d01d79cd4a22deda34e626876",
+    "scripts/78_validate_qwen25.py": "6bb953cbc02adacb1cb7e11b45b76b6d3756ed302e92fb7dfeb868fec766d3fb"
+  },
+  "source_index": "/home/dblab/hj/mllm_v2/data/index.json",
+  "source_index_sha256": "514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a"
+}

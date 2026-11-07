@@ -1,0 +1,32 @@
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.28s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.24s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.04s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.10s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+GPU gates 1 5 PASS {"B": 231.83247540146112, "LW_A12": 280.2644958719611, "P_U_scatter": 197.7014234289527, "P_U_directcopy": 196.8706725165248, "P_A12_scatter": 199.1132078692317, "P_A12_directcopy": 198.31530656665564}
+GPU gates 2 5 PASS {"B": 258.71620140969753, "LW_A12": 283.54382142424583, "P_U_scatter": 215.71841184049845, "P_U_directcopy": 209.13446135818958, "P_A12_scatter": 249.29210543632507, "P_A12_directcopy": 221.36867512017488}
+GPU gates 3 5 PASS {"B": 235.11876352131367, "LW_A12": 272.1964428201318, "P_U_scatter": 205.47137036919594, "P_U_directcopy": 221.06711473315954, "P_A12_scatter": 208.84899236261845, "P_A12_directcopy": 218.64440850913525}
+GPU gates 4 5 PASS {"B": 223.3450124040246, "LW_A12": 264.8246241733432, "P_U_scatter": 199.05914086848497, "P_U_directcopy": 207.10722543299198, "P_A12_scatter": 199.45544935762882, "P_A12_directcopy": 196.53332233428955}
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/scripts/161_validate_packed_store_v2.py", line 385, in stage_gpu
+    v2 = packed_case(exp, G, S, s, path / "v2", docs)
+  File "/home/dblab/hj/mllm_v2/scripts/161_validate_packed_store_v2.py", line 309, in packed_case
+    rec = {"B": exp.persist(cap, path / "B", sample, "B"),
+  File "/home/dblab/hj/mllm_v2/scripts/106_prefix25_persistence.py", line 233, in persist
+    capacity();before=process_io();started=time.perf_counter()
+  File "/home/dblab/hj/mllm_v2/scripts/106_prefix25_persistence.py", line 41, in capacity
+    if free<46*2**30:raise RuntimeError(f'capacity reserve: {free/2**30:.2f} GiB free; need 30 GiB + 16 GiB staging')
+RuntimeError: capacity reserve: 45.85 GiB free; need 30 GiB + 16 GiB staging
+
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/scripts/161_validate_packed_store_v2.py", line 415, in <module>
+    main()
+  File "/home/dblab/hj/mllm_v2/scripts/161_validate_packed_store_v2.py", line 411, in main
+    {"freeze": stage_freeze, "cpu": stage_cpu, "g3": stage_g3, "g9": stage_g9, "gpu": stage_gpu}[args.stage](run)
+  File "/home/dblab/hj/mllm_v2/scripts/161_validate_packed_store_v2.py", line 385, in stage_gpu
+    v2 = packed_case(exp, G, S, s, path / "v2", docs)
+  File "/home/dblab/hj/mllm_v2/scripts/161_validate_packed_store_v2.py", line 309, in packed_case
+    rec = {"B": exp.persist(cap, path / "B", sample, "B"),
+  File "/home/dblab/hj/mllm_v2/scripts/106_prefix25_persistence.py", line 233, in persist
+    capacity();before=process_io();started=time.perf_counter()
+  File "/home/dblab/hj/mllm_v2/scripts/106_prefix25_persistence.py", line 41, in capacity
+    if free<46*2**30:raise RuntimeError(f'capacity reserve: {free/2**30:.2f} GiB free; need 30 GiB + 16 GiB staging')
+RuntimeError: capacity reserve: 45.85 GiB free; need 30 GiB + 16 GiB staging
+EXIT 1

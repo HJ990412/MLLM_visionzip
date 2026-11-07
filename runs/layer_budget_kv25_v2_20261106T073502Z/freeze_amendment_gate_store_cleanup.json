@@ -1,0 +1,10 @@
+{
+ "file": "scripts/161_validate_packed_store_v2.py",
+ "reason": "GPU gate attempt 2 stopped at case 5 with the frozen 106 capacity reserve (free 45.85 GiB < 30 GiB + 16 GiB staging) because the gate kept 2.1 GB of run-local stores per case (attempts 1-2 = 20 GB). Amendment: gate stores of this run (runs/<RUN>/llava/gpu_gates*/) are deleted after each case's receipts (hashes, sizes, timings) are recorded in gates/gpu_gates.json; deletion scope A6 extended accordingly. No threshold changed; existing runs/stores untouched.",
+ "deleted_scope": [
+  "runs/layer_budget_kv25_v2_20261106T073502Z/llava/gpu_gates_attempt1",
+  "runs/layer_budget_kv25_v2_20261106T073502Z/llava/gpu_gates"
+ ],
+ "utc": 1793952561.928141,
+ "attempt2_record": "gates/gpu_gates_attempt2_failed_capacity.json"
+}

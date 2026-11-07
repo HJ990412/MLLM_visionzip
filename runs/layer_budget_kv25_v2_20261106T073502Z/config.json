@@ -1,0 +1,114 @@
+{
+ "run": "runs/layer_budget_kv25_v2_20261106T073502Z",
+ "contract": "docs/layer_budget_kv25_v2_contract.md",
+ "contract_sha256": "2898995f3097f7009d8e5604f297315501a42c271b205d0c8cc98e20097ef598",
+ "contract_version": 2,
+ "v1_run": "runs/layer_budget_kv25_20261105T125754Z",
+ "v1_contract_sha256": "12993920bcf3f9f2b936c1e6b9f3ce60d17d4346e3a534406f96ff667a9c71a7",
+ "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+ "revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+ "quantization": "NF4 double, BF16 compute",
+ "attention": "eager",
+ "store_dtype": "float16",
+ "chunk_size": 64,
+ "seed": 1234,
+ "greedy": true,
+ "max_new_tokens": 16,
+ "total_ratio": 0.25,
+ "r_min": 0.1,
+ "r_max": 0.6,
+ "num_layers": 32,
+ "budget_policy": "layerwise_v1",
+ "selected": "A1-2",
+ "selected_ratio_sha256": "2c2295cfbe876adc7d9a5e2253f1e1ead13bda3718e7b30e7f34779e03bfa8c7",
+ "vectors": [
+  "U",
+  "A1-2",
+  "VLC_offline",
+  "SA_offline",
+  "SA-2g_offline",
+  "PYR",
+  "PYR-beta"
+ ],
+ "prior_work": {
+  "vlc_p_threshold": 0.01,
+  "sa_percent_raw": 0.09523809523809525,
+  "sa_kmeans": "exact 1-D 3-means",
+  "pyr_beta": 20
+ },
+ "packed": {
+  "store_format": "prefixstore_kv25_packed_v1",
+  "read_syscall": "os.preadv into pinned host buffer, 1 call per hit",
+  "directcopy_arm": "DEV only"
+ },
+ "dev": {
+  "workload": "runs/prefix25_persistence_20261001T050113Z/gqa_manifest.json",
+  "images": 40,
+  "questions": 240,
+  "accuracy_arms": [
+   "recompute",
+   "fullload",
+   "U_packed",
+   "A1-2_packed",
+   "VLC_offline_packed",
+   "SA_offline_packed",
+   "SA-2g_offline_packed",
+   "PYR_packed",
+   "PYR-beta_packed"
+  ],
+  "latency_arms_3x": [
+   "U_unpacked",
+   "U_packed",
+   "A1-2_unpacked",
+   "A1-2_packed",
+   "VLC_offline_packed",
+   "SA_offline_packed",
+   "PYR_packed",
+   "A1-2_packed_directcopy"
+  ],
+  "store_policy": "every arm served from its own real store"
+ },
+ "hold": {
+  "workload": "data/mt_gqa/dialogues.json",
+  "images": 398,
+  "dialogues": 4061,
+  "requests_per_arm": 12183,
+  "arms": [
+   "recompute",
+   "fullload",
+   "ours_prefixstore_kv25_U_packed",
+   "ours_prefixstore_kv25_A1-2_packed",
+   "ours_prefixstore_kv25_VLC_offline_packed",
+   "ours_prefixstore_kv25_SA_offline_packed",
+   "ours_prefixstore_kv25_PYR_packed"
+  ]
+ },
+ "decision_rule": {
+  "primary": "A1-2_packed - U_packed, HOLD followup; GO: delta>=+1.0pp & CI excludes 0 & SSD MB/followup <= uniform*1.02 & TTFT mean <= uniform*1.05",
+  "PARTIAL": "delta>=+0.5pp with CI incl. 0, or exactly one of bytes/TTFT violated",
+  "NO-GO": "otherwise",
+  "secondary": [
+   "U_packed vs v1 U_unpacked TTFT (cross-run)",
+   "A1-2 vs VLC/SA/PYR",
+   "packed TTFT spread across vectors within \u00b12%"
+  ]
+ },
+ "bootstrap": {
+  "unit": "image",
+  "resamples": 10000,
+  "seed": 1234
+ },
+ "environment": {
+  "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]",
+  "torch": "2.5.1+cu121",
+  "cuda": "12.1",
+  "transformers": "4.57.6",
+  "gpu": "NVIDIA GeForce RTX 4090, 535.230.02",
+  "read_ahead_kb": "128",
+  "fio": null,
+  "dd": "/usr/bin/dd"
+ },
+ "disk_free_bytes_at_config": 70657900544,
+ "storage_plan_sha256": "ee648cc3d8e62190254799b53f60aa6253848587af66ab27f5e129ba176fe961",
+ "prior_work_sources_sha256": "0f82d6e142f16d4eb45a39b72b686411739b1cc9e7318fe5bbc74ac0a37dceb4"
+}

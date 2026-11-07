@@ -1,0 +1,40 @@
+{
+ "v1_run": "/home/dblab/hj/mllm_v2/runs/layer_budget_kv25_20261105T125754Z",
+ "v1_results": "/home/dblab/hj/mllm_v2/results/layer_budget_kv25_20261105T125754Z",
+ "sha256": {
+  "results/layer_budget_kv25_20261105T125754Z/layer_budget_llava_A1-2.json": "c2bb0d4e9353bc4b461b850f09ef36d25c09a912fc2385786e4a99764ef94b16",
+  "results/layer_budget_kv25_20261105T125754Z/layer_budget_llava_U.json": "d6ea0c408baf2a8f5b73181579e7c4b70d090c69c7c1a3e8f010104ac22196e3",
+  "results/layer_budget_kv25_20261105T125754Z/layer_budget_llava_F-front.json": "6858154b99fd461fb0a1a06957ff59caa8b338b78af6048c89d38e3e6ac96809",
+  "results/layer_budget_kv25_20261105T125754Z/phase1_sensitivity.csv": "9e6100450b916c178669c51cfaade13d8f0bdb9a9ca472696fbed083835986a3",
+  "runs/layer_budget_kv25_20261105T125754Z/phase1/coverage_curves.npz": "80f0387c5a3987fa93f34745ab5477d2754af7f2f5810e7c16e4c30a7e26a215",
+  "runs/layer_budget_kv25_20261105T125754Z/phase1/cal_manifest.json": "8f50d65f3074356d3d8ab74574b346755bce209f68835f7fd4ecfdf346f8762f"
+ },
+ "A1-2_ratio_sha256": "2c2295cfbe876adc7d9a5e2253f1e1ead13bda3718e7b30e7f34779e03bfa8c7",
+ "v1_decision": {
+  "verdict": "PARTIAL",
+  "selected": "ours_prefixstore_kv25_layerwise_A1-2",
+  "delta_followup_pp": 1.305097266683083,
+  "ci95_pp": [
+   0.5601320359370435,
+   2.0458592947441754
+  ],
+  "ci_excludes_zero": true,
+  "ssd_mb_selected": 308.0497329012558,
+  "ssd_mb_uniform": 308.0497329012558,
+  "ssd_ok_1.02": true,
+  "ttft_mean_selected": 279.79645869510955,
+  "ttft_mean_uniform": 248.9409703725563,
+  "ttft_ok_1.05": false,
+  "followup_pct": {
+   "recompute": 68.48066978576706,
+   "fullload": 68.38217187884757,
+   "ours_prefixstore_kv25": 66.17828121152426,
+   "ours_prefixstore_kv25_layerwise_A1-2": 67.48337847820733
+  },
+  "rule": "GO: delta>=+1.0pp & CI excludes 0 & MB<=1.02x & TTFT<=1.05x; PARTIAL: delta>=+0.5pp with CI incl. 0, or GO with exactly one of MB/TTFT violated; else NO-GO",
+  "audit_status": "PASS",
+  "final": true
+ },
+ "v1_decision_sha256": "1b3e9d83b699ac7165203a380432b57da5c86e8af5b1c21984c502e949698c67",
+ "v1_hold_latency_io_sha256": "5ea1d741c86003aee2638654446cd4001c534f5471a0277b396274e37af3a31f"
+}
