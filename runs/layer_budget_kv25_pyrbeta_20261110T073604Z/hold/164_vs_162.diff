@@ -1,0 +1,172 @@
+2c2,3
+< """Phase 4 (v2) — HOLD main for packed PrefixStore-KV25 (contract v2, A5/A8).
+---
+> """PyramidKV beta=20 add-on — MT-GQA HOLD for packed PrefixStore-KV25
+> (contract docs/layer_budget_kv25_pyrbeta_contract.md).
+4,13c5,19
+< Same lifecycle as the v1 HOLD runner (scripts/156): MT-GQA-reconstructed
+< 398 images / 4,061 dialogues x 3 turns, generated method-local history,
+< strict normalized EM, image-atomic attempts, independent per-image audit,
+< atomic commit, exact-allowlist cleanup, one live image at a time.  Arms come
+< from ``dev_selection.json``: recompute, fullload and
+< ``ours_prefixstore_kv25_<vec>_packed`` for vec in U, A1-2, VLC_offline,
+< SA_offline, PYR (seven arms).  Every method executes its own full-pixel T1
+< for every dialogue; the first dialogue's T1 of each stored method builds that
+< method's store.  Packed hits are served by ``mmimpress.packed_serve`` with one
+< ``preadv`` per hit; nothing of v1 or the prior B main is reused as a number.
+---
+> Thin copy of scripts/162_eval_layer_budget_v2_hold.py (which asserts the seven
+> v2 arms and SELECTED = A1-2 and is left untouched).  Request generation, the
+> dialogue-wise arm rotation (``method_order`` over the arm count), generated
+> method-local history, strict normalized EM, image-atomic attempts, the
+> independent per-image audit, atomic commit and exact-allowlist cleanup are the
+> 162 code.  Differences, all marked ``# pyrbeta:``:
+> 
+> * the arm list comes from ``<run>/hold_arms.json`` (no ``dev_selection.json``,
+>   no data-driven selection) and need not contain recompute / fullload;
+> * stored arms are found by kind (``stored_methods``) instead of ``methods[1:]``;
+> * every k_l recomputation of the audit uses the frozen vector document's own
+>   ``r_min`` / ``r_max`` (``doc_counts``) and never the module defaults, plus an
+>   independent Hamilton apportionment and a clip-range identity check of the
+>   store meta (gate G-rmin);
+> * vectors are read from ``<run>/vectors``.
+49c55
+< SCHEMA = "llava-mtgqa-layerbudget-v2-hold-v1"
+---
+> SCHEMA = "llava-mtgqa-layerbudget-pyrbeta-hold-v1"      # pyrbeta: new schema id
+55c61,62
+< CONTRACT = ROOT / "docs/layer_budget_kv25_v2_contract.md"
+---
+> CONTRACT = ROOT / "docs/layer_budget_kv25_pyrbeta_contract.md"      # pyrbeta
+> V2_HOLD = ROOT / "runs/layer_budget_kv25_v2_20261106T073502Z/hold"      # pyrbeta: read-only reference (manifest identity)
+102a110,138
+> def stored_methods(methods):      # pyrbeta: replaces 162's positional ``methods[1:]``
+>     return [m for m in methods if kind_of(m) != "none"]
+> 
+> 
+> def doc_counts(doc, n):      # pyrbeta: k_l from the document's own clip range, never the module defaults (G-rmin)
+>     return layer_keep_counts(doc["layer_keep_ratios"], int(n), int(doc["num_layers"]), float(doc["total_ratio"]),
+>                              float(doc["r_min"]), float(doc["r_max"]))
+> 
+> 
+> def independent_counts(ratios, n, r_max):      # pyrbeta: Hamilton apportionment without library code and without any lower bound
+>     from fractions import Fraction
+>     L = len(ratios)
+>     budget = L * (-(-n // 4))
+>     cap = min(n, math.ceil(Fraction(repr(float(r_max))) * n))
+>     q = [r * n for r in ratios]
+>     k = [min(cap, int(math.floor(x))) for x in q]
+>     frac = [x - math.floor(x) for x in q]
+>     order = sorted(range(L), key=lambda i: (-frac[i], i))
+>     need = budget - sum(k)
+>     while need:
+>         moved = False
+>         for i in order:
+>             if need and k[i] < cap:
+>                 k[i] += 1; need -= 1; moved = True
+>         if not moved:
+>             raise ValueError("budget cannot be apportioned")
+>     return k
+> 
+> 
+242c278
+<         for m in methods[1:]:
+---
+>         for m in stored_methods(methods):      # pyrbeta
+256c292,295
+<                 counts = layer_keep_counts(doc["layer_keep_ratios"], n)
+---
+>                 counts = doc_counts(doc, n)      # pyrbeta: document clip range
+>                 c.require(counts == independent_counts(doc["layer_keep_ratios"], n, doc["r_max"]) and min(counts) >= 1, "PK_counts_independent_nonzero", kind)      # pyrbeta
+>                 c.require(meta["layer_budget_r_min"] == doc["r_min"] and meta["layer_budget_r_max"] == doc["r_max"]
+>                           and meta["layer_keep_ratios"] == doc["layer_keep_ratios"], "PK_clip_range_and_ratios_from_document", kind)      # pyrbeta
+271,272c310,311
+<         c.require(len(set(builds)) == len(methods) - 1, "distinct_physical_build_events", image_id)
+<         for m in methods[1:]:
+---
+>         c.require(len(set(builds)) == len(stored_methods(methods)), "distinct_physical_build_events", image_id)      # pyrbeta
+>         for m in stored_methods(methods):      # pyrbeta
+344c383,384
+<                 counts = layer_keep_counts(config["layer_budgets"][vec]["layer_keep_ratios"], n)
+---
+>                 counts = doc_counts(config["layer_budgets"][vec], n)      # pyrbeta: document clip range
+>                 c.require(counts == independent_counts(config["layer_budgets"][vec]["layer_keep_ratios"], n, config["layer_budgets"][vec]["r_max"]), "PK_k_per_layer_independent", rid)      # pyrbeta
+412c452,453
+<     kinds = {m: kind_of(m) for m in methods[1:]}
+---
+>     kinds = {m: kind_of(m) for m in stored_methods(methods)}      # pyrbeta
+>     ref_kind = next(iter(kinds.values()))      # pyrbeta: geometry reference when there is no raster store
+461c502
+<                     kind = kinds.get(method, "raster")
+---
+>                     kind = kinds.get(method, ref_kind)      # pyrbeta
+472c513
+<                         kind = kinds.get(method, "raster")
+---
+>                         kind = kinds.get(method, ref_kind)      # pyrbeta
+480,481c521,522
+<                         assert metas[kind]["prefix_input_ids"] == metas["raster"]["prefix_input_ids"]
+<                         assert metas[kind]["image_input_sha256"] == metas["raster"]["image_input_sha256"]
+---
+>                         assert metas[kind]["prefix_input_ids"] == metas[ref_kind]["prefix_input_ids"]      # pyrbeta
+>                         assert metas[kind]["image_input_sha256"] == metas[ref_kind]["image_input_sha256"]      # pyrbeta
+564c605
+< def freeze(parent_run):
+---
+> def freeze(parent_run):      # pyrbeta: arm list from hold_arms.json; vectors from <run>/vectors; otherwise the 162 freeze
+567c608
+<     sel = json.loads((parent_run / "dev_selection.json").read_text())
+---
+>     sel = json.loads((parent_run / "hold_arms.json").read_text())
+569,570c610,613
+<     assert methods[:2] == ["recompute", "fullload"] and all(m.startswith(PK) and m.endswith(PK_SUFFIX) for m in methods[2:]) and len(methods) == 7
+<     assert sel["selected"] == "A1-2" and f"{PK}A1-2_packed" in methods and f"{PK}U_packed" in methods
+---
+>     stored = stored_methods(methods)
+>     assert len(set(methods)) == len(methods) and all(m in ("recompute", "fullload") or (m.startswith(PK) and m.endswith(PK_SUFFIX)) for m in methods)
+>     assert methods[:3] == [f"{PK}U_packed", f"{PK}PYR-beta_packed", f"{PK}PYR-beta-raw_packed"] and set(methods[3:]) <= {"recompute"}
+>     assert json.loads((parent_run / "config.json").read_text())["contract_sha256"] == sha(CONTRACT), "contract changed after the Phase 0 freeze"
+575a619,622
+>     v2_manifest = json.loads((V2_HOLD / "manifest.json").read_text())
+>     assert v2_manifest["dialogues"] == ds and v2_manifest["image_identity"] == prior_manifest["image_identity"]
+>     assert v2_manifest["smoke_dialogue_ids"] == prior_manifest["smoke_dialogue_ids"]
+>     assert v2_manifest["index_sha256"] == INDEX_SHA and v2_manifest["workload_sha256"] == WORKLOAD_SHA
+579c626,627
+<                 "prior_manifest_sha256": sha(PRIOR / "manifest.json"), "smoke_policy": "prior frozen smoke dialogue ids (first four images)"}
+---
+>                 "prior_manifest_sha256": sha(PRIOR / "manifest.json"), "v2_hold_manifest_sha256": sha(V2_HOLD / "manifest.json"),
+>                 "smoke_policy": "prior frozen smoke dialogue ids (first four images); identical to the v2 HOLD manifest"}
+581a630
+>     assert plan0["hold"]["arms"] == len(methods) and plan0["hold"]["stored_arms"] == len(stored)
+594c643
+<     for m in methods[2:]:
+---
+>     for m in stored:
+596c645
+<         p = parent_run / "phase2" / f"layer_budget_llava_{vec}.json"
+---
+>         p = parent_run / "vectors" / f"layer_budget_llava_{vec}.json"
+598c647,648
+<         assert doc["layer_budget_sha256"] == sel["vectors_sha256"][vec]
+---
+>         assert doc["layer_budget_sha256"] == sel["vectors_sha256"][vec] and sha(p) == sel["vectors_file_sha256"][vec]
+>         assert doc["alloc_id"] == vec
+601a652
+>     assert budgets["PYR-beta-raw"]["r_min"] == 0.0 and budgets["PYR-beta"]["r_min"] == 0.1 and budgets["U"]["r_min"] == 0.1
+605c656
+<               "dev_selection_sha256": sha(parent_run / "dev_selection.json"), "selected": sel["selected"],
+---
+>               "hold_arms_sha256": sha(parent_run / "hold_arms.json"), "control": sel["control"], "primary": sel["primary"],
+610c661,662
+<               "prior_B_main_reference_only": str(PRIOR.parent), "v1_run_reference_only": "runs/layer_budget_kv25_20261105T125754Z", "parent_run": str(parent_run)}
+---
+>               "prior_B_main_reference_only": str(PRIOR.parent), "v2_run_reference_only": str(V2_HOLD.parent.relative_to(ROOT)), "parent_run": str(parent_run),
+>               "lifecycle_source": "thin copy of scripts/162_eval_layer_budget_v2_hold.py", "lifecycle_source_sha256": sha(ROOT / "scripts/162_eval_layer_budget_v2_hold.py")}
+623c675
+<     p.add_argument("--run", type=Path, required=True, help="parent layer_budget_kv25_v2 run")
+---
+>     p.add_argument("--run", type=Path, required=True, help="parent layer_budget_kv25_pyrbeta run")      # pyrbeta
+653c705
+<                  "resume_command": f"{sys.executable} scripts/162_eval_layer_budget_v2_hold.py --run {parent_run} --stage {phase} --resume"}
+---
+>                  "resume_command": f"{sys.executable} scripts/164_eval_layer_budget_pyrbeta_hold.py --run {parent_run} --stage {phase} --resume"}

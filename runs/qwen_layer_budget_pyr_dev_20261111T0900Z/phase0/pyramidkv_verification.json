@@ -1,0 +1,120 @@
+{
+ "formula_checks": {
+  "PYR-b20": {
+   "max_abs_layer_diff_vs_exact_rational": 6.866935004163005e-17,
+   "abs_sum_minus_7": 8.881784197001252e-16,
+   "exact_first": "39/80",
+   "exact_last": "1/80",
+   "exact_sum": "7",
+   "strictly_decreasing": true,
+   "equal_spacing_max_dev": 5.551115123125783e-17
+  },
+  "PYR-b2p5": {
+   "max_abs_layer_diff_vs_exact_rational": 6.167905692361981e-17,
+   "abs_sum_minus_7": 0.0,
+   "exact_first": "2/5",
+   "exact_last": "1/10",
+   "exact_sum": "7",
+   "strictly_decreasing": true,
+   "equal_spacing_max_dev": 5.551115123125783e-17
+  }
+ },
+ "public_code": {
+  "repo": "Zefan-Cai/PyramidKV",
+  "file": "pyramidkv/pyramidkv_utils.py",
+  "prior_citation": "Zefan-Cai/PyramidKV 68cd9551 pyramidkv/pyramidkv_utils.py L360-370 (scripts/158_allocate_prior_work_vectors.py)",
+  "fetches": [
+   {
+    "commit_ref": "c97f9d706d63d1b56e980f8b81b2a924c21162b3",
+    "url": "https://raw.githubusercontent.com/Zefan-Cai/PyramidKV/c97f9d706d63d1b56e980f8b81b2a924c21162b3/pyramidkv/pyramidkv_utils.py",
+    "file_sha256": "a8a1e8139a8c24a03df87ba0b8362296a613a7b7a38dd4a026087d7ac2b37ce4",
+    "lines": 1468,
+    "line_numbers": {
+     "min_num = \\(self\\.max_capacity_prompt - self\\.window_size\\) // self\\.beta": [
+      360,
+      449
+     ],
+     "max_num = \\(self\\.max_capacity_prompt - self\\.window_size\\) \\* 2 - min_num": [
+      361,
+      450
+     ],
+     "steps = \\(max_num - min_num\\) // \\(self\\.num_hidden_layers - 1\\)": [
+      369,
+      456
+     ],
+     "max_capacity_prompt = max_num - self\\.layer_idx \\* steps": [
+      370,
+      457
+     ]
+    },
+    "schedule_block_lines": [
+     360,
+     370
+    ],
+    "schedule_block_text": [
+     "        min_num = (self.max_capacity_prompt - self.window_size) // self.beta",
+     "        max_num = (self.max_capacity_prompt - self.window_size) * 2 - min_num",
+     "        ",
+     "            ",
+     "        if max_num >= q_len - self.window_size:",
+     "            max_num = q_len - self.window_size",
+     "            min_num = (self.max_capacity_prompt - self.window_size) * 2 - max_num",
+     "    ",
+     "       ",
+     "        steps = (max_num - min_num) // (self.num_hidden_layers - 1)",
+     "        max_capacity_prompt = max_num - self.layer_idx * steps"
+    ],
+    "cluster_init_defaults": "num_hidden_layers = 32, window_size = 64, max_capacity_prompt = 256 + 64, kernel_size = 5, pooling = 'avgpool', beta = 20, num_layers = 80, layer_idx=None, merge = None, gqa_score_agg = 'mean'",
+    "beta_default_20": true,
+    "status": "FETCHED"
+   },
+   {
+    "commit_ref": "68cd9551",
+    "url": "https://raw.githubusercontent.com/Zefan-Cai/PyramidKV/68cd9551/pyramidkv/pyramidkv_utils.py",
+    "file_sha256": "a8a1e8139a8c24a03df87ba0b8362296a613a7b7a38dd4a026087d7ac2b37ce4",
+    "lines": 1468,
+    "line_numbers": {
+     "min_num = \\(self\\.max_capacity_prompt - self\\.window_size\\) // self\\.beta": [
+      360,
+      449
+     ],
+     "max_num = \\(self\\.max_capacity_prompt - self\\.window_size\\) \\* 2 - min_num": [
+      361,
+      450
+     ],
+     "steps = \\(max_num - min_num\\) // \\(self\\.num_hidden_layers - 1\\)": [
+      369,
+      456
+     ],
+     "max_capacity_prompt = max_num - self\\.layer_idx \\* steps": [
+      370,
+      457
+     ]
+    },
+    "schedule_block_lines": [
+     360,
+     370
+    ],
+    "schedule_block_text": [
+     "        min_num = (self.max_capacity_prompt - self.window_size) // self.beta",
+     "        max_num = (self.max_capacity_prompt - self.window_size) * 2 - min_num",
+     "        ",
+     "            ",
+     "        if max_num >= q_len - self.window_size:",
+     "            max_num = q_len - self.window_size",
+     "            min_num = (self.max_capacity_prompt - self.window_size) * 2 - max_num",
+     "    ",
+     "       ",
+     "        steps = (max_num - min_num) // (self.num_hidden_layers - 1)",
+     "        max_capacity_prompt = max_num - self.layer_idx * steps"
+    ],
+    "cluster_init_defaults": "num_hidden_layers = 32, window_size = 64, max_capacity_prompt = 256 + 64, kernel_size = 5, pooling = 'avgpool', beta = 20, num_layers = 80, layer_idx=None, merge = None, gqa_score_agg = 'mean'",
+    "beta_default_20": true,
+    "status": "FETCHED"
+   }
+  ],
+  "status": "REVERIFIED",
+  "shape": "min = budget // beta; max = 2*budget - min; steps = (max - min) // (num_hidden_layers - 1); layer capacity = max - layer_idx*steps (linear, equal spacing, decreasing with depth); window_size = 0 here; ratios drop the integer floor: lo = 0.25/beta, hi = 0.5 - lo, step = (hi - lo)/(L - 1)",
+  "not_adopted": "the q_len clamp branch (max_num >= q_len - window) is not reachable at a 25% budget; PyramidKV's attention-based token selection is NOT used -- only the per-layer cut point of the image-only saliency order follows the schedule"
+ }
+}

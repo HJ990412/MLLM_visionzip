@@ -1,0 +1,27 @@
+{
+ "gate": "existing CPU tests",
+ "config_sha256": "d667992b933c91771c7d4869dc1bc15ba930b2c1b15516a10564384c7d792ace",
+ "contract_sha256": "d70f85eb739493daaafeb54804594f151386190a23d31e4c08c9e601ac39f7d6",
+ "status": "PASS",
+ "returncode": 0,
+ "modules": 69,
+ "ran": "Ran 542 tests in 8.133s",
+ "log_sha256": "2853d9e32bbf0a2edf38525bd13a7d52bf8a1f42523727d9eaa6c5be0bd44973",
+ "includes_new_module": true,
+ "glm_modules_run_separately": [
+  "test_glm46v_analysis",
+  "test_glm46v_runner",
+  "test_glm46v_store",
+  "test_glm46v_validation",
+  "test_glm46v_vision",
+  "test_glm46v_workflow"
+ ],
+ "glm_returncode": 1,
+ "glm_errors": [
+  "ERROR: setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+  "ERROR: test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+  "ERROR: test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+ ],
+ "glm_log_sha256": "206cc125274b534cfc0a96a75ec2866070cedbf4a40d67903033cb93c5a82b15",
+ "glm_note": "GLM-4.6V tests fail before this change on the installed transformers API (same 3 errors in the baseline taken before any new file existed, and in the 2026-11-10 LLaVA run); they import nothing added here; reported, not hidden"
+}

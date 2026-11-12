@@ -1,0 +1,632 @@
+{
+ "image_id": "n472825",
+ "question_id": "202101069",
+ "question": "What is the gender of the skateboarder to the right of the lamp?",
+ "N": 391,
+ "S": 21,
+ "prefix_len": 412,
+ "T1_prediction": "Male",
+ "k": {
+  "U25": 98,
+  "U30": 118,
+  "U40": 157,
+  "U50": 196,
+  "U100": 391
+ },
+ "SG2": {
+  "payload_bitwise_equal_to_pyramidkv_run_writer": {
+   "ok": true,
+   "detail": {
+    "bytes": 6823936,
+    "sha256": "fcf3acf9963a20181c74f97491e3aa9b7f9fbf65d2806fa055c63997beb7e996"
+   }
+  },
+  "meta_differs_only_in_document_fields": {
+   "ok": true,
+   "detail": {
+    "differing_fields": [
+     "bytes_metadata_file",
+     "extra",
+     "format",
+     "layer_budget_binding_sha256",
+     "layer_budget_id",
+     "layer_budget_r_max",
+     "layout_description",
+     "order_semantics",
+     "packed_code_revision",
+     "retention_fraction",
+     "rounding_policy",
+     "storage_policy",
+     "store_format",
+     "uniform_content_count",
+     "uniform_equivalent_content_count"
+    ],
+    "values": {
+     "bytes_metadata_file": {
+      "sweep": 40348,
+      "pyramidkv_run": 40217
+     },
+     "format": {
+      "sweep": "qwen25_bf16_prefix_ratio_packed_v1",
+      "pyramidkv_run": "qwen25_bf16_prefix25_packed_v1"
+     },
+     "layer_budget_binding_sha256": {
+      "sweep": "587ddcb458cd96c6469d45972beb30eb8c629372e0f21fa122f2659c1ca5b2e2",
+      "pyramidkv_run": "4a8e4d183262774d611da635aff4f8be7cfb2d9d6cb20267568dea7ecad0400e"
+     },
+     "layer_budget_id": {
+      "sweep": "U25",
+      "pyramidkv_run": "U"
+     },
+     "layer_budget_r_max": {
+      "sweep": 1.0,
+      "pyramidkv_run": 0.6
+     },
+     "layout_description": {
+      "sweep": "kv_packed.bin = [structural (2,L,S,H,D)][L0 K rows 0..k)[L0 V]...[L(L-1) V]; layer blocks token-major (k,H,D) BF16 in the global importance order; k = ceil(total_ratio * N) for every layer; no padding",
+      "pyramidkv_run": "kv_packed.bin = [structural (2,L,S,H,D)][L0 K rows 0..k_0)[L0 V]...[L(L-1) V]; layer blocks token-major (k_l,H,D) BF16 in the global importance order; no padding"
+     },
+     "order_semantics": {
+      "sweep": "every layer keeps full_importance_permutation[:uniform_content_count]",
+      "pyramidkv_run": "layer l keeps full_importance_permutation[:layer_keep_counts[l]]"
+     },
+     "packed_code_revision": {
+      "sweep": "1b1aa143bfb428ade759f674954cd8c000b1a94a35f56ab2cb3772051ab47b4c",
+      "pyramidkv_run": "6ae629871316ca39b1bde26d479ea98888ce7d8a3bb23aa4511ebd27628ed624"
+     },
+     "retention_fraction": {
+      "sweep": [
+       1,
+       4
+      ],
+      "pyramidkv_run": null
+     },
+     "rounding_policy": {
+      "sweep": "uniform ceil(total_ratio * N); float layer_budget result must equal the exact integer fraction",
+      "pyramidkv_run": "hamilton_largest_remainder_total_ceil_original_content"
+     },
+     "storage_policy": {
+      "sweep": "prefix_ratio_packed",
+      "pyramidkv_run": "prefix25_packed"
+     },
+     "store_format": {
+      "sweep": "qwen25_bf16_prefix_ratio_packed_v1",
+      "pyramidkv_run": "qwen25_bf16_prefix25_packed_v1"
+     },
+     "uniform_content_count": {
+      "sweep": 98,
+      "pyramidkv_run": null
+     },
+     "uniform_equivalent_content_count": {
+      "sweep": null,
+      "pyramidkv_run": 98
+     }
+    }
+   }
+  },
+  "assembled_KV_bitwise_vs_pyramidkv_run_reader_and_canonical_capture": {
+   "ok": true
+  },
+  "no_history:first_logits_bitwise_and_generated_ids_vs_pyramidkv_run_hit": {
+   "ok": true,
+   "detail": {
+    "generated": [
+     36421,
+     151645
+    ]
+   }
+  },
+  "no_history:SDPA_QKV_mask_bitwise_and_same_bytes_vs_pyramidkv_run_hit": {
+   "ok": true
+  },
+  "one_turn_history:first_logits_bitwise_and_generated_ids_vs_pyramidkv_run_hit": {
+   "ok": true,
+   "detail": {
+    "generated": [
+     19290,
+     349,
+     2482,
+     261,
+     151645
+    ]
+   }
+  },
+  "one_turn_history:SDPA_QKV_mask_bitwise_and_same_bytes_vs_pyramidkv_run_hit": {
+   "ok": true
+  }
+ },
+ "SG3": {
+  "row_set_and_order_equal_full_prefix": {
+   "ok": true,
+   "detail": {
+    "rows": 412
+   }
+  },
+  "layer_KV_bitwise_vs_fullload_load_prefix": {
+   "ok": true
+  },
+  "layer_KV_bitwise_vs_T1_capture": {
+   "ok": true
+  },
+  "no_history:first_logits_bitwise_vs_fullload": {
+   "ok": true,
+   "detail": {
+    "max_abs_logit_diff": 0.0
+   }
+  },
+  "no_history:generated_ids_equal_vs_fullload": {
+   "ok": true,
+   "detail": {
+    "u100": [
+     36476,
+     151645
+    ],
+    "fullload": [
+     36476,
+     151645
+    ]
+   }
+  },
+  "no_history:SDPA_QKV_mask_bitwise_same_cache_bytes_57_pread_vs_1_preadv": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "fullload_read_bytes": 26894336,
+    "u100_read_bytes": 23625728
+   }
+  },
+  "one_turn_history:first_logits_bitwise_vs_fullload": {
+   "ok": true,
+   "detail": {
+    "max_abs_logit_diff": 0.0
+   }
+  },
+  "one_turn_history:generated_ids_equal_vs_fullload": {
+   "ok": true,
+   "detail": {
+    "u100": [
+     19290,
+     349,
+     2482,
+     388,
+     151645
+    ],
+    "fullload": [
+     19290,
+     349,
+     2482,
+     388,
+     151645
+    ]
+   }
+  },
+  "one_turn_history:SDPA_QKV_mask_bitwise_same_cache_bytes_57_pread_vs_1_preadv": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "fullload_read_bytes": 26894336,
+    "u100_read_bytes": 23625728
+   }
+  }
+ },
+ "SG5": {
+  "image_only_rank_equals_pyramidkv_run_rank": {
+   "ok": true,
+   "detail": {
+    "pyramidkv_run_T1_question": "Is the lamp to the right or to the left of the car?",
+    "this_gate_T1_question": "What is the gender of the skateboarder to the right of the lamp?",
+    "T1_question_differs": true
+   }
+  },
+  "U25:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 6823936,
+    "k": 98
+   }
+  },
+  "U25:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U25:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U30:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 7970816,
+    "k": 118
+   }
+  },
+  "U30:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U30:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U40:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 10207232,
+    "k": 157
+   }
+  },
+  "U40:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U40:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U50:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 12443648,
+    "k": 196
+   }
+  },
+  "U50:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U50:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U100:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 23625728,
+    "k": 391
+   }
+  },
+  "U100:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U100:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U25:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 6823936,
+    "k": 98
+   }
+  },
+  "U25:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U25:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U30:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 7970816,
+    "k": 118
+   }
+  },
+  "U30:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U30:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U40:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 10207232,
+    "k": 157
+   }
+  },
+  "U40:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U40:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U50:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 12443648,
+    "k": 196
+   }
+  },
+  "U50:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U50:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U100:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 23625728,
+    "k": 391
+   }
+  },
+  "U100:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U100:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "question_change_keeps_read_range_and_selection": {
+   "ok": true
+  },
+  "request_selection_nested_across_ratios": {
+   "ok": true
+  },
+  "other_ratio_other_format_foreign_image_rejected": {
+   "ok": true,
+   "detail": {
+    "U30_store_requested_as_U40": {
+     "rejected": true,
+     "reason": "ValueError(\"packed store budget / ratio differs from the request's\")"
+    },
+    "U100_store_requested_as_U25": {
+     "rejected": true,
+     "reason": "ValueError(\"packed store budget / ratio differs from the request's\")"
+    },
+    "U40_store_opened_with_U50_document": {
+     "rejected": true,
+     "reason": "ValueError('packed store was built with a different budget / ratio')"
+    },
+    "pyramidkv_run_store_opened_by_ratio_reader": {
+     "rejected": true,
+     "reason": "ValueError('unsupported or mislabeled Qwen ratio-packed store')"
+    },
+    "ratio_store_opened_by_pyramidkv_run_reader": {
+     "rejected": true,
+     "reason": "ValueError('unsupported or mislabeled Qwen packed store')"
+    },
+    "foreign_image_identity": {
+     "rejected": true,
+     "reason": "ValueError('cache identity mismatch: image_sha256')"
+    }
+   }
+  }
+ },
+ "SGR": {
+  "U25:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 29
+   }
+  },
+  "U25:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "681fc7391f93c9783e4448f334783252a30d9a8f5336041681062472c24ba7c2",
+    "generated": [
+     36421,
+     151645
+    ]
+   }
+  },
+  "U30:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 29
+   }
+  },
+  "U30:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "0146eb815cdd8b11c1db3c3b615c0d49de661208a6dc38249df567a0a0025599",
+    "generated": [
+     36421,
+     151645
+    ]
+   }
+  },
+  "U30:no_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 2.1316282072803006e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 0.00024008750915527344,
+    "legacy_fp32_layers_failing_diagnostic_only": 2
+   }
+  },
+  "U40:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 29
+   }
+  },
+  "U40:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "ab3d3ffd9af898b7ad7c91ea157fa8141929bb5b801f00dd166dba7e854cc45e",
+    "generated": [
+     36421,
+     151645
+    ]
+   }
+  },
+  "U40:no_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 3.197442310920451e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 1.049041748046875e-05,
+    "legacy_fp32_layers_failing_diagnostic_only": 0
+   }
+  },
+  "U50:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 29
+   }
+  },
+  "U50:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "9c28943a1246227dd42b538c2cab90a9332625e569e16f7377c41c8e4d36e8ad",
+    "generated": [
+     36421,
+     151645
+    ]
+   }
+  },
+  "U50:no_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 2.4868995751603507e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 0.0019823312759399414,
+    "legacy_fp32_layers_failing_diagnostic_only": 2
+   }
+  },
+  "U100:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 29
+   }
+  },
+  "U100:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "c17a3ea86ef55031938debe77ce4905604aec8cc311006a8c03152d536bee123",
+    "generated": [
+     36476,
+     151645
+    ]
+   }
+  },
+  "U25:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 53
+   }
+  },
+  "U25:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "a760db67cdfb94610a8930f0c97f78a33f24f0294ec4d498bd9f9cb957d70df7",
+    "generated": [
+     19290,
+     349,
+     2482,
+     261,
+     151645
+    ]
+   }
+  },
+  "U30:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 53
+   }
+  },
+  "U30:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "f79f5996d7ad62f86036a5bafc405cc6128290958f96eaea3c9474fe8bee1119",
+    "generated": [
+     19290,
+     349,
+     2482,
+     261,
+     151645
+    ]
+   }
+  },
+  "U30:one_turn_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 2.842170943040401e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 9.5367431640625e-06,
+    "legacy_fp32_layers_failing_diagnostic_only": 0
+   }
+  },
+  "U40:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 53
+   }
+  },
+  "U40:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "6d8117be69c64e4e693342cc756899f353871abbfdbed2a75bef12036506c732",
+    "generated": [
+     19290,
+     349,
+     2482,
+     261,
+     151645
+    ]
+   }
+  },
+  "U40:one_turn_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 2.842170943040401e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 0.00016069412231445312,
+    "legacy_fp32_layers_failing_diagnostic_only": 2
+   }
+  },
+  "U50:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 53
+   }
+  },
+  "U50:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "a65d61c0924673e3c64fbde6574c6c614cddaf0872ce6f945e82c0100834f855",
+    "generated": [
+     19290,
+     349,
+     2482,
+     261,
+     151645
+    ]
+   }
+  },
+  "U50:one_turn_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.7763568394002505e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 7.62939453125e-06,
+    "legacy_fp32_layers_failing_diagnostic_only": 0
+   }
+  },
+  "U100:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 53
+   }
+  },
+  "U100:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "efd0afb17b2233c06e0b14865947510787489677a12389468190425e66eec0e3",
+    "generated": [
+     19290,
+     349,
+     2482,
+     388,
+     151645
+    ]
+   }
+  }
+ },
+ "gates": {
+  "SG2": true,
+  "SG3": true,
+  "SG5": true,
+  "SGR": true
+ },
+ "status": "PASS",
+ "removed_gate_store_files": 70,
+ "elapsed_s": 10.637912034988403,
+ "prior_rank_available": true
+}

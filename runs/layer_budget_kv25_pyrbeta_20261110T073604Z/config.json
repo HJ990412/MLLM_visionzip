@@ -1,0 +1,72 @@
+{
+ "run": "runs/layer_budget_kv25_pyrbeta_20261110T073604Z",
+ "contract": "docs/layer_budget_kv25_pyrbeta_contract.md",
+ "contract_sha256": "fda3a5675ec9d9164e6745467b4bb8cc96b5a2107215c1dff4e9de98c9ce13e2",
+ "parent_v2_run": "runs/layer_budget_kv25_v2_20261106T073502Z",
+ "parent_v2_contract_sha256": "2898995f3097f7009d8e5604f297315501a42c271b205d0c8cc98e20097ef598",
+ "parent_v2_decision_sha256": "a45c28e2c19ced88b4876eb0c47e0011bbe94017d2d5b67a108d4793586fa33e",
+ "model": "llava-hf/llava-v1.6-vicuna-7b-hf",
+ "revision": "c916e6cdcd760b4cecd1dd4907f84ac649f93b23",
+ "quantization": "NF4 double, BF16 compute",
+ "attention": "eager",
+ "store_dtype": "float16",
+ "chunk_size": 64,
+ "seed": 1234,
+ "greedy": true,
+ "max_new_tokens": 16,
+ "total_ratio": 0.25,
+ "num_layers": 32,
+ "budget_policy": "layerwise_v1",
+ "global_R_MIN_R_MAX_unchanged": [
+  0.1,
+  0.6
+ ],
+ "vectors": {
+  "U": {
+   "layer_budget_sha256": "54ea273e1a38b1e8b02b96237381f982344cd28ca8466162876e161cdb8ff3ba",
+   "r_min": 0.1,
+   "r_max": 0.6
+  },
+  "PYR-beta": {
+   "layer_budget_sha256": "e374616b5a028402f8c479159f458f83690c96c24728307e00113f206a4cd483",
+   "r_min": 0.1,
+   "r_max": 0.6
+  },
+  "PYR-beta-raw": {
+   "layer_budget_sha256": "51f9b0db19a93f8ca8b34b8beb8af21285721c5ea460566afbd9a3185b331724",
+   "r_min": 0.0,
+   "r_max": 0.6
+  }
+ },
+ "hold": {
+  "workload": "data/mt_gqa/dialogues.json",
+  "images": 398,
+  "dialogues": 4061,
+  "requests_per_arm": 12183,
+  "arms": [
+   "ours_prefixstore_kv25_U_packed",
+   "ours_prefixstore_kv25_PYR-beta_packed",
+   "ours_prefixstore_kv25_PYR-beta-raw_packed"
+  ]
+ },
+ "decision_rule": {
+  "primary_each_vector": "vec_packed - U_packed, HOLD followup; GO: delta>=+1.0pp & CI excludes 0 & SSD MB/followup <= U*1.02 & TTFT mean <= U*1.05; PARTIAL: delta>=+0.5pp with CI incl. 0, or GO with exactly one of MB/TTFT violated; else NO-GO",
+  "floor_effect": "D = PYR-beta-raw - PYR-beta (followup, paired bootstrap 95% CI): CI includes 0 -> floor unnecessary (paper default PYR-beta-raw); CI upper < 0 -> floor needed (use PYR-beta); CI lower > 0 -> floor harmful (use PYR-beta-raw)",
+  "secondary": "cross-run paired accuracy vs v2 arms only if G-det == 100%; TTFT never cross-run"
+ },
+ "bootstrap": {
+  "unit": "image",
+  "resamples": 10000,
+  "seed": 1234
+ },
+ "environment": {
+  "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]",
+  "torch": "2.5.1+cu121",
+  "transformers": "4.57.6",
+  "gpu": "NVIDIA GeForce RTX 4090, 535.230.02",
+  "read_ahead_kb": "128"
+ },
+ "disk_free_bytes_at_config": 286044221440,
+ "storage_plan_sha256": "0f9f440e6c8a830bef941eb8e55ca10a2a9c42d1da5bd83063b2e98942769b67",
+ "hold_arms_sha256": "0695c7a9569c330023e6a5628bda3b2beebba7ad1eab9feadabc0b84e2e4b7c9"
+}

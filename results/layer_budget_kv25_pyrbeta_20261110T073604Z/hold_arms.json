@@ -1,0 +1,38 @@
+{
+ "hold_arms": [
+  "ours_prefixstore_kv25_U_packed",
+  "ours_prefixstore_kv25_PYR-beta_packed",
+  "ours_prefixstore_kv25_PYR-beta-raw_packed"
+ ],
+ "control": "ours_prefixstore_kv25_U_packed",
+ "primary": [
+  "ours_prefixstore_kv25_PYR-beta_packed",
+  "ours_prefixstore_kv25_PYR-beta-raw_packed"
+ ],
+ "vectors_sha256": {
+  "U": "54ea273e1a38b1e8b02b96237381f982344cd28ca8466162876e161cdb8ff3ba",
+  "PYR-beta": "e374616b5a028402f8c479159f458f83690c96c24728307e00113f206a4cd483",
+  "PYR-beta-raw": "51f9b0db19a93f8ca8b34b8beb8af21285721c5ea460566afbd9a3185b331724"
+ },
+ "vectors_file_sha256": {
+  "U": "d6ea0c408baf2a8f5b73181579e7c4b70d090c69c7c1a3e8f010104ac22196e3",
+  "PYR-beta": "73457efbbcab454f5935f0441e5158f6427171ac26b9b585e26851f70c523398",
+  "PYR-beta-raw": "8bfc4cbc55eb778a7ef0433ade4bf13f7a24107b76515f23a72ac01e0740ea5d"
+ },
+ "clip_range": {
+  "U": [
+   0.1,
+   0.6
+  ],
+  "PYR-beta": [
+   0.1,
+   0.6
+  ],
+  "PYR-beta-raw": [
+   0.0,
+   0.6
+  ]
+ },
+ "rule": "no data-driven vector construction or selection; arms fixed by the prompt before measurement",
+ "optional_recompute": "excluded (default; not authorised by the user before execution)"
+}

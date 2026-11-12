@@ -1,0 +1,33 @@
+{
+ "gate": "existing CPU tests",
+ "config_sha256": "d58ea5fcb604b48ae8474e3622a908ffaec8f8f80d8c9b02ea468a19772af560",
+ "contract_sha256": "83f1e9b7322bb631302b45bd231959ae4b69272e55bf9a8cba462ee8ae47cc51",
+ "status": "PASS",
+ "returncode": 0,
+ "modules": 70,
+ "ran": "Ran 556 tests in 9.924s",
+ "log_sha256": "f9778ccd4b8906e2e17365101d8da64990955f2ba76e97637d4e147625d9c669",
+ "includes_new_module": true,
+ "glm_modules_run_separately": [
+  "test_glm46v_analysis",
+  "test_glm46v_runner",
+  "test_glm46v_store",
+  "test_glm46v_validation",
+  "test_glm46v_vision",
+  "test_glm46v_workflow"
+ ],
+ "glm_returncode": 1,
+ "glm_errors": [
+  "ERROR: setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+  "ERROR: test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+  "ERROR: test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+ ],
+ "glm_log_sha256": "2caecd0f18c9341a7631b8cac4209ff5c1bfae1d6e7029c3c5ed7670050d272b",
+ "glm_errors_in_pyramidkv_run": [
+  "ERROR: setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+  "ERROR: test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+  "ERROR: test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+ ],
+ "glm_note": "GLM-4.6V tests fail before this change on the installed transformers API (the same errors as in the PyramidKV run and its pre-change baseline); they import nothing added here; reported separately as in the PyramidKV run, not hidden",
+ "glm_errors_same_as_pyramidkv_run": true
+}

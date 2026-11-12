@@ -1,0 +1,668 @@
+{
+ "image_id": "n133585",
+ "question_id": "202108008",
+ "question": "What is the color of the hat?",
+ "N": 345,
+ "S": 21,
+ "prefix_len": 366,
+ "T1_prediction": "blue",
+ "QG2": {
+  "structural_block_bitwise": {
+   "ok": true
+  },
+  "all_28_layer_slices_bitwise": {
+   "ok": true
+  },
+  "payload_bytes_equal": {
+   "ok": true,
+   "detail": {
+    "bytes": 6193152
+   }
+  },
+  "assembled_KV_bitwise_vs_load_prefix": {
+   "ok": true
+  },
+  "logical_indices_equal": {
+   "ok": true
+  },
+  "no_history:first_logits_bitwise_and_generated_ids_vs_B": {
+   "ok": true,
+   "detail": {
+    "generated": [
+     12203,
+     151645
+    ]
+   }
+  },
+  "no_history:SDPA_QKV_mask_bitwise_vs_B": {
+   "ok": true
+  },
+  "no_history:same_bytes_57_pread_vs_1_preadv": {
+   "ok": true
+  },
+  "one_turn_history:first_logits_bitwise_and_generated_ids_vs_B": {
+   "ok": true,
+   "detail": {
+    "generated": [
+     4886,
+     349,
+     2482,
+     388,
+     151645
+    ]
+   }
+  },
+  "one_turn_history:SDPA_QKV_mask_bitwise_vs_B": {
+   "ok": true
+  },
+  "one_turn_history:same_bytes_57_pread_vs_1_preadv": {
+   "ok": true
+  }
+ },
+ "QG6": {
+  "payload_bytes_equal_three_vectors_and_B": {
+   "ok": true,
+   "detail": {
+    "U": 6193152,
+    "PYR-b20": 6193152,
+    "PYR-b2p5": 6193152
+   }
+  },
+  "U:no_history:one_preadv_zero_pread_whole_file": {
+   "ok": true,
+   "detail": {
+    "bytes": 6193152
+   }
+  },
+  "U:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "PYR-b20:no_history:one_preadv_zero_pread_whole_file": {
+   "ok": true,
+   "detail": {
+    "bytes": 6193152
+   }
+  },
+  "PYR-b20:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "PYR-b2p5:no_history:one_preadv_zero_pread_whole_file": {
+   "ok": true,
+   "detail": {
+    "bytes": 6193152
+   }
+  },
+  "PYR-b2p5:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U:one_turn_history:one_preadv_zero_pread_whole_file": {
+   "ok": true,
+   "detail": {
+    "bytes": 6193152
+   }
+  },
+  "U:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "PYR-b20:one_turn_history:one_preadv_zero_pread_whole_file": {
+   "ok": true,
+   "detail": {
+    "bytes": 6193152
+   }
+  },
+  "PYR-b20:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "PYR-b2p5:one_turn_history:one_preadv_zero_pread_whole_file": {
+   "ok": true,
+   "detail": {
+    "bytes": 6193152
+   }
+  },
+  "PYR-b2p5:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "question_change_keeps_read_range_and_layer_selection": {
+   "ok": true
+  }
+ },
+ "QG3": {
+  "PYR-b20:a_packed_slices_bitwise_first_k_l_of_independent_rank": {
+   "ok": true,
+   "detail": {
+    "k_first": 169,
+    "k_last": 5,
+    "min_k": 5
+   }
+  },
+  "PYR-b2p5:a_packed_slices_bitwise_first_k_l_of_independent_rank": {
+   "ok": true,
+   "detail": {
+    "k_first": 139,
+    "k_last": 35,
+    "min_k": 35
+   }
+  },
+  "U:no_history:b_SDPA_QKV_mask_bitwise_28_layers_vs_reference_and_repeat": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28
+   }
+  },
+  "U:no_history:b_key_count_S_plus_k_l_plus_suffix_and_explicit_mask": {
+   "ok": true,
+   "detail": {
+    "suffix": 22
+   }
+  },
+  "U:no_history:b_decode_step_plus_one_per_layer": {
+   "ok": true,
+   "detail": {
+    "forwards": 2
+   }
+  },
+  "U:no_history:b_installed_layer0_mask_is_explicit_mask": {
+   "ok": true
+  },
+  "U:no_history:c_logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "d3190e18479ef4a9658763bfcd41fc1a93939bab58bcb0497c990539e748414c",
+    "generated": [
+     12203,
+     151645
+    ]
+   }
+  },
+  "U:no_history:stock_positions_counts_hooks_removed": {
+   "ok": true
+  },
+  "PYR-b20:no_history:b_SDPA_QKV_mask_bitwise_28_layers_vs_reference_and_repeat": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28
+   }
+  },
+  "PYR-b20:no_history:b_key_count_S_plus_k_l_plus_suffix_and_explicit_mask": {
+   "ok": true,
+   "detail": {
+    "suffix": 22
+   }
+  },
+  "PYR-b20:no_history:b_decode_step_plus_one_per_layer": {
+   "ok": true,
+   "detail": {
+    "forwards": 2
+   }
+  },
+  "PYR-b20:no_history:b_installed_layer0_mask_is_explicit_mask": {
+   "ok": true
+  },
+  "PYR-b20:no_history:c_logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "9fa07c16ce42ebd44046a918fac0829fa951ac98ba18cd7045e62402004b0503",
+    "generated": [
+     12203,
+     151645
+    ]
+   }
+  },
+  "PYR-b20:no_history:stock_positions_counts_hooks_removed": {
+   "ok": true
+  },
+  "PYR-b2p5:no_history:b_SDPA_QKV_mask_bitwise_28_layers_vs_reference_and_repeat": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28
+   }
+  },
+  "PYR-b2p5:no_history:b_key_count_S_plus_k_l_plus_suffix_and_explicit_mask": {
+   "ok": true,
+   "detail": {
+    "suffix": 22
+   }
+  },
+  "PYR-b2p5:no_history:b_decode_step_plus_one_per_layer": {
+   "ok": true,
+   "detail": {
+    "forwards": 2
+   }
+  },
+  "PYR-b2p5:no_history:b_installed_layer0_mask_is_explicit_mask": {
+   "ok": true
+  },
+  "PYR-b2p5:no_history:c_logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "0983d7ceaed48c2d559e3307c20f769a9193af950bbccb9b203a81a2ad4d00a2",
+    "generated": [
+     12203,
+     151645
+    ]
+   }
+  },
+  "PYR-b2p5:no_history:stock_positions_counts_hooks_removed": {
+   "ok": true
+  },
+  "U:one_turn_history:b_SDPA_QKV_mask_bitwise_28_layers_vs_reference_and_repeat": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28
+   }
+  },
+  "U:one_turn_history:b_key_count_S_plus_k_l_plus_suffix_and_explicit_mask": {
+   "ok": true,
+   "detail": {
+    "suffix": 46
+   }
+  },
+  "U:one_turn_history:b_decode_step_plus_one_per_layer": {
+   "ok": true,
+   "detail": {
+    "forwards": 5
+   }
+  },
+  "U:one_turn_history:b_installed_layer0_mask_is_explicit_mask": {
+   "ok": true
+  },
+  "U:one_turn_history:c_logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "2fa6238afa2a433af6fabb085f85826f562cd3d81635d84fdbaeed55deb7575b",
+    "generated": [
+     4886,
+     349,
+     2482,
+     388,
+     151645
+    ]
+   }
+  },
+  "U:one_turn_history:stock_positions_counts_hooks_removed": {
+   "ok": true
+  },
+  "PYR-b20:one_turn_history:b_SDPA_QKV_mask_bitwise_28_layers_vs_reference_and_repeat": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28
+   }
+  },
+  "PYR-b20:one_turn_history:b_key_count_S_plus_k_l_plus_suffix_and_explicit_mask": {
+   "ok": true,
+   "detail": {
+    "suffix": 46
+   }
+  },
+  "PYR-b20:one_turn_history:b_decode_step_plus_one_per_layer": {
+   "ok": true,
+   "detail": {
+    "forwards": 2
+   }
+  },
+  "PYR-b20:one_turn_history:b_installed_layer0_mask_is_explicit_mask": {
+   "ok": true
+  },
+  "PYR-b20:one_turn_history:c_logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "4f1ce4c581785b3fd028933eda58260cf75325defd99f491669ea92ef0ad47cd",
+    "generated": [
+     16069,
+     151645
+    ]
+   }
+  },
+  "PYR-b20:one_turn_history:stock_positions_counts_hooks_removed": {
+   "ok": true
+  },
+  "PYR-b2p5:one_turn_history:b_SDPA_QKV_mask_bitwise_28_layers_vs_reference_and_repeat": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28
+   }
+  },
+  "PYR-b2p5:one_turn_history:b_key_count_S_plus_k_l_plus_suffix_and_explicit_mask": {
+   "ok": true,
+   "detail": {
+    "suffix": 46
+   }
+  },
+  "PYR-b2p5:one_turn_history:b_decode_step_plus_one_per_layer": {
+   "ok": true,
+   "detail": {
+    "forwards": 2
+   }
+  },
+  "PYR-b2p5:one_turn_history:b_installed_layer0_mask_is_explicit_mask": {
+   "ok": true
+  },
+  "PYR-b2p5:one_turn_history:c_logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "a264ebe8570c51c3c85da490be54900bec6eb467d20620ff0204c975d741dee8",
+    "generated": [
+     16069,
+     151645
+    ]
+   }
+  },
+  "PYR-b2p5:one_turn_history:stock_positions_counts_hooks_removed": {
+   "ok": true
+  }
+ },
+ "QG4": {
+  "U:no_history:fp64_dense_vs_compact_1e-12_all_layers_heads_queries": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.7763568394002505e-14,
+    "hidden_prefix_positions": 165396,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 3.612041473388672e-05,
+    "legacy_fp32_layers_failing_diagnostic_only": 1
+   }
+  },
+  "PYR-b20:no_history:fp64_dense_vs_compact_1e-12_all_layers_heads_queries": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.0658141036401503e-14,
+    "hidden_prefix_positions": 165396,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 7.82012939453125e-05,
+    "legacy_fp32_layers_failing_diagnostic_only": 1
+   }
+  },
+  "PYR-b2p5:no_history:fp64_dense_vs_compact_1e-12_all_layers_heads_queries": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.7763568394002505e-14,
+    "hidden_prefix_positions": 165396,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 0.00063323974609375,
+    "legacy_fp32_layers_failing_diagnostic_only": 1
+   }
+  },
+  "U:one_turn_history:fp64_dense_vs_compact_1e-12_all_layers_heads_queries": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 2.1316282072803006e-14,
+    "hidden_prefix_positions": 361284,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 7.62939453125e-06,
+    "legacy_fp32_layers_failing_diagnostic_only": 0
+   }
+  },
+  "PYR-b20:one_turn_history:fp64_dense_vs_compact_1e-12_all_layers_heads_queries": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.7763568394002505e-14,
+    "hidden_prefix_positions": 361284,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 0.00011372566223144531,
+    "legacy_fp32_layers_failing_diagnostic_only": 1
+   }
+  },
+  "PYR-b2p5:one_turn_history:fp64_dense_vs_compact_1e-12_all_layers_heads_queries": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.7763568394002505e-14,
+    "hidden_prefix_positions": 361284,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 0.00016951560974121094,
+    "legacy_fp32_layers_failing_diagnostic_only": 1
+   }
+  }
+ },
+ "QG5": {
+  "PYR-b20:negative_fixtures": {
+   "ok": true,
+   "detail": {
+    "layer_k_plus_1": {
+     "layer": 13,
+     "next_layer_query_changed": true,
+     "first_logits_changed": true,
+     "detected": true
+    },
+    "layer_k_minus_1": {
+     "layer": 13,
+     "next_layer_query_changed": true,
+     "first_logits_changed": true,
+     "detected": true
+    },
+    "two_layers_rows_swapped": {
+     "layers": [
+      5,
+      6
+     ],
+     "first_logits_changed": true,
+     "detected": true
+    },
+    "one_hidden_row_exposed": {
+     "layer": 13,
+     "original_index": 78,
+     "fp64_max_abs": 0.09802939731627683,
+     "detected": true
+    },
+    "structural_row_missing": {
+     "first_logits_changed": true,
+     "detected": true
+    },
+    "stale_hook_from_previous_request": {
+     "guard_before_next_request": {
+      "rejected": true,
+      "reason": "AssertionError('28 residual self-attention pre-hooks from an earlier request')"
+     },
+     "new_request_refuses_to_stack": {
+      "rejected": true,
+      "reason": "AssertionError('residual self-attention pre-hook before a layer-wise hit')"
+     },
+     "stale_lengths_on_other_cache": {
+      "rejected": true,
+      "reason": "AssertionError(\"layer 0: cache length 190 is not the request's 160 + 0 (stale hook or foreign cache)\")"
+     },
+     "detected": true
+    },
+    "mask_hook_missing": {
+     "first_logits_changed": true,
+     "max_abs_logit_diff": 3.0625,
+     "detected": true
+    },
+    "production_unchanged_after_fixtures": {
+     "detected": true
+    },
+    "meta_layer_k_plus_1": {
+     "rejected": true,
+     "reason": "ValueError('layer keep counts do not match the ratio vector and N')",
+     "detected": true
+    },
+    "meta_layer_k_minus_1": {
+     "rejected": true,
+     "reason": "ValueError('layer keep counts do not match the ratio vector and N')",
+     "detected": true
+    },
+    "meta_two_layers_swapped": {
+     "rejected": true,
+     "reason": "ValueError('packed byte table disagrees with the row counts')",
+     "detected": true
+    },
+    "meta_structural_row_missing": {
+     "rejected": true,
+     "reason": "ValueError('structural prefix index mismatch')",
+     "detected": true
+    },
+    "meta_r_min_0p10": {
+     "rejected": true,
+     "reason": "ValueError('layer ratio outside [0.1, 0.6]')",
+     "detected": true
+    },
+    "meta_num_layers_32": {
+     "rejected": true,
+     "reason": "ValueError('layer ratio vector length differs from num_layers')",
+     "detected": true
+    },
+    "meta_other_vector_sha": {
+     "rejected": true,
+     "reason": "ValueError('layer budget SHA256 does not match the stored ratios')",
+     "detected": true
+    },
+    "store_opened_with_other_vector": {
+     "rejected": true,
+     "reason": "ValueError('packed store was built with a different layer budget')",
+     "detected": true
+    },
+    "session_request_with_other_vector": {
+     "rejected": true,
+     "reason": "ValueError(\"packed store layer budget differs from the request's\")",
+     "detected": true
+    },
+    "foreign_image_identity": {
+     "rejected": true,
+     "reason": "ValueError('cache identity mismatch: image_sha256')",
+     "detected": true
+    },
+    "truncated_file": {
+     "rejected": true,
+     "reason": "ValueError('packed file length disagrees with metadata')",
+     "detected": true
+    },
+    "payload_rows_of_two_layers_swapped": {
+     "rejected": true,
+     "reason": "ValueError('packed payload hash mismatch')",
+     "detected": true
+    },
+    "payload_bit_flip": {
+     "rejected": true,
+     "reason": "ValueError('packed payload hash mismatch')",
+     "detected": true
+    }
+   }
+  },
+  "PYR-b2p5:negative_fixtures": {
+   "ok": true,
+   "detail": {
+    "layer_k_plus_1": {
+     "layer": 13,
+     "next_layer_query_changed": true,
+     "first_logits_changed": true,
+     "detected": true
+    },
+    "layer_k_minus_1": {
+     "layer": 13,
+     "next_layer_query_changed": true,
+     "first_logits_changed": true,
+     "detected": true
+    },
+    "two_layers_rows_swapped": {
+     "layers": [
+      5,
+      6
+     ],
+     "first_logits_changed": true,
+     "detected": true
+    },
+    "one_hidden_row_exposed": {
+     "layer": 13,
+     "original_index": 109,
+     "fp64_max_abs": 0.05817300324999439,
+     "detected": true
+    },
+    "structural_row_missing": {
+     "first_logits_changed": true,
+     "detected": true
+    },
+    "stale_hook_from_previous_request": {
+     "guard_before_next_request": {
+      "rejected": true,
+      "reason": "AssertionError('28 residual self-attention pre-hooks from an earlier request')"
+     },
+     "new_request_refuses_to_stack": {
+      "rejected": true,
+      "reason": "AssertionError('residual self-attention pre-hook before a layer-wise hit')"
+     },
+     "stale_lengths_on_other_cache": {
+      "rejected": true,
+      "reason": "AssertionError(\"layer 0: cache length 160 is not the request's 190 + 0 (stale hook or foreign cache)\")"
+     },
+     "detected": true
+    },
+    "mask_hook_missing": {
+     "first_logits_changed": true,
+     "max_abs_logit_diff": 3.125,
+     "detected": true
+    },
+    "production_unchanged_after_fixtures": {
+     "detected": true
+    },
+    "meta_layer_k_plus_1": {
+     "rejected": true,
+     "reason": "ValueError('layer keep counts do not match the ratio vector and N')",
+     "detected": true
+    },
+    "meta_layer_k_minus_1": {
+     "rejected": true,
+     "reason": "ValueError('layer keep counts do not match the ratio vector and N')",
+     "detected": true
+    },
+    "meta_two_layers_swapped": {
+     "rejected": true,
+     "reason": "ValueError('packed byte table disagrees with the row counts')",
+     "detected": true
+    },
+    "meta_structural_row_missing": {
+     "rejected": true,
+     "reason": "ValueError('structural prefix index mismatch')",
+     "detected": true
+    },
+    "meta_r_min_0p10": {
+     "rejected": true,
+     "reason": "ValueError('layer budget binding digest mismatch')",
+     "detected": true
+    },
+    "meta_num_layers_32": {
+     "rejected": true,
+     "reason": "ValueError('layer ratio vector length differs from num_layers')",
+     "detected": true
+    },
+    "meta_other_vector_sha": {
+     "rejected": true,
+     "reason": "ValueError('layer budget SHA256 does not match the stored ratios')",
+     "detected": true
+    },
+    "store_opened_with_other_vector": {
+     "rejected": true,
+     "reason": "ValueError('packed store was built with a different layer budget')",
+     "detected": true
+    },
+    "session_request_with_other_vector": {
+     "rejected": true,
+     "reason": "ValueError(\"packed store layer budget differs from the request's\")",
+     "detected": true
+    },
+    "foreign_image_identity": {
+     "rejected": true,
+     "reason": "ValueError('cache identity mismatch: image_sha256')",
+     "detected": true
+    },
+    "truncated_file": {
+     "rejected": true,
+     "reason": "ValueError('packed file length disagrees with metadata')",
+     "detected": true
+    },
+    "payload_rows_of_two_layers_swapped": {
+     "rejected": true,
+     "reason": "ValueError('packed payload hash mismatch')",
+     "detected": true
+    },
+    "payload_bit_flip": {
+     "rejected": true,
+     "reason": "ValueError('packed payload hash mismatch')",
+     "detected": true
+    }
+   }
+  }
+ },
+ "gates": {
+  "QG2": true,
+  "QG3": true,
+  "QG4": true,
+  "QG5": true,
+  "QG6": true
+ },
+ "status": "PASS",
+ "removed_gate_store_files": 104,
+ "elapsed_s": 8.221771478652954
+}

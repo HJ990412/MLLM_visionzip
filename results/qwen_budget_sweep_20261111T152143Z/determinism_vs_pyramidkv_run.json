@@ -1,0 +1,45 @@
+{
+ "status": "MEASURED",
+ "pyramidkv_run": "runs/qwen_layer_budget_pyr_20261111T075124Z",
+ "method_map": {
+  "recompute": "recompute",
+  "fullload": "fullload",
+  "qwen_ours_kv_U25_packed": "qwen_ours_prefixstore_kv25_U_packed"
+ },
+ "scope": "reference only; absolute TTFT is never compared across runs",
+ "methods": {
+  "recompute": {
+   "n": 12183,
+   "token_exact": 12183,
+   "prediction_equal": 12183,
+   "score_equal": 12183,
+   "followup_n": 8122,
+   "followup_token_exact": 8122,
+   "token_exact_rate": 1.0,
+   "prediction_agreement": 1.0,
+   "followup_token_exact_rate": 1.0
+  },
+  "fullload": {
+   "n": 12183,
+   "token_exact": 12183,
+   "prediction_equal": 12183,
+   "score_equal": 12183,
+   "followup_n": 8122,
+   "followup_token_exact": 8122,
+   "token_exact_rate": 1.0,
+   "prediction_agreement": 1.0,
+   "followup_token_exact_rate": 1.0
+  },
+  "qwen_ours_kv_U25_packed": {
+   "n": 12183,
+   "token_exact": 12183,
+   "prediction_equal": 12183,
+   "score_equal": 12183,
+   "followup_n": 8122,
+   "followup_token_exact": 8122,
+   "token_exact_rate": 1.0,
+   "prediction_agreement": 1.0,
+   "followup_token_exact_rate": 1.0
+  }
+ }
+}

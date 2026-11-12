@@ -1,0 +1,94 @@
+{
+ "decision": "NO-GO",
+ "primary": {
+  "verdict": "NO-GO",
+  "vector": "PYR-b20_packed",
+  "control": "U_packed",
+  "delta_followup_pp": -0.8987934006402364,
+  "ci95_pp": [
+   -1.4896523129422155,
+   -0.30179571404329614
+  ],
+  "ci_excludes_zero": true,
+  "ssd_mb_vector": 6.370775781334647,
+  "ssd_mb_uniform": 6.370775781334647,
+  "ssd_ok_1.02": true,
+  "ttft_mean_vector": 46.60736437431956,
+  "ttft_mean_uniform": 46.61376338027375,
+  "ttft_ratio": 0.999862722820683,
+  "ttft_ok_1.05": true,
+  "note": "CI 전체가 0보다 작다: Δ = -0.899 pp [-1.490, -0.302]. 이 HOLD에서 PYR-b20은 같은 바이트의 균등 배분(U_packed)보다 followup 정확도가 낮다. 개선이 아니라 저하이다."
+ },
+ "primary_rule_verdict_before_integrity_check": "NO-GO",
+ "integrity_u_packed_vs_B": {
+  "definition": "generated_token_ids of qwen_ours_prefixstore_kv25 (B, 57 files) vs U_packed (1 file), every (dialogue, turn) of the main",
+  "requests": 12183,
+  "token_exact": 12183,
+  "token_exact_rate": 1.0,
+  "mismatches": 0,
+  "first_divergence_points_same_history": 0,
+  "first_divergence_by_turn": {},
+  "propagated_through_history": 0,
+  "status": "PASS"
+ },
+ "sensitivity_reported_only": {
+  "PYR-b2p5_minus_U_packed": {
+   "delta": -0.2831814823934991,
+   "ci_lo": -0.7379158333568069,
+   "ci_hi": 0.17165803897410745,
+   "ci_excludes_zero": false
+  },
+  "PYR-b20_minus_PYR-b2p5": {
+   "delta": -0.6156119182467372,
+   "ci_lo": -1.0646411000555442,
+   "ci_hi": -0.18180938345467756,
+   "ci_excludes_zero": true
+  },
+  "note": "β=2.5 수치는 보고만 한다. 판정에 쓰지 않으며, β=20보다 좋아 보이더라도 HOLD에서 본 뒤의 사후 관찰이므로 다른 데이터에서 확인이 필요하다."
+ },
+ "audit_status": "PASS",
+ "final": true,
+ "requests": 73098,
+ "expected_requests": 73098,
+ "images": 398,
+ "failed_or_skipped_requests": 0,
+ "failed_attempt_records": [],
+ "interruptions": [],
+ "main_wall_hours_first_start_to_finish": 2.4238928278949525,
+ "followup_pct": {
+  "ReComp": 61.36419601083477,
+  "FullLoad": 61.40113272592957,
+  "Ours B (unpacked)": 57.867520315193296,
+  "U_packed": 57.867520315193296,
+  "PYR-b20_packed": 56.968726914553066,
+  "PYR-b2p5_packed": 57.58433883279981
+ },
+ "gates": {
+  "QG1 CPU (vectors, row budget, validator, no LLaVA defaults)": "PASS",
+  "기존 CPU 테스트 (non-GLM 전체)": "PASS",
+  "QG2 U 회귀 (bytes·텐서·SDPA 입력·logits·ID bitwise)": "PASS",
+  "QG3 layerwise 구현 (PYR-b20, PYR-b2p5)": "PASS",
+  "QG4 FP64 의미 검증 1e-12": "PASS",
+  "QG5 negative fixture": "PASS",
+  "QG6 I/O (preadv 1회, vision 0, score 0)": "PASS",
+  "QG7 통합 (6 arm × 12 요청 × 4 dialogue + 독립 감사)": "PASS",
+  "Smoke 72 요청": "PASS"
+ },
+ "rule": {
+  "primary": "delta = HOLD followup (T2-T3) accuracy, PYR-b20_packed - U_packed, same run, image-cluster paired bootstrap 95% CI (10,000, seed 1234)",
+  "GO": "delta >= +1.0 pp & CI excludes 0 & SSD MB/followup <= U_packed*1.02 & TTFT mean <= U_packed*1.05",
+  "PARTIAL": "delta >= +0.5 pp with CI including 0, or GO with exactly one of MB/TTFT violated",
+  "NO-GO": "otherwise",
+  "beta": "primary is beta = 20 only; PYR-b2p5 - U_packed and PYR-b20 - PYR-b2p5 are reported, never used for the verdict",
+  "integrity": "U_packed vs B token-exact on all 12,183 requests, else decision = PENDING_REVIEW"
+ },
+ "contract_sha256": "dade82a1e88ab67415546b979979f5e1260612e840422eeeea6f7f044a73650f",
+ "config_sha256": "492ed8bbdf8303111eb5ce49fd71e2898e2236d69cd1775ea591dec087d5ee7f",
+ "protection": "PASS",
+ "deletion_log": "PASS",
+ "not_run": [
+  "MT-VQA",
+  "GLM",
+  "LLaVA"
+ ]
+}

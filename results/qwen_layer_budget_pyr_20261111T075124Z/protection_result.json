@@ -1,0 +1,73 @@
+{
+ "status": "PASS",
+ "files_before": 4700,
+ "files_after": 4700,
+ "kvstore_files_before": 16160,
+ "kvstore_files_after": 16160,
+ "runs_files_before": 1826177,
+ "runs_files_after": 1826177,
+ "differences": {
+  "sha": {
+   "sha_changed": [],
+   "sha_missing": [],
+   "sha_added": []
+  },
+  "kvstore": {
+   "changed": [],
+   "missing": [],
+   "added": []
+  },
+  "runs": {
+   "changed": [],
+   "missing": [],
+   "added_count": 0
+  }
+ },
+ "sha_added_reported_only": [],
+ "runs_added_reported_only": [],
+ "frozen_runtime_sources_changed_since_freeze": [],
+ "new_files_of_this_run": [
+  "mmimpress/qwen25/packed_store.py",
+  "mmimpress/qwen25/layerwise.py",
+  "scripts/qwen_pyr_support.py",
+  "scripts/167_freeze_qwen_layer_budget_pyr.py",
+  "scripts/168_validate_qwen_layerwise_packed.py",
+  "scripts/169_eval_qwen_layer_budget_pyr.py",
+  "scripts/170_audit_qwen_layer_budget_pyr.py",
+  "scripts/171_report_qwen_layer_budget_pyr.py",
+  "tests/test_qwen_layerwise_packed.py",
+  "docs/qwen_layer_budget_pyr_contract.md"
+ ],
+ "amendment_files": [],
+ "source_modifications": {
+  "reference": "parent prefixstore3 config.json source_sha256",
+  "core_checked": [
+   "mmimpress/qwen25/runner.py",
+   "mmimpress/qwen25/store.py",
+   "mmimpress/qwen25/vision.py",
+   "mmimpress/layer_budget.py",
+   "scripts/110_eval_qwen_mt_gqa_B.py",
+   "scripts/111_audit_qwen_mt_gqa_B.py",
+   "scripts/116_qwen_prefixstore_semantic.py",
+   "scripts/main_b_support.py"
+  ],
+  "changed_core_files": [],
+  "not_in_parent_freeze": [
+   "mmimpress/layer_budget.py"
+  ],
+  "new_files": [
+   "mmimpress/qwen25/packed_store.py",
+   "mmimpress/qwen25/layerwise.py",
+   "scripts/qwen_pyr_support.py",
+   "scripts/167_freeze_qwen_layer_budget_pyr.py",
+   "scripts/168_validate_qwen_layerwise_packed.py",
+   "scripts/169_eval_qwen_layer_budget_pyr.py",
+   "scripts/170_audit_qwen_layer_budget_pyr.py",
+   "scripts/171_report_qwen_layer_budget_pyr.py",
+   "tests/test_qwen_layerwise_packed.py",
+   "docs/qwen_layer_budget_pyr_contract.md"
+  ],
+  "note": "this run only adds files; mmimpress/qwen25/{runner,store,vision}.py, layer_budget.py and every existing script are unmodified"
+ },
+ "scope": "full SHA256 of results/docs/mmimpress/scripts/tests/README.md (new paths of this run excluded); (size, mtime_ns, inode) of kvstore* and of every other runs/* root"
+}

@@ -1,0 +1,50 @@
+{
+ "status": "PASS",
+ "files_before": 4657,
+ "files_after": 4657,
+ "kvstore_files_before": 16160,
+ "kvstore_files_after": 16160,
+ "runs_files_before": 1816357,
+ "runs_files_after": 1816357,
+ "differences": {
+  "sha": {
+   "sha_changed": [],
+   "sha_missing": [],
+   "sha_added": []
+  },
+  "kvstore": {
+   "changed": [],
+   "missing": [],
+   "added": []
+  },
+  "runs": {
+   "changed": [],
+   "missing": [],
+   "added": []
+  }
+ },
+ "sha_changes_unexplained": [],
+ "changes_explained_by_recorded_amendments": [],
+ "amendment_files": [],
+ "runs_added_reported_only": [],
+ "source_modifications": {
+  "reference": "v2 hold/config.json source_sha256",
+  "changed_existing_files": [
+   "scripts/160_report_layer_budget_v2.py"
+  ],
+  "missing": [],
+  "known_v2_post_hold_edits": {
+   "scripts/160_report_layer_budget_v2.py": "v2 report script amended after the v2 HOLD freeze (v2 freeze_amendment_report_script*.json); not imported by the serving path"
+  },
+  "new_files_planned": [
+   "docs/layer_budget_kv25_pyrbeta_contract.md",
+   "scripts/163_make_pyrbeta_raw_vector.py",
+   "scripts/164_eval_layer_budget_pyrbeta_hold.py",
+   "scripts/165_report_layer_budget_pyrbeta.py",
+   "scripts/166_validate_layer_budget_pyrbeta.py",
+   "papers/layer_budget_kv25_pyrbeta_hold_prompt.md"
+  ],
+  "note": "this run adds scripts 163-166 and a contract only; store/serving modules must equal the v2 HOLD freeze"
+ },
+ "scope": "full SHA256 of results/docs/mmimpress/scripts/tests/README.md (new paths of this run excluded); (size, mtime_ns, inode) of kvstore* and of every other runs/* root"
+}

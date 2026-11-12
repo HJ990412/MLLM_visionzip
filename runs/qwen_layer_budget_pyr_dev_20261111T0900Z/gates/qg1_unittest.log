@@ -1,0 +1,19 @@
+test_hooks_realign_per_layer_pass_none_and_are_removed (test_qwen_layerwise_packed.MaskHookTests) ... ok
+test_layer_mask_keeps_causal_block_and_fixes_prefix (test_qwen_layerwise_packed.MaskHookTests) ... ok
+test_stale_hook_or_foreign_cache_is_detected (test_qwen_layerwise_packed.MaskHookTests) ... ok
+test_layerwise_rows_match_independent_canonical_gather (test_qwen_layerwise_packed.PackedStoreTests) ... ok
+test_no_reliance_on_llava_layer_budget_defaults (test_qwen_layerwise_packed.PackedStoreTests) ... ok
+test_one_preadv_and_no_pread_on_the_hit_path (test_qwen_layerwise_packed.PackedStoreTests) ... ok
+test_uniform_packed_is_bitwise_the_unpacked_prefix25_store (test_qwen_layerwise_packed.PackedStoreTests) ... ok
+test_validator_rejects_tampered_metadata_and_payload (test_qwen_layerwise_packed.PackedStoreTests) ... ok
+test_writer_rejects_bad_budget_documents (test_qwen_layerwise_packed.PackedStoreTests) ... ok
+test_expected_k_tables (test_qwen_layerwise_packed.VectorTests) ... ok
+test_llava_defaults_reject_qwen_vectors (test_qwen_layerwise_packed.VectorTests) ... ok
+test_row_budget_exact (test_qwen_layerwise_packed.VectorTests) ... ok
+test_uniform_is_ceil_quarter_everywhere (test_qwen_layerwise_packed.VectorTests) ... ok
+test_vector_sha_sum_and_formula (test_qwen_layerwise_packed.VectorTests) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.386s
+
+OK

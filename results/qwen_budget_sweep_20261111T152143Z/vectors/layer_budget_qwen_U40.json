@@ -1,0 +1,50 @@
+{
+ "schema": "layer_budget_v1",
+ "policy": "layerwise_v1",
+ "alloc_id": "U40",
+ "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+ "num_layers": 28,
+ "total_ratio": 0.4,
+ "r_min": 0.0,
+ "r_max": 1.0,
+ "layer_keep_ratios": [
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4,
+  0.4
+ ],
+ "layer_budget_sha256": "d14e8bb77c002045dad35ce55ba2b4b31301af1fbde74383244139a6b949e464",
+ "source": {
+  "kind": "uniform 0.4 for every decoder layer",
+  "integer_fraction": [
+   2,
+   5
+  ],
+  "k_rule": "k = ceil(ratio * N) content rows in every layer; first k of the image-only saliency order"
+ },
+ "rounding": "hamilton_largest_remainder; floor then +1 by descending fractional remainder (ties: lower layer first); cap N; sum == L*ceil(total_ratio*N)"
+}

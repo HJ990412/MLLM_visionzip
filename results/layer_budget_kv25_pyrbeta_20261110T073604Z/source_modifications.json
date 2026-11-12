@@ -1,0 +1,19 @@
+{
+ "reference": "v2 hold/config.json source_sha256",
+ "changed_existing_files": [
+  "scripts/160_report_layer_budget_v2.py"
+ ],
+ "missing": [],
+ "known_v2_post_hold_edits": {
+  "scripts/160_report_layer_budget_v2.py": "v2 report script amended after the v2 HOLD freeze (v2 freeze_amendment_report_script*.json); not imported by the serving path"
+ },
+ "new_files_planned": [
+  "docs/layer_budget_kv25_pyrbeta_contract.md",
+  "scripts/163_make_pyrbeta_raw_vector.py",
+  "scripts/164_eval_layer_budget_pyrbeta_hold.py",
+  "scripts/165_report_layer_budget_pyrbeta.py",
+  "scripts/166_validate_layer_budget_pyrbeta.py",
+  "papers/layer_budget_kv25_pyrbeta_hold_prompt.md"
+ ],
+ "note": "this run adds scripts 163-166 and a contract only; store/serving modules must equal the v2 HOLD freeze"
+}

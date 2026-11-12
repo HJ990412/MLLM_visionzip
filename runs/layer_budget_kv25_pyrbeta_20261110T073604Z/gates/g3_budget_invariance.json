@@ -1,0 +1,52 @@
+{
+ "status": "PASS",
+ "vectors": {
+  "U": "54ea273e1a38b1e8b02b96237381f982344cd28ca8466162876e161cdb8ff3ba",
+  "PYR-beta": "e374616b5a028402f8c479159f458f83690c96c24728307e00113f206a4cd483",
+  "PYR-beta-raw": "51f9b0db19a93f8ca8b34b8beb8af21285721c5ea460566afbd9a3185b331724"
+ },
+ "clip_range": {
+  "U": [
+   0.1,
+   0.6
+  ],
+  "PYR-beta": [
+   0.1,
+   0.6
+  ],
+  "PYR-beta-raw": [
+   0.0,
+   0.6
+  ]
+ },
+ "images": 398,
+ "checks": 1194,
+ "v2_cross_check": {
+  "U": {
+   "v2_gate_status": "PASS",
+   "v2_gate_hold": {
+    "images": 398,
+    "vector_image_checks": 2786,
+    "sum_equals_B": true,
+    "bounds": true
+   },
+   "ratio_sha_equal_v2_gate": true,
+   "k_l_equal_to_v2_document_recomputation_all_images": true,
+   "k_l_and_N_equal_to_v2_HOLD_packed_U_store_meta_images": 398
+  },
+  "PYR-beta": {
+   "v2_gate_status": "PASS",
+   "v2_gate_hold": {
+    "images": 398,
+    "vector_image_checks": 2786,
+    "sum_equals_B": true,
+    "bounds": true
+   },
+   "ratio_sha_equal_v2_gate": true,
+   "k_l_equal_to_v2_document_recomputation_all_images": true
+  }
+ },
+ "sum_equals_B": true,
+ "bounds_document_clip_range": true,
+ "independent_hamilton_equal": true
+}

@@ -1,0 +1,613 @@
+{
+ "image_id": "n9181",
+ "question_id": "20929611",
+ "question": "Is the brown cowboy hat below the small sign?",
+ "N": 391,
+ "S": 21,
+ "prefix_len": 412,
+ "T1_prediction": "yes",
+ "k": {
+  "U25": 98,
+  "U30": 118,
+  "U40": 157,
+  "U50": 196,
+  "U100": 391
+ },
+ "SG2": {
+  "payload_bitwise_equal_to_pyramidkv_run_writer": {
+   "ok": true,
+   "detail": {
+    "bytes": 6823936,
+    "sha256": "05d5b7386a9f5cf4ef0e5816f7cc44a615a838b5c1fff5592ef09d707e485cad"
+   }
+  },
+  "meta_differs_only_in_document_fields": {
+   "ok": true,
+   "detail": {
+    "differing_fields": [
+     "bytes_metadata_file",
+     "extra",
+     "format",
+     "layer_budget_binding_sha256",
+     "layer_budget_id",
+     "layer_budget_r_max",
+     "layout_description",
+     "order_semantics",
+     "packed_code_revision",
+     "retention_fraction",
+     "rounding_policy",
+     "storage_policy",
+     "store_format",
+     "uniform_content_count",
+     "uniform_equivalent_content_count"
+    ],
+    "values": {
+     "bytes_metadata_file": {
+      "sweep": 40326,
+      "pyramidkv_run": 40195
+     },
+     "format": {
+      "sweep": "qwen25_bf16_prefix_ratio_packed_v1",
+      "pyramidkv_run": "qwen25_bf16_prefix25_packed_v1"
+     },
+     "layer_budget_binding_sha256": {
+      "sweep": "587ddcb458cd96c6469d45972beb30eb8c629372e0f21fa122f2659c1ca5b2e2",
+      "pyramidkv_run": "4a8e4d183262774d611da635aff4f8be7cfb2d9d6cb20267568dea7ecad0400e"
+     },
+     "layer_budget_id": {
+      "sweep": "U25",
+      "pyramidkv_run": "U"
+     },
+     "layer_budget_r_max": {
+      "sweep": 1.0,
+      "pyramidkv_run": 0.6
+     },
+     "layout_description": {
+      "sweep": "kv_packed.bin = [structural (2,L,S,H,D)][L0 K rows 0..k)[L0 V]...[L(L-1) V]; layer blocks token-major (k,H,D) BF16 in the global importance order; k = ceil(total_ratio * N) for every layer; no padding",
+      "pyramidkv_run": "kv_packed.bin = [structural (2,L,S,H,D)][L0 K rows 0..k_0)[L0 V]...[L(L-1) V]; layer blocks token-major (k_l,H,D) BF16 in the global importance order; no padding"
+     },
+     "order_semantics": {
+      "sweep": "every layer keeps full_importance_permutation[:uniform_content_count]",
+      "pyramidkv_run": "layer l keeps full_importance_permutation[:layer_keep_counts[l]]"
+     },
+     "packed_code_revision": {
+      "sweep": "1b1aa143bfb428ade759f674954cd8c000b1a94a35f56ab2cb3772051ab47b4c",
+      "pyramidkv_run": "6ae629871316ca39b1bde26d479ea98888ce7d8a3bb23aa4511ebd27628ed624"
+     },
+     "retention_fraction": {
+      "sweep": [
+       1,
+       4
+      ],
+      "pyramidkv_run": null
+     },
+     "rounding_policy": {
+      "sweep": "uniform ceil(total_ratio * N); float layer_budget result must equal the exact integer fraction",
+      "pyramidkv_run": "hamilton_largest_remainder_total_ceil_original_content"
+     },
+     "storage_policy": {
+      "sweep": "prefix_ratio_packed",
+      "pyramidkv_run": "prefix25_packed"
+     },
+     "store_format": {
+      "sweep": "qwen25_bf16_prefix_ratio_packed_v1",
+      "pyramidkv_run": "qwen25_bf16_prefix25_packed_v1"
+     },
+     "uniform_content_count": {
+      "sweep": 98,
+      "pyramidkv_run": null
+     },
+     "uniform_equivalent_content_count": {
+      "sweep": null,
+      "pyramidkv_run": 98
+     }
+    }
+   }
+  },
+  "assembled_KV_bitwise_vs_pyramidkv_run_reader_and_canonical_capture": {
+   "ok": true
+  },
+  "no_history:first_logits_bitwise_and_generated_ids_vs_pyramidkv_run_hit": {
+   "ok": true,
+   "detail": {
+    "generated": [
+     2152,
+     151645
+    ]
+   }
+  },
+  "no_history:SDPA_QKV_mask_bitwise_and_same_bytes_vs_pyramidkv_run_hit": {
+   "ok": true
+  },
+  "one_turn_history:first_logits_bitwise_and_generated_ids_vs_pyramidkv_run_hit": {
+   "ok": true,
+   "detail": {
+    "generated": [
+     16069,
+     151645
+    ]
+   }
+  },
+  "one_turn_history:SDPA_QKV_mask_bitwise_and_same_bytes_vs_pyramidkv_run_hit": {
+   "ok": true
+  }
+ },
+ "SG3": {
+  "row_set_and_order_equal_full_prefix": {
+   "ok": true,
+   "detail": {
+    "rows": 412
+   }
+  },
+  "layer_KV_bitwise_vs_fullload_load_prefix": {
+   "ok": true
+  },
+  "layer_KV_bitwise_vs_T1_capture": {
+   "ok": true
+  },
+  "no_history:first_logits_bitwise_vs_fullload": {
+   "ok": true,
+   "detail": {
+    "max_abs_logit_diff": 0.0
+   }
+  },
+  "no_history:generated_ids_equal_vs_fullload": {
+   "ok": true,
+   "detail": {
+    "u100": [
+     9693,
+     151645
+    ],
+    "fullload": [
+     9693,
+     151645
+    ]
+   }
+  },
+  "no_history:SDPA_QKV_mask_bitwise_same_cache_bytes_57_pread_vs_1_preadv": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "fullload_read_bytes": 26894336,
+    "u100_read_bytes": 23625728
+   }
+  },
+  "one_turn_history:first_logits_bitwise_vs_fullload": {
+   "ok": true,
+   "detail": {
+    "max_abs_logit_diff": 0.0
+   }
+  },
+  "one_turn_history:generated_ids_equal_vs_fullload": {
+   "ok": true,
+   "detail": {
+    "u100": [
+     57988,
+     21621,
+     151645
+    ],
+    "fullload": [
+     57988,
+     21621,
+     151645
+    ]
+   }
+  },
+  "one_turn_history:SDPA_QKV_mask_bitwise_same_cache_bytes_57_pread_vs_1_preadv": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "fullload_read_bytes": 26894336,
+    "u100_read_bytes": 23625728
+   }
+  }
+ },
+ "SG5": {
+  "image_only_rank_equals_pyramidkv_run_rank": {
+   "ok": true,
+   "detail": {
+    "pyramidkv_run_T1_question": "Which side is the mirror on?",
+    "this_gate_T1_question": "Is the brown cowboy hat below the small sign?",
+    "T1_question_differs": true
+   }
+  },
+  "U25:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 6823936,
+    "k": 98
+   }
+  },
+  "U25:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U25:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U30:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 7970816,
+    "k": 118
+   }
+  },
+  "U30:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U30:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U40:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 10207232,
+    "k": 157
+   }
+  },
+  "U40:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U40:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U50:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 12443648,
+    "k": 196
+   }
+  },
+  "U50:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U50:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U100:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 23625728,
+    "k": 391
+   }
+  },
+  "U100:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U100:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U25:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 6823936,
+    "k": 98
+   }
+  },
+  "U25:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U25:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U30:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 7970816,
+    "k": 118
+   }
+  },
+  "U30:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U30:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U40:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 10207232,
+    "k": 157
+   }
+  },
+  "U40:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U40:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U50:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 12443648,
+    "k": 196
+   }
+  },
+  "U50:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U50:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U100:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 23625728,
+    "k": 391
+   }
+  },
+  "U100:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U100:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "question_change_keeps_read_range_and_selection": {
+   "ok": true
+  },
+  "request_selection_nested_across_ratios": {
+   "ok": true
+  },
+  "other_ratio_other_format_foreign_image_rejected": {
+   "ok": true,
+   "detail": {
+    "U30_store_requested_as_U40": {
+     "rejected": true,
+     "reason": "ValueError(\"packed store budget / ratio differs from the request's\")"
+    },
+    "U100_store_requested_as_U25": {
+     "rejected": true,
+     "reason": "ValueError(\"packed store budget / ratio differs from the request's\")"
+    },
+    "U40_store_opened_with_U50_document": {
+     "rejected": true,
+     "reason": "ValueError('packed store was built with a different budget / ratio')"
+    },
+    "pyramidkv_run_store_opened_by_ratio_reader": {
+     "rejected": true,
+     "reason": "ValueError('unsupported or mislabeled Qwen ratio-packed store')"
+    },
+    "ratio_store_opened_by_pyramidkv_run_reader": {
+     "rejected": true,
+     "reason": "ValueError('unsupported or mislabeled Qwen packed store')"
+    },
+    "foreign_image_identity": {
+     "rejected": true,
+     "reason": "ValueError('cache identity mismatch: image_sha256')"
+    }
+   }
+  }
+ },
+ "SGR": {
+  "U25:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 24
+   }
+  },
+  "U25:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "8b6b813543979f996dcddc439084e4cb3fc671e708e62470931ed827367b48f2",
+    "generated": [
+     2152,
+     151645
+    ]
+   }
+  },
+  "U30:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 24
+   }
+  },
+  "U30:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "7ca775f4e521e638e18ec637cd4e03f8fe55508d5354ec4b3e6538aa245d44d5",
+    "generated": [
+     2152,
+     151645
+    ]
+   }
+  },
+  "U30:no_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 2.1316282072803006e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 4.1961669921875e-05,
+    "legacy_fp32_layers_failing_diagnostic_only": 1
+   }
+  },
+  "U40:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 24
+   }
+  },
+  "U40:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "7b5dc33f1882606b507a10b608eace8aa314f435931853abc358051ff66c5b5b",
+    "generated": [
+     9693,
+     151645
+    ]
+   }
+  },
+  "U40:no_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.7763568394002505e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 0.0001544952392578125,
+    "legacy_fp32_layers_failing_diagnostic_only": 1
+   }
+  },
+  "U50:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 24
+   }
+  },
+  "U50:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "5370eba3e81afcde2c275fe0b25baf386a250570702e6a072cdccf4a9522bbe5",
+    "generated": [
+     9693,
+     151645
+    ]
+   }
+  },
+  "U50:no_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.7763568394002505e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 6.0677528381347656e-05,
+    "legacy_fp32_layers_failing_diagnostic_only": 1
+   }
+  },
+  "U100:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 24
+   }
+  },
+  "U100:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "b8c2ad78dd99563aba61292fea4c7da0fecdc9294909dbf0587a34e681132ab5",
+    "generated": [
+     9693,
+     151645
+    ]
+   }
+  },
+  "U25:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 48
+   }
+  },
+  "U25:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "f822b96f8990df5037787e48a5fe3c5b842e5db09917af4beace719e5bba6ebe",
+    "generated": [
+     16069,
+     151645
+    ]
+   }
+  },
+  "U30:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 48
+   }
+  },
+  "U30:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "47aef0f2bf5b7523ac310f9624aefd93a5df0784a6d594beaf986d948a1a7dfe",
+    "generated": [
+     16069,
+     151645
+    ]
+   }
+  },
+  "U30:one_turn_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.5987211554602254e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 8.58306884765625e-06,
+    "legacy_fp32_layers_failing_diagnostic_only": 0
+   }
+  },
+  "U40:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 48
+   }
+  },
+  "U40:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "717d1bf0d569a9a9d8e53c63bd647d75d4f78f7e53bb67a411382bd59b61c055",
+    "generated": [
+     57988,
+     21621,
+     151645
+    ]
+   }
+  },
+  "U40:one_turn_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 2.842170943040401e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 8.982419967651367e-05,
+    "legacy_fp32_layers_failing_diagnostic_only": 1
+   }
+  },
+  "U50:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 48
+   }
+  },
+  "U50:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "ccbff10788ce5c79db0bb3350fb42443a730295c356e970c83c439952c448fdc",
+    "generated": [
+     57988,
+     21621,
+     151645
+    ]
+   }
+  },
+  "U50:one_turn_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.5987211554602254e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 9.5367431640625e-06,
+    "legacy_fp32_layers_failing_diagnostic_only": 0
+   }
+  },
+  "U100:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 48
+   }
+  },
+  "U100:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "b3e293126fcd0aa0285b4bd3a174ada43f7523f1a46b2a32686c61a6b3ee36f0",
+    "generated": [
+     57988,
+     21621,
+     151645
+    ]
+   }
+  }
+ },
+ "gates": {
+  "SG2": true,
+  "SG3": true,
+  "SG5": true,
+  "SGR": true
+ },
+ "status": "PASS",
+ "removed_gate_store_files": 70,
+ "elapsed_s": 9.146040678024292,
+ "prior_rank_available": true
+}

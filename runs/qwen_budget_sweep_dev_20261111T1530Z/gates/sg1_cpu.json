@@ -1,0 +1,278 @@
+{
+ "gate": "SG1",
+ "config_sha256": "d58ea5fcb604b48ae8474e3622a908ffaec8f8f80d8c9b02ea468a19772af560",
+ "contract_sha256": "83f1e9b7322bb631302b45bd231959ae4b69272e55bf9a8cba462ee8ae47cc51",
+ "vectors": {
+  "U25": {
+   "sha256": "1343c3ea849a9e70c965cea28530125c1072d841fc23cfd019f4282e11c7fc76",
+   "expected": "1343c3ea849a9e70c965cea28530125c1072d841fc23cfd019f4282e11c7fc76",
+   "expected_source": "prompt",
+   "recomputed": "1343c3ea849a9e70c965cea28530125c1072d841fc23cfd019f4282e11c7fc76",
+   "sum": 7.0,
+   "expected_sum_28r": 7.0,
+   "num_layers": 28,
+   "total_ratio": 0.25,
+   "r_min": 0.0,
+   "r_max": 1.0
+  },
+  "U30": {
+   "sha256": "b726c756cd0680a018200d934536542ea2a31effbe086535577e6f895984a0e7",
+   "expected": "b726c756cd0680a018200d934536542ea2a31effbe086535577e6f895984a0e7",
+   "expected_source": "prompt",
+   "recomputed": "b726c756cd0680a018200d934536542ea2a31effbe086535577e6f895984a0e7",
+   "sum": 8.399999999999999,
+   "expected_sum_28r": 8.4,
+   "num_layers": 28,
+   "total_ratio": 0.3,
+   "r_min": 0.0,
+   "r_max": 1.0
+  },
+  "U40": {
+   "sha256": "d14e8bb77c002045dad35ce55ba2b4b31301af1fbde74383244139a6b949e464",
+   "expected": "d14e8bb77c002045dad35ce55ba2b4b31301af1fbde74383244139a6b949e464",
+   "expected_source": "prompt",
+   "recomputed": "d14e8bb77c002045dad35ce55ba2b4b31301af1fbde74383244139a6b949e464",
+   "sum": 11.200000000000005,
+   "expected_sum_28r": 11.2,
+   "num_layers": 28,
+   "total_ratio": 0.4,
+   "r_min": 0.0,
+   "r_max": 1.0
+  },
+  "U50": {
+   "sha256": "40302d54a7eba3a7ef3fcc11e150ddef996c4e96a55e8df52af97cb1336d750b",
+   "expected": "40302d54a7eba3a7ef3fcc11e150ddef996c4e96a55e8df52af97cb1336d750b",
+   "expected_source": "prompt",
+   "recomputed": "40302d54a7eba3a7ef3fcc11e150ddef996c4e96a55e8df52af97cb1336d750b",
+   "sum": 14.0,
+   "expected_sum_28r": 14.0,
+   "num_layers": 28,
+   "total_ratio": 0.5,
+   "r_min": 0.0,
+   "r_max": 1.0
+  },
+  "U100": {
+   "sha256": "7becfed787365c80b3e3cf60051c8abd84029c23be7cf7ef53dcc59df702daf9",
+   "expected": "7becfed787365c80b3e3cf60051c8abd84029c23be7cf7ef53dcc59df702daf9",
+   "expected_source": "recorded at Phase 0",
+   "recomputed": "7becfed787365c80b3e3cf60051c8abd84029c23be7cf7ef53dcc59df702daf9",
+   "sum": 28.0,
+   "expected_sum_28r": 28.0,
+   "num_layers": 28,
+   "total_ratio": 1.0,
+   "r_min": 0.0,
+   "r_max": 1.0
+  }
+ },
+ "k_equals_integer_fraction_N_1_to_3000": {
+  "U25": {
+   "integer_fraction": [
+    1,
+    4
+   ],
+   "N_range": [
+    1,
+    3000
+   ],
+   "k_mismatches": [],
+   "sum_mismatches": [],
+   "production_mismatches": [],
+   "status": "PASS"
+  },
+  "U30": {
+   "integer_fraction": [
+    3,
+    10
+   ],
+   "N_range": [
+    1,
+    3000
+   ],
+   "k_mismatches": [],
+   "sum_mismatches": [],
+   "production_mismatches": [],
+   "status": "PASS"
+  },
+  "U40": {
+   "integer_fraction": [
+    2,
+    5
+   ],
+   "N_range": [
+    1,
+    3000
+   ],
+   "k_mismatches": [],
+   "sum_mismatches": [],
+   "production_mismatches": [],
+   "status": "PASS"
+  },
+  "U50": {
+   "integer_fraction": [
+    1,
+    2
+   ],
+   "N_range": [
+    1,
+    3000
+   ],
+   "k_mismatches": [],
+   "sum_mismatches": [],
+   "production_mismatches": [],
+   "status": "PASS"
+  },
+  "U100": {
+   "integer_fraction": [
+    1,
+    1
+   ],
+   "N_range": [
+    1,
+    3000
+   ],
+   "k_mismatches": [],
+   "sum_mismatches": [],
+   "production_mismatches": [],
+   "status": "PASS"
+  }
+ },
+ "expected_k_table": {
+  "260": {
+   "U25": 65,
+   "U30": 78,
+   "U40": 104,
+   "U50": 130,
+   "U100": 260
+  },
+  "345": {
+   "U25": 87,
+   "U30": 104,
+   "U40": 138,
+   "U50": 173,
+   "U100": 345
+  },
+  "529": {
+   "U25": 133,
+   "U30": 159,
+   "U40": 212,
+   "U50": 265,
+   "U100": 529
+  }
+ },
+ "static_explicit_argument_scan": {
+  "calls": [
+   {
+    "file": "mmimpress/qwen25/ratio_packed.py",
+    "line": 102,
+    "function": "validate_ratios",
+    "named": [
+     "num_layers",
+     "r_max",
+     "r_min",
+     "total_ratio"
+    ],
+    "kwargs_expansion": false,
+    "explicit": true
+   },
+   {
+    "file": "mmimpress/qwen25/ratio_packed.py",
+    "line": 116,
+    "function": "layer_keep_counts",
+    "named": [
+     "num_layers",
+     "r_max",
+     "r_min",
+     "total_ratio"
+    ],
+    "kwargs_expansion": false,
+    "explicit": true
+   },
+   {
+    "file": "mmimpress/qwen25/ratio_packed.py",
+    "line": 390,
+    "function": "validate_ratios",
+    "named": [
+     "num_layers",
+     "r_max",
+     "r_min",
+     "total_ratio"
+    ],
+    "kwargs_expansion": false,
+    "explicit": true
+   },
+   {
+    "file": "mmimpress/qwen25/ratio_packed.py",
+    "line": 118,
+    "function": "total_row_budget",
+    "named": [
+     "num_layers",
+     "total_ratio"
+    ],
+    "kwargs_expansion": false,
+    "explicit": true
+   },
+   {
+    "file": "scripts/qwen_sweep_support.py",
+    "line": 137,
+    "function": "layer_keep_counts",
+    "named": [
+     "num_layers",
+     "r_max",
+     "r_min",
+     "total_ratio"
+    ],
+    "kwargs_expansion": false,
+    "explicit": true
+   },
+   {
+    "file": "scripts/qwen_sweep_support.py",
+    "line": 127,
+    "function": "validate_ratios",
+    "named": [],
+    "kwargs_expansion": true,
+    "explicit": true
+   },
+   {
+    "file": "scripts/172_freeze_qwen_budget_sweep.py",
+    "line": 44,
+    "function": "budget_document",
+    "named": [
+     "model",
+     "source"
+    ],
+    "kwargs_expansion": true,
+    "explicit": true
+   }
+  ],
+  "offenders": [],
+  "status": "PASS"
+ },
+ "fixture_tests": {
+  "outcomes": {
+   "test_qwen_budget_sweep.RatioStoreTests.test_no_reliance_on_llava_layer_budget_defaults": "PASS",
+   "test_qwen_budget_sweep.RatioStoreTests.test_one_preadv_and_no_pread_on_the_hit_path": "PASS",
+   "test_qwen_budget_sweep.RatioStoreTests.test_rows_match_independent_canonical_gather_for_every_ratio": "PASS",
+   "test_qwen_budget_sweep.RatioStoreTests.test_selection_takes_no_question": "PASS",
+   "test_qwen_budget_sweep.RatioStoreTests.test_u100_is_the_full_prefix_and_equals_the_fullload_store": "PASS",
+   "test_qwen_budget_sweep.RatioStoreTests.test_u25_payload_is_bitwise_the_pyramidkv_run_uniform_packed_store": "PASS",
+   "test_qwen_budget_sweep.RatioStoreTests.test_validator_rejects_other_ratio_tampered_metadata_and_payload": "PASS",
+   "test_qwen_budget_sweep.RatioStoreTests.test_writer_rejects_bad_budget_documents": "PASS",
+   "test_qwen_budget_sweep.VectorTests.test_bad_ratios_are_rejected": "PASS",
+   "test_qwen_budget_sweep.VectorTests.test_expected_k_tables": "PASS",
+   "test_qwen_budget_sweep.VectorTests.test_k_equals_integer_fraction_for_n_1_to_3000": "PASS",
+   "test_qwen_budget_sweep.VectorTests.test_llava_defaults_reject_qwen_vectors": "PASS",
+   "test_qwen_budget_sweep.VectorTests.test_selection_is_nested_across_ratios": "PASS",
+   "test_qwen_budget_sweep.VectorTests.test_vector_sha_sum_and_explicit_arguments": "PASS"
+  },
+  "run": 14,
+  "log_sha256": "f21b718fda13586fe826b0bb01b13145b24888f5f483772c7c9d82835414ed5b",
+  "covers": {
+   "other ratio's meta / truncated file / SHA tamper / row-count tamper rejected": "RatioStoreTests.test_validator_rejects_other_ratio_tampered_metadata_and_payload",
+   "no reliance on layer_budget defaults (32, 0.10, 0.60, 0.25); 28-layer r_min 0.0 r_max 1.0 total 0.3 passes, total_ratio -> 0.25 rejected": "RatioStoreTests.test_no_reliance_on_llava_layer_budget_defaults + VectorTests.test_llava_defaults_reject_qwen_vectors",
+   "U25 payload == PyramidKV-run uniform packed payload (synthetic capture)": "RatioStoreTests.test_u25_payload_is_bitwise_the_pyramidkv_run_uniform_packed_store",
+   "U100 == FullLoad store rows (synthetic capture)": "RatioStoreTests.test_u100_is_the_full_prefix_and_equals_the_fullload_store",
+   "k = integer fraction for N = 1..3000": "VectorTests.test_k_equals_integer_fraction_for_n_1_to_3000"
+  }
+ },
+ "status": "PASS"
+}

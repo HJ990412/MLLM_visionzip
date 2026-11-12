@@ -1,0 +1,20 @@
+test_no_reliance_on_llava_layer_budget_defaults (test_qwen_budget_sweep.RatioStoreTests) ... ok
+test_one_preadv_and_no_pread_on_the_hit_path (test_qwen_budget_sweep.RatioStoreTests) ... ok
+test_rows_match_independent_canonical_gather_for_every_ratio (test_qwen_budget_sweep.RatioStoreTests) ... ok
+test_selection_takes_no_question (test_qwen_budget_sweep.RatioStoreTests)
+The stored selection is a function of (scores, N, ratio) only. ... ok
+test_u100_is_the_full_prefix_and_equals_the_fullload_store (test_qwen_budget_sweep.RatioStoreTests) ... ok
+test_u25_payload_is_bitwise_the_pyramidkv_run_uniform_packed_store (test_qwen_budget_sweep.RatioStoreTests) ... ok
+test_validator_rejects_other_ratio_tampered_metadata_and_payload (test_qwen_budget_sweep.RatioStoreTests) ... ok
+test_writer_rejects_bad_budget_documents (test_qwen_budget_sweep.RatioStoreTests) ... ok
+test_bad_ratios_are_rejected (test_qwen_budget_sweep.VectorTests) ... ok
+test_expected_k_tables (test_qwen_budget_sweep.VectorTests) ... ok
+test_k_equals_integer_fraction_for_n_1_to_3000 (test_qwen_budget_sweep.VectorTests) ... ok
+test_llava_defaults_reject_qwen_vectors (test_qwen_budget_sweep.VectorTests) ... ok
+test_selection_is_nested_across_ratios (test_qwen_budget_sweep.VectorTests) ... ok
+test_vector_sha_sum_and_explicit_arguments (test_qwen_budget_sweep.VectorTests) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 1.587s
+
+OK

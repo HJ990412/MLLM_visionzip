@@ -1,0 +1,616 @@
+{
+ "image_id": "n355567",
+ "question_id": "201751740",
+ "question": "Does the person to the left of the lady look happy and modern?",
+ "N": 345,
+ "S": 21,
+ "prefix_len": 366,
+ "T1_prediction": "yes",
+ "k": {
+  "U25": 87,
+  "U30": 104,
+  "U40": 138,
+  "U50": 173,
+  "U100": 345
+ },
+ "SG2": {
+  "payload_bitwise_equal_to_pyramidkv_run_writer": {
+   "ok": true,
+   "detail": {
+    "bytes": 6193152,
+    "sha256": "29c2d62e9cf05b60945de1518713fd00f8f3795cdc0d81044e4a0addd63bb9e8"
+   }
+  },
+  "meta_differs_only_in_document_fields": {
+   "ok": true,
+   "detail": {
+    "differing_fields": [
+     "bytes_metadata_file",
+     "extra",
+     "format",
+     "layer_budget_binding_sha256",
+     "layer_budget_id",
+     "layer_budget_r_max",
+     "layout_description",
+     "order_semantics",
+     "packed_code_revision",
+     "retention_fraction",
+     "rounding_policy",
+     "storage_policy",
+     "store_format",
+     "uniform_content_count",
+     "uniform_equivalent_content_count"
+    ],
+    "values": {
+     "bytes_metadata_file": {
+      "sweep": 36726,
+      "pyramidkv_run": 36595
+     },
+     "format": {
+      "sweep": "qwen25_bf16_prefix_ratio_packed_v1",
+      "pyramidkv_run": "qwen25_bf16_prefix25_packed_v1"
+     },
+     "layer_budget_binding_sha256": {
+      "sweep": "587ddcb458cd96c6469d45972beb30eb8c629372e0f21fa122f2659c1ca5b2e2",
+      "pyramidkv_run": "4a8e4d183262774d611da635aff4f8be7cfb2d9d6cb20267568dea7ecad0400e"
+     },
+     "layer_budget_id": {
+      "sweep": "U25",
+      "pyramidkv_run": "U"
+     },
+     "layer_budget_r_max": {
+      "sweep": 1.0,
+      "pyramidkv_run": 0.6
+     },
+     "layout_description": {
+      "sweep": "kv_packed.bin = [structural (2,L,S,H,D)][L0 K rows 0..k)[L0 V]...[L(L-1) V]; layer blocks token-major (k,H,D) BF16 in the global importance order; k = ceil(total_ratio * N) for every layer; no padding",
+      "pyramidkv_run": "kv_packed.bin = [structural (2,L,S,H,D)][L0 K rows 0..k_0)[L0 V]...[L(L-1) V]; layer blocks token-major (k_l,H,D) BF16 in the global importance order; no padding"
+     },
+     "order_semantics": {
+      "sweep": "every layer keeps full_importance_permutation[:uniform_content_count]",
+      "pyramidkv_run": "layer l keeps full_importance_permutation[:layer_keep_counts[l]]"
+     },
+     "packed_code_revision": {
+      "sweep": "1b1aa143bfb428ade759f674954cd8c000b1a94a35f56ab2cb3772051ab47b4c",
+      "pyramidkv_run": "6ae629871316ca39b1bde26d479ea98888ce7d8a3bb23aa4511ebd27628ed624"
+     },
+     "retention_fraction": {
+      "sweep": [
+       1,
+       4
+      ],
+      "pyramidkv_run": null
+     },
+     "rounding_policy": {
+      "sweep": "uniform ceil(total_ratio * N); float layer_budget result must equal the exact integer fraction",
+      "pyramidkv_run": "hamilton_largest_remainder_total_ceil_original_content"
+     },
+     "storage_policy": {
+      "sweep": "prefix_ratio_packed",
+      "pyramidkv_run": "prefix25_packed"
+     },
+     "store_format": {
+      "sweep": "qwen25_bf16_prefix_ratio_packed_v1",
+      "pyramidkv_run": "qwen25_bf16_prefix25_packed_v1"
+     },
+     "uniform_content_count": {
+      "sweep": 87,
+      "pyramidkv_run": null
+     },
+     "uniform_equivalent_content_count": {
+      "sweep": null,
+      "pyramidkv_run": 87
+     }
+    }
+   }
+  },
+  "assembled_KV_bitwise_vs_pyramidkv_run_reader_and_canonical_capture": {
+   "ok": true
+  },
+  "no_history:first_logits_bitwise_and_generated_ids_vs_pyramidkv_run_hit": {
+   "ok": true,
+   "detail": {
+    "generated": [
+     9693,
+     151645
+    ]
+   }
+  },
+  "no_history:SDPA_QKV_mask_bitwise_and_same_bytes_vs_pyramidkv_run_hit": {
+   "ok": true
+  },
+  "one_turn_history:first_logits_bitwise_and_generated_ids_vs_pyramidkv_run_hit": {
+   "ok": true,
+   "detail": {
+    "generated": [
+     1960,
+     25151,
+     151645
+    ]
+   }
+  },
+  "one_turn_history:SDPA_QKV_mask_bitwise_and_same_bytes_vs_pyramidkv_run_hit": {
+   "ok": true
+  }
+ },
+ "SG3": {
+  "row_set_and_order_equal_full_prefix": {
+   "ok": true,
+   "detail": {
+    "rows": 366
+   }
+  },
+  "layer_KV_bitwise_vs_fullload_load_prefix": {
+   "ok": true
+  },
+  "layer_KV_bitwise_vs_T1_capture": {
+   "ok": true
+  },
+  "no_history:first_logits_bitwise_vs_fullload": {
+   "ok": true,
+   "detail": {
+    "max_abs_logit_diff": 0.0
+   }
+  },
+  "no_history:generated_ids_equal_vs_fullload": {
+   "ok": true,
+   "detail": {
+    "u100": [
+     9693,
+     151645
+    ],
+    "fullload": [
+     9693,
+     151645
+    ]
+   }
+  },
+  "no_history:SDPA_QKV_mask_bitwise_same_cache_bytes_57_pread_vs_1_preadv": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "fullload_read_bytes": 23224320,
+    "u100_read_bytes": 20987904
+   }
+  },
+  "one_turn_history:first_logits_bitwise_vs_fullload": {
+   "ok": true,
+   "detail": {
+    "max_abs_logit_diff": 0.0
+   }
+  },
+  "one_turn_history:generated_ids_equal_vs_fullload": {
+   "ok": true,
+   "detail": {
+    "u100": [
+     1960,
+     25151,
+     151645
+    ],
+    "fullload": [
+     1960,
+     25151,
+     151645
+    ]
+   }
+  },
+  "one_turn_history:SDPA_QKV_mask_bitwise_same_cache_bytes_57_pread_vs_1_preadv": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "fullload_read_bytes": 23224320,
+    "u100_read_bytes": 20987904
+   }
+  }
+ },
+ "SG5": {
+  "image_only_rank_equals_pyramidkv_run_rank": {
+   "ok": true,
+   "detail": {
+    "pyramidkv_run_T1_question": "Which material is the clock that is to the left of the tennis ball made of, stainless steel or brick?",
+    "this_gate_T1_question": "Does the person to the left of the lady look happy and modern?",
+    "T1_question_differs": true
+   }
+  },
+  "U25:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 6193152,
+    "k": 87
+   }
+  },
+  "U25:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U25:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U30:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 7168000,
+    "k": 104
+   }
+  },
+  "U30:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U30:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U40:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 9117696,
+    "k": 138
+   }
+  },
+  "U40:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U40:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U50:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 11124736,
+    "k": 173
+   }
+  },
+  "U50:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U50:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U100:no_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 20987904,
+    "k": 345
+   }
+  },
+  "U100:no_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U100:no_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U25:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 6193152,
+    "k": 87
+   }
+  },
+  "U25:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U25:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U30:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 7168000,
+    "k": 104
+   }
+  },
+  "U30:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U30:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U40:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 9117696,
+    "k": 138
+   }
+  },
+  "U40:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U40:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U50:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 11124736,
+    "k": 173
+   }
+  },
+  "U50:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U50:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "U100:one_turn_history:one_preadv_zero_pread_bytes_equal_file_equal_struct_plus_28_2_k_rows": {
+   "ok": true,
+   "detail": {
+    "bytes": 20987904,
+    "k": 345
+   }
+  },
+  "U100:one_turn_history:no_vision_no_score": {
+   "ok": true
+  },
+  "U100:one_turn_history:uniform_k_stock_positions_hooks_removed": {
+   "ok": true
+  },
+  "question_change_keeps_read_range_and_selection": {
+   "ok": true
+  },
+  "request_selection_nested_across_ratios": {
+   "ok": true
+  },
+  "other_ratio_other_format_foreign_image_rejected": {
+   "ok": true,
+   "detail": {
+    "U30_store_requested_as_U40": {
+     "rejected": true,
+     "reason": "ValueError(\"packed store budget / ratio differs from the request's\")"
+    },
+    "U100_store_requested_as_U25": {
+     "rejected": true,
+     "reason": "ValueError(\"packed store budget / ratio differs from the request's\")"
+    },
+    "U40_store_opened_with_U50_document": {
+     "rejected": true,
+     "reason": "ValueError('packed store was built with a different budget / ratio')"
+    },
+    "pyramidkv_run_store_opened_by_ratio_reader": {
+     "rejected": true,
+     "reason": "ValueError('unsupported or mislabeled Qwen ratio-packed store')"
+    },
+    "ratio_store_opened_by_pyramidkv_run_reader": {
+     "rejected": true,
+     "reason": "ValueError('unsupported or mislabeled Qwen packed store')"
+    },
+    "foreign_image_identity": {
+     "rejected": true,
+     "reason": "ValueError('cache identity mismatch: image_sha256')"
+    }
+   }
+  }
+ },
+ "SGR": {
+  "U25:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 28
+   }
+  },
+  "U25:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "b83b3a0f0f018fd88e76c371f5f85a2817f567624fcc9fcd0a41134ea1bb8b42",
+    "generated": [
+     9693,
+     151645
+    ]
+   }
+  },
+  "U30:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 28
+   }
+  },
+  "U30:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "b3af1bd75640be0f23afa3fc4c0d8f07478f8bdda6aaf95fe128344ad5f31dd1",
+    "generated": [
+     9693,
+     151645
+    ]
+   }
+  },
+  "U30:no_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.7763568394002505e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 7.62939453125e-06,
+    "legacy_fp32_layers_failing_diagnostic_only": 0
+   }
+  },
+  "U40:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 28
+   }
+  },
+  "U40:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "84147ca5dbe33a351b0480264cbc196c0af6698456ff2adc3716269cb6e7ed86",
+    "generated": [
+     9693,
+     151645
+    ]
+   }
+  },
+  "U40:no_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.7763568394002505e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 9.5367431640625e-06,
+    "legacy_fp32_layers_failing_diagnostic_only": 0
+   }
+  },
+  "U50:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 28
+   }
+  },
+  "U50:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "7e53dec0b13ae0ce33f6c990325155c8ec46356004aa75eed541cee9b983ad33",
+    "generated": [
+     9693,
+     151645
+    ]
+   }
+  },
+  "U50:no_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 2.4868995751603507e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 9.5367431640625e-06,
+    "legacy_fp32_layers_failing_diagnostic_only": 0
+   }
+  },
+  "U100:no_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 28
+   }
+  },
+  "U100:no_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "2fa463ceff8adf7f3bad16d817514e8225a75ab9482ed188d02263677578ba58",
+    "generated": [
+     9693,
+     151645
+    ]
+   }
+  },
+  "U25:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 52
+   }
+  },
+  "U25:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "b92a4e11d50a1ca3f71532bcf8e3479fb017bf05bed3f697762c06782de976e5",
+    "generated": [
+     1960,
+     25151,
+     151645
+    ]
+   }
+  },
+  "U30:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 52
+   }
+  },
+  "U30:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "8c700be627a5c9d0d3d5ef2128509e5d91055ff7c0f682f169fc0487c066d2e7",
+    "generated": [
+     1960,
+     25151,
+     151645
+    ]
+   }
+  },
+  "U30:one_turn_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 2.4868995751603507e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 4.4226646423339844e-05,
+    "legacy_fp32_layers_failing_diagnostic_only": 1
+   }
+  },
+  "U40:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 52
+   }
+  },
+  "U40:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "21e6b3f8557637fd83fa58b3b3f066003755979b150e2a219bea208929da9831",
+    "generated": [
+     1960,
+     25151,
+     151645
+    ]
+   }
+  },
+  "U40:one_turn_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 1.7763568394002505e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 0.0003142356872558594,
+    "legacy_fp32_layers_failing_diagnostic_only": 1
+   }
+  },
+  "U50:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 52
+   }
+  },
+  "U50:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "34c35fd123d4fe593de9729667f8f4be3dd968842cf21e11ecaa882ce9c8274c",
+    "generated": [
+     1960,
+     25151,
+     151645
+    ]
+   }
+  },
+  "U50:one_turn_history:fp64_dense_vs_compact_1e-12_all_layers": {
+   "ok": true,
+   "detail": {
+    "fp64_max_abs": 3.197442310920451e-14,
+    "legacy_fp32_1e-5_diagnostic_max_abs": 0.00017833709716796875,
+    "legacy_fp32_layers_failing_diagnostic_only": 1
+   }
+  },
+  "U100:one_turn_history:SDPA_QKV_mask_bitwise_28_layers_vs_independent_reference": {
+   "ok": true,
+   "detail": {
+    "layers_equal": 28,
+    "suffix": 52
+   }
+  },
+  "U100:one_turn_history:logits_bitwise_ids_equal_ssd_memory_repeat": {
+   "ok": true,
+   "detail": {
+    "logits_sha256": "b91baaea5f84abfb0fb36dcccf41779550044266b25e01ae65c023991be2cd5d",
+    "generated": [
+     1960,
+     25151,
+     151645
+    ]
+   }
+  }
+ },
+ "gates": {
+  "SG2": true,
+  "SG3": true,
+  "SG5": true,
+  "SGR": true
+ },
+ "status": "PASS",
+ "removed_gate_store_files": 70,
+ "elapsed_s": 9.34052300453186,
+ "prior_rank_available": true
+}

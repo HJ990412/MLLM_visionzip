@@ -1,0 +1,225 @@
+{
+ "gate": "QG2-QG6",
+ "config_sha256": "d667992b933c91771c7d4869dc1bc15ba930b2c1b15516a10564384c7d792ace",
+ "contract_sha256": "d70f85eb739493daaafeb54804594f151386190a23d31e4c08c9e601ac39f7d6",
+ "status": "PASS",
+ "samples": [
+  {
+   "index": 0,
+   "image_id": "n355567",
+   "N": 345,
+   "status": "PASS",
+   "gates": {
+    "QG2": true,
+    "QG3": true,
+    "QG4": true,
+    "QG5": true,
+    "QG6": true
+   },
+   "evidence_sha256": "705523937e8af40f9fc89f23b2b8bb0b6da92bf7efa262548dc16213fcd8154d"
+  },
+  {
+   "index": 1,
+   "image_id": "n355567",
+   "N": 345,
+   "status": "PASS",
+   "gates": {
+    "QG2": true,
+    "QG3": true,
+    "QG4": true,
+    "QG5": true,
+    "QG6": true
+   },
+   "evidence_sha256": "1b11fb4682a80a23d9ed7b51e1203c67d695b4873bc047c94516a78dd529ddc2"
+  },
+  {
+   "index": 2,
+   "image_id": "n355567",
+   "N": 345,
+   "status": "PASS",
+   "gates": {
+    "QG2": true,
+    "QG3": true,
+    "QG4": true,
+    "QG5": true,
+    "QG6": true
+   },
+   "evidence_sha256": "bcf5e27d70fd2e21d61b10a9f608fd9deeffbe446f5e56f7983c052703c9e01f"
+  },
+  {
+   "index": 3,
+   "image_id": "n9181",
+   "N": 391,
+   "status": "PASS",
+   "gates": {
+    "QG2": true,
+    "QG3": true,
+    "QG4": true,
+    "QG5": true,
+    "QG6": true
+   },
+   "evidence_sha256": "d80f98f9038fd491c41412a022b28629c7c9a23d1100a2e654d3ee0501d0a7ee"
+  },
+  {
+   "index": 4,
+   "image_id": "n390187",
+   "N": 368,
+   "status": "PASS",
+   "gates": {
+    "QG2": true,
+    "QG3": true,
+    "QG4": true,
+    "QG5": true,
+    "QG6": true
+   },
+   "evidence_sha256": "aa37ac3cba628ab5d4ad6d34a5d11d1337089f32a6ba24c95c22a3120573e391"
+  },
+  {
+   "index": 5,
+   "image_id": "n133585",
+   "N": 345,
+   "status": "PASS",
+   "gates": {
+    "QG2": true,
+    "QG3": true,
+    "QG4": true,
+    "QG5": true,
+    "QG6": true
+   },
+   "evidence_sha256": "28e3668bc5d0655f99fd01a9ccd055a9cb909324b14719fe6488699535b093b1"
+  },
+  {
+   "index": 6,
+   "image_id": "n272098",
+   "N": 484,
+   "status": "PASS",
+   "gates": {
+    "QG2": true,
+    "QG3": true,
+    "QG4": true,
+    "QG5": true,
+    "QG6": true
+   },
+   "evidence_sha256": "b8c0c7b3d44bc61c9cfa71e9042dc1591f627d467a3f1da1154f76fcb9279ff6"
+  },
+  {
+   "index": 7,
+   "image_id": "n472825",
+   "N": 391,
+   "status": "PASS",
+   "gates": {
+    "QG2": true,
+    "QG3": true,
+    "QG4": true,
+    "QG5": true,
+    "QG6": true
+   },
+   "evidence_sha256": "f76ba83be337959b181d04bdfb502aec5e2ef82a760cfef280314d82c2abce5d"
+  },
+  {
+   "index": 8,
+   "image_id": "n450919",
+   "N": 266,
+   "status": "PASS",
+   "gates": {
+    "QG2": true,
+    "QG3": true,
+    "QG4": true,
+    "QG5": true,
+    "QG6": true
+   },
+   "evidence_sha256": "3e918620580fc2db85e8718ca6a88eff7c89578dec409d57e1d183d1dc3aa8d4"
+  },
+  {
+   "index": 9,
+   "image_id": "n37274",
+   "N": 391,
+   "status": "PASS",
+   "gates": {
+    "QG2": true,
+    "QG3": true,
+    "QG4": true,
+    "QG5": true,
+    "QG6": true
+   },
+   "evidence_sha256": "48c48ff7b2e381f67be1853d1c5203cc653a4f9f9df3e96699949c004c8d013b"
+  }
+ ],
+ "fixture": "10 frozen core pairs (parent correctness_manifest.json); two hit prompts each",
+ "environment": {
+  "torch_version": "2.5.1+cu121",
+  "cpu_threads": 2,
+  "matmul_precision": "highest",
+  "cuda_matmul_allow_tf32": false,
+  "cudnn_allow_tf32": true,
+  "fp16_reduced_reduction": true,
+  "bf16_reduced_reduction": true,
+  "reference_device": "CPU",
+  "reference_matmul_softmax_value_dtypes": [
+   "float32",
+   "float64"
+  ],
+  "production_backend": "SDPA",
+  "torch_config": "PyTorch built with:\n  - GCC 9.3\n  - C++ Version: 201703\n  - Intel(R) oneAPI Math Kernel Library Version 2024.2-Product Build 20240605 for Intel(R) 64 architecture applications\n  - Intel(R) MKL-DNN v3.5.3 (Git Hash 66f0cb9eb66affd2da3bf5f8d897376f04aae6af)\n  - OpenMP 201511 (a.k.a. OpenMP 4.5)\n  - LAPACK is enabled (usually provided by MKL)\n  - NNPACK is enabled\n  - CPU capability usage: AVX2\n  - CUDA Runtime 12.1\n  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90\n  - CuDNN 90.1  (built against CUDA 12.4)\n  - Magma 2.6.1\n  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=12.1, CUDNN_VERSION=9.1.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_FBGEMM -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wsuggest-override -Wno-psabi -Wno-error=old-style-cast -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, TORCH_VERSION=2.5.1, USE_CUDA=ON, USE_CUDNN=ON, USE_CUSPARSELT=1, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=1, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, \n"
+ },
+ "runtime": {
+  "model_id": "Qwen/Qwen2.5-VL-7B-Instruct",
+  "checkpoint_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+  "processor_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+  "tokenizer_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+  "transformers": "4.57.6",
+  "torch": "2.5.1+cu121",
+  "bitsandbytes": "0.49.2",
+  "attention_backend": "sdpa",
+  "text_attention_backend": "sdpa",
+  "vision_attention_backend": "sdpa",
+  "hf_device_map": {
+   "": "cuda:0"
+  },
+  "quantized_module_count": 358,
+  "quantized_module_scope_counts": {
+   "vision": 162,
+   "language_model": 196,
+   "other": 0
+  },
+  "quantized_module_prefixes": [
+   "language_model",
+   "visual"
+  ],
+  "gpu_name": "NVIDIA GeForce RTX 4090",
+  "gpu_total_bytes": 25391333376,
+  "seed": 1234,
+  "decoding": "greedy",
+  "max_new_tokens": 16,
+  "eos_token_ids": [
+   151643,
+   151645
+  ],
+  "decoder_layers": 28,
+  "query_heads": 28,
+  "kv_heads": 4,
+  "head_dim": 128,
+  "vision_heads": 16,
+  "vision_fullatt_block_indexes": [
+   7,
+   15,
+   23,
+   31
+  ],
+  "spatial_merge_size": 2,
+  "processor_settings": {
+   "min_pixels": 200704,
+   "max_pixels": 802816,
+   "use_fast": true,
+   "processor_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5"
+  },
+  "weight_offload": false
+ },
+ "per_gate": {
+  "QG2": true,
+  "QG3": true,
+  "QG4": true,
+  "QG5": true,
+  "QG6": true
+ }
+}

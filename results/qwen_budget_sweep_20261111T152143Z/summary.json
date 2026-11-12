@@ -1,0 +1,596 @@
+{
+ "status": "FINAL",
+ "verdict": "none (curve reported; no GO/NO-GO)",
+ "run": "runs/qwen_budget_sweep_20261111T152143Z",
+ "curve": [
+  {
+   "method": "recompute",
+   "name": "ReComp",
+   "ratio": 1.0,
+   "packed": false,
+   "k_per_layer_median_image": 345,
+   "k_per_layer_min_max_image": [
+    260,
+    529
+   ],
+   "T1_pct": 60.74858409258803,
+   "T2_pct": 61.659689731593204,
+   "T3_pct": 61.06870229007634,
+   "all_pct": 61.158992038085856,
+   "followup_pct": 61.36419601083477,
+   "followup_correct": 4984,
+   "followup_n": 8122,
+   "followup_ci_lo": 59.75046799980698,
+   "followup_ci_hi": 62.93321124909029,
+   "ttft_mean_ms": 113.22245907992018,
+   "ttft_p50_ms": 113.16364863887429,
+   "ttft_p95_ms": 126.54697229154408,
+   "e2e_mean_ms": 133.5286700685743,
+   "ttft_ratio_vs_ReComp": 1.0,
+   "ttft_reduction_vs_ReComp_pct": 0.0,
+   "ttft_ratio_vs_FullLoad": 1.5998696401594015,
+   "ttft_reduction_vs_FullLoad_pct": -59.986964015940146,
+   "ssd_mb_per_followup": 0.0,
+   "read_calls_per_followup": 0.0,
+   "gpu_cache_kv_mb_per_followup": 0.0,
+   "shared_stream_session_ms": 399.39764649963854,
+   "standalone_equivalent_session_ms_DERIVED": 399.39764649963854,
+   "setup_ms_per_image": 0.0
+  },
+  {
+   "method": "fullload",
+   "name": "FullLoad",
+   "ratio": 1.0,
+   "packed": false,
+   "k_per_layer_median_image": 345,
+   "k_per_layer_min_max_image": [
+    260,
+    529
+   ],
+   "T1_pct": 60.74858409258803,
+   "T2_pct": 61.70893868505294,
+   "T3_pct": 61.093326766806214,
+   "all_pct": 61.18361651481573,
+   "followup_pct": 61.40113272592957,
+   "followup_correct": 4987,
+   "followup_n": 8122,
+   "followup_ci_lo": 59.785548972896784,
+   "followup_ci_hi": 62.97026936462675,
+   "ttft_mean_ms": 70.76980288758988,
+   "ttft_p50_ms": 70.85389737039804,
+   "ttft_p95_ms": 74.66012216173112,
+   "e2e_mean_ms": 91.19060832346159,
+   "ttft_ratio_vs_ReComp": 0.6250509259619215,
+   "ttft_reduction_vs_ReComp_pct": 37.49490740380785,
+   "ttft_ratio_vs_FullLoad": 1.0,
+   "ttft_reduction_vs_FullLoad_pct": 0.0,
+   "ssd_mb_per_followup": 24.407292406796355,
+   "read_calls_per_followup": 57.0,
+   "gpu_cache_kv_mb_per_followup": 21.76541577739473,
+   "delta_vs_ReComp_pp": 0.036936715094804236,
+   "ci_vs_ReComp_pp": [
+    -0.1507613596684328,
+    0.22136414188096676
+   ],
+   "ci_vs_ReComp_includes_zero": true,
+   "persistence_ms_per_image": 63.76549063353383,
+   "store_mb_per_image": 24.34207577638191,
+   "activation_ms_per_image": 14.094740620360303,
+   "shared_stream_session_ms": 322.1972363248075,
+   "standalone_equivalent_session_ms_DERIVED": 392.64913895175437,
+   "setup_ms_per_image": 77.86023125389413
+  },
+  {
+   "method": "qwen_ours_kv_U25_packed",
+   "name": "U25_packed",
+   "ratio": 0.25,
+   "packed": true,
+   "k_per_layer_median_image": 87,
+   "k_per_layer_min_max_image": [
+    65,
+    133
+   ],
+   "T1_pct": 60.74858409258803,
+   "T2_pct": 57.89214479192317,
+   "T3_pct": 57.842895838463434,
+   "all_pct": 58.82787490765822,
+   "followup_pct": 57.867520315193296,
+   "followup_correct": 4700,
+   "followup_n": 8122,
+   "followup_ci_lo": 56.342838674823426,
+   "followup_ci_hi": 59.41690330034041,
+   "ttft_mean_ms": 46.61386067860014,
+   "ttft_p50_ms": 46.507899183779955,
+   "ttft_p95_ms": 48.547281604260206,
+   "e2e_mean_ms": 67.00746443125378,
+   "ttft_ratio_vs_ReComp": 0.41170153922992325,
+   "ttft_reduction_vs_ReComp_pct": 58.82984607700767,
+   "ttft_ratio_vs_FullLoad": 0.658668793420849,
+   "ttft_reduction_vs_FullLoad_pct": 34.13312065791509,
+   "ssd_mb_per_followup": 6.370775781334647,
+   "read_calls_per_followup": 1.0,
+   "gpu_cache_kv_mb_per_followup": 6.370775781334647,
+   "delta_vs_ReComp_pp": -3.4966756956414677,
+   "ci_vs_ReComp_pp": [
+    -4.259864287509425,
+    -2.742879046758358
+   ],
+   "ci_vs_ReComp_includes_zero": false,
+   "delta_vs_FullLoad_pp": -3.533612410736272,
+   "ci_vs_FullLoad_pp": [
+    -4.3017162829541595,
+    -2.7844993469668524
+   ],
+   "ci_vs_FullLoad_includes_zero": false,
+   "persistence_ms_per_image": 18.842195815888783,
+   "store_mb_per_image": 6.387625771356784,
+   "activation_ms_per_image": 5.688558414522277,
+   "shared_stream_session_ms": 268.76308431913554,
+   "standalone_equivalent_session_ms_DERIVED": 290.94365441575883,
+   "setup_ms_per_image": 24.53075423041106
+  },
+  {
+   "method": "qwen_ours_kv_U30_packed",
+   "name": "U30_packed",
+   "ratio": 0.3,
+   "packed": true,
+   "k_per_layer_median_image": 104,
+   "k_per_layer_min_max_image": [
+    78,
+    159
+   ],
+   "T1_pct": 60.74858409258803,
+   "T2_pct": 58.85249938438808,
+   "T3_pct": 59.074119674956904,
+   "all_pct": 59.558401050644335,
+   "followup_pct": 58.96330952967249,
+   "followup_correct": 4789,
+   "followup_n": 8122,
+   "followup_ci_lo": 57.43401405140255,
+   "followup_ci_hi": 60.52499525963648,
+   "ttft_mean_ms": 46.95636536068324,
+   "ttft_p50_ms": 47.00735257938504,
+   "ttft_p95_ms": 48.9259515888989,
+   "e2e_mean_ms": 67.35902580076439,
+   "ttft_ratio_vs_ReComp": 0.4147265987884808,
+   "ttft_reduction_vs_ReComp_pct": 58.52734012115193,
+   "ttft_ratio_vs_FullLoad": 0.6635084943682592,
+   "ttft_reduction_vs_FullLoad_pct": 33.64915056317408,
+   "ssd_mb_per_followup": 7.402727730115735,
+   "read_calls_per_followup": 1.0,
+   "gpu_cache_kv_mb_per_followup": 7.402727730115735,
+   "delta_vs_ReComp_pp": -2.400886481162275,
+   "ci_vs_ReComp_pp": [
+    -3.098008397927642,
+    -1.7001718430566262
+   ],
+   "ci_vs_ReComp_includes_zero": false,
+   "delta_vs_FullLoad_pp": -2.4378231962570793,
+   "ci_vs_FullLoad_pp": [
+    -3.137410487997658,
+    -1.7412447805070685
+   ],
+   "ci_vs_FullLoad_includes_zero": false,
+   "delta_vs_U25_pp": 1.0957892144791923,
+   "ci_vs_U25_pp": [
+    0.6629845908883601,
+    1.5291319013703353
+   ],
+   "ci_vs_U25_includes_zero": false,
+   "persistence_ms_per_image": 19.888258845681072,
+   "store_mb_per_image": 7.415966314070351,
+   "activation_ms_per_image": 6.333032892034132,
+   "shared_stream_session_ms": 269.74266866390354,
+   "standalone_equivalent_session_ms_DERIVED": 293.4769074914381,
+   "setup_ms_per_image": 26.221291737715205
+  },
+  {
+   "method": "qwen_ours_kv_U40_packed",
+   "name": "U40_packed",
+   "ratio": 0.4,
+   "packed": true,
+   "k_per_layer_median_image": 138,
+   "k_per_layer_min_max_image": [
+    104,
+    212
+   ],
+   "T1_pct": 60.74858409258803,
+   "T2_pct": 60.231470081260774,
+   "T3_pct": 60.03447426742182,
+   "all_pct": 60.33817614709021,
+   "followup_pct": 60.13297217434129,
+   "followup_correct": 4884,
+   "followup_n": 8122,
+   "followup_ci_lo": 58.570730404607275,
+   "followup_ci_hi": 61.710827769852564,
+   "ttft_mean_ms": 47.67881752086065,
+   "ttft_p50_ms": 47.89564339444041,
+   "ttft_p95_ms": 49.82649288140237,
+   "e2e_mean_ms": 68.09730646829998,
+   "ttft_ratio_vs_ReComp": 0.4211074190431217,
+   "ttft_reduction_vs_ReComp_pct": 57.889258095687836,
+   "ttft_ratio_vs_FullLoad": 0.6737169749729733,
+   "ttft_reduction_vs_FullLoad_pct": 32.62830250270267,
+   "ssd_mb_per_followup": 9.448119442501847,
+   "read_calls_per_followup": 1.0,
+   "gpu_cache_kv_mb_per_followup": 9.448119442501847,
+   "delta_vs_ReComp_pp": -1.2312238364934744,
+   "ci_vs_ReComp_pp": [
+    -1.855448105169255,
+    -0.6253086705156942
+   ],
+   "ci_vs_ReComp_includes_zero": false,
+   "delta_vs_FullLoad_pp": -1.2681605515882788,
+   "ci_vs_FullLoad_pp": [
+    -1.879044300647088,
+    -0.6738544474393532
+   ],
+   "ci_vs_FullLoad_includes_zero": false,
+   "delta_vs_U25_pp": 2.265451859147993,
+   "ci_vs_U25_pp": [
+    1.6805430125695882,
+    2.8506738860697576
+   ],
+   "ci_vs_U25_includes_zero": false,
+   "persistence_ms_per_image": 22.22365820218795,
+   "store_mb_per_image": 9.453174929648242,
+   "activation_ms_per_image": 7.6177784255775975,
+   "shared_stream_session_ms": 271.4781609632862,
+   "standalone_equivalent_session_ms_DERIVED": 298.5193007489186,
+   "setup_ms_per_image": 29.841436627765546
+  },
+  {
+   "method": "qwen_ours_kv_U50_packed",
+   "name": "U50_packed",
+   "ratio": 0.5,
+   "packed": true,
+   "k_per_layer_median_image": 173,
+   "k_per_layer_min_max_image": [
+    130,
+    265
+   ],
+   "T1_pct": 60.74858409258803,
+   "T2_pct": 60.89633095296725,
+   "T3_pct": 60.82245752277764,
+   "all_pct": 60.82245752277764,
+   "followup_pct": 60.85939423787244,
+   "followup_correct": 4943,
+   "followup_n": 8122,
+   "followup_ci_lo": 59.260126689264325,
+   "followup_ci_hi": 62.45549943798325,
+   "ttft_mean_ms": 48.23401929731294,
+   "ttft_p50_ms": 48.27833315357566,
+   "ttft_p95_ms": 50.39999866858125,
+   "e2e_mean_ms": 68.67613224541996,
+   "ttft_ratio_vs_ReComp": 0.4260110554856087,
+   "ttft_reduction_vs_ReComp_pct": 57.39889445143913,
+   "ttft_ratio_vs_FullLoad": 0.6815621540436876,
+   "ttft_reduction_vs_FullLoad_pct": 31.84378459563124,
+   "ssd_mb_per_followup": 11.506897540507264,
+   "read_calls_per_followup": 1.0,
+   "gpu_cache_kv_mb_per_followup": 11.506897540507264,
+   "delta_vs_ReComp_pp": -0.5048017729623245,
+   "ci_vs_ReComp_pp": [
+    -1.0504227954313292,
+    0.025982487295638807
+   ],
+   "ci_vs_ReComp_includes_zero": true,
+   "delta_vs_FullLoad_pp": -0.5417384880571288,
+   "ci_vs_FullLoad_pp": [
+    -1.0787144811785503,
+    -0.011601618277015275
+   ],
+   "ci_vs_FullLoad_includes_zero": false,
+   "delta_vs_U25_pp": 2.991873922679143,
+   "ci_vs_U25_pp": [
+    2.317247377373448,
+    3.682027597924415
+   ],
+   "ci_vs_U25_includes_zero": false,
+   "persistence_ms_per_image": 24.300744455195403,
+   "store_mb_per_image": 11.504649726130653,
+   "activation_ms_per_image": 8.858204971362449,
+   "shared_stream_session_ms": 272.9311517539084,
+   "standalone_equivalent_session_ms_DERIVED": 302.9696377144695,
+   "setup_ms_per_image": 33.15894942655785
+  },
+  {
+   "method": "qwen_ours_kv_U100_packed",
+   "name": "U100_packed",
+   "ratio": 1.0,
+   "packed": true,
+   "k_per_layer_median_image": 345,
+   "k_per_layer_min_max_image": [
+    260,
+    529
+   ],
+   "T1_pct": 60.74858409258803,
+   "T2_pct": 61.70893868505294,
+   "T3_pct": 61.093326766806214,
+   "all_pct": 61.18361651481573,
+   "followup_pct": 61.40113272592957,
+   "followup_correct": 4987,
+   "followup_n": 8122,
+   "followup_ci_lo": 59.785548972896784,
+   "followup_ci_hi": 62.97026936462675,
+   "ttft_mean_ms": 52.26997567071953,
+   "ttft_p50_ms": 51.965679973363876,
+   "ttft_p95_ms": 54.930821154266596,
+   "e2e_mean_ms": 72.89840563055246,
+   "ttft_ratio_vs_ReComp": 0.46165730805955907,
+   "ttft_reduction_vs_ReComp_pct": 53.83426919404409,
+   "ttft_ratio_vs_FullLoad": 0.7385915113222047,
+   "ttft_reduction_vs_FullLoad_pct": 26.140848867779532,
+   "ssd_mb_per_followup": 21.76541577739473,
+   "read_calls_per_followup": 1.0,
+   "gpu_cache_kv_mb_per_followup": 21.76541577739473,
+   "delta_vs_ReComp_pp": 0.036936715094804236,
+   "ci_vs_ReComp_pp": [
+    -0.1507613596684328,
+    0.22136414188096676
+   ],
+   "ci_vs_ReComp_includes_zero": true,
+   "delta_vs_FullLoad_pp": 0.0,
+   "ci_vs_FullLoad_pp": [
+    0.0,
+    0.0
+   ],
+   "ci_vs_FullLoad_includes_zero": true,
+   "delta_vs_U25_pp": 3.533612410736272,
+   "ci_vs_U25_pp": [
+    2.7844993469668524,
+    4.3017162829541595
+   ],
+   "ci_vs_U25_includes_zero": false,
+   "persistence_ms_per_image": 35.365396226058955,
+   "store_mb_per_image": 21.724368618090452,
+   "activation_ms_per_image": 14.775678192513372,
+   "shared_stream_session_ms": 283.0381660587577,
+   "standalone_equivalent_session_ms_DERIVED": 328.45509939590124,
+   "setup_ms_per_image": 50.14107441857232
+  }
+ ],
+ "baselines": {
+  "a_loss_not_detected": {
+   "rule": "smallest ratio whose (ratio - ReComp) followup accuracy CI includes 0; NONE if there is none",
+   "result": "U50_packed",
+   "ratio": 0.5,
+   "evidence": {
+    "U25_packed": {
+     "delta_vs_ReComp_pp": -3.4966756956414677,
+     "ci95_pp": [
+      -4.259864287509425,
+      -2.742879046758358
+     ],
+     "ci_includes_zero": false
+    },
+    "U30_packed": {
+     "delta_vs_ReComp_pp": -2.400886481162275,
+     "ci95_pp": [
+      -3.098008397927642,
+      -1.7001718430566262
+     ],
+     "ci_includes_zero": false
+    },
+    "U40_packed": {
+     "delta_vs_ReComp_pp": -1.2312238364934744,
+     "ci95_pp": [
+      -1.855448105169255,
+      -0.6253086705156942
+     ],
+     "ci_includes_zero": false
+    },
+    "U50_packed": {
+     "delta_vs_ReComp_pp": -0.5048017729623245,
+     "ci95_pp": [
+      -1.0504227954313292,
+      0.025982487295638807
+     ],
+     "ci_includes_zero": true
+    },
+    "U100_packed": {
+     "delta_vs_ReComp_pp": 0.036936715094804236,
+     "ci95_pp": [
+      -0.1507613596684328,
+      0.22136414188096676
+     ],
+     "ci_includes_zero": true
+    }
+   }
+  },
+  "b_llava_25_level": {
+   "rule": "smallest ratio whose point-estimate loss vs ReComp is <= 2.30 pp (LLaVA uniform 25%, v2 HOLD); NONE if there is none",
+   "threshold_loss_pp": 2.3,
+   "result": "U40_packed",
+   "ratio": 0.4,
+   "evidence": {
+    "U25_packed": {
+     "loss_vs_ReComp_pp": 3.4966756956414677,
+     "within_threshold": false
+    },
+    "U30_packed": {
+     "loss_vs_ReComp_pp": 2.400886481162275,
+     "within_threshold": false
+    },
+    "U40_packed": {
+     "loss_vs_ReComp_pp": 1.2312238364934744,
+     "within_threshold": true
+    },
+    "U50_packed": {
+     "loss_vs_ReComp_pp": 0.5048017729623245,
+     "within_threshold": true
+    },
+    "U100_packed": {
+     "loss_vs_ReComp_pp": -0.036936715094804236,
+     "within_threshold": true
+    }
+   }
+  },
+  "note": "둘 다 사전 고정한 기술 통계이며 HOLD에서 관찰한 값이다. 다른 데이터에서 확인되지 않았다. CI가 0을 포함하는 것은 '차이 미입증'이며 동등하다는 뜻이 아니다."
+ },
+ "adjacent_ratio_steps": [
+  {
+   "from": "U25_packed",
+   "to": "U30_packed",
+   "delta_followup_pp": 1.0957892144791923,
+   "ci95_pp": [
+    0.6629845908883601,
+    1.5291319013703353
+   ],
+   "ci_excludes_zero": true,
+   "accuracy_drops_as_ratio_grows": false
+  },
+  {
+   "from": "U30_packed",
+   "to": "U40_packed",
+   "delta_followup_pp": 1.1696626446688008,
+   "ci95_pp": [
+    0.6789932483649761,
+    1.654419709659611
+   ],
+   "ci_excludes_zero": true,
+   "accuracy_drops_as_ratio_grows": false
+  },
+  {
+   "from": "U40_packed",
+   "to": "U50_packed",
+   "delta_followup_pp": 0.72642206353115,
+   "ci95_pp": [
+    0.27527467630387686,
+    1.1796966142593555
+   ],
+   "ci_excludes_zero": true,
+   "accuracy_drops_as_ratio_grows": false
+  },
+  {
+   "from": "U50_packed",
+   "to": "U100_packed",
+   "delta_followup_pp": 0.5417384880571288,
+   "ci95_pp": [
+    0.011601618277011217,
+    1.07871448117855
+   ],
+   "ci_excludes_zero": true,
+   "accuracy_drops_as_ratio_grows": false
+  }
+ ],
+ "non_monotone_segments": [],
+ "integrity_u100_packed_vs_fullload": {
+  "definition": "generated_token_ids of fullload (57 files, 57 pread, CPU assembly) vs qwen_ours_kv_U100_packed (1 file, 1 preadv, GPU assembly), every (dialogue, turn) of the main",
+  "requests": 12183,
+  "token_exact": 12183,
+  "token_exact_rate": 1.0,
+  "mismatches": 0,
+  "first_divergence_points_same_history": 0,
+  "first_divergence_by_turn": {},
+  "propagated_through_history": 0,
+  "status": "PASS"
+ },
+ "packed_path_effect_at_100pct": {
+  "definition": "U100_packed - fullload, same KV; file layout / read syscall / assembly differ",
+  "ttft_delta_ms": -18.499827216870347,
+  "ttft_ci95_ms": [
+   -18.665227544327106,
+   -18.336162554906444
+  ],
+  "ttft_ratio": 0.7385915113222047,
+  "ssd_mb": [
+   21.76541577739473,
+   24.407292406796355
+  ]
+ },
+ "determinism_vs_pyramidkv_run": {
+  "status": "MEASURED",
+  "pyramidkv_run": "runs/qwen_layer_budget_pyr_20261111T075124Z",
+  "method_map": {
+   "recompute": "recompute",
+   "fullload": "fullload",
+   "qwen_ours_kv_U25_packed": "qwen_ours_prefixstore_kv25_U_packed"
+  },
+  "scope": "reference only; absolute TTFT is never compared across runs",
+  "methods": {
+   "recompute": {
+    "n": 12183,
+    "token_exact": 12183,
+    "prediction_equal": 12183,
+    "score_equal": 12183,
+    "followup_n": 8122,
+    "followup_token_exact": 8122,
+    "token_exact_rate": 1.0,
+    "prediction_agreement": 1.0,
+    "followup_token_exact_rate": 1.0
+   },
+   "fullload": {
+    "n": 12183,
+    "token_exact": 12183,
+    "prediction_equal": 12183,
+    "score_equal": 12183,
+    "followup_n": 8122,
+    "followup_token_exact": 8122,
+    "token_exact_rate": 1.0,
+    "prediction_agreement": 1.0,
+    "followup_token_exact_rate": 1.0
+   },
+   "qwen_ours_kv_U25_packed": {
+    "n": 12183,
+    "token_exact": 12183,
+    "prediction_equal": 12183,
+    "score_equal": 12183,
+    "followup_n": 8122,
+    "followup_token_exact": 8122,
+    "token_exact_rate": 1.0,
+    "prediction_agreement": 1.0,
+    "followup_token_exact_rate": 1.0
+   }
+  }
+ },
+ "audit_status": "PASS",
+ "final": true,
+ "requests": 85281,
+ "expected_requests": 85281,
+ "images": 398,
+ "failed_or_skipped_requests": 0,
+ "failed_attempt_records": [],
+ "interruptions": [],
+ "main_wall_hours_first_start_to_finish": 2.7993212454186547,
+ "gates": {
+  "SG1 CPU (벡터 SHA·합, N=1–3,000 정수 분수 k, validator, 기본값 미사용)": "PASS",
+  "SG2 25% 회귀 (payload·K/V·SDPA 입력·logits·ID bitwise, PyramidKV run 코드 대비)": "PASS",
+  "SG3 100% 동치 (U100_packed ≡ FullLoad: K/V·SDPA 입력·logits·ID bitwise)": "PASS",
+  "SG4 포함 관계 (HOLD 398장, U25 ⊂ U30 ⊂ U40 ⊂ U50 ⊂ U100)": "PASS",
+  "SG5 I/O (preadv 1회·pread 0회, 바이트, vision 0·score 0, 질문 불변)": "PASS",
+  "SGR 참조 검증 (추가: 독립 in-memory 참조 bitwise, 30/40/50% FP64 1e-12)": "PASS",
+  "SG6 통합 (7 arm × 12 요청 × 4 dialogue = 84 요청 + 독립 감사)": "PASS",
+  "기존 CPU 테스트 (non-GLM 전체)": "PASS",
+  "Smoke 84 요청": "PASS"
+ },
+ "rule": {
+  "verdict": "none (curve is reported; no GO/NO-GO)",
+  "scope": "HOLD followup (T2-T3), image-cluster paired bootstrap 95% CI (10,000, seed 1234)",
+  "baseline_a_loss_not_detected": "smallest ratio whose (ratio - ReComp) followup accuracy CI includes 0; NONE if there is none",
+  "baseline_b_llava_25_level": "smallest ratio whose point-estimate loss vs ReComp is <= 2.30 pp (LLaVA uniform 25%, v2 HOLD); NONE if there is none",
+  "candidate_ratios_in_order": [
+   "U25",
+   "U30",
+   "U40",
+   "U50",
+   "U100"
+  ],
+  "wording": "a CI that includes 0 is 'difference not shown', never 'equivalent'; non-monotone segments are shown with their CI",
+  "integrity": "U100_packed vs fullload token-exact on all 12,183 requests, else status = PENDING_REVIEW"
+ },
+ "llava_reference": {
+  "uniform_25_loss_vs_ReComp_pp": 2.3,
+  "median_image_rows_per_layer_at_25pct": 552,
+  "source": "prompt (LLaVA v2 HOLD, same MT-GQA); not re-measured here"
+ },
+ "contract_sha256": "efe93f167701ad8f47f772a971667f16671d88604176d44b06e5896f2331cc03",
+ "config_sha256": "9e14fadb06ae756710cd9b796d78d16f9a9921e21864c51528da5d81c19d5eb0",
+ "protection": "PASS",
+ "deletion_log": "PASS",
+ "not_run": [
+  "MT-VQA",
+  "GLM",
+  "LLaVA"
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "gate": "SG4",
+ "config_sha256": "d58ea5fcb604b48ae8474e3622a908ffaec8f8f80d8c9b02ea468a19772af560",
+ "contract_sha256": "83f1e9b7322bb631302b45bd231959ae4b69272e55bf9a8cba462ee8ae47cc51",
+ "score_source": "runs/qwen_layer_budget_pyr_20261111T075124Z/main/images/<image>/<attempt>/qwen_ours_prefixstore_kv25_U_packed_selection.json",
+ "images": 398,
+ "failing_images": [],
+ "total_selected_rows_per_ratio": {
+  "U25": 35712,
+  "U30": 42847,
+  "U40": 56982,
+  "U50": 71216,
+  "U100": 142125
+ },
+ "chain": "U25 subset U30 subset U40 subset U50 subset U100 == all content ids, sizes == ceil(p*N/q)",
+ "question_invariance": {
+  "selection_functions_take_no_question": {
+   "write_ratio_packed_store": true,
+   "ratio_keep_counts": true,
+   "uniform_keep_count": true,
+   "QwenPackedStore.plan": true,
+   "stable_visual_order": true
+  },
+  "mechanism": "the store (and so the selected ids) is written once from the image's T1 capture; every later hit of that image, whatever its question, reads that file. Verified on GPU with two different hit prompts (SG5) and on every HOLD image by the run-time audit (same_image_T2_T3_selection_invariant_to_question)"
+ },
+ "status": "PASS"
+}

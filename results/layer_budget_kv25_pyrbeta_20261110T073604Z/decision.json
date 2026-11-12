@@ -1,0 +1,91 @@
+{
+ "primary": {
+  "PYR-beta": {
+   "verdict": "GO",
+   "vector": "PYR-beta_packed",
+   "control": "U_packed",
+   "delta_followup_pp": 1.2435360748584092,
+   "ci95_pp": [
+    0.6003382277816451,
+    1.8957925636007826
+   ],
+   "ci_excludes_zero": true,
+   "ssd_mb_vector": 308.0497329012558,
+   "ssd_mb_uniform": 308.0497329012558,
+   "ssd_ok_1.02": true,
+   "ttft_mean_vector": 226.64420258396459,
+   "ttft_mean_uniform": 230.33789717916807,
+   "ttft_ratio": 0.9839640170356755,
+   "ttft_ok_1.05": true,
+   "note": null
+  },
+  "PYR-beta-raw": {
+   "verdict": "GO",
+   "vector": "PYR-beta-raw_packed",
+   "control": "U_packed",
+   "delta_followup_pp": 1.2435360748584092,
+   "ci95_pp": [
+    0.6244053411593695,
+    1.8638232423869159
+   ],
+   "ci_excludes_zero": true,
+   "ssd_mb_vector": 308.0497329012558,
+   "ssd_mb_uniform": 308.0497329012558,
+   "ssd_ok_1.02": true,
+   "ttft_mean_vector": 226.83502913986342,
+   "ttft_mean_uniform": 230.33789717916807,
+   "ttft_ratio": 0.9847924806026168,
+   "ttft_ok_1.05": true,
+   "note": null
+  }
+ },
+ "floor_effect": {
+  "definition": "D = PYR-beta-raw − PYR-beta, HOLD followup accuracy, image-cluster paired bootstrap 95% CI (10,000 resamples, seed 1234), same run",
+  "delta_pp": 0.0,
+  "ci95_pp": [
+   -0.3140131523833459,
+   0.30697634485427855
+  ],
+  "classification": "FLOOR_UNNECESSARY",
+  "paper_default": "PYR-beta-raw",
+  "sentence": "하한 불필요: D의 95% CI가 0을 포함한다. 논문 기본안은 PYR-beta-raw(PyramidKV 원식 그대로)이다. (D = +0.000 pp [-0.314, +0.307])",
+  "a_only_b_only_both_neither": [
+   68,
+   68,
+   5408,
+   2578
+  ],
+  "prediction_agreement": 0.9770992366412213
+ },
+ "audit_status": "PASS",
+ "final": true,
+ "requests": 36549,
+ "expected_requests": 36549,
+ "images": 398,
+ "failed_or_skipped_requests": 0,
+ "failed_attempt_records": [],
+ "interruptions": [],
+ "main_wall_hours_first_start_to_finish": 4.540693956083722,
+ "followup_pct": {
+  "U_packed": 66.17828121152426,
+  "PYR-beta_packed": 67.42181728638266,
+  "PYR-beta-raw_packed": 67.42181728638266
+ },
+ "g_det": {
+  "smoke": "PASS",
+  "main": "PASS",
+  "token_exact_rate_main": 1.0,
+  "cross_run_accuracy_comparison": "ALLOWED"
+ },
+ "rule": {
+  "primary_each_vector": "vec_packed - U_packed, HOLD followup; GO: delta>=+1.0pp & CI excludes 0 & SSD MB/followup <= U*1.02 & TTFT mean <= U*1.05; PARTIAL: delta>=+0.5pp with CI incl. 0, or GO with exactly one of MB/TTFT violated; else NO-GO",
+  "floor_effect": "D = PYR-beta-raw - PYR-beta (followup, paired bootstrap 95% CI): CI includes 0 -> floor unnecessary (paper default PYR-beta-raw); CI upper < 0 -> floor needed (use PYR-beta); CI lower > 0 -> floor harmful (use PYR-beta-raw)",
+  "secondary": "cross-run paired accuracy vs v2 arms only if G-det == 100%; TTFT never cross-run"
+ },
+ "arms": [
+  "ours_prefixstore_kv25_U_packed",
+  "ours_prefixstore_kv25_PYR-beta_packed",
+  "ours_prefixstore_kv25_PYR-beta-raw_packed"
+ ],
+ "optional_recompute": "excluded"
+}

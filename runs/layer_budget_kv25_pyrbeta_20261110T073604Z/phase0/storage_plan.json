@@ -1,0 +1,33 @@
+{
+ "measured_at_utc": 1794296870.852621,
+ "free_bytes_now": 286044221440,
+ "free_gib_now": 266.39944076538086,
+ "packed_store_max_bytes_estimate": 411041792,
+ "hold": {
+  "arms": 3,
+  "stored_arms": 3,
+  "live_stores_per_image": "3 packed (<= 0.41 GB each); no raster store",
+  "largest_image_bundle_bound_bytes": 1233125376,
+  "builder_intermediate_margin_bytes": 4294967296,
+  "peak_working_set_bytes": 5528092672,
+  "raw_and_evidence_growth_bound_bytes": 4294967296,
+  "raw_growth_basis": "v2 7-arm HOLD main directory = 2.1 GB -> 3-4 arms ~0.9-1.2 GB",
+  "minimum_reserve_bytes": 32212254720,
+  "policy": "FRESH_IMAGE_STREAMING: one live image; stores built -> measured -> audited -> committed -> run-local scratch deleted by exact SHA allowlist",
+  "required_free_bytes": 42035314688
+ },
+ "gates": {
+  "per_case_bound_bytes": 3791650816,
+  "policy": "run-local gate stores deleted after each case (v2 amendment rule); frozen 106 capacity reserve needs >= 46 GiB free"
+ },
+ "results_and_protection_bound_bytes": 2147483648,
+ "required_initial_free_bytes": 55331258368,
+ "required_initial_free_gib": 51.53125,
+ "margin_bytes": 230712963072,
+ "status": "PASS",
+ "deletion_scope": [
+  "runs/layer_budget_kv25_pyrbeta_20261110T073604Z/hold/scratch/** (exact SHA allowlist after audit+commit)",
+  "runs/layer_budget_kv25_pyrbeta_20261110T073604Z/llava/gpu_gates/** (guarded_rmtree per case)",
+  "runs/layer_budget_kv25_pyrbeta_20261110T073604Z/gates/grmin_fixture/** (CPU fixture)"
+ ]
+}

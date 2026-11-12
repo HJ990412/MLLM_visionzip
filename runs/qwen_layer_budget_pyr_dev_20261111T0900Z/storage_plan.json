@@ -1,0 +1,24 @@
+{
+ "minimum_reserve_bytes": 32212254720,
+ "peak_working_set_bytes": 4294967296,
+ "largest_image_bundle_bound_bytes": 1073741824,
+ "maximum_new_payload_bytes": 21474836480,
+ "raw_growth_bound_bytes": 10737418240,
+ "validation_growth_bound_bytes": 8589934592,
+ "failed_payload_bound_bytes": 10737418240,
+ "required_initial_free_bytes": 77309411328,
+ "free_bytes_at_freeze": 282375929856,
+ "free_gib_at_freeze": 262.9830780029297,
+ "measured_at_unix": 1794384335.9642968,
+ "estimated_live_bundle_bytes_per_image": 77946880,
+ "estimate_basis": "FullLoad (ceil(N/64)*64 + S rows) + B + 3 packed ((ceil(N/4) + S) rows each) at N = 529, S = 21; 57,344 B per row over 28 layers K+V",
+ "raw_growth_basis": "parent 3-arm main = 1.4 GB raw/evidence -> 6 arms about 3 GB",
+ "policy": "FRESH_IMAGE_STREAMING: one live image; stores built -> measured -> audited -> committed -> run-local scratch deleted by exact SHA allowlist",
+ "mount": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/\",\n         \"source\": \"/dev/nvme0n1p2\",\n         \"fstype\": \"ext4\",\n         \"options\": \"rw,relatime,errors=remount-ro\"\n      }\n   ]\n}\n",
+ "scratch_cleanup": "only run-owned exact allowlist after independent image audit, hashes, atomic commit; gate stores under runs/<run>/gates/**/stores are removed per case",
+ "deletion_scope": [
+  "runs/qwen_layer_budget_pyr_dev_20261111T0900Z/scratch/** (exact SHA allowlist after audit + commit)",
+  "runs/qwen_layer_budget_pyr_dev_20261111T0900Z/gates/gpu/*/stores/** (per-case allowlist)"
+ ],
+ "status": "PASS"
+}

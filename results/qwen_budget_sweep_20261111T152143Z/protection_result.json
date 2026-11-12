@@ -1,0 +1,59 @@
+{
+ "status": "PASS",
+ "files_before": 4771,
+ "files_after": 4771,
+ "kvstore_files_before": 16160,
+ "kvstore_files_after": 16160,
+ "runs_files_before": 1841831,
+ "runs_files_after": 1841831,
+ "differences": {
+  "sha": {
+   "sha_changed": [],
+   "sha_missing": [],
+   "sha_added": []
+  },
+  "kvstore": {
+   "changed": [],
+   "missing": [],
+   "added": []
+  },
+  "runs": {
+   "changed": [],
+   "missing": [],
+   "added_count": 0
+  }
+ },
+ "sha_added_reported_only": [],
+ "runs_added_reported_only": [],
+ "frozen_runtime_sources_changed_since_freeze": [],
+ "new_files_of_this_run": [
+  "mmimpress/qwen25/ratio_packed.py",
+  "scripts/qwen_sweep_support.py",
+  "scripts/172_freeze_qwen_budget_sweep.py",
+  "scripts/173_validate_qwen_budget_sweep.py",
+  "scripts/174_eval_qwen_budget_sweep.py",
+  "scripts/175_audit_qwen_budget_sweep.py",
+  "scripts/176_report_qwen_budget_sweep.py",
+  "tests/test_qwen_budget_sweep.py",
+  "docs/qwen_budget_sweep_contract.md"
+ ],
+ "amendment_files": [],
+ "source_modifications": {
+  "reference": "PyramidKV run config.json source_sha256 (every runtime source frozen there)",
+  "checked_files": 305,
+  "changed_or_missing_files": [],
+  "new_files": [
+   "mmimpress/qwen25/ratio_packed.py",
+   "scripts/qwen_sweep_support.py",
+   "scripts/172_freeze_qwen_budget_sweep.py",
+   "scripts/173_validate_qwen_budget_sweep.py",
+   "scripts/174_eval_qwen_budget_sweep.py",
+   "scripts/175_audit_qwen_budget_sweep.py",
+   "scripts/176_report_qwen_budget_sweep.py",
+   "tests/test_qwen_budget_sweep.py",
+   "docs/qwen_budget_sweep_contract.md"
+  ],
+  "note": "this run only adds files; every existing source, including the files added by the PyramidKV run, is unmodified"
+ },
+ "scope": "full SHA256 of results/docs/mmimpress/scripts/tests/README.md (new paths of this run excluded); (size, mtime_ns, inode) of kvstore* and of every other runs/* root"
+}

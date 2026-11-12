@@ -941,3 +941,100 @@ Qwen·GLM 추가 실험은 없고, 실패 시도와 freeze amendment·보고기 
 [실험 계약](docs/layer_budget_kv25_v2_contract.md),
 [재현 정보](results/layer_budget_kv25_v2_20261106T073502Z/REPRODUCE.md)를 참조한다.
 코드·요약표·그림·검증·재현 자료를 게시하며 대용량 raw·KV payload·외부 논문 사본은 로컬에 보존한다.
+
+## 31. LLaVA PyramidKV β=20: floor vs raw (2026-11-12 정리)
+
+30절의 선형 PYR과 구분해, PyramidKV β=20 원식의 layer 비율을 사용한 raw와
+하한 0.10을 적용한 PYR-beta를 같은 실행에서 비교했다. Image-only VisionZip 순서,
+총 KV bytes와 packed 경로는 같고 layer별 자르는 지점만 다르다. 원 PyramidKV의
+attention 기반 token 선택이나 전체 시스템을 재현한 것은 아니다.
+MT-GQA 398 images/4,061 dialogues × 3턴, 3-arm 36,549요청을 완료하고 독립 감사를 통과했다.
+
+| Method | 전체 EM | Followup EM | Followup TTFT | SSD MB/followup |
+|---|---:|---:|---:|---:|
+| U_packed | 65.181% | 66.178% | 230.34 ms | 308.05 |
+| PYR-beta_packed | 66.010% | 67.422% | 226.64 ms | 308.05 |
+| PYR-beta-raw_packed | 66.010% | 67.422% | 226.84 ms | 308.05 |
+
+두 벡터 모두 uniform 대비 +1.244 pp이며 CI는 각각 +0.600~+1.896,
++0.624~+1.864 pp다. Bytes·TTFT 조건도 통과해 사전 판정은 둘 다 GO다.
+Raw−floor는 0.000 pp(CI −0.314~+0.307)로 사전 분류값은 FLOOR_UNNECESSARY이고
+기본안은 raw다. 이는 이 표본에서 하한 효과 미입증이라는 뜻이지 동등성 증명은 아니다.
+U의 12,183요청이 부모 v2와 토큰 단위로 같음을 확인했지만, 실행 간 절대 TTFT는
+비교하지 않는다. ReComp는 이번 실행에 포함하지 않았다.
+
+[전체 결과](results/layer_budget_kv25_pyrbeta_20261110T073604Z/REPORT.md),
+[최종 판정](results/layer_budget_kv25_pyrbeta_20261110T073604Z/decision.json),
+[실험 계약](docs/layer_budget_kv25_pyrbeta_contract.md),
+[재현 정보](results/layer_budget_kv25_pyrbeta_20261110T073604Z/REPRODUCE.md)를 참조한다.
+
+## 32. Qwen layer-wise PyramidKV + PackedPrefixStore (2026-11-12)
+
+Qwen2.5-VL의 28 layers/4 KV heads/BF16 native KV에 packed store와 layer별 compact
+ragged cache를 적용했다. 원래 MRoPE/logical position을 유지하고 각 layer의 mask를
+실제 cache 길이에 맞춘다. MT-GQA 398 images/4,061 dialogues의 6-arm 본실험을
+73,098요청으로 완료했다. Gate·독립 감사·U_packed와 기존 B의 12,183요청 토큰 일치는
+통과했지만 품질 개선 판정은 NO-GO다.
+
+| Method | 전체 EM | Followup EM | Followup TTFT | SSD MB/followup |
+|---|---:|---:|---:|---:|
+| ReComp | 61.159% | 61.364% | 113.226 ms | 0.000 |
+| FullLoad | 61.184% | 61.401% | 70.789 ms | 24.407 |
+| Ours B (unpacked) | 58.828% | 57.868% | 53.875 ms | 6.371 |
+| U_packed | 58.828% | 57.868% | 46.614 ms | 6.371 |
+| PYR-b20_packed | 58.229% | 56.969% | 46.607 ms | 6.371 |
+| PYR-b2p5_packed | 58.639% | 57.584% | 46.679 ms | 6.371 |
+
+β=20−U는 −0.899 pp(CI −1.490~−0.302)로 같은 bytes의 uniform보다 낮았다.
+β=2.5−U의 −0.283 pp(−0.738~+0.172)는 민감도 보고일 뿐 주 판정을 바꾸지 않는다.
+Qwen의 N은 260–529이고 β=20의 마지막 layer는 3–7행만 남는 조건이다.
+Packed hit는 preadv 1회이며 U−B TTFT −7.261 ms는 읽기 호출 감소뿐 아니라
+CPU→GPU 조립 위치 변경 등을 포함한 새 hit 경로 전체의 효과다.
+모든 followup은 방법별 자기 생성 history를 사용한 strict normalized EM이다.
+
+[전체 결과](results/qwen_layer_budget_pyr_20261111T075124Z/REPORT.md),
+[품질표](results/qwen_layer_budget_pyr_20261111T075124Z/quality.csv),
+[최종 판정](results/qwen_layer_budget_pyr_20261111T075124Z/decision.json),
+[ragged cache 설계](results/qwen_layer_budget_pyr_20261111T075124Z/design_ragged_cache.md),
+[실험 계약](docs/qwen_layer_budget_pyr_contract.md),
+[재현 정보](results/qwen_layer_budget_pyr_20261111T075124Z/REPRODUCE.md)를 참조한다.
+
+## 33. Qwen 보존 비율 sweep: 25/30/40/50/100% (2026-11-12)
+
+Layer 배분 대신 모든 layer에 같은 k=ceil(ratio×original N)를 적용하고, 같은
+중요도 순서의 앞 k개와 구조 21행을 보존했다. MT-GQA 398 images/4,061 dialogues의
+7-arm 본실험 85,281요청을 완료했다. 실패·skip 0, 독립 감사 PASS다.
+GO/NO-GO 판정 없이 정확도·속도 곡선을 보고한다. 아래 행 수는 중간값 이미지 N=345 기준이다.
+
+| Arm | Content rows/layer | Followup EM | Followup TTFT | SSD MB/followup |
+|---|---:|---:|---:|---:|
+| ReComp | — | 61.364% | 113.222 ms | 0.000 |
+| FullLoad | 345 | 61.401% | 70.770 ms | 24.407 |
+| U25_packed | 87 | 57.868% | 46.614 ms | 6.371 |
+| U30_packed | 104 | 58.963% | 46.956 ms | 7.403 |
+| U40_packed | 138 | 60.133% | 47.679 ms | 9.448 |
+| U50_packed | 173 | 60.859% | 48.234 ms | 11.507 |
+| U100_packed | 345 | 61.401% | 52.270 ms | 21.765 |
+
+사전 고정한 기술 통계 기준선 (a)는 U50이다. ReComp 대비 −0.505 pp의 CI가
+−1.050~+0.026으로 0을 겨우 포함한 경계선상의 차이 미입증이며, 동등성은 아니다.
+같은 U50을 FullLoad와 비교하면 −0.542 pp(CI −1.079~−0.012)로 0을 포함하지 않는다.
+기준선 (b), 기존 LLaVA 균등 25%의 손실 점추정 2.30 pp 이하는 U40에서 처음 만족했다
+(Qwen−ReComp −1.231 pp). 두 기준선은 이 HOLD에서 관찰한 값이며 다른 데이터에서
+확인되지 않았다. LLaVA 기준값도 이 sweep에서 다시 측정하지 않았다.
+
+U100과 FullLoad는 12,183요청의 생성 token이 전부 같다. U100의 TTFT −18.500 ms는
+파일 배치·57 pread→1 preadv·padding read 제거·GPU 조립을 합친 packed 경로 효과이며
+토큰 선택 효과가 아니다. Shared-stream session은 U25/U100이 268.763/283.038 ms,
+standalone-equivalent는 290.944/328.455 ms(ReComp 399.398 ms)다.
+Standalone은 setup 재귀속 DERIVED 값이며 독립 cold-session 실측이 아니다.
+실행 간 절대 TTFT나 모델 간 효과는 합치지 않는다. DONTNEED는 cold NAND를 보장하지 않는다.
+
+[전체 결과](results/qwen_budget_sweep_20261111T152143Z/REPORT.md),
+[품질표](results/qwen_budget_sweep_20261111T152143Z/quality.csv),
+[지연·I/O](results/qwen_budget_sweep_20261111T152143Z/latency_io.csv),
+[결과 기록](results/qwen_budget_sweep_20261111T152143Z/RESULT_RECORD.md),
+[실험 계약](docs/qwen_budget_sweep_contract.md),
+[재현 정보](results/qwen_budget_sweep_20261111T152143Z/REPRODUCE.md)를 참조한다.
+세 실험의 그림·완료/검증 receipt·실패/개발 리허설 기록·freeze/provenance를 함께 보존한다.
+대용량 raw·KV payload·전체 manifest·프롬프트 파일은 커밋에서 제외한다.

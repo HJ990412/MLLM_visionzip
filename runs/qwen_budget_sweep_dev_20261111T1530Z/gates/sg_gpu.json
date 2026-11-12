@@ -1,0 +1,230 @@
+{
+ "gate": "SG2-SG3-SG5 (+SGR reference)",
+ "config_sha256": "d58ea5fcb604b48ae8474e3622a908ffaec8f8f80d8c9b02ea468a19772af560",
+ "contract_sha256": "83f1e9b7322bb631302b45bd231959ae4b69272e55bf9a8cba462ee8ae47cc51",
+ "status": "PASS",
+ "samples": [
+  {
+   "index": 0,
+   "image_id": "n355567",
+   "N": 345,
+   "status": "PASS",
+   "gates": {
+    "SG2": true,
+    "SG3": true,
+    "SG5": true,
+    "SGR": true
+   },
+   "prior_rank_available": true,
+   "evidence_sha256": "f79aaae3546a8f8739084ea39bbe774924c45d41ed5380d3670869f8a2d893c3"
+  },
+  {
+   "index": 1,
+   "image_id": "n355567",
+   "N": 345,
+   "status": "PASS",
+   "gates": {
+    "SG2": true,
+    "SG3": true,
+    "SG5": true,
+    "SGR": true
+   },
+   "prior_rank_available": true,
+   "evidence_sha256": "c77d9edb442c79c88a7360ba89108aa8b0081f9b67e3758062680076a682da2a"
+  },
+  {
+   "index": 2,
+   "image_id": "n355567",
+   "N": 345,
+   "status": "PASS",
+   "gates": {
+    "SG2": true,
+    "SG3": true,
+    "SG5": true,
+    "SGR": true
+   },
+   "prior_rank_available": true,
+   "evidence_sha256": "752aa771397538a63ec15fa569fd9b0362fea815b4012ed346ae9645d33d6efd"
+  },
+  {
+   "index": 3,
+   "image_id": "n9181",
+   "N": 391,
+   "status": "PASS",
+   "gates": {
+    "SG2": true,
+    "SG3": true,
+    "SG5": true,
+    "SGR": true
+   },
+   "prior_rank_available": true,
+   "evidence_sha256": "9ac28efa660230e1734a1e0a1a30de9a8cc93f67032b885929715d1a1d2d4122"
+  },
+  {
+   "index": 4,
+   "image_id": "n390187",
+   "N": 368,
+   "status": "PASS",
+   "gates": {
+    "SG2": true,
+    "SG3": true,
+    "SG5": true,
+    "SGR": true
+   },
+   "prior_rank_available": true,
+   "evidence_sha256": "e8ec72ddf53e4b2e905d097d8e48c695029ceeff5348191294e63e2a5d198cc8"
+  },
+  {
+   "index": 5,
+   "image_id": "n133585",
+   "N": 345,
+   "status": "PASS",
+   "gates": {
+    "SG2": true,
+    "SG3": true,
+    "SG5": true,
+    "SGR": true
+   },
+   "prior_rank_available": true,
+   "evidence_sha256": "19757ee6e5d0ba0275f508a106347489cf9586ddfb106b1faec422ff9edbeb5b"
+  },
+  {
+   "index": 6,
+   "image_id": "n272098",
+   "N": 484,
+   "status": "PASS",
+   "gates": {
+    "SG2": true,
+    "SG3": true,
+    "SG5": true,
+    "SGR": true
+   },
+   "prior_rank_available": true,
+   "evidence_sha256": "436a2fe97f2e0211ed80fa135910727499ba1ee10ff6bec9dd43e5b06624a950"
+  },
+  {
+   "index": 7,
+   "image_id": "n472825",
+   "N": 391,
+   "status": "PASS",
+   "gates": {
+    "SG2": true,
+    "SG3": true,
+    "SG5": true,
+    "SGR": true
+   },
+   "prior_rank_available": true,
+   "evidence_sha256": "228f8c7f192fe53ea106b56266f9178556035bc6cec22f35b6fcd90b9a2c70c2"
+  },
+  {
+   "index": 8,
+   "image_id": "n450919",
+   "N": 266,
+   "status": "PASS",
+   "gates": {
+    "SG2": true,
+    "SG3": true,
+    "SG5": true,
+    "SGR": true
+   },
+   "prior_rank_available": true,
+   "evidence_sha256": "abaa8c6973a0315eb19c79e73654bef3b22fc467f14930fb0e928daa6f844289"
+  },
+  {
+   "index": 9,
+   "image_id": "n37274",
+   "N": 391,
+   "status": "PASS",
+   "gates": {
+    "SG2": true,
+    "SG3": true,
+    "SG5": true,
+    "SGR": true
+   },
+   "prior_rank_available": true,
+   "evidence_sha256": "9615122915ad8c4982ebcc3d8ba3b1e1014b3d6391c2c7f9f438f8241758d3d2"
+  }
+ ],
+ "fixture": "10 frozen core pairs (correctness_manifest.json of the earlier Qwen runs); two hit prompts each",
+ "gates": {
+  "SG2": "25% regression vs the PyramidKV-run packed writer / reader / hit path",
+  "SG3": "100% equivalence with the existing FullLoad path",
+  "SG5": "I/O: one preadv, zero pread, bytes, no vision/score; selection invariant to the question and nested across ratios",
+  "SGR": "extra: every ratio vs an independent in-memory reference (SDPA inputs, logits, ids), repeat, FP64 dense-vs-compact for 30/40/50%"
+ },
+ "environment": {
+  "torch_version": "2.5.1+cu121",
+  "cpu_threads": 2,
+  "matmul_precision": "highest",
+  "cuda_matmul_allow_tf32": false,
+  "cudnn_allow_tf32": true,
+  "fp16_reduced_reduction": true,
+  "bf16_reduced_reduction": true,
+  "reference_device": "CPU",
+  "reference_matmul_softmax_value_dtypes": [
+   "float32",
+   "float64"
+  ],
+  "production_backend": "SDPA",
+  "torch_config": "PyTorch built with:\n  - GCC 9.3\n  - C++ Version: 201703\n  - Intel(R) oneAPI Math Kernel Library Version 2024.2-Product Build 20240605 for Intel(R) 64 architecture applications\n  - Intel(R) MKL-DNN v3.5.3 (Git Hash 66f0cb9eb66affd2da3bf5f8d897376f04aae6af)\n  - OpenMP 201511 (a.k.a. OpenMP 4.5)\n  - LAPACK is enabled (usually provided by MKL)\n  - NNPACK is enabled\n  - CPU capability usage: AVX2\n  - CUDA Runtime 12.1\n  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90\n  - CuDNN 90.1  (built against CUDA 12.4)\n  - Magma 2.6.1\n  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=12.1, CUDNN_VERSION=9.1.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_FBGEMM -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wsuggest-override -Wno-psabi -Wno-error=old-style-cast -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, TORCH_VERSION=2.5.1, USE_CUDA=ON, USE_CUDNN=ON, USE_CUSPARSELT=1, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=1, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, \n"
+ },
+ "runtime": {
+  "model_id": "Qwen/Qwen2.5-VL-7B-Instruct",
+  "checkpoint_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+  "processor_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+  "tokenizer_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+  "transformers": "4.57.6",
+  "torch": "2.5.1+cu121",
+  "bitsandbytes": "0.49.2",
+  "attention_backend": "sdpa",
+  "text_attention_backend": "sdpa",
+  "vision_attention_backend": "sdpa",
+  "hf_device_map": {
+   "": "cuda:0"
+  },
+  "quantized_module_count": 358,
+  "quantized_module_scope_counts": {
+   "vision": 162,
+   "language_model": 196,
+   "other": 0
+  },
+  "quantized_module_prefixes": [
+   "language_model",
+   "visual"
+  ],
+  "gpu_name": "NVIDIA GeForce RTX 4090",
+  "gpu_total_bytes": 25391333376,
+  "seed": 1234,
+  "decoding": "greedy",
+  "max_new_tokens": 16,
+  "eos_token_ids": [
+   151643,
+   151645
+  ],
+  "decoder_layers": 28,
+  "query_heads": 28,
+  "kv_heads": 4,
+  "head_dim": 128,
+  "vision_heads": 16,
+  "vision_fullatt_block_indexes": [
+   7,
+   15,
+   23,
+   31
+  ],
+  "spatial_merge_size": 2,
+  "processor_settings": {
+   "min_pixels": 200704,
+   "max_pixels": 802816,
+   "use_fast": true,
+   "processor_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5"
+  },
+  "weight_offload": false
+ },
+ "per_gate": {
+  "SG2": true,
+  "SG3": true,
+  "SG5": true,
+  "SGR": true
+ }
+}
