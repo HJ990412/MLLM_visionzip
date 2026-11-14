@@ -1,0 +1,611 @@
+{
+ "status": "PASS",
+ "config_sha256": "d442946487274b95733ef93efe2c9582188df0af181465144ed5c30120cf7587",
+ "contract_sha256": "6b727e7749cc99899ee694707350aa893d06cbf12d000d4c28179917366c6c3d",
+ "LG8": {
+  "vectors": {
+   "U100": {
+    "ratio_sha256": "04c01bedee671a22789fcaedf3348f178446db6f914bfdb98bb1699ab64bc114",
+    "ratio_sum": 32.0,
+    "rows_sum_N576": 18432,
+    "rows_head": [
+     576,
+     576,
+     576
+    ],
+    "rows_tail": [
+     576,
+     576,
+     576,
+     576
+    ],
+    "payload_bytes": 301989888,
+    "file_sha256": "f86ac8feb9f7d77d70209b1495547c1e32479c709133228a8f0fd2d94c3e11d0"
+   },
+   "U50": {
+    "ratio_sha256": "673c2550205b17ed2a56548d2c9524811150da3c49cc4b370f80d05dec1201b0",
+    "ratio_sum": 16.0,
+    "rows_sum_N576": 9216,
+    "rows_head": [
+     288,
+     288,
+     288
+    ],
+    "rows_tail": [
+     288,
+     288,
+     288,
+     288
+    ],
+    "payload_bytes": 150994944,
+    "file_sha256": "72f9b87095c5b55753c4d267cf18700e6d96ca7427000d2e5c94f726b4fa8aa4"
+   },
+   "U25": {
+    "ratio_sha256": "54ea273e1a38b1e8b02b96237381f982344cd28ca8466162876e161cdb8ff3ba",
+    "ratio_sum": 8.0,
+    "rows_sum_N576": 4608,
+    "rows_head": [
+     144,
+     144,
+     144
+    ],
+    "rows_tail": [
+     144,
+     144,
+     144,
+     144
+    ],
+    "payload_bytes": 75497472,
+    "file_sha256": "1fc2f0bedbe2f55df4339e1ed367f79babd799a52728e54579d695cf59cc5b35"
+   },
+   "PYR-b20": {
+    "ratio_sha256": "51f9b0db19a93f8ca8b34b8beb8af21285721c5ea460566afbd9a3185b331724",
+    "ratio_sum": 7.999999999999999,
+    "rows_sum_N576": 4608,
+    "rows_head": [
+     281,
+     272,
+     263
+    ],
+    "rows_tail": [
+     34,
+     25,
+     16,
+     7
+    ],
+    "payload_bytes": 75497472,
+    "file_sha256": "7cc93f8a52646e337568e9a2d1341a204f4089fadc6a82639ffdb71acaea117c"
+   }
+  },
+  "pyr_b20_copied_not_recomputed": {
+   "source_file_sha256": "8bfc4cbc55eb778a7ef0433ade4bf13f7a24107b76515f23a72ac01e0740ea5d",
+   "ratios_equal_source": true
+  },
+  "static_scan": {
+   "files": [
+    "mmimpress/llava15/__init__.py",
+    "mmimpress/llava15/runner.py",
+    "mmimpress/llava15/serve.py",
+    "mmimpress/llava15/store.py",
+    "scripts/177_freeze_llava15_mt_gqa.py",
+    "scripts/178_validate_llava15_mt_gqa.py",
+    "scripts/179_eval_llava15_mt_gqa_hold.py",
+    "scripts/180_report_llava15_mt_gqa.py",
+    "scripts/llava15_support.py",
+    "tests/test_llava15_harness.py",
+    "tests/test_llava15_store.py"
+   ],
+   "budget_calls": [
+    {
+     "file": "mmimpress/llava15/store.py",
+     "line": 59,
+     "call": "validate_ratios",
+     "missing_explicit_keywords": []
+    },
+    {
+     "file": "mmimpress/llava15/store.py",
+     "line": 81,
+     "call": "validate_ratios",
+     "missing_explicit_keywords": []
+    },
+    {
+     "file": "mmimpress/llava15/store.py",
+     "line": 98,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": []
+    },
+    {
+     "file": "mmimpress/llava15/store.py",
+     "line": 106,
+     "call": "total_row_budget",
+     "missing_explicit_keywords": []
+    },
+    {
+     "file": "scripts/177_freeze_llava15_mt_gqa.py",
+     "line": 134,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": []
+    },
+    {
+     "file": "scripts/178_validate_llava15_mt_gqa.py",
+     "line": 254,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    },
+    {
+     "file": "scripts/178_validate_llava15_mt_gqa.py",
+     "line": 255,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    },
+    {
+     "file": "scripts/178_validate_llava15_mt_gqa.py",
+     "line": 256,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    },
+    {
+     "file": "tests/test_llava15_store.py",
+     "line": 77,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    }
+   ],
+   "default_reliant_calls": [],
+   "deliberate_default_calls_in_negative_checks": [
+    {
+     "file": "scripts/178_validate_llava15_mt_gqa.py",
+     "line": 254,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    },
+    {
+     "file": "scripts/178_validate_llava15_mt_gqa.py",
+     "line": 255,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    },
+    {
+     "file": "scripts/178_validate_llava15_mt_gqa.py",
+     "line": 256,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    },
+    {
+     "file": "tests/test_llava15_store.py",
+     "line": 77,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    }
+   ],
+   "llava_next_bound_calls": [],
+   "note": "the only default-reliant calls are the deliberate must-fail checks of this gate script and of the unit test (module defaults reject the U100 / U50 / PYR-b20 vectors); none is on the store / serving / HOLD / report path"
+  },
+  "fail_closed": {
+   "negative_one_hidden_row_exposed": {
+    "fail_closed": true,
+    "layer": 20,
+    "stored_row": 104,
+    "detected_by": "check_masks (bitwise mask comparison)"
+   },
+   "negative_one_visible_row_hidden": {
+    "fail_closed": true,
+    "layer": 20,
+    "detected_by": "check_masks"
+   },
+   "U100: meta r_min -> 0.10 (module default)": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "U100: meta r_max -> 0.60 (module default)": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "U100: meta total_ratio -> 0.25": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: layer ratios sum 32.0 != 8.0"
+   },
+   "U100: meta without layer_budget_total_ratio": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_total_ratio"
+   },
+   "U100: meta without layer_budget_r_min": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_r_min"
+   },
+   "U100: meta without layer_budget_r_max": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_r_max"
+   },
+   "U100: meta without layer_budget_num_layers": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_num_layers"
+   },
+   "U100: budget document r_min -> 0.10": {
+    "fail_closed": true,
+    "error": "ValueError: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "U100: budget document without total_ratio": {
+    "fail_closed": true,
+    "error": "ValueError: budget document lacks total_ratio; module defaults are never used"
+   },
+   "U50: meta r_min -> 0.10 (module default)": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "U50: meta r_max -> 0.60 (module default)": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "U50: meta total_ratio -> 0.25": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: layer ratios sum 16.0 != 8.0"
+   },
+   "U50: meta without layer_budget_total_ratio": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_total_ratio"
+   },
+   "U50: meta without layer_budget_r_min": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_r_min"
+   },
+   "U50: meta without layer_budget_r_max": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_r_max"
+   },
+   "U50: meta without layer_budget_num_layers": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_num_layers"
+   },
+   "U50: budget document r_min -> 0.10": {
+    "fail_closed": true,
+    "error": "ValueError: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "U50: budget document without total_ratio": {
+    "fail_closed": true,
+    "error": "ValueError: budget document lacks total_ratio; module defaults are never used"
+   },
+   "U25: meta r_min -> 0.10 (module default)": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "U25: meta r_max -> 0.60 (module default)": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "U25: meta total_ratio -> 0.5": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: layer ratios sum 8.0 != 16.0"
+   },
+   "U25: meta without layer_budget_total_ratio": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_total_ratio"
+   },
+   "U25: meta without layer_budget_r_min": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_r_min"
+   },
+   "U25: meta without layer_budget_r_max": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_r_max"
+   },
+   "U25: meta without layer_budget_num_layers": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_num_layers"
+   },
+   "U25: budget document r_min -> 0.10": {
+    "fail_closed": true,
+    "error": "ValueError: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "U25: budget document without total_ratio": {
+    "fail_closed": true,
+    "error": "ValueError: budget document lacks total_ratio; module defaults are never used"
+   },
+   "PYR-b20: meta r_min -> 0.10 (module default)": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "PYR-b20: meta r_max -> 0.60 (module default)": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "PYR-b20: meta total_ratio -> 0.5": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: layer ratios sum 7.999999999999999 != 16.0"
+   },
+   "PYR-b20: meta without layer_budget_total_ratio": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_total_ratio"
+   },
+   "PYR-b20: meta without layer_budget_r_min": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_r_min"
+   },
+   "PYR-b20: meta without layer_budget_r_max": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_r_max"
+   },
+   "PYR-b20: meta without layer_budget_num_layers": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: store metadata lacks layer_budget_num_layers"
+   },
+   "PYR-b20: budget document r_min -> 0.10": {
+    "fail_closed": true,
+    "error": "ValueError: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "PYR-b20: budget document without total_ratio": {
+    "fail_closed": true,
+    "error": "ValueError: budget document lacks total_ratio; module defaults are never used"
+   },
+   "layer_keep_counts(U100 ratios, 576) with module defaults": {
+    "fail_closed": true,
+    "error": "ValueError: layer ratio outside [0.1, 0.6]"
+   },
+   "layer_keep_counts(U50 ratios, 576) with module defaults": {
+    "fail_closed": true,
+    "error": "ValueError: layer ratios sum 16.0 != 8.0"
+   },
+   "layer_keep_counts(PYR-b20 ratios, 576) with module defaults": {
+    "fail_closed": true,
+    "error": "ValueError: layer ratio outside [0.1, 0.6]"
+   },
+   "negative k_l +1: U25 layer 7": {
+    "fail_closed": true,
+    "error": "ValueError: layer keep counts disagree with the ratio vector"
+   },
+   "negative k_l -1: U25 layer 7": {
+    "fail_closed": true,
+    "error": "ValueError: layer keep counts disagree with the ratio vector"
+   },
+   "negative k_l +1: U50 layer 0": {
+    "fail_closed": true,
+    "error": "ValueError: layer keep counts disagree with the ratio vector"
+   },
+   "negative k_l -1: U50 layer 0": {
+    "fail_closed": true,
+    "error": "ValueError: layer keep counts disagree with the ratio vector"
+   },
+   "negative k_l +1: PYR-b20 layer 31": {
+    "fail_closed": true,
+    "error": "ValueError: layer keep counts disagree with the ratio vector"
+   },
+   "negative k_l -1: PYR-b20 layer 31": {
+    "fail_closed": true,
+    "error": "ValueError: layer keep counts disagree with the ratio vector"
+   },
+   "negative k_l +1: PYR-b20 layer 0": {
+    "fail_closed": true,
+    "error": "ValueError: layer keep counts disagree with the ratio vector"
+   },
+   "negative k_l -1: PYR-b20 layer 0": {
+    "fail_closed": true,
+    "error": "ValueError: layer keep counts disagree with the ratio vector"
+   },
+   "negative k_l -1: U100 layer 3": {
+    "fail_closed": true,
+    "error": "ValueError: layer keep counts disagree with the ratio vector"
+   },
+   "negative swap: PYR-b20 k_0 <-> k_31 in metadata": {
+    "fail_closed": true,
+    "error": "ValueError: layer keep counts disagree with the ratio vector"
+   },
+   "negative swap: PYR-b20 k_10 <-> k_11 in metadata": {
+    "fail_closed": true,
+    "error": "ValueError: layer keep counts disagree with the ratio vector"
+   },
+   "negative swap: U25 layer 3 <-> 7 K blocks on disk (independent slice check + packed SHA256)": {
+    "fail_closed": true,
+    "mismatched": [
+     {
+      "layer": 3,
+      "kind": "k"
+     },
+     {
+      "layer": 7,
+      "kind": "k"
+     }
+    ]
+   },
+   "negative swap: U25 layer 3 <-> 7 K blocks on disk (activation integrity)": {
+    "fail_closed": true,
+    "error": "ValueError: payload integrity mismatch: kv_packed.bin"
+   },
+   "negative vector: U25 store activated as PYR-b20": {
+    "fail_closed": true,
+    "error": "ValueError: store was built for a different budget vector"
+   },
+   "negative vector: PYR-b20 store activated as U25": {
+    "fail_closed": true,
+    "error": "ValueError: store was built for a different budget vector"
+   },
+   "negative vector: U25 meta with the PYR-b20 ratio SHA256": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: layer budget SHA256 does not match its ratios"
+   },
+   "negative vector: PYR-b20 meta with the U25 ratios": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: layer budget SHA256 does not match its ratios"
+   },
+   "negative vector: U50 store activated as U100": {
+    "fail_closed": true,
+    "error": "ValueError: store was built for a different budget vector"
+   },
+   "activation: meta.json r_min 0.10 re-sealed": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "activation: meta.json total_ratio 0.5 re-sealed": {
+    "fail_closed": true,
+    "error": "ValueError: invalid layer budget in store metadata: layer ratios sum 8.0 != 16.0"
+   },
+   "activation: meta.json k_5 + 1 re-sealed": {
+    "fail_closed": true,
+    "error": "ValueError: layer keep counts disagree with the ratio vector"
+   },
+   "activation: meta.json order transposition re-sealed": {
+    "fail_closed": true,
+    "error": "ValueError: invalid importance permutation or row mapping"
+   },
+   "activation: truncated kv_packed.bin": {
+    "fail_closed": true,
+    "error": "ValueError: payload integrity mismatch: kv_packed.bin"
+   },
+   "activation: truncated kv_packed.bin with a re-sealed envelope": {
+    "fail_closed": true,
+    "error": "ValueError: packed file length disagrees with metadata"
+   },
+   "activation: one flipped payload bit (integrity SHA256)": {
+    "fail_closed": true,
+    "error": "ValueError: payload integrity mismatch: kv_packed.bin"
+   },
+   "activation: missing integrity envelope": {
+    "fail_closed": true,
+    "error": "ValueError: packed store lacks its integrity completion envelope"
+   },
+   "selector: meta r_min 0.10": {
+    "fail_closed": true,
+    "error": "ValueError: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "selector: meta total_ratio 0.25": {
+    "fail_closed": true,
+    "error": "ValueError: layer ratios sum 16.0 != 8.0"
+   },
+   "selector: meta ratio SHA256 of U25": {
+    "fail_closed": true,
+    "error": "ValueError: layer budget SHA256 does not match its ratios"
+   },
+   "writer: order is not a permutation": {
+    "fail_closed": true,
+    "error": "ValueError: order is not a permutation of the 576 visual tokens"
+   },
+   "writer: 575 visual tokens": {
+    "fail_closed": true,
+    "error": "ValueError: LLaVA-1.5 packed store requires 32 layers and 576 contiguous visual tokens"
+   },
+   "writer: document with r_max 0.60": {
+    "fail_closed": true,
+    "error": "ValueError: LLaVA-1.5 budgets use the contract clip range [0.0, 1.0] only"
+   },
+   "persist: saliency of shape (1, 575)": {
+    "fail_closed": true,
+    "error": "ValueError: expected CLS saliency of shape (1, 576), got (1, 575)"
+   },
+   "persist: capture provenance with a second vision call": {
+    "fail_closed": true,
+    "error": "AssertionError: invalid Turn-1 capture provenance vision_call_count: 2"
+   }
+  },
+  "cpu_fixture_cases": [
+   {
+    "vector": "U100",
+    "rows_sum": 18432,
+    "bytes": 301989888,
+    "slices": "PASS",
+    "masks": "PASS",
+    "cache_bits": "PASS",
+    "single_preadv": true
+   },
+   {
+    "vector": "U50",
+    "rows_sum": 9216,
+    "bytes": 150994944,
+    "slices": "PASS",
+    "masks": "PASS",
+    "cache_bits": "PASS",
+    "single_preadv": true
+   },
+   {
+    "vector": "U25",
+    "rows_sum": 4608,
+    "bytes": 75497472,
+    "slices": "PASS",
+    "masks": "PASS",
+    "cache_bits": "PASS",
+    "single_preadv": true
+   },
+   {
+    "vector": "PYR-b20",
+    "rows_sum": 4608,
+    "bytes": 75497472,
+    "slices": "PASS",
+    "masks": "PASS",
+    "cache_bits": "PASS",
+    "single_preadv": true
+   }
+  ],
+  "fail_closed_checks": 75,
+  "status": "PASS",
+  "fixture_deleted": true
+ },
+ "LG9": {
+  "status": "PASS",
+  "returncode": 0,
+  "modules": 72,
+  "new_test_modules": [
+   "test_llava15_harness",
+   "test_llava15_store"
+  ],
+  "ran": "Ran 568 tests in 11.817s",
+  "log_sha256": "02d24a0c9f8e78605da814259669a29b81d480feed8b56fb2faf359d6e6ffe16",
+  "tail": "  \"overall_official_secondary\": 0\n      },\n      \"missing_by_turn\": {\n        \"S1\": 0,\n        \"S2\": 0,\n        \"S3\": 0,\n        \"overall_official_secondary\": 0\n      },\n      \"total_valid_decisions\": 4,\n      \"total_unresolved\": 0,\n      \"total_missing\": 0,\n      \"unresolved_rate\": 0.0\n    }\n  }\n}\n",
+  "glm_modules_run_separately": [
+   "test_glm46v_analysis",
+   "test_glm46v_runner",
+   "test_glm46v_store",
+   "test_glm46v_validation",
+   "test_glm46v_vision",
+   "test_glm46v_workflow"
+  ],
+  "glm_returncode": 1,
+  "glm_errors": [
+   "ERROR: setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+   "ERROR: test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+   "ERROR: test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+  ],
+  "glm_log_sha256": "c0ea2c81093a4cc06c9744b8e86748e6e08f32b25e52acb69ce2f11ff93c7a46",
+  "glm_note": "pre-existing environment failures of the GLM-4.6V test modules (they need the transformers 5.x API; this environment is 4.57.6); they import nothing from mmimpress.llava15; reported separately, not hidden",
+  "existing_sources_checked": 349,
+  "existing_sources_changed": [],
+  "existing_source_check_vs_previous_run": "PASS"
+ }
+}

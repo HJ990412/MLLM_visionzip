@@ -1,0 +1,6 @@
+method,name,setup_ms_per_image_mean,shared_mean_ms,shared_p50_ms,shared_p95_ms,standalone_mean_ms,standalone_p50_ms,standalone_p95_ms,provenance
+recompute,ReComp,0,445.082,438.401,498.874,445.082,438.401,498.874,MEASURED (no KV setup)
+llava15_kv_U100_packed,U100_packed,681.037,678.54,609.483,1285.92,1293.02,1287.59,1361.67,MEASURED (shared-stream) / DERIVED (standalone-equivalent)
+llava15_kv_U50_packed,U50_packed,368.854,482.836,443.369,807.587,815.504,810.048,873.479,MEASURED (shared-stream) / DERIVED (standalone-equivalent)
+llava15_kv_U25_packed,U25_packed,209.649,386.486,361.548,568.744,575.44,568.629,628.168,MEASURED (shared-stream) / DERIVED (standalone-equivalent)
+llava15_kv_PYR-b20_packed,PYR-b20_packed,213.678,386.949,362.043,571.831,579.489,573.171,635.071,MEASURED (shared-stream) / DERIVED (standalone-equivalent)

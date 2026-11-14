@@ -1,0 +1,30 @@
+..................The tokenizer you are loading from '/home/dblab/hj/mllm_v2/runs/glm46v_prefixstore3_20261007T065207Z/checkpoint' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+E....................E.........E...................
+======================================================================
+ERROR: setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/tests/test_glm46v_runner.py", line 229, in setUpClass
+    cls.core.get_vision_position_ids = types.MethodType(Glm4vModel.get_vision_position_ids, cls.core)
+AttributeError: type object 'Glm4vModel' has no attribute 'get_vision_position_ids'
+
+======================================================================
+ERROR: test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/tests/test_glm46v_validation.py", line 106, in test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits
+    from transformers.models.glm4v.modeling_glm4v import apply_rotary_pos_emb
+ImportError: cannot import name 'apply_rotary_pos_emb' from 'transformers.models.glm4v.modeling_glm4v' (/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/glm4v/modeling_glm4v.py)
+
+======================================================================
+ERROR: test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/tests/test_glm46v_vision.py", line 140, in _check_actual_native_sdpa_hook_preserves_output_and_qk_score
+    canonical = model(pixels, grid_thw=grid).pooler_output.clone()
+AttributeError: 'Tensor' object has no attribute 'pooler_output'
+
+----------------------------------------------------------------------
+Ran 68 tests in 2.115s
+
+FAILED (errors=3)

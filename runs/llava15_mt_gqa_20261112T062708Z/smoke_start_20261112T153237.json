@@ -1,0 +1,83 @@
+{
+ "started_unix": 1794465157.9780915,
+ "capacity": {
+  "free_bytes": 274755502080,
+  "retained_scratch_bytes": 0
+ },
+ "pid": 1075708,
+ "warmup": {
+  "enabled": true,
+  "fixture": "deterministic_in_memory_rgb_pattern_640x480",
+  "fixture_sha256": "084a2eb13fe0a1aab10d4b15c14e5aa14da8c0f1a6b51504423dc9b64594663e",
+  "excluded_from_all_metrics": true,
+  "vision_forward_count": 1
+ },
+ "model": {
+  "model_id": "llava-hf/llava-1.5-7b-hf",
+  "revision": "b234b804b114d9e37bb655e11cbbb5f5e971b7a9",
+  "source": "/home/dblab/.cache/huggingface/hub/models--llava-hf--llava-1.5-7b-hf/snapshots/b234b804b114d9e37bb655e11cbbb5f5e971b7a9",
+  "model_class": "LlavaForConditionalGeneration",
+  "processor_class": "LlavaProcessor",
+  "image_processor_class": "CLIPImageProcessor",
+  "image_processor_config": {
+   "_processor_class": "LlavaProcessor",
+   "image_processor_type": "CLIPImageProcessor",
+   "do_resize": true,
+   "size": {
+    "shortest_edge": 336
+   },
+   "resample": 3,
+   "do_center_crop": true,
+   "crop_size": {
+    "height": 336,
+    "width": 336
+   },
+   "do_rescale": true,
+   "rescale_factor": 0.00392156862745098,
+   "do_normalize": true,
+   "image_mean": [
+    0.48145466,
+    0.4578275,
+    0.40821073
+   ],
+   "image_std": [
+    0.26862954,
+    0.26130258,
+    0.27577711
+   ],
+   "do_convert_rgb": true
+  },
+  "tokenizer_class": "LlamaTokenizerFast",
+  "processor_attributes": {
+   "patch_size": 14,
+   "vision_feature_select_strategy": "default",
+   "num_additional_image_tokens": 1,
+   "image_token": "<image>"
+  },
+  "vision_feature_layer": -2,
+  "vision_feature_select_strategy": "default",
+  "image_token_index": 32000,
+  "vision": {
+   "image_size": 336,
+   "patch_size": 14,
+   "num_hidden_layers": 24,
+   "patches": 576,
+   "cls_token_dropped_by_default_strategy": true
+  },
+  "text": {
+   "num_hidden_layers": 32,
+   "num_attention_heads": 32,
+   "num_key_value_heads": 32,
+   "head_dim": 128,
+   "hidden_size": 4096
+  },
+  "attn_implementation": "eager",
+  "load_4bit": true,
+  "quantization": "NF4 double quant, BF16 compute",
+  "compute_dtype": "torch.bfloat16",
+  "transformers": "4.57.6",
+  "bitsandbytes": "0.49.2",
+  "torch": "2.5.1+cu121",
+  "prompt_template": "USER: <image>\n{question} Answer the question using a single word or phrase. ASSISTANT:"
+ }
+}

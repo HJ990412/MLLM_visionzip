@@ -1,0 +1,766 @@
+{
+ "status": "FINAL",
+ "run": "runs/llava15_mt_gqa_20261112T062708Z",
+ "contract_sha256": "6b727e7749cc99899ee694707350aa893d06cbf12d000d4c28179917366c6c3d",
+ "config_sha256": "d442946487274b95733ef93efe2c9582188df0af181465144ed5c30120cf7587",
+ "model": {
+  "id": "llava-hf/llava-1.5-7b-hf",
+  "revision": "b234b804b114d9e37bb655e11cbbb5f5e971b7a9",
+  "versions": {
+   "transformers": "4.57.6",
+   "bitsandbytes": "0.49.2",
+   "torch": "2.5.1+cu121",
+   "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]"
+  },
+  "visual_tokens": 576,
+  "separators": 0,
+  "kv_mb_per_image_100pct": 301.989888
+ },
+ "requests": {
+  "main": 60915,
+  "expected": 60915,
+  "per_arm": {
+   "recompute": 12183,
+   "llava15_kv_U100_packed": 12183,
+   "llava15_kv_U50_packed": 12183,
+   "llava15_kv_U25_packed": 12183,
+   "llava15_kv_PYR-b20_packed": 12183
+  },
+  "smoke": 60,
+  "integration": 60,
+  "failed_or_skipped": 0
+ },
+ "curve": [
+  {
+   "arm": "ReComp",
+   "ratio_pct": null,
+   "rows_per_layer": "–",
+   "followup_pct": 65.27948781088402,
+   "followup_ci95_pct": [
+    63.897996009773,
+    66.67526489812373
+   ],
+   "delta_vs_recompute_pp": null,
+   "delta_vs_recompute_ci95_pp": null,
+   "ttft_mean_ms": 126.86075477298313,
+   "ttft_p50_ms": 135.28575282543898,
+   "ttft_p95_ms": 137.4369782395661,
+   "ttft_over_recompute": 1.0,
+   "ssd_mb_per_followup": 0.0
+  },
+  {
+   "arm": "U100_packed",
+   "ratio_pct": 100.0,
+   "rows_per_layer": "576",
+   "followup_pct": 65.30411228761389,
+   "followup_ci95_pct": [
+    63.9067959120549,
+    66.72187324265072
+   ],
+   "delta_vs_recompute_pp": 0.02462447672986949,
+   "delta_vs_recompute_ci95_pp": [
+    -0.2350946906393714,
+    0.2952047679925618
+   ],
+   "ttft_mean_ms": 209.3189493384936,
+   "ttft_p50_ms": 208.9549507945776,
+   "ttft_p95_ms": 218.73145080171525,
+   "ttft_over_recompute": 1.6499897837835595,
+   "ssd_mb_per_followup": 301.989888
+  },
+  {
+   "arm": "U50_packed",
+   "ratio_pct": 50.0,
+   "rows_per_layer": "288",
+   "followup_pct": 64.95936961339571,
+   "followup_ci95_pct": [
+    63.582258259299095,
+    66.36411569289507
+   ],
+   "delta_vs_recompute_pp": -0.3201181974883034,
+   "delta_vs_recompute_ci95_pp": [
+    -0.8174079351530935,
+    0.1714043035034401
+   ],
+   "ttft_mean_ms": 126.77268560941849,
+   "ttft_p50_ms": 126.37412967160344,
+   "ttft_p95_ms": 132.62020647525787,
+   "ttft_over_recompute": 0.9993057808640486,
+   "ssd_mb_per_followup": 150.994944
+  },
+  {
+   "arm": "U25_packed",
+   "ratio_pct": 25.0,
+   "rows_per_layer": "144",
+   "followup_pct": 63.32184191085939,
+   "followup_ci95_pct": [
+    61.93043568947124,
+    64.74841525982177
+   ],
+   "delta_vs_recompute_pp": -1.9576459000246245,
+   "delta_vs_recompute_ci95_pp": [
+    -2.6928629902735053,
+    -1.2393512828692352
+   ],
+   "ttft_mean_ms": 86.38216922040391,
+   "ttft_p50_ms": 86.26939635723829,
+   "ttft_p95_ms": 89.82814094051719,
+   "ttft_over_recompute": 0.6809211357364576,
+   "ssd_mb_per_followup": 75.497472
+  },
+  {
+   "arm": "PYR-b20_packed",
+   "ratio_pct": 25.0,
+   "rows_per_layer": "281…7 (합 4,608)",
+   "followup_pct": 63.371090864319136,
+   "followup_ci95_pct": [
+    62.00481575393951,
+    64.77028515315838
+   ],
+   "delta_vs_recompute_pp": -1.9083969465648856,
+   "delta_vs_recompute_ci95_pp": [
+    -2.626340496087329,
+    -1.2040650636249473
+   ],
+   "ttft_mean_ms": 86.35853038026569,
+   "ttft_p50_ms": 86.01527661085129,
+   "ttft_p95_ms": 90.37651782855392,
+   "ttft_over_recompute": 0.6807347988336029,
+   "ssd_mb_per_followup": 75.497472
+  }
+ ],
+ "quality": [
+  {
+   "method": "recompute",
+   "name": "ReComp",
+   "T1_pct": 59.39423787244521,
+   "T2_pct": 64.86087170647625,
+   "T3_pct": 65.69810391529181,
+   "all_pct": 63.31773783140442,
+   "all_correct": 7714,
+   "all_n": 12183,
+   "followup_pct": 65.27948781088402,
+   "followup_correct": 5302,
+   "followup_n": 8122,
+   "followup_ci95_lo_pct": 63.897996009773,
+   "followup_ci95_hi_pct": 66.67526489812373
+  },
+  {
+   "method": "llava15_kv_U100_packed",
+   "name": "U100_packed",
+   "T1_pct": 59.39423787244521,
+   "T2_pct": 64.66387589263728,
+   "T3_pct": 65.94434868259049,
+   "all_pct": 63.33415414922433,
+   "all_correct": 7716,
+   "all_n": 12183,
+   "followup_pct": 65.30411228761389,
+   "followup_correct": 5304,
+   "followup_n": 8122,
+   "followup_ci95_lo_pct": 63.9067959120549,
+   "followup_ci95_hi_pct": 66.72187324265072
+  },
+  {
+   "method": "llava15_kv_U50_packed",
+   "name": "U50_packed",
+   "T1_pct": 59.39423787244521,
+   "T2_pct": 64.51612903225806,
+   "T3_pct": 65.40261019453337,
+   "all_pct": 63.104325699745544,
+   "all_correct": 7688,
+   "all_n": 12183,
+   "followup_pct": 64.95936961339571,
+   "followup_correct": 5276,
+   "followup_n": 8122,
+   "followup_ci95_lo_pct": 63.582258259299095,
+   "followup_ci95_hi_pct": 66.36411569289507
+  },
+  {
+   "method": "llava15_kv_U25_packed",
+   "name": "U25_packed",
+   "T1_pct": 59.39423787244521,
+   "T2_pct": 63.038660428465896,
+   "T3_pct": 63.60502339325289,
+   "all_pct": 62.01264056472133,
+   "all_correct": 7555,
+   "all_n": 12183,
+   "followup_pct": 63.32184191085939,
+   "followup_correct": 5143,
+   "followup_n": 8122,
+   "followup_ci95_lo_pct": 61.93043568947124,
+   "followup_ci95_hi_pct": 64.74841525982177
+  },
+  {
+   "method": "llava15_kv_PYR-b20_packed",
+   "name": "PYR-b20_packed",
+   "T1_pct": 59.39423787244521,
+   "T2_pct": 62.96478699827629,
+   "T3_pct": 63.77739473036198,
+   "all_pct": 62.04547320036116,
+   "all_correct": 7559,
+   "all_n": 12183,
+   "followup_pct": 63.371090864319136,
+   "followup_correct": 5147,
+   "followup_n": 8122,
+   "followup_ci95_lo_pct": 62.00481575393951,
+   "followup_ci95_hi_pct": 64.77028515315838
+  }
+ ],
+ "latency": [
+  {
+   "method": "recompute",
+   "name": "ReComp",
+   "ttft_mean_ms": 126.86075477298313,
+   "ttft_p50_ms": 135.28575282543898,
+   "ttft_p95_ms": 137.4369782395661,
+   "ttft_mean_ci95_lo_ms": 126.59539233083888,
+   "ttft_mean_ci95_hi_ms": 127.12815599554511,
+   "e2e_mean_ms": 154.4975655038039,
+   "e2e_p50_ms": 155.14941746369004,
+   "e2e_p95_ms": 192.29859854094684,
+   "ssd_mb_per_followup": 0.0,
+   "read_calls_mean": 0.0,
+   "pread_calls_mean": 0.0,
+   "preadv_calls_mean": 0.0,
+   "followups": 8122,
+   "peak_gpu_alloc_mb_mean": 4579.660741374046,
+   "prompt_prepare_ms_mean": null,
+   "packed_read_ms_mean": null,
+   "chunk_io_ms_mean": null,
+   "scatter_ms_mean": null,
+   "prepare_ms_mean": null,
+   "prefill_ms_mean": 119.82619284730835,
+   "decode_ms_mean": 27.495620259338597,
+   "processor_total_ms_mean": 4.545981910334736,
+   "image_preprocess_ms_mean": 3.7258642083971893,
+   "t1_ttft_mean_ms": 109.24726468963858,
+   "t1_ttft_p50_ms": 109.24218222498894,
+   "t1_ttft_p95_ms": 110.54286733269691
+  },
+  {
+   "method": "llava15_kv_U100_packed",
+   "name": "U100_packed",
+   "ttft_mean_ms": 209.3189493384936,
+   "ttft_p50_ms": 208.9549507945776,
+   "ttft_p95_ms": 218.73145080171525,
+   "ttft_mean_ci95_lo_ms": 208.81819322049554,
+   "ttft_mean_ci95_hi_ms": 209.80510741386422,
+   "e2e_mean_ms": 237.86748974138908,
+   "e2e_p50_ms": 232.25972522050142,
+   "e2e_p95_ms": 268.7693085987121,
+   "ssd_mb_per_followup": 301.989888,
+   "read_calls_mean": 1.0,
+   "pread_calls_mean": 0.0,
+   "preadv_calls_mean": 1.0,
+   "followups": 8122,
+   "peak_gpu_alloc_mb_mean": 4808.245462961832,
+   "prompt_prepare_ms_mean": 0.7912372119680718,
+   "packed_read_ms_mean": 90.8764527218058,
+   "chunk_io_ms_mean": 90.88945025701982,
+   "scatter_ms_mean": 79.26500941737036,
+   "prepare_ms_mean": 173.42760047307286,
+   "prefill_ms_mean": 35.048331450386584,
+   "decode_ms_mean": 28.386102368854715,
+   "processor_total_ms_mean": null,
+   "image_preprocess_ms_mean": null,
+   "cache_alloc_and_other_prepare_ms_mean": 3.2731407986826753,
+   "t1_ttft_mean_ms": 109.22506132512382,
+   "t1_ttft_p50_ms": 109.22782961279154,
+   "t1_ttft_p95_ms": 110.51420494914055
+  },
+  {
+   "method": "llava15_kv_U50_packed",
+   "name": "U50_packed",
+   "ttft_mean_ms": 126.77268560941849,
+   "ttft_p50_ms": 126.37412967160344,
+   "ttft_p95_ms": 132.62020647525787,
+   "ttft_mean_ci95_lo_ms": 126.48947125220445,
+   "ttft_mean_ci95_hi_ms": 127.05788790322053,
+   "e2e_mean_ms": 155.31746916013327,
+   "e2e_p50_ms": 148.13629165291786,
+   "e2e_p95_ms": 185.8521799556911,
+   "ssd_mb_per_followup": 150.994944,
+   "read_calls_mean": 1.0,
+   "pread_calls_mean": 0.0,
+   "preadv_calls_mean": 1.0,
+   "followups": 8122,
+   "peak_gpu_alloc_mb_mean": 4808.245865085447,
+   "prompt_prepare_ms_mean": 0.7242392582327634,
+   "packed_read_ms_mean": 45.83666998811839,
+   "chunk_io_ms_mean": 45.84796075603442,
+   "scatter_ms_mean": 41.940827486241716,
+   "prepare_ms_mean": 91.02879960158263,
+   "prefill_ms_mean": 34.9774015594959,
+   "decode_ms_mean": 28.390873164260505,
+   "processor_total_ms_mean": null,
+   "image_preprocess_ms_mean": null,
+   "cache_alloc_and_other_prepare_ms_mean": 3.2400113593065,
+   "t1_ttft_mean_ms": 109.20908217834585,
+   "t1_ttft_p50_ms": 109.23955962061882,
+   "t1_ttft_p95_ms": 110.47682445496321
+  },
+  {
+   "method": "llava15_kv_U25_packed",
+   "name": "U25_packed",
+   "ttft_mean_ms": 86.38216922040391,
+   "ttft_p50_ms": 86.26939635723829,
+   "ttft_p95_ms": 89.82814094051719,
+   "ttft_mean_ci95_lo_ms": 86.22660606279315,
+   "ttft_mean_ci95_hi_ms": 86.53895020120994,
+   "e2e_mean_ms": 114.9194754745671,
+   "e2e_p50_ms": 107.4890187010169,
+   "e2e_p95_ms": 145.52458389662206,
+   "ssd_mb_per_followup": 75.497472,
+   "read_calls_mean": 1.0,
+   "pread_calls_mean": 0.0,
+   "preadv_calls_mean": 1.0,
+   "followups": 8122,
+   "peak_gpu_alloc_mb_mean": 4808.244924044324,
+   "prompt_prepare_ms_mean": 0.6993187781092173,
+   "packed_read_ms_mean": 23.02300813510405,
+   "chunk_io_ms_mean": 23.033287704685357,
+   "scatter_ms_mean": 24.352702667064758,
+   "prepare_ms_mean": 50.60735578027023,
+   "prefill_ms_mean": 35.02841428464851,
+   "decode_ms_mean": 28.375587178216694,
+   "processor_total_ms_mean": null,
+   "image_preprocess_ms_mean": null,
+   "cache_alloc_and_other_prepare_ms_mean": 3.2213654085201178,
+   "t1_ttft_mean_ms": 109.25201879072603,
+   "t1_ttft_p50_ms": 109.26541034132242,
+   "t1_ttft_p95_ms": 110.5327932164073
+  },
+  {
+   "method": "llava15_kv_PYR-b20_packed",
+   "name": "PYR-b20_packed",
+   "ttft_mean_ms": 86.35853038026569,
+   "ttft_p50_ms": 86.01527661085129,
+   "ttft_p95_ms": 90.37651782855392,
+   "ttft_mean_ci95_lo_ms": 86.17097932455623,
+   "ttft_mean_ci95_hi_ms": 86.54865846661349,
+   "e2e_mean_ms": 114.95271913293998,
+   "e2e_p50_ms": 107.42489993572235,
+   "e2e_p95_ms": 145.09294321760535,
+   "ssd_mb_per_followup": 75.497472,
+   "read_calls_mean": 1.0,
+   "pread_calls_mean": 0.0,
+   "preadv_calls_mean": 1.0,
+   "followups": 8122,
+   "peak_gpu_alloc_mb_mean": 4808.245582483132,
+   "prompt_prepare_ms_mean": 0.6979771275591583,
+   "packed_read_ms_mean": 23.43726048601034,
+   "chunk_io_ms_mean": 23.44750250489936,
+   "scatter_ms_mean": 23.915910232895644,
+   "prepare_ms_mean": 50.5961787021643,
+   "prefill_ms_mean": 35.01926522073147,
+   "decode_ms_mean": 28.43448894219489,
+   "processor_total_ms_mean": null,
+   "image_preprocess_ms_mean": null,
+   "cache_alloc_and_other_prepare_ms_mean": 3.232765964369296,
+   "t1_ttft_mean_ms": 109.26125185117878,
+   "t1_ttft_p50_ms": 109.24654360860586,
+   "t1_ttft_p95_ms": 110.58027017861605
+  }
+ ],
+ "storage": [
+  {
+   "method": "llava15_kv_U100_packed",
+   "name": "U100_packed",
+   "images": 398,
+   "stored_content_pct": 100.0,
+   "files_per_store": 5,
+   "store_mb_mean": 304.6493212763819,
+   "store_mb_p50": 304.649321,
+   "store_mb_p95": 304.649325,
+   "packed_file_mb": 301.989888,
+   "allocated_mb_mean": 304.664576,
+   "os_write_mb_mean": 304.6493212763819,
+   "persistence_ms_mean": 495.80856706787966,
+   "persistence_ms_p50": 491.99420865625143,
+   "persistence_ms_p95": 536.4369593560696,
+   "native_writer_ms_mean": 338.00779555189473,
+   "completion_hash_ms_mean": 156.61232364855368,
+   "writer_ssd_write_ms_mean": 105.56972906667383,
+   "writer_fsync_rename_ms_mean": 64.52491495000133,
+   "writer_materialize_repack_ms_mean": 38.857431363913435,
+   "activation_ms_mean": 185.2279802498843,
+   "activation_ms_p50": 185.34847348928452,
+   "activation_ms_p95": 190.94614507630467,
+   "provenance": "MEASURED"
+  },
+  {
+   "method": "llava15_kv_U50_packed",
+   "name": "U50_packed",
+   "images": 398,
+   "stored_content_pct": 50.0,
+   "files_per_store": 5,
+   "store_mb_mean": 153.65239137437186,
+   "store_mb_p50": 153.652391,
+   "store_mb_p95": 153.65241615,
+   "packed_file_mb": 150.994944,
+   "allocated_mb_mean": 153.6695702512563,
+   "os_write_mb_mean": 153.65239137437186,
+   "persistence_ms_mean": 272.87545289853637,
+   "persistence_ms_p50": 271.3554631918669,
+   "persistence_ms_p95": 286.2052861135453,
+   "native_writer_ms_mean": 191.64577470951943,
+   "completion_hash_ms_mean": 80.21769570139934,
+   "writer_ssd_write_ms_mean": 54.27573705981275,
+   "writer_fsync_rename_ms_mean": 31.79510186271901,
+   "writer_materialize_repack_ms_mean": 39.76650752744932,
+   "activation_ms_mean": 95.97892969163443,
+   "activation_ms_p50": 95.93231277540326,
+   "activation_ms_p95": 100.57113426737487,
+   "provenance": "MEASURED"
+  },
+  {
+   "method": "llava15_kv_U25_packed",
+   "name": "U25_packed",
+   "images": 398,
+   "stored_content_pct": 25.0,
+   "files_per_store": 5,
+   "store_mb_mean": 78.1539433643216,
+   "store_mb_p50": 78.153944,
+   "store_mb_p95": 78.15396,
+   "packed_file_mb": 75.497472,
+   "allocated_mb_mean": 78.16776554773868,
+   "os_write_mb_mean": 78.1539433643216,
+   "persistence_ms_mean": 157.0157449009206,
+   "persistence_ms_p50": 155.75290331616998,
+   "persistence_ms_p95": 165.27656987309456,
+   "native_writer_ms_mean": 112.83466315140302,
+   "completion_hash_ms_mean": 43.35746598013457,
+   "writer_ssd_write_ms_mean": 23.642570077530554,
+   "writer_fsync_rename_ms_mean": 16.72639893180686,
+   "writer_materialize_repack_ms_mean": 38.17594587456566,
+   "activation_ms_mean": 52.63370452401926,
+   "activation_ms_p50": 52.438655868172646,
+   "activation_ms_p95": 55.20256254822016,
+   "provenance": "MEASURED"
+  },
+  {
+   "method": "llava15_kv_PYR-b20_packed",
+   "name": "PYR-b20_packed",
+   "images": 398,
+   "stored_content_pct": 25.0,
+   "files_per_store": 5,
+   "store_mb_mean": 78.15528485427136,
+   "store_mb_p50": 78.155285,
+   "store_mb_p95": 78.155308,
+   "packed_file_mb": 75.497472,
+   "allocated_mb_mean": 78.17176892462312,
+   "os_write_mb_mean": 78.15528485427136,
+   "persistence_ms_mean": 160.81837105831534,
+   "persistence_ms_p50": 160.07254971191287,
+   "persistence_ms_p95": 168.02834761328995,
+   "native_writer_ms_mean": 116.85206245013218,
+   "completion_hash_ms_mean": 43.14466501263218,
+   "writer_ssd_write_ms_mean": 26.258089841722544,
+   "writer_fsync_rename_ms_mean": 16.996856591659576,
+   "writer_materialize_repack_ms_mean": 38.78840662529645,
+   "activation_ms_mean": 52.85943305615953,
+   "activation_ms_p50": 52.56920075044036,
+   "activation_ms_p95": 55.21291918121278,
+   "provenance": "MEASURED"
+  }
+ ],
+ "sessions": [
+  {
+   "method": "recompute",
+   "name": "ReComp",
+   "setup_ms_per_image_mean": 0.0,
+   "shared_mean_ms": 445.08219783498686,
+   "shared_p50_ms": 438.4009428322315,
+   "shared_p95_ms": 498.8744258880615,
+   "standalone_mean_ms": 445.08219783498686,
+   "standalone_p50_ms": 438.4009428322315,
+   "standalone_p95_ms": 498.8744258880615,
+   "provenance": "MEASURED (no KV setup)"
+  },
+  {
+   "method": "llava15_kv_U100_packed",
+   "name": "U100_packed",
+   "setup_ms_per_image_mean": 681.036547317764,
+   "shared_mean_ms": 678.5401841373305,
+   "shared_p50_ms": 609.4828983768821,
+   "shared_p95_ms": 1285.9235312789679,
+   "standalone_mean_ms": 1293.0171450171633,
+   "standalone_p50_ms": 1287.5863993540406,
+   "standalone_p95_ms": 1361.6736410185695,
+   "provenance": "MEASURED (shared-stream) / DERIVED (standalone-equivalent)"
+  },
+  {
+   "method": "llava15_kv_U50_packed",
+   "name": "U50_packed",
+   "setup_ms_per_image_mean": 368.85438259017076,
+   "shared_mean_ms": 482.8357409394138,
+   "shared_p50_ms": 443.3691715821624,
+   "shared_p95_ms": 807.586926035583,
+   "standalone_mean_ms": 815.5036180958288,
+   "standalone_p50_ms": 810.0480530411005,
+   "standalone_p95_ms": 873.4790971502662,
+   "provenance": "MEASURED (shared-stream) / DERIVED (standalone-equivalent)"
+  },
+  {
+   "method": "llava15_kv_U25_packed",
+   "name": "U25_packed",
+   "setup_ms_per_image_mean": 209.64944942493983,
+   "shared_mean_ms": 386.48563248445447,
+   "shared_p50_ms": 361.54792085289955,
+   "shared_p95_ms": 568.7443371862173,
+   "standalone_mean_ms": 575.4398268529844,
+   "standalone_p50_ms": 568.6290925368667,
+   "standalone_p95_ms": 628.1680511310697,
+   "provenance": "MEASURED (shared-stream) / DERIVED (standalone-equivalent)"
+  },
+  {
+   "method": "llava15_kv_PYR-b20_packed",
+   "name": "PYR-b20_packed",
+   "setup_ms_per_image_mean": 213.67780411447487,
+   "shared_mean_ms": 386.94940593595413,
+   "shared_p50_ms": 362.0434682816267,
+   "shared_p95_ms": 571.8311853706837,
+   "standalone_mean_ms": 579.488574871892,
+   "standalone_p50_ms": 573.1712244451046,
+   "standalone_p95_ms": 635.0705903023481,
+   "provenance": "MEASURED (shared-stream) / DERIVED (standalone-equivalent)"
+  }
+ ],
+ "A_main_operating_point": {
+  "operating_point": "U25_packed",
+  "baseline": "ReComp",
+  "scope": "HOLD followup (T2-T3)",
+  "accuracy_pct": 63.32184191085939,
+  "baseline_accuracy_pct": 65.27948781088402,
+  "delta_pp": -1.9576459000246245,
+  "ci95_pp": [
+   -2.6928629902735053,
+   -1.2393512828692352
+  ],
+  "ci_includes_zero": false,
+  "wording": "ReComp보다 낮음 (CI 0 제외)",
+  "relative_to_original_pct": 97.00113164843455,
+  "ttft_ms": {
+   "mean": 86.38216922040391,
+   "p50": 86.26939635723829,
+   "p95": 89.82814094051719
+  },
+  "baseline_ttft_ms": {
+   "mean": 126.86075477298313,
+   "p50": 135.28575282543898,
+   "p95": 137.4369782395661
+  },
+  "ttft_ratio_mean": 0.6809211357364576,
+  "ttft_ratio_ci95": [
+   0.679106623516795,
+   0.6827427208923186
+  ],
+  "ttft_ratio_p50": 0.637682790356741,
+  "ttft_ratio_p95": 0.6535951393222423,
+  "ttft_reduction_pct": 31.90788642635424,
+  "ssd_mb_per_followup": 75.497472
+ },
+ "B_kv_size_axis": {
+  "R100": {
+   "value": 1.6499897837835595,
+   "ci95": [
+    1.6447041723936506,
+    1.6553046954076187
+   ],
+   "numerator_ms": 209.3189493384936,
+   "denominator_ms": 126.86075477298313
+  },
+  "S25": {
+   "value": 0.4126820313850978,
+   "ci95": [
+    0.4112804646910786,
+    0.41412060249853105
+   ],
+   "numerator_ms": 86.38216922040391,
+   "denominator_ms": 209.3189493384936
+  },
+  "S50": {
+   "value": 0.6056436171214102,
+   "ci95": [
+    0.60367718705151,
+    0.6077349105300008
+   ],
+   "numerator_ms": 126.77268560941849,
+   "denominator_ms": 209.3189493384936
+  },
+  "definition": {
+   "R100": "TTFT(U100_packed) / TTFT(recompute)",
+   "S25": "TTFT(U25_packed) / TTFT(U100_packed)",
+   "S50": "TTFT(U50_packed) / TTFT(U100_packed)"
+  },
+  "kv_mb_per_image": 301.989888,
+  "references": {
+   "Qwen2.5-VL": {
+    "R100": 0.462,
+    "S25": 0.892,
+    "path": "same packed path"
+   },
+   "LLaVA-NeXT-7B": {
+    "R100": 1.39,
+    "S25": 0.34,
+    "path": "v1 run, split-file path (not directly comparable)"
+   }
+  },
+  "reference_note": "Qwen2.5-VL 값은 같은 packed 경로(22 MB/이미지). LLaVA-NeXT-7B 값은 v1 run의 파일 분리 경로(100% = FullLoad 65 pread, 25% = unpacked)이며 LLaVA-NeXT의 100% packed 지점은 측정된 적이 없어 직접 비교가 아니다. 절대 TTFT는 실행 간 비교하지 않는다.",
+  "prior_hypothesis": {
+   "R100": [
+    0.462,
+    1.39
+   ],
+   "S25": [
+    0.34,
+    0.892
+   ]
+  },
+  "hypothesis_check": {
+   "R100_between_0.462_and_1.39": false,
+   "S25_between_0.34_and_0.892": true
+  },
+  "status": "REPORTED (not a verdict)"
+ },
+ "C_layer_allocation": {
+  "verdict": "NO-GO",
+  "vector": "PYR-b20_packed",
+  "control": "U25_packed",
+  "delta_followup_pp": 0.04924895345973898,
+  "ci95_pp": [
+   -0.4723865824744591,
+   0.5704878157029193
+  ],
+  "ci_excludes_zero": false,
+  "ssd_mb_vector": 75.497472,
+  "ssd_mb_uniform": 75.497472,
+  "ssd_ok_1.02": true,
+  "ttft_mean_vector": 86.35853038026569,
+  "ttft_mean_uniform": 86.38216922040391,
+  "ttft_ratio": 0.999726345837902,
+  "ttft_ok_1.05": true,
+  "a_only_b_only_both_neither": [
+   197,
+   193,
+   4950,
+   2782
+  ],
+  "prediction_agreement": 0.9306820980054173,
+  "same_rule_other_models": {
+   "LLaVA-NeXT-7B": "GO (+1.244 pp, PYR-beta-raw vs U_packed)",
+   "Qwen2.5-VL": "NO-GO (-0.899 pp)"
+  },
+  "wording": "CI가 0을 포함: 차이 미입증"
+ },
+ "F_t1_accuracy_pct": {
+  "ReComp": 59.39423787244521,
+  "U100_packed": 59.39423787244521,
+  "U50_packed": 59.39423787244521,
+  "U25_packed": 59.39423787244521,
+  "PYR-b20_packed": 59.39423787244521
+ },
+ "t1_identity": {
+  "status": "PASS",
+  "requests": 4061,
+  "token_identical": 4061,
+  "mismatch_count": 0
+ },
+ "gates": {
+  "LG1": "PASS",
+  "LG2": "PASS",
+  "LG3": "PASS",
+  "LG4": "PASS",
+  "LG5": "PASS",
+  "LG6": "PASS",
+  "LG7": "PASS",
+  "LG8": "PASS",
+  "LG9": "PASS",
+  "LG10": "PASS"
+ },
+ "u100_vs_recompute_first_token_fixture": {
+  "requests": 30,
+  "first_token_equal": 29,
+  "rate": 0.9666666666666667,
+  "threshold": 0.95,
+  "mismatches": [
+   {
+    "image_id": "n204894",
+    "turn": 2,
+    "u100_first": 3869,
+    "recompute_first": 1939,
+    "equal": false,
+    "u100_tokens": [
+     3869,
+     2
+    ],
+    "recompute_tokens": [
+     1939,
+     2
+    ],
+    "u100_top2_logit_margin": 0.125,
+    "u100_top2_ids": [
+     3869,
+     1939
+    ]
+   }
+  ],
+  "full_answer_token_equal": 29,
+  "mismatch_cause_note": "U100 serves the Turn-1 prefix KV (FP16 round trip) and prefills only the suffix, recompute prefills the whole sequence; BF16 results depend on the tensor shape, so near-tied first tokens can flip (the top-2 logit margin of each mismatch is recorded)",
+  "status": "PASS"
+ },
+ "scatter_breakdown_fixture_DIAGNOSTIC": {
+  "U100": {
+   "host_fp16_to_bf16_ms": 53.940329141914845,
+   "h2d_ms": 17.19806119799614,
+   "gpu_index_write_ms": 2.599805872887373,
+   "mask_ms": 1.7563915811479092,
+   "production_scatter_ms": 77.13252240791917,
+   "production_read_ms": 133.03904589265585,
+   "production_prefill_ms": 35.96874075010419,
+   "production_ttft_ms": 386.2084373831749
+  },
+  "U50": {
+   "host_fp16_to_bf16_ms": 27.91722435504198,
+   "h2d_ms": 9.43793598562479,
+   "gpu_index_write_ms": 2.241317555308342,
+   "mask_ms": 1.6793604008853436,
+   "production_scatter_ms": 41.034406051039696,
+   "production_read_ms": 84.71124889329076,
+   "production_prefill_ms": 35.77618123963475,
+   "production_ttft_ms": 242.9007134400308
+  },
+  "U25": {
+   "host_fp16_to_bf16_ms": 13.649059366434813,
+   "h2d_ms": 5.86870526894927,
+   "gpu_index_write_ms": 2.0344472490251064,
+   "mask_ms": 1.6328738071024418,
+   "production_scatter_ms": 24.236901849508286,
+   "production_read_ms": 59.4125896692276,
+   "production_prefill_ms": 35.59661079198122,
+   "production_ttft_ms": 171.23187575489283
+  },
+  "PYR-b20": {
+   "host_fp16_to_bf16_ms": 13.949480280280113,
+   "h2d_ms": 5.5456917732954025,
+   "gpu_index_write_ms": 2.0037351176142693,
+   "mask_ms": 1.653958298265934,
+   "production_scatter_ms": 23.57590990141034,
+   "production_read_ms": 53.38771417737007,
+   "production_prefill_ms": 35.44871425256133,
+   "production_ttft_ms": 162.74137059226632
+  }
+ },
+ "main_wall_hours": 3.20199326382743,
+ "interruptions": [],
+ "amendments": [],
+ "not_measured": [
+  "HOLD 경로에서 H2D 단독 시간(합산 측정; 분해는 fixture 진단)",
+  "NAND/controller 수준 cold read, O_DIRECT (DONTNEED는 page-cache hint)",
+  "독립 GPU footprint",
+  "LLaVA-NeXT 100% packed 지점",
+  "MT-VQA / Qwen / GLM / LLaVA-NeXT (이번에 실행하지 않음)",
+  "FullLoad(파일 분리) arm",
+  "PyramidKV의 attention 기반 token 선택"
+ ]
+}

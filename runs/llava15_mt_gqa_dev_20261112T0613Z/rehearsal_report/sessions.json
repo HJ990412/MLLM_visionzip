@@ -1,0 +1,62 @@
+[
+ {
+  "method": "recompute",
+  "name": "ReComp",
+  "setup_ms_per_image_mean": 0.0,
+  "shared_mean_ms": 439.4633711781353,
+  "shared_p50_ms": 424.7941435314715,
+  "shared_p95_ms": 487.74818452075124,
+  "standalone_mean_ms": 439.4633711781353,
+  "standalone_p50_ms": 424.7941435314715,
+  "standalone_p95_ms": 487.74818452075124,
+  "provenance": "MEASURED (no KV setup)"
+ },
+ {
+  "method": "llava15_kv_U100_packed",
+  "name": "U100_packed",
+  "setup_ms_per_image_mean": 712.3607373796403,
+  "shared_mean_ms": 1317.0800276566297,
+  "shared_p50_ms": 1248.6197426915169,
+  "shared_p95_ms": 1493.058844609186,
+  "standalone_mean_ms": 1317.0800276566297,
+  "standalone_p50_ms": 1248.6197426915169,
+  "standalone_p95_ms": 1493.058844609186,
+  "provenance": "MEASURED (shared-stream) / DERIVED (standalone-equivalent)"
+ },
+ {
+  "method": "llava15_kv_U50_packed",
+  "name": "U50_packed",
+  "setup_ms_per_image_mean": 394.34931706637144,
+  "shared_mean_ms": 824.1126413922757,
+  "shared_p50_ms": 775.2835326828063,
+  "shared_p95_ms": 949.9135598074644,
+  "standalone_mean_ms": 824.1126413922757,
+  "standalone_p50_ms": 775.2835326828063,
+  "standalone_p95_ms": 949.9135598074644,
+  "provenance": "MEASURED (shared-stream) / DERIVED (standalone-equivalent)"
+ },
+ {
+  "method": "llava15_kv_U25_packed",
+  "name": "U25_packed",
+  "setup_ms_per_image_mean": 221.3238854892552,
+  "shared_mean_ms": 583.0322420224547,
+  "shared_p50_ms": 554.1541990824044,
+  "shared_p95_ms": 667.4167794175446,
+  "standalone_mean_ms": 583.0322420224547,
+  "standalone_p50_ms": 554.1541990824044,
+  "standalone_p95_ms": 667.4167794175446,
+  "provenance": "MEASURED (shared-stream) / DERIVED (standalone-equivalent)"
+ },
+ {
+  "method": "llava15_kv_PYR-b20_packed",
+  "name": "PYR-b20_packed",
+  "setup_ms_per_image_mean": 224.34976161457598,
+  "shared_mean_ms": 583.7762320879847,
+  "shared_p50_ms": 552.3386346176267,
+  "shared_p95_ms": 668.7827385962009,
+  "standalone_mean_ms": 583.7762320879847,
+  "standalone_p50_ms": 552.3386346176267,
+  "standalone_p95_ms": 668.7827385962009,
+  "provenance": "MEASURED (shared-stream) / DERIVED (standalone-equivalent)"
+ }
+]

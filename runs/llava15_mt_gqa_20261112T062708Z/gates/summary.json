@@ -1,0 +1,55 @@
+{
+ "status": "PASS",
+ "config_sha256": "d442946487274b95733ef93efe2c9582188df0af181465144ed5c30120cf7587",
+ "contract_sha256": "6b727e7749cc99899ee694707350aa893d06cbf12d000d4c28179917366c6c3d",
+ "gates": {
+  "LG1": "PASS",
+  "LG2": "PASS",
+  "LG3": "PASS",
+  "LG4": "PASS",
+  "LG5": "PASS",
+  "LG6": "PASS",
+  "LG7": "PASS",
+  "LG8": "PASS",
+  "LG9": "PASS",
+  "LG10": "PASS"
+ },
+ "LG10": {
+  "status": "PASS",
+  "requests": 60,
+  "expected": 60,
+  "requests_per_arm": {
+   "llava15_kv_U100_packed": 12,
+   "llava15_kv_U50_packed": 12,
+   "llava15_kv_U25_packed": 12,
+   "llava15_kv_PYR-b20_packed": 12,
+   "recompute": 12
+  },
+  "independent_reaudit": {
+   "n181355": "PASS",
+   "n204894": "PASS",
+   "n229548": "PASS",
+   "n95369": "PASS"
+  },
+  "validation": {
+   "status": "PASS",
+   "requests": 60,
+   "expected_requests": 60,
+   "images": 4,
+   "independent_image_audit": "PASS",
+   "config_sha256": "d442946487274b95733ef93efe2c9582188df0af181465144ed5c30120cf7587"
+  },
+  "scratch_files_left": [],
+  "history": "method-local generated, 3 turns, 5 arms, smoke dialogue ids"
+ },
+ "fixture_images": 10,
+ "u100_vs_recompute_first_token_rate": 0.9666666666666667,
+ "cpu_tests": "Ran 568 tests in 11.817s",
+ "glm_preexisting_errors": [
+  "ERROR: setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+  "ERROR: test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+  "ERROR: test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+ ],
+ "at_unix": 1794465148.0861685,
+ "amendments": []
+}

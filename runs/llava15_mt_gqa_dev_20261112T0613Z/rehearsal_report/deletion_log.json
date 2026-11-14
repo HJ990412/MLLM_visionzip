@@ -1,0 +1,100 @@
+{
+ "scope": "run-local only: scratch/** (exact SHA256 allowlist after independent audit + atomic commit), gates/stores/** (per fixture image, guarded_rmtree), gates/cpu_fixture (CPU fixture)",
+ "existing_runs_results_stores_deleted": 0,
+ "phases": {
+  "integration": {
+   "images": 4,
+   "removed_files": 80,
+   "removed_bytes": 2458444000,
+   "per_image": [
+    {
+     "image_id": "n181355",
+     "scratch": "/home/dblab/hj/mllm_v2/runs/llava15_mt_gqa_dev_20261112T0613Z/scratch/integration/n181355/attempt_0001",
+     "removed_files": 20,
+     "removed_bytes": 614611054,
+     "allowlist_sha256": "52495c5f7a456f26c84914f43456b7d50c5dc9a35e5bfddb08972f77a7778c24"
+    },
+    {
+     "image_id": "n204894",
+     "scratch": "/home/dblab/hj/mllm_v2/runs/llava15_mt_gqa_dev_20261112T0613Z/scratch/integration/n204894/attempt_0001",
+     "removed_files": 20,
+     "removed_bytes": 614610973,
+     "allowlist_sha256": "4ba2a878c31fefe84fbdbdbb0d8351bcf0ed6d8b67843c2f404addbe64b41541"
+    },
+    {
+     "image_id": "n229548",
+     "scratch": "/home/dblab/hj/mllm_v2/runs/llava15_mt_gqa_dev_20261112T0613Z/scratch/integration/n229548/attempt_0001",
+     "removed_files": 20,
+     "removed_bytes": 614610995,
+     "allowlist_sha256": "dc8a630508a7d0d757f97bf0612b556bdfc6e056f4d14e21cab4638ea104a2eb"
+    },
+    {
+     "image_id": "n95369",
+     "scratch": "/home/dblab/hj/mllm_v2/runs/llava15_mt_gqa_dev_20261112T0613Z/scratch/integration/n95369/attempt_0001",
+     "removed_files": 20,
+     "removed_bytes": 614610978,
+     "allowlist_sha256": "ca10328f79f6c1b722f26d7ca9d4fc0d4a3bffb744751fc6e984bb1eba3cf90e"
+    }
+   ]
+  },
+  "smoke": {
+   "images": 4,
+   "removed_files": 80,
+   "removed_bytes": 2458443906,
+   "per_image": [
+    {
+     "image_id": "n181355",
+     "scratch": "/home/dblab/hj/mllm_v2/runs/llava15_mt_gqa_dev_20261112T0613Z/scratch/smoke/n181355/attempt_0001",
+     "removed_files": 20,
+     "removed_bytes": 614611018,
+     "allowlist_sha256": "ecd2f1873ce9ca88fd9af84c81204f796e15b17ee9e1eb44f6e09cc21ebb9c3f"
+    },
+    {
+     "image_id": "n204894",
+     "scratch": "/home/dblab/hj/mllm_v2/runs/llava15_mt_gqa_dev_20261112T0613Z/scratch/smoke/n204894/attempt_0001",
+     "removed_files": 20,
+     "removed_bytes": 614610953,
+     "allowlist_sha256": "1cff1c231c223363ba453530a090fb7c9ec7871b8204f7b996681359caf6b9c9"
+    },
+    {
+     "image_id": "n229548",
+     "scratch": "/home/dblab/hj/mllm_v2/runs/llava15_mt_gqa_dev_20261112T0613Z/scratch/smoke/n229548/attempt_0001",
+     "removed_files": 20,
+     "removed_bytes": 614610976,
+     "allowlist_sha256": "afd3b37aca2b0ce9a4b991eae204a5ce4d678a04bad8cc3459608730a286891a"
+    },
+    {
+     "image_id": "n95369",
+     "scratch": "/home/dblab/hj/mllm_v2/runs/llava15_mt_gqa_dev_20261112T0613Z/scratch/smoke/n95369/attempt_0001",
+     "removed_files": 20,
+     "removed_bytes": 614610959,
+     "allowlist_sha256": "6b2dc1b6f068ea010fe76e6ed861eb953ad303d14b764daf22dc7dfc6a586444"
+    }
+   ]
+  },
+  "main": {
+   "images": 0,
+   "removed_files": 0,
+   "removed_bytes": 0,
+   "per_image": []
+  }
+ },
+ "retained_scratch_files": [],
+ "gpu_gate_images_deleted": 10,
+ "gpu_gate_retained_files": [],
+ "cpu_fixture_deleted": true,
+ "superseded_records_kept": [
+  "CONTRACT.md.superseded_1",
+  "CONTRACT.md.superseded_2",
+  "config.superseded_1.json",
+  "config.superseded_2.json",
+  "gates.superseded_1",
+  "gates.superseded_2",
+  "integration.superseded_2",
+  "integration_execution_complete.json.superseded_2",
+  "integration_progress.json.superseded_2",
+  "source_frozen.superseded_1",
+  "source_frozen.superseded_2"
+ ],
+ "status": "PASS"
+}

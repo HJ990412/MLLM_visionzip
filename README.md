@@ -1038,3 +1038,54 @@ Standalone은 setup 재귀속 DERIVED 값이며 독립 cold-session 실측이 �
 [재현 정보](results/qwen_budget_sweep_20261111T152143Z/REPRODUCE.md)를 참조한다.
 세 실험의 그림·완료/검증 receipt·실패/개발 리허설 기록·freeze/provenance를 함께 보존한다.
 대용량 raw·KV payload·전체 manifest·프롬프트 파일은 커밋에서 제외한다.
+
+## 34. LLaVA-1.5-7B 포팅 + MT-GQA packed KV 실험 (2026-11-15 정리)
+
+LLaVA-1.5-7B의 고정 576 visual tokens, separator 0 조건에 별도 runner/store/serving
+경로를 추가했다. 모델은 HF revision b234b804, NF4/BF16/eager, FP16 SSD KV,
+greedy cap16이다. HF 기본 336×336 중앙 자르기 전처리를 유지했으며 공개 GQA 수치와는
+양자화·전처리·프롬프트·재구성 표본이 달라 직접 비교하지 않는다.
+선택 순서는 image-only CLIP CLS→patch attention이고 질문은 사용하지 않는다.
+
+MT-GQA 398 images/4,061 dialogues × 3턴의 5-arm main을 60,915/60,915요청으로
+완료했다. 독립 감사 PASS, 실패·skip 0이며 모든 arm의 T1 생성 token이
+4,061/4,061대화에서 일치했다. Followup은 T2–T3의 method-local generated history
+아래 strict normalized EM이다. Packed arm은 hit당 preadv 1회, vision/score 호출 0이다.
+
+| Arm | Content rows/layer | 전체 EM | Followup EM | Followup TTFT | SSD MB/followup |
+|---|---|---:|---:|---:|---:|
+| ReComp | — | 63.318% | 65.279% | 126.86 ms | 0.00 |
+| U100_packed | 576 | 63.334% | 65.304% | 209.32 ms | 301.99 |
+| U50_packed | 288 | 63.104% | 64.959% | 126.77 ms | 150.99 |
+| U25_packed | 144 | 62.013% | 63.322% | 86.38 ms | 75.50 |
+| PYR-b20_packed | 281…7 (합 4,608) | 62.045% | 63.371% | 86.36 ms | 75.50 |
+
+사전 고정 주 운영점 U25는 ReComp 대비 −1.958 pp(이미지 단위 paired bootstrap
+95% CI −2.693~−1.239)로 정확도가 낮지만, 평균 TTFT는 0.681×로 31.9% 짧았다.
+U50−ReComp는 −0.320 pp(CI −0.817~+0.171)로 차이 미입증이지 동등성은 아니다.
+PYR-b20−U25는 +0.049 pp(CI −0.472~+0.570)로 bytes·TTFT 조건을 만족해도
+개선 기준에 못 미쳐 layer 배분 사전 판정은 **NO-GO**다.
+PYR은 기존 중요도 순서의 layer별 절단만 사용하며 PyramidKV 전체 시스템 재현이 아니다.
+
+100% visual KV는 301,989,888 bytes다. U100/ReComp TTFT 비율 R100=1.650으로
+사전 예상 구간을 벗어났고, U25/U100 비율 S25=0.413이었다.
+LLaVA-NeXT의 100% packed 지점은 미측정이므로 직접적인 packed 모델 간 비교가 아니다.
+U100과 ReComp는 prefill shape·FP16 왕복 등의 수치 차이가 있어 token 완전 동치를
+주장하지 않는다. 별도 native generate·capture·same-shape reference·I/O gate는 통과했다.
+
+U25의 shared-stream session은 386.5 ms(ReComp 445.1 ms)이지만, setup을 매
+dialogue에 다시 부과한 standalone-equivalent는 575.4 ms로 ReComp보다 130.4 ms 길다.
+Standalone은 DERIVED이며 독립 cold-session 실측이 아니다. Dense GPU buffer는 유지하므로
+GPU 메모리 절감을 주장하지 않는다. H2D/scatter 분해는 gate fixture 진단이며 HOLD 계측과
+구분한다. DONTNEED는 cold NAND 보장이 아니고 실행 간 절대 TTFT도 비교하지 않는다.
+이번에는 MT-VQA·Qwen·GLM·LLaVA-NeXT를 재실행하지 않았다.
+
+[전체 결과](results/llava15_mt_gqa_20261112T062708Z/REPORT.md),
+[품질표](results/llava15_mt_gqa_20261112T062708Z/quality.csv),
+[지연·I/O](results/llava15_mt_gqa_20261112T062708Z/latency_io.csv),
+[최종 판정](results/llava15_mt_gqa_20261112T062708Z/decision.json),
+[결과 기록](results/llava15_mt_gqa_20261112T062708Z/RESULT_RECORD.md),
+[실험 계약](docs/llava15_mt_gqa_contract.md),
+[재현 정보](results/llava15_mt_gqa_20261112T062708Z/REPRODUCE.md)를 참조한다.
+본실험과 개발 리허설의 검증·freeze·원래 수정 이력을 구분해 보존하며,
+대용량 raw·KV·모델 가중치·전체 데이터 manifest·프롬프트 파일은 제외한다.

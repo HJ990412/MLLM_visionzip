@@ -1,0 +1,53 @@
+{
+ "schema": "llava15_layer_budget_v1",
+ "policy": "layerwise_v1",
+ "alloc_id": "U50",
+ "model": "llava-hf/llava-1.5-7b-hf",
+ "num_layers": 32,
+ "total_ratio": 0.5,
+ "r_min": 0.0,
+ "r_max": 1.0,
+ "layer_keep_ratios": [
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5
+ ],
+ "layer_budget_sha256": "673c2550205b17ed2a56548d2c9524811150da3c49cc4b370f80d05dec1201b0",
+ "source": {
+  "kind": "uniform 0.5 for every decoder layer",
+  "integer_fraction": [
+   1,
+   2
+  ]
+ },
+ "rounding": "hamilton_largest_remainder; floor then +1 by descending fractional remainder (ties: lower layer first); cap N; sum == L*ceil(total_ratio*N)"
+}

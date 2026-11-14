@@ -1,0 +1,24 @@
+{
+ "policy": "FRESH_IMAGE_STREAMING: one live image; four stores built from each arm's own T1 -> served -> audited -> committed -> run-local scratch deleted by exact SHA256 allowlist",
+ "per_image_payload_bytes": 603979776,
+ "per_image_payload_mb": 603.979776,
+ "per_image_payload_basis": "U100 301,989,888 + U50 150,994,944 + U25 75,497,472 + PYR-b20 75,497,472 B (N = 576, no separator) = 603,979,776 B, plus sys_kv / meta / layout / integrity (< 2 MB)",
+ "largest_image_bundle_bound_bytes": 1073741824,
+ "peak_working_set_bytes": 4294967296,
+ "minimum_reserve_bytes": 32212254720,
+ "maximum_new_payload_bytes": 21474836480,
+ "raw_and_evidence_growth_bound_bytes": 8589934592,
+ "gate_store_bound_bytes": 2147483648,
+ "required_initial_free_bytes": 68719476736,
+ "free_bytes_at_freeze": 275097956352,
+ "free_gib_at_freeze": 256.2049369812012,
+ "measured_at_unix": 1794464832.4011893,
+ "df": "Filesystem         1B-blocks          Used    Available Use% Mounted on\n/dev/nvme0n1p2 1967317549056 1592209772544 275097956352  86% /\n",
+ "mount": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/\",\n         \"source\": \"/dev/nvme0n1p2\",\n         \"fstype\": \"ext4\",\n         \"options\": \"rw,relatime,errors=remount-ro\"\n      }\n   ]\n}\n",
+ "deletion_scope": [
+  "runs/llava15_mt_gqa_20261112T062708Z/scratch/** (exact SHA256 allowlist after independent image audit + atomic commit)",
+  "runs/llava15_mt_gqa_20261112T062708Z/gates/stores/** (run-local gate fixture stores, removed per image after the receipts are written)"
+ ],
+ "existing_artifacts": "never deleted or modified; if space runs out the run stops with BLOCKED_STORAGE",
+ "status": "PASS"
+}

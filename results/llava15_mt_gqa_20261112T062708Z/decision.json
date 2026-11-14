@@ -1,0 +1,177 @@
+{
+ "status": "FINAL",
+ "final": true,
+ "A_main_operating_point": {
+  "operating_point": "U25_packed",
+  "baseline": "ReComp",
+  "scope": "HOLD followup (T2-T3)",
+  "accuracy_pct": 63.32184191085939,
+  "baseline_accuracy_pct": 65.27948781088402,
+  "delta_pp": -1.9576459000246245,
+  "ci95_pp": [
+   -2.6928629902735053,
+   -1.2393512828692352
+  ],
+  "ci_includes_zero": false,
+  "wording": "ReComp보다 낮음 (CI 0 제외)",
+  "relative_to_original_pct": 97.00113164843455,
+  "ttft_ms": {
+   "mean": 86.38216922040391,
+   "p50": 86.26939635723829,
+   "p95": 89.82814094051719
+  },
+  "baseline_ttft_ms": {
+   "mean": 126.86075477298313,
+   "p50": 135.28575282543898,
+   "p95": 137.4369782395661
+  },
+  "ttft_ratio_mean": 0.6809211357364576,
+  "ttft_ratio_ci95": [
+   0.679106623516795,
+   0.6827427208923186
+  ],
+  "ttft_ratio_p50": 0.637682790356741,
+  "ttft_ratio_p95": 0.6535951393222423,
+  "ttft_reduction_pct": 31.90788642635424,
+  "ssd_mb_per_followup": 75.497472
+ },
+ "B_kv_size_axis": {
+  "R100": {
+   "value": 1.6499897837835595,
+   "ci95": [
+    1.6447041723936506,
+    1.6553046954076187
+   ],
+   "numerator_ms": 209.3189493384936,
+   "denominator_ms": 126.86075477298313
+  },
+  "S25": {
+   "value": 0.4126820313850978,
+   "ci95": [
+    0.4112804646910786,
+    0.41412060249853105
+   ],
+   "numerator_ms": 86.38216922040391,
+   "denominator_ms": 209.3189493384936
+  },
+  "S50": {
+   "value": 0.6056436171214102,
+   "ci95": [
+    0.60367718705151,
+    0.6077349105300008
+   ],
+   "numerator_ms": 126.77268560941849,
+   "denominator_ms": 209.3189493384936
+  },
+  "definition": {
+   "R100": "TTFT(U100_packed) / TTFT(recompute)",
+   "S25": "TTFT(U25_packed) / TTFT(U100_packed)",
+   "S50": "TTFT(U50_packed) / TTFT(U100_packed)"
+  },
+  "kv_mb_per_image": 301.989888,
+  "references": {
+   "Qwen2.5-VL": {
+    "R100": 0.462,
+    "S25": 0.892,
+    "path": "same packed path"
+   },
+   "LLaVA-NeXT-7B": {
+    "R100": 1.39,
+    "S25": 0.34,
+    "path": "v1 run, split-file path (not directly comparable)"
+   }
+  },
+  "reference_note": "Qwen2.5-VL 값은 같은 packed 경로(22 MB/이미지). LLaVA-NeXT-7B 값은 v1 run의 파일 분리 경로(100% = FullLoad 65 pread, 25% = unpacked)이며 LLaVA-NeXT의 100% packed 지점은 측정된 적이 없어 직접 비교가 아니다. 절대 TTFT는 실행 간 비교하지 않는다.",
+  "prior_hypothesis": {
+   "R100": [
+    0.462,
+    1.39
+   ],
+   "S25": [
+    0.34,
+    0.892
+   ]
+  },
+  "hypothesis_check": {
+   "R100_between_0.462_and_1.39": false,
+   "S25_between_0.34_and_0.892": true
+  },
+  "status": "REPORTED (not a verdict)"
+ },
+ "C_layer_allocation": {
+  "verdict": "NO-GO",
+  "vector": "PYR-b20_packed",
+  "control": "U25_packed",
+  "delta_followup_pp": 0.04924895345973898,
+  "ci95_pp": [
+   -0.4723865824744591,
+   0.5704878157029193
+  ],
+  "ci_excludes_zero": false,
+  "ssd_mb_vector": 75.497472,
+  "ssd_mb_uniform": 75.497472,
+  "ssd_ok_1.02": true,
+  "ttft_mean_vector": 86.35853038026569,
+  "ttft_mean_uniform": 86.38216922040391,
+  "ttft_ratio": 0.999726345837902,
+  "ttft_ok_1.05": true,
+  "a_only_b_only_both_neither": [
+   197,
+   193,
+   4950,
+   2782
+  ],
+  "prediction_agreement": 0.9306820980054173,
+  "same_rule_other_models": {
+   "LLaVA-NeXT-7B": "GO (+1.244 pp, PYR-beta-raw vs U_packed)",
+   "Qwen2.5-VL": "NO-GO (-0.899 pp)"
+  },
+  "wording": "CI가 0을 포함: 차이 미입증"
+ },
+ "rule": {
+  "scope": "HOLD followup (T2-T3)",
+  "delta": "PYR-b20_packed - U25_packed (accuracy, pp)",
+  "GO": "delta >= +1.0 pp and CI excludes 0 and SSD MB <= U25 * 1.02 and TTFT mean <= U25 * 1.05",
+  "PARTIAL": "delta >= +0.5 pp with CI including 0, or GO with exactly one of the MB / TTFT conditions violated",
+  "NO-GO": "otherwise"
+ },
+ "t1_identity": {
+  "status": "PASS",
+  "requests": 4061,
+  "token_identical": 4061,
+  "mismatch_count": 0
+ },
+ "audit_status": "PASS",
+ "requests": 60915,
+ "expected_requests": 60915,
+ "images": 398,
+ "failed_or_skipped_requests": 0,
+ "failed_attempt_records": [],
+ "interruptions": [],
+ "main_wall_hours_first_start_to_finish": 3.20199326382743,
+ "amendments": [],
+ "gates": {
+  "LG1": "PASS",
+  "LG2": "PASS",
+  "LG3": "PASS",
+  "LG4": "PASS",
+  "LG5": "PASS",
+  "LG6": "PASS",
+  "LG7": "PASS",
+  "LG8": "PASS",
+  "LG9": "PASS",
+  "LG10": "PASS"
+ },
+ "bootstrap": {
+  "unit": "image",
+  "resamples": 10000,
+  "seed": 1234
+ },
+ "arms": [
+  "recompute",
+  "llava15_kv_U100_packed",
+  "llava15_kv_U50_packed",
+  "llava15_kv_U25_packed",
+  "llava15_kv_PYR-b20_packed"
+ ]
+}

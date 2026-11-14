@@ -1,0 +1,227 @@
+{
+ "status": "FAIL",
+ "config_sha256": "5ad3f93ec25b7bddca301588e00e403d7ee27f62a295e6892c4e5db6df0430f2",
+ "contract_sha256": "e7c8405f6027a89e675e2310d34a247f01d20d61168f8fc04210b2c9b72cd03e",
+ "LG8": {
+  "vectors": {
+   "U100": {
+    "ratio_sha256": "04c01bedee671a22789fcaedf3348f178446db6f914bfdb98bb1699ab64bc114",
+    "ratio_sum": 32.0,
+    "rows_sum_N576": 18432,
+    "rows_head": [
+     576,
+     576,
+     576
+    ],
+    "rows_tail": [
+     576,
+     576,
+     576,
+     576
+    ],
+    "payload_bytes": 301989888,
+    "file_sha256": "f86ac8feb9f7d77d70209b1495547c1e32479c709133228a8f0fd2d94c3e11d0"
+   },
+   "U50": {
+    "ratio_sha256": "673c2550205b17ed2a56548d2c9524811150da3c49cc4b370f80d05dec1201b0",
+    "ratio_sum": 16.0,
+    "rows_sum_N576": 9216,
+    "rows_head": [
+     288,
+     288,
+     288
+    ],
+    "rows_tail": [
+     288,
+     288,
+     288,
+     288
+    ],
+    "payload_bytes": 150994944,
+    "file_sha256": "72f9b87095c5b55753c4d267cf18700e6d96ca7427000d2e5c94f726b4fa8aa4"
+   },
+   "U25": {
+    "ratio_sha256": "54ea273e1a38b1e8b02b96237381f982344cd28ca8466162876e161cdb8ff3ba",
+    "ratio_sum": 8.0,
+    "rows_sum_N576": 4608,
+    "rows_head": [
+     144,
+     144,
+     144
+    ],
+    "rows_tail": [
+     144,
+     144,
+     144,
+     144
+    ],
+    "payload_bytes": 75497472,
+    "file_sha256": "1fc2f0bedbe2f55df4339e1ed367f79babd799a52728e54579d695cf59cc5b35"
+   },
+   "PYR-b20": {
+    "ratio_sha256": "51f9b0db19a93f8ca8b34b8beb8af21285721c5ea460566afbd9a3185b331724",
+    "ratio_sum": 7.999999999999999,
+    "rows_sum_N576": 4608,
+    "rows_head": [
+     281,
+     272,
+     263
+    ],
+    "rows_tail": [
+     34,
+     25,
+     16,
+     7
+    ],
+    "payload_bytes": 75497472,
+    "file_sha256": "7cc93f8a52646e337568e9a2d1341a204f4089fadc6a82639ffdb71acaea117c"
+   }
+  },
+  "pyr_b20_copied_not_recomputed": {
+   "source_file_sha256": "8bfc4cbc55eb778a7ef0433ade4bf13f7a24107b76515f23a72ac01e0740ea5d",
+   "ratios_equal_source": true
+  },
+  "static_scan": {
+   "files": [
+    "mmimpress/llava15/__init__.py",
+    "mmimpress/llava15/runner.py",
+    "mmimpress/llava15/serve.py",
+    "mmimpress/llava15/store.py",
+    "scripts/177_freeze_llava15_mt_gqa.py",
+    "scripts/178_validate_llava15_mt_gqa.py",
+    "scripts/179_eval_llava15_mt_gqa_hold.py",
+    "scripts/180_report_llava15_mt_gqa.py",
+    "scripts/llava15_support.py",
+    "tests/test_llava15_harness.py",
+    "tests/test_llava15_store.py"
+   ],
+   "budget_calls": [
+    {
+     "file": "mmimpress/llava15/store.py",
+     "line": 59,
+     "call": "validate_ratios",
+     "missing_explicit_keywords": []
+    },
+    {
+     "file": "mmimpress/llava15/store.py",
+     "line": 81,
+     "call": "validate_ratios",
+     "missing_explicit_keywords": []
+    },
+    {
+     "file": "mmimpress/llava15/store.py",
+     "line": 98,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": []
+    },
+    {
+     "file": "mmimpress/llava15/store.py",
+     "line": 106,
+     "call": "total_row_budget",
+     "missing_explicit_keywords": []
+    },
+    {
+     "file": "scripts/177_freeze_llava15_mt_gqa.py",
+     "line": 134,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": []
+    },
+    {
+     "file": "scripts/178_validate_llava15_mt_gqa.py",
+     "line": 250,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    },
+    {
+     "file": "scripts/178_validate_llava15_mt_gqa.py",
+     "line": 251,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    },
+    {
+     "file": "scripts/178_validate_llava15_mt_gqa.py",
+     "line": 252,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    },
+    {
+     "file": "tests/test_llava15_store.py",
+     "line": 77,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    }
+   ],
+   "default_reliant_calls": [
+    {
+     "file": "scripts/178_validate_llava15_mt_gqa.py",
+     "line": 250,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    },
+    {
+     "file": "scripts/178_validate_llava15_mt_gqa.py",
+     "line": 251,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    },
+    {
+     "file": "scripts/178_validate_llava15_mt_gqa.py",
+     "line": 252,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    },
+    {
+     "file": "tests/test_llava15_store.py",
+     "line": 77,
+     "call": "layer_keep_counts",
+     "missing_explicit_keywords": [
+      "num_layers",
+      "r_max",
+      "r_min",
+      "total_ratio"
+     ]
+    }
+   ],
+   "llava_next_bound_calls": [],
+   "note": "names matched inside this gate script / the unit test are string constants or deliberate negative checks, not calls on the serving path"
+  },
+  "status": "FAIL",
+  "error": "Traceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/scripts/178_validate_llava15_mt_gqa.py\", line 181, in stage_cpu\n    assert calls and not implicit, implicit\nAssertionError: [{'file': 'scripts/178_validate_llava15_mt_gqa.py', 'line': 250, 'call': 'layer_keep_counts', 'missing_explicit_keywords': ['num_layers', 'r_max', 'r_min', 'total_ratio']}, {'file': 'scripts/178_validate_llava15_mt_gqa.py', 'line': 251, 'call': 'layer_keep_counts', 'missing_explicit_keywords': ['num_layers', 'r_max', 'r_min', 'total_ratio']}, {'file': 'scripts/178_validate_llava15_mt_gqa.py', 'line': 252, 'call': 'layer_keep_counts', 'missing_explicit_keywords': ['num_layers', 'r_max', 'r_min', 'total_ratio']}, {'file': 'tests/test_llava15_store.py', 'line': 77, 'call': 'layer_keep_counts', 'missing_explicit_keywords': ['num_layers', 'r_max', 'r_min', 'total_ratio']}]\n"
+ },
+ "LG9": {}
+}

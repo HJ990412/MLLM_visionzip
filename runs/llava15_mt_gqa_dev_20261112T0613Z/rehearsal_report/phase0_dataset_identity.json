@@ -1,0 +1,61 @@
+{
+ "dataset": "MT-GQA-reconstructed",
+ "index_sha256": "2c47cfad2a7ccbb673042b400304d7f3ca03d6fbe59d04fa83db50708c924224",
+ "workload_sha256": "0287e0c57813800c781633b969c5cff336b3a3c1a1bdcdbb56d63f6ddab0ca62",
+ "images": 398,
+ "dialogues": 4061,
+ "turns": 12183,
+ "smoke_dialogue_ids": [
+  "mtgqa_000001",
+  "mtgqa_000012",
+  "mtgqa_000034",
+  "mtgqa_000038"
+ ],
+ "smoke_ids_equal_llava_next_hold": true,
+ "prior_manifest": "runs/mt_gqa_B_llava5_qwen3_20261001T093921Z/llava/manifest.json",
+ "prior_manifest_sha256": "a516d5f4edd71ed5f10816ccc0283f3c0e6cd6c8a653b9be29359a2fbae8a692",
+ "llava_next_hold_manifest_sha256": "9af7149f1177fbae397131c53393dcd91f9f354afb0c6464e994ba31971c281a",
+ "gate_fixture": [
+  {
+   "image_id": "n229548",
+   "dialog_id": "mtgqa_000001"
+  },
+  {
+   "image_id": "n181355",
+   "dialog_id": "mtgqa_000012"
+  },
+  {
+   "image_id": "n95369",
+   "dialog_id": "mtgqa_000034"
+  },
+  {
+   "image_id": "n204894",
+   "dialog_id": "mtgqa_000038"
+  },
+  {
+   "image_id": "n28572",
+   "dialog_id": "mtgqa_000050"
+  },
+  {
+   "image_id": "n28792",
+   "dialog_id": "mtgqa_000063"
+  },
+  {
+   "image_id": "n141939",
+   "dialog_id": "mtgqa_000066"
+  },
+  {
+   "image_id": "n528403",
+   "dialog_id": "mtgqa_000081"
+  },
+  {
+   "image_id": "n282436",
+   "dialog_id": "mtgqa_000086"
+  },
+  {
+   "image_id": "n130638",
+   "dialog_id": "mtgqa_000099"
+  }
+ ],
+ "gate_fixture_rule": "first 10 images of the manifest in dialogue order, first dialogue of each (correctness fixture, not a quality holdout)"
+}

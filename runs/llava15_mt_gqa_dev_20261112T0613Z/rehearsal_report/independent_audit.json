@@ -1,0 +1,51 @@
+{
+ "main": {
+  "phase": "smoke",
+  "images": 4,
+  "requests": 60,
+  "failures": [],
+  "per_image_status": {
+   "n181355": "PASS",
+   "n204894": "PASS",
+   "n229548": "PASS",
+   "n95369": "PASS"
+  },
+  "checks": 6208,
+  "expected_requests": 60,
+  "expected_images": 4,
+  "failed_attempt_records": [],
+  "requests_per_arm": {
+   "recompute": 12,
+   "llava15_kv_U100_packed": 12,
+   "llava15_kv_U50_packed": 12,
+   "llava15_kv_U25_packed": 12,
+   "llava15_kv_PYR-b20_packed": 12
+  },
+  "status": "PASS"
+ },
+ "smoke": {
+  "phase": "smoke",
+  "images": 4,
+  "requests": 60,
+  "failures": [],
+  "per_image_status": {
+   "n181355": "PASS",
+   "n204894": "PASS",
+   "n229548": "PASS",
+   "n95369": "PASS"
+  },
+  "checks": 6208,
+  "expected_requests": 60,
+  "expected_images": 4,
+  "failed_attempt_records": [],
+  "requests_per_arm": {
+   "recompute": 12,
+   "llava15_kv_U100_packed": 12,
+   "llava15_kv_U50_packed": 12,
+   "llava15_kv_U25_packed": 12,
+   "llava15_kv_PYR-b20_packed": 12
+  },
+  "status": "PASS"
+ },
+ "auditor": "scripts/179 audit_image_rows re-run from the committed raw rows and evidence of every image (prompt / history lineage, EM, rotation, k_l by library and by an independent integer Hamilton, bytes, single preadv, selection nesting, vision / scoring calls)"
+}
