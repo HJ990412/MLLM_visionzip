@@ -1143,3 +1143,71 @@ Qwen·GLM·LLaVA-1.5·MT-GQA와 baseline arm들은 이번에 재실행하지 않
 [재현 절차](results/llava_next_mtvqa_pyr_20261114T182331Z/REPRODUCE.md)를 참조한다.
 실험 코드·결과표·검증 receipt·freeze와 소표본 분석 수정 이력을 함께 보존하며,
 대용량 raw·KV·모델·전체 데이터 manifest·프롬프트 파일은 제외한다.
+
+## 36. IMPRESS 중요도 지표 × fallback V 읽기 파일럿 (2026-11-16)
+
+IMPRESS 이식 경로에 `importance_metric=h2o`(전체 suffix query 행의 attention 열 합)와
+`fallback_v=selected`(head별 선택의 합집합을 덮는 V chunk만 읽기)를 추가했다.
+기본값은 기존 `sparsevlm`·`full`이다. H2O는 rater 선택과 `v_hidden.pt`를 사용하지 않으며,
+store 재배치와 온라인 선택의 중요도 지표 일치도 검사한다.
+
+GQA 40장/240문항, ratio=0.25, α=0.6, probe heads=3에서 지표별 store를 사용했다.
+각 지표 실행에 ReComp·FullLoad·full·selected를 함께 측정했고,
+별도 SparseVLM gate는 기존 `eval_b25.json`의 240문항 답·읽기량·fallback을 재현했다.
+아래 TTFT는 각 지표의 별도 실행에서 얻은 값이다.
+
+| 중요도 | Fallback V | 정확도 | TTFT 평균 | SSD MB/요청 | 같은 실행 FullLoad 대비 읽기량 | Fallback 비율 |
+|---|---|---:|---:|---:|---:|---:|
+| SparseVLM | full | 60.00% | 841.5 ms | 928.1 | 79.66% | 15.8% |
+| SparseVLM | selected | 60.00% | 851.5 ms | 927.5 | 79.61% | 15.8% |
+| H2O | full | 61.25% | 773.3 ms | 1010.4 | 86.72% | 33.3% |
+| H2O | selected | 61.25% | 784.2 ms | 1009.8 | 86.68% | 33.3% |
+
+같은 지표의 full/selected는 각각 240/240문항의 생성 token이 일치했다.
+V 읽기 절감은 요청당 SparseVLM 0.63 MB, H2O 0.54 MB에 그쳤다.
+별도 30요청 진단에서 fallback의 head별 토큰 합집합이 V chunk의 약 99%를 덮었기 때문이다.
+head·token 단위로 정확히 읽는 가상 하한은 실측 SSD 바이트에 포함하지 않는다.
+Selected는 full 다음에 고정 측정돼 지연 차이와 순서 효과가 분리되지 않는다.
+H2O와 SparseVLM의 정답 차이는 3문항이며, 이 파일럿으로 지표 간 정확도 우위를 주장하지 않는다.
+실행 간 절대 TTFT도 직접 비교하지 않는다.
+
+[전체 결과·한계](results/impress_fidelity_20261116T052410Z/report.md),
+[요약·재현 gate](results/impress_fidelity_20261116T052410Z/summary.json),
+[SparseVLM 결과표](results/impress_fidelity_20261116T052410Z/sparsevlm/summary.csv),
+[H2O 결과표](results/impress_fidelity_20261116T052410Z/h2o/summary.csv)를 참조한다.
+변경 전 기본 옵션과의 GPU 동등성 검사 로그·store 재배치 절차·요청별 결과도 함께 보존한다.
+
+## 37. IMPRESS 다음 layer probe key 선행 로딩 (2026-11-16)
+
+`prefetch=next_layer`는 layer i의 hook이 끝나면 단일 CPU worker로 layer i+1의
+probe key를 읽어 현재 layer 연산과 겹친다. 선택된 K/V chunk와 fallback K 읽기는 동기다.
+기본값 `none`과 FullLoad는 기존 동기 경로를 사용한다. Worker 시작은 요청 타이머 전이며
+실제 읽기는 타이머 안에서 수행한다. 실패·조기 종료 시 진행 중인 읽기를 정리한다.
+
+H2O 재배치 store, `importance_metric=h2o`, `fallback_v=selected`로
+GQA 40장/240문항을 측정했다. 두 IMPRESS arm의 측정 순서는 요청마다 번갈아 바꿔
+동기 먼저/선행 로딩 먼저가 각 120건이다. 별도 2장/12문항 smoke는 아래 분모에서 제외한다.
+
+| Arm | 정확도 | TTFT 평균 | p50 | p95 | SSD MB/요청 |
+|---|---:|---:|---:|---:|---:|
+| ReComp | 62.50% | 508.3 ms | 510.2 ms | 595.5 ms | 0.0 |
+| FullLoad | 62.08% | 680.9 ms | 679.5 ms | 807.1 ms | 1165.1 |
+| IMPRESS 동기 | 61.25% | 781.9 ms | 796.8 ms | 895.0 ms | 1009.8 |
+| IMPRESS 선행 로딩 | 61.25% | 731.4 ms | 740.0 ms | 850.0 ms | 1009.8 |
+
+두 IMPRESS arm은 240/240문항의 생성 token·답·읽기 바이트·pread 횟수·fallback 비율이
+같고, 동기 arm도 이전 H2O selected 결과를 요청 단위로 재현했다.
+선행 로딩−동기의 paired TTFT는 평균 −50.45 ms(요청 단위 Student t 95% CI
+−62.65~−38.26)로 약 6.5% 감소했다. 이는 40개 이미지에 속한 요청 단위 구간이며
+이미지 cluster bootstrap이나 반복 실행의 변동을 추정한 구간은 아니다.
+선행 읽기 31개 중 평균 30.78개가 사용 시점에 완료됐고, 대기는 요청당 0.28 ms였다.
+그래도 같은 실행의 FullLoad보다 1.074×, ReComp보다 1.439× 느리다.
+읽기와 연산이 겹치므로 hook 시간과 디스크 시간을 더해 TTFT로 해석하지 않는다.
+
+[전체 결과·실행 명령](results/impress_prefetch_20261116T064612Z/report.md),
+[요약·동등성·paired 분석](results/impress_prefetch_20261116T064612Z/summary.json),
+[본실험 표](results/impress_prefetch_20261116T064612Z/main/summary.csv),
+[요청별 기록](results/impress_prefetch_20261116T064612Z/main/results.jsonl)을 참조한다.
+두 파일럿의 실행 코드·기존 구현 백업·검증 로그·결과를 포함하며 약 49.7 GB의 H2O KV store는
+로컬에 보존한다. MT-GQA 재실행·다른 비율·warm cache·반복 실행은 이번에 측정하지 않았다.
+Cold 설정의 page-cache drop 요청은 cold NAND를 보장하지 않는다.

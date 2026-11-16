@@ -1,17 +1,37 @@
-"""SparseVLM visual-token importance -- the replacement for IMPRESS's H2O metric.
+"""Visual-token importance for the image-prefix IMPRESS port.
 
-IMPRESS (FAST'25, 4.1) scores a prefix token by the column sum of the
-post-softmax attention matrix (H2O).  For a text prefix every column is a word,
-so summing over all query rows is sensible.  For an image prefix that metric is
-wrong in two ways: (1) most query rows are *other visual tokens*, so the score
-is dominated by intra-image attention that says nothing about the question, and
-(2) it has no notion of which text tokens actually interrogate the image.
+Two metrics are implemented and selected with ``importance_metric``:
 
-SparseVLM fixes exactly that.  Two steps, both ported here:
+  "h2o"        IMPRESS (FAST'25, 4.1) as published: the column sum of the
+               post-softmax attention matrix (H2O).
+  "sparsevlm"  SparseVLM's text-guided score (the historical default of this
+               repository): the same attention columns, restricted to a
+               subset of the query rows ("raters") and averaged.
 
-  1. Rater selection.  Not every text token is a useful judge of visual
-     relevance ("the", "?" are not).  SparseVLM picks *raters*: with v_t the
-     visual hidden states and t_t the text hidden states,
+What actually separates the two on the serving path.  The image is a REUSED
+prefix: a request only runs the suffix (the tokens after the image) through
+the model, so the only query rows that exist are suffix rows.  There are no
+visual-token query rows, hence no visual-to-visual attention in either score.
+(An earlier version of this comment justified replacing H2O by saying it is
+"dominated by intra-image attention"; that describes a full-sequence forward
+and does not hold for prefix reuse.)  With the softmax taken over the same
+keys -- system + visual + causally visible suffix -- the two metrics differ
+ONLY in which suffix rows are aggregated:
+
+  h2o        every suffix row, summed;
+  sparsevlm  only the rater rows, averaged.  Raters are the suffix tokens that
+             SparseVLM considers useful judges of visual relevance ("the", "?"
+             are not), and picking them needs the stored visual hidden states
+             (``v_hidden.pt``) plus one extra matmul per request.
+
+Sum versus mean over a fixed row set does not change a ranking, so the row
+set is the whole difference.  Whether rater filtering helps accuracy is an
+empirical question; it is not something H2O gets structurally wrong here.
+
+SparseVLM, as ported:
+
+  1. Rater selection.  With v_t the visual hidden states and t_t the text
+     hidden states,
 
          m_v_t = softmax(v_t @ t_t^T, dim=text).mean(dim=visual)     -> (t,)
          raters = { text tokens : m_v_t > mean(m_v_t) }
@@ -37,6 +57,17 @@ from __future__ import annotations
 import math
 
 import torch
+
+IMPORTANCE_METRICS = ("sparsevlm", "h2o")
+DEFAULT_IMPORTANCE_METRIC = "sparsevlm"
+
+
+def validate_importance_metric(metric: str) -> str:
+    if metric not in IMPORTANCE_METRICS:
+        raise ValueError(
+            f"importance_metric must be one of {IMPORTANCE_METRICS}, "
+            f"got {metric!r}")
+    return metric
 
 
 # ------------------------------------------------------------ 1. raters
@@ -111,6 +142,53 @@ def rater_visual_scores_from_qk(q, k, rater_rows, v_start, v_num,
             j <= row, logits[:, :, causal_from:], float("-inf"))
     p = logits.float().softmax(dim=-1)
     s = p[:, :, v_start:v_start + v_num].mean(dim=1)
+    return s.mean(dim=0) if head_reduce == "mean" else s
+
+
+# ------------------------------------------------- 2b. H2O (IMPRESS 4.1)
+def h2o_visual_scores(attn: torch.Tensor, v_start: int, v_num: int,
+                      head_reduce: str = "none"):
+    """H2O importance from an explicit attention matrix.
+
+    attn: post-softmax weights, (H, q, k) or (1, H, q, k).  EVERY query row is
+    used: the score of a visual token is the sum of its column.  Returns
+    (H, v_num), or (v_num,) with head_reduce="mean".
+    """
+    if attn.dim() == 4:
+        assert attn.shape[0] == 1, "batch 1 only"
+        attn = attn[0]
+    assert attn.dim() == 3, tuple(attn.shape)
+    s = attn.float()[:, :, v_start:v_start + v_num].sum(dim=1)    # (H, v_num)
+    return s.mean(dim=0) if head_reduce == "mean" else s
+
+
+def h2o_visual_scores_from_qk(q, k, v_start, v_num, head_reduce="none",
+                              causal_from=None):
+    """H2O (IMPRESS 4.1) column sums for a prefix-reuse prefill.
+
+    q: (H, n, hd) rotated queries of the n suffix tokens -- all of them are
+    query rows.  k: (H, s, hd) rotated keys the attention would see, i.e.
+    system + visual + suffix.  causal_from: index in the key axis where the
+    suffix keys begin; suffix row i may attend to suffix keys 0..i only, and
+    to every prefix key.  The softmax denominator is therefore exactly the one
+    the model uses, and the same one ``rater_visual_scores_from_qk`` uses.
+
+    Returns (H, v_num): per head, the post-softmax attention each visual token
+    receives, summed over the suffix rows.
+    """
+    n = q.shape[1]
+    logits = (q @ k.transpose(1, 2)) * (q.shape[-1] ** -0.5)        # (H,n,s)
+    if causal_from is not None:
+        n_new = k.shape[1] - causal_from
+        assert n_new == n, (
+            "H2O uses every suffix token as a query row, so the suffix keys "
+            f"must be those rows' keys: {n_new} suffix keys vs {n} rows")
+        j = torch.arange(n_new, device=k.device).view(1, 1, -1)
+        row = torch.arange(n, device=k.device).view(1, -1, 1)
+        logits[:, :, causal_from:] = torch.where(
+            j <= row, logits[:, :, causal_from:], float("-inf"))
+    p = logits.float().softmax(dim=-1)
+    s = p[:, :, v_start:v_start + v_num].sum(dim=1)
     return s.mean(dim=0) if head_reduce == "mean" else s
 
 

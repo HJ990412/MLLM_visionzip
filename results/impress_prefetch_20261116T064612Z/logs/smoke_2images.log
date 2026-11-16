@@ -1,0 +1,18 @@
+workload: images=2 questions=12
+questions_per_image: min=6 max=6 mean=6.000
+index_sha256=514d1203d248b6f450f5e3bdacda7b931038f9c11df270b415a2e98e5c77e75a
+workload_sha256=68de338b3dffc2ba18c8f1231e32f9000e2c687948767fc1da587b78f17caa17
+importance_metric=h2o fallback_v=selected store_importance_metric=['h2o']
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files: 100%|██████████| 3/3 [00:00<00:00, 2686.93it/s]
+Loading weights:   0%|          | 0/687 [00:00<?, ?it/s]Loading weights:   0%|          | 3/687 [00:00<00:25, 27.31it/s]Loading weights:   2%|▏         | 11/687 [00:00<00:12, 54.86it/s]Loading weights:   3%|▎         | 20/687 [00:00<00:09, 68.27it/s]Loading weights:   5%|▍         | 32/687 [00:00<00:07, 86.12it/s]Loading weights:   6%|▋         | 43/687 [00:00<00:07, 91.92it/s]Loading weights:   9%|▊         | 59/687 [00:00<00:05, 108.91it/s]Loading weights:  10%|█         | 70/687 [00:00<00:05, 107.15it/s]Loading weights:  13%|█▎        | 86/687 [00:00<00:05, 118.13it/s]Loading weights:  14%|█▍        | 98/687 [00:00<00:05, 113.36it/s]Loading weights:  16%|█▋        | 113/687 [00:01<00:04, 118.96it/s]Loading weights:  18%|█▊        | 125/687 [00:01<00:04, 117.16it/s]Loading weights:  20%|██        | 140/687 [00:01<00:04, 121.26it/s]Loading weights:  22%|██▏       | 153/687 [00:01<00:04, 119.14it/s]Loading weights:  24%|██▍       | 167/687 [00:01<00:04, 122.16it/s]Loading weights:  26%|██▌       | 180/687 [00:01<00:04, 119.99it/s]Loading weights:  28%|██▊       | 194/687 [00:01<00:04, 122.82it/s]Loading weights:  30%|███       | 207/687 [00:01<00:03, 120.44it/s]Loading weights:  32%|███▏      | 221/687 [00:01<00:03, 123.30it/s]Loading weights:  34%|███▍      | 234/687 [00:02<00:03, 120.82it/s]Loading weights:  36%|███▌      | 248/687 [00:02<00:03, 123.49it/s]Loading weights:  38%|███▊      | 261/687 [00:02<00:03, 120.86it/s]Loading weights:  40%|████      | 275/687 [00:02<00:03, 122.98it/s]Loading weights:  42%|████▏     | 288/687 [00:02<00:03, 120.53it/s]Loading weights:  77%|███████▋  | 529/687 [00:02<00:00, 755.94it/s]Loading weights: 100%|██████████| 687/687 [00:02<00:00, 255.06it/s]
+[1/2] n355567 n=6 fullload=0.333  recompute=0.500  impress_s=0.333  impress_p=0.333  (18s)
+[2/2] n9181 n=12 fullload=0.417  recompute=0.500  impress_s=0.417  impress_p=0.417  (36s)
+
+=== budgets [0.25]  (n=12, cold) ===
+method                      acc     TTFT     p50      p95  sel ms   diskMB  diskms  chunkf     kv     fb
+fullload                  41.7%    670.4   671.1    766.9   614.3   1178.6   413.4   1.000  1.000  0.000
+recompute                 50.0%    544.7   522.3    687.8              0.0     0.0                      
+impress_sync              41.7%    783.7   794.1    878.5   713.2    993.3   416.3   0.789  0.246  0.292
+impress_prefetch          41.7%    709.5   705.3    823.2   639.1    993.3   400.1   0.789  0.246  0.292
+
+wrote results/impress_prefetch_20261116T064612Z/smoke_2images/results.json

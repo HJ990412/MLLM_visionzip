@@ -1,0 +1,16 @@
+[sparsevlm] selected - full TTFT paired: mean +10.04 ms (95% CI +1.80..+18.28), selected slower in 133/240
+[sparsevlm] V bytes saved by selected: mean 0.628 MB/request, requests with any saving 174/240, max 3.28 MB
+[sparsevlm] full TTFT / same-run FullLoad TTFT: 1.079x ; selected: 1.092x ; paired full - FullLoad mean +61.8 ms
+   sparsevlm: acc_n_correct=144 disk_ms=502.7 preads=141.8 n_raters=11.9 prefill_ms=834.8 | HYPOTHETICAL ratio if fallback V were token-exact (not measured): 73.9%
+   sparsevlm_fallback_v_selected: acc_n_correct=144 disk_ms=504.1 preads=141.9 n_raters=11.9 prefill_ms=844.7 | HYPOTHETICAL ratio if fallback V were token-exact (not measured): 73.9%
+   sanity: {'expected_csv_rows': 960, 'actual_csv_rows': 960, 'duplicate_method_image_question_rows': 0, 'all_required_times_finite_nonnegative': True, 'generated_token_cap_respected': True}
+   summary: {'importance_metric': 'sparsevlm', 'fallback_v': 'full', 'store_importance_metric': ['sparsevlm'], 'store': 'kvstore', 'cold': True, 'n': 240}
+[h2o] selected - full TTFT paired: mean +10.95 ms (95% CI +0.46..+21.44), selected slower in 137/240
+[h2o] V bytes saved by selected: mean 0.535 MB/request, requests with any saving 178/240, max 2.59 MB
+[h2o] full TTFT / same-run FullLoad TTFT: 1.104x ; selected: 1.120x ; paired full - FullLoad mean +72.8 ms
+   sparsevlm: acc_n_correct=147 disk_ms=425.9 preads=135.1 n_raters=0.0 prefill_ms=768.3 | HYPOTHETICAL ratio if fallback V were token-exact (not measured): 74.7%
+   sparsevlm_fallback_v_selected: acc_n_correct=147 disk_ms=425.5 preads=135.1 n_raters=0.0 prefill_ms=779.2 | HYPOTHETICAL ratio if fallback V were token-exact (not measured): 74.7%
+   sanity: {'expected_csv_rows': 960, 'actual_csv_rows': 960, 'duplicate_method_image_question_rows': 0, 'all_required_times_finite_nonnegative': True, 'generated_token_cap_respected': True}
+   summary: {'importance_metric': 'h2o', 'fallback_v': 'full', 'store_importance_metric': ['h2o'], 'store': 'runs/impress_fidelity_20261116T052410Z/kvstore_h2o', 'cold': True, 'n': 240}
+accuracy h2o+full vs sparsevlm+full: 147 vs 144 correct of 240; h2o-only correct 4, sparsevlm-only correct 1
+fallback rate per request: sparsevlm mean 0.1579, h2o mean 0.3332; h2o higher in 234/240 requests

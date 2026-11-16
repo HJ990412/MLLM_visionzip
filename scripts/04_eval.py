@@ -32,12 +32,27 @@ from mmimpress.config import (ALPHA, DATA_DIR, PROBE_HEADS, PROJECT_ROOT,
 from mmimpress.dataset import (METRICS, gqa_accuracy, load_index,
                                question_answers)
 from mmimpress.model import LlavaRunner
-from mmimpress.serve import ImageContext, Server, load_static
+from mmimpress.serve import (FALLBACK_V_POLICIES, PREFETCH_POLICIES,
+                             ImageContext, Server, load_static)
+from mmimpress.sparsevlm import DEFAULT_IMPORTANCE_METRIC, IMPORTANCE_METRICS
 
-# selector -> (request kind, kwargs).  "impress" is the untouched SparseVLM
-# baseline; the cvpr25 ones are hook-free and chunk-first.
+# selector -> (request kind, kwargs).  "impress" is the IMPRESS port
+# (LayerSelector); the cvpr25 ones are hook-free and chunk-first.
+#
+# The "impress" selectors take their importance metric from
+# --importance-metric (default "sparsevlm" == the historical behaviour, hence
+# the historical selector name) and their fallback V policy from --fallback-v
+# (default "full").  "sparsevlm_fallback_v_selected" pins fallback_v="selected"
+# so both V policies can be measured inside one pass, on the same store, the
+# same requests and the same importance metric.
 SELECTORS = {
     "sparsevlm":              ("impress", {}),
+    "sparsevlm_fallback_v_selected": ("impress", dict(fallback_v="selected")),
+    # The same IMPRESS selector with the probe-key read policy pinned, so the
+    # synchronous and the prefetching variant can be measured inside one pass.
+    # Importance metric and fallback V policy come from the CLI for both.
+    "impress_sync":           ("impress", dict(prefetch="none")),
+    "impress_prefetch":       ("impress", dict(prefetch="next_layer")),
     # Importance-reorder-only control: first-k stored chunks, no scores.
     "reorder_prefix_chunk":   ("cvpr25", dict(mode="prefix")),
     # Explicit-layout aliases used by the isolated image-only repack study.
@@ -68,6 +83,32 @@ def main():
     ap.add_argument("--ratio", type=float, default=RETENTION_RATIO)
     ap.add_argument("--alpha", type=float, default=ALPHA)
     ap.add_argument("--probe", type=int, default=PROBE_HEADS)
+    ap.add_argument("--importance-metric", default=DEFAULT_IMPORTANCE_METRIC,
+                    choices=IMPORTANCE_METRICS,
+                    help="importance metric of the IMPRESS selectors: "
+                         "'sparsevlm' (rater rows, default) or 'h2o' "
+                         "(IMPRESS 4.1: all suffix rows, column sum; no "
+                         "raters, no v_hidden.pt)")
+    ap.add_argument("--fallback-v", default="full",
+                    choices=FALLBACK_V_POLICIES,
+                    help="what the 'sparsevlm' selector reads for V in a "
+                         "fallback layer: 'full' (default) or 'selected' "
+                         "(IMPRESS 4.3: chunks covering the union of the "
+                         "per-head selections)")
+    ap.add_argument("--prefetch", default="none", choices=PREFETCH_POLICIES,
+                    help="probe-key read policy of the IMPRESS selectors that "
+                         "do not pin one: 'none' (default, every read is "
+                         "synchronous) or 'next_layer' (IMPRESS Fig. 10(b): "
+                         "layer i+1's probe keys are read in the background "
+                         "while layer i is computed)")
+    ap.add_argument("--alternate-selector-order", action="store_true",
+                    help="reverse the order in which the selector arms are "
+                         "measured on every other request, so a position "
+                         "effect does not favour one arm; the order used is "
+                         "recorded per request")
+    ap.add_argument("--allow-importance-metric-mismatch", action="store_true",
+                    help="run even if the store was repacked with a different "
+                         "importance metric than --importance-metric")
     ap.add_argument("--warm", action="store_true",
                     help="do not drop the page cache between requests")
     ap.add_argument("--selectors", default="sparsevlm,visionzip_static_chunk,"
@@ -153,12 +194,44 @@ def main():
     print(f"index_sha256={index_sha256}")
     print(f"workload_sha256={workload_sha256}")
 
-    runner = LlavaRunner().load()
-    srv = Server(runner, ratio=args.ratio, probe=args.probe, alpha=args.alpha)
-
     sel_names = [x.strip() for x in args.selectors.split(",") if x.strip()]
     for n in sel_names:
         assert n in SELECTORS, f"unknown selector {n}"
+    has_impress = any(SELECTORS[n][0] == "impress" for n in sel_names)
+
+    # The metric a store was repacked with must be the metric it is served
+    # with, otherwise the order on disk and the online selection disagree and
+    # the read volume cannot be attributed to either.  Stores written before
+    # the option existed carry no field; a calibrated importance layout among
+    # them can only have been built with "sparsevlm".
+    store_metrics = {}
+    for e in index:
+        with open(store_dir / str(e["image_id"]) / "meta.json") as f:
+            sm = json.load(f)
+        store_metrics[str(e["image_id"])] = _store_importance_metric(sm)
+    store_metric_set = sorted({str(v) for v in store_metrics.values()})
+    print(f"importance_metric={args.importance_metric} "
+          f"fallback_v={args.fallback_v} "
+          f"store_importance_metric={store_metric_set}")
+    mismatched = sorted(k for k, v in store_metrics.items()
+                        if v is not None and v != args.importance_metric)
+    if has_impress and mismatched:
+        msg = (f"{len(mismatched)} store(s) were repacked with a different "
+               f"importance metric than --importance-metric "
+               f"{args.importance_metric!r} (e.g. {mismatched[0]}: "
+               f"{store_metrics[mismatched[0]]!r})")
+        if not args.allow_importance_metric_mismatch:
+            raise SystemExit(msg + "; pass --allow-importance-metric-mismatch "
+                             "to run anyway")
+        print("WARNING: " + msg)
+
+    runner = LlavaRunner().load()
+    srv = Server(runner, ratio=args.ratio, probe=args.probe, alpha=args.alpha,
+                 importance_metric=args.importance_metric,
+                 fallback_v=args.fallback_v, prefetch=args.prefetch)
+    # H2O never selects raters, so v_hidden.pt is not opened (and need not
+    # exist).  The default metric keeps the historical loading behaviour.
+    require_v_hidden = args.importance_metric != "h2o"
     budget = args.budget if args.budget is not None else args.ratio
     budgets = ([float(x) for x in args.budgets.split(",")]
                if args.budgets else [budget])
@@ -187,7 +260,8 @@ def main():
         d = store_dir / str(e["image_id"])
         if not (d / "meta.json").exists():
             continue
-        ctx = ImageContext(d, runner.model.device)
+        ctx = ImageContext(d, runner.model.device,
+                           require_v_hidden=require_v_hidden)
         img = Image.open(PROJECT_ROOT / e["image_path"]).convert("RGB")
         qs = e["questions"][args.skip:args.skip + args.questions]
         # The prefix baseline must not load or receive VisionZip scores.  A
@@ -206,10 +280,20 @@ def main():
             r = srv.request(ctx, q["question"], mode="fullload",
                             cold=not args.warm)
             rec["fullload"] = _pack(r, q, args.metric)
-            for name, kind, kw, b in plan:
+            # Position of every arm within this request (0 = measured first).
+            # The baselines always come first; the selector arms follow in
+            # plan order, reversed on odd requests when alternation is on.
+            n_baselines = 1 if args.no_recompute else 2
+            if not args.no_recompute:
+                rec["recompute"]["measure_index"] = 0
+            rec["fullload"]["measure_index"] = n_baselines - 1
+            request_plan = (plan[::-1] if args.alternate_selector_order
+                            and len(rows) % 2 == 1 else plan)
+            rec["selector_order"] = [name for name, _, _, _ in request_plan]
+            for position, (name, kind, kw, b) in enumerate(request_plan):
                 if kind == "impress":
                     r = srv.request(ctx, q["question"], mode="impress",
-                                    cold=not args.warm)
+                                    cold=not args.warm, **kw)
                 else:
                     request_static = (None if kw.get("mode") == "prefix"
                                       else static)
@@ -225,6 +309,7 @@ def main():
                             args.prefix_layout if kw.get("mode") == "prefix"
                             else None), **kw)
                 rec[name] = _pack(r, q, args.metric)
+                rec[name]["measure_index"] = n_baselines + position
             rows.append(rec)
         ctx.close()
         del ctx
@@ -264,6 +349,16 @@ def main():
          "budgets": budgets, "metric": args.metric,
          "skip": args.skip, "questions_per_image_requested": args.questions,
          "alpha": args.alpha, "probe_heads": args.probe,
+         # IMPRESS-selector options.  importance_metric applies to every
+         # "impress" selector of this run; fallback_v is the default that
+         # "sparsevlm" uses (per-method values are under per_method).
+         "importance_metric": args.importance_metric,
+         "fallback_v": args.fallback_v,
+         "prefetch": args.prefetch,
+         "alternate_selector_order": bool(args.alternate_selector_order),
+         "store_importance_metric": store_metric_set,
+         "store_importance_metric_mismatch_images": mismatched,
+         "store": str(store_dir),
          "lam_static": args.lam_static, "lam_query": args.lam_query,
          "diverse_frac": args.diverse_frac,
          "prefix_layout": args.prefix_layout,
@@ -315,10 +410,26 @@ def main():
                   "separator_mean_bytes_per_pread",
                   "normal_chunk_count_total",
                   "static_score_calls", "query_score_calls",
-                  "diversity_calls"):
+                  "diversity_calls",
+                  # IMPRESS-selector breakdown (absent for other methods)
+                  "mean_jaccard", "probe_rate", "n_raters", "n_score_rows",
+                  "probe_read_bytes", "k_read_bytes", "v_read_bytes",
+                  "touched_k_chunk_fraction", "touched_v_chunk_fraction",
+                  "fallback_layers", "fallback_k_chunks", "fallback_v_chunks",
+                  "fallback_v_read_bytes", "fallback_v_token_exact_bytes",
+                  # probe-key acquisition; reads may overlap computation, so
+                  # these, hook_ms and disk_ms do not add up to TTFT
+                  "probe_read_ms", "probe_pread_ms", "prefetch_wait_ms",
+                  "probe_hook_blocked_ms", "prefetched_probe_reads",
+                  "prefetch_ready_on_arrival", "measure_index"):
             v = agg(m, k, None)
             if v is not None:
                 d[k] = v
+        for k in ("importance_metric", "fallback_v", "prefetch"):
+            vals = sorted({str(r[m][k]) for r in rows
+                           if m in r and r[m].get(k) is not None})
+            if vals:
+                d[k] = vals[0] if len(vals) == 1 else vals
         for k in ("selector_ms", "scatter_ms", "disk_ms"):
             vals = [r[m][k] for r in rows if m in r and r[m].get(k) is not None]
             if vals:
@@ -326,8 +437,8 @@ def main():
                 d[k + "_p95"] = float(np.percentile(vals, 95))
         d["acc_delta_vs_fullload_pp"] = (d["acc"] - agg("fullload", "acc")) * 100
         base = m.split("@")[0]
-        if m in ("fullload",) or SELECTORS.get(base, ("", {}))[0] == "cvpr25" \
-                or m == "sparsevlm":
+        if m in ("fullload",) or SELECTORS.get(base, ("", {}))[0] in (
+                "cvpr25", "impress"):
             fl = agg("fullload", "disk_mb", None)
             if fl and d.get("disk_mb"):
                 d["bytes_vs_fullload"] = d["disk_mb"] / fl
@@ -459,6 +570,14 @@ def _pack(r, q, metric="gqa"):
          "mean_jaccard": r.get("mean_jaccard"),
          "hook_ms": r.get("hook_ms"),
          "prefill_ms": r.get("prefill_ms")}
+    # Every token decision, so two arms can be compared for exact equality.
+    if r.get("generated_token_ids") is not None:
+        d["generated_token_ids"] = [int(t) for t in r["generated_token_ids"]]
+    # Measured pread traffic by kind; zero when a method reads no such kind.
+    if io:
+        d["probe_read_bytes"] = int(per_kind.get("probe", {}).get("bytes", 0))
+        d["k_read_bytes"] = int(per_kind.get("k", {}).get("bytes", 0))
+        d["v_read_bytes"] = int(per_kind.get("v", {}).get("bytes", 0))
     for k in ("selector_ms", "select_ms", "query_ms", "chunk_io_ms",
               "scatter_ms", "model_ms", "prepare_ms", "prefill_ms",
               "touched_chunk_fraction", "logical_kv_ratio",
@@ -470,10 +589,38 @@ def _pack(r, q, metric="gqa"):
               "query_score_calls", "diversity_calls", "selection_mode",
               "selected_chunk_ids_per_layer", "separator_policy",
               "reordered_prefix_store_validated", "validated_prefix_layout",
-              "n_raters"):
+              "n_raters",
+              # IMPRESS-selector options and breakdown.
+              # fallback_v_token_exact_bytes is a HYPOTHETICAL lower bound
+              # that was never read; fallback_v_read_bytes is measured.
+              "importance_metric", "fallback_v", "n_score_rows", "probe_rate",
+              "touched_k_chunk_fraction", "touched_v_chunk_fraction",
+              "fallback_layers", "fallback_k_chunks", "fallback_v_chunks",
+              "fallback_v_read_bytes", "fallback_v_token_exact_bytes",
+              # probe-key read policy and timing
+              "prefetch", "probe_read_ms", "probe_pread_ms",
+              "prefetch_wait_ms", "probe_hook_blocked_ms",
+              "prefetched_probe_reads", "prefetch_ready_on_arrival"):
         if k in r:
             d[k] = r[k]
     return d
+
+
+def _store_importance_metric(meta):
+    """Importance metric a store's physical order was calibrated with.
+
+    None means "no calibrated importance order" (raster, Morton, VisionZip).
+    Stores written before the option existed have no field; if such a store
+    carries the calibrated per-layer importance layout it was necessarily
+    built with the only metric that existed then.
+    """
+    if meta.get("importance_metric") is not None:
+        return meta["importance_metric"]
+    layout = meta.get("layout_method", meta.get("physical_layout"))
+    if (meta.get("reordered") and meta.get("order_is_per_layer")
+            and layout in (None, "importance", "calib_importance_sep_tail")):
+        return DEFAULT_IMPORTANCE_METRIC
+    return None
 
 
 def _display_method(key):
@@ -483,6 +630,12 @@ def _display_method(key):
         return "FullLoad"
     if key == "sparsevlm":
         return "SparseVLM"
+    if key == "sparsevlm_fallback_v_selected":
+        return "SparseVLM (fallback V selected)"
+    if key == "impress_sync":
+        return "IMPRESS (동기)"
+    if key == "impress_prefetch":
+        return "IMPRESS (선행 로딩)"
     if key.startswith("reorder_prefix_chunk"):
         return "Reorder+Prefix"
     if key.startswith("visionzip_repack_prefix"):
@@ -496,6 +649,8 @@ def _display_method(key):
 
 def _method_order(keys):
     preferred = ["recompute", "fullload", "sparsevlm",
+                 "sparsevlm_fallback_v_selected",
+                 "impress_sync", "impress_prefetch",
                  "reorder_prefix_chunk@25",
                  "layout_prefix_chunk@25", "visionzip_repack_prefix@25",
                  "visionzip_static_chunk@25", "diverse_chunk@25",

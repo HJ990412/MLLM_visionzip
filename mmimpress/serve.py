@@ -5,11 +5,20 @@ Per request the flow is IMPRESS's 4.1 dataflow with an image as the prefix:
   1. the image id selects the stored prefix (image prefixes are either fully
      shared or not shared at all, so IMPRESS's radix tree degenerates to a
      lookup -- there is no R/NR split to compute);
-  2. SparseVLM raters are chosen once, from the stored visual hidden states and
-     the question's token embeddings (no vision tower on the critical path);
+  2. with importance_metric="sparsevlm" (default), SparseVLM raters are chosen
+     once, from the stored visual hidden states and the question's token
+     embeddings (no vision tower on the critical path); with "h2o" (IMPRESS
+     4.1 as published) every suffix token is a query row and this step, and
+     v_hidden.pt, are not needed at all;
   3. per layer: read ONLY the probe heads' keys, score, Jaccard-vs-threshold,
      then either load the consensus tokens' chunks for every head, or fall back
-     to loading the layer in full and selecting per head;
+     to reading every head's keys and selecting per head -- after which the
+     values are read in full (fallback_v="full", default) or only for the
+     chunks covering the union of the per-head selections (fallback_v=
+     "selected", IMPRESS 4.3).  With prefetch="next_layer" (IMPRESS Figure
+     10(b)) the NEXT layer's probe keys are read by a background worker while
+     the model computes the current layer; every other read stays synchronous
+     inside the hook (prefetch="none", default: all reads are synchronous);
   4. loaded rows are scattered into a GPU prefix cache and everything not
      loaded is masked out, so the attention the model runs is exactly the
      attention the loaded bytes support;
@@ -33,6 +42,10 @@ from mmimpress import reorder as ro
 from mmimpress import sparsevlm as sv
 from mmimpress.config import ALPHA, PROBE_HEADS, RETENTION_RATIO
 from mmimpress.store import ChunkReader, IOCounter, chunks_for_tokens, load_meta
+
+FALLBACK_V_POLICIES = ("full", "selected")
+PREFETCH_POLICIES = ("none", "next_layer")
+_STORE_ITEMSIZE = {"float16": 2, "float32": 4}
 
 # ------------------------------------------------- per-layer additive bias
 _ORIG_EAGER = ml.eager_attention_forward
@@ -295,11 +308,45 @@ def bias_from_keep(keep, meta, device, dtype=torch.bfloat16):
 
 
 class LayerSelector:
-    """Forward pre-hooks that do the per-layer identify-then-load step."""
+    """Forward pre-hooks that do the per-layer identify-then-load step.
+
+    importance_metric
+        "sparsevlm" (default): rater rows only, averaged; needs ``rater_rows``.
+        "h2o": IMPRESS 4.1 -- every suffix row, column sum; ``rater_rows`` is
+        ignored and may be empty.
+    fallback_v
+        What a below-threshold layer reads AFTER all heads' keys were read and
+        the per-head token sets were chosen:
+        "full" (default): the whole V block, as before.
+        "selected": IMPRESS 4.3 -- only the V chunks covering the tokens that
+        at least one head selected, plus the separators.  The store is
+        token-major (one row = all heads of one token), so the unit is a
+        chunk shared by all heads, not a (head, token) pair.  Per-head keep
+        masks are identical under both policies; V rows that were not read
+        stay zero and are masked for every head.
+    prefetch
+        "none" (default): every read is a blocking pread inside the hook.
+        "next_layer": IMPRESS Figure 10(b).  Layer 0's probe keys are read in
+        the hook as before.  When the hook of layer i ends, the probe-key read
+        of layer i+1 is handed to ONE background worker, so it overlaps with
+        the model computing layer i; the hook of layer i+1 waits for that
+        result and uses it.  The worker only reads the disk and converts the
+        buffer -- device transfer, scoring and cache writes stay on the main
+        thread -- and the selected K/V chunk reads and the fallback full-K
+        read stay synchronous.  Nothing is queued after the last layer or
+        during decoding.  Selection, bytes and pread counts are identical to
+        "none"; only when the probe bytes are read changes.  Ignored by
+        mode="fullload".
+    prefetch_executor
+        Single-worker ``concurrent.futures`` executor to use.  Pass one to
+        keep thread start-up outside a timed region; otherwise the selector
+        creates its own on ``__enter__`` and shuts it down on ``__exit__``.
+    """
 
     def __init__(self, runner, ctx, rater_rows, ratio=RETENTION_RATIO,
                  probe=PROBE_HEADS, alpha=ALPHA, mode="impress",
-                 counter=None):
+                 counter=None, importance_metric=sv.DEFAULT_IMPORTANCE_METRIC,
+                 fallback_v="full", prefetch="none", prefetch_executor=None):
         self.runner = runner
         self.ctx = ctx
         self.rater_rows = rater_rows          # suffix-relative
@@ -307,6 +354,25 @@ class LayerSelector:
         self.probe = probe
         self.alpha = alpha
         self.mode = mode
+        self.importance_metric = sv.validate_importance_metric(
+            importance_metric)
+        if fallback_v not in FALLBACK_V_POLICIES:
+            raise ValueError(f"fallback_v must be one of {FALLBACK_V_POLICIES}, "
+                             f"got {fallback_v!r}")
+        self.fallback_v = fallback_v
+        if prefetch not in PREFETCH_POLICIES:
+            raise ValueError(f"prefetch must be one of {PREFETCH_POLICIES}, "
+                             f"got {prefetch!r}")
+        self.prefetch = prefetch
+        self._prefetch_on = prefetch == "next_layer" and mode != "fullload"
+        self._executor = prefetch_executor
+        self._owns_executor = False
+        self._pending = None                  # (layer, Future) or None
+        # Probe-key acquisition, one record per layer: where the bytes were
+        # read ("hook" or "prefetch"), how long the read took and how long the
+        # hook was blocked getting them.  Kept apart from self.log so the log
+        # is identical with and without prefetching.
+        self.probe_log = []
         self.io = counter if counter is not None else IOCounter()
         self.log = []
         self.done = set()
@@ -330,6 +396,11 @@ class LayerSelector:
         return self._nl[layer] if self._nl_per_layer else self._nl
 
     def __enter__(self):
+        if self._prefetch_on and self._executor is None:
+            from concurrent.futures import ThreadPoolExecutor
+            self._executor = ThreadPoolExecutor(
+                max_workers=1, thread_name_prefix="impress-prefetch")
+            self._owns_executor = True
         for li, layer in enumerate(self.runner.layers):
             self._handles.append(layer.register_forward_pre_hook(
                 self._hook(li, layer), with_kwargs=True))
@@ -338,6 +409,75 @@ class LayerSelector:
     def __exit__(self, *exc):
         for h in self._handles:
             h.remove()
+        # A read may still be queued or running if the forward stopped early
+        # (an exception between two hooks).  Leave nothing in flight; the
+        # exception that is propagating, if any, is not replaced.
+        self._discard_pending()
+        if self._owns_executor:
+            self._executor.shutdown(wait=True)
+            self._executor = None
+            self._owns_executor = False
+
+    # ----------------------------------------------------------- prefetch
+    def _prefetch_read(self, li):
+        """Worker body: disk read + buffer conversion, nothing else.
+
+        Accounting goes to a private counter that the main thread folds into
+        ``self.io`` when it consumes the result, so the shared counter is only
+        ever touched by one thread.
+        """
+        counter = IOCounter()
+        t0 = time.perf_counter()
+        block = self.ctx.reader.read_probe(li, counter)
+        return block, counter, time.perf_counter() - t0
+
+    def _submit_next(self, li):
+        """Queue layer li+1's probe-key read; called as hook li finishes."""
+        nxt = li + 1
+        if nxt >= self.ctx.meta["num_layers"] or nxt in self.done:
+            return                              # nothing after the last layer
+        self._pending = (nxt, self._executor.submit(self._prefetch_read, nxt))
+
+    def _discard_pending(self):
+        pending, self._pending = self._pending, None
+        if pending is not None:
+            future = pending[1]
+            if not future.cancel():
+                future.exception()              # wait; do not raise here
+
+    def _probe_keys(self, li):
+        """Probe-head keys of layer li as stored: (v_num, probe_heads, hd).
+
+        Uses the prefetched read when one was queued for this layer, waiting
+        for it if necessary; otherwise reads synchronously.  A worker
+        exception is re-raised here, i.e. inside the request.
+        """
+        t0 = time.perf_counter()
+        pending, self._pending = self._pending, None
+        if pending is not None and pending[0] != li:
+            future = pending[1]                 # not ours: never use it
+            if not future.cancel():
+                future.exception()
+            pending = None
+        if pending is not None:
+            future = pending[1]
+            ready = future.done()
+            block, counter, read_s = future.result()
+            blocked = time.perf_counter() - t0
+            for kind, d in counter.per_kind.items():
+                self.io.record(kind, d["bytes"], d["seconds"],
+                               preads=d["preads"], units=d["units"])
+            self.probe_log.append({"layer": li, "source": "prefetch",
+                                   "read_s": read_s, "blocked_s": blocked,
+                                   "wait_s": blocked,
+                                   "ready_on_arrival": bool(ready)})
+            return block
+        block = self.ctx.reader.read_probe(li, self.io)
+        blocked = time.perf_counter() - t0
+        self.probe_log.append({"layer": li, "source": "hook",
+                               "read_s": blocked, "blocked_s": blocked,
+                               "wait_s": 0.0, "ready_on_arrival": None})
+        return block
 
     # ------------------------------------------------------------ helpers
     def _keep_mask(self, layer, sel_stored, n_heads=None):
@@ -366,6 +506,25 @@ class LayerSelector:
             block = self.ctx.reader.read_full(li, kind, self.io)
             self.ctx.cache.write_full(li, kind, block)
 
+    def _load_layer_full_kind(self, li, kind):
+        block = self.ctx.reader.read_full(li, kind, self.io)
+        self.ctx.cache.write_full(li, kind, block)
+
+    def _v_bytes_read(self):
+        return int(self.io.per_kind.get("v", {}).get("bytes", 0))
+
+    def _scores(self, q, keys, v0, vn):
+        """Per-head visual importance (heads, vn) under the configured metric.
+
+        Both metrics softmax over the same keys: system + visual + the suffix
+        keys each query row may causally see.
+        """
+        if self.importance_metric == "h2o":
+            return sv.h2o_visual_scores_from_qk(
+                q, keys, v0, vn, causal_from=v0 + vn)
+        return sv.rater_visual_scores_from_qk(
+            q, keys, self.rater_rows, v0, vn, causal_from=v0 + vn)
+
     # --------------------------------------------------------------- hook
     def _hook(self, li, layer):
         def hook(module, args, kwargs):
@@ -378,6 +537,10 @@ class LayerSelector:
             t0 = time.perf_counter()
             self._run(li, layer, h, kwargs)
             self.done.add(li)
+            if self._prefetch_on:
+                # last act of the hook: the model is about to compute this
+                # layer, which is the window the next probe read overlaps
+                self._submit_next(li)
             self.hook_seconds += time.perf_counter() - t0
         return hook
 
@@ -388,10 +551,11 @@ class LayerSelector:
         v0, vn = m["v_token_start"], m["v_token_num"]
         n = h.shape[1]
 
+        nc = m["n_chunks_per_layer"]
         if self.mode == "fullload":
             self._load_layer_full(li)
             self.log.append({"layer": li, "mode": "full", "sim": None,
-                             "chunks": m["n_chunks_per_layer"]})
+                             "chunks": nc, "k_chunks": nc, "v_chunks": nc})
             return
 
         attn = layer.self_attn
@@ -406,11 +570,10 @@ class LayerSelector:
         sys_k = ctx.cache.k[li][0, :, :v0]                   # (H, v0, hd)
 
         # --- probe phase: only the probe heads' visual keys leave the disk ---
-        pk = ctx.reader.read_probe(li, self.io).to(dev, q.dtype) \
+        pk = self._probe_keys(li).to(dev, q.dtype) \
             .permute(1, 0, 2)[:P]                            # (P, v_num, hd)
         keys_p = torch.cat([sys_k[:P], pk, kn[:P]], dim=1)
-        sp = sv.rater_visual_scores_from_qk(
-            q[:P], keys_p, self.rater_rows, v0, vn, causal_from=v0 + vn)
+        sp = self._scores(q[:P], keys_p, v0, vn)
         sp[:, self.nl(li).to(dev)] = float("-inf")           # separators are free
         top = sp.topk(self.k_keep, dim=-1).indices
         masks = torch.zeros(P, vn, dtype=torch.bool, device=dev)
@@ -425,19 +588,49 @@ class LayerSelector:
                                    sel.tolist() + self.nl(li).tolist())
             keep = self._keep_mask(li, sel)
             self.log.append({"layer": li, "mode": "probe", "sim": sim,
-                             "chunks": len(cids)})
+                             "chunks": len(cids), "k_chunks": len(cids),
+                             "v_chunks": len(cids)})
         else:
-            # fallback (IMPRESS 4.3 step 6): all heads' keys, per-head choice
-            self._load_layer_full(li)
+            # fallback (IMPRESS 4.3 step 6): all heads' keys, per-head choice.
+            # The probe keys read above are read again as part of the full K
+            # block; that duplication is kept on purpose.
+            v_before = self._v_bytes_read()
+            if self.fallback_v == "full":
+                self._load_layer_full(li)                    # K then V, whole
+            else:
+                self._load_layer_full_kind(li, "k")          # K only, whole
             kv = ctx.cache.k[li][0, :, v0:]                  # stored order
             keys_a = torch.cat([sys_k, kv, kn], dim=1)
-            sa = sv.rater_visual_scores_from_qk(
-                q, keys_a, self.rater_rows, v0, vn, causal_from=v0 + vn)
+            sa = self._scores(q, keys_a, v0, vn)
             sa[:, self.nl(li).to(dev)] = float("-inf")
             top_h = sa.topk(self.k_keep, dim=-1).indices     # (H, k)
             keep = self._keep_mask(li, top_h, n_heads=H)
+            if self.fallback_v == "full":
+                v_chunks = nc
+                chunks = nc
+            else:
+                # IMPRESS 4.3 step (3): V only where some head needs it.  One
+                # stored row carries all heads, so read the chunks covering
+                # the union of the per-head selections (+ separators, which
+                # `keep` already contains for every head).
+                union = keep.any(dim=0).nonzero(as_tuple=True)[0]
+                v_cids = chunks_for_tokens(union.tolist(), vn,
+                                           m["chunk_size"])
+                rows, vals = ctx.reader.read_chunks(li, "v", v_cids, self.io)
+                ctx.cache.write(li, "v", rows, vals)
+                v_chunks = len(v_cids)
+                # mean of the K (whole layer) and V (union) chunk counts, so
+                # touched_chunk_fraction stays "share of K/V chunk units read"
+                chunks = (nc + v_chunks) / 2
+            # Reference only, never read: V bytes if the store could serve
+            # exactly the (head, token) pairs that `keep` marks.
+            token_exact = (int(keep.sum()) * hd
+                           * _STORE_ITEMSIZE[m.get("dtype", "float16")])
             self.log.append({"layer": li, "mode": "fallback", "sim": sim,
-                             "chunks": m["n_chunks_per_layer"]})
+                             "chunks": chunks, "k_chunks": nc,
+                             "v_chunks": v_chunks,
+                             "v_read_bytes": self._v_bytes_read() - v_before,
+                             "v_token_exact_bytes": token_exact})
 
         BIAS[li] = bias_from_keep(keep, m, dev)
 
@@ -449,6 +642,9 @@ class LayerSelector:
         nc = self.ctx.meta["n_chunks_per_layer"]
         ch = [r.get("chunks", nc) for r in self.log]
         is_full = self.mode == "fullload"
+        kch = [r.get("k_chunks", nc) for r in self.log]
+        vch = [r.get("v_chunks", nc) for r in self.log]
+        fb = [r for r in self.log if r["mode"] == "fallback"]
         return {"touched_chunk_fraction": (1.0 if is_full else
                                              float(np.mean(ch)) / nc),
                 "logical_kv_ratio": (1.0 if is_full else self.k_keep
@@ -457,7 +653,54 @@ class LayerSelector:
                 "probe_rate": modes.count("probe") / n,
                 "mean_jaccard": (sum(sims) / len(sims)) if sims else None,
                 "threshold": self.thr, "k_keep": self.k_keep,
-                "hook_ms": self.hook_seconds * 1e3}
+                "hook_ms": self.hook_seconds * 1e3,
+                # ---- additions; the keys above keep their historical meaning
+                # K and V chunk units actually read, per layer, as a share of
+                # the layer (the probe sidecar is accounted in bytes only).
+                "touched_k_chunk_fraction": (
+                    1.0 if is_full or not kch else float(np.mean(kch)) / nc),
+                "touched_v_chunk_fraction": (
+                    1.0 if is_full or not vch else float(np.mean(vch)) / nc),
+                "fallback_layers": len(fb),
+                "fallback_k_chunks": int(sum(r.get("k_chunks", nc)
+                                             for r in fb)),
+                "fallback_v_chunks": int(sum(r.get("v_chunks", nc)
+                                             for r in fb)),
+                # V bytes the fallback layers really read (pread-counted).
+                # None when a subclass logs fallback layers without it.
+                "fallback_v_read_bytes": (
+                    int(sum(r["v_read_bytes"] for r in fb))
+                    if all("v_read_bytes" in r for r in fb) else None),
+                # HYPOTHETICAL lower bound, never read from the SSD: V bytes
+                # if exactly the kept (head, token) pairs could be fetched.
+                "fallback_v_token_exact_bytes": (
+                    int(sum(r["v_token_exact_bytes"] for r in fb))
+                    if all("v_token_exact_bytes" in r for r in fb) else None),
+                "importance_metric": (None if is_full
+                                      else self.importance_metric),
+                "fallback_v": None if is_full else self.fallback_v,
+                # ---- probe-key acquisition (all 0 for FullLoad).  With
+                # prefetching, reads overlap the model's computation, so
+                # hook_ms, disk time and these do NOT add up to TTFT.
+                "prefetch": None if is_full else self.prefetch,
+                # wall time of the probe-key reads (pread + buffer
+                # conversion), on whichever thread they ran
+                "probe_read_ms": 1e3 * sum(
+                    r["read_s"] for r in self.probe_log),
+                # os.pread time only, as counted by the IOCounter
+                "probe_pread_ms": 1e3 * float(
+                    self.io.per_kind.get("probe", {}).get("seconds", 0.0)),
+                # time hooks were blocked waiting for a prefetched read
+                "prefetch_wait_ms": 1e3 * sum(
+                    r["wait_s"] for r in self.probe_log),
+                # time hooks were blocked getting probe keys at all:
+                # synchronous reads plus waits
+                "probe_hook_blocked_ms": 1e3 * sum(
+                    r["blocked_s"] for r in self.probe_log),
+                "prefetched_probe_reads": sum(
+                    r["source"] == "prefetch" for r in self.probe_log),
+                "prefetch_ready_on_arrival": sum(
+                    bool(r["ready_on_arrival"]) for r in self.probe_log)}
 
 
 class QASelectLayerSelector:
@@ -1769,12 +2012,46 @@ def validate_full_load_contract(runner, ctx, *, prompt_text=None,
 # ------------------------------------------------------------------- server
 class Server:
     def __init__(self, runner, ratio=RETENTION_RATIO, probe=PROBE_HEADS,
-                 alpha=ALPHA, max_new_tokens=16):
+                 alpha=ALPHA, max_new_tokens=16,
+                 importance_metric=sv.DEFAULT_IMPORTANCE_METRIC,
+                 fallback_v="full", prefetch="none"):
         self.runner = runner
         self.ratio = ratio
         self.probe = probe
         self.alpha = alpha
         self.max_new_tokens = max_new_tokens
+        if prefetch not in PREFETCH_POLICIES:
+            raise ValueError(f"prefetch must be one of {PREFETCH_POLICIES}, "
+                             f"got {prefetch!r}")
+        self.prefetch = prefetch
+        self._prefetch_executor = None        # created on first use
+        # Defaults for request(mode="impress") and calibrate_image(); both can
+        # be overridden per call.  Calibration and serving must use the same
+        # metric or the repacked order and the online selection disagree.
+        self.importance_metric = sv.validate_importance_metric(
+            importance_metric)
+        if fallback_v not in FALLBACK_V_POLICIES:
+            raise ValueError(f"fallback_v must be one of {FALLBACK_V_POLICIES}, "
+                             f"got {fallback_v!r}")
+        self.fallback_v = fallback_v
+
+    # -------------------------------------------------------- prefetch
+    def _prefetch_pool(self):
+        """The single background reader, started before any request timer."""
+        if getattr(self, "_prefetch_executor", None) is None:
+            from concurrent.futures import ThreadPoolExecutor
+            self._prefetch_executor = ThreadPoolExecutor(
+                max_workers=1, thread_name_prefix="impress-prefetch")
+            # executors start threads lazily; start it now, not inside TTFT
+            self._prefetch_executor.submit(lambda: None).result()
+        return self._prefetch_executor
+
+    def close(self):
+        """Stop the background reader, if one was started."""
+        executor = getattr(self, "_prefetch_executor", None)
+        if executor is not None:
+            executor.shutdown(wait=True)
+            self._prefetch_executor = None
 
     # ---------------------------------------------------------- raters
     def raters(self, ctx, suffix_ids):
@@ -1850,8 +2127,14 @@ class Server:
 
     @torch.no_grad()
     def request(self, ctx, question=None, mode="impress", cold=True,
-                prompt_text=None, suffix_ids=None, cache_id=None):
+                prompt_text=None, suffix_ids=None, cache_id=None,
+                importance_metric=None, fallback_v=None, prefetch=None):
         """Serve one question with true-TTFT and end-to-end timing.
+
+        ``importance_metric`` / ``fallback_v`` / ``prefetch`` default to the
+        server's values and only affect ``mode="impress"``.  The prefetch
+        worker is created before the timer starts; the reads it performs are
+        all issued from layer hooks, i.e. after the timer started.
 
         ``ttft`` ends immediately after the first output token is available;
         ``decode_latency`` covers subsequent autoregressive generation;
@@ -1873,16 +2156,35 @@ class Server:
                           if prompt_text is not None
                           else suffix_ids_for(self.runner, question))
         suffix_ids = suffix_ids.to(dev)
+        metric = sv.validate_importance_metric(
+            self.importance_metric if importance_metric is None
+            else importance_metric)
+        fallback_v = self.fallback_v if fallback_v is None else fallback_v
+        # H2O scores with every suffix row, so it has no raters to choose and
+        # never opens v_hidden.pt.  The rater call sits inside the TTFT timer,
+        # which is why it is skipped rather than computed and ignored.
+        needs_raters = mode != "fullload" and metric == "sparsevlm"
+        prefetch = (getattr(self, "prefetch", "none") if prefetch is None
+                    else prefetch)
+        if prefetch not in PREFETCH_POLICIES:
+            raise ValueError(f"prefetch must be one of {PREFETCH_POLICIES}, "
+                             f"got {prefetch!r}")
+        # FullLoad stays fully synchronous.  Thread start-up is outside TTFT.
+        executor = (self._prefetch_pool()
+                    if mode != "fullload" and prefetch == "next_layer"
+                    else None)
 
         torch.cuda.synchronize()
         t0 = time.perf_counter()
         # FullLoad has no selector and must not pay a history-length-dependent
         # SparseVLM rater cost.  Existing artifacts remain untouched; this is
         # the causal multi-turn measurement path used by new runs.
-        rr = (self.raters(ctx, suffix_ids) if mode != "fullload"
+        rr = (self.raters(ctx, suffix_ids) if needs_raters
               else torch.empty(0, dtype=torch.long, device=dev))
         sel = LayerSelector(self.runner, ctx, rr, self.ratio, self.probe,
-                            self.alpha, mode=mode, counter=counter)
+                            self.alpha, mode=mode, counter=counter,
+                            importance_metric=metric, fallback_v=fallback_v,
+                            prefetch=prefetch, prefetch_executor=executor)
         cache = ctx.cache.new_request()
         with sel:
             answer, first_token_id, timing = self._decode(
@@ -1904,6 +2206,11 @@ class Server:
             "generated_token_ids": timing["generated_token_ids"],
             "generated_token_count": timing["generated_token_count"],
             "n_raters": int(rr.numel()),
+            # query rows the importance score aggregates over: the raters for
+            # "sparsevlm", every suffix token for "h2o", none for FullLoad
+            "n_score_rows": (0 if mode == "fullload" else
+                             int(rr.numel()) if metric == "sparsevlm"
+                             else int(suffix_ids.numel())),
             "io": counter.summary(),
             "core_started_at_s": t0,
             "first_token_at_s": timing["first_token_at"],
@@ -2328,7 +2635,12 @@ class Server:
 
 # --------------------------------------------------------------- calibration
 class Calibrator:
-    """Collect per-layer SparseVLM importance over a fully loaded prefix.
+    """Collect per-layer visual importance over a fully loaded prefix.
+
+    ``importance_metric`` is the same switch the serving path has: "sparsevlm"
+    (default, rater rows averaged) or "h2o" (IMPRESS 4.1, all suffix rows
+    summed; ``rater_rows`` is ignored).  Use the metric the store will be
+    served with.
 
     Feeds reorder.py: IMPRESS 4.4.1 repacks by AVERAGE importance, so the
     statistic has to be accumulated over several questions about the same image
@@ -2338,10 +2650,13 @@ class Calibrator:
     read pattern actually wants.
     """
 
-    def __init__(self, runner, ctx, rater_rows):
+    def __init__(self, runner, ctx, rater_rows,
+                 importance_metric=sv.DEFAULT_IMPORTANCE_METRIC):
         self.runner = runner
         self.ctx = ctx
         self.rater_rows = rater_rows
+        self.importance_metric = sv.validate_importance_metric(
+            importance_metric)
         self.scores = {}
         self._handles = []
 
@@ -2371,28 +2686,40 @@ class Calibrator:
             cos, sin = kwargs["position_embeddings"]
             q, kn = ml.apply_rotary_pos_emb(q, kn, cos, sin)
             keys = torch.cat([self.ctx.cache.k[li][0], kn[0]], dim=1)
-            s = sv.rater_visual_scores_from_qk(
-                q[0], keys, self.rater_rows, v0, vn, causal_from=v0 + vn)
+            if self.importance_metric == "h2o":
+                s = sv.h2o_visual_scores_from_qk(
+                    q[0], keys, v0, vn, causal_from=v0 + vn)
+            else:
+                s = sv.rater_visual_scores_from_qk(
+                    q[0], keys, self.rater_rows, v0, vn, causal_from=v0 + vn)
             self.scores[li] = s.mean(dim=0).float().cpu()   # (v_num,)
         return hook
 
 
 @torch.no_grad()
-def calibrate_image(server, ctx, questions):
+def calibrate_image(server, ctx, questions, importance_metric=None):
     """Mean per-layer visual importance over several questions (original order).
 
+    ``importance_metric`` defaults to ``server.importance_metric``.  With
+    "h2o" no raters are selected and ``ctx.v_hidden`` is not consulted.
     Returns (num_layers, v_num) float tensor.
     """
+    metric = sv.validate_importance_metric(
+        importance_metric if importance_metric is not None
+        else getattr(server, "importance_metric",
+                     sv.DEFAULT_IMPORTANCE_METRIC))
     acc, n = None, 0
     for q in questions:
         suffix_ids = suffix_ids_for(server.runner, q)
-        rr = server.raters(ctx, suffix_ids)
+        rr = (server.raters(ctx, suffix_ids) if metric == "sparsevlm"
+              else torch.empty(0, dtype=torch.long,
+                               device=server.runner.model.device))
         cache = ctx.cache.new_request()
         for li in range(ctx.meta["num_layers"]):
             for kind in ("k", "v"):
                 ctx.cache.write_full(li, kind,
                                      ctx.reader.read_full(li, kind))
-        cal = Calibrator(server.runner, ctx, rr)
+        cal = Calibrator(server.runner, ctx, rr, importance_metric=metric)
         with cal:
             dev = server.runner.model.device
             P, nn = ctx.meta["prefix_len"], suffix_ids.shape[0]

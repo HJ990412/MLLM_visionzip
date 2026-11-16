@@ -7,10 +7,13 @@ probe sidecar and the fallback layers are pure overhead).  Repacking is what
 turns identification into I/O savings.
 
 Target orders:
-  importance  IMPRESS 4.4.1 -- descending AVERAGE SparseVLM importance,
-              accumulated over several questions about the same image, one
-              order per layer (the consensus path applies one token set to all
-              heads, so a per-layer order is what the read pattern wants).
+  importance  IMPRESS 4.4.1 -- descending AVERAGE importance, accumulated
+              over several questions about the same image, one order per layer
+              (the consensus path applies one token set to all heads, so a
+              per-layer order is what the read pattern wants).  The statistic
+              is chosen with ``--importance-metric``: "sparsevlm" (default) or
+              "h2o" (IMPRESS 4.1 column sum).  Serve the store with the same
+              metric; the value is recorded in meta.json.
               ``--reference-order-store`` preserves an existing calibrated
               normal-token order while moving separators to a matched tail.
   morton      query-independent Z-order of the patch grid, so a chunk is a
@@ -45,6 +48,7 @@ from mmimpress.cvpr25 import (anyres_token_scores, clip_cls_patch_saliency,
                               permutation_sha256, visionzip_repack_order)
 from mmimpress.dataset import load_index
 from mmimpress.reorder import llava_visual_order, mapping_from_perm
+from mmimpress.sparsevlm import DEFAULT_IMPORTANCE_METRIC, IMPORTANCE_METRICS
 from mmimpress.store import (load_meta, write_separator_sidecar_from_store)
 
 _NP = {"float16": np.float16, "float32": np.float32}
@@ -160,6 +164,11 @@ def main():
                                         "raster"),
                     default="importance")
     ap.add_argument("--calib-questions", type=int, default=4)
+    ap.add_argument("--importance-metric", default=DEFAULT_IMPORTANCE_METRIC,
+                    choices=IMPORTANCE_METRICS,
+                    help="importance only: statistic the order is built from; "
+                         "'sparsevlm' (default) or 'h2o' (IMPRESS 4.1).  Must "
+                         "match the metric the store is served with")
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--store", default=str(STORE_DIR))
     ap.add_argument("--index", default=None)
@@ -186,6 +195,13 @@ def main():
     if args.reference_order_store and not (
             args.order == "importance" and args.separator_tail):
         ap.error("--reference-order-store requires importance + --separator-tail")
+    if args.importance_metric != DEFAULT_IMPORTANCE_METRIC:
+        if args.order != "importance":
+            ap.error("--importance-metric is valid only with --order importance")
+        if args.reference_order_store:
+            ap.error("--importance-metric cannot be combined with "
+                     "--reference-order-store: no calibration is run, the "
+                     "order (and its metric) is inherited from the reference")
     index = load_index(args.index)
     if args.only:
         keep = set(args.only.split(","))
@@ -211,7 +227,7 @@ def main():
         runner = LlavaRunner().load()
         if args.order == "importance":
             from mmimpress.serve import Server
-            server = Server(runner)
+            server = Server(runner, importance_metric=args.importance_metric)
 
     profiles = []
     for i, e in enumerate(index):
@@ -224,6 +240,9 @@ def main():
         saliency_ms = 0.0
         token_score = None
         target_orders = None
+        # Metric behind the order this pass writes.  None for the layouts
+        # that use no importance statistic.
+        layout_importance_metric = None
 
         if args.order == "morton":
             base = meta["base_grid"]
@@ -262,6 +281,9 @@ def main():
                     f"reference store is not reordered: {ref_dir}"
                 assert ref_meta.get("order_is_per_layer") is True, \
                     f"reference store is not calib-style per-layer: {ref_dir}"
+                # the order is reused, so its metric is the reference's
+                layout_importance_metric = ref_meta.get(
+                    "importance_metric", DEFAULT_IMPORTANCE_METRIC)
                 original_sep = sorted(int(x) for x in meta["newline_idx"])
                 sep_set = set(original_sep)
                 target_orders = []
@@ -274,7 +296,12 @@ def main():
                 perms = target_to_current_perms(meta, target_orders)
             else:
                 from mmimpress.serve import ImageContext, calibrate_image
-                ctx = ImageContext(d, runner.model.device, drop_cache=False)
+                layout_importance_metric = args.importance_metric
+                # H2O has no raters, so v_hidden.pt is not needed; the default
+                # metric keeps loading it exactly as before.
+                ctx = ImageContext(
+                    d, runner.model.device, drop_cache=False,
+                    require_v_hidden=args.importance_metric != "h2o")
                 qs = [q["question"]
                       for q in e["questions"][:args.calib_questions]]
                 scores = calibrate_image(server, ctx, qs)  # (L, v_num)
@@ -356,6 +383,24 @@ def main():
                     provenance["permutation_sha256_per_layer"] = [
                         permutation_sha256(row) for row in target_orders]
 
+        # Record the metric behind an importance order in meta.json, and
+        # clear a stale value when the store is rewritten to a layout that
+        # uses none.  Stores that never had the field and are not being
+        # importance-ordered keep their metadata keys unchanged.
+        metric_update = {}
+        if args.order == "importance":
+            metric_update = {
+                "importance_metric": layout_importance_metric,
+                "importance_metric_calibration_questions": (
+                    args.calib_questions if reference_order_store is None
+                    else None),
+            }
+        elif "importance_metric" in meta:
+            metric_update = {"importance_metric": None,
+                             "importance_metric_calibration_questions": None}
+        if metric_update:
+            provenance = {**(provenance or {}), **metric_update}
+
         rewrite_t0 = time.perf_counter()
         shared = commit(d, meta, perms, metadata_update=provenance,
                         identity_layout=args.order == "raster")
@@ -412,6 +457,7 @@ def main():
             "calibration_order_reused_from": (
                 str(reference_order_store)
                 if reference_order_store is not None else None),
+            "importance_metric": layout_importance_metric,
         })
         print(f"[{i+1}/{len(index)}] {e['image_id']}: {args.order} order "
               f"({'shared' if shared else 'per-layer'}) "
@@ -433,6 +479,9 @@ def main():
             "reference_order_store": (
                 str(reference_order_store)
                 if reference_order_store is not None else None),
+            "importance_metric": (args.importance_metric
+                                  if args.order == "importance"
+                                  and reference_order_store is None else None),
             "n_images": len(profiles),
             "rows": profiles,
         }, indent=1))
