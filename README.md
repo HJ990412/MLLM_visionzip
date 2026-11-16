@@ -1089,3 +1089,57 @@ GPU 메모리 절감을 주장하지 않는다. H2D/scatter 분해는 gate fixtu
 [재현 정보](results/llava15_mt_gqa_20261112T062708Z/REPRODUCE.md)를 참조한다.
 본실험과 개발 리허설의 검증·freeze·원래 수정 이력을 구분해 보존하며,
 대용량 raw·KV·모델 가중치·전체 데이터 manifest·프롬프트 파일은 제외한다.
+
+## 35. LLaVA-NeXT PYR-beta-raw packed: MT-VQA 25k (2026-11-16)
+
+MT-GQA에서 사용한 image-only VisionZip 순서와 PyramidKV β=20 원식 layer 배분
+(PYR-beta-raw, 하한 0)을 MT-VQA-v2-reconstructed-25k에 적용했다.
+LLaVA-NeXT-7B(v1.6-vicuna, revision c916e6cd), NF4/BF16/eager, FP16 SSD KV,
+greedy cap16 조건이다. 새 본실험은 PYR packed **단일 arm**이며,
+25,000 images × 3턴 = 75,000/75,000요청을 23.55시간에 완료했다.
+실패·skip·재시도 0, 독립 감사 PASS다. Smoke·pilot40·gate 요청은 main 분모에서 제외한다.
+
+아래 baseline은 2026-10의 v3 실행 기록이다. 정확도는 같은 image·turn을 짝지은
+**cross-run, 결정성 확인됨** 비교다. T1 생성 token은 25,000/25,000장 일치했고,
+균등 U_packed의 pilot40 gate도 기존 [B]와 120/120요청의 입력·생성 token·점수·읽기
+바이트가 일치했다. 채점은 ten-answer leave-one-out 공식 VQA score(%)이며,
+followup(T2–T3)은 method-local generated history를 사용한다.
+
+| Arm | 실행 | T1 | T2 | T3 | 전체 | Followup |
+|---|---|---:|---:|---:|---:|---:|
+| PYR-beta-raw packed | 이번 main | 51.7940 | 50.7968 | 50.8964 | 51.1624 | 50.8466 |
+| ReComp | v3 기록 | 51.7940 | 51.6864 | 51.8592 | 51.7799 | 51.7728 |
+| FullLoad | v3 기록 | 51.7940 | 51.6852 | 51.8760 | 51.7851 | 51.7806 |
+| SparseVLM-SSD-KV25-AllHead | v3 기록 | 51.7940 | 51.4476 | 51.6948 | 51.6455 | 51.5712 |
+| PrefixStore-KV25 [B] (균등 배분) | v3 기록 | 51.7940 | 49.8396 | 50.3808 | 50.6715 | 50.1102 |
+
+사전 고정 주 판정은 **IMPROVED**다. PYR−[B] followup은 +0.7364 pp
+(이미지 단위 paired bootstrap 95% CI +0.5916~+0.8824, 10,000회, seed1234)로,
+ReComp 대비 [B]의 손실 중 44.3%를 회복했다. MT-GQA의 +1.0 pp 기준은 참고값이며
+이번 판정 기준이 아니다. PYR−ReComp는 −0.9262 pp(CI −1.0846~−0.7638)로
+원래 정확도에는 못 미친다. MT-GQA의 +1.244 pp(EM)와 개선 방향은 같지만 지표가 달라
+효과 크기를 직접 비교하지 않는다. MPIC는 이번 비교표에서 제외했다.
+
+이번 실행의 followup TTFT는 평균 228.34 ms(p50 228.67, p95 269.88),
+T1 TTFT는 527.00 ms이며 같은 실행 안 비율은 0.4333이다.
+SSD 읽기는 [B]와 같은 평균 307.75 MB/followup, hit당 preadv 1회·pread 0회다.
+PYR은 같은 중요도 순서를 layer별로 자르며 PyramidKV의 attention 기반 선택은 쓰지 않는다.
+정확도 비교와 달리 지연 차이에는 packed I/O 경로 효과도 섞이므로,
+v3의 절대 TTFT·session은 cross-run 참고치로만 다룬다.
+
+이미지당 store는 평균 310.48 MB, persistence 711.49 ms, activation 189.53 ms다.
+이 비용을 포함한 3-turn session은 1,981.98 ms이며 이미지당 dialogue 1개라 분할 상각은 없다.
+기존 개발 표본과 이미지 166개가 겹쳐 unseen holdout이 아니다. DONTNEED는 cold NAND를
+보장하지 않으며 dense GPU buffer를 유지하므로 GPU 메모리 절감을 주장하지 않는다.
+Qwen·GLM·LLaVA-1.5·MT-GQA와 baseline arm들은 이번에 재실행하지 않았다.
+
+[전체 결과](results/llava_next_mtvqa_pyr_20261114T182331Z/REPORT.md),
+[품질표](results/llava_next_mtvqa_pyr_20261114T182331Z/quality.csv),
+[짝지은 비교](results/llava_next_mtvqa_pyr_20261114T182331Z/paired_analysis.csv),
+[지연·I/O](results/llava_next_mtvqa_pyr_20261114T182331Z/latency.csv),
+[최종 판정](results/llava_next_mtvqa_pyr_20261114T182331Z/decision.json),
+[결과 기록](results/llava_next_mtvqa_pyr_20261114T182331Z/RESULT_RECORD.md),
+[실험 계약](docs/llava_next_mtvqa_pyr_contract.md),
+[재현 절차](results/llava_next_mtvqa_pyr_20261114T182331Z/REPRODUCE.md)를 참조한다.
+실험 코드·결과표·검증 receipt·freeze와 소표본 분석 수정 이력을 함께 보존하며,
+대용량 raw·KV·모델·전체 데이터 manifest·프롬프트 파일은 제외한다.

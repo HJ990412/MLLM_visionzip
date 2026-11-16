@@ -1,0 +1,80 @@
+{
+ "G_det_T1": {
+  "status": "PASS",
+  "T1_token_exact": 40,
+  "images": 40
+ },
+ "cross_run_accuracy_comparison": "cross-run, 결정성 확인됨",
+ "A_layer_allocation_effect": {
+  "D_definition": "PYR-beta-raw_packed (this run) - ours_prefixstore_kv25 [B] (v3), follow-up official VQA score, percentage points",
+  "D_pp": 1.625,
+  "ci95": [
+   -1.1250000000000002,
+   5.5
+  ],
+  "PYR_followup_pct": 45.75,
+  "B_followup_pct": 44.125,
+  "rule": "IMPROVED: CI low > 0; NOT_SHOWN: CI contains 0; WORSE: CI high < 0",
+  "verdict": "NOT_SHOWN",
+  "wording_if_NOT_SHOWN": "차이 미입증 (동등성 아님)",
+  "reference_not_verdict": {
+   "D_at_least_1.0pp_MTGQA_GO_threshold": true,
+   "loss_recovery_percent": 33.333333333333336,
+   "loss_definition": "D / (ReComp - [B]) on the same images; ReComp - [B] = 4.8750 pp"
+  },
+  "condition_SSD_MB_per_followup_le_B_x_1.02": {
+   "PYR_MB_per_followup": 305.8958336,
+   "B_MB_per_followup_v3": 305.8958336,
+   "limit_MB": 312.013750272,
+   "within_B_times_1.02": true
+  }
+ },
+ "B_vs_original": {
+  "recompute": {
+   "delta_pp": -3.25,
+   "ci95": [
+    -8.625,
+    1.75
+   ],
+   "baseline_followup_pct": 49.0,
+   "percent_of_baseline": 93.36734693877551,
+   "ci_statement": "차이 미입증 (동등성 아님)"
+  },
+  "fullload": {
+   "delta_pp": -3.25,
+   "ci95": [
+    -8.625,
+    1.75
+   ],
+   "baseline_followup_pct": 49.0,
+   "percent_of_baseline": 93.36734693877551,
+   "ci_statement": "차이 미입증 (동등성 아님)"
+  },
+  "sparsevlm_ssd_kv25_allhead": {
+   "delta_pp": -4.875,
+   "ci95": [
+    -11.0,
+    0.125
+   ],
+   "baseline_followup_pct": 50.625,
+   "percent_of_baseline": 90.37037037037037,
+   "ci_statement": "차이 미입증 (동등성 아님)"
+  }
+ },
+ "F_MTGQA_consistency": {
+  "MTGQA_PYR_minus_U_pp": 1.244,
+  "MTGQA_ci95": [
+   0.624,
+   1.864
+  ],
+  "MTGQA_metric": "strict normalized EM",
+  "MTVQA_D_pp": 1.625,
+  "MTVQA_ci95": [
+   -1.1250000000000002,
+   5.5
+  ],
+  "MTVQA_metric": "official VQA score",
+  "same_sign": true,
+  "note": "지표가 다르다 (EM vs VQA score); 크기를 직접 비교하지 않는다"
+ }
+}

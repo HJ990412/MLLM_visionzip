@@ -1,0 +1,80 @@
+{
+ "G_det_T1": {
+  "status": "PASS",
+  "T1_token_exact": 4,
+  "images": 4
+ },
+ "cross_run_accuracy_comparison": "cross-run, 결정성 확인됨",
+ "A_layer_allocation_effect": {
+  "D_definition": "PYR-beta-raw_packed (this run) - ours_prefixstore_kv25 [B] (v3), follow-up official VQA score, percentage points",
+  "D_pp": -3.75,
+  "ci95": [
+   -11.25,
+   0.0
+  ],
+  "PYR_followup_pct": 62.5,
+  "B_followup_pct": 66.25,
+  "rule": "IMPROVED: CI low > 0; NOT_SHOWN: CI contains 0; WORSE: CI high < 0",
+  "verdict": "NOT_SHOWN",
+  "wording_if_NOT_SHOWN": "차이 미입증 (동등성 아님)",
+  "reference_not_verdict": {
+   "D_at_least_1.0pp_MTGQA_GO_threshold": false,
+   "loss_recovery_percent": -17.647058823529413,
+   "loss_definition": "D / (ReComp - [B]) on the same images; ReComp - [B] = 21.2500 pp"
+  },
+  "condition_SSD_MB_per_followup_le_B_x_1.02": {
+   "PYR_MB_per_followup": 249.561088,
+   "B_MB_per_followup_v3": 249.561088,
+   "limit_MB": 254.55230976,
+   "within_B_times_1.02": true
+  }
+ },
+ "B_vs_original": {
+  "recompute": {
+   "delta_pp": -25.0,
+   "ci95": [
+    -50.0,
+    0.0
+   ],
+   "baseline_followup_pct": 87.5,
+   "percent_of_baseline": 71.42857142857143,
+   "ci_statement": "차이 미입증 (동등성 아님)"
+  },
+  "fullload": {
+   "delta_pp": -25.0,
+   "ci95": [
+    -50.0,
+    0.0
+   ],
+   "baseline_followup_pct": 87.5,
+   "percent_of_baseline": 71.42857142857143,
+   "ci_statement": "차이 미입증 (동등성 아님)"
+  },
+  "sparsevlm_ssd_kv25_allhead": {
+   "delta_pp": -25.0,
+   "ci95": [
+    -50.0,
+    0.0
+   ],
+   "baseline_followup_pct": 87.5,
+   "percent_of_baseline": 71.42857142857143,
+   "ci_statement": "차이 미입증 (동등성 아님)"
+  }
+ },
+ "F_MTGQA_consistency": {
+  "MTGQA_PYR_minus_U_pp": 1.244,
+  "MTGQA_ci95": [
+   0.624,
+   1.864
+  ],
+  "MTGQA_metric": "strict normalized EM",
+  "MTVQA_D_pp": -3.75,
+  "MTVQA_ci95": [
+   -11.25,
+   0.0
+  ],
+  "MTVQA_metric": "official VQA score",
+  "same_sign": false,
+  "note": "지표가 다르다 (EM vs VQA score); 크기를 직접 비교하지 않는다"
+ }
+}

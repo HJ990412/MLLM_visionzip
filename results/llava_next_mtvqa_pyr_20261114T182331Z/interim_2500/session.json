@@ -1,0 +1,68 @@
+{
+ "store_MB_per_image": {
+  "mean": 311.13616885240003,
+  "p50": 323.5942045,
+  "p95": 391.7720452,
+  "n": 2500
+ },
+ "allocated_MB_per_image": {
+  "mean": 311.1502282752,
+  "p50": 323.608576,
+  "p95": 391.786496,
+  "n": 2500
+ },
+ "os_write_MB_per_image": {
+  "mean": 311.13616885240003,
+  "p50": 323.5942045,
+  "p95": 391.7720452,
+  "n": 2500
+ },
+ "persistence_ms": {
+  "mean": 740.1423903327435,
+  "p50": 741.9717218726873,
+  "p95": 924.0364182274787,
+  "n": 2500
+ },
+ "activation_ms": {
+  "mean": 181.8641996141523,
+  "p50": 185.14240998774767,
+  "p95": 225.0870175193995,
+  "n": 2500
+ },
+ "request_e2e_sum_ms": {
+  "mean": 1071.2625084884464,
+  "p50": 1079.7661887481809,
+  "p95": 1313.2690103724597,
+  "n": 2500
+ },
+ "session_3turn_ms": {
+  "mean": 1993.2690984353424,
+  "p50": 2007.5794998556376,
+  "p95": 2445.863163145258,
+  "n": 2500
+ },
+ "definition": "3 request E2E + persistence (outer helper wall) + activation (outer wall); T1 capture is already inside T1 request E2E",
+ "v3_cross_run_reference": {
+  "recompute": {
+   "session_mean_ms": 1681.101580792293,
+   "images": 2500,
+   "column": "standalone_equivalent_session_ms (AllHead: DERIVED)"
+  },
+  "fullload": {
+   "session_mean_ms": 4559.241315030493,
+   "images": 2500,
+   "column": "standalone_equivalent_session_ms (AllHead: DERIVED)"
+  },
+  "sparsevlm_ssd_kv25_allhead": {
+   "session_mean_ms": 4777.178006847016,
+   "images": 2500,
+   "column": "standalone_equivalent_session_ms (AllHead: DERIVED)"
+  },
+  "ours_prefixstore_kv25": {
+   "session_mean_ms": 1958.3425748810173,
+   "images": 2500,
+   "column": "standalone_equivalent_session_ms (AllHead: DERIVED)"
+  }
+ },
+ "v3_cross_run_note": "cross-run 참고치; 같은 실행 안 기준은 T1 TTFT뿐이다"
+}

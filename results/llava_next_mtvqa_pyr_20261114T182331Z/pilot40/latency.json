@@ -1,0 +1,126 @@
+{
+ "followup_ttft_ms": {
+  "mean": 219.81498084496707,
+  "p50": 227.68085496500134,
+  "p95": 264.94283601641655,
+  "n": 80
+ },
+ "followup_e2e_ms": {
+  "mean": 253.236721502617,
+  "p50": 258.50041629746556,
+  "p95": 308.2605278585106,
+  "n": 80
+ },
+ "T1_ttft_ms": {
+  "mean": 522.132709948346,
+  "p50": 542.716012801975,
+  "p95": 700.4180897958576,
+  "n": 40
+ },
+ "T1_e2e_ms": {
+  "mean": 553.1265345402062,
+  "p50": 578.1764439307153,
+  "p95": 720.5489229410886,
+  "n": 40
+ },
+ "T2_ttft_ms": {
+  "mean": 218.74961245339364,
+  "p50": 226.29350097849965,
+  "p95": 264.6105183754116,
+  "n": 40
+ },
+ "T3_ttft_ms": {
+  "mean": 220.8803492365405,
+  "p50": 228.72142819687724,
+  "p95": 264.94283601641655,
+  "n": 40
+ },
+ "followup_packed_read_ms": {
+  "mean": 92.01548582641408,
+  "p50": 94.78757902979851,
+  "p95": 117.38386852666734,
+  "n": 80
+ },
+ "followup_chunk_io_ms": {
+  "mean": 92.03103465260938,
+  "p50": 94.79752648621798,
+  "p95": 117.39595383405684,
+  "n": 80
+ },
+ "followup_scatter_ms": {
+  "mean": 81.5779798780568,
+  "p50": 85.22411389276385,
+  "p95": 103.08233737014234,
+  "n": 80
+ },
+ "followup_prefill_ms": {
+  "mean": 40.09525399887934,
+  "p50": 39.62434735149145,
+  "p95": 44.29798824712634,
+  "n": 80
+ },
+ "followup_prepare_ms": {
+  "mean": 178.7907577934675,
+  "p50": 185.96454663202167,
+  "p95": 222.56628829054532,
+  "n": 80
+ },
+ "followup_decode_ms": {
+  "mean": 33.20537843974307,
+  "p50": 20.238140132278204,
+  "p95": 58.660253416746855,
+  "n": 80
+ },
+ "SSD_MB_per_followup": 305.8958336,
+ "preadv_calls_per_followup": 1.0,
+ "pread_calls_per_followup": 0.0,
+ "read_calls_per_followup": 1.0,
+ "T1_ssd_read_bytes_total": 0,
+ "packed_read_MB_per_s": 3324.3951368910684,
+ "R_in_followup_over_T1_same_run": 0.42099446492580994,
+ "v3_cross_run_reference": {
+  "recompute": {
+   "followup_ttft_mean_ms": 527.7851370745338,
+   "followup_e2e_mean_ms": 559.5420473662671,
+   "T1_ttft_mean_ms": 517.776846094057,
+   "SSD_MB_per_followup": 0.0,
+   "preads_per_followup": 0.0,
+   "followup_over_T1_in_v3": 1.0193293521252953
+  },
+  "fullload": {
+   "followup_ttft_mean_ms": 756.7645674571395,
+   "followup_e2e_mean_ms": 788.9898615889251,
+   "T1_ttft_mean_ms": 518.2608078350313,
+   "SSD_MB_per_followup": 1164.2077184000002,
+   "preads_per_followup": 64.0,
+   "followup_over_T1_in_v3": 1.4602002621391097
+  },
+  "sparsevlm_ssd_kv25_allhead": {
+   "followup_ttft_mean_ms": 830.8289488544688,
+   "followup_e2e_mean_ms": 869.3920634745155,
+   "T1_ttft_mean_ms": 523.4570968430489,
+   "SSD_MB_per_followup": 1175.3734144,
+   "preads_per_followup": 78.075,
+   "followup_over_T1_in_v3": 1.5871958826524055
+  },
+  "ours_prefixstore_kv25": {
+   "followup_ttft_mean_ms": 254.62313922471367,
+   "followup_e2e_mean_ms": 288.22450494626537,
+   "T1_ttft_mean_ms": 517.7262605517171,
+   "SSD_MB_per_followup": 305.8958336,
+   "preads_per_followup": 65.0,
+   "followup_over_T1_in_v3": 0.49181036123872385
+  }
+ },
+ "v3_cross_run_note": "cross-run 참고치, 절대 TTFT는 실행 간 비교하지 않는다",
+ "environment_drift": {
+  "T1_ttft_mean_ms_this_run": 522.132709948346,
+  "v3_T1_ttft_mean_ms_all_arms_same_images": 520.2734075230546,
+  "v3_T1_ttft_mean_ms_B_arm_same_images": 517.7262605517171,
+  "ratio_this_over_v3_all_arms": 1.0035737025925335,
+  "ratio_this_over_v3_B_arm": 1.0085111568262601,
+  "packed_read_MB_per_s_this_run": 3324.3951368910684,
+  "packed_read_MB_per_s_MTGQA_PYR_run": 3159.4871794871797,
+  "role": "environment tracking, not a verdict input"
+ }
+}

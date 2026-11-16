@@ -1,0 +1,10 @@
+{
+ "policy": "only run-local scratch stores of this run, exact SHA allowlist, after per-image audit + atomic commit; gate fixtures by guarded rmtree",
+ "main_images_cleaned": 25000,
+ "removed_scratch_files_main": 125000,
+ "scratch_files_left": [],
+ "failed_attempts": [],
+ "gate_stores": "llava/gpu_gates/* removed after each receipt; gates/vg3_fixture removed",
+ "existing_stores_runs_results_deleted": 0,
+ "mpic_results_deleted": 0
+}

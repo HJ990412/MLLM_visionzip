@@ -1,0 +1,80 @@
+{
+ "G_det_T1": {
+  "status": "PASS",
+  "T1_token_exact": 2500,
+  "images": 2500
+ },
+ "cross_run_accuracy_comparison": "cross-run, 결정성 확인됨",
+ "A_layer_allocation_effect": {
+  "D_definition": "PYR-beta-raw_packed (this run) - ours_prefixstore_kv25 [B] (v3), follow-up official VQA score, percentage points",
+  "D_pp": 0.67,
+  "ci95": [
+   0.206,
+   1.138
+  ],
+  "PYR_followup_pct": 50.164,
+  "B_followup_pct": 49.494,
+  "rule": "IMPROVED: CI low > 0; NOT_SHOWN: CI contains 0; WORSE: CI high < 0",
+  "verdict": "IMPROVED",
+  "wording_if_NOT_SHOWN": "차이 미입증 (동등성 아님)",
+  "reference_not_verdict": {
+   "D_at_least_1.0pp_MTGQA_GO_threshold": false,
+   "loss_recovery_percent": 36.021505376344095,
+   "loss_definition": "D / (ReComp - [B]) on the same images; ReComp - [B] = 1.8600 pp"
+  },
+  "condition_SSD_MB_per_followup_le_B_x_1.02": {
+   "PYR_MB_per_followup": 308.4101091328,
+   "B_MB_per_followup_v3": 308.41010913279996,
+   "limit_MB": 314.57831131545595,
+   "within_B_times_1.02": true
+  }
+ },
+ "B_vs_original": {
+  "recompute": {
+   "delta_pp": -1.19,
+   "ci95": [
+    -1.708,
+    -0.68
+   ],
+   "baseline_followup_pct": 51.354,
+   "percent_of_baseline": 97.68275110020642,
+   "ci_statement": "CI excludes 0"
+  },
+  "fullload": {
+   "delta_pp": -1.23,
+   "ci95": [
+    -1.754,
+    -0.704
+   ],
+   "baseline_followup_pct": 51.394,
+   "percent_of_baseline": 97.60672452037204,
+   "ci_statement": "CI excludes 0"
+  },
+  "sparsevlm_ssd_kv25_allhead": {
+   "delta_pp": -1.076,
+   "ci95": [
+    -1.584,
+    -0.5719500000000007
+   ],
+   "baseline_followup_pct": 51.24,
+   "percent_of_baseline": 97.90007806401249,
+   "ci_statement": "CI excludes 0"
+  }
+ },
+ "F_MTGQA_consistency": {
+  "MTGQA_PYR_minus_U_pp": 1.244,
+  "MTGQA_ci95": [
+   0.624,
+   1.864
+  ],
+  "MTGQA_metric": "strict normalized EM",
+  "MTVQA_D_pp": 0.67,
+  "MTVQA_ci95": [
+   0.206,
+   1.138
+  ],
+  "MTVQA_metric": "official VQA score",
+  "same_sign": true,
+  "note": "지표가 다르다 (EM vs VQA score); 크기를 직접 비교하지 않는다"
+ }
+}

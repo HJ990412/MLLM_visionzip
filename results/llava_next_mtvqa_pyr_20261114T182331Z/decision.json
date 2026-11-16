@@ -1,0 +1,82 @@
+{
+ "G_det_T1": {
+  "status": "PASS",
+  "T1_token_exact": 25000,
+  "images": 25000
+ },
+ "cross_run_accuracy_comparison": "cross-run, 결정성 확인됨",
+ "A_layer_allocation_effect": {
+  "D_definition": "PYR-beta-raw_packed (this run) - ours_prefixstore_kv25 [B] (v3), follow-up official VQA score, percentage points",
+  "D_pp": 0.7364,
+  "ci95": [
+   0.5916,
+   0.8824099999999998
+  ],
+  "PYR_followup_pct": 50.8466,
+  "B_followup_pct": 50.1102,
+  "rule": "IMPROVED: CI low > 0; NOT_SHOWN: CI contains 0; WORSE: CI high < 0",
+  "verdict": "IMPROVED",
+  "wording_if_NOT_SHOWN": "차이 미입증 (동등성 아님)",
+  "reference_not_verdict": {
+   "D_at_least_1.0pp_MTGQA_GO_threshold": false,
+   "loss_recovery_percent": 44.29207265728384,
+   "loss_definition": "D / (ReComp - [B]) on the same images; ReComp - [B] = 1.6626 pp"
+  },
+  "condition_SSD_MB_per_followup_le_B_x_1.02": {
+   "PYR_MB_per_followup": 307.75470718976,
+   "B_MB_per_followup_v3": 307.75470718976004,
+   "limit_MB": 313.90980133355527,
+   "within_B_times_1.02": true
+  }
+ },
+ "B_vs_original": {
+  "recompute": {
+   "delta_pp": -0.9262,
+   "ci95": [
+    -1.0846,
+    -0.7637950000000001
+   ],
+   "baseline_followup_pct": 51.7728,
+   "percent_of_baseline": 98.21102972989678,
+   "ci_statement": "CI excludes 0"
+  },
+  "fullload": {
+   "delta_pp": -0.934,
+   "ci95": [
+    -1.09541,
+    -0.7708
+   ],
+   "baseline_followup_pct": 51.7806,
+   "percent_of_baseline": 98.19623565582476,
+   "ci_statement": "CI excludes 0"
+  },
+  "sparsevlm_ssd_kv25_allhead": {
+   "delta_pp": -0.7246,
+   "ci95": [
+    -0.883005,
+    -0.5618
+   ],
+   "baseline_followup_pct": 51.5712,
+   "percent_of_baseline": 98.59495222139489,
+   "ci_statement": "CI excludes 0"
+  }
+ },
+ "F_MTGQA_consistency": {
+  "MTGQA_PYR_minus_U_pp": 1.244,
+  "MTGQA_ci95": [
+   0.624,
+   1.864
+  ],
+  "MTGQA_metric": "strict normalized EM",
+  "MTVQA_D_pp": 0.7364,
+  "MTVQA_ci95": [
+   0.5916,
+   0.8824099999999998
+  ],
+  "MTVQA_metric": "official VQA score",
+  "same_sign": true,
+  "note": "지표가 다르다 (EM vs VQA score); 크기를 직접 비교하지 않는다"
+ },
+ "analysis_selfcheck": "PASS",
+ "final": true
+}
