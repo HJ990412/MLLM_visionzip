@@ -1,0 +1,52 @@
+{
+ "gate": "step5_dev_async_effect",
+ "criterion": "for each of FullLoad / IMPRESS / Ours: image-level paired bootstrap (10,000 resamples, seed 1234) of followup TTFT, async minus sync, mean < 0 and 95 % CI upper bound < 0",
+ "methods": [
+  {
+   "method": "FullLoad",
+   "async_arm": "fullload_async",
+   "sync_arm": "fullload",
+   "sync_ttft_mean_ms": 772.4267351428766,
+   "async_ttft_mean_ms": 479.94589974374446,
+   "paired_diff_ms": -292.48083539913216,
+   "ci95_low_ms": -300.51478378738807,
+   "ci95_high_ms": -283.9900038357915,
+   "median_diff_ms": -293.64733025431633,
+   "n": 756,
+   "images": 40,
+   "async_faster_requests": 756,
+   "status": "PASS"
+  },
+  {
+   "method": "IMPRESS",
+   "async_arm": "impress_async",
+   "sync_arm": "impress",
+   "sync_ttft_mean_ms": 751.8996492092296,
+   "async_ttft_mean_ms": 727.6844186141653,
+   "paired_diff_ms": -24.215230595064227,
+   "ci95_low_ms": -25.833008864869186,
+   "ci95_high_ms": -22.754839454178537,
+   "median_diff_ms": -31.481381505727768,
+   "n": 756,
+   "images": 40,
+   "async_faster_requests": 716,
+   "status": "PASS"
+  },
+  {
+   "method": "Ours",
+   "async_arm": "ours_prefixstore_kv25_PYR-beta-raw_packed_async",
+   "sync_arm": "ours_prefixstore_kv25_PYR-beta-raw_packed",
+   "sync_ttft_mean_ms": 218.93958188100623,
+   "async_ttft_mean_ms": 147.7810437101181,
+   "paired_diff_ms": -71.15853817088815,
+   "ci95_low_ms": -74.30871192189505,
+   "ci95_high_ms": -67.90402360496297,
+   "median_diff_ms": -72.67195964232087,
+   "n": 756,
+   "images": 40,
+   "async_faster_requests": 756,
+   "status": "PASS"
+  }
+ ],
+ "status": "PASS"
+}

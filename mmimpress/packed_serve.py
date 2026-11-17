@@ -176,29 +176,39 @@ class PackedPrefixSelector:
         self.read_bytes, self.read_calls, self.read_ms = n, 1, dt * 1e3
         sep = ctx.reader.sep_view()
         for li in range(L):
-            k = self.k_per_layer[li]
             torch.cuda.synchronize()
             t0 = time.perf_counter()
-            for kind in ("k", "v"):
-                vals = ctx.reader.layer_view(li, kind)
-                assert vals.shape[0] == k
-                if k:
-                    if self.directcopy:
-                        buf = (ctx.cache.k if kind == "k" else ctx.cache.v)[li]
-                        buf[0, :, vstart:vstart + k, :] = vals.to(dev, ctx.cache.dtype).permute(1, 0, 2)
-                    else:
-                        ctx.cache.write(li, kind, torch.arange(k, dtype=torch.long), vals)
-            keep = torch.zeros(vn, dtype=torch.bool)
-            keep[:k] = True
-            sp = torch.tensor(ctx.separator_positions(li), dtype=torch.long)
-            ctx.cache.write(li, "k", sp, sep[0][li])
-            ctx.cache.write(li, "v", sp, sep[1][li])
-            keep[sp] = True
-            assert int(keep[:self.n_content].sum()) == k and bool(keep[self.n_content:].all())
-            self.kept_tokens_per_layer.append(int(keep.sum()))
-            BIAS[li] = bias_from_keep(keep, m, dev)
+            self._scatter_layer(li, sep, dev)
             torch.cuda.synchronize()
             self.t["scatter"] += time.perf_counter() - t0
+
+    def _scatter_layer(self, li, sep, dev):
+        """Layer ``li``: stored rows + separator rows -> GPU cache, and mask.
+
+        Shared verbatim by the synchronous ``prepare`` loop and the
+        asynchronous per-layer hook, so both issue the same GPU writes.
+        """
+        ctx, m = self.ctx, self.ctx.meta
+        vn, vstart = int(m["v_token_num"]), int(m["v_token_start"])
+        k = self.k_per_layer[li]
+        for kind in ("k", "v"):
+            vals = ctx.reader.layer_view(li, kind)
+            assert vals.shape[0] == k
+            if k:
+                if self.directcopy:
+                    buf = (ctx.cache.k if kind == "k" else ctx.cache.v)[li]
+                    buf[0, :, vstart:vstart + k, :] = vals.to(dev, ctx.cache.dtype).permute(1, 0, 2)
+                else:
+                    ctx.cache.write(li, kind, torch.arange(k, dtype=torch.long), vals)
+        keep = torch.zeros(vn, dtype=torch.bool)
+        keep[:k] = True
+        sp = torch.tensor(ctx.separator_positions(li), dtype=torch.long)
+        ctx.cache.write(li, "k", sp, sep[0][li])
+        ctx.cache.write(li, "v", sp, sep[1][li])
+        keep[sp] = True
+        assert int(keep[:self.n_content].sum()) == k and bool(keep[self.n_content:].all())
+        self.kept_tokens_per_layer.append(int(keep.sum()))
+        BIAS[li] = bias_from_keep(keep, m, dev)
 
     def stats(self):
         m = self.ctx.meta
@@ -232,11 +242,139 @@ class PackedPrefixSelector:
         }
 
 
+class PackedStreamSelector(PackedPrefixSelector):
+    """Asynchronous variant: the packed file is read in layer order by one
+    background worker while the model computes.
+
+    Same store, same bytes, same per-layer GPU writes and masks as
+    ``PackedPrefixSelector``.  The differences are who reads and when:
+
+    * ``begin()`` (called after the TTFT timer started) hands the byte ranges
+      of ``PackedReader.stream_plan()`` -- separator block, then one ``[K|V]``
+      range per layer -- to a ``LayerReadAhead`` worker, which ``preadv``s
+      each range into its own place in the pinned buffer;
+    * a forward pre-hook on decoder layer i waits until layer i's range (and,
+      for layer 0, the separator block) has arrived, runs the shared
+      ``_scatter_layer`` and lets the layer compute.
+
+    The pinned buffer is still allocated at activation, outside TTFT.
+    """
+
+    def __init__(self, runner, ctx: PackedImageContext, budget=0.25, counter=None, executor=None, max_ahead=None):
+        super().__init__(runner, ctx, budget, counter, directcopy=False)
+        self._executor = executor
+        self._owns_executor = False
+        self.max_ahead = max_ahead
+        self._plan = {key: (off, ln) for key, off, ln in ctx.reader.stream_plan()}
+        self._order = [key for key, _, _ in ctx.reader.stream_plan()]
+        self._stream = None
+        self._sep = None
+        self._handles = []
+        self.done = set()
+        self.hook_seconds = 0.0
+        self.read_blocked_seconds = 0.0
+
+    def _read_item(self, key):
+        """Worker body: one preadv into the pinned buffer, private counter."""
+        offset, length = self._plan[key]
+        counter = IOCounter()
+        n, dt = self.ctx.reader.read_range(offset, length, counter)
+        return n, dt, counter
+
+    def begin(self):
+        """Start the read-ahead.  Call after the request timer started."""
+        if self._stream is not None:
+            return
+        from mmimpress.readahead import LayerReadAhead
+        if self._executor is None:
+            from concurrent.futures import ThreadPoolExecutor
+            self._executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="packed-readahead")
+            self._owns_executor = True
+        self._stream = LayerReadAhead(self._executor, self._read_item, self._order, max_ahead=self.max_ahead).start()
+
+    def close(self):
+        if self._stream is not None:
+            self._stream.close()
+        if self._owns_executor:
+            self._executor.shutdown(wait=True)
+            self._executor = None
+            self._owns_executor = False
+
+    def __enter__(self):
+        self.begin()
+        for li, layer in enumerate(self.runner.layers):
+            self._handles.append(layer.register_forward_pre_hook(self._hook(li), with_kwargs=True))
+        return self
+
+    def __exit__(self, *exc):
+        for h in self._handles:
+            h.remove()
+        self._handles = []
+        self.close()
+
+    def _take(self, key):
+        t0 = time.perf_counter()
+        n, dt, counter = self._stream.take(key)
+        self.read_blocked_seconds += time.perf_counter() - t0
+        for kind, d in counter.per_kind.items():
+            self.io.record(kind, d["bytes"], d["seconds"], preads=d["preads"], units=d["units"])
+        self.read_bytes += n
+        self.read_calls += 1 if n else 0
+        self.read_ms += dt * 1e3
+
+    def _hook(self, li):
+        def hook(module, args, kwargs):
+            if li in self.done:
+                return                     # decoding: nothing left to load
+            t0 = time.perf_counter()
+            if self._sep is None:
+                self._take("sep")
+                self._sep = self.ctx.reader.sep_view()
+            self._take(li)
+            t1 = time.perf_counter()
+            self._scatter_layer(li, self._sep, self.runner.model.device)
+            self.done.add(li)
+            now = time.perf_counter()
+            self.t["scatter"] += now - t1
+            self.hook_seconds += now - t0
+        return hook
+
+    def prepare(self):
+        raise RuntimeError("PackedStreamSelector loads inside layer hooks; use it as a context manager")
+
+    def stats(self):
+        st = super().stats()
+        m = self.ctx.meta
+        ranges = [{"key": str(key), "offset_bytes": int(self._plan[key][0]), "length_bytes": int(self._plan[key][1])} for key in self._order]
+        st.update({
+            "readahead_policy": "layer_stream", "planned_packed_read": ranges,
+            "read_calls": int(self.read_calls), "packed_read_ms": self.read_ms,
+            # worker reads overlap computation: neither chunk_io_ms nor hook_ms adds up to TTFT with anything
+            "chunk_io_ms": self.read_ms, "hook_ms": self.hook_seconds * 1e3,
+            "read_wait": {"read_blocked_ms": self.read_blocked_seconds * 1e3,
+                          "readahead": self._stream.stats() if self._stream is not None else None},
+        })
+        assert self.read_bytes == int(m["packed_total_bytes"])
+        return st
+
+
 @torch.no_grad()
 def request_packed(server, ctx: PackedImageContext, *, suffix_ids=None, prompt_text=None, question=None,
-                   cold=True, image_id="", directcopy=False):
-    """Hook-free packed cache hit with the v1 request timing boundaries."""
+                   cold=True, image_id="", directcopy=False, readahead="none", max_ahead=None):
+    """Hook-free packed cache hit with the v1 request timing boundaries.
+
+    ``readahead="layer_stream"`` serves the same store through
+    ``PackedStreamSelector`` (background layer-ordered read, per-layer hooks);
+    the timer boundaries are unchanged.
+    """
     from mmimpress.serve import suffix_ids_for
+    if readahead not in ("none", "layer_stream"):
+        raise ValueError(f"readahead must be 'none' or 'layer_stream', got {readahead!r}")
+    if readahead == "layer_stream":
+        if directcopy:
+            raise ValueError("directcopy is a synchronous-path diagnostic")
+        return _request_packed_stream(server, ctx, suffix_ids=suffix_ids, prompt_text=prompt_text, question=question,
+                                      cold=cold, max_ahead=max_ahead)
     ctx.validate_packed_layout()
     BIAS.clear()
     if cold:
@@ -271,6 +409,59 @@ def request_packed(server, ctx: PackedImageContext, *, suffix_ids=None, prompt_t
         "normal_kv_read_bytes": int(m["packed_total_bytes"]) - int(m["packed_sep_bytes"]),
         "separator_read_bytes": int(m["packed_sep_bytes"]),
         "normal_kv_preads": 1, "separator_preads": 0, "read_calls": 1,
+        "total_actual_pread_bytes": int(io_summary.get("bytes", 0)),
+        "validated_prefix_layout": "visionzip_image_only_packed", "n_raters": 0,
+        "core_started_at_s": t0, "first_token_at_s": timing["first_token_at"], "model_finished_at_s": timing["finished_at"],
+        "postprocess_finished_at_s": time.perf_counter(),
+    })
+    st["selector_ms"] = st["select_ms"] + st["query_ms"]
+    return st
+
+
+@torch.no_grad()
+def _request_packed_stream(server, ctx: PackedImageContext, *, suffix_ids=None, prompt_text=None, question=None,
+                           cold=True, max_ahead=None):
+    """Packed cache hit with the layer-ordered background read-ahead."""
+    from mmimpress.serve import suffix_ids_for
+    ctx.validate_packed_layout()
+    BIAS.clear()
+    if cold:
+        ctx.reader.drop_all()
+    counter = IOCounter()
+    dev = server.runner.model.device
+    if suffix_ids is None:
+        suffix_ids = (suffix_ids_from_prompt(server.runner, prompt_text) if prompt_text is not None
+                      else suffix_ids_for(server.runner, question))
+    suffix_ids = suffix_ids.to(dev)
+    executor = server._prefetch_pool()            # worker thread exists before the timer
+    torch.cuda.synchronize()
+    t0 = time.perf_counter()
+    sel = PackedStreamSelector(server.runner, ctx, 0.25, counter, executor=executor, max_ahead=max_ahead)
+    try:
+        sel.begin()                                # reads start here, after t0
+        cache = ctx.cache.new_request()
+        with sel:
+            answer, first_token_id, timing = server._decode(cache, suffix_ids, ctx.meta["prefix_len"])
+    finally:
+        sel.close()
+    ttft = timing["first_token_at"] - t0
+    e2e = timing["finished_at"] - t0
+    BIAS.clear()
+    del cache
+    st = sel.stats()
+    io_summary = counter.summary()
+    m = ctx.meta
+    layer_reads = sum(1 for key, (_, ln) in sel._plan.items() if key != "sep" and ln)
+    st.update({
+        "answer": answer, "first_token_id": first_token_id, "ttft": ttft,
+        "decode_latency": timing["decode_ms"] / 1e3, "e2e_latency": e2e, "prepare_ms": None,
+        "prefill_ms": timing["prefill_ms"], "decode_ms": timing["decode_ms"], "model_ms": timing["prefill_ms"] + timing["decode_ms"],
+        "generated_tokens": timing["generated_tokens"], "generated_token_ids": timing["generated_token_ids"],
+        "generated_token_count": timing["generated_token_count"], "io": io_summary,
+        "normal_kv_read_bytes": int(m["packed_total_bytes"]) - int(m["packed_sep_bytes"]),
+        "separator_read_bytes": int(m["packed_sep_bytes"]),
+        "normal_kv_preads": layer_reads, "separator_preads": 1 if int(m["packed_sep_bytes"]) else 0,
+        "read_calls": int(io_summary.get("preads", 0)),
         "total_actual_pread_bytes": int(io_summary.get("bytes", 0)),
         "validated_prefix_layout": "visionzip_image_only_packed", "n_raters": 0,
         "core_started_at_s": t0, "first_token_at_s": timing["first_token_at"], "model_finished_at_s": timing["finished_at"],

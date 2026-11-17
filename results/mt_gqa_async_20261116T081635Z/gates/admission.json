@@ -1,0 +1,17 @@
+{
+ "status": "PASS",
+ "gates": {
+  "step1_cpu_tests": "PASS",
+  "gate_execution": "PASS",
+  "step2_async_equals_sync_gate": "PASS",
+  "step3_reorder_consistency": "PASS",
+  "step4_matches_hold_gate": "PASS",
+  "dev_execution": "PASS",
+  "step2_async_equals_sync_dev": "PASS",
+  "step4_matches_hold_dev": "PASS",
+  "step5_dev_async_effect": "PASS"
+ },
+ "config_sha256": "fe65ddc82a06436d5e4e715c68398523a87ad5e7d4ab9f6b159c47bef51d5e29",
+ "decided_unix": 1794824349.0416956,
+ "rule": "main runs only if every gate of steps 1-5 is PASS"
+}

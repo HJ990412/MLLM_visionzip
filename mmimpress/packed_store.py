@@ -332,6 +332,49 @@ class PackedReader:
             counter.record("packed", n, dt, preads=1, units=0)
         return n, dt
 
+    def stream_plan(self):
+        """Byte ranges for the layer-ordered read-ahead (async arm only).
+
+        ``[("sep", offset, length), (0, offset, length), ..., (L-1, ...)]``:
+        the separator sidecar block first (every layer needs its rows), then
+        one range per layer covering that layer's adjacent ``[K | V]`` blocks.
+        The ranges do not overlap and tile the file exactly, so the bytes read
+        equal those of the single ``read_all``.
+        """
+        plan = [("sep", self.sep_offset, self.total - self.sep_offset)]
+        end = 0
+        for li, row in enumerate(self.table):
+            k_off, v_off = int(row["k_offset"]), int(row["v_offset"])
+            nbytes = int(row["rows"]) * self.row_bytes
+            if k_off != end or v_off != k_off + nbytes:
+                raise ValueError("packed layer blocks are not contiguous")
+            plan.append((li, k_off, 2 * nbytes))
+            end = k_off + 2 * nbytes
+        if end != self.sep_offset:
+            raise ValueError("packed layer blocks do not end at the sidecar")
+        return plan
+
+    def read_range(self, offset: int, length: int, counter=None):
+        """One ``os.preadv`` of ``[offset, offset + length)`` into the same
+        position of the pinned buffer.  Safe to call from a worker thread as
+        long as no other thread reads the same range."""
+        offset, length = int(offset), int(length)
+        if offset < 0 or length < 0 or offset + length > self.total:
+            raise ValueError("packed read range is outside the file")
+        if length == 0:
+            return 0, 0.0
+        fd = self._open()
+        t0 = time.perf_counter()
+        n = os.preadv(fd, [memoryview(self._np)[offset:offset + length]],
+                      offset)
+        dt = time.perf_counter() - t0
+        if n != length:
+            raise AssertionError(f"short packed range read: {n} != {length}")
+        self.read_calls += 1
+        if counter is not None:
+            counter.record("packed", n, dt, preads=1, units=0)
+        return n, dt
+
     def layer_view(self, layer: int, kind: str) -> torch.Tensor:
         row = self.table[layer]
         off = int(row["k_offset" if kind == "k" else "v_offset"])

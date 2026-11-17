@@ -1,0 +1,61 @@
+{
+ "gate": "step4_matches_existing_hold",
+ "criterion": "generated tokens identical to the HOLD record of the same (dialogue, turn)",
+ "references": {
+  "recompute_fullload": "runs/layer_budget_kv25_v2_20261106T073502Z/hold/main",
+  "ours": "runs/layer_budget_kv25_pyrbeta_20261110T073604Z/hold/main"
+ },
+ "methods": [
+  {
+   "method": "recompute",
+   "hold_method": "recompute",
+   "requests": 1134,
+   "expected": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "method": "fullload",
+   "hold_method": "fullload",
+   "requests": 1134,
+   "expected": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "method": "fullload_async",
+   "hold_method": "fullload",
+   "requests": 1134,
+   "expected": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "method": "ours_prefixstore_kv25_PYR-beta-raw_packed",
+   "hold_method": "ours_prefixstore_kv25_PYR-beta-raw_packed",
+   "requests": 1134,
+   "expected": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "method": "ours_prefixstore_kv25_PYR-beta-raw_packed_async",
+   "hold_method": "ours_prefixstore_kv25_PYR-beta-raw_packed",
+   "requests": 1134,
+   "expected": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  }
+ ],
+ "status": "PASS"
+}

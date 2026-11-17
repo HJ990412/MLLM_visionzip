@@ -19,6 +19,9 @@ Per request the flow is IMPRESS's 4.1 dataflow with an image as the prefix:
      10(b)) the NEXT layer's probe keys are read by a background worker while
      the model computes the current layer; every other read stays synchronous
      inside the hook (prefetch="none", default: all reads are synchronous);
+     mode "fullload" with prefetch="layer_stream" has one background worker
+     read every layer's whole K and V in layer order while the model
+     computes, each layer waiting only for its own blocks;
   4. loaded rows are scattered into a GPU prefix cache and everything not
      loaded is masked out, so the attention the model runs is exactly the
      attention the loaded bytes support;
@@ -44,7 +47,7 @@ from mmimpress.config import ALPHA, PROBE_HEADS, RETENTION_RATIO
 from mmimpress.store import ChunkReader, IOCounter, chunks_for_tokens, load_meta
 
 FALLBACK_V_POLICIES = ("full", "selected")
-PREFETCH_POLICIES = ("none", "next_layer")
+PREFETCH_POLICIES = ("none", "next_layer", "layer_stream")
 _STORE_ITEMSIZE = {"float16": 2, "float32": 4}
 
 # ------------------------------------------------- per-layer additive bias
@@ -337,6 +340,17 @@ class LayerSelector:
         during decoding.  Selection, bytes and pread counts are identical to
         "none"; only when the probe bytes are read changes.  Ignored by
         mode="fullload".
+        "layer_stream": FullLoad only (mode="impress" rejects it).  One
+        background worker reads the whole K and V block of every layer in
+        layer order (``mmimpress.readahead.LayerReadAhead``), started by
+        ``begin_readahead()`` -- which the caller invokes after the TTFT
+        timer started -- or by ``__enter__``.  The hook of layer i waits for
+        layer i's two blocks, writes them to the GPU cache and lets the layer
+        run.  The same ``read_full`` calls, bytes and pread counts as the
+        synchronous FullLoad; only who issues them and when changes.
+    max_ahead
+        Bound on layers read but not yet consumed under "layer_stream"
+        (None, default: unbounded).
     prefetch_executor
         Single-worker ``concurrent.futures`` executor to use.  Pass one to
         keep thread start-up outside a timed region; otherwise the selector
@@ -346,7 +360,8 @@ class LayerSelector:
     def __init__(self, runner, ctx, rater_rows, ratio=RETENTION_RATIO,
                  probe=PROBE_HEADS, alpha=ALPHA, mode="impress",
                  counter=None, importance_metric=sv.DEFAULT_IMPORTANCE_METRIC,
-                 fallback_v="full", prefetch="none", prefetch_executor=None):
+                 fallback_v="full", prefetch="none", prefetch_executor=None,
+                 max_ahead=None):
         self.runner = runner
         self.ctx = ctx
         self.rater_rows = rater_rows          # suffix-relative
@@ -364,7 +379,19 @@ class LayerSelector:
             raise ValueError(f"prefetch must be one of {PREFETCH_POLICIES}, "
                              f"got {prefetch!r}")
         self.prefetch = prefetch
+        if prefetch == "layer_stream" and mode != "fullload":
+            raise ValueError('prefetch="layer_stream" is the FullLoad '
+                             'read-ahead; IMPRESS uses "next_layer"')
         self._prefetch_on = prefetch == "next_layer" and mode != "fullload"
+        self._stream_on = prefetch == "layer_stream" and mode == "fullload"
+        self.max_ahead = max_ahead
+        self._stream = None                   # LayerReadAhead or None
+        # Wall time the main thread spent inside reader calls or waiting for
+        # a background read.  Kept out of stats() so that dict is unchanged.
+        self.read_blocked_seconds = 0.0
+        # layer -> CPU bool keep mask of the request (reference, no copy):
+        # (v_num,) on the consensus path, (H, v_num) on the fallback path
+        self.keep_masks = {}
         self._executor = prefetch_executor
         self._owns_executor = False
         self._pending = None                  # (layer, Future) or None
@@ -395,12 +422,57 @@ class LayerSelector:
         """Stored positions of the structural separators for one layer."""
         return self._nl[layer] if self._nl_per_layer else self._nl
 
-    def __enter__(self):
-        if self._prefetch_on and self._executor is None:
+    def _ensure_executor(self):
+        if self._executor is None:
             from concurrent.futures import ThreadPoolExecutor
             self._executor = ThreadPoolExecutor(
                 max_workers=1, thread_name_prefix="impress-prefetch")
             self._owns_executor = True
+
+    def begin_readahead(self):
+        """Start the FullLoad layer stream; no-op for every other setting.
+
+        Call after the request timer started.  Idempotent.
+        """
+        if not self._stream_on or self._stream is not None:
+            return
+        from mmimpress.readahead import LayerReadAhead
+        self._ensure_executor()
+        self._stream = LayerReadAhead(
+            self._executor, self._stream_read,
+            range(self.ctx.meta["num_layers"]),
+            max_ahead=self.max_ahead).start()
+
+    def close_readahead(self):
+        """Stop the layer stream and leave nothing in flight.  Idempotent."""
+        if self._stream is not None:
+            self._stream.close()
+
+    def _stream_read(self, li):
+        """Worker body: both whole blocks of one layer, private counter."""
+        counter = IOCounter()
+        k = self.ctx.reader.read_full(li, "k", counter)
+        v = self.ctx.reader.read_full(li, "v", counter)
+        return k, v, counter
+
+    def _fold(self, counter):
+        """Fold a worker's private counter into the request counter."""
+        for kind, d in counter.per_kind.items():
+            self.io.record(kind, d["bytes"], d["seconds"],
+                           preads=d["preads"], units=d["units"])
+
+    def _blocking(self, fn, *args):
+        """Run a reader call on the main thread and time it."""
+        t0 = time.perf_counter()
+        try:
+            return fn(*args)
+        finally:
+            self.read_blocked_seconds += time.perf_counter() - t0
+
+    def __enter__(self):
+        if self._prefetch_on:
+            self._ensure_executor()
+        self.begin_readahead()
         for li, layer in enumerate(self.runner.layers):
             self._handles.append(layer.register_forward_pre_hook(
                 self._hook(li, layer), with_kwargs=True))
@@ -413,6 +485,7 @@ class LayerSelector:
         # (an exception between two hooks).  Leave nothing in flight; the
         # exception that is propagating, if any, is not replaced.
         self._discard_pending()
+        self.close_readahead()
         if self._owns_executor:
             self._executor.shutdown(wait=True)
             self._executor = None
@@ -464,9 +537,8 @@ class LayerSelector:
             ready = future.done()
             block, counter, read_s = future.result()
             blocked = time.perf_counter() - t0
-            for kind, d in counter.per_kind.items():
-                self.io.record(kind, d["bytes"], d["seconds"],
-                               preads=d["preads"], units=d["units"])
+            self.read_blocked_seconds += blocked
+            self._fold(counter)
             self.probe_log.append({"layer": li, "source": "prefetch",
                                    "read_s": read_s, "blocked_s": blocked,
                                    "wait_s": blocked,
@@ -474,6 +546,7 @@ class LayerSelector:
             return block
         block = self.ctx.reader.read_probe(li, self.io)
         blocked = time.perf_counter() - t0
+        self.read_blocked_seconds += blocked
         self.probe_log.append({"layer": li, "source": "hook",
                                "read_s": blocked, "blocked_s": blocked,
                                "wait_s": 0.0, "ready_on_arrival": None})
@@ -497,18 +570,29 @@ class LayerSelector:
         cids = chunks_for_tokens(stored_positions, m["v_token_num"],
                                  m["chunk_size"])
         for kind in ("k", "v"):
-            rows, vals = self.ctx.reader.read_chunks(li, kind, cids, self.io)
+            rows, vals = self._blocking(self.ctx.reader.read_chunks, li, kind,
+                                        cids, self.io)
             self.ctx.cache.write(li, kind, rows, vals)
         return cids
 
     def _load_layer_full(self, li):
         for kind in ("k", "v"):
-            block = self.ctx.reader.read_full(li, kind, self.io)
+            block = self._blocking(self.ctx.reader.read_full, li, kind,
+                                   self.io)
             self.ctx.cache.write_full(li, kind, block)
 
     def _load_layer_full_kind(self, li, kind):
-        block = self.ctx.reader.read_full(li, kind, self.io)
+        block = self._blocking(self.ctx.reader.read_full, li, kind, self.io)
         self.ctx.cache.write_full(li, kind, block)
+
+    def _load_layer_stream(self, li):
+        """FullLoad read-ahead: wait for layer li's blocks, then write them."""
+        t0 = time.perf_counter()
+        k, v, counter = self._stream.take(li)
+        self.read_blocked_seconds += time.perf_counter() - t0
+        self._fold(counter)
+        self.ctx.cache.write_full(li, "k", k)
+        self.ctx.cache.write_full(li, "v", v)
 
     def _v_bytes_read(self):
         return int(self.io.per_kind.get("v", {}).get("bytes", 0))
@@ -553,7 +637,10 @@ class LayerSelector:
 
         nc = m["n_chunks_per_layer"]
         if self.mode == "fullload":
-            self._load_layer_full(li)
+            if self._stream is not None:
+                self._load_layer_stream(li)
+            else:
+                self._load_layer_full(li)
             self.log.append({"layer": li, "mode": "full", "sim": None,
                              "chunks": nc, "k_chunks": nc, "v_chunks": nc})
             return
@@ -616,7 +703,8 @@ class LayerSelector:
                 union = keep.any(dim=0).nonzero(as_tuple=True)[0]
                 v_cids = chunks_for_tokens(union.tolist(), vn,
                                            m["chunk_size"])
-                rows, vals = ctx.reader.read_chunks(li, "v", v_cids, self.io)
+                rows, vals = self._blocking(ctx.reader.read_chunks, li, "v",
+                                            v_cids, self.io)
                 ctx.cache.write(li, "v", rows, vals)
                 v_chunks = len(v_cids)
                 # mean of the K (whole layer) and V (union) chunk counts, so
@@ -632,9 +720,22 @@ class LayerSelector:
                              "v_read_bytes": self._v_bytes_read() - v_before,
                              "v_token_exact_bytes": token_exact})
 
+        self.keep_masks[li] = keep
         BIAS[li] = bias_from_keep(keep, m, dev)
 
     # ------------------------------------------------------------ summary
+    def read_wait_stats(self):
+        """Main-thread I/O blocking and read-ahead summary of the request.
+
+        ``read_blocked_ms``: wall time the main thread spent inside reader
+        calls (pread + host buffer conversion) or waiting for a background
+        read.  Reads issued by a worker overlap the model's computation and
+        are not included unless the main thread had to wait for them.
+        """
+        return {"read_blocked_ms": self.read_blocked_seconds * 1e3,
+                "readahead": (self._stream.stats()
+                              if self._stream is not None else None)}
+
     def stats(self):
         modes = [r["mode"] for r in self.log]
         n = max(1, len(modes))
@@ -682,7 +783,8 @@ class LayerSelector:
                 # ---- probe-key acquisition (all 0 for FullLoad).  With
                 # prefetching, reads overlap the model's computation, so
                 # hook_ms, disk time and these do NOT add up to TTFT.
-                "prefetch": None if is_full else self.prefetch,
+                "prefetch": (("layer_stream" if self._stream_on else None)
+                             if is_full else self.prefetch),
                 # wall time of the probe-key reads (pread + buffer
                 # conversion), on whichever thread they ran
                 "probe_read_ms": 1e3 * sum(
@@ -2128,8 +2230,14 @@ class Server:
     @torch.no_grad()
     def request(self, ctx, question=None, mode="impress", cold=True,
                 prompt_text=None, suffix_ids=None, cache_id=None,
-                importance_metric=None, fallback_v=None, prefetch=None):
+                importance_metric=None, fallback_v=None, prefetch=None,
+                max_ahead=None, selector_out=None):
         """Serve one question with true-TTFT and end-to-end timing.
+
+        ``prefetch="layer_stream"`` (``mode="fullload"`` only) starts the
+        FullLoad layer read-ahead right after the timer starts; ``max_ahead``
+        bounds it.  ``selector_out``: optional list that receives the
+        request's ``LayerSelector`` for post-request inspection.
 
         ``importance_metric`` / ``fallback_v`` / ``prefetch`` default to the
         server's values and only affect ``mode="impress"``.  The prefetch
@@ -2169,9 +2277,11 @@ class Server:
         if prefetch not in PREFETCH_POLICIES:
             raise ValueError(f"prefetch must be one of {PREFETCH_POLICIES}, "
                              f"got {prefetch!r}")
-        # FullLoad stays fully synchronous.  Thread start-up is outside TTFT.
+        # FullLoad stays fully synchronous unless "layer_stream" is asked
+        # for.  Thread start-up is outside TTFT.
         executor = (self._prefetch_pool()
-                    if mode != "fullload" and prefetch == "next_layer"
+                    if (mode != "fullload" and prefetch == "next_layer")
+                    or (mode == "fullload" and prefetch == "layer_stream")
                     else None)
 
         torch.cuda.synchronize()
@@ -2184,11 +2294,20 @@ class Server:
         sel = LayerSelector(self.runner, ctx, rr, self.ratio, self.probe,
                             self.alpha, mode=mode, counter=counter,
                             importance_metric=metric, fallback_v=fallback_v,
-                            prefetch=prefetch, prefetch_executor=executor)
-        cache = ctx.cache.new_request()
-        with sel:
-            answer, first_token_id, timing = self._decode(
-                cache, suffix_ids, ctx.meta["prefix_len"])
+                            prefetch=prefetch, prefetch_executor=executor,
+                            max_ahead=max_ahead)
+        if selector_out is not None:
+            selector_out.append(sel)
+        try:
+            # no-op unless FullLoad "layer_stream": the worker starts reading
+            # layer 0 while the request's GPU cache is being allocated
+            sel.begin_readahead()
+            cache = ctx.cache.new_request()
+            with sel:
+                answer, first_token_id, timing = self._decode(
+                    cache, suffix_ids, ctx.meta["prefix_len"])
+        finally:
+            sel.close_readahead()
         ttft = timing["first_token_at"] - t0
         e2e = timing["finished_at"] - t0
         BIAS.clear()
@@ -2217,6 +2336,7 @@ class Server:
             "model_finished_at_s": timing["finished_at"],
             "postprocess_finished_at_s": time.perf_counter(),
             "cache_contract": contract,
+            "read_wait": sel.read_wait_stats(),
             **sel.stats(),
         }
 

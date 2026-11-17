@@ -1,0 +1,52 @@
+{
+ "gate": "step2_async_equals_sync",
+ "criterion": "generated tokens and bytes read identical for every request",
+ "pairs": [
+  {
+   "a": "fullload_async",
+   "b": "fullload",
+   "requests": 1134,
+   "expected": 1134,
+   "equal": {
+    "generated_token_ids": 1134,
+    "ssd_read_bytes": 1134,
+    "k_read_bytes": 1134,
+    "v_read_bytes": 1134
+   },
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "a": "impress_async",
+   "b": "impress",
+   "requests": 1134,
+   "expected": 1134,
+   "equal": {
+    "generated_token_ids": 1134,
+    "ssd_read_bytes": 1134,
+    "probe_read_bytes": 1134,
+    "k_read_bytes": 1134,
+    "v_read_bytes": 1134
+   },
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "a": "ours_prefixstore_kv25_PYR-beta-raw_packed_async",
+   "b": "ours_prefixstore_kv25_PYR-beta-raw_packed",
+   "requests": 1134,
+   "expected": 1134,
+   "equal": {
+    "generated_token_ids": 1134,
+    "ssd_read_bytes": 1134,
+    "packed_read_bytes": 1134
+   },
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  }
+ ],
+ "status": "PASS"
+}

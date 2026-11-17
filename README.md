@@ -1211,3 +1211,68 @@ GQA 40장/240문항을 측정했다. 두 IMPRESS arm의 측정 순서는 요청�
 두 파일럿의 실행 코드·기존 구현 백업·검증 로그·결과를 포함하며 약 49.7 GB의 H2O KV store는
 로컬에 보존한다. MT-GQA 재실행·다른 비율·warm cache·반복 실행은 이번에 측정하지 않았다.
 Cold 설정의 page-cache drop 요청은 cold NAND를 보장하지 않는다.
+
+## 38. MT-GQA 다중 턴: FullLoad·IMPRESS·Ours 비동기 KV 읽기 (2026-11-17)
+
+LLaVA-NeXT-7B, NF4/BF16/eager, FP16 SSD KV에서 네 방법을 같은 실행 안에서 비교했다.
+환경은 기존 HOLD와 같은 transformers 4.57.6이며, 앞선 IMPRESS 단일 턴 파일럿의
+5.13.1 환경과 구분한다. MT-GQA 398 images/4,061 dialogues × 3턴 × 4 arm의
+48,732/48,732요청을 완료했고, 398장 모두 독립 감사 PASS다.
+모든 방법은 매 대화 T1을 픽셀부터 계산하며 T2–T3는 method-local generated history를
+사용한다. 아래 정답률은 followup 8,122요청/arm의 strict normalized EM이다.
+
+FullLoad는 layer별 K·V 전체, IMPRESS는 다음 layer의 probe key를 CPU worker로 미리 읽는다.
+IMPRESS는 H2O, probe heads=3, α=0.6, 25% 유지, chunk64, selected V 설정이며,
+이미지 첫 대화 T1 질문의 중요도로 한 번 재배치한다. Ours는 기존 PYR-beta-raw packed
+벡터와 저장 형식을 유지하고 separator → layer별 구간을 미리 읽는다.
+읽기는 요청 타이머 시작 뒤에 수행하며 GPU 적재는 요청 스레드가 맡는다.
+동기 경로의 기본값은 유지한다. 이번 Ours 비동기 경로는 hit당 33회 preadv이며,
+기존 동기 packed의 hit당 1회 읽기와 구분한다.
+
+| 방법 | Followup EM | TTFT 평균 | p50 | p95 | SSD MB/followup |
+|---|---:|---:|---:|---:|---:|
+| ReComp | 68.48% | 530.0 ms | 532.7 ms | 596.9 ms | 0.0 |
+| FullLoad | 68.38% | 488.0 ms | 504.2 ms | 581.4 ms | 1173.9 |
+| IMPRESS | 68.20% | 721.3 ms | 727.3 ms | 818.6 ms | 1020.3 |
+| Ours | 67.42% | 148.7 ms | 149.4 ms | 170.3 ms | 308.0 |
+
+Ours의 TTFT는 같은 실행의 FullLoad 대비 0.305×, ReComp 대비 0.281×다.
+다만 Ours−IMPRESS 정답률은 −0.78 pp(95% CI −1.43~−0.14),
+Ours−FullLoad는 −0.96 pp(CI −1.60~−0.34), Ours−ReComp는 −1.06 pp
+(CI −1.69~−0.44)로 손실이 있다. IMPRESS−FullLoad는 −0.18 pp
+(CI −0.60~+0.24)로 차이 미입증이며 동등성의 증거는 아니다.
+CI는 이미지 단위 paired bootstrap 10,000회, seed1234다.
+측정 보고이며 GO/NO-GO 판정은 두지 않았다.
+
+본실험 전 gate 4장/49대화와 DEV 40장/378대화에서 동기·비동기 생성 token과 읽기
+바이트가 모두 일치했고, 기존 HOLD 요청과의 token 대조도 통과했다.
+DEV의 같은 요청에 대한 비동기−동기 followup TTFT 차이는 아래와 같다.
+
+| 방법 | 동기 평균 | 비동기 평균 | Paired 차이 [95% CI] |
+|---|---:|---:|---:|
+| FullLoad | 772.4 ms | 479.9 ms | −292.5 [−300.5, −284.0] ms |
+| IMPRESS | 751.9 ms | 727.7 ms | −24.2 [−25.8, −22.8] ms |
+| Ours | 218.9 ms | 147.8 ms | −71.2 [−74.3, −67.8] ms |
+
+Gate 1,176요청과 DEV 7,938요청은 main 분모에서 제외한다. DEV 이미지는 main에도
+포함되며, 398장 전체를 기존 HOLD와 token 단위로 다시 대조한 것은 아니다.
+IMPRESS의 main fallback은 29.1%, K·V chunk 비율은 81.7%였다.
+재배치하지 않았을 경우의 99.8%는 같은 선택을 raster 위치로 되돌린 계산값이며 실측이 아니다.
+
+Ours의 3턴 shared session은 평균 996.1 ms, 매 대화에 setup을 재부과한
+standalone-equivalent는 1,806.8 ms(ReComp 1,668.0 ms)다. Standalone은 DERIVED이며
+독립 cold-session 실측이 아니다. IMPRESS의 별도 중요도 집계 508 ms와 재배치 796 ms는
+followup TTFT 밖의 이미지당 비용이다. 이를 T1 추론에 합치는 구현은 측정하지 않았다.
+읽기·연산이 겹치므로 hook과 디스크 시간을 더해 TTFT로 해석하지 않으며,
+DONTNEED는 cold NAND를 보장하지 않는다. 반복 실행·다른 비율·Qwen·GLM 실험은 미실행이다.
+
+[전체 결과](results/mt_gqa_async_20261116T081635Z/report.md),
+[본실험 표](results/mt_gqa_async_20261116T081635Z/main/arms.csv),
+[짝지은 비교](results/mt_gqa_async_20261116T081635Z/main/paired.csv),
+[DEV 동기·비동기](results/mt_gqa_async_20261116T081635Z/dev/sync_async.csv),
+[저장·T1 비용](results/mt_gqa_async_20261116T081635Z/main/storage.csv),
+[세션 비용](results/mt_gqa_async_20261116T081635Z/main/sessions.csv),
+[요약·검증 상태](results/mt_gqa_async_20261116T081635Z/summary.json),
+[실험 계약](docs/mt_gqa_async_contract.md)을 참조한다.
+실행 코드·결과표·동결 설정·검증 receipt를 보존하며 대용량 raw·KV·전체 manifest와
+파일별 보호 inventory는 로컬에 둔다.
