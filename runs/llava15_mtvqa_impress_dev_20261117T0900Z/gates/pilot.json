@@ -1,0 +1,35 @@
+{
+ "status": "PASS",
+ "phase": {
+  "status": "PASS",
+  "requests": 480,
+  "expected_requests": 480,
+  "images": 40,
+  "independent_image_audit": "PASS",
+  "config_sha256": "bc59b6b72cc5fc4ce4a55a5affdd60474a29c81fa6e38e2a333c75895fffb536"
+ },
+ "turn1_identity": {
+  "images": 40,
+  "identical": 40,
+  "mismatched": 0,
+  "examples": []
+ },
+ "pilot_table": "results/llava15_mtvqa_impress_dev_20261117T0900Z/pilot/arms.csv",
+ "pilot_table_present": true,
+ "measured": {
+  "seconds_per_image_mean": 5.321526652574539,
+  "seconds_per_image_p95": 5.841362524032593,
+  "retained_bytes_per_image_mean": 308981.1,
+  "peak_scratch_bytes_max": 715883925
+ },
+ "projection_main": {
+  "hours": 36.9550461984343,
+  "retained_bytes": 7724527499.999999,
+  "required_free_bytes": 46935334141,
+  "free_bytes": 474534658048,
+  "storage": "PASS",
+  "formula": "30 GiB reserve + 4 GiB working set + pilot retained bytes/image x 25,000 x 1.35 (= x 625 x 1.35 of the 40-image total)"
+ },
+ "config_sha256": "bc59b6b72cc5fc4ce4a55a5affdd60474a29c81fa6e38e2a333c75895fffb536",
+ "written_unix": 1794903175.2839017
+}

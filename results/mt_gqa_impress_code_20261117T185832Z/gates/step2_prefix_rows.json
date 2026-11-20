@@ -1,0 +1,119 @@
+{
+ "gate": "step2_prefix_rows_match_full_recompute",
+ "criterion": "for every gate image, the stored prefix-row importance (and the order scores) equal, element for element, the values captured from a second full computation from pixels with the same turn-1 prompt",
+ "images": [
+  {
+   "image_id": "n181355",
+   "source_dialog_id": "mtgqa_000012",
+   "source_method_id": "impress_official",
+   "shape": [
+    32,
+    3,
+    2340
+   ],
+   "separators": 36,
+   "same_prompt": {
+    "prefix_rows_equal": true,
+    "order_scores_equal": true,
+    "prefix_rows_max_abs_diff": 0.0,
+    "order_scores_max_abs_diff": 0.0,
+    "generated_tokens_equal": true
+   },
+   "other_prompt_diagnostic": {
+    "prefix_rows_equal": false,
+    "max_abs_diff": 0.3184976577758789,
+    "mean_abs_diff": 0.0022406841162592173,
+    "prefix_only_topk_jaccard_mean": 0.9806188446554863,
+    "prefix_only_topk_jaccard_min": 0.949238578680203,
+    "suffix_tokens_stored_request": 34,
+    "suffix_tokens_other_request": 52
+   },
+   "status": "PASS"
+  },
+  {
+   "image_id": "n204894",
+   "source_dialog_id": "mtgqa_000038",
+   "source_method_id": "impress_official",
+   "shape": [
+    32,
+    3,
+    2160
+   ],
+   "separators": 48,
+   "same_prompt": {
+    "prefix_rows_equal": true,
+    "order_scores_equal": true,
+    "prefix_rows_max_abs_diff": 0.0,
+    "order_scores_max_abs_diff": 0.0,
+    "generated_tokens_equal": true
+   },
+   "other_prompt_diagnostic": {
+    "prefix_rows_equal": false,
+    "max_abs_diff": 0.76971435546875,
+    "mean_abs_diff": 0.00225567608140409,
+    "prefix_only_topk_jaccard_mean": 0.9804262836177138,
+    "prefix_only_topk_jaccard_min": 0.9305301645338209,
+    "suffix_tokens_stored_request": 31,
+    "suffix_tokens_other_request": 53
+   },
+   "status": "PASS"
+  },
+  {
+   "image_id": "n229548",
+   "source_dialog_id": "mtgqa_000001",
+   "source_method_id": "impress_official",
+   "shape": [
+    32,
+    3,
+    2544
+   ],
+   "separators": 48,
+   "same_prompt": {
+    "prefix_rows_equal": true,
+    "order_scores_equal": true,
+    "prefix_rows_max_abs_diff": 0.0,
+    "order_scores_max_abs_diff": 0.0,
+    "generated_tokens_equal": true
+   },
+   "other_prompt_diagnostic": {
+    "prefix_rows_equal": false,
+    "max_abs_diff": 1.0067100524902344,
+    "mean_abs_diff": 0.002266805851832032,
+    "prefix_only_topk_jaccard_mean": 0.9806955624961002,
+    "prefix_only_topk_jaccard_min": 0.9530516431924883,
+    "suffix_tokens_stored_request": 29,
+    "suffix_tokens_other_request": 46
+   },
+   "status": "PASS"
+  },
+  {
+   "image_id": "n95369",
+   "source_dialog_id": "mtgqa_000034",
+   "source_method_id": "fullload_reordered",
+   "shape": [
+    32,
+    3,
+    2160
+   ],
+   "separators": 48,
+   "same_prompt": {
+    "prefix_rows_equal": true,
+    "order_scores_equal": true,
+    "prefix_rows_max_abs_diff": 0.0,
+    "order_scores_max_abs_diff": 0.0,
+    "generated_tokens_equal": true
+   },
+   "other_prompt_diagnostic": {
+    "prefix_rows_equal": false,
+    "max_abs_diff": 2.3901023864746094,
+    "mean_abs_diff": 0.0022732350043952465,
+    "prefix_only_topk_jaccard_mean": 0.9801045749263717,
+    "prefix_only_topk_jaccard_min": 0.9447513812154696,
+    "suffix_tokens_stored_request": 36,
+    "suffix_tokens_other_request": 59
+   },
+   "status": "PASS"
+  }
+ ],
+ "status": "PASS"
+}

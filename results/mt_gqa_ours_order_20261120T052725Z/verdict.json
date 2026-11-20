@@ -1,0 +1,36 @@
+{
+ "status": "빼도 됨",
+ "followup_pairs": 8122,
+ "a": {
+  "pass": true,
+  "rule": "95% CI 하한 > -0.5 pp",
+  "acc_delta_pp": 0.12312238364934745,
+  "ci_low_pp": -0.07326052062251379,
+  "ci_high_pp": 0.327554215291904,
+  "images": 398,
+  "acc_reorder_pct": 67.42181728638266,
+  "acc_original_pct": 67.54493967003201
+ },
+ "b": {
+  "pass": true,
+  "rule": "TTFT 평균 비율 <= 1.02",
+  "ratio": 0.9991239416430947,
+  "ttft_reorder_ms": 148.3456702777697,
+  "ttft_original_ms": 148.21571081361213,
+  "ratio_bootstrap_ci_reference": [
+   0.9968697524384793,
+   1.001340340686358
+  ]
+ },
+ "c": {
+  "pass": true,
+  "rule": "모든 followup 요청 쌍에서 읽기 바이트와 읽기 호출 수가 같음",
+  "pairs_with_different_bytes": 0,
+  "pairs_with_different_read_calls": 0,
+  "bytes_per_followup_reorder": 308049732.90125585,
+  "bytes_per_followup_original": 308049732.90125585,
+  "read_calls_reorder": 33.0,
+  "read_calls_original": 33.0
+ },
+ "failed_criteria": []
+}

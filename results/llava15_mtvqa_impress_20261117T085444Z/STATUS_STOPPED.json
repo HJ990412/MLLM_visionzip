@@ -1,0 +1,17 @@
+{
+ "status": "중단됨 (STOPPED_BY_USER_REQUEST)",
+ "stopped_at_utc": "2026-11-17T18:15:20Z",
+ "stop_requested_at_utc": "2026-11-17T18:15:16Z",
+ "stop_mechanism": "runs/<RUN>/STOP_REQUESTED file -> scripts/193 run_phase raises at the next image boundary (after the image in flight was audited, committed and its scratch deleted)",
+ "reason": "user request 2026-11-18 (KST): IMPRESS baseline is being redefined to the public implementation (HyperInfer 91df7a2); both experiments are re-run under new contracts",
+ "phase": "main",
+ "completed_images": 5956,
+ "images": 25000,
+ "completed_final_requests": 71472,
+ "expected_requests": 300000,
+ "last_committed_image_id": "314125",
+ "interruption_record": "interruption_main_20261118T031520.json",
+ "partial_results": "kept as is under main/ (5,956 committed image directories); NOT a complete run, no report was produced for the main phase",
+ "scratch": "empty (each image's scratch stores were deleted by the run's own lifecycle after commit; no files left under scratch/)",
+ "resume": "not planned; superseded by results/llava15_mtvqa_impress_code_<UTC>"
+}

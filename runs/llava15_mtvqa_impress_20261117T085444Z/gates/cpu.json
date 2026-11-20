@@ -1,0 +1,53 @@
+{
+ "before_change_4.57.6": {
+  "ran": 736,
+  "failing": [
+   "setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+   "test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+   "test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+  ],
+  "ok": false,
+  "failed_line": "FAILED (errors=3, skipped=8)",
+  "log": "source_before/cpu_tests_before_mllm_ft.log"
+ },
+ "after_4.57.6": {
+  "ran": 750,
+  "failing": [
+   "setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+   "test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+   "test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+  ],
+  "ok": false,
+  "failed_line": "FAILED (errors=3, skipped=8)",
+  "new_failures": [],
+  "log": "gates/cpu_tests_after_4.57.6.log",
+  "new_test_file": {
+   "ran": 14,
+   "failing": [],
+   "ok": true,
+   "failed_line": null
+  }
+ },
+ "after_5.13.1": {
+  "ran": 768,
+  "failing": [
+   "test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests)",
+   "test_single_stock_forward_capture_equals_dense_visionzip_formula (test_qwen25_vision.StockVisionCaptureTests)"
+  ],
+  "ok": false,
+  "failed_line": "FAILED (failures=1, errors=1, skipped=8)",
+  "new_failures": [],
+  "log": "gates/cpu_tests_after_5.13.1.log",
+  "new_test_file": {
+   "ran": 14,
+   "failing": [],
+   "ok": true,
+   "failed_line": null
+  }
+ },
+ "status": "PASS",
+ "step": "1 CPU tests",
+ "rule": "no failing test other than the environment failures recorded before the change",
+ "config_sha256": "808cec39371b1be2ed7f8e170efed58a2bbf72ff8e0418466e46f510a5659004",
+ "written_unix": 1794905946.614057
+}

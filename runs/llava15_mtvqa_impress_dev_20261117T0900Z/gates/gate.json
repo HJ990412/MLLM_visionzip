@@ -1,0 +1,102 @@
+{
+ "status": "FAIL",
+ "phase": {
+  "status": "PASS",
+  "requests": 1056,
+  "expected_requests": 1056,
+  "images": 44,
+  "independent_image_audit": "PASS",
+  "config_sha256": "bc59b6b72cc5fc4ce4a55a5affdd60474a29c81fa6e38e2a333c75895fffb536"
+ },
+ "step3_async_consistency": {
+  "FullLoad": {
+   "compared": 132,
+   "mismatched": 0,
+   "examples": []
+  },
+  "IMPRESS": {
+   "compared": 132,
+   "mismatched": 0,
+   "examples": []
+  },
+  "Ours": {
+   "compared": 132,
+   "mismatched": 0,
+   "examples": []
+  },
+  "status": "PASS"
+ },
+ "step4_impress_r100_vs_fullload": {
+  "status": "FAIL",
+  "compared": 132,
+  "equal": 131,
+  "allowed_logit_ties": 0,
+  "tie_requests": [],
+  "downstream_of_a_tie": 0,
+  "downstream_requests": [],
+  "violations": 1,
+  "violation_requests": [
+   {
+    "image_id": "23351",
+    "dialog_id": "mtvqa25k_022583",
+    "turn_id": 3,
+    "reference_tokens": [
+     29871,
+     29946,
+     2
+    ],
+    "candidate_tokens": [
+     29871,
+     29941,
+     2
+    ],
+    "position": 1,
+    "reason": "not an exact logit tie of the reference",
+    "reference_step": {
+     "max": 19.375,
+     "n_tied": 1,
+     "tied_ids": [
+      29946
+     ],
+     "top2_ids": [
+      29946,
+      29941
+     ],
+     "top2": [
+      19.375,
+      19.25
+     ]
+    }
+   }
+  ]
+ },
+ "step5_turn1_identity": {
+  "images": 44,
+  "identical": 44,
+  "mismatched": 0,
+  "examples": [],
+  "status": "PASS"
+ },
+ "reference_sync_vs_async_followup_ttft": {
+  "FullLoad": {
+   "sync_mean_ms": 215.1393698718907,
+   "async_mean_ms": 121.22024815868248,
+   "paired_mean_difference_ms": -93.9191217132082,
+   "requests": 88
+  },
+  "IMPRESS": {
+   "sync_mean_ms": 244.4459439403462,
+   "async_mean_ms": 241.12750612072307,
+   "paired_mean_difference_ms": -3.3184378196231346,
+   "requests": 88
+  },
+  "Ours": {
+   "sync_mean_ms": 83.96232668945396,
+   "async_mean_ms": 74.54870460258627,
+   "paired_mean_difference_ms": -9.41362208686769,
+   "requests": 88
+  }
+ },
+ "config_sha256": "bc59b6b72cc5fc4ce4a55a5affdd60474a29c81fa6e38e2a333c75895fffb536",
+ "written_unix": 1794903172.2263417
+}

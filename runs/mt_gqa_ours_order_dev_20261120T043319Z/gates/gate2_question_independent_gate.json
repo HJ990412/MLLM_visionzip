@@ -1,0 +1,154 @@
+{
+ "gate": "gate2_question_independent_gate",
+ "criterion": "for every image, the original-order stores built from three different questions are the same store (payload file byte for byte, per-layer index tables, system-prompt KV, all metadata except the record of the capturing request), and equal to the committed store of the phase; inputs of the row plan are the VisionZip order and the frozen layer counts only (tests/test_packed_original_order.py)",
+ "inputs_of_the_store": "captured Turn-1 visual-prefix K/V, CLIP penultimate-layer CLS-to-patch attention (VisionZip score), separator positions, the frozen PYR-beta-raw layer budget; no question text, no decoder attention, no calibration score",
+ "images": [
+  {
+   "image_id": "n181355",
+   "questions": [
+    "What piece of furniture is made of wood?",
+    "What piece of furniture is wooden?",
+    "How the piece of furniture that is made of wood is called?"
+   ],
+   "suffix_tokens": [
+    34,
+    32,
+    38
+   ],
+   "distinct_suffix_lengths": 3,
+   "packed_sha256": [
+    "22f5a28ac1248b6cd414b9a6fec5cf27659e05406e755e9615a0958b1f16dc61",
+    "3c89b62e6acf30a085c7ff5160a091fedf7e87c27bc8b685a1782cea35333a63",
+    "cbce861e1b3b1b6db42515748de90f555a093e660940079587f4e04a15cbec5d"
+   ],
+   "committed_packed_sha256": "22f5a28ac1248b6cd414b9a6fec5cf27659e05406e755e9615a0958b1f16dc61",
+   "payload_bytes_equal": false,
+   "index_tables_equal": true,
+   "system_kv_equal": true,
+   "metadata_equal_outside_request_records": false,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "equal_to_committed_store": true,
+   "payload_bytes": 320864256,
+   "status": "FAIL"
+  },
+  {
+   "image_id": "n204894",
+   "questions": [
+    "Who is wearing jeans?",
+    "Does the shirt have the same color as the chair?",
+    "Who is talking on the device that looks black and silver?"
+   ],
+   "suffix_tokens": [
+    31,
+    36,
+    36
+   ],
+   "distinct_suffix_lengths": 2,
+   "packed_sha256": [
+    "cb68a1cc20810cb20f739450267f62e12c2e734d62b2bd2fc8a8ad8e181f2256",
+    "aa247bb845cc911c6d233b22c4b4c361faa264c7cb39f819fe0d69ae1e27098e",
+    "aa247bb845cc911c6d233b22c4b4c361faa264c7cb39f819fe0d69ae1e27098e"
+   ],
+   "committed_packed_sha256": "cb68a1cc20810cb20f739450267f62e12c2e734d62b2bd2fc8a8ad8e181f2256",
+   "payload_bytes_equal": false,
+   "index_tables_equal": true,
+   "system_kv_equal": true,
+   "metadata_equal_outside_request_records": false,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "equal_to_committed_store": true,
+   "payload_bytes": 301989888,
+   "status": "FAIL"
+  },
+  {
+   "image_id": "n229548",
+   "questions": [
+    "What aircraft is military?",
+    "What aircraft is heavy?",
+    "In which part is the large helicopter, the bottom or the top?"
+   ],
+   "suffix_tokens": [
+    29,
+    29,
+    40
+   ],
+   "distinct_suffix_lengths": 2,
+   "packed_sha256": [
+    "f1f45f39d42bb4ceab1a87c2f339cd45330fbcea3de969846e53f7d827c4773f",
+    "f1f45f39d42bb4ceab1a87c2f339cd45330fbcea3de969846e53f7d827c4773f",
+    "de104ff6300249d06ae1713948fd1cf58b1cefad5213089247ee550af89e2b4e"
+   ],
+   "committed_packed_sha256": "f1f45f39d42bb4ceab1a87c2f339cd45330fbcea3de969846e53f7d827c4773f",
+   "payload_bytes_equal": false,
+   "index_tables_equal": true,
+   "system_kv_equal": true,
+   "metadata_equal_outside_request_records": false,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "equal_to_committed_store": true,
+   "payload_bytes": 352321536,
+   "status": "FAIL"
+  },
+  {
+   "image_id": "n95369",
+   "questions": [
+    "Are there either pens or dispensers in this photograph?",
+    "What color is the shower that is in the bathroom?",
+    "How big is the bath tub?"
+   ],
+   "suffix_tokens": [
+    36,
+    37,
+    31
+   ],
+   "distinct_suffix_lengths": 3,
+   "packed_sha256": [
+    "a55d4ace01ebdd0be935cb043dd4f7f5aeea50109fb1ad71ae9196b80a00ffb1",
+    "a104f60e7272313b38a65c3b69b197e5f00fdb613fd5dd13587d01649204da39",
+    "d207418e68024a5c18d967de8c5a12a0cdde45aa10c2002f8c2068421e427c9d"
+   ],
+   "committed_packed_sha256": "a55d4ace01ebdd0be935cb043dd4f7f5aeea50109fb1ad71ae9196b80a00ffb1",
+   "payload_bytes_equal": false,
+   "index_tables_equal": true,
+   "system_kv_equal": true,
+   "metadata_equal_outside_request_records": false,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "equal_to_committed_store": true,
+   "payload_bytes": 301989888,
+   "status": "FAIL"
+  }
+ ],
+ "image_count": 4,
+ "pass_count": 0,
+ "status": "FAIL"
+}

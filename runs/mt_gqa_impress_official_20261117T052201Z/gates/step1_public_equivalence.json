@@ -1,0 +1,52 @@
+{
+ "gate": "step1_public_equivalence",
+ "public_checkout": "/home/dblab/hj/_external_ref/HyperInfer",
+ "public_head": "91df7a2fc12581c6780a6485c5b50e7fd9ef9d0e",
+ "criterion": "every PublicEquivalenceTests case runs (none skipped) and passes against the public checkout",
+ "ran": 20,
+ "returncode": 0,
+ "public_cases": [
+  {
+   "test": "test_jaccard_value",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "test": "test_mask_equals_public_filled_selected_attention",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "test": "test_reference_checkout_is_the_recorded_commit",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "test": "test_reorder_order_equals_public_mapping_list",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "test": "test_sele_tokenid_from_hidden_states",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "test": "test_selection_from_the_same_attention_matrix",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "test": "test_stored_prefix_rows_plus_suffix_rows_select_like_the_whole_matrix",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "test": "test_threshold_is_inclusive_like_the_public_code",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  }
+ ],
+ "status": "PASS",
+ "tail": "valenceTests) ... ok\ntest_stored_prefix_rows_plus_suffix_rows_select_like_the_whole_matrix (test_impress_official.PublicEquivalenceTests)\nThe split used at request time: stored prefix-row share + suffix-row ... ok\ntest_threshold_is_inclusive_like_the_public_code (test_impress_official.PublicEquivalenceTests) ... ok\ntest_full_retention_is_a_consensus_on_every_candidate (test_impress_official.SelectionTests) ... ok\ntest_keep_count_is_the_public_ceil_formula (test_impress_official.SelectionTests) ... ok\ntest_layer_order_puts_separators_first_then_descending (test_impress_official.SelectionTests) ... ok\ntest_select_tokens_never_picks_forbidden_candidates (test_impress_official.SelectionTests) ... ok\ntest_vote_consensus_prefers_votes_then_lower_index (test_impress_official.SelectionTests) ... ok\ntest_consensus_reads_chunks_and_masks_fallback_reads_all_and_masks_nothing (test_impress_official.SelectorTests) ... ok\ntest_full_retention_loads_everything_and_hides_nothing (test_impress_official.SelectorTests) ... ok\ntest_next_layer_prefetch_changes_only_who_reads_the_probe_sidecar (test_impress_official.SelectorTests) ... ok\ntest_selector_selects_like_the_whole_matrix_pipeline (test_impress_official.SelectorTests)\nStored prefix rows + online suffix rows inside the hook, against the ... ok\ntest_capture_reads_the_models_own_prefill_attention (test_impress_official.Turn1CaptureTests) ... ok\n\n----------------------------------------------------------------------\nRan 20 tests in 0.379s\n\nOK\n"
+}

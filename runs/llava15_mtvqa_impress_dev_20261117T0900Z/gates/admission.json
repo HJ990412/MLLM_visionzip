@@ -1,0 +1,28 @@
+{
+ "status": "FAIL",
+ "steps": {
+  "cpu": {
+   "status": "PASS",
+   "bound_to_this_freeze": true,
+   "ok": true
+  },
+  "preserve": {
+   "status": "PASS",
+   "bound_to_this_freeze": true,
+   "ok": true
+  },
+  "gate": {
+   "status": "FAIL",
+   "bound_to_this_freeze": true,
+   "ok": false
+  },
+  "pilot": {
+   "status": "PASS",
+   "bound_to_this_freeze": true,
+   "ok": true
+  }
+ },
+ "rule": "steps 1-6 all PASS for this freeze; the main stage does not start otherwise",
+ "config_sha256": "bc59b6b72cc5fc4ce4a55a5affdd60474a29c81fa6e38e2a333c75895fffb536",
+ "written_unix": 1794903347.4658208
+}

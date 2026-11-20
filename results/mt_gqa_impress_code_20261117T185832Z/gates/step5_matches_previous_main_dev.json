@@ -1,0 +1,35 @@
+{
+ "gate": "step5_matches_previous_main_dev",
+ "criterion": "ReComp, FullLoad, Ours: generated tokens identical to the README-38 main run's record of the same (dialogue, turn)",
+ "reference": "runs/mt_gqa_async_20261116T081635Z/main",
+ "methods": [
+  {
+   "method": "recompute",
+   "requests": 1134,
+   "expected": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "method": "fullload_async",
+   "requests": 1134,
+   "expected": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "method": "ours_prefixstore_kv25_PYR-beta-raw_packed_async",
+   "requests": 1134,
+   "expected": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  }
+ ],
+ "status": "PASS"
+}

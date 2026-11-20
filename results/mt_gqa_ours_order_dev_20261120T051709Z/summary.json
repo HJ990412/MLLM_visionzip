@@ -1,0 +1,49 @@
+{
+ "run": "mt_gqa_ours_order_dev_20261120T051709Z",
+ "environment": {
+  "executable": "/home/dblab/anaconda3/envs/mllm_ft/bin/python",
+  "numpy": "2.2.6",
+  "python": "3.10.20 (main, Jun 11 2026, 15:17:37) [GCC 14.3.0]",
+  "torch": "2.5.1+cu121",
+  "transformers": "4.57.6"
+ },
+ "verdict": {
+  "status": "미실행"
+ },
+ "gates": {
+  "gate1_store_contents_gate": "PASS",
+  "gate1_store_contents_dev": null,
+  "gate2_question_independent_gate": "PASS",
+  "gate2_question_independent_dev": null,
+  "gate3_sync_equals_async_gate": "PASS",
+  "gate3_sync_equals_async_dev": null,
+  "gate4_continuity_gate": "PASS",
+  "gate4_continuity_dev": null,
+  "gate5_repeat_gate": "PASS",
+  "gate5_repeat_dev": null,
+  "gate6_tests": null,
+  "dev_execution": null,
+  "gate_execution": "PASS",
+  "devgate_execution": null
+ },
+ "admission": null,
+ "gate2_payload": {
+  "gate 4장": {
+   "question_pairs": 12,
+   "equal_prompt_length_pairs": 2,
+   "equal_prompt_length_pairs_with_equal_payload": 2,
+   "different_prompt_length_pairs": 10,
+   "different_prompt_length_pairs_with_equal_payload": 0,
+   "mean_fraction_of_fp16_elements_that_differ_when_lengths_differ": 0.5972125956713875,
+   "max_abs_diff_when_lengths_differ": 0.8125,
+   "pairs_where_importance_order_store_agrees_with_original_order_store_on_equal_or_different": 12,
+   "images_with_all_three_payloads_equal": 0,
+   "images_whose_first_question_payload_equals_committed_store": 4,
+   "images_with_equal_system_kv": 4
+  }
+ },
+ "protection": {
+  "status": "PASS",
+  "files": 3081376
+ }
+}

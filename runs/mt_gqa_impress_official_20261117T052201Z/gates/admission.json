@@ -1,0 +1,17 @@
+{
+ "status": "FAIL",
+ "gates": {
+  "step1_public_equivalence": "PASS",
+  "step2_prefix_rows": "PASS",
+  "gate_execution": "PASS",
+  "step3_keep100_equals_fullload": "FAIL",
+  "step4_matches_previous_main_gate": "PASS",
+  "new_arm_async_equals_sync": "PASS",
+  "step5_cpu_tests": "PASS",
+  "dev_execution": "PASS",
+  "step4_matches_previous_main_dev": "PASS"
+ },
+ "config_sha256": "e322c99c9d981978572e35f1084bfd4d6c457ba96de1ba05823b7b86fe269edd",
+ "decided_unix": 1794898182.2658179,
+ "rule": "main runs only if every gate of steps 1-6 is PASS"
+}

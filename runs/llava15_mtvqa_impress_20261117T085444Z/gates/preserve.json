@@ -1,0 +1,37 @@
+{
+ "status": "PASS",
+ "step": "2 path preservation",
+ "images": [
+  "n229548",
+  "n181355"
+ ],
+ "requests_compared": 495,
+ "mismatches": 0,
+ "mismatch_examples": [],
+ "per_method": {
+  "llava15_kv_PYR-b20_packed": {
+   "compared": 99,
+   "mismatched": 0
+  },
+  "llava15_kv_U100_packed": {
+   "compared": 99,
+   "mismatched": 0
+  },
+  "llava15_kv_U25_packed": {
+   "compared": 99,
+   "mismatched": 0
+  },
+  "llava15_kv_U50_packed": {
+   "compared": 99,
+   "mismatched": 0
+  },
+  "recompute": {
+   "compared": 99,
+   "mismatched": 0
+  }
+ },
+ "reference": "runs/llava15_mt_gqa_20261112T062708Z/main",
+ "rule": "generated token ids (and prompt, read bytes) equal the README-34 main record for every request",
+ "config_sha256": "808cec39371b1be2ed7f8e170efed58a2bbf72ff8e0418466e46f510a5659004",
+ "written_unix": 1794906052.6344228
+}

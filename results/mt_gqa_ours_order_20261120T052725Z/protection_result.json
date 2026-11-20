@@ -1,0 +1,37 @@
+{
+ "status": "PASS",
+ "before": {
+  "bytes": 693268961461,
+  "files": 3081508,
+  "fingerprint": "sha256 over lines 'relative path<TAB>size<TAB>mtime_ns' of every file, sorted walk; this run's own directories excluded",
+  "roots": [
+   "results",
+   "runs",
+   "kvstore",
+   "kvstore_image_only_visionzip",
+   "kvstore_image_only_work",
+   "kvstore_multiturn",
+   "kvstore_reorder_prefix_calib1",
+   "kvstore_visdial_turn1_piggyback_e2e_ttft"
+  ],
+  "sha256": "1cd313a3dd2a2fab03cc57cdc05bd19aff9b3400cc7cb80688a0ac227aaef576"
+ },
+ "after": {
+  "files": 3081508,
+  "bytes": 693268961461,
+  "sha256": "1cd313a3dd2a2fab03cc57cdc05bd19aff9b3400cc7cb80688a0ac227aaef576",
+  "roots": [
+   "results",
+   "runs",
+   "kvstore",
+   "kvstore_image_only_visionzip",
+   "kvstore_image_only_work",
+   "kvstore_multiturn",
+   "kvstore_reorder_prefix_calib1",
+   "kvstore_visdial_turn1_piggyback_e2e_ttft"
+  ],
+  "fingerprint": "sha256 over lines 'relative path<TAB>size<TAB>mtime_ns' of every file, sorted walk; this run's own directories excluded"
+ },
+ "differences": null,
+ "rule": "no pre-existing file under results/, runs/ (other runs), kvstore* may change or disappear; new files elsewhere are listed"
+}

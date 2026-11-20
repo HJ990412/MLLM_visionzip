@@ -1,0 +1,6 @@
+{
+ "status": "PARTIAL",
+ "error": "RuntimeError('STOP_REQUESTED')",
+ "traceback": "Traceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/scripts/193_eval_llava15_mtvqa_impress.py\", line 1124, in main\n    receipt = run_phase(runner, servers, run, phase, config, manifest)\n  File \"/home/dblab/hj/mllm_v2/scripts/193_eval_llava15_mtvqa_impress.py\", line 928, in run_phase\n    raise RuntimeError(\"STOP_REQUESTED\")\nRuntimeError: STOP_REQUESTED\n",
+ "resume_command": "HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:scripts:tests OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/193_eval_llava15_mtvqa_impress.py --run /home/dblab/hj/mllm_v2/runs/llava15_mtvqa_impress_20261117T085444Z --stage main --resume"
+}

@@ -1,0 +1,33 @@
+{
+ "status": "PASS",
+ "phase": {
+  "status": "PASS",
+  "requests": 480,
+  "expected_requests": 480,
+  "images": 40,
+  "independent_image_audit": "PASS",
+  "config_sha256": "cfb4c5035a787502408952b024f2086e5ffec62acac3b2deb1dd9a83de38a5c5"
+ },
+ "step5_turn1_identity": {
+  "images": 40,
+  "identical": 40,
+  "mismatched": 0,
+  "examples": []
+ },
+ "measured": {
+  "seconds_per_image_mean": 5.010070854425431,
+  "seconds_per_image_p95": 5.323020827770233,
+  "retained_bytes_per_image_mean": 536537.725,
+  "peak_scratch_bytes_max": 716105530
+ },
+ "projection_main": {
+  "hours": 34.79215871128771,
+  "retained_bytes": 13413443125.0,
+  "required_free_bytes": 54615370234,
+  "free_bytes": 471402328064,
+  "storage": "PASS",
+  "formula": "30 GiB reserve + 4 GiB working set + pilot retained bytes/image x 25,000 x 1.35"
+ },
+ "config_sha256": "cfb4c5035a787502408952b024f2086e5ffec62acac3b2deb1dd9a83de38a5c5",
+ "written_unix": 1794941884.8909137
+}

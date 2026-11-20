@@ -1,0 +1,23 @@
+{
+  "deletion_scope": "runs/<RUN>/scratch only (exact SHA allowlist after audit+commit; the question-independence stores after their comparison); existing stores never deleted",
+  "expected_ssd_write_bytes": {
+    "dev": 75144387861,
+    "devgate": 12360572933,
+    "gate": 7808332498,
+    "main": 749835746910,
+    "question_independence": 40945959642,
+    "total": 886094999844
+  },
+  "expected_ssd_write_note": "per image: raster store + two packed stores (gate, dev, main); one packed store (devgate); three packed stores per gate/DEV image for the question-independence check; sizes from runs/mt_gqa_impress_code_20261117T185832Z/main disk_usage.json; raw rows and evidence not included",
+  "free_bytes_at_freeze": 449970601984,
+  "full_store_bound_bytes": 1699348480,
+  "largest_image_bundle_bound_bytes": 2932473856,
+  "maximum_new_payload_bytes": 21474836480,
+  "minimum_reserve_bytes": 32212254720,
+  "packed_store_bound_bytes": 411041792,
+  "peak_working_set_bytes": 7227441152,
+  "policy": "FRESH_IMAGE_STREAMING",
+  "raw_and_evidence_growth_bound_bytes": 8589934592,
+  "required_free_bytes": 48029630464,
+  "status": "PASS"
+}

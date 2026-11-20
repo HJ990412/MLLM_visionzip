@@ -1,0 +1,3984 @@
+{
+ "gate": "gate2_question_independent_dev",
+ "criterion": "for every image, the original-order stores built from three different questions hold the same selection and layout: per-layer original-index tables, row counts, byte table, file set, and every metadata field except the record of the capturing request and the payload digest; and the index tables equal those of the phase's committed store. The inputs of the row plan are the VisionZip order and the frozen layer counts only (tests/test_packed_original_order.py)",
+ "reported_not_judged": "the K/V payload bytes: the visual-prefix K/V captured in turn 1 depends on the token length of the capturing prompt (every store type); see payload_summary and each image's reported_payload",
+ "inputs_of_the_store": "captured Turn-1 visual-prefix K/V, CLIP penultimate-layer CLS-to-patch attention (VisionZip score), separator positions, the frozen PYR-beta-raw layer budget; no question text, no decoder attention, no calibration score",
+ "payload_summary": {
+  "question_pairs": 120,
+  "equal_prompt_length_pairs": 11,
+  "equal_prompt_length_pairs_with_equal_payload": 11,
+  "different_prompt_length_pairs": 109,
+  "different_prompt_length_pairs_with_equal_payload": 0,
+  "mean_fraction_of_fp16_elements_that_differ_when_lengths_differ": 0.5927264825345102,
+  "max_abs_diff_when_lengths_differ": 1.1484375,
+  "pairs_where_importance_order_store_agrees_with_original_order_store_on_equal_or_different": 120,
+  "images_with_all_three_payloads_equal": 0,
+  "images_whose_first_question_payload_equals_committed_store": 40,
+  "images_with_equal_system_kv": 40
+ },
+ "images": [
+  {
+   "image_id": "n133585",
+   "questions": [
+    "Does the person to the left of the boy look fat?",
+    "Are the shorts long and black?",
+    "Does the boy to the right of the person appear to be standing?"
+   ],
+   "suffix_tokens": [
+    36,
+    32,
+    38
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "98e1f9b6da8ecf108ba8d83ff31bcd678684f13d37fef355c67f707631ff84ad",
+     "075c2eaadb429bf2781c71bd4be666ec7816767613d7c5e0819f80d623dd7dc9",
+     "af811ffbf58a22f80494066b5824311580d4e29d4472641fed270022530d2ae3"
+    ],
+    "committed_packed_sha256": "98e1f9b6da8ecf108ba8d83ff31bcd678684f13d37fef355c67f707631ff84ad",
+    "reorder_packed_sha256": [
+     "124bfe8ad5aa65a7bff19205998ef836a4ab2bf9d63ba86019e672939fabc220",
+     "64f1510fa8c56b239237850e3f8e6d2aab20736c37c3451193998564fc592247",
+     "49ad027a698e17acb5aaabe0af78d04a4ec8e7f3a28ecb96b8019f76111396a6"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       36,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 86783958,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5911687987191336,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       36,
+       38
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 86325818,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5880479676382883,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       32,
+       38
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 86918045,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5920821939195905,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 293601280,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n154856",
+   "questions": [
+    "What color is the lamp to the right of the bench?",
+    "On which side of the photo is the dark vehicle, the left or the right?",
+    "Does the window made of metal look black and short?"
+   ],
+   "suffix_tokens": [
+    37,
+    41,
+    35
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "a9abe6e6a3574c7e7fd86306a84ba5df02eba33347a9048429da171a5025d143",
+     "d4f3bf154005895a405f4373094ae323addb2f678aab5aaaae2afbd0afe2a340",
+     "eb552d7a7d37658e240ae81939d46fbeda7bff94db2254c534054d0247af106e"
+    ],
+    "committed_packed_sha256": "a9abe6e6a3574c7e7fd86306a84ba5df02eba33347a9048429da171a5025d143",
+    "reorder_packed_sha256": [
+     "80ca3c861b5734e342ba89dce46e60aee44a80de60e513d8c5a49e52fa7687c8",
+     "fde387d75fa7d4e94a6955f421c9a3b512a4e8ea08047fe496b592693d0c7472",
+     "be7120045115ab2f0475e76ae0b90f8695a8c0af0e80ca179f7760e5412d0d02"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       37,
+       41
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 57087759,
+      "fp16_elements": 100663296,
+      "fraction_differ": 0.5671159327030182,
+      "max_abs_diff": 0.21875
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       37,
+       35
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 58416739,
+      "fp16_elements": 100663296,
+      "fraction_differ": 0.5803181628386179,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       41,
+       35
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 58441458,
+      "fp16_elements": 100663296,
+      "fraction_differ": 0.5805637240409851,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 201326592,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n16425",
+   "questions": [
+    "Does the person in front of the other person appear to be sitting?",
+    "Does the shirt look yellow?",
+    "Is the person who is to the left of the other person male or female?"
+   ],
+   "suffix_tokens": [
+    38,
+    31,
+    40
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "d36fba494ae052176dc9bffc8f692a56a27c9dfac0e1ea39075976ace3580b5c",
+     "490e5c4bdeaf87b6c64e6a8a5338bdc13503d8a63485167327d1f7d6aca6144d",
+     "cb16d723fc1fd8e0f1ed05d14faea00d1ef6f3d4a9df92a8bd0cad054b0b9d9c"
+    ],
+    "committed_packed_sha256": "d36fba494ae052176dc9bffc8f692a56a27c9dfac0e1ea39075976ace3580b5c",
+    "reorder_packed_sha256": [
+     "7a3415f6dfb138d3420a5aec8f8a6118048238fb17152203e0e1f6103f891803",
+     "f37ea68e271f2d2c4f0edd67e7d096b3728e8a253c4ba6519d0d52fee39c9e6b",
+     "80a73968e8e0159289039dd3e70092f6f9f015e821f3222af6874fd0d28e164b"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       38,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 99557450,
+      "fp16_elements": 167247872,
+      "fraction_differ": 0.5952688593849493,
+      "max_abs_diff": 0.26171875
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       38,
+       40
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 99584754,
+      "fp16_elements": 167247872,
+      "fraction_differ": 0.5954321140779597,
+      "max_abs_diff": 0.515625
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       31,
+       40
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 99630974,
+      "fp16_elements": 167247872,
+      "fraction_differ": 0.5957084703594914,
+      "max_abs_diff": 0.2626953125
+     }
+    ]
+   },
+   "payload_bytes": 334495744,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n166008",
+   "questions": [
+    "What is the man eating?",
+    "On which side of the picture is the water bottle, the right or the left?",
+    "Is the table square and wooden?"
+   ],
+   "suffix_tokens": [
+    31,
+    42,
+    31
+   ],
+   "distinct_suffix_lengths": 2,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "2382851481e4c19ad1db44c13051f19ec66f5960a4fb258d750ae7bb7e26eeef",
+     "3bb4aaec61571bcbcd48d652d13a57b8154ff9015e9307e8a573f462a1a4e939",
+     "2382851481e4c19ad1db44c13051f19ec66f5960a4fb258d750ae7bb7e26eeef"
+    ],
+    "committed_packed_sha256": "2382851481e4c19ad1db44c13051f19ec66f5960a4fb258d750ae7bb7e26eeef",
+    "reorder_packed_sha256": [
+     "73703b78e81fea83ba26ac5d8c484e7a7ce57c5f57f0252af81b18891dca88a1",
+     "0551ade77cac9c87e6dde9ed54d7c4d3f9ced508e36ba7645d11f9a6f0ee3742",
+     "73703b78e81fea83ba26ac5d8c484e7a7ce57c5f57f0252af81b18891dca88a1"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       31,
+       42
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95215157,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5934918285195344,
+      "max_abs_diff": 0.40625
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       31,
+       31
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       42,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95215157,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5934918285195344,
+      "max_abs_diff": 0.40625
+     }
+    ]
+   },
+   "payload_bytes": 320864256,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n16656",
+   "questions": [
+    "Do you see any cats?",
+    "Is that shoe behind a dog?",
+    "The man is in front of what?"
+   ],
+   "suffix_tokens": [
+    31,
+    32,
+    32
+   ],
+   "distinct_suffix_lengths": 2,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "e568274772b3efbcec3c1aef887f5b284c4833c9b36982d0790dc0a22a27ce09",
+     "9e7ee773968496237089c541caa637fd07a0e590a76705e4d812a31dd15fd1f2",
+     "9e7ee773968496237089c541caa637fd07a0e590a76705e4d812a31dd15fd1f2"
+    ],
+    "committed_packed_sha256": "e568274772b3efbcec3c1aef887f5b284c4833c9b36982d0790dc0a22a27ce09",
+    "reorder_packed_sha256": [
+     "6bd8942d94c1f9d34fe7f8aa796359831c6bf6876378c09fdfbc759b13d5d925",
+     "2e4dd5879224b6d652bbe750e26b4cf1cbe5df5abd3fb6c2906c8119eacecf06",
+     "2e4dd5879224b6d652bbe750e26b4cf1cbe5df5abd3fb6c2906c8119eacecf06"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       31,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 94721790,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5904165903727213,
+      "max_abs_diff": 0.3701171875
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       31,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 94721790,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5904165903727213,
+      "max_abs_diff": 0.3701171875
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       32,
+       32
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     }
+    ]
+   },
+   "payload_bytes": 320864256,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n195249",
+   "questions": [
+    "What color is the field?",
+    "Does the necklace look thick?",
+    "Who is standing?"
+   ],
+   "suffix_tokens": [
+    30,
+    31,
+    28
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "4ed7f0c09d726ce537a17f93cf18b8fa061270543b4c9dc5bcaeb29594ae2774",
+     "270d1ef4dc1c7c8a6b59ada6eb0e1f10b4203abea01ce279af0960d2d8788bf2",
+     "323828e6b08cd54bf3469776ff6cfc29b50da2af2b4b62a554896afe7fb04473"
+    ],
+    "committed_packed_sha256": "4ed7f0c09d726ce537a17f93cf18b8fa061270543b4c9dc5bcaeb29594ae2774",
+    "reorder_packed_sha256": [
+     "ec6cad111933a296d3adc3aebc428e7195fd17cf5e89807e3bee7c7a1093f3d1",
+     "8327474f056a5b4487683796ade061fd3c4fcc162a39391bdcc9ba2655fa1fce",
+     "ce9a1c2247a11592a25ee379c3e1d451fab0914bfd589502757cf8a5e0d860f7"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       30,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 74138442,
+      "fp16_elements": 126353408,
+      "fraction_differ": 0.5867545891599536,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       30,
+       28
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 75088054,
+      "fp16_elements": 126353408,
+      "fraction_differ": 0.5942701126035318,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       31,
+       28
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 75103141,
+      "fp16_elements": 126353408,
+      "fraction_differ": 0.5943895157936697,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 252706816,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n199286",
+   "questions": [
+    "What is the color of the shorts made of cloth?",
+    "Are both the shorts and the black leggings made of cloth?",
+    "Are the two people the same gender?"
+   ],
+   "suffix_tokens": [
+    36,
+    39,
+    32
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "c8e64a9aed264dadaac5ff61c90ab8ccc24a14c115da17ab4f21dd2841155c59",
+     "d472503a1188a5eb8eb0fb9b5be456b9a09f9a312102713a2b7d39f76dedfda2",
+     "1afac2aa5334ede2abf3c3100f703a9ed433b06c4c06b3b828604b2960084ac5"
+    ],
+    "committed_packed_sha256": "c8e64a9aed264dadaac5ff61c90ab8ccc24a14c115da17ab4f21dd2841155c59",
+    "reorder_packed_sha256": [
+     "3b51aa8258c0417a33d09b642411161d25271c8d493e16e1c2282f56bf711ebb",
+     "7d3175d42a4f50cad64253577a59948b8df5a3bc91610f724cbf478a6e0ba231",
+     "deb3ca39ca68c5077c6bec1a1f369908b2d0e6bb15e3fb5bc8eb871c70fdfc67"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       36,
+       39
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 91296506,
+      "fp16_elements": 153616384,
+      "fraction_differ": 0.5943149006814273,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       36,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 90876238,
+      "fp16_elements": 153616384,
+      "fraction_differ": 0.5915790727114107,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       39,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 91505556,
+      "fp16_elements": 153616384,
+      "fraction_differ": 0.5956757581274664,
+      "max_abs_diff": 0.1875
+     }
+    ]
+   },
+   "payload_bytes": 307232768,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n234722",
+   "questions": [
+    "What kind of food is not tasty?",
+    "Which type of food is not tasty?",
+    "Are there chairs that are not short?"
+   ],
+   "suffix_tokens": [
+    34,
+    34,
+    33
+   ],
+   "distinct_suffix_lengths": 2,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "04e60429b75714e6d9aa0194634fcc86a9b357b3e00c6877c27d0393879271e9",
+     "04e60429b75714e6d9aa0194634fcc86a9b357b3e00c6877c27d0393879271e9",
+     "4599474a2e87f070912a4355f910116ee7b7eb73edcabb4b86407c231faa7bb9"
+    ],
+    "committed_packed_sha256": "04e60429b75714e6d9aa0194634fcc86a9b357b3e00c6877c27d0393879271e9",
+    "reorder_packed_sha256": [
+     "d37157749fbca53e2c1a2b10ffed791d4e8c2f04f3ae904d1fe776b0a967f461",
+     "d37157749fbca53e2c1a2b10ffed791d4e8c2f04f3ae904d1fe776b0a967f461",
+     "e3812f4a277c4cd442b70950281c59fcaec7a8b37f008435e0dab7c4fb9fefdf"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       34,
+       34
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       34,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95517744,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5953779033586091,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       34,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95517744,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5953779033586091,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 320864256,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n244826",
+   "questions": [
+    "Who is wearing a shoe?",
+    "Does the soccer player next to the other soccer player look small?",
+    "What is the color of the field the soccer ball is on?"
+   ],
+   "suffix_tokens": [
+    32,
+    39,
+    38
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "744dd7f42a066bf281934346c6be5c1852ecca74233527be0ef12ab337cf775e",
+     "05743944c728881dcb7297b454f7a63003499c4ddb8b4d894dd155c317fd841a",
+     "75299a6e403c7ccafb626e6466a50962d9da2a49a88522a5b14d596235db01fe"
+    ],
+    "committed_packed_sha256": "744dd7f42a066bf281934346c6be5c1852ecca74233527be0ef12ab337cf775e",
+    "reorder_packed_sha256": [
+     "111ab4c1a8a24ed33de46db5e46b563c5cbb14621ae599693bdfbad6dd612a9c",
+     "e65c8a6efbb90042a66c5065a00c2a9c96d2e0ea8a2c125528bf4f5d0958258f",
+     "08040e60667b3cd2600c0a5d973f3f12e58252a99c5e34b0dc5d2663127744b4"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       32,
+       39
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 79391563,
+      "fp16_elements": 133169152,
+      "fraction_differ": 0.5961708234051081,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       32,
+       38
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 78849794,
+      "fp16_elements": 133169152,
+      "fraction_differ": 0.5921025463915247,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       39,
+       38
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 79114397,
+      "fp16_elements": 133169152,
+      "fraction_differ": 0.5940895155658872,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 266338304,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n262929",
+   "questions": [
+    "What is the boy on?",
+    "Is the young person on the bike?",
+    "Are there any large gloves or hats?"
+   ],
+   "suffix_tokens": [
+    30,
+    33,
+    34
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "edc49ca9ca9f8953eca0d778447baba2456d1d6fe63256207415b326ef4325d9",
+     "836acac7c7ccd3298c7f763d339a2f7ea5d016eeb4124efa9c1463fe97e7dd15",
+     "7299a4823aab0b6e1e1cdb7dc67d1e70b4240d32635306c4c850935b8c304f8f"
+    ],
+    "committed_packed_sha256": "edc49ca9ca9f8953eca0d778447baba2456d1d6fe63256207415b326ef4325d9",
+    "reorder_packed_sha256": [
+     "7e289c5ae1a6d6a8a33d6cd4f13346d2b2311dc903ba105ffe5b17af5c5228db",
+     "e845dada2b06b67deeced1db9c5d68f47b2998db2ae6a0c6ed465f75a390ec47",
+     "375bfe9b98bc5452c7ce06c6532dacaf456414ffcdc3a579ac3ea507c32f66aa"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       30,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 90376838,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.5985421472125583,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       30,
+       34
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 89936106,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.5956232945124308,
+      "max_abs_diff": 0.28125
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       33,
+       34
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 90253301,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.5977239939901564,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 301989888,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n272098",
+   "questions": [
+    "Which kind of clothing is yellow?",
+    "What kind of clothing is yellow?",
+    "Who is holding the open container?"
+   ],
+   "suffix_tokens": [
+    32,
+    32,
+    31
+   ],
+   "distinct_suffix_lengths": 2,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "82291cbc6fb1ad4ef4598311c1831ac7fc10c53c2524edde6c296b446d23b439",
+     "82291cbc6fb1ad4ef4598311c1831ac7fc10c53c2524edde6c296b446d23b439",
+     "a5e2878eb6469bd29cc92bea54fa8e944fb1c8a68ecb5f86a7e9d11103d61925"
+    ],
+    "committed_packed_sha256": "82291cbc6fb1ad4ef4598311c1831ac7fc10c53c2524edde6c296b446d23b439",
+    "reorder_packed_sha256": [
+     "6a7e50542c3ad9adbfa79b65b329940ba229f02e166d2cc4e2f720dd5c5f9766",
+     "6a7e50542c3ad9adbfa79b65b329940ba229f02e166d2cc4e2f720dd5c5f9766",
+     "d88977bd798c8c1896549afe8dac176a42c6af0ee21e17030a4970894c285d0b"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       32,
+       32
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 201326592,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       32,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 119319023,
+      "fp16_elements": 201326592,
+      "fraction_differ": 0.5926639984051386,
+      "max_abs_diff": 0.90625
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       32,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 119319023,
+      "fp16_elements": 201326592,
+      "fraction_differ": 0.5926639984051386,
+      "max_abs_diff": 0.90625
+     }
+    ]
+   },
+   "payload_bytes": 402653184,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n281241",
+   "questions": [
+    "What is the picture hanging above?",
+    "The framed picture is hanging above what?",
+    "Do both the smiling gentleman in front of the picture and the Caucasian person look young?"
+   ],
+   "suffix_tokens": [
+    32,
+    34,
+    45
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "1ae5d7f656b0e9a467d5e2d51c199624690191b1a506f504bc7f14f360567755",
+     "3bd290e29818b2b43e84bcb6af9b32d2079b167ecac6e9e88ee0ed7e0c733c9a",
+     "790e289f41f9de6ec7f9963a6a2f844b771d3581b8d0287d764ff3d06a5654ae"
+    ],
+    "committed_packed_sha256": "1ae5d7f656b0e9a467d5e2d51c199624690191b1a506f504bc7f14f360567755",
+    "reorder_packed_sha256": [
+     "04450f18b556bed1faa60ed028bd764b4651cb774ba38eaed638f9010fde0101",
+     "fdfe9377c313e5f0d304bd750a59fc2654e8fab61a9cf19efddeaf2a8a29c937",
+     "4f227d41beb3853deae5ef3fe795aad6b976302f0531a7fb4b065e8e51fa52ba"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       32,
+       34
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 90334632,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.598262627919515,
+      "max_abs_diff": 0.234375
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       32,
+       45
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 90264365,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.5977972679668002,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       34,
+       45
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 90653998,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.600377705362108,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 301989888,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n293477",
+   "questions": [
+    "What color is the book?",
+    "Is the bag made of leather lying on top of a sofa?",
+    "Is the cell phone lying on top of a desk?"
+   ],
+   "suffix_tokens": [
+    30,
+    39,
+    36
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "899d86bb902d105dde25f9930f859e6d2ca354fc2485b24a879f01e7acb9cf95",
+     "07f85dc9df6220b540ef9a01646161c04cc9c9262c60d8be93c907ad477fc0e5",
+     "2e723b966d94c6eed6de7a8ccbea4dfdd4b281ecbdff208703e455446e4a7a5f"
+    ],
+    "committed_packed_sha256": "899d86bb902d105dde25f9930f859e6d2ca354fc2485b24a879f01e7acb9cf95",
+    "reorder_packed_sha256": [
+     "98c80af9963940176b17775470849014528b407b90263de86bf4936b8ca05b97",
+     "19c7761c6e730813703314ce5e9d35872e272c70841f930dbbd3b25bbfb78373",
+     "c6776dec9adbd682fcbc027d721b1c8b8b4d44bbdc6029561625c819f7f35aa1"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       30,
+       39
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95533476,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5954759635177314,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       30,
+       36
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95833777,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.597347789340549,
+      "max_abs_diff": 0.361328125
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       39,
+       36
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 96076124,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5988583782919092,
+      "max_abs_diff": 0.34375
+     }
+    ]
+   },
+   "payload_bytes": 320864256,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n298104",
+   "questions": [
+    "Are the shorts large and blue?",
+    "Where do you think is the happy person standing on?",
+    "Who do you think wears a shirt?"
+   ],
+   "suffix_tokens": [
+    32,
+    35,
+    34
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "eebf29274bf6360c7c0f1281c51871b76d0889223bc094eaa7e6a5bd4e461913",
+     "d77f4df2da90f64956fda0a87dbd0bf282d26e359f94a855b871c5c5239d57b3",
+     "3610112f83b7c2af80b517ad8f871a0c4082da0230cbbedb34de951846976fe4"
+    ],
+    "committed_packed_sha256": "eebf29274bf6360c7c0f1281c51871b76d0889223bc094eaa7e6a5bd4e461913",
+    "reorder_packed_sha256": [
+     "0d2c12f9f39839ff763a481c441dcc01df56facdc4569505d19c2406a96f9191",
+     "73bd5cc591d7768d9405882924429dfc9e701adb8fc181b11014dc4607ccf1d8",
+     "9f5581c6928d97667a98a36bb0d1338a5893a17d3072aabad6bfad70faecae43"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       32,
+       35
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 91526023,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.6061528987354703,
+      "max_abs_diff": 0.484375
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       32,
+       34
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 91061673,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.6030776302019755,
+      "max_abs_diff": 0.48046875
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       35,
+       34
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 91404217,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.6053462094730802,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 301989888,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n302387",
+   "questions": [
+    "Does the fireplace have white color?",
+    "How hard is the instrument next to the fire place?",
+    "What is in front of the instrument that is to the right of the box?"
+   ],
+   "suffix_tokens": [
+    32,
+    35,
+    40
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "813471f260e3c72526a586b451323ad8466396362e370fb94a5f32730ce3b754",
+     "1c7b84f0886106cb2c503998bd4b19fa7f776255ec7bd608538260412815ebd1",
+     "b06731465bc5a577381e9b0d0c0a77c915a316e932c5fbfa684542bc3b74fb37"
+    ],
+    "committed_packed_sha256": "813471f260e3c72526a586b451323ad8466396362e370fb94a5f32730ce3b754",
+    "reorder_packed_sha256": [
+     "13874f95c2e6c9069ec740df12e23d51b86ad4ac25f15d80ec7799ed4140f0c1",
+     "ca1b84b6e768bca57e4fe4fdefa8bb202f99f0a5e9af0a187f2ffa414b5c2dd2",
+     "4bcba36072d071c8e2d9836ca0f1401df980f37e5bfff891a65b433d1d640a9b"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       32,
+       35
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 97680017,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5971469451219608,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       32,
+       40
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 86671277,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5298472490066137,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       35,
+       40
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 97697437,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5972534387539594,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 327155712,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n314171",
+   "questions": [
+    "On which side is the picture?",
+    "What is the room holding?",
+    "What color is the picture?"
+   ],
+   "suffix_tokens": [
+    31,
+    30,
+    30
+   ],
+   "distinct_suffix_lengths": 2,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "bc45f3e454f8c7231f77cde6cc90ddba27ae5f34303820d66a2f073f97aa27ea",
+     "b46ec36df51637212aabf01ca9616114e1bd20b14f2ce4ed65ce96fa7517254a",
+     "b46ec36df51637212aabf01ca9616114e1bd20b14f2ce4ed65ce96fa7517254a"
+    ],
+    "committed_packed_sha256": "bc45f3e454f8c7231f77cde6cc90ddba27ae5f34303820d66a2f073f97aa27ea",
+    "reorder_packed_sha256": [
+     "9464101cc52a8572095fc55795e90e46924a7fa134fa6902dcdbc94f91a8611f",
+     "2451a62663629422395864dd435b329b92dc144be6d8c1cb6f44e982a265f9a9",
+     "2451a62663629422395864dd435b329b92dc144be6d8c1cb6f44e982a265f9a9"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       31,
+       30
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 90235558,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.5976064867443509,
+      "max_abs_diff": 0.2734375
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       31,
+       30
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 90235558,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.5976064867443509,
+      "max_abs_diff": 0.2734375
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       30,
+       30
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     }
+    ]
+   },
+   "payload_bytes": 301989888,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n329479",
+   "questions": [
+    "Are there any red scooters or skateboards?",
+    "Is the color of the tee shirt black?",
+    "What do both the tshirt and the bike have in common?"
+   ],
+   "suffix_tokens": [
+    36,
+    35,
+    39
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "440115f710d9fba99bafb345df839edf4f0d83297a18abbe3b5a33a62f5ba02d",
+     "bb29d2db8dc831e73df3acaa0f1d4acfe1b6ef2dcf11c352957b949a45e20195",
+     "c72ba8103338a1a932d9d1f6ba1225f1987ad71ccac72a636af0e70387e74de5"
+    ],
+    "committed_packed_sha256": "440115f710d9fba99bafb345df839edf4f0d83297a18abbe3b5a33a62f5ba02d",
+    "reorder_packed_sha256": [
+     "cfc1243f1ca4ed950725ae35f08c8fedfcf41d9ada13ba9860fce0bfc4e65a64",
+     "dab57c9e3b5988e028a53391b6c1b05932304e60255fce37e6a4a9c9b1766b70",
+     "af3dbf69e4436ec604760e44006039d92d73ca4066990c60dfa563ce38890bb2"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       36,
+       35
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 91241248,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.6042669084337022,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       36,
+       39
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 91324287,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.6048168540000916,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       35,
+       39
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 90595560,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.5999906857808431,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 301989888,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n331357",
+   "questions": [
+    "On which side of the picture is the drink?",
+    "Is the white animal small or large?",
+    "Are there any cows near the stones?"
+   ],
+   "suffix_tokens": [
+    34,
+    32,
+    33
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "f27cf4c2878785399c750052fb043f4d843e9889eaddbbca94c5813395d08994",
+     "73f9b0160b54a0dcdb112e56f6fb9a6b3a755a9328523c7749ddf66d7a8f73f2",
+     "786d43ffd6b82a2e1809422d0e236982c881e1c0c4c5e8f75885c5f052470910"
+    ],
+    "committed_packed_sha256": "f27cf4c2878785399c750052fb043f4d843e9889eaddbbca94c5813395d08994",
+    "reorder_packed_sha256": [
+     "24be212813a76c5bfcf7d1af389a66caf25d0a7e6523000b933ebdaf0541b64e",
+     "10c371cbf561bdcdb136cd0602fbb20b0752660aa3e5d6fc941bd8bd7391d8a3",
+     "fb2aa02fe9b250669e5792ca45382b60c81a98b8ccf8e4a99b07a5df9bfe8c1d"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       34,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 83601745,
+      "fp16_elements": 139984896,
+      "fraction_differ": 0.5972197529081995,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       34,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 83501128,
+      "fp16_elements": 139984896,
+      "fraction_differ": 0.5965009825059984,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       32,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 83679727,
+      "fp16_elements": 139984896,
+      "fraction_differ": 0.5977768272942818,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 279969792,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n355567",
+   "questions": [
+    "Which material is the clock that is to the left of the tennis ball made of, stainless steel or brick?",
+    "What is standing beside the person to the right of the lady?",
+    "Does the lady near the tennis ball appear to be antique?"
+   ],
+   "suffix_tokens": [
+    48,
+    37,
+    37
+   ],
+   "distinct_suffix_lengths": 2,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "7d9b92aec7a4b1790d75f2b17b3a6feaa33d414a4c59943689dea74572ab7e3d",
+     "70fd26a38d1da9c608931eea9ebfb3c055502d2c46a8d2c89ea95c547be9f7fb",
+     "70fd26a38d1da9c608931eea9ebfb3c055502d2c46a8d2c89ea95c547be9f7fb"
+    ],
+    "committed_packed_sha256": "7d9b92aec7a4b1790d75f2b17b3a6feaa33d414a4c59943689dea74572ab7e3d",
+    "reorder_packed_sha256": [
+     "8974fccfc79ff2ed67b98ec7706fe69007c91afcfcee51b2343e737bf06b95c0",
+     "0522765025321576ef8ef58bf2e129865716e459264811570e91e5017d047b88",
+     "0522765025321576ef8ef58bf2e129865716e459264811570e91e5017d047b88"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       48,
+       37
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87326955,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5948676722390311,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       48,
+       37
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87326955,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5948676722390311,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       37,
+       37
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     }
+    ]
+   },
+   "payload_bytes": 293601280,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n37274",
+   "questions": [
+    "Is there a blender to the right of the yellow drink?",
+    "What color are the shorts that the man is wearing?",
+    "What is the blender full of?"
+   ],
+   "suffix_tokens": [
+    37,
+    37,
+    32
+   ],
+   "distinct_suffix_lengths": 2,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "1a3194dd1c217577ad1569f01f1693896f2aa9f6119d941f069fc8317f4d8da0",
+     "1a3194dd1c217577ad1569f01f1693896f2aa9f6119d941f069fc8317f4d8da0",
+     "abc628fc35ed7dbe079b6af3b9e433341392ecaee10af01c03d5221e031b518a"
+    ],
+    "committed_packed_sha256": "1a3194dd1c217577ad1569f01f1693896f2aa9f6119d941f069fc8317f4d8da0",
+    "reorder_packed_sha256": [
+     "339bf7653cbbc997952a51c76c04d32ec87f12f62c4f2bca26f7872ec01cdeeb",
+     "339bf7653cbbc997952a51c76c04d32ec87f12f62c4f2bca26f7872ec01cdeeb",
+     "65ced3e31e52d57c07473274edde4f7a1c28e802c6327bc6f4023275bec52dc8"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       37,
+       37
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       37,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 93392496,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5821308809168199,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       37,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 93392496,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5821308809168199,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 320864256,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n390187",
+   "questions": [
+    "Is the jacket that is not short sleeved pink and clean?",
+    "Do the helmet and the glove have a different colors?",
+    "Does the person wear jeans?"
+   ],
+   "suffix_tokens": [
+    40,
+    37,
+    31
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "dc11fe266c64d6748e275b09ce4bc46257424722453ae7d4a63be84bed672f81",
+     "6f938365ea8bb7bc2fafa0d15bcc3ee1ffd583e5599ec0d93f50b5a82535f0be",
+     "65d66215832dcc2feec04ea739ef9f8e539a7ca92a8451572c308422413833f5"
+    ],
+    "committed_packed_sha256": "dc11fe266c64d6748e275b09ce4bc46257424722453ae7d4a63be84bed672f81",
+    "reorder_packed_sha256": [
+     "4e8bcc8c5a74332f2feeb7a852005fd2a3544203e3e7065f8baefdb401724908",
+     "c2332480d9cadc2eedd993e15c3e3fb37e6f90ee0ddaa671c74db8ab2060097b",
+     "0ef27aa686dcc6e5b9bb406c2cbfabba6c52a6bb74cedab2c2f5a9097de6d285"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       40,
+       37
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 94280234,
+      "fp16_elements": 157286400,
+      "fraction_differ": 0.5994175847371419,
+      "max_abs_diff": 1.09375
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       40,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 94543739,
+      "fp16_elements": 157286400,
+      "fraction_differ": 0.6010929044087728,
+      "max_abs_diff": 1.1484375
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       37,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 94676736,
+      "fp16_elements": 157286400,
+      "fraction_differ": 0.6019384765625,
+      "max_abs_diff": 0.875
+     }
+    ]
+   },
+   "payload_bytes": 314572800,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n406334",
+   "questions": [
+    "Is the bus near the people black and small?",
+    "What is the sidewalk made of?",
+    "What is the side walk made of?"
+   ],
+   "suffix_tokens": [
+    34,
+    32,
+    32
+   ],
+   "distinct_suffix_lengths": 2,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "6050033ef74fdb042f7bddb7072eb96f4947ad00ddac6642f5fae812d73c2b0e",
+     "6411533474602932ac0176257d80449ebe4c3cb4b462173b00ed2eba1f8f4e9f",
+     "6411533474602932ac0176257d80449ebe4c3cb4b462173b00ed2eba1f8f4e9f"
+    ],
+    "committed_packed_sha256": "6050033ef74fdb042f7bddb7072eb96f4947ad00ddac6642f5fae812d73c2b0e",
+    "reorder_packed_sha256": [
+     "1ee6af4f40871c638be320895315589ea70e2948e876937b9a3840fb2040ad06",
+     "c4e9c5ea53343fb6d9d92409cdcd14fb92783bace5be3d9d2e430992016bf0d5",
+     "c4e9c5ea53343fb6d9d92409cdcd14fb92783bace5be3d9d2e430992016bf0d5"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       34,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87748135,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5977367333003453,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       34,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87748135,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5977367333003453,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       32,
+       32
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     }
+    ]
+   },
+   "payload_bytes": 293601280,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n437064",
+   "questions": [
+    "Is the cake on a platter?",
+    "Does the plate look white?",
+    "Is the color of the bowl the same as the table?"
+   ],
+   "suffix_tokens": [
+    33,
+    30,
+    37
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "bedc62c1588436d4ecb631ae832caa23f514c671251386967968ec4bcd69949c",
+     "10e3aacb841a2ddb0d6dbb96c127247f8d2c66e82890c8cd84d91c1e1edce57b",
+     "dc83fb0df371c8b442ce45e1883fde6dd8de2a3f44e0d0ceb74299ad1dc9b109"
+    ],
+    "committed_packed_sha256": "bedc62c1588436d4ecb631ae832caa23f514c671251386967968ec4bcd69949c",
+    "reorder_packed_sha256": [
+     "8a418039bb268ee1d96d7040446e617d70ed4b74bbe7a781c13d015fa1c7adff",
+     "afb996f9e373b4381a3d51fa750b4ba44f1aceff9a6ded81c5dc1bea62a5088c",
+     "4e7204a9ea6ed98dd21e96dcba5d703b239a6ef82a66ac456e195f791120e1ff"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       33,
+       30
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87449302,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5957010950360979,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       33,
+       37
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87691915,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5973537649427142,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       30,
+       37
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87864865,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.598531893321446,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 293601280,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n44249",
+   "questions": [
+    "Are there any benches in front of the green trees?",
+    "Does the sitting-down child that is to the right of the woman look young?",
+    "What animal is the man on?"
+   ],
+   "suffix_tokens": [
+    36,
+    41,
+    31
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "fe8c68a7da7c884b4f781ea3eac77f71c41928fe8598b0cbb53b6df76d2b499f",
+     "aafd410324496eb3dffefa7aebfad4032c431b82ea28c9f7ad9f271cac971c1f",
+     "ca8bba8b874ebffc55a957fe1c3ce45e3963c6e84014df6bf863504b2eef975b"
+    ],
+    "committed_packed_sha256": "fe8c68a7da7c884b4f781ea3eac77f71c41928fe8598b0cbb53b6df76d2b499f",
+    "reorder_packed_sha256": [
+     "e02cfaea59cdf15fbda8aa525f0f8ed050f50c2c998eff853ba52273eefcb4ec",
+     "0121ef23b65b0ff4114b675a7ab2212a87573e855461a7192daa7200efc03b2d",
+     "5e340484a9823eb5aa29e70627e9137078b03167d8d543d1a635668e7f3b360c"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       36,
+       41
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87046378,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5929563931056432,
+      "max_abs_diff": 0.28125
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       36,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87945731,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5990827492305211,
+      "max_abs_diff": 0.28125
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       41,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87986167,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5993581976209368,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 293601280,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n450919",
+   "questions": [
+    "What is the height of the green grass near the mud?",
+    "Are there both giraffes and camels in the photo?",
+    "Is there a small hat or fence?"
+   ],
+   "suffix_tokens": [
+    36,
+    38,
+    33
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "f214a7af8b8ba3de293e30cfb0d162c71d5b58627585cbe9ec97bf2bac29e9ae",
+     "d72bbc8e083910bf01b29596ba4f0e9d81375886892ea4de841737b9ca22712b",
+     "62eaa494734bd479b125229992e9e2585643bc9e3e493d5608007572961680f4"
+    ],
+    "committed_packed_sha256": "f214a7af8b8ba3de293e30cfb0d162c71d5b58627585cbe9ec97bf2bac29e9ae",
+    "reorder_packed_sha256": [
+     "91f80673c9a180dd51a8e0f3bbab246415c33541591ace31a06209cc4832b0aa",
+     "41a6d54bb7cc4bacae863622e45b060885d83bf90a7ae93973dfdeafae15bf07",
+     "4ea2294ac31765197333855785429251572f495e99cc5682ba0c2e88760d8f2b"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       36,
+       38
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 96911273,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5924473848098364,
+      "max_abs_diff": 0.40625
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       36,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 96987430,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5929129551618527,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       38,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 96399343,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5893178047277988,
+      "max_abs_diff": 0.265625
+     }
+    ]
+   },
+   "payload_bytes": 327155712,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n470131",
+   "questions": [
+    "On which side of the picture is the small bottle?",
+    "Is the color of the bottle the same as the paper?",
+    "What do the foil and the bottle have in common?"
+   ],
+   "suffix_tokens": [
+    36,
+    37,
+    37
+   ],
+   "distinct_suffix_lengths": 2,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "a491c15886c16460c2cea5c7e0fdb87ecf6c5e2c1ee8d8405e30b4d82b4f7557",
+     "e94ea90db10d730b306b47e44d577c6e3acfbb3ee7ffc3804bc8b27fd7d4d08f",
+     "e94ea90db10d730b306b47e44d577c6e3acfbb3ee7ffc3804bc8b27fd7d4d08f"
+    ],
+    "committed_packed_sha256": "a491c15886c16460c2cea5c7e0fdb87ecf6c5e2c1ee8d8405e30b4d82b4f7557",
+    "reorder_packed_sha256": [
+     "d3aeb43ec202afe499f909c483c621ebbe46690513762c0f3b3081a5893ae647",
+     "45807972e8016d7057268472ac51ed49c85b6fd0dfea788d3d9eac7ffc41db19",
+     "45807972e8016d7057268472ac51ed49c85b6fd0dfea788d3d9eac7ffc41db19"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       36,
+       37
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87129544,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5935229165213448,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       36,
+       37
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87129544,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5935229165213448,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       37,
+       37
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     }
+    ]
+   },
+   "payload_bytes": 293601280,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n472825",
+   "questions": [
+    "Is the lamp to the right or to the left of the car?",
+    "Is the staircase below a snowboarder?",
+    "Does the skateboarder that is to the right of the lamp seem to be male and skinny?"
+   ],
+   "suffix_tokens": [
+    38,
+    35,
+    46
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "e61e79f302077b935f46028be64c754f3cb737d9a65a364773ccd1417f544ee6",
+     "ecbcca65747632a17240a69e9df4b5e5d2f01bd60f524db5cb07db34ce7f0da4",
+     "7edc4a2aaafeef32ecf1a74b24918205c22caa3eccdffab0286c9e5fcd8e43b0"
+    ],
+    "committed_packed_sha256": "e61e79f302077b935f46028be64c754f3cb737d9a65a364773ccd1417f544ee6",
+    "reorder_packed_sha256": [
+     "ab0cadc46e7dc05009cde248c4d0e9a01e3759876c3bcc79645c5ad694e95b64",
+     "1593484b15cc4d70796123364c8a75250b8b788b994bdd10025c9b1ce4b63e78",
+     "2f3f85e2cf0a1cb652d656530a367e75a6c6d2c54c29a8831fde49a028ea5fa3"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       38,
+       35
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 96069443,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5988167345134261,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       38,
+       46
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 83933263,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5231699164396797,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       35,
+       46
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 96030619,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5985747380973467,
+      "max_abs_diff": 0.1875
+     }
+    ]
+   },
+   "payload_bytes": 320864256,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n48494",
+   "questions": [
+    "Are there rivers or oceans that are not calm?",
+    "Is there a train or a fence in the image?",
+    "What is the width of the boat that is floating on the river?"
+   ],
+   "suffix_tokens": [
+    36,
+    36,
+    38
+   ],
+   "distinct_suffix_lengths": 2,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "3ee85cfba412754d788cb78b22bdefd6c7764bb37dafa18cfe96afea983e1391",
+     "3ee85cfba412754d788cb78b22bdefd6c7764bb37dafa18cfe96afea983e1391",
+     "10031ce58bc2181a0d1d4289cda52294e7c5e549222deaf5bb433ecddf879b99"
+    ],
+    "committed_packed_sha256": "3ee85cfba412754d788cb78b22bdefd6c7764bb37dafa18cfe96afea983e1391",
+    "reorder_packed_sha256": [
+     "059be94bc45849f5068ace5f63b9cc9bff5572f1dae0718c1aac7bfc540a0c2e",
+     "059be94bc45849f5068ace5f63b9cc9bff5572f1dae0718c1aac7bfc540a0c2e",
+     "92dd505c222c9f64a4808f788b3d0ac27cd7c293fe5dfce10024138a03ed400b"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       36,
+       36
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 100663296,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       36,
+       38
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 58402082,
+      "fp16_elements": 100663296,
+      "fraction_differ": 0.5801725586255392,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       36,
+       38
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 58402082,
+      "fp16_elements": 100663296,
+      "fraction_differ": 0.5801725586255392,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 201326592,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n494918",
+   "questions": [
+    "What is flying above the ground?",
+    "Is the frisbee in front of the trees?",
+    "How thick is the frisbee?"
+   ],
+   "suffix_tokens": [
+    31,
+    36,
+    33
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "156d4c5c04246e6083366df6da88489ad8e4388661bb57b6309178f515080825",
+     "b4439a9a1994437d52c9b5989b6cf8793755d49b379e152e8c6438889f757b76",
+     "d5293fc8eaa3d1e776c143b315fbac2c30c2a2dd524ee2c51e9d1d061e1b008c"
+    ],
+    "committed_packed_sha256": "156d4c5c04246e6083366df6da88489ad8e4388661bb57b6309178f515080825",
+    "reorder_packed_sha256": [
+     "2fefc7e99ed56e077c91fede7558e1fc012d7c8b3278834786dfd41c0f017776",
+     "ca320df7ea8f6ace456c941e09ca8f228c79e0ff76b5c342e6c3805087ad2b50",
+     "7427a58def81b2eeec8b7273cc97aba38dd24d1c911cf6e4996253ea4ab4572b"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       31,
+       36
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 97624186,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5968056336427346,
+      "max_abs_diff": 0.30859375
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       31,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 97583787,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5965586625612699,
+      "max_abs_diff": 0.203125
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       36,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 97019431,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5931085867759509,
+      "max_abs_diff": 0.2890625
+     }
+    ]
+   },
+   "payload_bytes": 327155712,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n498140",
+   "questions": [
+    "How clean is the chimney?",
+    "Is the grill below a bus driver?",
+    "Does the person above the grill look calm and male?"
+   ],
+   "suffix_tokens": [
+    31,
+    33,
+    36
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "d614df1f9151b59ab5c6272296674d167360c86d9c8ab9c0cdda0fc81c923827",
+     "9f0a1dde06ba1ac674d1608e8f541719ce07e8936d7ef7958284fff20fbf6df7",
+     "54ae4d9de428c89eeba88f76ca05a6e69178250496e23d984faa5414fb9eacb9"
+    ],
+    "committed_packed_sha256": "d614df1f9151b59ab5c6272296674d167360c86d9c8ab9c0cdda0fc81c923827",
+    "reorder_packed_sha256": [
+     "0d2f99f5aee0e603e9197d9dd12de9f1be4067ba16fc3b4aacb52041f36c085e",
+     "935f36f0cc92d7c1ad50a289be4d2aba5f3247d2b2584c8606fec8cb041d5deb",
+     "3541139f0fcfbd76ff79b6cf1c75613ba1dec55559372afce83be2342451bc9c"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       31,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87305429,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5947210380009242,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       31,
+       36
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87306558,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5947287287030901,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       33,
+       36
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87319721,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5948183945247105,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 293601280,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n51002",
+   "questions": [
+    "What is the device to the right of the keyboard?",
+    "Are there either any small desks or boxes?",
+    "Is the fireplace square and black?"
+   ],
+   "suffix_tokens": [
+    35,
+    34,
+    32
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "785d4bdd3ea1b0125d0a938bb5bd0b97f31f1e8405190428f88f4139674af193",
+     "e2a679c0e6787d524c5695b5114a2f5f36e7f7388a56d7b6b4ce17ece035836d",
+     "e382ebaa84a04a48b071587636fb8353983fc847d0a89d427301ee6b326e6423"
+    ],
+    "committed_packed_sha256": "785d4bdd3ea1b0125d0a938bb5bd0b97f31f1e8405190428f88f4139674af193",
+    "reorder_packed_sha256": [
+     "77a4a546868b062a5c0df1eb542da78012f3753b60c9e47a16735bd48f14fc66",
+     "95dbb7fe3f0a34de2becabb9b361672eab108236254c7b936ebd1f4b029c104c",
+     "badbb38bba20853c53eebbe77921da2f388327cbed2da551330513a1b8b0a874"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       35,
+       34
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87616402,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5968393734523229,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       35,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87699196,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.5974033628191266,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       34,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 87127308,
+      "fp16_elements": 146800640,
+      "fraction_differ": 0.59350768498012,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 293601280,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n522733",
+   "questions": [
+    "Which side of the image is the beige car on?",
+    "Is the building the same material as the pole?",
+    "How big is the black vehicle?"
+   ],
+   "suffix_tokens": [
+    36,
+    34,
+    31
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "6418e0620707bce68845f37fb620ff7d17dafe9f08333fd378ed1c1c35a85da1",
+     "6da1e550e4018b43f71a9db5490f2cabeb672dc376af9ed99c4713bb8b89d77f",
+     "e9f6dec40c8053c558a75cf0b1de0dd5c5cf72ff1153d358640e0de003314679"
+    ],
+    "committed_packed_sha256": "6418e0620707bce68845f37fb620ff7d17dafe9f08333fd378ed1c1c35a85da1",
+    "reorder_packed_sha256": [
+     "2aaa1b404a35d9369600062e9de7adfc62fe749c61607ef8edaed0ec9dccdfc7",
+     "bf1061e5059495b9138426b05004ac315784e56d7b0d72308811a254a54b7dfb",
+     "39b45ecc1512784d6b29708e7317bb818aab21dbd63ba96f94b8f1906dad70e6"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       36,
+       34
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95290835,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5939635420157239,
+      "max_abs_diff": 0.453125
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       36,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 96046722,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5986751107608571,
+      "max_abs_diff": 0.5361328125
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       34,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 96111693,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5990800857543945,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 320864256,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n52544",
+   "questions": [
+    "Who is standing at the table?",
+    "Where is the skinny person standing?",
+    "Who is wearing glasses?"
+   ],
+   "suffix_tokens": [
+    31,
+    32,
+    31
+   ],
+   "distinct_suffix_lengths": 2,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "454ae7076e0c2a893abb44d61100252c9c9080be806e085713f6243c86cac5d4",
+     "42f21eaf0e6a220eb5413e58ae58e6f5e8db360b6af0ad45a5c4941c6c112cb7",
+     "454ae7076e0c2a893abb44d61100252c9c9080be806e085713f6243c86cac5d4"
+    ],
+    "committed_packed_sha256": "454ae7076e0c2a893abb44d61100252c9c9080be806e085713f6243c86cac5d4",
+    "reorder_packed_sha256": [
+     "5bb45a15773761e632ad186c213e33ce26021335fb02f9c4dd3a7888e09c9a07",
+     "409824bae41d86c70e2598b817589b6bb213720260116001504b68f9e23fef72",
+     "5bb45a15773761e632ad186c213e33ce26021335fb02f9c4dd3a7888e09c9a07"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       31,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 90915075,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.6021067500114441,
+      "max_abs_diff": 0.3994140625
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       31,
+       31
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       32,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 90915075,
+      "fp16_elements": 150994944,
+      "fraction_differ": 0.6021067500114441,
+      "max_abs_diff": 0.3994140625
+     }
+    ]
+   },
+   "payload_bytes": 301989888,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n527589",
+   "questions": [
+    "Is the woman above the bananas on top of the basket?",
+    "What color are the pants?",
+    "Are these small bananas?"
+   ],
+   "suffix_tokens": [
+    37,
+    31,
+    30
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "1ac0f538b6c55fc073fc37a7b6a331f3f8d639ba95fa9f5b06b6ddb534db02d0",
+     "7b6ce6e4bd7093f6857899940142779efb12b6cf8fa7f4b8951b6434b4e8ea84",
+     "0e65b3074436cae5c774276c491d86bce597564cff70aeb5be279f5b5f482348"
+    ],
+    "committed_packed_sha256": "1ac0f538b6c55fc073fc37a7b6a331f3f8d639ba95fa9f5b06b6ddb534db02d0",
+    "reorder_packed_sha256": [
+     "c11fdc73567d3d16431d61225f9af880f774cc34a5d30ab111f9ef979aa953eb",
+     "0dc4a4e67cc49a3ba8d79faa826d3f1a54b10a09977099f5f5699a4e19da2357",
+     "747c45d996382471e7e4ef504100046d76a42f0e13c6eabd5c850731a1795b50"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       37,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 94196785,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5871441473368726,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       37,
+       30
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 94293266,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5877455293742659,
+      "max_abs_diff": 0.21875
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       31,
+       30
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 94280333,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.587664915845285,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 320864256,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n540852",
+   "questions": [
+    "Where in the photograph is the umbrella, in the top or in the bottom?",
+    "What is the woman that is to the right of the man wearing?",
+    "Is the shoe black and open?"
+   ],
+   "suffix_tokens": [
+    42,
+    39,
+    32
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "0c73c89c1ea019fc0c725b55186dc3a4b7ac357efad5422d01815d6228f563ec",
+     "68aab5f99e524fd1ccc132522f16bec8e8fea208966b6693705232562e7a3c8e",
+     "a34b385290e232c6fe20ef4a6f2e60eec578b2b97a447727ad3ee88171670d72"
+    ],
+    "committed_packed_sha256": "0c73c89c1ea019fc0c725b55186dc3a4b7ac357efad5422d01815d6228f563ec",
+    "reorder_packed_sha256": [
+     "09891b5da05c6282137ed09da4465bfd234bf38e814296c1ef765ade182c3a81",
+     "8ea490cf488a64ed93ea956373fbce7f8cebe1dd7a6ec181a836eb2023f4d37b",
+     "77d95a38db3b5f11e40bebcea8329a75c6e56d5223dcf9f948254f81a59fdc25"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       42,
+       39
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 108923934,
+      "fp16_elements": 182452224,
+      "fraction_differ": 0.5969997603317787,
+      "max_abs_diff": 0.845703125
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       42,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 108456896,
+      "fp16_elements": 182452224,
+      "fraction_differ": 0.5944399778870331,
+      "max_abs_diff": 0.3046875
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       39,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 108786617,
+      "fp16_elements": 182452224,
+      "fraction_differ": 0.596247141388641,
+      "max_abs_diff": 0.962890625
+     }
+    ]
+   },
+   "payload_bytes": 364904448,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n567860",
+   "questions": [
+    "What is common to the door and the kitten?",
+    "Is the animal that looks small black and young?",
+    "What animal is white?"
+   ],
+   "suffix_tokens": [
+    35,
+    34,
+    29
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "a4098cd97a0ed18c430ad7e5ac4784b2d05fe9847cfaec23e59d32359c302344",
+     "68d307778e4c5f04fb8c4f211ae19dded857dc37a0e6c110a9b0ca6949001ec4",
+     "885b41aa4f00c1687a975788e007227b7c1fb4914f347c70fb16a277dc92bd05"
+    ],
+    "committed_packed_sha256": "a4098cd97a0ed18c430ad7e5ac4784b2d05fe9847cfaec23e59d32359c302344",
+    "reorder_packed_sha256": [
+     "35161e15fbc8d77f6bc819a0687972039f5986402a4c13fcc0dbd1f46e99dcdc",
+     "acb1d9480eca9ce192f381a1e0ccfa075968fc8dd5fa416768dcdb353ad1d451",
+     "630ed38801f50ef01538beb7ebb58c925fdf92d5caaaa0483089865eda01dfee"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       35,
+       34
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95119716,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5928969289742264,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       35,
+       29
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95292184,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5939719505559385,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       34,
+       29
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 94988724,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5920804341634115,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 320864256,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n58220",
+   "questions": [
+    "Is the water wavy?",
+    "Is the color of the road the same as that of the flag?",
+    "What color are the empty tables?"
+   ],
+   "suffix_tokens": [
+    30,
+    38,
+    31
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "c216a491931678de6bdf4ab2a7122b54251b82698bbf56554f7a6f98d043b7ef",
+     "01a13da0c6f48e50da0f03961372c52758d00d1ea338119b1389ab108c6ab770",
+     "6dc7d5746b39c7ea864b946272e58fdb2601bf53fb2e95eb0c033ba23ea98200"
+    ],
+    "committed_packed_sha256": "c216a491931678de6bdf4ab2a7122b54251b82698bbf56554f7a6f98d043b7ef",
+    "reorder_packed_sha256": [
+     "b62c4c37721e995128db12de5b6ed6644be1a55bbd5a5926a7e6e3f24865a3a4",
+     "97833cf150220d30636e510bd380fe2c0cf8b597eae54b9a263a0518f1c33415",
+     "205e1d94b8e26d3dd68e557c17f2fbcfcb486035815ed58a91be953594c96018"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       30,
+       38
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 83107303,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5180215710907979,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       30,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95468514,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.595071044622683,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       38,
+       31
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95505339,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5953005809409946,
+      "max_abs_diff": 0.205078125
+     }
+    ]
+   },
+   "payload_bytes": 320864256,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n67005",
+   "questions": [
+    "Is the jacket made of cotton large or small?",
+    "Which kind of furniture is fluffy?",
+    "What piece of furniture is it?"
+   ],
+   "suffix_tokens": [
+    36,
+    34,
+    32
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "4470f78ee9f8ef006b79698f89d72fd82f042c4d8f6da2429cd4a3364997d494",
+     "fb0ebc38cd2406914c59654d0aa8bda88d325e52d475eccff8c992c8fe57a18a",
+     "c291864ae124ba6a3da230b3ad03d300591a66cce0874cbaf98cef8af162e45e"
+    ],
+    "committed_packed_sha256": "4470f78ee9f8ef006b79698f89d72fd82f042c4d8f6da2429cd4a3364997d494",
+    "reorder_packed_sha256": [
+     "26e8e73be597f4c05f12ad6a1e0539747001a85ebc255666ebf8f319967b83b8",
+     "316a233330be6bd54f5b79b840aa8992a7d530d953fffa01f9ec4f45e3bf212b",
+     "1c74fc3da5923b74a9075947e3cbdc5cf0af64adef2e6af78c5532cec2c94efb"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       36,
+       34
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 97679761,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5971453801179544,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       36,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 96536902,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5901587437360715,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       34,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 97648728,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5969556661752554,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 327155712,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n90294",
+   "questions": [
+    "What material is the calculator that is to the right of the charger made of?",
+    "Are both the device next to the book and the calculator made of plastic?",
+    "Are there both remote controls and computer mice in this photograph?"
+   ],
+   "suffix_tokens": [
+    42,
+    41,
+    37
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "a8d28a62b605f5104b86866fe2ed9cf988068169f5bdb11b29709d4e309a9838",
+     "09a6edd75cddeeb7ace0113bf45f25ce0b3fed5a4ec4d79d53a6273f0d6d7333",
+     "f60db01c5be99c20ba771a70cc2d2f56821d61ac486ffac32a3f88eb0c06e447"
+    ],
+    "committed_packed_sha256": "a8d28a62b605f5104b86866fe2ed9cf988068169f5bdb11b29709d4e309a9838",
+    "reorder_packed_sha256": [
+     "1c5e17b3c524c64a7a5afb86ddf70770d1042335e8142733a15fbeb751616d22",
+     "806274c63450d30c9073896057ea29b599512adc9375e9d3862c6fe433e4595a",
+     "f129a3add67ef5045ca5dcb6898c4be1758809541af9511cbf4a22bc566127c2"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       42,
+       41
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 94775071,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.590748699661953,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       42,
+       37
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95460666,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5950221267401004,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       41,
+       37
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 95276745,
+      "fp16_elements": 160432128,
+      "fraction_differ": 0.5938757167142981,
+      "max_abs_diff": 0.1875
+     }
+    ]
+   },
+   "payload_bytes": 320864256,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n9181",
+   "questions": [
+    "Which side is the mirror on?",
+    "Is the cowboy hat above the jacket near the motorcycle?",
+    "Is the vest behind a wheelchair?"
+   ],
+   "suffix_tokens": [
+    31,
+    38,
+    33
+   ],
+   "distinct_suffix_lengths": 3,
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "2cd1ce822b86087412cc05d1140d3a43af2cbec4f41ee08840d37e7a205fbaa4",
+     "cc3a6cd81b210cc0f0927e03ba961e8be1998636dff07fd34168aadce031374d",
+     "5f5e5fab52f01ea94852be5e5a543907ca3960e1afa3f6d3309c983adf4ed118"
+    ],
+    "committed_packed_sha256": "2cd1ce822b86087412cc05d1140d3a43af2cbec4f41ee08840d37e7a205fbaa4",
+    "reorder_packed_sha256": [
+     "7e8754d4ac30f6d15853eda39f864026afd49ced361569e1a6a0cffd95c66f87",
+     "ae37a2b0354a4466e7c8db9d3224b8910bb998a29947cfcdd458abf4c00549f3",
+     "e8e500cce62900f72da7bc9aaec5430f4407d4d829b88f11eb4ecff457a01c3c"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       31,
+       38
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 97583321,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5965558137649145,
+      "max_abs_diff": 0.375
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       31,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 97693346,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5972284292563413,
+      "max_abs_diff": 0.359375
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       38,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 97554888,
+      "fp16_elements": 163577856,
+      "fraction_differ": 0.5963819943941556,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 327155712,
+   "status": "PASS"
+  }
+ ],
+ "image_count": 40,
+ "pass_count": 40,
+ "status": "PASS"
+}

@@ -1,0 +1,684 @@
+=== freeze
+{"freeze": "PASS", "run": "/home/dblab/hj/mllm_v2/runs/mt_gqa_impress_code_20261117T185832Z", "expected": {"gate": 1323, "dev": 4536, "main": 48732}, "storage": "PASS", "free_gib": 439.02334213256836, "transformers": "4.57.6"}
+=== 2026-11-17T18:59:10Z START cpu
+{
+ "step1": "PASS",
+ "public_cases": [
+  [
+   "test_jaccard_value",
+   "ok"
+  ],
+  [
+   "test_mask_equals_public_filled_selected_attention",
+   "ok"
+  ],
+  [
+   "test_reference_checkout_is_the_recorded_commit",
+   "ok"
+  ],
+  [
+   "test_reorder_order_equals_public_mapping_list",
+   "ok"
+  ],
+  [
+   "test_sele_tokenid_from_hidden_states",
+   "ok"
+  ],
+  [
+   "test_selection_from_the_same_attention_matrix",
+   "ok"
+  ],
+  [
+   "test_stored_prefix_rows_plus_suffix_rows_select_like_the_whole_matrix",
+   "ok"
+  ],
+  [
+   "test_threshold_is_inclusive_like_the_public_code",
+   "ok"
+  ],
+  [
+   "test_llava15_geometry_selection_equals_the_public_function",
+   "ok"
+  ],
+  [
+   "test_llava15_geometry_stored_prefix_rows_plus_suffix_rows",
+   "ok"
+  ],
+  [
+   "test_selector_on_a_store_without_separators_equals_the_public_function",
+   "ok"
+  ]
+ ],
+ "step6": "PASS",
+ "suites": [
+  {
+   "transformers": "4.57.6",
+   "ran": 761,
+   "failed": [
+    "setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+    "test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+    "test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+   ],
+   "new_failures": []
+  },
+  {
+   "transformers": "5.13.1",
+   "ran": 779,
+   "failed": [
+    "test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests)",
+    "test_single_stock_forward_capture_equals_dense_visionzip_formula (test_qwen25_vision.StockVisionCaptureTests)"
+   ],
+   "new_failures": []
+  }
+ ]
+}
+=== 2026-11-17T18:59:56Z END cpu rc=0
+=== 2026-11-17T18:59:56Z START gate_phase
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.28s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.27s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.06s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.11s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+{"phase": "gate", "status": "RUNNING", "completed_final_requests": 297, "expected_requests": 1323, "completed_images": 1, "images": 4, "image_id": "n229548", "image_seconds": 236.79672241210938, "at_unix": 1794942243.1612248, "elapsed_s_this_process": 236.79674243927002}
+{"phase": "gate", "status": "RUNNING", "completed_final_requests": 891, "expected_requests": 1323, "completed_images": 2, "images": 4, "image_id": "n181355", "image_seconds": 411.23894476890564, "at_unix": 1794942654.4013205, "elapsed_s_this_process": 648.036838054657}
+{"phase": "gate", "status": "RUNNING", "completed_final_requests": 999, "expected_requests": 1323, "completed_images": 3, "images": 4, "image_id": "n95369", "image_seconds": 80.06399464607239, "at_unix": 1794942734.4665284, "elapsed_s_this_process": 728.102046251297}
+{"phase": "gate", "status": "RUNNING", "completed_final_requests": 1323, "expected_requests": 1323, "completed_images": 4, "images": 4, "image_id": "n204894", "image_seconds": 210.26462268829346, "at_unix": 1794942944.7323942, "elapsed_s_this_process": 938.3679118156433}
+=== 2026-11-17T19:15:45Z END gate_phase rc=0
+=== 2026-11-17T19:15:45Z START gate_checks
+{
+ "execution": "PASS",
+ "step3": "PASS",
+ "step4": "PASS",
+ "step5_previous_main": "PASS",
+ "step5_turn1": "PASS"
+}
+{
+ "step3": {
+  "requests": 147,
+  "equal": {
+   "generated_token_ids": 147,
+   "prompt": 147
+  },
+  "mismatch_count": 0
+ },
+ "reference_reordered_vs_raster": {
+  "requests": 147,
+  "different_requests": 1,
+  "different_requests_same_prompt": 1
+ },
+ "step4": {
+  "FullLoad": {
+   "requests": 147,
+   "mismatch_count": 0
+  },
+  "IMPRESS": {
+   "requests": 147,
+   "mismatch_count": 0
+  },
+  "Ours": {
+   "requests": 147,
+   "mismatch_count": 0
+  }
+ },
+ "step5": [
+  {
+   "method": "recompute",
+   "requests": 147,
+   "prompt_equal": 147,
+   "mismatch_count": 0
+  },
+  {
+   "method": "fullload_async",
+   "requests": 147,
+   "prompt_equal": 147,
+   "mismatch_count": 0
+  },
+  {
+   "method": "ours_prefixstore_kv25_PYR-beta-raw_packed_async",
+   "requests": 147,
+   "prompt_equal": 147,
+   "mismatch_count": 0
+  }
+ ],
+ "turn1": {
+  "dialogues": 49,
+  "mismatch_count": 0
+ }
+}
+=== 2026-11-17T19:15:47Z END gate_checks rc=0
+=== 2026-11-17T19:15:47Z START prefix
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.28s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.26s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.06s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.11s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+{"image": "n181355", "prefix_rows_equal": true, "order_scores_equal": true, "prefix_rows_max_abs_diff": 0.0, "order_scores_max_abs_diff": 0.0, "generated_tokens_equal": true, "other_prompt_max_abs_diff": 0.3184976577758789}
+{"image": "n204894", "prefix_rows_equal": true, "order_scores_equal": true, "prefix_rows_max_abs_diff": 0.0, "order_scores_max_abs_diff": 0.0, "generated_tokens_equal": true, "other_prompt_max_abs_diff": 0.76971435546875}
+{"image": "n229548", "prefix_rows_equal": true, "order_scores_equal": true, "prefix_rows_max_abs_diff": 0.0, "order_scores_max_abs_diff": 0.0, "generated_tokens_equal": true, "other_prompt_max_abs_diff": 1.0067100524902344}
+{"image": "n95369", "prefix_rows_equal": true, "order_scores_equal": true, "prefix_rows_max_abs_diff": 0.0, "order_scores_max_abs_diff": 0.0, "generated_tokens_equal": true, "other_prompt_max_abs_diff": 2.3901023864746094}
+{"step2": "PASS", "images": 4}
+=== 2026-11-17T19:16:02Z END prefix rc=0
+=== 2026-11-17T19:16:02Z START dev_phase
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.29s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.26s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.05s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.11s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 84, "expected_requests": 4536, "completed_images": 1, "images": 40, "image_id": "n331357", "image_seconds": 57.23823046684265, "at_unix": 1794943029.9937396, "elapsed_s_this_process": 57.2382595539093}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 192, "expected_requests": 4536, "completed_images": 2, "images": 40, "image_id": "n262929", "image_seconds": 73.00897717475891, "at_unix": 1794943103.0043707, "elapsed_s_this_process": 130.24889063835144}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 288, "expected_requests": 4536, "completed_images": 3, "images": 40, "image_id": "n272098", "image_seconds": 88.1473937034607, "at_unix": 1794943191.1532505, "elapsed_s_this_process": 218.39777040481567}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 384, "expected_requests": 4536, "completed_images": 4, "images": 40, "image_id": "n234722", "image_seconds": 70.58461308479309, "at_unix": 1794943261.7392535, "elapsed_s_this_process": 288.9837734699249}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 504, "expected_requests": 4536, "completed_images": 5, "images": 40, "image_id": "n67005", "image_seconds": 84.02110886573792, "at_unix": 1794943345.7615218, "elapsed_s_this_process": 373.006041765213}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 612, "expected_requests": 4536, "completed_images": 6, "images": 40, "image_id": "n494918", "image_seconds": 78.33859038352966, "at_unix": 1794943424.1014955, "elapsed_s_this_process": 451.3460154533386}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 684, "expected_requests": 4536, "completed_images": 7, "images": 40, "image_id": "n540852", "image_seconds": 64.00679969787598, "at_unix": 1794943488.10944, "elapsed_s_this_process": 515.3539600372314}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 888, "expected_requests": 4536, "completed_images": 8, "images": 40, "image_id": "n37274", "image_seconds": 134.62184929847717, "at_unix": 1794943622.732666, "elapsed_s_this_process": 649.9771859645844}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 960, "expected_requests": 4536, "completed_images": 9, "images": 40, "image_id": "n199286", "image_seconds": 54.5400013923645, "at_unix": 1794943677.2739391, "elapsed_s_this_process": 704.5184590816498}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 1080, "expected_requests": 4536, "completed_images": 10, "images": 40, "image_id": "n567860", "image_seconds": 83.28711771965027, "at_unix": 1794943760.5624804, "elapsed_s_this_process": 787.8070003986359}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 1200, "expected_requests": 4536, "completed_images": 11, "images": 40, "image_id": "n58220", "image_seconds": 86.38548755645752, "at_unix": 1794943846.9490817, "elapsed_s_this_process": 874.1936016082764}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 1260, "expected_requests": 4536, "completed_images": 12, "images": 40, "image_id": "n48494", "image_seconds": 32.97457957267761, "at_unix": 1794943879.925115, "elapsed_s_this_process": 907.1696350574493}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 1308, "expected_requests": 4536, "completed_images": 13, "images": 40, "image_id": "n522733", "image_seconds": 41.72544622421265, "at_unix": 1794943921.6521666, "elapsed_s_this_process": 948.8966867923737}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 1404, "expected_requests": 4536, "completed_images": 14, "images": 40, "image_id": "n133585", "image_seconds": 64.21949887275696, "at_unix": 1794943985.8728359, "elapsed_s_this_process": 1013.1173558235168}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 1452, "expected_requests": 4536, "completed_images": 15, "images": 40, "image_id": "n498140", "image_seconds": 39.66596531867981, "at_unix": 1794944025.5401723, "elapsed_s_this_process": 1052.784692287445}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 1536, "expected_requests": 4536, "completed_images": 16, "images": 40, "image_id": "n166008", "image_seconds": 64.48088884353638, "at_unix": 1794944090.0229514, "elapsed_s_this_process": 1117.2674715518951}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 1764, "expected_requests": 4536, "completed_images": 17, "images": 40, "image_id": "n51002", "image_seconds": 135.1074821949005, "at_unix": 1794944225.131513, "elapsed_s_this_process": 1252.3760330677032}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 1812, "expected_requests": 4536, "completed_images": 18, "images": 40, "image_id": "n244826", "image_seconds": 35.029590368270874, "at_unix": 1794944260.1622548, "elapsed_s_this_process": 1287.4067747592926}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 1896, "expected_requests": 4536, "completed_images": 19, "images": 40, "image_id": "n9181", "image_seconds": 64.47171950340271, "at_unix": 1794944324.6352234, "elapsed_s_this_process": 1351.8797433376312}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 1992, "expected_requests": 4536, "completed_images": 20, "images": 40, "image_id": "n44249", "image_seconds": 66.98802471160889, "at_unix": 1794944391.6255298, "elapsed_s_this_process": 1418.8700497150421}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 2112, "expected_requests": 4536, "completed_images": 21, "images": 40, "image_id": "n281241", "image_seconds": 78.20664834976196, "at_unix": 1794944469.8335612, "elapsed_s_this_process": 1497.0780813694}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 2208, "expected_requests": 4536, "completed_images": 22, "images": 40, "image_id": "n390187", "image_seconds": 69.16565918922424, "at_unix": 1794944539.0006282, "elapsed_s_this_process": 1566.2451481819153}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 2364, "expected_requests": 4536, "completed_images": 23, "images": 40, "image_id": "n16656", "image_seconds": 104.28024291992188, "at_unix": 1794944643.282409, "elapsed_s_this_process": 1670.5269289016724}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 2424, "expected_requests": 4536, "completed_images": 24, "images": 40, "image_id": "n16425", "image_seconds": 51.08417367935181, "at_unix": 1794944694.3677697, "elapsed_s_this_process": 1721.612289905548}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 2520, "expected_requests": 4536, "completed_images": 25, "images": 40, "image_id": "n355567", "image_seconds": 66.09373760223389, "at_unix": 1794944760.463104, "elapsed_s_this_process": 1787.7076239585876}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 2616, "expected_requests": 4536, "completed_images": 26, "images": 40, "image_id": "n329479", "image_seconds": 67.53740763664246, "at_unix": 1794944828.0018728, "elapsed_s_this_process": 1855.2463927268982}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 2736, "expected_requests": 4536, "completed_images": 27, "images": 40, "image_id": "n154856", "image_seconds": 55.32146239280701, "at_unix": 1794944883.3252053, "elapsed_s_this_process": 1910.5697252750397}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 2856, "expected_requests": 4536, "completed_images": 28, "images": 40, "image_id": "n195249", "image_seconds": 68.30255246162415, "at_unix": 1794944951.6292567, "elapsed_s_this_process": 1978.8737766742706}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 2988, "expected_requests": 4536, "completed_images": 29, "images": 40, "image_id": "n470131", "image_seconds": 82.57748126983643, "at_unix": 1794945034.2083066, "elapsed_s_this_process": 2061.4528267383575}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 3156, "expected_requests": 4536, "completed_images": 30, "images": 40, "image_id": "n437064", "image_seconds": 103.24007987976074, "at_unix": 1794945137.4495573, "elapsed_s_this_process": 2164.6940772533417}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 3312, "expected_requests": 4536, "completed_images": 31, "images": 40, "image_id": "n298104", "image_seconds": 97.54182124137878, "at_unix": 1794945234.992544, "elapsed_s_this_process": 2262.237063884735}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 3420, "expected_requests": 4536, "completed_images": 32, "images": 40, "image_id": "n406334", "image_seconds": 70.94593071937561, "at_unix": 1794945305.9398513, "elapsed_s_this_process": 2333.1843712329865}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 3648, "expected_requests": 4536, "completed_images": 33, "images": 40, "image_id": "n293477", "image_seconds": 148.7749001979828, "at_unix": 1794945454.7161534, "elapsed_s_this_process": 2481.9606733322144}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 3756, "expected_requests": 4536, "completed_images": 34, "images": 40, "image_id": "n302387", "image_seconds": 78.46411228179932, "at_unix": 1794945533.1814497, "elapsed_s_this_process": 2560.4259696006775}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 3828, "expected_requests": 4536, "completed_images": 35, "images": 40, "image_id": "n472825", "image_seconds": 58.92288684844971, "at_unix": 1794945592.1057267, "elapsed_s_this_process": 2619.350246667862}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 3972, "expected_requests": 4536, "completed_images": 36, "images": 40, "image_id": "n527589", "image_seconds": 101.1920862197876, "at_unix": 1794945693.29916, "elapsed_s_this_process": 2720.54368019104}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 4116, "expected_requests": 4536, "completed_images": 37, "images": 40, "image_id": "n52544", "image_seconds": 95.35129237174988, "at_unix": 1794945788.652233, "elapsed_s_this_process": 2815.89675283432}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 4188, "expected_requests": 4536, "completed_images": 38, "images": 40, "image_id": "n450919", "image_seconds": 59.03988599777222, "at_unix": 1794945847.697089, "elapsed_s_this_process": 2874.9416089057922}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 4356, "expected_requests": 4536, "completed_images": 39, "images": 40, "image_id": "n314171", "image_seconds": 103.90737915039062, "at_unix": 1794945951.606224, "elapsed_s_this_process": 2978.8507442474365}
+{"phase": "dev", "status": "RUNNING", "completed_final_requests": 4536, "expected_requests": 4536, "completed_images": 40, "images": 40, "image_id": "n90294", "image_seconds": 122.4467442035675, "at_unix": 1794946074.0541606, "elapsed_s_this_process": 3101.2986805438995}
+=== 2026-11-17T20:07:54Z END dev_phase rc=0
+=== 2026-11-17T20:07:54Z START dev_checks
+{
+ "execution": "PASS",
+ "step5_previous_main": "PASS",
+ "step5_turn1": "PASS"
+}
+{
+ "step5": [
+  {
+   "method": "recompute",
+   "requests": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0
+  },
+  {
+   "method": "fullload_async",
+   "requests": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0
+  },
+  {
+   "method": "ours_prefixstore_kv25_PYR-beta-raw_packed_async",
+   "requests": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0
+  }
+ ],
+ "turn1": {
+  "dialogues": 378,
+  "mismatch_count": 0
+ }
+}
+=== 2026-11-17T20:07:57Z END dev_checks rc=0
+=== 2026-11-17T20:07:57Z START admit
+{
+ "status": "PASS",
+ "gates": {
+  "step1_public_equivalence": "PASS",
+  "step2_prefix_rows": "PASS",
+  "gate_execution": "PASS",
+  "step3_keep100_equals_fullload_loader": "PASS",
+  "step4_async_equals_sync": "PASS",
+  "step5_matches_previous_main_gate": "PASS",
+  "step5_turn1_identity_gate": "PASS",
+  "step6_cpu_tests": "PASS",
+  "dev_execution": "PASS",
+  "step5_matches_previous_main_dev": "PASS",
+  "step5_turn1_identity_dev": "PASS"
+ },
+ "config_sha256": "67511f6f3196213a4a7dd244a354be1f997932f4695a71bca8c12c23ffa9d757",
+ "decided_unix": 1794946079.3612037,
+ "rule": "main runs only if every gate of steps 1-7 is PASS"
+}
+=== 2026-11-17T20:07:59Z END admit rc=0
+=== 2026-11-17T20:07:59Z START main_phase
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.30s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.27s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.06s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.12s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 132, "expected_requests": 48732, "completed_images": 1, "images": 398, "image_id": "n229548", "image_seconds": 104.19869422912598, "at_unix": 1794946194.1771464, "elapsed_s_this_process": 104.19870710372925}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 396, "expected_requests": 48732, "completed_images": 2, "images": 398, "image_id": "n181355", "image_seconds": 171.64506721496582, "at_unix": 1794946365.8235524, "elapsed_s_this_process": 275.84511280059814}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 444, "expected_requests": 48732, "completed_images": 3, "images": 398, "image_id": "n95369", "image_seconds": 40.21195912361145, "at_unix": 1794946406.0367572, "elapsed_s_this_process": 316.058317899704}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 588, "expected_requests": 48732, "completed_images": 4, "images": 398, "image_id": "n204894", "image_seconds": 95.59306001663208, "at_unix": 1794946501.6312542, "elapsed_s_this_process": 411.6528146266937}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 744, "expected_requests": 48732, "completed_images": 5, "images": 398, "image_id": "n28572", "image_seconds": 98.22095918655396, "at_unix": 1794946599.8536863, "elapsed_s_this_process": 509.87524676322937}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 780, "expected_requests": 48732, "completed_images": 6, "images": 398, "image_id": "n28792", "image_seconds": 33.12435460090637, "at_unix": 1794946632.9791439, "elapsed_s_this_process": 543.0007045269012}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 960, "expected_requests": 48732, "completed_images": 7, "images": 398, "image_id": "n141939", "image_seconds": 122.63363552093506, "at_unix": 1794946755.614143, "elapsed_s_this_process": 665.6357035636902}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 1020, "expected_requests": 48732, "completed_images": 8, "images": 398, "image_id": "n528403", "image_seconds": 32.41875505447388, "at_unix": 1794946788.03425, "elapsed_s_this_process": 698.0558106899261}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 1176, "expected_requests": 48732, "completed_images": 9, "images": 398, "image_id": "n282436", "image_seconds": 110.63169622421265, "at_unix": 1794946898.6672337, "elapsed_s_this_process": 808.6887941360474}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 1248, "expected_requests": 48732, "completed_images": 10, "images": 398, "image_id": "n130638", "image_seconds": 57.478013038635254, "at_unix": 1794946956.1466856, "elapsed_s_this_process": 866.1682460308075}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 1440, "expected_requests": 48732, "completed_images": 11, "images": 398, "image_id": "n35676", "image_seconds": 82.02160668373108, "at_unix": 1794947038.1707904, "elapsed_s_this_process": 948.1923508644104}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 1536, "expected_requests": 48732, "completed_images": 12, "images": 398, "image_id": "n455563", "image_seconds": 73.1065821647644, "at_unix": 1794947111.278558, "elapsed_s_this_process": 1021.3001184463501}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 1608, "expected_requests": 48732, "completed_images": 13, "images": 398, "image_id": "n79078", "image_seconds": 58.42333793640137, "at_unix": 1794947169.7040477, "elapsed_s_this_process": 1079.7256081104279}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 1632, "expected_requests": 48732, "completed_images": 14, "images": 398, "image_id": "n503626", "image_seconds": 29.469398021697998, "at_unix": 1794947199.1748223, "elapsed_s_this_process": 1109.1963827610016}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 1764, "expected_requests": 48732, "completed_images": 15, "images": 398, "image_id": "n344136", "image_seconds": 87.13417196273804, "at_unix": 1794947286.3102772, "elapsed_s_this_process": 1196.3318378925323}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 1812, "expected_requests": 48732, "completed_images": 16, "images": 398, "image_id": "n157375", "image_seconds": 44.15724992752075, "at_unix": 1794947330.4688199, "elapsed_s_this_process": 1240.4903802871704}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 1992, "expected_requests": 48732, "completed_images": 17, "images": 398, "image_id": "n473688", "image_seconds": 125.5713222026825, "at_unix": 1794947456.0412958, "elapsed_s_this_process": 1366.0628566741943}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 2124, "expected_requests": 48732, "completed_images": 18, "images": 398, "image_id": "n196058", "image_seconds": 86.2177324295044, "at_unix": 1794947542.260872, "elapsed_s_this_process": 1452.2824323177338}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 2268, "expected_requests": 48732, "completed_images": 19, "images": 398, "image_id": "n170941", "image_seconds": 103.28343319892883, "at_unix": 1794947645.545463, "elapsed_s_this_process": 1555.5670235157013}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 2352, "expected_requests": 48732, "completed_images": 20, "images": 398, "image_id": "n258500", "image_seconds": 60.405431270599365, "at_unix": 1794947705.95224, "elapsed_s_this_process": 1615.9738006591797}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 2592, "expected_requests": 48732, "completed_images": 21, "images": 398, "image_id": "n470920", "image_seconds": 148.41160941123962, "at_unix": 1794947854.3667078, "elapsed_s_this_process": 1764.3882682323456}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 2820, "expected_requests": 48732, "completed_images": 22, "images": 398, "image_id": "n240973", "image_seconds": 152.14444136619568, "at_unix": 1794948006.5123208, "elapsed_s_this_process": 1916.5338814258575}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 2904, "expected_requests": 48732, "completed_images": 23, "images": 398, "image_id": "n331357", "image_seconds": 56.69878172874451, "at_unix": 1794948063.2122147, "elapsed_s_this_process": 1973.2337753772736}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 3000, "expected_requests": 48732, "completed_images": 24, "images": 398, "image_id": "n90944", "image_seconds": 69.24060702323914, "at_unix": 1794948132.4543939, "elapsed_s_this_process": 2042.4759542942047}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 3132, "expected_requests": 48732, "completed_images": 25, "images": 398, "image_id": "n116329", "image_seconds": 84.459885597229, "at_unix": 1794948216.9157643, "elapsed_s_this_process": 2126.9373247623444}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 3240, "expected_requests": 48732, "completed_images": 26, "images": 398, "image_id": "n262929", "image_seconds": 72.42369055747986, "at_unix": 1794948289.3407917, "elapsed_s_this_process": 2199.3623521327972}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 3336, "expected_requests": 48732, "completed_images": 27, "images": 398, "image_id": "n164272", "image_seconds": 73.40253710746765, "at_unix": 1794948362.7447307, "elapsed_s_this_process": 2272.7662913799286}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 3408, "expected_requests": 48732, "completed_images": 28, "images": 398, "image_id": "n572716", "image_seconds": 53.61429452896118, "at_unix": 1794948416.360405, "elapsed_s_this_process": 2326.381965637207}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 3588, "expected_requests": 48732, "completed_images": 29, "images": 398, "image_id": "n313060", "image_seconds": 153.55630707740784, "at_unix": 1794948569.9187315, "elapsed_s_this_process": 2479.9402918815613}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 3780, "expected_requests": 48732, "completed_images": 30, "images": 398, "image_id": "n480253", "image_seconds": 114.41770839691162, "at_unix": 1794948684.3394873, "elapsed_s_this_process": 2594.3610479831696}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 4068, "expected_requests": 48732, "completed_images": 31, "images": 398, "image_id": "n520071", "image_seconds": 184.0819272994995, "at_unix": 1794948868.4229836, "elapsed_s_this_process": 2778.444544315338}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 4296, "expected_requests": 48732, "completed_images": 32, "images": 398, "image_id": "n159802", "image_seconds": 138.9555230140686, "at_unix": 1794949007.3801994, "elapsed_s_this_process": 2917.4017601013184}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 4392, "expected_requests": 48732, "completed_images": 33, "images": 398, "image_id": "n272098", "image_seconds": 91.82671451568604, "at_unix": 1794949099.2081246, "elapsed_s_this_process": 3009.229685306549}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 4488, "expected_requests": 48732, "completed_images": 34, "images": 398, "image_id": "n486200", "image_seconds": 66.3458240032196, "at_unix": 1794949165.5557768, "elapsed_s_this_process": 3075.5773372650146}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 4584, "expected_requests": 48732, "completed_images": 35, "images": 398, "image_id": "n234722", "image_seconds": 72.45212173461914, "at_unix": 1794949238.0092506, "elapsed_s_this_process": 3148.030811071396}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 4704, "expected_requests": 48732, "completed_images": 36, "images": 398, "image_id": "n67005", "image_seconds": 87.4213457107544, "at_unix": 1794949325.4322326, "elapsed_s_this_process": 3235.4537930488586}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 4812, "expected_requests": 48732, "completed_images": 37, "images": 398, "image_id": "n494918", "image_seconds": 77.9491868019104, "at_unix": 1794949403.3828132, "elapsed_s_this_process": 3313.4043736457825}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 4896, "expected_requests": 48732, "completed_images": 38, "images": 398, "image_id": "n206358", "image_seconds": 60.29357099533081, "at_unix": 1794949463.6774416, "elapsed_s_this_process": 3373.6990020275116}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 5064, "expected_requests": 48732, "completed_images": 39, "images": 398, "image_id": "n511913", "image_seconds": 108.05540680885315, "at_unix": 1794949571.7342236, "elapsed_s_this_process": 3481.755784034729}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 5340, "expected_requests": 48732, "completed_images": 40, "images": 398, "image_id": "n77818", "image_seconds": 179.14364671707153, "at_unix": 1794949750.87922, "elapsed_s_this_process": 3660.900780439377}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 5400, "expected_requests": 48732, "completed_images": 41, "images": 398, "image_id": "n523165", "image_seconds": 50.08467221260071, "at_unix": 1794949800.9650567, "elapsed_s_this_process": 3710.986617088318}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 5604, "expected_requests": 48732, "completed_images": 42, "images": 398, "image_id": "n68769", "image_seconds": 135.61378121376038, "at_unix": 1794949936.5809312, "elapsed_s_this_process": 3846.6024916172028}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 5736, "expected_requests": 48732, "completed_images": 43, "images": 398, "image_id": "n386682", "image_seconds": 98.0750322341919, "at_unix": 1794950034.6571505, "elapsed_s_this_process": 3944.6787111759186}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 5820, "expected_requests": 48732, "completed_images": 44, "images": 398, "image_id": "n565418", "image_seconds": 52.505810499191284, "at_unix": 1794950087.164584, "elapsed_s_this_process": 3997.1861443519592}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 6024, "expected_requests": 48732, "completed_images": 45, "images": 398, "image_id": "n16378", "image_seconds": 137.82932925224304, "at_unix": 1794950224.995345, "elapsed_s_this_process": 4135.016905546188}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 6132, "expected_requests": 48732, "completed_images": 46, "images": 398, "image_id": "n65230", "image_seconds": 79.3618266582489, "at_unix": 1794950304.358349, "elapsed_s_this_process": 4214.379909753799}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 6324, "expected_requests": 48732, "completed_images": 47, "images": 398, "image_id": "n256120", "image_seconds": 119.4321780204773, "at_unix": 1794950423.7919614, "elapsed_s_this_process": 4333.81352186203}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 6456, "expected_requests": 48732, "completed_images": 48, "images": 398, "image_id": "n489190", "image_seconds": 86.0257408618927, "at_unix": 1794950509.8190918, "elapsed_s_this_process": 4419.840652227402}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 6600, "expected_requests": 48732, "completed_images": 49, "images": 398, "image_id": "n317260", "image_seconds": 101.63671827316284, "at_unix": 1794950611.457408, "elapsed_s_this_process": 4521.478968381882}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 6732, "expected_requests": 48732, "completed_images": 50, "images": 398, "image_id": "n380113", "image_seconds": 84.860426902771, "at_unix": 1794950696.319702, "elapsed_s_this_process": 4606.341262817383}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 6852, "expected_requests": 48732, "completed_images": 51, "images": 398, "image_id": "n235859", "image_seconds": 88.607750415802, "at_unix": 1794950784.928622, "elapsed_s_this_process": 4694.950182437897}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 6924, "expected_requests": 48732, "completed_images": 52, "images": 398, "image_id": "n540852", "image_seconds": 64.64290285110474, "at_unix": 1794950849.5732749, "elapsed_s_this_process": 4759.594835281372}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 6984, "expected_requests": 48732, "completed_images": 53, "images": 398, "image_id": "n514467", "image_seconds": 51.20369291305542, "at_unix": 1794950900.778593, "elapsed_s_this_process": 4810.800153493881}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 7068, "expected_requests": 48732, "completed_images": 54, "images": 398, "image_id": "n148872", "image_seconds": 65.58772158622742, "at_unix": 1794950966.3679116, "elapsed_s_this_process": 4876.3894720077515}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 7128, "expected_requests": 48732, "completed_images": 55, "images": 398, "image_id": "n199758", "image_seconds": 48.031715631484985, "at_unix": 1794951014.401577, "elapsed_s_this_process": 4924.423137664795}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 7260, "expected_requests": 48732, "completed_images": 56, "images": 398, "image_id": "n280089", "image_seconds": 99.504798412323, "at_unix": 1794951113.9077213, "elapsed_s_this_process": 5023.929281711578}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 7428, "expected_requests": 48732, "completed_images": 57, "images": 398, "image_id": "n12404", "image_seconds": 106.26151323318481, "at_unix": 1794951220.1706314, "elapsed_s_this_process": 5130.192191839218}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 7512, "expected_requests": 48732, "completed_images": 58, "images": 398, "image_id": "n23762", "image_seconds": 65.33068704605103, "at_unix": 1794951285.5027976, "elapsed_s_this_process": 5195.524358034134}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 7716, "expected_requests": 48732, "completed_images": 59, "images": 398, "image_id": "n37274", "image_seconds": 140.04418420791626, "at_unix": 1794951425.5482628, "elapsed_s_this_process": 5335.569823503494}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 7824, "expected_requests": 48732, "completed_images": 60, "images": 398, "image_id": "n541482", "image_seconds": 52.62736487388611, "at_unix": 1794951478.17704, "elapsed_s_this_process": 5388.198600530624}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 7884, "expected_requests": 48732, "completed_images": 61, "images": 398, "image_id": "n469156", "image_seconds": 48.357375144958496, "at_unix": 1794951526.535581, "elapsed_s_this_process": 5436.557141542435}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 8004, "expected_requests": 48732, "completed_images": 62, "images": 398, "image_id": "n290409", "image_seconds": 89.08114194869995, "at_unix": 1794951615.61817, "elapsed_s_this_process": 5525.639730453491}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 8172, "expected_requests": 48732, "completed_images": 63, "images": 398, "image_id": "n527290", "image_seconds": 115.67400407791138, "at_unix": 1794951731.294979, "elapsed_s_this_process": 5641.316539764404}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 8268, "expected_requests": 48732, "completed_images": 64, "images": 398, "image_id": "n318370", "image_seconds": 72.28346800804138, "at_unix": 1794951803.5799143, "elapsed_s_this_process": 5713.601474761963}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 8316, "expected_requests": 48732, "completed_images": 65, "images": 398, "image_id": "n357126", "image_seconds": 44.35583782196045, "at_unix": 1794951847.9370875, "elapsed_s_this_process": 5757.9586482048035}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 8484, "expected_requests": 48732, "completed_images": 66, "images": 398, "image_id": "n411121", "image_seconds": 116.95360708236694, "at_unix": 1794951964.8956625, "elapsed_s_this_process": 5874.917222976685}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 8640, "expected_requests": 48732, "completed_images": 67, "images": 398, "image_id": "n536256", "image_seconds": 108.51208400726318, "at_unix": 1794952073.4091108, "elapsed_s_this_process": 5983.430671215057}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 8712, "expected_requests": 48732, "completed_images": 68, "images": 398, "image_id": "n199286", "image_seconds": 54.74484086036682, "at_unix": 1794952128.1554236, "elapsed_s_this_process": 6038.176984071732}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 8832, "expected_requests": 48732, "completed_images": 69, "images": 398, "image_id": "n65885", "image_seconds": 87.56011176109314, "at_unix": 1794952215.717018, "elapsed_s_this_process": 6125.73857831955}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 8868, "expected_requests": 48732, "completed_images": 70, "images": 398, "image_id": "n497658", "image_seconds": 33.114055156707764, "at_unix": 1794952248.832864, "elapsed_s_this_process": 6158.8544244766235}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 9060, "expected_requests": 48732, "completed_images": 71, "images": 398, "image_id": "n579256", "image_seconds": 131.52186799049377, "at_unix": 1794952380.3560915, "elapsed_s_this_process": 6290.377651929855}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 9312, "expected_requests": 48732, "completed_images": 72, "images": 398, "image_id": "n69237", "image_seconds": 162.84878659248352, "at_unix": 1794952543.2062466, "elapsed_s_this_process": 6453.2278072834015}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 9516, "expected_requests": 48732, "completed_images": 73, "images": 398, "image_id": "n433692", "image_seconds": 136.0754373073578, "at_unix": 1794952679.282709, "elapsed_s_this_process": 6589.304269313812}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 9600, "expected_requests": 48732, "completed_images": 74, "images": 398, "image_id": "n525029", "image_seconds": 63.496856451034546, "at_unix": 1794952742.780751, "elapsed_s_this_process": 6652.802311420441}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 9828, "expected_requests": 48732, "completed_images": 75, "images": 398, "image_id": "n264887", "image_seconds": 96.35660815238953, "at_unix": 1794952839.1387494, "elapsed_s_this_process": 6749.1603100299835}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 9948, "expected_requests": 48732, "completed_images": 76, "images": 398, "image_id": "n567860", "image_seconds": 86.21195816993713, "at_unix": 1794952925.351849, "elapsed_s_this_process": 6835.373409748077}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 10068, "expected_requests": 48732, "completed_images": 77, "images": 398, "image_id": "n58220", "image_seconds": 85.43293046951294, "at_unix": 1794953010.7863066, "elapsed_s_this_process": 6920.807867050171}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 10140, "expected_requests": 48732, "completed_images": 78, "images": 398, "image_id": "n211324", "image_seconds": 57.95093488693237, "at_unix": 1794953068.7390192, "elapsed_s_this_process": 6978.760579586029}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 10200, "expected_requests": 48732, "completed_images": 79, "images": 398, "image_id": "n70461", "image_seconds": 48.94068884849548, "at_unix": 1794953117.6810086, "elapsed_s_this_process": 7027.7025690078735}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 10332, "expected_requests": 48732, "completed_images": 80, "images": 398, "image_id": "n64959", "image_seconds": 85.69256329536438, "at_unix": 1794953203.3749838, "elapsed_s_this_process": 7113.396544218063}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 10524, "expected_requests": 48732, "completed_images": 81, "images": 398, "image_id": "n324908", "image_seconds": 128.36617612838745, "at_unix": 1794953331.7423222, "elapsed_s_this_process": 7241.7638828754425}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 10656, "expected_requests": 48732, "completed_images": 82, "images": 398, "image_id": "n282607", "image_seconds": 58.39292812347412, "at_unix": 1794953390.13631, "elapsed_s_this_process": 7300.157870531082}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 10740, "expected_requests": 48732, "completed_images": 83, "images": 398, "image_id": "n184551", "image_seconds": 65.70350813865662, "at_unix": 1794953455.8409233, "elapsed_s_this_process": 7365.862483739853}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 10848, "expected_requests": 48732, "completed_images": 84, "images": 398, "image_id": "n560243", "image_seconds": 78.5561957359314, "at_unix": 1794953534.398605, "elapsed_s_this_process": 7444.420165777206}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 10920, "expected_requests": 48732, "completed_images": 85, "images": 398, "image_id": "n153118", "image_seconds": 57.75980353355408, "at_unix": 1794953592.1598248, "elapsed_s_this_process": 7502.181385278702}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 11064, "expected_requests": 48732, "completed_images": 86, "images": 398, "image_id": "n479092", "image_seconds": 100.87375736236572, "at_unix": 1794953693.0350358, "elapsed_s_this_process": 7603.056596279144}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 11244, "expected_requests": 48732, "completed_images": 87, "images": 398, "image_id": "n118102", "image_seconds": 111.88849830627441, "at_unix": 1794953804.9249737, "elapsed_s_this_process": 7714.946534156799}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 11508, "expected_requests": 48732, "completed_images": 88, "images": 398, "image_id": "n357784", "image_seconds": 170.77643847465515, "at_unix": 1794953975.702476, "elapsed_s_this_process": 7885.724036455154}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 11628, "expected_requests": 48732, "completed_images": 89, "images": 398, "image_id": "n350766", "image_seconds": 78.38238143920898, "at_unix": 1794954054.0859303, "elapsed_s_this_process": 7964.107490777969}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 11676, "expected_requests": 48732, "completed_images": 90, "images": 398, "image_id": "n369595", "image_seconds": 40.34734392166138, "at_unix": 1794954094.4347317, "elapsed_s_this_process": 8004.456292152405}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 11736, "expected_requests": 48732, "completed_images": 91, "images": 398, "image_id": "n48494", "image_seconds": 33.288630962371826, "at_unix": 1794954127.7247646, "elapsed_s_this_process": 8037.746325016022}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 11844, "expected_requests": 48732, "completed_images": 92, "images": 398, "image_id": "n434283", "image_seconds": 72.5433840751648, "at_unix": 1794954200.2695024, "elapsed_s_this_process": 8110.291062831879}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 12000, "expected_requests": 48732, "completed_images": 93, "images": 398, "image_id": "n534106", "image_seconds": 107.64583253860474, "at_unix": 1794954307.9175322, "elapsed_s_this_process": 8217.939092636108}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 12228, "expected_requests": 48732, "completed_images": 94, "images": 398, "image_id": "n578564", "image_seconds": 142.2087070941925, "at_unix": 1794954450.1277156, "elapsed_s_this_process": 8360.149276256561}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 12336, "expected_requests": 48732, "completed_images": 95, "images": 398, "image_id": "n336443", "image_seconds": 71.50464391708374, "at_unix": 1794954521.6334848, "elapsed_s_this_process": 8431.65504527092}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 12444, "expected_requests": 48732, "completed_images": 96, "images": 398, "image_id": "n259949", "image_seconds": 70.69029998779297, "at_unix": 1794954592.3251443, "elapsed_s_this_process": 8502.34670472145}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 12492, "expected_requests": 48732, "completed_images": 97, "images": 398, "image_id": "n381072", "image_seconds": 42.60697269439697, "at_unix": 1794954634.9334145, "elapsed_s_this_process": 8544.954974889755}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 12624, "expected_requests": 48732, "completed_images": 98, "images": 398, "image_id": "n305495", "image_seconds": 85.58791017532349, "at_unix": 1794954720.522944, "elapsed_s_this_process": 8630.544504404068}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 12900, "expected_requests": 48732, "completed_images": 99, "images": 398, "image_id": "n526228", "image_seconds": 149.250314950943, "at_unix": 1794954869.7747104, "elapsed_s_this_process": 8779.79627084732}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 12996, "expected_requests": 48732, "completed_images": 100, "images": 398, "image_id": "n403734", "image_seconds": 64.36946606636047, "at_unix": 1794954934.1453648, "elapsed_s_this_process": 8844.16692519188}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 13152, "expected_requests": 48732, "completed_images": 101, "images": 398, "image_id": "n150962", "image_seconds": 108.9262547492981, "at_unix": 1794955043.0735044, "elapsed_s_this_process": 8953.095064878464}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 13236, "expected_requests": 48732, "completed_images": 102, "images": 398, "image_id": "n249639", "image_seconds": 59.79668831825256, "at_unix": 1794955102.8729315, "elapsed_s_this_process": 9012.894492387772}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 13344, "expected_requests": 48732, "completed_images": 103, "images": 398, "image_id": "n24526", "image_seconds": 72.02747440338135, "at_unix": 1794955174.9017196, "elapsed_s_this_process": 9084.923280000687}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 13476, "expected_requests": 48732, "completed_images": 104, "images": 398, "image_id": "n181210", "image_seconds": 117.74962568283081, "at_unix": 1794955292.6527762, "elapsed_s_this_process": 9202.67433667183}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 13608, "expected_requests": 48732, "completed_images": 105, "images": 398, "image_id": "n219840", "image_seconds": 94.89915013313293, "at_unix": 1794955387.554937, "elapsed_s_this_process": 9297.57649731636}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 13728, "expected_requests": 48732, "completed_images": 106, "images": 398, "image_id": "n146555", "image_seconds": 85.97537899017334, "at_unix": 1794955473.5315285, "elapsed_s_this_process": 9383.553089141846}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 13968, "expected_requests": 48732, "completed_images": 107, "images": 398, "image_id": "n398257", "image_seconds": 157.43661999702454, "at_unix": 1794955630.969643, "elapsed_s_this_process": 9540.991203546524}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 14124, "expected_requests": 48732, "completed_images": 108, "images": 398, "image_id": "n546616", "image_seconds": 108.3917453289032, "at_unix": 1794955739.362903, "elapsed_s_this_process": 9649.384463787079}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 14364, "expected_requests": 48732, "completed_images": 109, "images": 398, "image_id": "n513429", "image_seconds": 157.44092869758606, "at_unix": 1794955896.8049836, "elapsed_s_this_process": 9806.826544046402}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 14460, "expected_requests": 48732, "completed_images": 110, "images": 398, "image_id": "n145498", "image_seconds": 64.54183983802795, "at_unix": 1794955961.3480418, "elapsed_s_this_process": 9871.36960220337}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 14484, "expected_requests": 48732, "completed_images": 111, "images": 398, "image_id": "n512257", "image_seconds": 26.654215335845947, "at_unix": 1794955988.003716, "elapsed_s_this_process": 9898.0252764225}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 14844, "expected_requests": 48732, "completed_images": 112, "images": 398, "image_id": "n554880", "image_seconds": 207.22317123413086, "at_unix": 1794956195.2283502, "elapsed_s_this_process": 10105.249910831451}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 14856, "expected_requests": 48732, "completed_images": 113, "images": 398, "image_id": "n57848", "image_seconds": 21.13288140296936, "at_unix": 1794956216.362416, "elapsed_s_this_process": 10126.383976459503}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 14904, "expected_requests": 48732, "completed_images": 114, "images": 398, "image_id": "n217003", "image_seconds": 44.84829020500183, "at_unix": 1794956261.2118123, "elapsed_s_this_process": 10171.233372688293}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 15036, "expected_requests": 48732, "completed_images": 115, "images": 398, "image_id": "n260762", "image_seconds": 86.41526770591736, "at_unix": 1794956347.6284208, "elapsed_s_this_process": 10257.6499812603}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 15108, "expected_requests": 48732, "completed_images": 116, "images": 398, "image_id": "n446242", "image_seconds": 58.18255066871643, "at_unix": 1794956405.812462, "elapsed_s_this_process": 10315.834022521973}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 15264, "expected_requests": 48732, "completed_images": 117, "images": 398, "image_id": "n216553", "image_seconds": 100.39869475364685, "at_unix": 1794956506.212635, "elapsed_s_this_process": 10416.23419547081}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 15444, "expected_requests": 48732, "completed_images": 118, "images": 398, "image_id": "n6908", "image_seconds": 113.67472386360168, "at_unix": 1794956619.8887339, "elapsed_s_this_process": 10529.910294294357}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 15528, "expected_requests": 48732, "completed_images": 119, "images": 398, "image_id": "n310625", "image_seconds": 64.14164662361145, "at_unix": 1794956684.0316904, "elapsed_s_this_process": 10594.053250789642}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 15696, "expected_requests": 48732, "completed_images": 120, "images": 398, "image_id": "n279173", "image_seconds": 104.53658246994019, "at_unix": 1794956788.569613, "elapsed_s_this_process": 10698.591173410416}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 15792, "expected_requests": 48732, "completed_images": 121, "images": 398, "image_id": "n508733", "image_seconds": 66.9998631477356, "at_unix": 1794956855.570908, "elapsed_s_this_process": 10765.592468500137}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 15876, "expected_requests": 48732, "completed_images": 122, "images": 398, "image_id": "n257997", "image_seconds": 71.59416556358337, "at_unix": 1794956927.1663723, "elapsed_s_this_process": 10837.18793296814}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 16020, "expected_requests": 48732, "completed_images": 123, "images": 398, "image_id": "n263180", "image_seconds": 95.87965536117554, "at_unix": 1794957023.0471034, "elapsed_s_this_process": 10933.068663835526}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 16272, "expected_requests": 48732, "completed_images": 124, "images": 398, "image_id": "n262920", "image_seconds": 206.821040391922, "at_unix": 1794957229.8692472, "elapsed_s_this_process": 11139.890807628632}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 16320, "expected_requests": 48732, "completed_images": 125, "images": 398, "image_id": "n413761", "image_seconds": 40.04655957221985, "at_unix": 1794957269.9169312, "elapsed_s_this_process": 11179.93849158287}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 16404, "expected_requests": 48732, "completed_images": 126, "images": 398, "image_id": "n574498", "image_seconds": 63.428096294403076, "at_unix": 1794957333.3463426, "elapsed_s_this_process": 11243.367903232574}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 16488, "expected_requests": 48732, "completed_images": 127, "images": 398, "image_id": "n493357", "image_seconds": 65.72107934951782, "at_unix": 1794957399.0706398, "elapsed_s_this_process": 11309.092200279236}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 16620, "expected_requests": 48732, "completed_images": 128, "images": 398, "image_id": "n167552", "image_seconds": 85.68226075172424, "at_unix": 1794957484.7541904, "elapsed_s_this_process": 11394.775750875473}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 16764, "expected_requests": 48732, "completed_images": 129, "images": 398, "image_id": "n347706", "image_seconds": 98.4893970489502, "at_unix": 1794957583.2448802, "elapsed_s_this_process": 11493.26644062996}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 16824, "expected_requests": 48732, "completed_images": 130, "images": 398, "image_id": "n575770", "image_seconds": 49.16769742965698, "at_unix": 1794957632.413899, "elapsed_s_this_process": 11542.435459375381}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 16872, "expected_requests": 48732, "completed_images": 131, "images": 398, "image_id": "n522733", "image_seconds": 43.542460680007935, "at_unix": 1794957675.957588, "elapsed_s_this_process": 11585.979148387909}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 17016, "expected_requests": 48732, "completed_images": 132, "images": 398, "image_id": "n398429", "image_seconds": 100.58159375190735, "at_unix": 1794957776.5404835, "elapsed_s_this_process": 11686.562043905258}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 17052, "expected_requests": 48732, "completed_images": 133, "images": 398, "image_id": "n285391", "image_seconds": 39.631662130355835, "at_unix": 1794957816.1734676, "elapsed_s_this_process": 11726.195028305054}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 17148, "expected_requests": 48732, "completed_images": 134, "images": 398, "image_id": "n133585", "image_seconds": 66.36567878723145, "at_unix": 1794957882.5403056, "elapsed_s_this_process": 11792.561866044998}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 17256, "expected_requests": 48732, "completed_images": 135, "images": 398, "image_id": "n501951", "image_seconds": 62.93452310562134, "at_unix": 1794957945.476132, "elapsed_s_this_process": 11855.497692584991}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 17304, "expected_requests": 48732, "completed_images": 136, "images": 398, "image_id": "n498140", "image_seconds": 40.52344989776611, "at_unix": 1794957986.0008566, "elapsed_s_this_process": 11896.022417068481}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 17484, "expected_requests": 48732, "completed_images": 137, "images": 398, "image_id": "n355339", "image_seconds": 111.30733513832092, "at_unix": 1794958097.3097093, "elapsed_s_this_process": 12007.331269741058}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 17568, "expected_requests": 48732, "completed_images": 138, "images": 398, "image_id": "n166008", "image_seconds": 65.62272047996521, "at_unix": 1794958162.9337828, "elapsed_s_this_process": 12072.95534324646}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 17796, "expected_requests": 48732, "completed_images": 139, "images": 398, "image_id": "n51002", "image_seconds": 136.7232084274292, "at_unix": 1794958299.658343, "elapsed_s_this_process": 12209.679903745651}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 18060, "expected_requests": 48732, "completed_images": 140, "images": 398, "image_id": "n507959", "image_seconds": 109.60793948173523, "at_unix": 1794958409.2674801, "elapsed_s_this_process": 12319.28904056549}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 18120, "expected_requests": 48732, "completed_images": 141, "images": 398, "image_id": "n317189", "image_seconds": 45.36732745170593, "at_unix": 1794958454.635929, "elapsed_s_this_process": 12364.657489538193}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 18240, "expected_requests": 48732, "completed_images": 142, "images": 398, "image_id": "n83784", "image_seconds": 86.99150395393372, "at_unix": 1794958541.6288807, "elapsed_s_this_process": 12451.650441169739}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 18408, "expected_requests": 48732, "completed_images": 143, "images": 398, "image_id": "n88933", "image_seconds": 115.32062768936157, "at_unix": 1794958656.9508014, "elapsed_s_this_process": 12566.972362041473}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 18576, "expected_requests": 48732, "completed_images": 144, "images": 398, "image_id": "n488874", "image_seconds": 107.65615630149841, "at_unix": 1794958764.608021, "elapsed_s_this_process": 12674.629581451416}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 18624, "expected_requests": 48732, "completed_images": 145, "images": 398, "image_id": "n244826", "image_seconds": 35.127602100372314, "at_unix": 1794958799.7369776, "elapsed_s_this_process": 12709.758538007736}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 18696, "expected_requests": 48732, "completed_images": 146, "images": 398, "image_id": "n65202", "image_seconds": 59.80202293395996, "at_unix": 1794958859.540121, "elapsed_s_this_process": 12769.561681747437}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 18792, "expected_requests": 48732, "completed_images": 147, "images": 398, "image_id": "n571179", "image_seconds": 74.37966179847717, "at_unix": 1794958933.9211402, "elapsed_s_this_process": 12843.942700624466}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 18876, "expected_requests": 48732, "completed_images": 148, "images": 398, "image_id": "n9181", "image_seconds": 65.28840160369873, "at_unix": 1794958999.2108653, "elapsed_s_this_process": 12909.232425689697}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 18972, "expected_requests": 48732, "completed_images": 149, "images": 398, "image_id": "n44249", "image_seconds": 67.82441592216492, "at_unix": 1794959067.0366285, "elapsed_s_this_process": 12977.058188915253}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 19092, "expected_requests": 48732, "completed_images": 150, "images": 398, "image_id": "n281241", "image_seconds": 80.95229935646057, "at_unix": 1794959147.990244, "elapsed_s_this_process": 13058.01180434227}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 19188, "expected_requests": 48732, "completed_images": 151, "images": 398, "image_id": "n352479", "image_seconds": 74.76306319236755, "at_unix": 1794959222.75461, "elapsed_s_this_process": 13132.776170492172}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 19380, "expected_requests": 48732, "completed_images": 152, "images": 398, "image_id": "n326988", "image_seconds": 118.79002833366394, "at_unix": 1794959341.5459464, "elapsed_s_this_process": 13251.567506790161}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 19500, "expected_requests": 48732, "completed_images": 153, "images": 398, "image_id": "n432591", "image_seconds": 87.2581615447998, "at_unix": 1794959428.8051958, "elapsed_s_this_process": 13338.826756477356}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 19608, "expected_requests": 48732, "completed_images": 154, "images": 398, "image_id": "n272313", "image_seconds": 72.83239388465881, "at_unix": 1794959501.6391, "elapsed_s_this_process": 13411.660660505295}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 19752, "expected_requests": 48732, "completed_images": 155, "images": 398, "image_id": "n477702", "image_seconds": 92.24481654167175, "at_unix": 1794959593.8852046, "elapsed_s_this_process": 13503.90676498413}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 19812, "expected_requests": 48732, "completed_images": 156, "images": 398, "image_id": "n549922", "image_seconds": 51.51738929748535, "at_unix": 1794959645.403896, "elapsed_s_this_process": 13555.425456523895}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 19908, "expected_requests": 48732, "completed_images": 157, "images": 398, "image_id": "n95904", "image_seconds": 72.58873844146729, "at_unix": 1794959717.993948, "elapsed_s_this_process": 13628.015508651733}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 20040, "expected_requests": 48732, "completed_images": 158, "images": 398, "image_id": "n518912", "image_seconds": 94.56176900863647, "at_unix": 1794959812.5569274, "elapsed_s_this_process": 13722.578488111496}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 20136, "expected_requests": 48732, "completed_images": 159, "images": 398, "image_id": "n243701", "image_seconds": 70.69644498825073, "at_unix": 1794959883.2552571, "elapsed_s_this_process": 13793.276817798615}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 20184, "expected_requests": 48732, "completed_images": 160, "images": 398, "image_id": "n255161", "image_seconds": 28.254805326461792, "at_unix": 1794959911.511245, "elapsed_s_this_process": 13821.53280544281}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 20280, "expected_requests": 48732, "completed_images": 161, "images": 398, "image_id": "n238266", "image_seconds": 73.12535524368286, "at_unix": 1794959984.639143, "elapsed_s_this_process": 13894.660703420639}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 20376, "expected_requests": 48732, "completed_images": 162, "images": 398, "image_id": "n12214", "image_seconds": 66.72807908058167, "at_unix": 1794960051.370432, "elapsed_s_this_process": 13961.391992330551}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 20676, "expected_requests": 48732, "completed_images": 163, "images": 398, "image_id": "n283587", "image_seconds": 193.9420440196991, "at_unix": 1794960245.3148077, "elapsed_s_this_process": 14155.336368083954}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 20772, "expected_requests": 48732, "completed_images": 164, "images": 398, "image_id": "n390187", "image_seconds": 69.23765134811401, "at_unix": 1794960314.5538912, "elapsed_s_this_process": 14224.575451850891}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 20904, "expected_requests": 48732, "completed_images": 165, "images": 398, "image_id": "n496803", "image_seconds": 60.62812638282776, "at_unix": 1794960375.1833322, "elapsed_s_this_process": 14285.204892873764}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 21048, "expected_requests": 48732, "completed_images": 166, "images": 398, "image_id": "n497789", "image_seconds": 103.25433468818665, "at_unix": 1794960478.4389307, "elapsed_s_this_process": 14388.460491418839}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 21084, "expected_requests": 48732, "completed_images": 167, "images": 398, "image_id": "n232810", "image_seconds": 36.46734547615051, "at_unix": 1794960514.9072883, "elapsed_s_this_process": 14424.928848743439}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 21132, "expected_requests": 48732, "completed_images": 168, "images": 398, "image_id": "n346736", "image_seconds": 43.44045376777649, "at_unix": 1794960558.3491673, "elapsed_s_this_process": 14468.370727777481}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 21228, "expected_requests": 48732, "completed_images": 169, "images": 398, "image_id": "n222297", "image_seconds": 67.00742292404175, "at_unix": 1794960625.357905, "elapsed_s_this_process": 14535.379465579987}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 21336, "expected_requests": 48732, "completed_images": 170, "images": 398, "image_id": "n531731", "image_seconds": 79.10700702667236, "at_unix": 1794960704.4662876, "elapsed_s_this_process": 14614.48784828186}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 21432, "expected_requests": 48732, "completed_images": 171, "images": 398, "image_id": "n209843", "image_seconds": 72.00476360321045, "at_unix": 1794960776.4726706, "elapsed_s_this_process": 14686.494230985641}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 21528, "expected_requests": 48732, "completed_images": 172, "images": 398, "image_id": "n489699", "image_seconds": 65.79128360748291, "at_unix": 1794960842.2679822, "elapsed_s_this_process": 14752.289542675018}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 21648, "expected_requests": 48732, "completed_images": 173, "images": 398, "image_id": "n276011", "image_seconds": 80.28081822395325, "at_unix": 1794960922.5500453, "elapsed_s_this_process": 14832.571605682373}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 21756, "expected_requests": 48732, "completed_images": 174, "images": 398, "image_id": "n413002", "image_seconds": 75.32870650291443, "at_unix": 1794960997.8804655, "elapsed_s_this_process": 14907.902025938034}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 21912, "expected_requests": 48732, "completed_images": 175, "images": 398, "image_id": "n356822", "image_seconds": 110.9419276714325, "at_unix": 1794961108.8238385, "elapsed_s_this_process": 15018.845398902893}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 22068, "expected_requests": 48732, "completed_images": 176, "images": 398, "image_id": "n548534", "image_seconds": 99.63026905059814, "at_unix": 1794961208.457257, "elapsed_s_this_process": 15118.47881770134}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 22212, "expected_requests": 48732, "completed_images": 177, "images": 398, "image_id": "n88366", "image_seconds": 80.86812782287598, "at_unix": 1794961289.326737, "elapsed_s_this_process": 15199.34829735756}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 22296, "expected_requests": 48732, "completed_images": 178, "images": 398, "image_id": "n315859", "image_seconds": 47.405794620513916, "at_unix": 1794961336.7336488, "elapsed_s_this_process": 15246.755209207535}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 22404, "expected_requests": 48732, "completed_images": 179, "images": 398, "image_id": "n143672", "image_seconds": 72.30371260643005, "at_unix": 1794961409.0386767, "elapsed_s_this_process": 15319.060237169266}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 22464, "expected_requests": 48732, "completed_images": 180, "images": 398, "image_id": "n441859", "image_seconds": 42.40506887435913, "at_unix": 1794961451.4450564, "elapsed_s_this_process": 15361.466616868973}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 22680, "expected_requests": 48732, "completed_images": 181, "images": 398, "image_id": "n363445", "image_seconds": 146.8677327632904, "at_unix": 1794961598.3143506, "elapsed_s_this_process": 15508.335911035538}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 22836, "expected_requests": 48732, "completed_images": 182, "images": 398, "image_id": "n16656", "image_seconds": 105.39886808395386, "at_unix": 1794961703.71658, "elapsed_s_this_process": 15613.738140583038}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 22980, "expected_requests": 48732, "completed_images": 183, "images": 398, "image_id": "n551964", "image_seconds": 101.97988224029541, "at_unix": 1794961805.697613, "elapsed_s_this_process": 15715.719173431396}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 23232, "expected_requests": 48732, "completed_images": 184, "images": 398, "image_id": "n433532", "image_seconds": 153.277081489563, "at_unix": 1794961958.976271, "elapsed_s_this_process": 15868.997831344604}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 23364, "expected_requests": 48732, "completed_images": 185, "images": 398, "image_id": "n210269", "image_seconds": 58.82505679130554, "at_unix": 1794962017.8024683, "elapsed_s_this_process": 15927.824028730392}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 23472, "expected_requests": 48732, "completed_images": 186, "images": 398, "image_id": "n532213", "image_seconds": 73.94998049736023, "at_unix": 1794962091.75359, "elapsed_s_this_process": 16001.77515053749}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 23652, "expected_requests": 48732, "completed_images": 187, "images": 398, "image_id": "n23181", "image_seconds": 76.2134621143341, "at_unix": 1794962167.9686043, "elapsed_s_this_process": 16077.990164756775}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 23760, "expected_requests": 48732, "completed_images": 188, "images": 398, "image_id": "n131634", "image_seconds": 79.23635697364807, "at_unix": 1794962247.206939, "elapsed_s_this_process": 16157.228499650955}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 23880, "expected_requests": 48732, "completed_images": 189, "images": 398, "image_id": "n346247", "image_seconds": 79.61385989189148, "at_unix": 1794962326.8220263, "elapsed_s_this_process": 16236.843586683273}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 24024, "expected_requests": 48732, "completed_images": 190, "images": 398, "image_id": "n386688", "image_seconds": 87.16160583496094, "at_unix": 1794962413.9849238, "elapsed_s_this_process": 16324.006484270096}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 24204, "expected_requests": 48732, "completed_images": 191, "images": 398, "image_id": "n14087", "image_seconds": 123.4932975769043, "at_unix": 1794962537.4793358, "elapsed_s_this_process": 16447.50089621544}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 24252, "expected_requests": 48732, "completed_images": 192, "images": 398, "image_id": "n228268", "image_seconds": 40.53684663772583, "at_unix": 1794962578.0175273, "elapsed_s_this_process": 16488.03908777237}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 24360, "expected_requests": 48732, "completed_images": 193, "images": 398, "image_id": "n16936", "image_seconds": 77.31264233589172, "at_unix": 1794962655.3315427, "elapsed_s_this_process": 16565.353103399277}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 24492, "expected_requests": 48732, "completed_images": 194, "images": 398, "image_id": "n59147", "image_seconds": 91.78984498977661, "at_unix": 1794962747.122567, "elapsed_s_this_process": 16657.144127368927}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 24672, "expected_requests": 48732, "completed_images": 195, "images": 398, "image_id": "n429961", "image_seconds": 123.198415517807, "at_unix": 1794962870.322349, "elapsed_s_this_process": 16780.34390950203}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 24768, "expected_requests": 48732, "completed_images": 196, "images": 398, "image_id": "n508641", "image_seconds": 72.86513185501099, "at_unix": 1794962943.1885211, "elapsed_s_this_process": 16853.2100815773}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 24984, "expected_requests": 48732, "completed_images": 197, "images": 398, "image_id": "n314630", "image_seconds": 94.52802157402039, "at_unix": 1794963037.7181177, "elapsed_s_this_process": 16947.739678144455}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 25008, "expected_requests": 48732, "completed_images": 198, "images": 398, "image_id": "n481655", "image_seconds": 29.0574152469635, "at_unix": 1794963066.7768483, "elapsed_s_this_process": 16976.798408985138}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 25104, "expected_requests": 48732, "completed_images": 199, "images": 398, "image_id": "n429883", "image_seconds": 72.82755970954895, "at_unix": 1794963139.6059492, "elapsed_s_this_process": 17049.627509593964}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 25308, "expected_requests": 48732, "completed_images": 200, "images": 398, "image_id": "n184385", "image_seconds": 138.69218564033508, "at_unix": 1794963278.2998168, "elapsed_s_this_process": 17188.32137775421}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 25368, "expected_requests": 48732, "completed_images": 201, "images": 398, "image_id": "n351318", "image_seconds": 49.77120637893677, "at_unix": 1794963328.072865, "elapsed_s_this_process": 17238.094425439835}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 25512, "expected_requests": 48732, "completed_images": 202, "images": 398, "image_id": "n400036", "image_seconds": 91.69437384605408, "at_unix": 1794963419.7685373, "elapsed_s_this_process": 17329.79009795189}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 25572, "expected_requests": 48732, "completed_images": 203, "images": 398, "image_id": "n16425", "image_seconds": 52.41625928878784, "at_unix": 1794963472.1859245, "elapsed_s_this_process": 17382.207484960556}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 25632, "expected_requests": 48732, "completed_images": 204, "images": 398, "image_id": "n124651", "image_seconds": 47.01265621185303, "at_unix": 1794963519.199993, "elapsed_s_this_process": 17429.221553325653}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 25812, "expected_requests": 48732, "completed_images": 205, "images": 398, "image_id": "n501609", "image_seconds": 115.5400185585022, "at_unix": 1794963634.742694, "elapsed_s_this_process": 17544.764254570007}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 25848, "expected_requests": 48732, "completed_images": 206, "images": 398, "image_id": "n168412", "image_seconds": 31.933974742889404, "at_unix": 1794963666.6782174, "elapsed_s_this_process": 17576.699777841568}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 25896, "expected_requests": 48732, "completed_images": 207, "images": 398, "image_id": "n530733", "image_seconds": 44.17274785041809, "at_unix": 1794963710.8533504, "elapsed_s_this_process": 17620.87491083145}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 25992, "expected_requests": 48732, "completed_images": 208, "images": 398, "image_id": "n355567", "image_seconds": 66.71760988235474, "at_unix": 1794963777.5723882, "elapsed_s_this_process": 17687.593948841095}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 26064, "expected_requests": 48732, "completed_images": 209, "images": 398, "image_id": "n115614", "image_seconds": 53.51723790168762, "at_unix": 1794963831.0914133, "elapsed_s_this_process": 17741.112973690033}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 26160, "expected_requests": 48732, "completed_images": 210, "images": 398, "image_id": "n223750", "image_seconds": 86.97775053977966, "at_unix": 1794963918.0704525, "elapsed_s_this_process": 17828.092012882233}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 26340, "expected_requests": 48732, "completed_images": 211, "images": 398, "image_id": "n382416", "image_seconds": 124.01111769676208, "at_unix": 1794964042.083186, "elapsed_s_this_process": 17952.104746341705}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 26436, "expected_requests": 48732, "completed_images": 212, "images": 398, "image_id": "n538039", "image_seconds": 64.66497945785522, "at_unix": 1794964106.7496037, "elapsed_s_this_process": 18016.77116417885}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 26604, "expected_requests": 48732, "completed_images": 213, "images": 398, "image_id": "n319845", "image_seconds": 115.70228385925293, "at_unix": 1794964222.453287, "elapsed_s_this_process": 18132.47484755516}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 26748, "expected_requests": 48732, "completed_images": 214, "images": 398, "image_id": "n431447", "image_seconds": 100.22267866134644, "at_unix": 1794964322.6774132, "elapsed_s_this_process": 18232.6989736557}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 26904, "expected_requests": 48732, "completed_images": 215, "images": 398, "image_id": "n200225", "image_seconds": 135.78678059577942, "at_unix": 1794964458.4659648, "elapsed_s_this_process": 18368.487525224686}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 26976, "expected_requests": 48732, "completed_images": 216, "images": 398, "image_id": "n557666", "image_seconds": 53.48135948181152, "at_unix": 1794964511.948393, "elapsed_s_this_process": 18421.969953536987}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 27252, "expected_requests": 48732, "completed_images": 217, "images": 398, "image_id": "n259002", "image_seconds": 155.64579939842224, "at_unix": 1794964667.5955665, "elapsed_s_this_process": 18577.6171271801}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 27360, "expected_requests": 48732, "completed_images": 218, "images": 398, "image_id": "n279581", "image_seconds": 71.4330518245697, "at_unix": 1794964739.0298584, "elapsed_s_this_process": 18649.05141878128}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 27504, "expected_requests": 48732, "completed_images": 219, "images": 398, "image_id": "n119886", "image_seconds": 91.48668456077576, "at_unix": 1794964830.517685, "elapsed_s_this_process": 18740.53924536705}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 27588, "expected_requests": 48732, "completed_images": 220, "images": 398, "image_id": "n126087", "image_seconds": 59.238036155700684, "at_unix": 1794964889.756793, "elapsed_s_this_process": 18799.778353452682}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 27708, "expected_requests": 48732, "completed_images": 221, "images": 398, "image_id": "n143935", "image_seconds": 85.20271396636963, "at_unix": 1794964974.9608445, "elapsed_s_this_process": 18884.98240494728}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 27780, "expected_requests": 48732, "completed_images": 222, "images": 398, "image_id": "n89148", "image_seconds": 58.7112934589386, "at_unix": 1794965033.6732833, "elapsed_s_this_process": 18943.694843769073}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 27924, "expected_requests": 48732, "completed_images": 223, "images": 398, "image_id": "n206785", "image_seconds": 92.3525984287262, "at_unix": 1794965126.0272229, "elapsed_s_this_process": 19036.048783540726}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 28008, "expected_requests": 48732, "completed_images": 224, "images": 398, "image_id": "n173807", "image_seconds": 65.02534818649292, "at_unix": 1794965191.0540764, "elapsed_s_this_process": 19101.075637102127}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 28116, "expected_requests": 48732, "completed_images": 225, "images": 398, "image_id": "n541854", "image_seconds": 78.39536881446838, "at_unix": 1794965269.4510274, "elapsed_s_this_process": 19179.472587823868}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 28176, "expected_requests": 48732, "completed_images": 226, "images": 398, "image_id": "n195925", "image_seconds": 46.34859561920166, "at_unix": 1794965315.8010046, "elapsed_s_this_process": 19225.822565078735}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 28272, "expected_requests": 48732, "completed_images": 227, "images": 398, "image_id": "n329479", "image_seconds": 67.76210451126099, "at_unix": 1794965383.5680811, "elapsed_s_this_process": 19293.589641809464}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 28404, "expected_requests": 48732, "completed_images": 228, "images": 398, "image_id": "n451187", "image_seconds": 61.39436364173889, "at_unix": 1794965444.963996, "elapsed_s_this_process": 19354.98555636406}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 28584, "expected_requests": 48732, "completed_images": 229, "images": 398, "image_id": "n532191", "image_seconds": 131.5904667377472, "at_unix": 1794965576.5560102, "elapsed_s_this_process": 19486.577570676804}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 28644, "expected_requests": 48732, "completed_images": 230, "images": 398, "image_id": "n154160", "image_seconds": 50.011189699172974, "at_unix": 1794965626.5683584, "elapsed_s_this_process": 19536.589918851852}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 28764, "expected_requests": 48732, "completed_images": 231, "images": 398, "image_id": "n154856", "image_seconds": 56.67208003997803, "at_unix": 1794965683.2419765, "elapsed_s_this_process": 19593.263536930084}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 28920, "expected_requests": 48732, "completed_images": 232, "images": 398, "image_id": "n240666", "image_seconds": 108.22387504577637, "at_unix": 1794965791.4681635, "elapsed_s_this_process": 19701.489723920822}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 29052, "expected_requests": 48732, "completed_images": 233, "images": 398, "image_id": "n573460", "image_seconds": 86.95110177993774, "at_unix": 1794965878.42074, "elapsed_s_this_process": 19788.44230031967}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 29220, "expected_requests": 48732, "completed_images": 234, "images": 398, "image_id": "n570181", "image_seconds": 105.73191475868225, "at_unix": 1794965984.1544394, "elapsed_s_this_process": 19894.175999879837}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 29316, "expected_requests": 48732, "completed_images": 235, "images": 398, "image_id": "n414992", "image_seconds": 65.42855381965637, "at_unix": 1794966049.5843024, "elapsed_s_this_process": 19959.60586285591}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 29400, "expected_requests": 48732, "completed_images": 236, "images": 398, "image_id": "n445353", "image_seconds": 59.90175151824951, "at_unix": 1794966109.4873602, "elapsed_s_this_process": 20019.508920669556}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 29520, "expected_requests": 48732, "completed_images": 237, "images": 398, "image_id": "n59676", "image_seconds": 81.67318940162659, "at_unix": 1794966191.1619098, "elapsed_s_this_process": 20101.183470249176}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 29592, "expected_requests": 48732, "completed_images": 238, "images": 398, "image_id": "n417401", "image_seconds": 59.02756929397583, "at_unix": 1794966250.1911407, "elapsed_s_this_process": 20160.21270108223}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 29760, "expected_requests": 48732, "completed_images": 239, "images": 398, "image_id": "n151768", "image_seconds": 110.89188313484192, "at_unix": 1794966361.0843787, "elapsed_s_this_process": 20271.105939149857}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 29880, "expected_requests": 48732, "completed_images": 240, "images": 398, "image_id": "n410476", "image_seconds": 80.47236609458923, "at_unix": 1794966441.55791, "elapsed_s_this_process": 20351.57947063446}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 30096, "expected_requests": 48732, "completed_images": 241, "images": 398, "image_id": "n125122", "image_seconds": 142.22957158088684, "at_unix": 1794966583.7886124, "elapsed_s_this_process": 20493.81017279625}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 30360, "expected_requests": 48732, "completed_images": 242, "images": 398, "image_id": "n278312", "image_seconds": 172.2638144493103, "at_unix": 1794966756.0535746, "elapsed_s_this_process": 20666.0751349926}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 30600, "expected_requests": 48732, "completed_images": 243, "images": 398, "image_id": "n309148", "image_seconds": 200.7879889011383, "at_unix": 1794966956.8426986, "elapsed_s_this_process": 20866.86425924301}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 30696, "expected_requests": 48732, "completed_images": 244, "images": 398, "image_id": "n65866", "image_seconds": 72.04345273971558, "at_unix": 1794967028.8873575, "elapsed_s_this_process": 20938.9089179039}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 30972, "expected_requests": 48732, "completed_images": 245, "images": 398, "image_id": "n140421", "image_seconds": 163.35971403121948, "at_unix": 1794967192.2484162, "elapsed_s_this_process": 21102.269976615906}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 31080, "expected_requests": 48732, "completed_images": 246, "images": 398, "image_id": "n246334", "image_seconds": 79.65454912185669, "at_unix": 1794967271.9045932, "elapsed_s_this_process": 21181.92615365982}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 31320, "expected_requests": 48732, "completed_images": 247, "images": 398, "image_id": "n97485", "image_seconds": 153.64863324165344, "at_unix": 1794967425.554522, "elapsed_s_this_process": 21335.576082468033}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 31416, "expected_requests": 48732, "completed_images": 248, "images": 398, "image_id": "n545516", "image_seconds": 72.92730736732483, "at_unix": 1794967498.4831328, "elapsed_s_this_process": 21408.50469326973}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 31452, "expected_requests": 48732, "completed_images": 249, "images": 398, "image_id": "n288870", "image_seconds": 33.142956018447876, "at_unix": 1794967531.6273482, "elapsed_s_this_process": 21441.648908615112}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 31488, "expected_requests": 48732, "completed_images": 250, "images": 398, "image_id": "n524855", "image_seconds": 33.863463401794434, "at_unix": 1794967565.4922347, "elapsed_s_this_process": 21475.513795375824}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 31584, "expected_requests": 48732, "completed_images": 251, "images": 398, "image_id": "n9856", "image_seconds": 67.26768827438354, "at_unix": 1794967632.7613041, "elapsed_s_this_process": 21542.782864809036}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 31716, "expected_requests": 48732, "completed_images": 252, "images": 398, "image_id": "n71728", "image_seconds": 85.18550276756287, "at_unix": 1794967717.9485798, "elapsed_s_this_process": 21627.970140218735}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 31836, "expected_requests": 48732, "completed_images": 253, "images": 398, "image_id": "n195249", "image_seconds": 70.25854778289795, "at_unix": 1794967788.208485, "elapsed_s_this_process": 21698.230045318604}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 31980, "expected_requests": 48732, "completed_images": 254, "images": 398, "image_id": "n556604", "image_seconds": 98.19372344017029, "at_unix": 1794967886.4035013, "elapsed_s_this_process": 21796.42506170273}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 32064, "expected_requests": 48732, "completed_images": 255, "images": 398, "image_id": "n200692", "image_seconds": 66.00504803657532, "at_unix": 1794967952.4098847, "elapsed_s_this_process": 21862.431445360184}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 32088, "expected_requests": 48732, "completed_images": 256, "images": 398, "image_id": "n273901", "image_seconds": 29.793262720108032, "at_unix": 1794967982.204478, "elapsed_s_this_process": 21892.226038455963}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 32124, "expected_requests": 48732, "completed_images": 257, "images": 398, "image_id": "n466319", "image_seconds": 37.05879545211792, "at_unix": 1794968019.264613, "elapsed_s_this_process": 21929.286173582077}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 32304, "expected_requests": 48732, "completed_images": 258, "images": 398, "image_id": "n160664", "image_seconds": 118.00001692771912, "at_unix": 1794968137.2660778, "elapsed_s_this_process": 22047.28763818741}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 32412, "expected_requests": 48732, "completed_images": 259, "images": 398, "image_id": "n98544", "image_seconds": 83.90033102035522, "at_unix": 1794968221.1761887, "elapsed_s_this_process": 22131.19774913788}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 32544, "expected_requests": 48732, "completed_images": 260, "images": 398, "image_id": "n111390", "image_seconds": 85.57102537155151, "at_unix": 1794968306.7485814, "elapsed_s_this_process": 22216.77014183998}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 32640, "expected_requests": 48732, "completed_images": 261, "images": 398, "image_id": "n311910", "image_seconds": 65.17264604568481, "at_unix": 1794968371.922576, "elapsed_s_this_process": 22281.944136619568}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 32736, "expected_requests": 48732, "completed_images": 262, "images": 398, "image_id": "n449058", "image_seconds": 76.3137514591217, "at_unix": 1794968448.2376773, "elapsed_s_this_process": 22358.259237766266}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 32964, "expected_requests": 48732, "completed_images": 263, "images": 398, "image_id": "n222915", "image_seconds": 151.99164962768555, "at_unix": 1794968600.2308147, "elapsed_s_this_process": 22510.252375125885}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 32988, "expected_requests": 48732, "completed_images": 264, "images": 398, "image_id": "n130464", "image_seconds": 28.34809947013855, "at_unix": 1794968628.5801501, "elapsed_s_this_process": 22538.601710557938}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 33060, "expected_requests": 48732, "completed_images": 265, "images": 398, "image_id": "n379991", "image_seconds": 57.74411177635193, "at_unix": 1794968686.3266547, "elapsed_s_this_process": 22596.34821510315}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 33252, "expected_requests": 48732, "completed_images": 266, "images": 398, "image_id": "n207708", "image_seconds": 129.3088936805725, "at_unix": 1794968815.637003, "elapsed_s_this_process": 22725.658563375473}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 33372, "expected_requests": 48732, "completed_images": 267, "images": 398, "image_id": "n146522", "image_seconds": 79.52159667015076, "at_unix": 1794968895.1599548, "elapsed_s_this_process": 22805.181515216827}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 33456, "expected_requests": 48732, "completed_images": 268, "images": 398, "image_id": "n413319", "image_seconds": 61.311564445495605, "at_unix": 1794968956.4732366, "elapsed_s_this_process": 22866.49479699135}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 33624, "expected_requests": 48732, "completed_images": 269, "images": 398, "image_id": "n499081", "image_seconds": 104.63467597961426, "at_unix": 1794969061.109251, "elapsed_s_this_process": 22971.130811452866}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 33756, "expected_requests": 48732, "completed_images": 270, "images": 398, "image_id": "n470131", "image_seconds": 86.04643034934998, "at_unix": 1794969147.1567948, "elapsed_s_this_process": 23057.17835521698}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 33792, "expected_requests": 48732, "completed_images": 271, "images": 398, "image_id": "n329514", "image_seconds": 31.650430917739868, "at_unix": 1794969178.8088644, "elapsed_s_this_process": 23088.830425024033}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 33912, "expected_requests": 48732, "completed_images": 272, "images": 398, "image_id": "n54180", "image_seconds": 87.56036376953125, "at_unix": 1794969266.3706603, "elapsed_s_this_process": 23176.39222073555}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 34068, "expected_requests": 48732, "completed_images": 273, "images": 398, "image_id": "n498712", "image_seconds": 107.92727065086365, "at_unix": 1794969374.2993944, "elapsed_s_this_process": 23284.320954799652}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 34200, "expected_requests": 48732, "completed_images": 274, "images": 398, "image_id": "n172618", "image_seconds": 92.55990433692932, "at_unix": 1794969466.8605223, "elapsed_s_this_process": 23376.88208270073}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 34308, "expected_requests": 48732, "completed_images": 275, "images": 398, "image_id": "n271392", "image_seconds": 70.07710480690002, "at_unix": 1794969536.9389935, "elapsed_s_this_process": 23446.960553884506}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 34476, "expected_requests": 48732, "completed_images": 276, "images": 398, "image_id": "n437064", "image_seconds": 104.58861374855042, "at_unix": 1794969641.5286493, "elapsed_s_this_process": 23551.550209999084}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 34524, "expected_requests": 48732, "completed_images": 277, "images": 398, "image_id": "n302358", "image_seconds": 30.57546591758728, "at_unix": 1794969672.1052601, "elapsed_s_this_process": 23582.12682056427}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 34584, "expected_requests": 48732, "completed_images": 278, "images": 398, "image_id": "n469525", "image_seconds": 46.70789623260498, "at_unix": 1794969718.8144815, "elapsed_s_this_process": 23628.836041927338}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 34740, "expected_requests": 48732, "completed_images": 279, "images": 398, "image_id": "n525901", "image_seconds": 109.35869073867798, "at_unix": 1794969828.1747727, "elapsed_s_this_process": 23738.196333408356}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 34812, "expected_requests": 48732, "completed_images": 280, "images": 398, "image_id": "n342511", "image_seconds": 55.947733879089355, "at_unix": 1794969884.1239607, "elapsed_s_this_process": 23794.14552116394}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 34908, "expected_requests": 48732, "completed_images": 281, "images": 398, "image_id": "n250821", "image_seconds": 70.82877612113953, "at_unix": 1794969954.9538648, "elapsed_s_this_process": 23864.975425243378}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 35052, "expected_requests": 48732, "completed_images": 282, "images": 398, "image_id": "n312206", "image_seconds": 101.72123289108276, "at_unix": 1794970056.6767178, "elapsed_s_this_process": 23966.698278188705}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 35064, "expected_requests": 48732, "completed_images": 283, "images": 398, "image_id": "n123075", "image_seconds": 13.534238338470459, "at_unix": 1794970070.2123086, "elapsed_s_this_process": 23980.233869314194}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 35112, "expected_requests": 48732, "completed_images": 284, "images": 398, "image_id": "n127705", "image_seconds": 55.437257051467896, "at_unix": 1794970125.650701, "elapsed_s_this_process": 24035.672261714935}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 35388, "expected_requests": 48732, "completed_images": 285, "images": 398, "image_id": "n250715", "image_seconds": 179.26448559761047, "at_unix": 1794970304.9164855, "elapsed_s_this_process": 24214.938045978546}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 35484, "expected_requests": 48732, "completed_images": 286, "images": 398, "image_id": "n162148", "image_seconds": 73.84581565856934, "at_unix": 1794970378.7635572, "elapsed_s_this_process": 24288.78511762619}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 35520, "expected_requests": 48732, "completed_images": 287, "images": 398, "image_id": "n373692", "image_seconds": 33.15767216682434, "at_unix": 1794970411.9226472, "elapsed_s_this_process": 24321.944207906723}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 35676, "expected_requests": 48732, "completed_images": 288, "images": 398, "image_id": "n298104", "image_seconds": 101.19282793998718, "at_unix": 1794970513.1165957, "elapsed_s_this_process": 24423.138156414032}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 35748, "expected_requests": 48732, "completed_images": 289, "images": 398, "image_id": "n483840", "image_seconds": 58.23820519447327, "at_unix": 1794970571.3561754, "elapsed_s_this_process": 24481.377736091614}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 35892, "expected_requests": 48732, "completed_images": 290, "images": 398, "image_id": "n500209", "image_seconds": 93.22052121162415, "at_unix": 1794970664.5780518, "elapsed_s_this_process": 24574.599612236023}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 36000, "expected_requests": 48732, "completed_images": 291, "images": 398, "image_id": "n100552", "image_seconds": 81.94149518013, "at_unix": 1794970746.5207517, "elapsed_s_this_process": 24656.542312145233}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 36048, "expected_requests": 48732, "completed_images": 292, "images": 398, "image_id": "n542609", "image_seconds": 39.530253171920776, "at_unix": 1794970786.0521595, "elapsed_s_this_process": 24696.073719978333}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 36132, "expected_requests": 48732, "completed_images": 293, "images": 398, "image_id": "n25275", "image_seconds": 59.85338616371155, "at_unix": 1794970845.9068758, "elapsed_s_this_process": 24755.928436279297}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 36192, "expected_requests": 48732, "completed_images": 294, "images": 398, "image_id": "n159284", "image_seconds": 47.23286747932434, "at_unix": 1794970893.14291, "elapsed_s_this_process": 24803.16447043419}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 36288, "expected_requests": 48732, "completed_images": 295, "images": 398, "image_id": "n369313", "image_seconds": 66.55258846282959, "at_unix": 1794970959.6973321, "elapsed_s_this_process": 24869.71889257431}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 36396, "expected_requests": 48732, "completed_images": 296, "images": 398, "image_id": "n278453", "image_seconds": 74.70603275299072, "at_unix": 1794971034.4047403, "elapsed_s_this_process": 24944.426300764084}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 36492, "expected_requests": 48732, "completed_images": 297, "images": 398, "image_id": "n153293", "image_seconds": 93.64807939529419, "at_unix": 1794971128.0543225, "elapsed_s_this_process": 25038.0758831501}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 36540, "expected_requests": 48732, "completed_images": 298, "images": 398, "image_id": "n410289", "image_seconds": 44.28876876831055, "at_unix": 1794971172.3446221, "elapsed_s_this_process": 25082.36618256569}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 36684, "expected_requests": 48732, "completed_images": 299, "images": 398, "image_id": "n200907", "image_seconds": 101.98909878730774, "at_unix": 1794971274.3350513, "elapsed_s_this_process": 25184.35661172867}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 36768, "expected_requests": 48732, "completed_images": 300, "images": 398, "image_id": "n531359", "image_seconds": 65.59003257751465, "at_unix": 1794971339.9265945, "elapsed_s_this_process": 25249.9481549263}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 36924, "expected_requests": 48732, "completed_images": 301, "images": 398, "image_id": "n117888", "image_seconds": 111.44849395751953, "at_unix": 1794971451.376368, "elapsed_s_this_process": 25361.397928476334}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 36948, "expected_requests": 48732, "completed_images": 302, "images": 398, "image_id": "n481777", "image_seconds": 26.766918182373047, "at_unix": 1794971478.14441, "elapsed_s_this_process": 25388.16597032547}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 37044, "expected_requests": 48732, "completed_images": 303, "images": 398, "image_id": "n369970", "image_seconds": 66.76567077636719, "at_unix": 1794971544.9141037, "elapsed_s_this_process": 25454.93566417694}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 37368, "expected_requests": 48732, "completed_images": 304, "images": 398, "image_id": "n296467", "image_seconds": 206.67135071754456, "at_unix": 1794971751.587175, "elapsed_s_this_process": 25661.608735322952}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 37500, "expected_requests": 48732, "completed_images": 305, "images": 398, "image_id": "n393305", "image_seconds": 95.84568476676941, "at_unix": 1794971847.4340925, "elapsed_s_this_process": 25757.455652952194}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 37572, "expected_requests": 48732, "completed_images": 306, "images": 398, "image_id": "n289376", "image_seconds": 60.114530086517334, "at_unix": 1794971907.5499313, "elapsed_s_this_process": 25817.57149195671}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 37788, "expected_requests": 48732, "completed_images": 307, "images": 398, "image_id": "n485969", "image_seconds": 183.67973589897156, "at_unix": 1794972091.230999, "elapsed_s_this_process": 26001.252559423447}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 38064, "expected_requests": 48732, "completed_images": 308, "images": 398, "image_id": "n4777", "image_seconds": 177.4552185535431, "at_unix": 1794972268.6872902, "elapsed_s_this_process": 26178.708850622177}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 38136, "expected_requests": 48732, "completed_images": 309, "images": 398, "image_id": "n162108", "image_seconds": 57.47627854347229, "at_unix": 1794972326.1647327, "elapsed_s_this_process": 26236.186293125153}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 38232, "expected_requests": 48732, "completed_images": 310, "images": 398, "image_id": "n92308", "image_seconds": 66.72476530075073, "at_unix": 1794972392.8911521, "elapsed_s_this_process": 26302.912712574005}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 38364, "expected_requests": 48732, "completed_images": 311, "images": 398, "image_id": "n162586", "image_seconds": 91.13233494758606, "at_unix": 1794972484.0283196, "elapsed_s_this_process": 26394.04988002777}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 38472, "expected_requests": 48732, "completed_images": 312, "images": 398, "image_id": "n406334", "image_seconds": 72.76044607162476, "at_unix": 1794972556.7901838, "elapsed_s_this_process": 26466.811744213104}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 38700, "expected_requests": 48732, "completed_images": 313, "images": 398, "image_id": "n293477", "image_seconds": 150.22285199165344, "at_unix": 1794972707.0144958, "elapsed_s_this_process": 26617.036056518555}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 38796, "expected_requests": 48732, "completed_images": 314, "images": 398, "image_id": "n299528", "image_seconds": 69.47672510147095, "at_unix": 1794972776.492312, "elapsed_s_this_process": 26686.513872385025}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 38916, "expected_requests": 48732, "completed_images": 315, "images": 398, "image_id": "n126891", "image_seconds": 63.88066053390503, "at_unix": 1794972840.3741155, "elapsed_s_this_process": 26750.3956758976}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 39012, "expected_requests": 48732, "completed_images": 316, "images": 398, "image_id": "n295771", "image_seconds": 66.40972781181335, "at_unix": 1794972906.7851834, "elapsed_s_this_process": 26816.806743860245}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 39108, "expected_requests": 48732, "completed_images": 317, "images": 398, "image_id": "n186491", "image_seconds": 71.99152541160583, "at_unix": 1794972978.778628, "elapsed_s_this_process": 26888.800188541412}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 39264, "expected_requests": 48732, "completed_images": 318, "images": 398, "image_id": "n28996", "image_seconds": 110.21058893203735, "at_unix": 1794973088.9908328, "elapsed_s_this_process": 26999.01239323616}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 39360, "expected_requests": 48732, "completed_images": 319, "images": 398, "image_id": "n137182", "image_seconds": 46.799558877944946, "at_unix": 1794973135.791694, "elapsed_s_this_process": 27045.813254356384}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 39528, "expected_requests": 48732, "completed_images": 320, "images": 398, "image_id": "n66756", "image_seconds": 106.46207094192505, "at_unix": 1794973242.2551155, "elapsed_s_this_process": 27152.27667593956}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 39576, "expected_requests": 48732, "completed_images": 321, "images": 398, "image_id": "n507149", "image_seconds": 40.39204168319702, "at_unix": 1794973282.6484375, "elapsed_s_this_process": 27192.669997930527}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 39888, "expected_requests": 48732, "completed_images": 322, "images": 398, "image_id": "n315887", "image_seconds": 182.5986783504486, "at_unix": 1794973465.248608, "elapsed_s_this_process": 27375.270168542862}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 40080, "expected_requests": 48732, "completed_images": 323, "images": 398, "image_id": "n334278", "image_seconds": 119.01158261299133, "at_unix": 1794973584.2613525, "elapsed_s_this_process": 27494.28291296959}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 40200, "expected_requests": 48732, "completed_images": 324, "images": 398, "image_id": "n579928", "image_seconds": 104.36370992660522, "at_unix": 1794973688.626195, "elapsed_s_this_process": 27598.647755384445}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 40260, "expected_requests": 48732, "completed_images": 325, "images": 398, "image_id": "n471866", "image_seconds": 45.9961793422699, "at_unix": 1794973734.6236968, "elapsed_s_this_process": 27644.645257234573}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 40296, "expected_requests": 48732, "completed_images": 326, "images": 398, "image_id": "n511881", "image_seconds": 36.99094295501709, "at_unix": 1794973771.6159482, "elapsed_s_this_process": 27681.637508630753}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 40404, "expected_requests": 48732, "completed_images": 327, "images": 398, "image_id": "n302387", "image_seconds": 80.71321058273315, "at_unix": 1794973852.330579, "elapsed_s_this_process": 27762.35213947296}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 40740, "expected_requests": 48732, "completed_images": 328, "images": 398, "image_id": "n119944", "image_seconds": 197.41259765625, "at_unix": 1794974049.7448006, "elapsed_s_this_process": 27959.766360998154}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 40812, "expected_requests": 48732, "completed_images": 329, "images": 398, "image_id": "n468864", "image_seconds": 51.85816693305969, "at_unix": 1794974101.6040995, "elapsed_s_this_process": 28011.625660181046}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 40932, "expected_requests": 48732, "completed_images": 330, "images": 398, "image_id": "n49438", "image_seconds": 107.7397141456604, "at_unix": 1794974209.345309, "elapsed_s_this_process": 28119.366869449615}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 41172, "expected_requests": 48732, "completed_images": 331, "images": 398, "image_id": "n275148", "image_seconds": 155.03398656845093, "at_unix": 1794974364.3808517, "elapsed_s_this_process": 28274.402412176132}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 41244, "expected_requests": 48732, "completed_images": 332, "images": 398, "image_id": "n59627", "image_seconds": 60.32766509056091, "at_unix": 1794974424.7097282, "elapsed_s_this_process": 28334.731288671494}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 41316, "expected_requests": 48732, "completed_images": 333, "images": 398, "image_id": "n62458", "image_seconds": 53.413625717163086, "at_unix": 1794974478.124884, "elapsed_s_this_process": 28388.146444559097}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 41376, "expected_requests": 48732, "completed_images": 334, "images": 398, "image_id": "n46510", "image_seconds": 50.99151158332825, "at_unix": 1794974529.117547, "elapsed_s_this_process": 28439.139107465744}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 41424, "expected_requests": 48732, "completed_images": 335, "images": 398, "image_id": "n208458", "image_seconds": 29.114428997039795, "at_unix": 1794974558.2333837, "elapsed_s_this_process": 28468.254944086075}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 41508, "expected_requests": 48732, "completed_images": 336, "images": 398, "image_id": "n566028", "image_seconds": 54.714515209198, "at_unix": 1794974612.9517212, "elapsed_s_this_process": 28522.973281621933}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 41700, "expected_requests": 48732, "completed_images": 337, "images": 398, "image_id": "n435808", "image_seconds": 129.30647349357605, "at_unix": 1794974742.259586, "elapsed_s_this_process": 28652.281146526337}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 41748, "expected_requests": 48732, "completed_images": 338, "images": 398, "image_id": "n179136", "image_seconds": 43.02864480018616, "at_unix": 1794974785.2895951, "elapsed_s_this_process": 28695.31115579605}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 41784, "expected_requests": 48732, "completed_images": 339, "images": 398, "image_id": "n437192", "image_seconds": 33.61291027069092, "at_unix": 1794974818.903732, "elapsed_s_this_process": 28728.92529273033}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 41892, "expected_requests": 48732, "completed_images": 340, "images": 398, "image_id": "n412144", "image_seconds": 73.56687307357788, "at_unix": 1794974892.471992, "elapsed_s_this_process": 28802.493552446365}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 41904, "expected_requests": 48732, "completed_images": 341, "images": 398, "image_id": "n249903", "image_seconds": 22.870530128479004, "at_unix": 1794974915.3438423, "elapsed_s_this_process": 28825.365402698517}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 42048, "expected_requests": 48732, "completed_images": 342, "images": 398, "image_id": "n460385", "image_seconds": 101.55301809310913, "at_unix": 1794975016.8981442, "elapsed_s_this_process": 28926.919704914093}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 42120, "expected_requests": 48732, "completed_images": 343, "images": 398, "image_id": "n187544", "image_seconds": 53.14301013946533, "at_unix": 1794975070.0425038, "elapsed_s_this_process": 28980.064064741135}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 42240, "expected_requests": 48732, "completed_images": 344, "images": 398, "image_id": "n49310", "image_seconds": 79.99588227272034, "at_unix": 1794975150.042173, "elapsed_s_this_process": 29060.06373357773}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 42312, "expected_requests": 48732, "completed_images": 345, "images": 398, "image_id": "n472825", "image_seconds": 59.24412775039673, "at_unix": 1794975209.2879486, "elapsed_s_this_process": 29119.309509038925}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 42372, "expected_requests": 48732, "completed_images": 346, "images": 398, "image_id": "n324644", "image_seconds": 52.24203443527222, "at_unix": 1794975261.532878, "elapsed_s_this_process": 29171.554438591003}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 42504, "expected_requests": 48732, "completed_images": 347, "images": 398, "image_id": "n167164", "image_seconds": 93.03705525398254, "at_unix": 1794975354.5712566, "elapsed_s_this_process": 29264.59281730652}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 42696, "expected_requests": 48732, "completed_images": 348, "images": 398, "image_id": "n95313", "image_seconds": 130.89537596702576, "at_unix": 1794975485.4680567, "elapsed_s_this_process": 29395.4896171093}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 42852, "expected_requests": 48732, "completed_images": 349, "images": 398, "image_id": "n199097", "image_seconds": 98.90653896331787, "at_unix": 1794975584.37782, "elapsed_s_this_process": 29494.39938044548}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 42948, "expected_requests": 48732, "completed_images": 350, "images": 398, "image_id": "n98540", "image_seconds": 73.9944076538086, "at_unix": 1794975658.3735335, "elapsed_s_this_process": 29568.395093917847}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 42984, "expected_requests": 48732, "completed_images": 351, "images": 398, "image_id": "n460556", "image_seconds": 36.27264046669006, "at_unix": 1794975694.6476238, "elapsed_s_this_process": 29604.669184207916}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 43044, "expected_requests": 48732, "completed_images": 352, "images": 398, "image_id": "n494677", "image_seconds": 42.844388484954834, "at_unix": 1794975737.4938233, "elapsed_s_this_process": 29647.515383720398}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 43116, "expected_requests": 48732, "completed_images": 353, "images": 398, "image_id": "n475030", "image_seconds": 58.29292178153992, "at_unix": 1794975795.7880902, "elapsed_s_this_process": 29705.80965065956}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 43224, "expected_requests": 48732, "completed_images": 354, "images": 398, "image_id": "n546884", "image_seconds": 80.14906740188599, "at_unix": 1794975875.9387279, "elapsed_s_this_process": 29785.96028828621}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 43260, "expected_requests": 48732, "completed_images": 355, "images": 398, "image_id": "n275857", "image_seconds": 33.86358618736267, "at_unix": 1794975909.8036194, "elapsed_s_this_process": 29819.825179815292}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 43548, "expected_requests": 48732, "completed_images": 356, "images": 398, "image_id": "n55058", "image_seconds": 240.78852462768555, "at_unix": 1794976150.5936246, "elapsed_s_this_process": 30060.615185022354}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 43704, "expected_requests": 48732, "completed_images": 357, "images": 398, "image_id": "n513100", "image_seconds": 96.22896385192871, "at_unix": 1794976246.8244095, "elapsed_s_this_process": 30156.84596991539}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 43800, "expected_requests": 48732, "completed_images": 358, "images": 398, "image_id": "n51658", "image_seconds": 67.03023862838745, "at_unix": 1794976313.8557694, "elapsed_s_this_process": 30223.877329826355}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 43872, "expected_requests": 48732, "completed_images": 359, "images": 398, "image_id": "n14", "image_seconds": 57.251824617385864, "at_unix": 1794976371.1089787, "elapsed_s_this_process": 30281.13053917885}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 44016, "expected_requests": 48732, "completed_images": 360, "images": 398, "image_id": "n527589", "image_seconds": 102.40199184417725, "at_unix": 1794976473.5123029, "elapsed_s_this_process": 30383.533863544464}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 44148, "expected_requests": 48732, "completed_images": 361, "images": 398, "image_id": "n6309", "image_seconds": 96.66973376274109, "at_unix": 1794976570.1835406, "elapsed_s_this_process": 30480.205101251602}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 44256, "expected_requests": 48732, "completed_images": 362, "images": 398, "image_id": "n214497", "image_seconds": 71.47153353691101, "at_unix": 1794976641.6562703, "elapsed_s_this_process": 30551.677830696106}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 44436, "expected_requests": 48732, "completed_images": 363, "images": 398, "image_id": "n274905", "image_seconds": 111.56988620758057, "at_unix": 1794976753.2274427, "elapsed_s_this_process": 30663.24900317192}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 44604, "expected_requests": 48732, "completed_images": 364, "images": 398, "image_id": "n233607", "image_seconds": 104.99267077445984, "at_unix": 1794976858.2215824, "elapsed_s_this_process": 30768.243142843246}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 44760, "expected_requests": 48732, "completed_images": 365, "images": 398, "image_id": "n192021", "image_seconds": 99.87912440299988, "at_unix": 1794976958.1019006, "elapsed_s_this_process": 30868.123461008072}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 44904, "expected_requests": 48732, "completed_images": 366, "images": 398, "image_id": "n52544", "image_seconds": 92.97618389129639, "at_unix": 1794977051.0792654, "elapsed_s_this_process": 30961.10082602501}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 45036, "expected_requests": 48732, "completed_images": 367, "images": 398, "image_id": "n39114", "image_seconds": 83.96042394638062, "at_unix": 1794977135.0410955, "elapsed_s_this_process": 31045.06265592575}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 45120, "expected_requests": 48732, "completed_images": 368, "images": 398, "image_id": "n194179", "image_seconds": 56.12492561340332, "at_unix": 1794977191.1670234, "elapsed_s_this_process": 31101.18858385086}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 45192, "expected_requests": 48732, "completed_images": 369, "images": 398, "image_id": "n477215", "image_seconds": 52.60156273841858, "at_unix": 1794977243.7699344, "elapsed_s_this_process": 31153.791494846344}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 45240, "expected_requests": 48732, "completed_images": 370, "images": 398, "image_id": "n161313", "image_seconds": 30.647235870361328, "at_unix": 1794977274.4185803, "elapsed_s_this_process": 31184.4401409626}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 45468, "expected_requests": 48732, "completed_images": 371, "images": 398, "image_id": "n310828", "image_seconds": 137.74535655975342, "at_unix": 1794977412.1652656, "elapsed_s_this_process": 31322.186826467514}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 45636, "expected_requests": 48732, "completed_images": 372, "images": 398, "image_id": "n543966", "image_seconds": 116.48523116111755, "at_unix": 1794977528.6516557, "elapsed_s_this_process": 31438.673216104507}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 45780, "expected_requests": 48732, "completed_images": 373, "images": 398, "image_id": "n234683", "image_seconds": 101.24464464187622, "at_unix": 1794977629.897422, "elapsed_s_this_process": 31539.9189825058}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 45828, "expected_requests": 48732, "completed_images": 374, "images": 398, "image_id": "n19152", "image_seconds": 40.32518982887268, "at_unix": 1794977670.224257, "elapsed_s_this_process": 31580.245817661285}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 46032, "expected_requests": 48732, "completed_images": 375, "images": 398, "image_id": "n54424", "image_seconds": 126.86030793190002, "at_unix": 1794977797.0859356, "elapsed_s_this_process": 31707.107496023178}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 46056, "expected_requests": 48732, "completed_images": 376, "images": 398, "image_id": "n155555", "image_seconds": 29.614222049713135, "at_unix": 1794977826.7017019, "elapsed_s_this_process": 31736.723262310028}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 46188, "expected_requests": 48732, "completed_images": 377, "images": 398, "image_id": "n367944", "image_seconds": 93.47425580024719, "at_unix": 1794977920.1773999, "elapsed_s_this_process": 31830.19896054268}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 46356, "expected_requests": 48732, "completed_images": 378, "images": 398, "image_id": "n335542", "image_seconds": 117.78295016288757, "at_unix": 1794978037.9614987, "elapsed_s_this_process": 31947.983059167862}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 46476, "expected_requests": 48732, "completed_images": 379, "images": 398, "image_id": "n541688", "image_seconds": 80.33181595802307, "at_unix": 1794978118.2944062, "elapsed_s_this_process": 32028.31596660614}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 46512, "expected_requests": 48732, "completed_images": 380, "images": 398, "image_id": "n562105", "image_seconds": 34.64805555343628, "at_unix": 1794978152.9438112, "elapsed_s_this_process": 32062.965371847153}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 46620, "expected_requests": 48732, "completed_images": 381, "images": 398, "image_id": "n544255", "image_seconds": 81.61424398422241, "at_unix": 1794978234.559481, "elapsed_s_this_process": 32144.58104133606}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 46764, "expected_requests": 48732, "completed_images": 382, "images": 398, "image_id": "n187961", "image_seconds": 100.08912229537964, "at_unix": 1794978334.6499853, "elapsed_s_this_process": 32244.671545743942}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 46932, "expected_requests": 48732, "completed_images": 383, "images": 398, "image_id": "n171169", "image_seconds": 109.06619811058044, "at_unix": 1794978443.7176764, "elapsed_s_this_process": 32353.739236831665}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 47028, "expected_requests": 48732, "completed_images": 384, "images": 398, "image_id": "n350732", "image_seconds": 66.01827645301819, "at_unix": 1794978509.737463, "elapsed_s_this_process": 32419.759023427963}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 47100, "expected_requests": 48732, "completed_images": 385, "images": 398, "image_id": "n450919", "image_seconds": 58.901801109313965, "at_unix": 1794978568.6406362, "elapsed_s_this_process": 32478.66219687462}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 47220, "expected_requests": 48732, "completed_images": 386, "images": 398, "image_id": "n318684", "image_seconds": 78.78808760643005, "at_unix": 1794978647.430259, "elapsed_s_this_process": 32557.45181941986}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 47304, "expected_requests": 48732, "completed_images": 387, "images": 398, "image_id": "n86120", "image_seconds": 60.65797400474548, "at_unix": 1794978708.0895011, "elapsed_s_this_process": 32618.11106157303}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 47388, "expected_requests": 48732, "completed_images": 388, "images": 398, "image_id": "n207893", "image_seconds": 65.27740621566772, "at_unix": 1794978773.368261, "elapsed_s_this_process": 32683.38982152939}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 47556, "expected_requests": 48732, "completed_images": 389, "images": 398, "image_id": "n314171", "image_seconds": 104.7205457687378, "at_unix": 1794978878.0904996, "elapsed_s_this_process": 32788.11206007004}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 47616, "expected_requests": 48732, "completed_images": 390, "images": 398, "image_id": "n94074", "image_seconds": 48.44344520568848, "at_unix": 1794978926.535011, "elapsed_s_this_process": 32836.55657148361}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 47760, "expected_requests": 48732, "completed_images": 391, "images": 398, "image_id": "n202379", "image_seconds": 97.64046025276184, "at_unix": 1794979024.1768324, "elapsed_s_this_process": 32934.19839310646}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 47940, "expected_requests": 48732, "completed_images": 392, "images": 398, "image_id": "n500308", "image_seconds": 122.38675808906555, "at_unix": 1794979146.5667362, "elapsed_s_this_process": 33056.58829665184}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 48036, "expected_requests": 48732, "completed_images": 393, "images": 398, "image_id": "n415215", "image_seconds": 66.43409729003906, "at_unix": 1794979213.002147, "elapsed_s_this_process": 33123.02370786667}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 48108, "expected_requests": 48732, "completed_images": 394, "images": 398, "image_id": "n208302", "image_seconds": 57.6706383228302, "at_unix": 1794979270.6741164, "elapsed_s_this_process": 33180.69567680359}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 48252, "expected_requests": 48732, "completed_images": 395, "images": 398, "image_id": "n260521", "image_seconds": 98.94437956809998, "at_unix": 1794979369.6199372, "elapsed_s_this_process": 33279.641497612}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 48324, "expected_requests": 48732, "completed_images": 396, "images": 398, "image_id": "n538684", "image_seconds": 53.64630198478699, "at_unix": 1794979423.2679746, "elapsed_s_this_process": 33333.289535045624}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 48552, "expected_requests": 48732, "completed_images": 397, "images": 398, "image_id": "n100991", "image_seconds": 149.96116828918457, "at_unix": 1794979573.2305086, "elapsed_s_this_process": 33483.25206899643}
+{"phase": "main", "status": "RUNNING", "completed_final_requests": 48732, "expected_requests": 48732, "completed_images": 398, "images": 398, "image_id": "n90294", "image_seconds": 122.3335018157959, "at_unix": 1794979695.5656936, "elapsed_s_this_process": 33605.587254047394}
+=== 2026-11-18T05:28:16Z END main_phase rc=0
+=== 2026-11-18T05:28:16Z START posthoc
+{
+ "complete": true,
+ "previous_main": [
+  {
+   "method": "recompute",
+   "requests": 12183,
+   "mismatch_count": 0
+  },
+  {
+   "method": "fullload_async",
+   "requests": 12183,
+   "mismatch_count": 0
+  },
+  {
+   "method": "ours_prefixstore_kv25_PYR-beta-raw_packed_async",
+   "requests": 12183,
+   "mismatch_count": 0
+  }
+ ],
+ "turn1": {
+  "dialogues": 4061,
+  "mismatch_count": 0
+ }
+}
+=== 2026-11-18T05:28:33Z END posthoc rc=0
+=== 2026-11-18T05:28:33Z START report
+report: /home/dblab/hj/mllm_v2/results/mt_gqa_impress_code_20261117T185832Z/report.md
+=== 2026-11-18T05:29:21Z END report rc=0
+=== 2026-11-18T05:29:21Z CHAIN END

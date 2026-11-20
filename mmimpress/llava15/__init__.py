@@ -1,8 +1,11 @@
 """LLaVA-1.5-7B port of the packed PrefixStore path (contract docs/llava15_mt_gqa_contract.md).
 
 New modules only; nothing under ``mmimpress/*.py`` or ``mmimpress/qwen25`` is modified.
+The MT-VQA IMPRESS run (docs/llava15_mtvqa_impress_contract.md) adds ``raster`` and the
+asynchronous packed read to ``serve``; the synchronous path stays the default.
 
 runner : ``Llava15Runner`` (``LlavaForConditionalGeneration``, 576 visual tokens, no separator)
+raster : full raster visual-KV store + probe-key sidecar (FullLoad / IMPRESS arms; added for MT-VQA)
 store  : ratio-general packed writer / validator / Turn-1 piggyback persistence
 serve  : packed context, layer-wise prefix selector and hook-free cache hit
 """

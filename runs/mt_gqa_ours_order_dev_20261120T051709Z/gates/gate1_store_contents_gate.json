@@ -1,0 +1,71 @@
+{
+ "gate": "gate1_store_contents_gate",
+ "criterion": "for every image: layer l's original indices of the original-order store == the first k_l entries of the importance store's order (as sets); every stored token's K and V rows bit-identical between the two files; separator block bit-identical; payload bytes equal",
+ "images": [
+  {
+   "image_id": "n229548",
+   "status": "PASS",
+   "layers": 32,
+   "layer_sets_equal": 32,
+   "byte_table_equal": true,
+   "payload_bytes_equal": true,
+   "payload_bytes": 352321536,
+   "kv_rows_compared": 39936,
+   "kv_rows_different": 0,
+   "separator_block_equal": true,
+   "separator_bytes": 25165824,
+   "system_kv_equal": true,
+   "original_metadata_has_no_importance_permutation": true
+  },
+  {
+   "image_id": "n181355",
+   "status": "PASS",
+   "layers": 32,
+   "layer_sets_equal": 32,
+   "byte_table_equal": true,
+   "payload_bytes_equal": true,
+   "payload_bytes": 320864256,
+   "kv_rows_compared": 36864,
+   "kv_rows_different": 0,
+   "separator_block_equal": true,
+   "separator_bytes": 18874368,
+   "system_kv_equal": true,
+   "original_metadata_has_no_importance_permutation": true
+  },
+  {
+   "image_id": "n95369",
+   "status": "PASS",
+   "layers": 32,
+   "layer_sets_equal": 32,
+   "byte_table_equal": true,
+   "payload_bytes_equal": true,
+   "payload_bytes": 301989888,
+   "kv_rows_compared": 33792,
+   "kv_rows_different": 0,
+   "separator_block_equal": true,
+   "separator_bytes": 25165824,
+   "system_kv_equal": true,
+   "original_metadata_has_no_importance_permutation": true
+  },
+  {
+   "image_id": "n204894",
+   "status": "PASS",
+   "layers": 32,
+   "layer_sets_equal": 32,
+   "byte_table_equal": true,
+   "payload_bytes_equal": true,
+   "payload_bytes": 301989888,
+   "kv_rows_compared": 33792,
+   "kv_rows_different": 0,
+   "separator_block_equal": true,
+   "separator_bytes": 25165824,
+   "system_kv_equal": true,
+   "original_metadata_has_no_importance_permutation": true
+  }
+ ],
+ "image_count": 4,
+ "pass_count": 4,
+ "kv_rows_compared": 144384,
+ "kv_rows_different": 0,
+ "status": "PASS"
+}

@@ -1,0 +1,107 @@
+{
+ "status": "PASS",
+ "phase": {
+  "status": "PASS",
+  "requests": 1188,
+  "expected_requests": 1188,
+  "images": 44,
+  "independent_image_audit": "PASS",
+  "config_sha256": "808cec39371b1be2ed7f8e170efed58a2bbf72ff8e0418466e46f510a5659004"
+ },
+ "step3_async_consistency": {
+  "FullLoad": {
+   "compared": 132,
+   "mismatched": 0,
+   "examples": []
+  },
+  "IMPRESS": {
+   "compared": 132,
+   "mismatched": 0,
+   "examples": []
+  },
+  "Ours": {
+   "compared": 132,
+   "mismatched": 0,
+   "examples": []
+  },
+  "status": "PASS"
+ },
+ "step4_impress_r100_vs_fullload_loader_on_reordered_store": {
+  "compared": 132,
+  "different_tokens": 0,
+  "different_tokens_same_input": 0,
+  "different_input": 0,
+  "requests": [],
+  "status": "PASS"
+ },
+ "reference_reordered_fullload_vs_raster_fullload": {
+  "compared": 132,
+  "different_tokens": 1,
+  "different_tokens_same_input": 1,
+  "different_input": 0,
+  "requests": [
+   {
+    "image_id": "23351",
+    "dialog_id": "mtvqa25k_022583",
+    "turn_id": 3,
+    "same_input": true,
+    "position": 1,
+    "fullload_reordered": [
+     29871,
+     29941,
+     2
+    ],
+    "fullload": [
+     29871,
+     29946,
+     2
+    ],
+    "logits_at_position": {
+     "max": 19.375,
+     "n_tied": 1,
+     "tied_ids": [
+      29946
+     ],
+     "top2_ids": [
+      29946,
+      29941
+     ],
+     "top2": [
+      19.375,
+      19.25
+     ]
+    }
+   }
+  ],
+  "note": "not a criterion: key order alone (same K/V bytes, permuted rows)"
+ },
+ "step5_turn1_identity": {
+  "images": 44,
+  "identical": 44,
+  "mismatched": 0,
+  "examples": [],
+  "status": "PASS"
+ },
+ "reference_sync_vs_async_followup_ttft": {
+  "FullLoad": {
+   "sync_mean_ms": 207.55126234143972,
+   "async_mean_ms": 115.27985706925392,
+   "paired_mean_difference_ms": -92.2714052721858,
+   "requests": 88
+  },
+  "IMPRESS": {
+   "sync_mean_ms": 238.25426438865676,
+   "async_mean_ms": 236.3819908350706,
+   "paired_mean_difference_ms": -1.8722735535861417,
+   "requests": 88
+  },
+  "Ours": {
+   "sync_mean_ms": 85.59132716618478,
+   "async_mean_ms": 74.05383666892621,
+   "paired_mean_difference_ms": -11.537490497258576,
+   "requests": 88
+  }
+ },
+ "config_sha256": "808cec39371b1be2ed7f8e170efed58a2bbf72ff8e0418466e46f510a5659004",
+ "written_unix": 1794906442.1595461
+}

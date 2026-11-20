@@ -1,0 +1,6 @@
+{
+ "status": "PARTIAL",
+ "error": "RuntimeError(\"GPU_TIMING_CONTAMINATION: ['1925859, .venv-glm46v/bin/python, 384']\")",
+ "traceback": "Traceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/scripts/202_eval_mt_gqa_ours_order.py\", line 1007, in main\n    receipt = run_phase(runner, servers, run, phase, config, manifest)\n  File \"/home/dblab/hj/mllm_v2/scripts/202_eval_mt_gqa_ours_order.py\", line 821, in run_phase\n    completed += run_image(runner, servers, ds, ordinals, phase, run, manifest, config)\n  File \"/home/dblab/hj/mllm_v2/scripts/202_eval_mt_gqa_ours_order.py\", line 682, in run_image\n    assert_gpu_exclusive(); physical = str(uuid.uuid4())\n  File \"/home/dblab/hj/mllm_v2/scripts/156_eval_layer_budget_hold.py\", line 192, in assert_gpu_exclusive\n    raise RuntimeError(\"GPU_TIMING_CONTAMINATION: \" + repr(other))\nRuntimeError: GPU_TIMING_CONTAMINATION: ['1925859, .venv-glm46v/bin/python, 384']\n",
+ "resume_command": "/home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/202_eval_mt_gqa_ours_order.py --run /home/dblab/hj/mllm_v2/runs/mt_gqa_ours_order_dev_20261120T042650Z --stage gate --resume"
+}

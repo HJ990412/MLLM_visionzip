@@ -1,0 +1,15 @@
+{
+ "gate": "step3_keep100_equals_fullload_loader_on_reordered_store",
+ "criterion": "generated tokens (and the prompt) identical for every request: the IMPRESS path at 100 % retention vs the FullLoad loader (no selection, no mask) reading the same reordered store",
+ "a": "impress_official_r100",
+ "b": "fullload_reordered",
+ "requests": 147,
+ "expected": 147,
+ "equal": {
+  "generated_token_ids": 147,
+  "prompt": 147
+ },
+ "mismatch_count": 0,
+ "mismatches": [],
+ "status": "PASS"
+}

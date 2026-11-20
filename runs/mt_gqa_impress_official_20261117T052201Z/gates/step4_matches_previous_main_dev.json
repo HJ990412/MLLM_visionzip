@@ -1,0 +1,48 @@
+{
+ "gate": "step4_matches_previous_main_dev",
+ "criterion": "generated tokens identical to the previous main run's record of the same (dialogue, turn); blocking arms: ReComp, FullLoad, Ours",
+ "reference": "runs/mt_gqa_async_20261116T081635Z/main",
+ "methods": [
+  {
+   "method": "recompute",
+   "blocking": true,
+   "requests": 1134,
+   "expected": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "method": "fullload_async",
+   "blocking": true,
+   "requests": 1134,
+   "expected": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "method": "ours_prefixstore_kv25_PYR-beta-raw_packed_async",
+   "blocking": true,
+   "requests": 1134,
+   "expected": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "method": "impress_async",
+   "blocking": false,
+   "requests": 1134,
+   "expected": 1134,
+   "prompt_equal": 1134,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  }
+ ],
+ "status": "PASS"
+}

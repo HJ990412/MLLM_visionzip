@@ -1,0 +1,34 @@
+{
+ "gate": "step3_keep100_equals_fullload",
+ "criterion": "generated tokens identical for every request (new IMPRESS path at 100 % retention on the reordered store vs FullLoad)",
+ "a": "impress_official_r100",
+ "b": "fullload_async",
+ "requests": 147,
+ "expected": 147,
+ "equal": {
+  "generated_token_ids": 146
+ },
+ "mismatch_count": 1,
+ "mismatches": [
+  {
+   "dialog_id": "mtgqa_000018",
+   "turn_id": 2,
+   "image_id": "n181355",
+   "differences": [
+    {
+     "field": "generated_token_ids",
+     "impress_official_r100": [
+      18620,
+      2
+     ],
+     "fullload_async": [
+      2315,
+      2
+     ]
+    }
+   ],
+   "prompt_equal": true
+  }
+ ],
+ "status": "FAIL"
+}

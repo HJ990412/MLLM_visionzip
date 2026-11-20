@@ -1,0 +1,58 @@
+{
+ "gate": "step4_async_equals_sync",
+ "criterion": "for FullLoad, IMPRESS and Ours: generated tokens and bytes read (total and by kind) identical between the asynchronous and the synchronous arm, every request",
+ "families": {
+  "FullLoad": {
+   "a": "fullload_async",
+   "b": "fullload",
+   "requests": 147,
+   "expected": 147,
+   "equal": {
+    "generated_token_ids": 147,
+    "ssd_read_bytes": 147,
+    "probe_read_bytes": 147,
+    "k_read_bytes": 147,
+    "v_read_bytes": 147,
+    "packed_read_bytes": 147
+   },
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  "IMPRESS": {
+   "a": "impress_official_async",
+   "b": "impress_official",
+   "requests": 147,
+   "expected": 147,
+   "equal": {
+    "generated_token_ids": 147,
+    "ssd_read_bytes": 147,
+    "probe_read_bytes": 147,
+    "k_read_bytes": 147,
+    "v_read_bytes": 147,
+    "packed_read_bytes": 147
+   },
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  "Ours": {
+   "a": "ours_prefixstore_kv25_PYR-beta-raw_packed_async",
+   "b": "ours_prefixstore_kv25_PYR-beta-raw_packed",
+   "requests": 147,
+   "expected": 147,
+   "equal": {
+    "generated_token_ids": 147,
+    "ssd_read_bytes": 147,
+    "probe_read_bytes": 147,
+    "k_read_bytes": 147,
+    "v_read_bytes": 147,
+    "packed_read_bytes": 147
+   },
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  }
+ },
+ "status": "PASS"
+}

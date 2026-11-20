@@ -1,0 +1,108 @@
+{
+ "status": "PASS",
+ "phase": {
+  "status": "PASS",
+  "requests": 1188,
+  "expected_requests": 1188,
+  "images": 44,
+  "independent_image_audit": "PASS",
+  "config_sha256": "cfb4c5035a787502408952b024f2086e5ffec62acac3b2deb1dd9a83de38a5c5"
+ },
+ "step3_impress_r100_vs_fullload_loader_on_reordered_store": {
+  "compared": 132,
+  "different_tokens": 0,
+  "different_tokens_same_input": 0,
+  "different_input": 0,
+  "requests": [],
+  "status": "PASS",
+  "rule": "generated tokens (and prompts) identical for every request"
+ },
+ "reference_reordered_fullload_vs_raster_fullload": {
+  "compared": 132,
+  "different_tokens": 1,
+  "different_tokens_same_input": 1,
+  "different_input": 0,
+  "requests": [
+   {
+    "image_id": "436426",
+    "dialog_id": "mtvqa25k_000017",
+    "turn_id": 3,
+    "same_input": true,
+    "position": 0,
+    "fullload_reordered": [
+     4367,
+     2
+    ],
+    "fullload": [
+     9817,
+     2
+    ],
+    "logits_at_position": {
+     "max": 19.625,
+     "n_tied": 1,
+     "tied_ids": [
+      9817
+     ],
+     "top2_ids": [
+      9817,
+      4367
+     ],
+     "top2": [
+      19.625,
+      19.5
+     ]
+    }
+   }
+  ],
+  "note": "not a criterion: key order alone (same K/V bytes, permuted rows)"
+ },
+ "step4_async_consistency": {
+  "FullLoad": {
+   "compared": 132,
+   "mismatched": 0,
+   "examples": []
+  },
+  "IMPRESS": {
+   "compared": 132,
+   "mismatched": 0,
+   "examples": []
+  },
+  "Ours": {
+   "compared": 132,
+   "mismatched": 0,
+   "examples": []
+  },
+  "status": "PASS",
+  "rule": "per stored-KV method: generated tokens and bytes read (total and by kind) identical, every request"
+ },
+ "step5_turn1_identity": {
+  "images": 44,
+  "identical": 44,
+  "mismatched": 0,
+  "examples": [],
+  "status": "PASS",
+  "rule": "turn-1 generated tokens identical across all arms, every image"
+ },
+ "reference_sync_vs_async_followup_ttft": {
+  "FullLoad": {
+   "sync_mean_ms": 207.63773775913498,
+   "async_mean_ms": 115.17637336245653,
+   "paired_mean_difference_ms": -92.46136439667845,
+   "requests": 88
+  },
+  "IMPRESS": {
+   "sync_mean_ms": 244.33103535028005,
+   "async_mean_ms": 240.72832633233205,
+   "paired_mean_difference_ms": -3.6027090179479937,
+   "requests": 88
+  },
+  "Ours": {
+   "sync_mean_ms": 84.00602457748556,
+   "async_mean_ms": 73.66048434579915,
+   "paired_mean_difference_ms": -10.345540231686424,
+   "requests": 88
+  }
+ },
+ "config_sha256": "cfb4c5035a787502408952b024f2086e5ffec62acac3b2deb1dd9a83de38a5c5",
+ "written_unix": 1794941645.4512126
+}

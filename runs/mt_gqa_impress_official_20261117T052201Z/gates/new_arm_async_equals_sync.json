@@ -1,0 +1,18 @@
+{
+ "gate": "new_arm_async_equals_sync",
+ "criterion": "generated tokens and bytes read (total and by kind) identical for every request",
+ "a": "impress_official_async",
+ "b": "impress_official",
+ "requests": 147,
+ "expected": 147,
+ "equal": {
+  "generated_token_ids": 147,
+  "ssd_read_bytes": 147,
+  "probe_read_bytes": 147,
+  "k_read_bytes": 147,
+  "v_read_bytes": 147
+ },
+ "mismatch_count": 0,
+ "mismatches": [],
+ "status": "PASS"
+}

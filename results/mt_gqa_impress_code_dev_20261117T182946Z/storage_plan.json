@@ -1,0 +1,21 @@
+{
+  "deletion_scope": "runs/<RUN>/scratch only (exact SHA allowlist after audit+commit); existing stores never deleted",
+  "expected_ssd_write_bytes": {
+    "dev": 163679479915,
+    "gate": 16989710355,
+    "main": 1633752587041,
+    "total": 1814421777311
+  },
+  "expected_ssd_write_note": "per image: raster store + 2 x IMPRESS store (write, then the reordered rewrite) + packed store; sizes from runs/mt_gqa_async_20261116T081635Z/main disk_usage.json; raw rows and evidence not included",
+  "free_bytes_at_freeze": 471744000000,
+  "full_store_bound_bytes": 1700472832,
+  "largest_image_bundle_bound_bytes": 5560432640,
+  "maximum_new_payload_bytes": 21474836480,
+  "minimum_reserve_bytes": 32212254720,
+  "packed_store_bound_bytes": 411041792,
+  "peak_working_set_bytes": 9855399936,
+  "policy": "FRESH_IMAGE_STREAMING",
+  "raw_and_evidence_growth_bound_bytes": 8589934592,
+  "required_free_bytes": 50657589248,
+  "status": "PASS"
+}

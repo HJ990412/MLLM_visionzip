@@ -1,0 +1,92 @@
+{
+ "image": "n181355",
+ "dialog": "mtgqa_000018",
+ "turn": 2,
+ "prefix_kv_equal_up_to_order": {
+  "k": true,
+  "v": true
+ },
+ "paths": {
+  "fullload_raster": {
+   "tokens": [
+    2315,
+    2
+   ],
+   "top3": [
+    [
+     "Man",
+     2315,
+     21.25
+    ],
+    [
+     "Girl",
+     18620,
+     21.25
+    ],
+    [
+     "Woman",
+     22712,
+     20.25
+    ]
+   ],
+   "logit_Man": 21.25,
+   "logit_Girl": 21.25,
+   "Man_minus_Girl": 0.0,
+   "max_abs_logit_diff_vs_fullload": 0.0
+  },
+  "official_r100": {
+   "tokens": [
+    18620,
+    2
+   ],
+   "top3": [
+    [
+     "Girl",
+     18620,
+     21.375
+    ],
+    [
+     "Man",
+     2315,
+     21.25
+    ],
+    [
+     "Woman",
+     22712,
+     20.25
+    ]
+   ],
+   "logit_Man": 21.25,
+   "logit_Girl": 21.375,
+   "Man_minus_Girl": -0.125,
+   "max_abs_logit_diff_vs_fullload": 0.21875
+  },
+  "fullload_code_on_reordered_store": {
+   "tokens": [
+    18620,
+    2
+   ],
+   "top3": [
+    [
+     "Girl",
+     18620,
+     21.375
+    ],
+    [
+     "Man",
+     2315,
+     21.25
+    ],
+    [
+     "Woman",
+     22712,
+     20.25
+    ]
+   ],
+   "logit_Man": 21.25,
+   "logit_Girl": 21.375,
+   "Man_minus_Girl": -0.125,
+   "max_abs_logit_diff_vs_fullload": 0.21875
+  }
+ }
+}

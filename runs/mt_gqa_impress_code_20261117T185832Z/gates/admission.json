@@ -1,0 +1,19 @@
+{
+ "status": "PASS",
+ "gates": {
+  "step1_public_equivalence": "PASS",
+  "step2_prefix_rows": "PASS",
+  "gate_execution": "PASS",
+  "step3_keep100_equals_fullload_loader": "PASS",
+  "step4_async_equals_sync": "PASS",
+  "step5_matches_previous_main_gate": "PASS",
+  "step5_turn1_identity_gate": "PASS",
+  "step6_cpu_tests": "PASS",
+  "dev_execution": "PASS",
+  "step5_matches_previous_main_dev": "PASS",
+  "step5_turn1_identity_dev": "PASS"
+ },
+ "config_sha256": "67511f6f3196213a4a7dd244a354be1f997932f4695a71bca8c12c23ffa9d757",
+ "decided_unix": 1794946079.3612037,
+ "rule": "main runs only if every gate of steps 1-7 is PASS"
+}

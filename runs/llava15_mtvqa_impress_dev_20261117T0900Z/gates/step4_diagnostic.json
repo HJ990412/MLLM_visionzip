@@ -1,0 +1,270 @@
+{
+ "status": "DONE",
+ "requests": 1,
+ "items": [
+  {
+   "image_id": "23351",
+   "dialog_id": "mtvqa25k_022583",
+   "turn_id": 3,
+   "question": "How many animals are there?",
+   "first_differing_position": 1,
+   "recorded": {
+    "fullload": [
+     29871,
+     29946,
+     2
+    ],
+    "impress_r100": [
+     29871,
+     29941,
+     2
+    ]
+   },
+   "reordered_store_is_raster_rows_permuted_bitwise": true,
+   "a_fullload_on_raster": {
+    "tokens": [
+     29871,
+     29946,
+     2
+    ],
+    "answer": "4",
+    "fallback_rate": 0.0,
+    "steps": [
+     {
+      "max": 24.75,
+      "n_tied": 1,
+      "tied_ids": [
+       29871
+      ],
+      "top2_ids": [
+       29871,
+       9267
+      ],
+      "top2": [
+       24.75,
+       15.9375
+      ]
+     },
+     {
+      "max": 19.375,
+      "n_tied": 1,
+      "tied_ids": [
+       29946
+      ],
+      "top2_ids": [
+       29946,
+       29941
+      ],
+      "top2": [
+       19.375,
+       19.25
+      ]
+     },
+     {
+      "max": 26.625,
+      "n_tied": 1,
+      "tied_ids": [
+       2
+      ],
+      "top2_ids": [
+       2,
+       330
+      ],
+      "top2": [
+       26.625,
+       16.625
+      ]
+     }
+    ]
+   },
+   "b_impress_r100_on_reordered": {
+    "tokens": [
+     29871,
+     29941,
+     2
+    ],
+    "answer": "3",
+    "fallback_rate": 1.0,
+    "steps": [
+     {
+      "max": 24.625,
+      "n_tied": 1,
+      "tied_ids": [
+       29871
+      ],
+      "top2_ids": [
+       29871,
+       9267
+      ],
+      "top2": [
+       24.625,
+       15.75
+      ]
+     },
+     {
+      "max": 19.375,
+      "n_tied": 2,
+      "tied_ids": [
+       29941,
+       29946
+      ],
+      "top2_ids": [
+       29946,
+       29941
+      ],
+      "top2": [
+       19.375,
+       19.375
+      ]
+     },
+     {
+      "max": 26.75,
+      "n_tied": 1,
+      "tied_ids": [
+       2
+      ],
+      "top2_ids": [
+       2,
+       330
+      ],
+      "top2": [
+       26.75,
+       16.75
+      ]
+     }
+    ]
+   },
+   "c_fullload_loader_on_reordered": {
+    "tokens": [
+     29871,
+     29941,
+     2
+    ],
+    "answer": "3",
+    "fallback_rate": 0.0,
+    "steps": [
+     {
+      "max": 24.625,
+      "n_tied": 1,
+      "tied_ids": [
+       29871
+      ],
+      "top2_ids": [
+       29871,
+       9267
+      ],
+      "top2": [
+       24.625,
+       15.75
+      ]
+     },
+     {
+      "max": 19.375,
+      "n_tied": 2,
+      "tied_ids": [
+       29941,
+       29946
+      ],
+      "top2_ids": [
+       29946,
+       29941
+      ],
+      "top2": [
+       19.375,
+       19.375
+      ]
+     },
+     {
+      "max": 26.75,
+      "n_tied": 1,
+      "tied_ids": [
+       2
+      ],
+      "top2_ids": [
+       2,
+       330
+      ],
+      "top2": [
+       26.75,
+       16.75
+      ]
+     }
+    ]
+   },
+   "a2_fullload_on_raster_again": {
+    "tokens": [
+     29871,
+     29946,
+     2
+    ],
+    "answer": "4",
+    "fallback_rate": 0.0,
+    "steps": [
+     {
+      "max": 24.75,
+      "n_tied": 1,
+      "tied_ids": [
+       29871
+      ],
+      "top2_ids": [
+       29871,
+       9267
+      ],
+      "top2": [
+       24.75,
+       15.9375
+      ]
+     },
+     {
+      "max": 19.375,
+      "n_tied": 1,
+      "tied_ids": [
+       29946
+      ],
+      "top2_ids": [
+       29946,
+       29941
+      ],
+      "top2": [
+       19.375,
+       19.25
+      ]
+     },
+     {
+      "max": 26.625,
+      "n_tied": 1,
+      "tied_ids": [
+       2
+      ],
+      "top2_ids": [
+       2,
+       330
+      ],
+      "top2": [
+       26.625,
+       16.625
+      ]
+     }
+    ]
+   },
+   "decoded_tokens": {
+    "2": "</s>",
+    "29871": "",
+    "29941": "3",
+    "29946": "4"
+   },
+   "reading": {
+    "a_reproduces_recorded_fullload": true,
+    "b_reproduces_recorded_impress_r100": true,
+    "fullload_loader_on_reordered_store_equals_impress_r100": true,
+    "fullload_loader_on_reordered_store_equals_fullload": false,
+    "fullload_deterministic_on_repeat": true,
+    "fullload_top2_gap_at_position": 0.125,
+    "reordered_top2_gap_at_position": 0.0
+   }
+  }
+ ],
+ "note": "diagnostic only; rebuilt stores, removed afterwards; no gate verdict depends on it",
+ "config_sha256": "bc59b6b72cc5fc4ce4a55a5affdd60474a29c81fa6e38e2a333c75895fffb536",
+ "written_unix": 1794903297.9813383
+}

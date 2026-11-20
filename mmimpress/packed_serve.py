@@ -10,6 +10,12 @@ visible.  ``directcopy=True`` (DEV diagnostic only) replaces the index scatter
 by one contiguous slice copy per layer/kind.  Everything after ``prepare`` is
 the v1 ``Server._decode`` path.
 
+Original-order stores (``meta["row_order"] == "original"``, see
+``mmimpress.packed_store``) are served by the same classes: the reads, the
+pinned buffer and the per-layer hooks are identical; a layer's rows go to
+their ORIGINAL token positions of the GPU cache, separators to their original
+positions, and every position that was not stored is masked.
+
 ``PackedReadTrace`` records every ``os.pread`` AND ``os.preadv`` call so the
 harness can prove "one read syscall per hit" independently of the IOCounter.
 """
@@ -22,7 +28,8 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from mmimpress.packed_store import PackedReader, validate_packed_meta
+from mmimpress.packed_store import (ROW_ORDER_IMPORTANCE, ROW_ORDER_ORIGINAL, PackedReader,
+                                    layer_original_indices, validate_packed_meta)
 from mmimpress.serve import BIAS, IOCounter, PrefixCache, bias_from_keep, suffix_ids_from_prompt
 from mmimpress.store import load_meta
 
@@ -37,7 +44,14 @@ class PackedImageContext:
             raise ValueError("packed store lacks its integrity completion envelope")
         self.integrity_activation = verify_integrity(self.dir)
         m = self.meta
-        row = sorted(int(x) for x in m["newline_stored"])
+        self.row_order = m.get("row_order", ROW_ORDER_IMPORTANCE)
+        self.layer_rows = None
+        if self.row_order == ROW_ORDER_ORIGINAL:
+            # separators and stored rows sit at their original token positions
+            row = sorted(int(x) for x in m["newline_idx"])
+            self.layer_rows = [torch.tensor(x, dtype=torch.long) for x in layer_original_indices(m)]
+        else:
+            row = sorted(int(x) for x in m["newline_stored"])
         self._separator_positions = [list(row) for _ in range(int(m["num_layers"]))]
         self.n_sep = len(row)
         self.reader = PackedReader(self.dir, m, pin=pin)
@@ -54,6 +68,8 @@ class PackedImageContext:
         for the packed file (permutation artifact, separator tail, byte table)."""
         if self._layout_validated:
             return
+        if self.row_order == ROW_ORDER_ORIGINAL:
+            return self._validate_original_layout()
         from mmimpress.cvpr25 import permutation_sha256, visionzip_repack_order
         m = self.meta
         vn = int(m["v_token_num"]); L = int(m["num_layers"]); cs = int(m["chunk_size"])
@@ -82,6 +98,35 @@ class PackedImageContext:
         assert artifact.get("layout_uses_dataset_question") is False
         assert artifact.get("llm_used_for_layout_scoring") is False
         assert int(artifact.get("calibration_questions", -1)) == 0
+        assert (self.dir / m["packed_file"]).stat().st_size == int(m["packed_total_bytes"])
+        self._layout_validated = True
+
+    def _validate_original_layout(self):
+        """Activation-time checks of an original-order store: no importance
+        artifact, per-layer rows ascending / nested / content-only, separators
+        at their original positions, byte table."""
+        m = self.meta
+        vn = int(m["v_token_num"]); L = int(m["num_layers"])
+        original_sep = [int(x) for x in m["newline_idx"]]
+        assert original_sep == sorted(set(original_sep)) and all(0 <= p < vn for p in original_sep)
+        n_content = vn - len(original_sep)
+        assert n_content > 0 and int(m.get("n_spatial", -1)) == n_content
+        assert int(m["prefix_len"]) == int(m["v_token_start"]) + vn
+        assert m.get("separator_policy") == "original_position_plus_sidecar" and m.get("physical_layout") == "original_order_layer_subsets"
+        assert not (self.dir / "visionzip_layout.pt").exists(), "original-order store must not carry the importance artifact"
+        assert "order" not in m and "full_importance_permutation" not in m and "permutation_sha256" not in m
+        assert all(self.separator_positions(li) == original_sep for li in range(L))
+        counts = [int(c) for c in m["layer_keep_counts"]]
+        sep = set(original_sep); by_count = {}
+        for li, rows in enumerate(self.layer_rows):
+            rows = rows.tolist()
+            assert len(rows) == counts[li] and rows == sorted(set(rows)) and not sep & set(rows)
+            assert all(0 <= r < vn for r in rows)
+            assert by_count.setdefault(counts[li], rows) == rows       # equal counts -> equal sets
+        nested = [set(by_count[c]) for c in sorted(by_count)]
+        assert all(a <= b for a, b in zip(nested, nested[1:]))
+        assert m.get("layout_uses_dataset_question") is False and m.get("llm_used_for_layout_scoring") is False
+        assert int(m.get("calibration_questions", -1)) == 0
         assert (self.dir / m["packed_file"]).stat().st_size == int(m["packed_total_bytes"])
         self._layout_validated = True
 
@@ -149,7 +194,9 @@ class PackedPrefixSelector:
         vn = int(m["v_token_num"]); n_content = int(m["n_spatial"])
         if n_content <= 0 or n_content != vn - len(ctx.separator_positions(0)):
             raise ValueError("visual-content count disagrees with separators")
-        order = m["order"]
+        self.original_rows = ctx.row_order == ROW_ORDER_ORIGINAL
+        if self.original_rows and self.directcopy:
+            raise ValueError("directcopy needs the importance row order")
         counts = layer_keep_counts(m["layer_keep_ratios"], n_content, int(m["num_layers"]), 0.25,
                                    float(m["layer_budget_r_min"]), float(m["layer_budget_r_max"]))
         if counts != [int(x) for x in m["layer_keep_counts"]]:
@@ -159,8 +206,13 @@ class PackedPrefixSelector:
             raise ValueError("layerwise budget differs from uniform total")
         self.n_content, self.n_structural = n_content, vn - n_content
         self.k_per_layer = counts; self.k_max = max(counts); self.k_target = k_u
-        self.selected_stored_ids = list(range(self.k_max))
-        self.selected_original_ids = [int(x) for x in order[:self.k_max]]
+        if self.original_rows:
+            # no global stored-row id: layer l's rows are ctx.layer_rows[l] (ascending original indices)
+            self.selected_stored_ids = None
+            self.selected_original_ids = [int(x) for x in m["stored_original_indices"]]
+        else:
+            self.selected_stored_ids = list(range(self.k_max))
+            self.selected_original_ids = [int(x) for x in m["order"][:self.k_max]]
         self.kept_tokens_per_layer = []
         self.read_bytes = 0; self.read_calls = 0; self.read_ms = 0.0
 
@@ -191,22 +243,33 @@ class PackedPrefixSelector:
         ctx, m = self.ctx, self.ctx.meta
         vn, vstart = int(m["v_token_num"]), int(m["v_token_start"])
         k = self.k_per_layer[li]
+        rows = ctx.layer_rows[li] if self.original_rows else None      # original token positions of the stored rows
         for kind in ("k", "v"):
             vals = ctx.reader.layer_view(li, kind)
             assert vals.shape[0] == k
             if k:
-                if self.directcopy:
+                if self.original_rows:
+                    ctx.cache.write(li, kind, rows, vals)
+                elif self.directcopy:
                     buf = (ctx.cache.k if kind == "k" else ctx.cache.v)[li]
                     buf[0, :, vstart:vstart + k, :] = vals.to(dev, ctx.cache.dtype).permute(1, 0, 2)
                 else:
                     ctx.cache.write(li, kind, torch.arange(k, dtype=torch.long), vals)
         keep = torch.zeros(vn, dtype=torch.bool)
-        keep[:k] = True
+        if self.original_rows:
+            keep[rows] = True
+        else:
+            keep[:k] = True
         sp = torch.tensor(ctx.separator_positions(li), dtype=torch.long)
         ctx.cache.write(li, "k", sp, sep[0][li])
         ctx.cache.write(li, "v", sp, sep[1][li])
+        if self.original_rows:
+            assert int(keep.sum()) == k
         keep[sp] = True
-        assert int(keep[:self.n_content].sum()) == k and bool(keep[self.n_content:].all())
+        if self.original_rows:
+            assert int(keep.sum()) == k + self.n_structural      # separators are disjoint from the stored rows
+        else:
+            assert int(keep[:self.n_content].sum()) == k and bool(keep[self.n_content:].all())
         self.kept_tokens_per_layer.append(int(keep.sum()))
         BIAS[li] = bias_from_keep(keep, m, dev)
 
@@ -216,7 +279,13 @@ class PackedPrefixSelector:
         row_bytes = int(m["packed_row_bytes"])
         per_layer_bytes = [2 * k * row_bytes for k in self.k_per_layer]
         assert self.kept_tokens_per_layer == [k + self.n_structural for k in self.k_per_layer]
+        if self.original_rows:
+            rule = ("layer l attends the original token indices {selected_original_ids[j] : stored_min_keep_count[j] <= k_per_layer[l]}, "
+                    "each at its original cache position")
+        else:
+            rule = "layer l attends stored rows [0, k_l) = selected_original_ids[:k_per_layer[l]]"
         return {
+            "row_order": ROW_ORDER_ORIGINAL if self.original_rows else ROW_ORDER_IMPORTANCE,
             "store_format": m["store_format"], "selection_mode": "prefix", "budget_unit": "visual_kv", "ratio": 0.25,
             "budget_policy": "layerwise_v1", "layer_budget_id": str(m["layer_budget_id"]), "layer_budget_sha256": str(m["layer_budget_sha256"]),
             "layer_keep_ratios": [float(x) for x in m["layer_keep_ratios"]],
@@ -224,7 +293,7 @@ class PackedPrefixSelector:
             "k_total": int(sum(self.k_per_layer)), "k_per_layer": list(self.k_per_layer), "k_max": int(self.k_max),
             "attended_content_kv_count": None, "attended_content_kv_count_per_layer": list(self.k_per_layer),
             "selected_stored_ids": self.selected_stored_ids, "selected_original_ids": self.selected_original_ids,
-            "selection_rule": "layer l attends stored rows [0, k_l) = selected_original_ids[:k_per_layer[l]]",
+            "selection_rule": rule,
             "keep_count_per_layer": self.kept_tokens_per_layer,
             "planned_normal_read_bytes_per_layer": per_layer_bytes,
             "planned_packed_read": {"offset_bytes": 0, "length_bytes": int(m["packed_total_bytes"])},
@@ -410,7 +479,8 @@ def request_packed(server, ctx: PackedImageContext, *, suffix_ids=None, prompt_t
         "separator_read_bytes": int(m["packed_sep_bytes"]),
         "normal_kv_preads": 1, "separator_preads": 0, "read_calls": 1,
         "total_actual_pread_bytes": int(io_summary.get("bytes", 0)),
-        "validated_prefix_layout": "visionzip_image_only_packed", "n_raters": 0,
+        "validated_prefix_layout": ("original_order_packed" if ctx.row_order == ROW_ORDER_ORIGINAL
+                                    else "visionzip_image_only_packed"), "n_raters": 0,
         "core_started_at_s": t0, "first_token_at_s": timing["first_token_at"], "model_finished_at_s": timing["finished_at"],
         "postprocess_finished_at_s": time.perf_counter(),
     })
@@ -463,7 +533,8 @@ def _request_packed_stream(server, ctx: PackedImageContext, *, suffix_ids=None, 
         "normal_kv_preads": layer_reads, "separator_preads": 1 if int(m["packed_sep_bytes"]) else 0,
         "read_calls": int(io_summary.get("preads", 0)),
         "total_actual_pread_bytes": int(io_summary.get("bytes", 0)),
-        "validated_prefix_layout": "visionzip_image_only_packed", "n_raters": 0,
+        "validated_prefix_layout": ("original_order_packed" if ctx.row_order == ROW_ORDER_ORIGINAL
+                                    else "visionzip_image_only_packed"), "n_raters": 0,
         "core_started_at_s": t0, "first_token_at_s": timing["first_token_at"], "model_finished_at_s": timing["finished_at"],
         "postprocess_finished_at_s": time.perf_counter(),
     })

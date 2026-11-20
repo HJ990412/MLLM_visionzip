@@ -1,0 +1,36 @@
+{
+ "gate": "reference_reordered_fullload_vs_raster_fullload",
+ "criterion": "none (reported only): requests whose generated tokens differ between the FullLoad loader on the reordered store and FullLoad on the raster store",
+ "a": "fullload_reordered",
+ "b": "fullload",
+ "requests": 147,
+ "expected": 147,
+ "equal": {
+  "generated_token_ids": 146
+ },
+ "mismatch_count": 1,
+ "mismatches": [
+  {
+   "dialog_id": "mtgqa_000018",
+   "turn_id": 2,
+   "image_id": "n181355",
+   "differences": [
+    {
+     "field": "generated_token_ids",
+     "fullload_reordered": [
+      18620,
+      2
+     ],
+     "fullload": [
+      2315,
+      2
+     ]
+    }
+   ],
+   "prompt_equal": true
+  }
+ ],
+ "status": "REPORTED",
+ "different_requests": 1,
+ "different_requests_same_prompt": 1
+}

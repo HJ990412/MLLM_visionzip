@@ -1,0 +1,38 @@
+{
+ "gate": "gate4_continuity_gate",
+ "criterion": "ReComp, FullLoad, Ours(재배열): generated tokens identical to the 2026-11-17 main run's record of the same request (same arm, dialogue, turn)",
+ "reference": "runs/mt_gqa_impress_code_20261117T185832Z/main",
+ "methods": [
+  {
+   "method": "recompute",
+   "name": "ReComp",
+   "requests": 147,
+   "expected": 147,
+   "prompt_equal": 147,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "method": "fullload_async",
+   "name": "FullLoad",
+   "requests": 147,
+   "expected": 147,
+   "prompt_equal": 147,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  },
+  {
+   "method": "ours_prefixstore_kv25_PYR-beta-raw_packed_async",
+   "name": "Ours(재배열)",
+   "requests": 147,
+   "expected": 147,
+   "prompt_equal": 147,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "status": "PASS"
+  }
+ ],
+ "status": "PASS"
+}

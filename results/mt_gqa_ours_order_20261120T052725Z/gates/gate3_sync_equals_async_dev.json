@@ -1,0 +1,16 @@
+{
+ "gate": "gate3_original_order_sync_equals_async_dev",
+ "criterion": "Ours(원래 순서): generated tokens and bytes read identical between the synchronous and the asynchronous arm, every request",
+ "a": "ours_origorder_kv25_PYR-beta-raw_packed_async",
+ "b": "ours_origorder_kv25_PYR-beta-raw_packed",
+ "requests": 1134,
+ "expected": 1134,
+ "equal": {
+  "generated_token_ids": 1134,
+  "ssd_read_bytes": 1134,
+  "packed_read_bytes": 1134
+ },
+ "mismatch_count": 0,
+ "mismatches": [],
+ "status": "PASS"
+}

@@ -1,0 +1,81 @@
+{
+ "gate": "step1_public_equivalence",
+ "public_checkout": "/home/dblab/hj/_external_ref/HyperInfer",
+ "public_head": "91df7a2fc12581c6780a6485c5b50e7fd9ef9d0e",
+ "criterion": "every PublicEquivalenceTests case of both test files runs (none skipped) and passes against the public checkout: per-head top-k, mean Jaccard, fallback decision and the selected set equal the public functions' on the same tensors",
+ "ran": 31,
+ "returncode": 0,
+ "public_cases": [
+  {
+   "file": "test_impress_official.py",
+   "test": "test_jaccard_value",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "file": "test_impress_official.py",
+   "test": "test_mask_equals_public_filled_selected_attention",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "file": "test_impress_official.py",
+   "test": "test_reference_checkout_is_the_recorded_commit",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "file": "test_impress_official.py",
+   "test": "test_reorder_order_equals_public_mapping_list",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "file": "test_impress_official.py",
+   "test": "test_sele_tokenid_from_hidden_states",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "file": "test_impress_official.py",
+   "test": "test_selection_from_the_same_attention_matrix",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "file": "test_impress_official.py",
+   "test": "test_stored_prefix_rows_plus_suffix_rows_select_like_the_whole_matrix",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "file": "test_impress_official.py",
+   "test": "test_threshold_is_inclusive_like_the_public_code",
+   "class": "test_impress_official.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "file": "test_impress_code_runs.py",
+   "test": "test_llava15_geometry_selection_equals_the_public_function",
+   "class": "test_impress_code_runs.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "file": "test_impress_code_runs.py",
+   "test": "test_llava15_geometry_stored_prefix_rows_plus_suffix_rows",
+   "class": "test_impress_code_runs.PublicEquivalenceTests",
+   "outcome": "ok"
+  },
+  {
+   "file": "test_impress_code_runs.py",
+   "test": "test_selector_on_a_store_without_separators_equals_the_public_function",
+   "class": "test_impress_code_runs.PublicEquivalenceTests",
+   "outcome": "ok"
+  }
+ ],
+ "status": "PASS",
+ "tail": [
+  ". ok\ntest_vote_consensus_prefers_votes_then_lower_index (test_impress_official.SelectionTests) ... ok\ntest_consensus_reads_chunks_and_masks_fallback_reads_all_and_masks_nothing (test_impress_official.SelectorTests) ... ok\ntest_full_retention_loads_everything_and_hides_nothing (test_impress_official.SelectorTests) ... ok\ntest_next_layer_prefetch_changes_only_who_reads_the_probe_sidecar (test_impress_official.SelectorTests) ... ok\ntest_selector_selects_like_the_whole_matrix_pipeline (test_impress_official.SelectorTests)\nStored prefix rows + online suffix rows inside the hook, against the ... ok\ntest_capture_reads_the_models_own_prefill_attention (test_impress_official.Turn1CaptureTests) ... ok\n\n----------------------------------------------------------------------\nRan 20 tests in 0.362s\n\nOK\n",
+  "torStoreTests) ... ok\ntest_layout_is_plain_descending_order_with_an_empty_separator_sidecar (test_impress_code_runs.NoSeparatorStoreTests) ... ok\ntest_llava15_geometry_selection_equals_the_public_function (test_impress_code_runs.PublicEquivalenceTests)\nPer-head top-k, mean Jaccard, fallback decision and the selected set ... ok\ntest_llava15_geometry_stored_prefix_rows_plus_suffix_rows (test_impress_code_runs.PublicEquivalenceTests)\nThe request-time split (stored prefix-row share + suffix-row share) ... ok\ntest_selector_on_a_store_without_separators_equals_the_public_function (test_impress_code_runs.PublicEquivalenceTests)\nThe hook (probe sidecar read, stored prefix rows + online suffix ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 0.323s\n\nOK\n"
+ ]
+}

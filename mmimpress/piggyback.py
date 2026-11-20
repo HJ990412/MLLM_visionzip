@@ -771,8 +771,14 @@ def persist_captured_visual_prefix(
     selection_seed: int = 1234,
     storage_policy: str = "full",
     layer_budget: Mapping[str, Any] | None = None,
+    row_order: str = "importance",
 ) -> dict[str, Any]:
     """Persist the reusable prefix from a completed normal Turn-1 request.
+
+    ``row_order="original"`` (packed stores only; the default ``"importance"``
+    is the existing behaviour) asks the writer for the same per-layer token
+    sets in original token order.  No importance permutation is then recorded:
+    the permutation digests and ``visionzip_layout.pt`` are not written.
 
     ``storage_policy="prefix25_layerwise"`` additionally requires a frozen
     ``layer_budget`` document (``mmimpress.layer_budget.budget_document``);
@@ -826,6 +832,11 @@ def persist_captured_visual_prefix(
         raise ValueError(f"unsupported original-token selection: {selection_variant}")
     if selection_variant == "spatial_uniform" and vision_key_descriptors is not None:
         raise ValueError("spatial uniform must not capture vision-key descriptors")
+    if row_order not in ("importance", "original"):
+        raise ValueError(f"unsupported row order: {row_order!r}")
+    original_rows = row_order == "original"
+    if original_rows and (selection_variant is not None or storage_policy != "prefix25_packed"):
+        raise ValueError("original row order is defined for the packed VisionZip prefix only")
 
     capture_object = (capture_stats if isinstance(
         capture_stats, VisionForwardCapture) else None)
@@ -1023,6 +1034,18 @@ def persist_captured_visual_prefix(
                 "spatial_coordinate_policy": "base_and_unpadded_high_patch_centers_v1",
                 "spatial_quota_policy": "index_uniform_base_high_quota_matched_v1",
             })
+    if original_rows:
+        # the writer records the per-layer original indices; nothing about the
+        # importance permutation is kept
+        del invariant_metadata["permutation_sha256"]
+        del invariant_metadata["inverse_permutation_sha256"]
+        invariant_metadata.update({
+            "physical_layout": "original_order_layer_subsets",
+            "layout_method": "original_order_layer_subsets",
+            "global_order_all_layers": False,
+            "separator_policy": "original_position_plus_sidecar",
+            "separator_tail": False,
+        })
     if image_input_sha256 is not None:
         invariant_metadata["image_input_sha256"] = str(image_input_sha256)
     invariant_metadata["turn1_capture"] = capture_document
@@ -1059,6 +1082,7 @@ def persist_captured_visual_prefix(
             storage_policy=storage_policy,
             layer_budget=(dict(layer_budget) if layer_budget is not None
                           else None),
+            **({"row_order": row_order} if original_rows else {}),
         )
         assert meta["probe_heads"] == 0
         assert meta["bytes_probe_sidecar"] == 0
@@ -1100,9 +1124,11 @@ def persist_captured_visual_prefix(
                     "payload_persisted": False,
                 },
             })
-        t0 = time.perf_counter()
-        torch.save(layout_artifact, staging / "visionzip_layout.pt")
-        layout_write_ms = (time.perf_counter() - t0) * 1e3
+        layout_write_ms = 0.0
+        if not original_rows:
+            t0 = time.perf_counter()
+            torch.save(layout_artifact, staging / "visionzip_layout.pt")
+            layout_write_ms = (time.perf_counter() - t0) * 1e3
 
         file_sizes = _store_file_sizes(staging)
         byte_breakdown = _byte_breakdown(file_sizes, meta)
@@ -1146,7 +1172,8 @@ def persist_captured_visual_prefix(
             else:
                 file_hashes = {
                     relative: sha256_file(destination / relative)
-                    for relative in ("meta.json", "visionzip_layout.pt")
+                    for relative in (("meta.json",) if original_rows else
+                                     ("meta.json", "visionzip_layout.pt"))
                 }
         except Exception as exc:
             # Publication and its parent fsync already succeeded.  Never turn
@@ -1200,9 +1227,9 @@ def persist_captured_visual_prefix(
                     "len/head4096 + len/tail4096 + NUL"
                 ),
                 "full_integrity_hash": bool(full_integrity_hash),
-                "permutation_sha256": meta["permutation_sha256"],
-                "inverse_permutation_sha256": meta[
-                    "inverse_permutation_sha256"],
+                "permutation_sha256": meta.get("permutation_sha256"),
+                "inverse_permutation_sha256": meta.get(
+                    "inverse_permutation_sha256"),
                 "tree_hash_framing": (
                     "path_utf8 + NUL + uint64be(size) + raw_sha256 + NUL"
                     if full_integrity_hash else None

@@ -1,0 +1,18 @@
+{
+ "written_before_any_gpu_measurement_unix": 1795152490.2818246,
+ "free_bytes_at_freeze": 449783873536,
+ "free_gib_at_freeze": 418.8938751220703,
+ "required_free_bytes": 49262755840,
+ "expected_ssd_write_bytes": {
+  "dev": 75144387861,
+  "devgate": 12360572933,
+  "gate": 7808332498,
+  "main": 749835746910,
+  "question_independence": 81891919284,
+  "total": 927040959486
+ },
+ "expected_ssd_write_note": "per image: raster store + two packed stores (gate, dev, main); one packed store (devgate); six packed stores per gate/DEV image for the question-independence check (three questions x two row orders); sizes from runs/mt_gqa_impress_code_20261117T185832Z/main disk_usage.json; raw rows and evidence not included",
+ "nvme0n1_stat_before": "2026-11-20T05:27:25Z 2202784857  2712196 1099858144468 201615483 624768244 234335913 262405197322 2228813984        0 488593544 2488812679  2211812        0 4243932368   406941 37517363 57976270",
+ "nvme0n1_sectors_written_before": 262405197322,
+ "sector_bytes": 512
+}

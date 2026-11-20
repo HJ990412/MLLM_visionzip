@@ -1,0 +1,17 @@
+{
+  "deletion_scope": "runs/<RUN>/scratch and runs/<RUN>/preserve/scratch only (exact SHA allowlist after audit+commit); existing stores never deleted",
+  "expected_total_ssd_write_bytes": 25842186977280,
+  "expected_total_ssd_write_note": "two full stores + the IMPRESS repack rewrite + the packed store, per image, 25,000 + 44 + 40 images",
+  "free_bytes_at_freeze": 474074669056,
+  "full_store_bytes": 318242816,
+  "largest_image_bundle_bound_bytes": 1073741824,
+  "maximum_new_payload_bytes": 21474836480,
+  "minimum_reserve_bytes": 32212254720,
+  "packed_store_bytes": 75497472,
+  "peak_working_set_bytes": 4294967296,
+  "per_image_bundle_bytes": 718798848,
+  "policy": "FRESH_IMAGE_STREAMING (image-major): one live image; stores built from the arms' own T1 -> served -> audited -> committed -> run-local scratch deleted by exact SHA256 allowlist",
+  "raw_and_evidence_growth_bound_bytes": 17179869184,
+  "required_free_bytes": 53687091200,
+  "status": "PASS"
+}

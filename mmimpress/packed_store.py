@@ -25,6 +25,17 @@ not used on the hit path (it would return a fresh ``bytes`` object and force a
 second host copy into pinned memory).
 
 Contract: docs/layer_budget_kv25_v2_contract.md (A3).
+
+``row_order="original"`` (option; the default ``"importance"`` is the layout
+above, unchanged): layer ``l`` stores the SAME token set -- the first ``k_l``
+entries of the VisionZip order, ties included -- but its rows are written in
+ascending original image-token index.  File structure, byte table, separator
+block and total bytes are identical; only the row order inside each layer
+block differs.  The metadata then carries no importance permutation, only
+what is needed to recover each layer's original indices
+(``stored_original_indices`` + ``stored_min_keep_count``, see
+``original_order_plan`` / ``layer_original_indices``).
+Contract: docs/mt_gqa_ours_order_contract.md.
 """
 from __future__ import annotations
 
@@ -44,6 +55,16 @@ STORAGE_POLICY = "prefix25_packed"
 META_FORMAT = "llava_fp16_importance_prefix25_packed_v1"
 LAYERWISE_META_FORMAT = "llava_fp16_importance_prefix25_layerwise_v1"
 PACKED_NAME = "kv_packed.bin"
+ROW_ORDER_IMPORTANCE = "importance"          # default: rows in VisionZip order (existing layout)
+ROW_ORDER_ORIGINAL = "original"              # option: same token sets, rows in original token order
+ROW_ORDERS = (ROW_ORDER_IMPORTANCE, ROW_ORDER_ORIGINAL)
+ORIGINAL_STORE_FORMAT = "prefixstore_kv25_packed_original_v1"
+ORIGINAL_META_FORMAT = "llava_fp16_original_order_prefix25_packed_v1"
+ORIGINAL_LAYOUT = "original_order_layer_subsets"
+# keys that describe the importance permutation; an original-order store must not carry them
+IMPORTANCE_ORDER_KEYS = ("order", "order_is_per_layer", "newline_stored", "stored_row_to_original",
+                         "full_importance_permutation", "order_semantics", "permutation_sha256",
+                         "inverse_permutation_sha256")
 _TORCH_DTYPE = {"float16": torch.float16}
 _NP_DTYPE = {"float16": np.float16}
 
@@ -67,6 +88,48 @@ def packed_layout(counts, row_bytes: int, num_layers: int, n_sep: int):
     return table, off, sep_bytes, off + sep_bytes
 
 
+# ------------------------------------------------- original-order row plan
+def original_order_plan(order, counts):
+    """Row plan of an original-order store.
+
+    ``order`` is the VisionZip stored->original order (only its first
+    ``max(counts)`` entries are read), ``counts`` the per-layer row counts.
+    Layer ``l`` keeps the token set ``order[:counts[l]]`` -- exactly the rows
+    the importance layout stores -- written in ascending original index.
+
+    Returns ``(indices, min_keep, per_layer)``: ``indices`` is the ascending
+    union of every stored token, ``min_keep[j]`` the smallest per-layer count
+    whose set contains ``indices[j]`` (the sets are nested, so layer ``l``
+    stores ``indices[j]`` iff ``min_keep[j] <= counts[l]``), and ``per_layer``
+    the ascending index list of every layer.
+    """
+    counts = [int(c) for c in counts]
+    k_max = max(counts) if counts else 0
+    head = [int(i) for i in list(order)[:k_max]]
+    if len(head) != k_max or len(set(head)) != k_max:
+        raise ValueError("the order does not cover the largest layer count")
+    levels = sorted(set(counts))
+    threshold = {}
+    for rank, original in enumerate(head):           # rank r is stored by every layer with k_l > r
+        threshold[original] = next(c for c in levels if c > rank)
+    indices = sorted(head)
+    min_keep = [threshold[i] for i in indices]
+    per_layer = [[i for i, t in zip(indices, min_keep) if t <= c] for c in counts]
+    assert [len(x) for x in per_layer] == counts
+    return indices, min_keep, per_layer
+
+
+def layer_original_indices(meta: dict):
+    """Per-layer ascending original token indices of an original-order store,
+    recovered from its metadata."""
+    counts = [int(c) for c in meta["layer_keep_counts"]]
+    indices = [int(i) for i in meta["stored_original_indices"]]
+    min_keep = [int(t) for t in meta["stored_min_keep_count"]]
+    if len(indices) != len(min_keep):
+        raise ValueError("original-order index table is inconsistent")
+    return [[i for i, t in zip(indices, min_keep) if t <= c] for c in counts]
+
+
 # ------------------------------------------------------------------ writer
 def write_packed_store(out_dir: Path, layers, v_start: int, v_num: int,
                        prefix_input_ids, newline_idx, extra=None,
@@ -75,14 +138,22 @@ def write_packed_store(out_dir: Path, layers, v_start: int, v_num: int,
                        separator_sidecar: bool = True,
                        timing_out: dict | None = None,
                        storage_policy: str = STORAGE_POLICY,
-                       layer_budget: dict | None = None):
+                       layer_budget: dict | None = None,
+                       row_order: str = ROW_ORDER_IMPORTANCE):
     """Write one packed image prefix.  Same signature/semantics as
     ``mmimpress.store.write_image_store`` so it can stand in for it inside
-    the Turn-1 piggyback persistence flow; returns the meta dict."""
+    the Turn-1 piggyback persistence flow; returns the meta dict.
+
+    ``row_order="original"`` writes the same per-layer token sets in ascending
+    original token index (see the module docstring); the default is the
+    importance order."""
     from mmimpress.layer_budget import (POLICY, budget_sha256, layer_keep_counts,
                                         total_row_budget, validate_ratios)
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
+    if row_order not in ROW_ORDERS:
+        raise ValueError(f"row_order must be one of {ROW_ORDERS}, got {row_order!r}")
+    original_rows = row_order == ROW_ORDER_ORIGINAL
     if storage_policy != STORAGE_POLICY:
         raise ValueError("packed writer serves only the prefix25_packed policy")
     if layer_budget is None:
@@ -123,6 +194,16 @@ def write_packed_store(out_dir: Path, layers, v_start: int, v_num: int,
     newline_stored = [inverse[i] for i in newline_original]
     sep_pos = torch.tensor(sorted(newline_stored), dtype=torch.long)
     n_sep = len(newline_original)
+    if original_rows:
+        # same token sets as order[:k_l], rows ascending in the original index; the
+        # separator block is gathered from the unpermuted block at the original positions
+        t0 = time.perf_counter()
+        union_idx, min_keep, per_layer = original_order_plan(order, rows_per_layer)
+        layer_rows = [torch.tensor(x, dtype=torch.long) for x in per_layer]
+        row_plan_seconds = time.perf_counter() - t0
+        if newline_original != sorted(newline_original):
+            raise ValueError("original-order store requires ascending separator positions")
+        sep_pos = torch.tensor(newline_original, dtype=torch.long)
     row_bytes = H * hd * 2
     table, sep_offset, sep_bytes, total_bytes = packed_layout(rows_per_layer, row_bytes, L, n_sep)
 
@@ -146,12 +227,20 @@ def write_packed_store(out_dir: Path, layers, v_start: int, v_num: int,
                 block = t[0, :, v_start:prefix_len].permute(1, 0, 2).to(td).contiguous().cpu()
                 assert block.shape == (v_num, H, hd), block.shape
                 materialize_seconds += time.perf_counter() - t0
-                t0 = time.perf_counter()
-                block = block.index_select(0, perm).contiguous()
-                repack_seconds += time.perf_counter() - t0
-                t0 = time.perf_counter()
-                buf = block[:rows_per_layer[li]].numpy().tobytes()
-                serialize_seconds += time.perf_counter() - t0
+                if original_rows:
+                    t0 = time.perf_counter()
+                    rows = block.index_select(0, layer_rows[li]).contiguous()
+                    repack_seconds += time.perf_counter() - t0
+                    t0 = time.perf_counter()
+                    buf = rows.numpy().tobytes()
+                    serialize_seconds += time.perf_counter() - t0
+                else:
+                    t0 = time.perf_counter()
+                    block = block.index_select(0, perm).contiguous()
+                    repack_seconds += time.perf_counter() - t0
+                    t0 = time.perf_counter()
+                    buf = block[:rows_per_layer[li]].numpy().tobytes()
+                    serialize_seconds += time.perf_counter() - t0
                 expected_off = table[li]["k_offset" if kind == "k" else "v_offset"]
                 assert written == expected_off, (li, kind, written, expected_off)
                 t0 = time.perf_counter()
@@ -225,8 +314,28 @@ def write_packed_store(out_dir: Path, layers, v_start: int, v_num: int,
     }
     if extra:
         meta.update(extra)
-    assert meta["order"] == order and meta["order_is_per_layer"] is False
-    assert meta["newline_stored"] == newline_stored
+    if original_rows:
+        # after ``extra`` so that nothing describing the importance permutation survives
+        for key in IMPORTANCE_ORDER_KEYS:
+            meta.pop(key, None)
+        meta.update({
+            "row_order": ROW_ORDER_ORIGINAL, "reordered": False,
+            "format": ORIGINAL_META_FORMAT, "store_format": ORIGINAL_STORE_FORMAT,
+            "physical_layout": ORIGINAL_LAYOUT, "layout_method": ORIGINAL_LAYOUT,
+            "global_order_all_layers": False, "separator_tail": False,
+            "separator_policy": "original_position_plus_sidecar",
+            "layout": "packed: one kv_packed.bin = [L0 K rows][L0 V][L1 K][L1 V]...[L31 V][separator K/V sidecar]; "
+                      "each block token-major (rows, num_heads, head_dim) fp16; layer l holds its k_l tokens in "
+                      "ascending original image-token index",
+            "stored_original_indices": list(union_idx),
+            "stored_min_keep_count": list(min_keep),
+            "row_semantics": "layer l stores, in this order, every stored_original_indices[j] with "
+                             "stored_min_keep_count[j] <= layer_keep_counts[l]",
+        })
+        meta["packed_writer_timing_ms"]["row_plan_ms"] = row_plan_seconds * 1e3
+    else:
+        assert meta["order"] == order and meta["order_is_per_layer"] is False
+        assert meta["newline_stored"] == newline_stored
     t0 = time.perf_counter()
     with open(out_dir / META_NAME, "w") as f:
         json.dump(meta, f, indent=1)
@@ -239,6 +348,8 @@ def write_packed_store(out_dir: Path, layers, v_start: int, v_num: int,
             "prefix_slice_serialization_ms": serialize_seconds * 1e3,
             "packed_sha256_ms": hash_seconds * 1e3,
         })
+        if original_rows:
+            timing_out["row_plan_ms"] = row_plan_seconds * 1e3
     return meta
 
 
@@ -248,6 +359,8 @@ def validate_packed_meta(m: dict) -> None:
     counts, byte table).  Delegates every shared layerwise check to the v1
     validator on a format-relabelled copy."""
     from mmimpress.prefix25 import validate_llava_prefix_layerwise_meta
+    if m.get("store_format") == ORIGINAL_STORE_FORMAT or m.get("row_order", ROW_ORDER_IMPORTANCE) != ROW_ORDER_IMPORTANCE:
+        return validate_packed_original_meta(m)
     if (m.get("format") != META_FORMAT or m.get("storage_policy") != STORAGE_POLICY
             or m.get("store_format") != STORE_FORMAT or m.get("packed_file") != PACKED_NAME
             or m.get("probe_heads") != 0 or m.get("bytes_probe_sidecar") != 0
@@ -260,6 +373,60 @@ def validate_packed_meta(m: dict) -> None:
     row_bytes = int(m["num_heads"]) * int(m["head_dim"]) * 2
     n_sep = len(m["newline_idx"])
     table, sep_offset, sep_bytes, total = packed_layout(counts, row_bytes, L, n_sep)
+    if (m.get("packed_row_bytes") != row_bytes or m.get("packed_layout") != table
+            or m.get("packed_sep_offset") != sep_offset or m.get("packed_sep_bytes") != sep_bytes
+            or m.get("packed_total_bytes") != total or m.get("bytes_separator_sidecar") != sep_bytes
+            or m.get("bytes_visual_kv") != total - sep_bytes
+            or not isinstance(m.get("packed_sha256"), str) or len(m["packed_sha256"]) != 64):
+        raise ValueError("packed byte table disagrees with the row counts")
+
+
+def validate_packed_original_meta(m: dict) -> None:
+    """Fail-closed check of an original-order packed store's metadata: format,
+    budget vector, counts, byte table, and the per-layer index table (ascending,
+    content tokens only, nested, exact counts).  No importance permutation may
+    be present."""
+    from mmimpress.layer_budget import budget_sha256, total_row_budget, validate_keep_counts
+    if (m.get("format") != ORIGINAL_META_FORMAT or m.get("storage_policy") != STORAGE_POLICY
+            or m.get("store_format") != ORIGINAL_STORE_FORMAT or m.get("packed_file") != PACKED_NAME
+            or m.get("row_order") != ROW_ORDER_ORIGINAL or m.get("reordered") is not False
+            or m.get("physical_layout") != ORIGINAL_LAYOUT
+            or m.get("probe_heads") != 0 or m.get("bytes_probe_sidecar") != 0
+            or m.get("dtype") != "float16" or "payload_rows" in m):
+        raise ValueError("invalid original-order packed store format")
+    present = [key for key in IMPORTANCE_ORDER_KEYS if key in m]
+    if present:
+        raise ValueError("original-order store carries importance-order metadata: " + ", ".join(present))
+    vn = int(m["v_token_num"]); L = int(m["num_layers"])
+    separators = [int(x) for x in m["newline_idx"]]
+    if separators != sorted(set(separators)) or any(not 0 <= x < vn for x in separators):
+        raise ValueError("invalid separator positions")
+    n = vn - len(separators)
+    counts = m.get("layer_keep_counts"); ratios = m.get("layer_keep_ratios")
+    try:
+        validate_keep_counts(counts, ratios, n, L, 0.25, float(m.get("layer_budget_r_min")),
+                             float(m.get("layer_budget_r_max")))
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"invalid layerwise budget: {exc}") from exc
+    counts = [int(c) for c in counts]
+    if (n < 1 or m.get("budget_policy") != "layerwise_v1" or m.get("original_content_count") != n
+            or m.get("n_spatial") != n or m.get("uniform_equivalent_content_count") != (n + 3) // 4
+            or m.get("stored_content_count_per_layer") != counts or m.get("payload_rows_per_layer") != counts
+            or m.get("stored_content_count_total") != sum(counts) or sum(counts) != total_row_budget(n, L)
+            or m.get("retention_ratio") != .25 or m.get("padding_rows") != 0
+            or m.get("layer_budget_sha256") != budget_sha256(ratios)
+            or not isinstance(m.get("layer_budget_id"), str) or not m["layer_budget_id"]):
+        raise ValueError("invalid original-order geometry")
+    indices = m.get("stored_original_indices"); min_keep = m.get("stored_min_keep_count")
+    if (not isinstance(indices, list) or not isinstance(min_keep, list) or len(indices) != len(min_keep)
+            or len(indices) != max(counts) or indices != sorted(set(int(i) for i in indices))
+            or any(not 0 <= int(i) < vn for i in indices) or set(indices) & set(separators)
+            or any(int(t) not in set(counts) for t in min_keep)):
+        raise ValueError("invalid original-order index table")
+    if [len(x) for x in layer_original_indices(m)] != counts:
+        raise ValueError("original-order index table disagrees with the row counts")
+    row_bytes = int(m["num_heads"]) * int(m["head_dim"]) * 2
+    table, sep_offset, sep_bytes, total = packed_layout(counts, row_bytes, L, len(separators))
     if (m.get("packed_row_bytes") != row_bytes or m.get("packed_layout") != table
             or m.get("packed_sep_offset") != sep_offset or m.get("packed_sep_bytes") != sep_bytes
             or m.get("packed_total_bytes") != total or m.get("bytes_separator_sidecar") != sep_bytes
@@ -403,7 +570,7 @@ class PackedReader:
 # ----------------------------------------------------------- persistence
 def persist_captured_packed_prefix(runner, captured_past_key_values, expanded_input_ids,
                                    image_size, per_sub_scores, out_dir, *, layer_budget,
-                                   **kw):
+                                   row_order: str = ROW_ORDER_IMPORTANCE, **kw):
     """Turn-1 piggyback persistence of a packed store.
 
     Runs the unmodified ``mmimpress.piggyback.persist_captured_visual_prefix``
@@ -411,7 +578,15 @@ def persist_captured_packed_prefix(runner, captured_past_key_values, expanded_in
     staging, fsync, atomic no-clobber publication, receipts) with the packed
     writer standing in for ``write_image_store`` for the duration of the
     call.  The unpacked writer and every existing code path are untouched.
+
+    ``row_order="original"`` publishes an original-order store through the
+    same flow (same staging, fsync and publication steps); the question, the
+    decoder state and calibration scores are not inputs of either order.
     """
+    if row_order not in ROW_ORDERS:
+        raise ValueError(f"row_order must be one of {ROW_ORDERS}, got {row_order!r}")
+    if row_order != ROW_ORDER_IMPORTANCE:
+        kw = dict(kw, row_order=row_order)
     import mmimpress.piggyback as pb
     assert pb.write_image_store.__module__ == "mmimpress.store"
     original = pb.write_image_store
@@ -424,5 +599,5 @@ def persist_captured_packed_prefix(runner, captured_past_key_values, expanded_in
     finally:
         pb.write_image_store = original
     meta = receipt["meta"]
-    assert meta["store_format"] == STORE_FORMAT
+    assert meta["store_format"] == (ORIGINAL_STORE_FORMAT if row_order == ROW_ORDER_ORIGINAL else STORE_FORMAT)
     return receipt

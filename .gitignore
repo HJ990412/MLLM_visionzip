@@ -155,3 +155,14 @@ env/
 # MT-GQA asynchronous KV reads: keep raw/KV/inventories local; publish receipts.
 /runs/mt_gqa_async_*/
 /results/mt_gqa_async_*/
+
+# IMPRESS public-implementation runs (MT-GQA, LLaVA-1.5 MT-VQA) and the Ours row-order run:
+# keep KV payloads, raw requests and manifests local; curated reports and receipts are force-added.
+/runs/mt_gqa_impress_official_*/
+/results/mt_gqa_impress_official_*/
+/runs/mt_gqa_impress_code_*/
+/results/mt_gqa_impress_code_*/
+/runs/llava15_mtvqa_impress_*/
+/results/llava15_mtvqa_impress_*/
+/runs/mt_gqa_ours_order_*/
+/results/mt_gqa_ours_order_*/
