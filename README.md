@@ -1276,3 +1276,138 @@ DONTNEED는 cold NAND를 보장하지 않는다. 반복 실행·다른 비율·Q
 [실험 계약](docs/mt_gqa_async_contract.md)을 참조한다.
 실행 코드·결과표·동결 설정·검증 receipt를 보존하며 대용량 raw·KV·전체 manifest와
 파일별 보호 inventory는 로컬에 둔다.
+
+## 39. MT-GQA: 공개 IMPRESS 구현 로직 이식 (2026-11-17, 본실험 미실행)
+
+IMPRESS(FAST'25)·HyperInfer(IEEE TC'26) 논문은 중요도를 "attention 열 합"이라고만 적으므로,
+baseline 정의를 공개 구현([HyperInfer](https://github.com/ISCS-ZJU/HyperInfer) 커밋 `91df7a2`)으로 바꿔
+`mmimpress/impress_official.py`로 이식했다. probe head 0·1·2, 전체 행(prefix + suffix)의 attention 열 합,
+head별 상위 25% → 평균 pairwise Jaccard ≥ 0.3이면 득표 합의, 아니면 그 layer의 K·V 전체를 mask 없이 사용,
+chunk 64, 첫 대화 T1 통계로 layer별 재배치, 다음 layer probe 선행 읽기다. 공개 함수와의 동등성은
+같은 텐서를 넣는 CPU 테스트로 확인했다(공개 코드는 복사하지 않고 레포 밖 체크아웃을 참조).
+
+사전 고정 검증 3번("유지 100% IMPRESS = raster store의 FullLoad, 모든 요청")이 gate 147건 중 1건의
+BF16 logit 동점으로 FAIL이어서 398장 본실험은 돌리지 않았다. DEV 40장(arm당 followup 756건)은 다음과 같다.
+
+| 방법 | Followup EM | TTFT 평균 | SSD MB/followup |
+|---|---:|---:|---:|
+| ReComp | 68.92% | 528.9 ms | 0.0 |
+| FullLoad | 69.44% | 481.7 ms | 1166.9 |
+| IMPRESS (공개 구현) | 61.38% | 738.4 ms | 1042.4 |
+| IMPRESS (38절의 이전 구현) | 68.52% | 709.6 ms | 1013.9 |
+| Ours | 68.52% | 149.2 ms | 306.8 |
+
+공개 구현 − 이전 구현: 정답률 −7.14 pp(이미지 단위 95% CI −10.49~−3.97), fallback 52.4% vs 27.5%.
+
+[보고서](results/mt_gqa_impress_official_20261117T052201Z/report.md),
+[실험 계약](docs/mt_gqa_impress_official_contract.md).
+
+## 40. LLaVA-1.5 × MT-VQA 25k: 38절 IMPRESS 구현 (2026-11-17, 중단)
+
+LLaVA-1.5-7B(576 visual token, separator 없음)로 ReComp / FullLoad / IMPRESS(38절 구현) / Ours(34절 PYR-b20 packed)를
+MT-VQA-v2-reconstructed-25k에서 재려 했다. 첫 계약은 검증 4("유지 100% IMPRESS = raster FullLoad")가
+132건 중 1건의 BF16 근소차(19.375 vs 19.25)로 FAIL이라 본실험 없이 끝났다.
+사용자 결정으로 검증 4를 "같은 재배치 store를 FullLoad loader로 읽은 결과와 비교"로 바꾼 새 계약으로 다시 돌려 통과했고
+본실험을 시작했지만, IMPRESS baseline을 공개 구현으로 다시 정하기로 하면서 5,956 / 25,000장(71,472 / 300,000요청)에서
+이미지 경계로 중단했다. 부분 결과는 표로 내지 않는다(42절이 대체한다).
+
+두 계약의 pilot 40장(본조건 4 arm, followup 80건/arm, 공식 VQA score)은 같은 정답률을 냈다:
+ReComp 47.50, FullLoad 45.75, IMPRESS 47.75, Ours 44.13; TTFT 122 / 117 / 237 / 74 ms. 표본이 작아 모든 정답률 차이의 CI가 0을 포함한다.
+
+[첫 계약 보고서](results/llava15_mtvqa_impress_20261117T074736Z/report.md),
+[새 계약 pilot](results/llava15_mtvqa_impress_20261117T085444Z/pilot/report.md),
+[중단 기록](results/llava15_mtvqa_impress_20261117T085444Z/STATUS_STOPPED.json),
+[계약 1](docs/llava15_mtvqa_impress_contract.md), [계약 2](docs/llava15_mtvqa_impress_v2_contract.md).
+
+## 41. 실험 A — LLaVA-NeXT × MT-GQA, IMPRESS = 공개 구현 (2026-11-18)
+
+39절의 공개 구현 IMPRESS를 유일한 IMPRESS arm으로 두고 38절과 같은 조건(398장 / 4,061대화 × 3턴 × 4 arm,
+48,732요청, transformers 4.57.6, cold SSD, 비동기 읽기)에서 다시 쟀다. 검증 3번은 사용자 지시에 따라
+"유지 100% IMPRESS = 같은 재배치 store의 FullLoad loader"로 정했고(147/147 일치), 검증 1–7이 모두 PASS였다.
+ReComp·FullLoad·Ours의 생성 토큰은 38절 본실험과 12,183건씩 모두 같았다.
+
+| 방법 | Followup EM | TTFT 평균 | p50 | p95 | SSD MB/followup |
+|---|---:|---:|---:|---:|---:|
+| ReComp | 68.48% | 530.1 ms | 533.0 ms | 595.5 ms | 0.0 |
+| FullLoad | 68.38% | 489.5 ms | 487.6 ms | 653.9 ms | 1173.9 |
+| IMPRESS | 60.63% | 727.8 ms | 730.7 ms | 868.0 ms | 1052.2 |
+| Ours | 67.42% | 149.8 ms | 150.1 ms | 173.7 ms | 308.0 |
+
+Ours − IMPRESS +6.80 pp(CI +5.79~+7.80), Ours − FullLoad −0.96 pp(CI −1.60~−0.34),
+IMPRESS − FullLoad −7.76 pp(CI −8.73~−6.81). Ours TTFT는 FullLoad 대비 0.306×, ReComp 대비 0.283×다.
+IMPRESS는 fallback이 layer·요청 평균 53.8%(평균 Jaccard 0.338, 임계값 0.3 근처)라 K·V chunk의 84.5%를 읽고,
+읽기 호출이 124회로 FullLoad(64회)보다 많아 GPU 읽기 대기가 381.9 ms였다. 중요도 합의 98.7%가 prefix 행이다.
+공개 구현과 다른 점 15개와 그 방향은 보고서에 표로 적었다. 측정 보고이며 GO/NO-GO 판정은 없다.
+
+[보고서](results/mt_gqa_impress_code_20261117T185832Z/report.md),
+[본실험 표](results/mt_gqa_impress_code_20261117T185832Z/main/arms.csv),
+[짝지은 비교](results/mt_gqa_impress_code_20261117T185832Z/main/paired.csv),
+[IMPRESS layer별 통계](results/mt_gqa_impress_code_20261117T185832Z/main/impress_layers.csv),
+[실험 계약](docs/mt_gqa_impress_code_contract.md).
+
+## 42. 실험 B — LLaVA-1.5 × MT-VQA 25k, IMPRESS = 공개 구현 (2026-11-19)
+
+41절과 같은 IMPRESS 코드로 LLaVA-1.5-7B × MT-VQA-v2-reconstructed-25k를 쟀다.
+25,000장 × 3턴 × 4 arm = 300,000요청, 35.3시간, 검증 1–8 모두 PASS. 공식 ten-answer VQA score다.
+
+| 방법 | Followup score | TTFT 평균 | p50 | p95 | SSD MB/followup |
+|---|---:|---:|---:|---:|---:|
+| ReComp | 48.61 | 122.6 ms | 133.0 ms | 135.9 ms | 0.00 |
+| FullLoad | 48.59 | 118.4 ms | 117.8 ms | 129.0 ms | 301.99 |
+| IMPRESS | 48.11 | 240.6 ms | 237.8 ms | 268.4 ms | 263.35 |
+| Ours | 47.21 | 74.7 ms | 73.9 ms | 81.2 ms | 75.50 |
+
+Ours − IMPRESS −0.91 pp(CI −1.09~−0.72), Ours − FullLoad −1.38 pp(CI −1.55~−1.21),
+IMPRESS − FullLoad −0.47 pp(CI −0.62~−0.33). Ours TTFT는 FullLoad 대비 0.631×, ReComp 대비 0.610×다.
+IMPRESS fallback 47.96%, 평균 Jaccard 0.342.
+
+[보고서](results/llava15_mtvqa_impress_code_20261118T053221Z/report.md),
+[실험 계약](docs/llava15_mtvqa_impress_code_contract.md).
+
+## 43. Ours: 중요도 순 재배열을 빼도 되는가 (2026-11-20)
+
+Ours는 이미지 토큰을 VisionZip 점수 내림차순으로 재배열해 저장하고 GPU cache에도 그 순서로 올린다
+(layer l은 저장 행 [0, k_l)). 지금은 25%만 저장하고 전부 읽으므로 저장 순서가 읽기량을 바꾸지 않는다.
+packed store에 `row_order="original"` 옵션을 추가했다(기본값은 기존 재배열 그대로).
+layer별 토큰 집합과 k_l은 같고, 그 집합을 원래 이미지 토큰 순서로 저장해 GPU cache의 원래 위치에 올리며
+나머지 위치는 mask로 가린다. 파일 구성·비동기 읽기 순서·읽기 호출 수는 같고, 메타데이터에는 중요도 순열 대신
+layer별 원래 인덱스를 복원하는 표만 둔다.
+
+41절과 같은 조건(398장, ReComp / FullLoad / Ours(재배열) / Ours(원래 순서), 48,732요청)에서 쟀다.
+gate(4장 → DEV 40장): 두 store의 같은 토큰 K·V 행이 비트 단위로 같음(DEV 1,397,760행 중 차이 0),
+원래 순서의 동기 = 비동기, 두 번 실행 시 토큰 동일, ReComp·FullLoad·Ours(재배열)의 토큰이 41절 실행과 같음,
+기존 테스트 통과가 모두 PASS였다. "질문 무관" gate는 layer별 인덱스 표·행 수·배치가 질문과 무관한지로 판정했다
+(사용자 결정). T1에서 캡처되는 Visual KV 값 자체는 프롬프트의 토큰 길이에 따라 달라지며, 이는 두 방식 모두 같다.
+
+| 방법 | Followup EM | TTFT 평균 | p50 | p95 | SSD MB/followup | 읽기 호출 수 |
+|---|---:|---:|---:|---:|---:|---:|
+| ReComp | 68.48% | 529.4 ms | 532.6 ms | 592.6 ms | 0.0 | 0 |
+| FullLoad | 68.38% | 487.4 ms | 492.0 ms | 578.6 ms | 1173.9 | 64 |
+| Ours(재배열) | 67.42% | 148.3 ms | 149.0 ms | 169.6 ms | 308.0 | 33 |
+| Ours(원래 순서) | 67.54% | 148.2 ms | 148.7 ms | 170.7 ms | 308.0 | 33 |
+
+실행 전에 고정한 판정은 **"빼도 됨"**이다. (a) 정답률 차이(원래 순서 − 재배열) +0.12 pp, 95% CI −0.07~+0.33으로
+하한이 −0.5 pp보다 크다(차이 자체는 미입증). (b) TTFT 평균 비율 0.999 ≤ 1.02. (c) followup 8,122쌍 모두
+읽기 바이트와 읽기 호출 수가 같다. 두 방식의 생성 토큰이 다른 요청은 T2 41건, T3 40건이다.
+T1 저장에서는 행 골라내기가 60.4 → 13.4 ms, 메타데이터가 102 KB → 46 KB로 줄었다.
+두 Ours의 arm 순서는 블록마다 자리를 맞바꿔 직전 arm 구성을 같게 했다.
+25%보다 많이 저장하고 일부만 읽는 구성(재배열은 구간 앞부분만 읽을 수 있다)은 재지 않았다.
+
+[보고서](results/mt_gqa_ours_order_20261120T052725Z/report.md),
+[판정](results/mt_gqa_ours_order_20261120T052725Z/verdict.json),
+[실험 계약](docs/mt_gqa_ours_order_contract.md).
+
+## 44. 실험 A 표의 Ours 행 교체 (2026-11-21)
+
+41절 표에서 Ours 행만 43절의 Ours(원래 순서)로 바꾼 표다. ReComp·FullLoad·IMPRESS는 41절 값 그대로다.
+43절 실행의 ReComp·FullLoad·Ours(재배열) 토큰이 41절과 모두 같았으므로 정답률과 정답률 차이는 정확하다.
+TTFT는 Ours만 11/20, 나머지는 11/17에 잰 값이다(같은 실행 비율은 FullLoad 대비 0.304×, ReComp 대비 0.280×).
+
+| 방법 | Followup EM | TTFT 평균 | 비교 (정답률, 95% CI) |
+|---|---:|---:|---|
+| ReComp | 68.48% | 530.1 ms | |
+| FullLoad | 68.38% | 489.5 ms | |
+| IMPRESS | 60.63% | 727.8 ms | |
+| Ours | 67.54% | 148.2 ms | − IMPRESS +6.92 pp [+5.95, +7.90]; − FullLoad −0.84 [−1.45, −0.23]; − ReComp −0.94 [−1.55, −0.33] |
+
+[보고서](results/mt_gqa_impress_code_ours_original_update/report.md) (`scripts/205_report_mt_gqa_ours_swap.py`).
