@@ -1411,3 +1411,34 @@ TTFT는 Ours만 11/20, 나머지는 11/17에 잰 값이다(같은 실행 비율�
 | Ours | 67.54% | 148.2 ms | − IMPRESS +6.92 pp [+5.95, +7.90]; − FullLoad −0.84 [−1.45, −0.23]; − ReComp −0.94 [−1.55, −0.33] |
 
 [보고서](results/mt_gqa_impress_code_ours_original_update/report.md) (`scripts/205_report_mt_gqa_ours_swap.py`).
+
+## 45. LLaVA-1.5 × MT-GQA 본실험: ReComp / FullLoad / IMPRESS / Ours (2026-11-21)
+
+43절의 원래 순서 저장(`row_order="original"`)을 LLaVA-1.5 경로(`mmimpress/llava15/store.py`, `serve.py`)에 옮겼다.
+기본값은 기존 재배열 그대로이고, 원래 순서는 옵션이다. 새 store 형식은 layer별 토큰 집합과 k_l(PYR-b20, 합계 4,608행)이
+재배열 store와 같고, 원래 이미지 토큰 순서로 저장해 GPU cache의 원래 위치에 올린다. IMPRESS는 11/18 실행(42절)의 구현과
+설정을 그대로 썼다. 398장, followup T2–T3, 48,732요청을 한 실행에서 쟀다. 측정 보고이며 판정은 두지 않는다.
+
+gate(4장 → DEV 40장): Ours store의 K·V 행이 재배열 store의 같은 토큰 행과 비트 단위로 같음, 질문 무관,
+Ours 동기 = 비동기, 반복 실행 동일, IMPRESS r100 = FullLoad, ReComp 토큰이 11/12 실행과 같음, 기존 테스트 새 실패 없음이
+모두 PASS였다. 본실험은 중단 없이 2.6시간 걸렸다. T1 생성 토큰은 4,061개 대화 모두 네 방법에서 같고,
+ReComp 토큰은 11/12 실행과 12,183/12,183 일치했다.
+
+| 방법 | Followup EM | TTFT 평균 | p50 | p95 | SSD MB/followup | 읽기 호출 수 |
+|---|---:|---:|---:|---:|---:|---:|
+| ReComp | 65.28% | 126.1 ms | 134.5 ms | 136.7 ms | 0.0 | 0 |
+| FullLoad | 65.37% | 116.1 ms | 115.4 ms | 123.2 ms | 302.0 | 64 |
+| IMPRESS | 64.52% | 244.8 ms | 243.8 ms | 260.9 ms | 267.6 | 99 |
+| Ours | 63.46% | 74.0 ms | 73.5 ms | 79.7 ms | 75.5 | 32 |
+
+짝지은 정답률 차이(이미지 단위 bootstrap 95% CI): Ours − IMPRESS −1.06 pp [−1.80, −0.34],
+Ours − FullLoad −1.91 [−2.65, −1.18], Ours − ReComp −1.82 [−2.55, −1.12], IMPRESS − FullLoad −0.85 [−1.45, −0.26],
+FullLoad − ReComp +0.09 [−0.18, +0.36]. TTFT 비율은 Ours/FullLoad 0.637×, Ours/ReComp 0.587×, Ours/IMPRESS 0.302×,
+IMPRESS/FullLoad 2.109×다. IMPRESS는 fallback 51.5%, 평균 Jaccard 0.337, K·V chunk 읽기 비율 83.9%였다.
+T1 저장은 이미지당 FullLoad 318.8 MB / 290 ms, IMPRESS 319.2 MB / 533 ms(재배치 포함), Ours 78.1 MB / 117 ms다.
+DEV 40장 참고값: Ours − Ours(재배열) +0.66 pp [0.00, +1.34], TTFT 비율 1.005×, 읽기 바이트·호출 수 차이 없음.
+
+[보고서](results/llava15_mt_gqa_main_20261120T165001Z/report.md),
+[실험 계약](docs/llava15_mt_gqa_main_contract.md),
+코드 `scripts/206_eval_llava15_mt_gqa_main.py`(실행), `207`(gate), `208`(보고서), `scripts/run_llava15_mt_gqa_main.sh`(드라이버),
+테스트 `tests/test_llava15_original_order.py`.

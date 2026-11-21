@@ -22,6 +22,19 @@ Differences from the LLaVA-NeXT packed store, all forced by the model:
   contract constant ``[0.0, 1.0]`` and any other value fails closed.
 
 Contract: docs/llava15_mt_gqa_contract.md.
+
+``row_order="original"`` (option; the default ``"importance"`` is the layout
+above, unchanged; LLaVA-1.5 counterpart of the option of
+``mmimpress.packed_store``): layer ``l`` stores the SAME token set -- the first
+``k_l`` entries of the VisionZip order, ties included -- but its rows are
+written in ascending original image-token index.  File structure, byte table
+and total bytes are identical; only the row order inside each layer block
+differs.  The metadata then carries no importance permutation, only what is
+needed to recover each layer's original indices (``stored_original_indices`` +
+``stored_min_keep_count``; ``mmimpress.packed_store.original_order_plan`` /
+``layer_original_indices``, imported unchanged), and no ``visionzip_layout.pt``
+is written.  Store format ``llava15_prefixstore_ratio_packed_original_v1``.
+Contract: docs/llava15_mt_gqa_main_contract.md.
 """
 from __future__ import annotations
 
@@ -41,7 +54,8 @@ from mmimpress import layer_budget as LB
 from mmimpress.cvpr25 import permutation_sha256, visionzip_repack_order
 from mmimpress.llava15 import MODEL_ID, N_VISUAL, NUM_LAYERS, R_MAX, R_MIN
 from mmimpress.model import cache_layers
-from mmimpress.packed_store import PACKED_NAME, packed_layout
+from mmimpress.packed_store import (IMPORTANCE_ORDER_KEYS, ORIGINAL_LAYOUT, PACKED_NAME, ROW_ORDER_IMPORTANCE, ROW_ORDER_ORIGINAL,
+                                    ROW_ORDERS, layer_original_indices, original_order_plan, packed_layout)
 from mmimpress.store import META_NAME
 
 STORE_FORMAT = "llava15_prefixstore_ratio_packed_v1"
@@ -50,6 +64,9 @@ STORAGE_POLICY = "prefix_ratio_packed"
 BUDGET_SCHEMA = "llava15_layer_budget_v1"
 ROUNDING = "hamilton_largest_remainder_total_ceil_ratio_times_original_content"
 LAYOUT_POLICY = "visionzip_image_only"
+ORIGINAL_STORE_FORMAT = "llava15_prefixstore_ratio_packed_original_v1"      # row_order="original"
+ORIGINAL_META_FORMAT = "llava15_fp16_original_order_prefix_ratio_packed_v1"
+SEPARATOR_POLICY = "none_llava15_has_no_separator"
 SALIENCY_SOURCE = "turn1_vision_penultimate_cls_to_patch_attention_head_sum"
 
 
@@ -113,8 +130,15 @@ def uniform_equivalent(doc: Mapping[str, Any], n_content: int) -> int:
 # ------------------------------------------------------------------ writer
 def write_llava15_packed_store(out_dir: Path, layers, v_start: int, v_num: int, prefix_input_ids, order, *,
                                budget: Mapping[str, Any], extra: Mapping[str, Any] | None = None,
-                               timing_out: dict | None = None) -> dict:
-    """Write one packed LLaVA-1.5 image prefix; returns the meta dict."""
+                               timing_out: dict | None = None, row_order: str = ROW_ORDER_IMPORTANCE) -> dict:
+    """Write one packed LLaVA-1.5 image prefix; returns the meta dict.
+
+    ``row_order="original"`` writes the same per-layer token sets in ascending
+    original token index (see the module docstring); the default is the
+    importance order."""
+    if row_order not in ROW_ORDERS:
+        raise ValueError(f"row_order must be one of {ROW_ORDERS}, got {row_order!r}")
+    original_rows = row_order == ROW_ORDER_ORIGINAL
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     ratios = validate_budget(budget)
@@ -136,6 +160,13 @@ def write_llava15_packed_store(out_dir: Path, layers, v_start: int, v_num: int, 
     inverse = [0] * v_num
     for stored, original in enumerate(order):
         inverse[original] = stored
+    row_plan_s = 0.0
+    if original_rows:
+        # same token sets as order[:k_l]; rows ascending in the original index
+        t0 = time.perf_counter()
+        union_idx, min_keep, per_layer = original_order_plan(order, rows_per_layer)
+        layer_rows = [torch.tensor(x, dtype=torch.long) for x in per_layer]
+        row_plan_s = time.perf_counter() - t0
     row_bytes = H * hd * 2
     table, sep_offset, sep_bytes, total_bytes = packed_layout(rows_per_layer, row_bytes, L, 0)
     assert sep_bytes == 0 and sep_offset == total_bytes
@@ -159,12 +190,20 @@ def write_llava15_packed_store(out_dir: Path, layers, v_start: int, v_num: int, 
                 block = t[0, :, v_start:prefix_len].permute(1, 0, 2).to(td).contiguous().cpu()
                 assert block.shape == (v_num, H, hd), block.shape
                 materialize_s += time.perf_counter() - t0
-                t0 = time.perf_counter()
-                block = block.index_select(0, perm).contiguous()
-                repack_s += time.perf_counter() - t0
-                t0 = time.perf_counter()
-                buf = block[:rows_per_layer[li]].numpy().tobytes()
-                serialize_s += time.perf_counter() - t0
+                if original_rows:
+                    t0 = time.perf_counter()
+                    rows = block.index_select(0, layer_rows[li]).contiguous()
+                    repack_s += time.perf_counter() - t0
+                    t0 = time.perf_counter()
+                    buf = rows.numpy().tobytes()
+                    serialize_s += time.perf_counter() - t0
+                else:
+                    t0 = time.perf_counter()
+                    block = block.index_select(0, perm).contiguous()
+                    repack_s += time.perf_counter() - t0
+                    t0 = time.perf_counter()
+                    buf = block[:rows_per_layer[li]].numpy().tobytes()
+                    serialize_s += time.perf_counter() - t0
                 assert written == table[li]["k_offset" if kind == "k" else "v_offset"], (li, kind, written)
                 t0 = time.perf_counter()
                 f.write(buf)
@@ -178,6 +217,8 @@ def write_llava15_packed_store(out_dir: Path, layers, v_start: int, v_num: int, 
     max_rows = max(rows_per_layer)
     timing = {"kv_materialize_ms": materialize_s * 1e3, "kv_repack_ms": repack_s * 1e3, "ssd_write_ms": write_s * 1e3,
               "prefix_slice_serialization_ms": serialize_s * 1e3, "packed_sha256_ms": hash_s * 1e3}
+    if original_rows:
+        timing["row_plan_ms"] = row_plan_s * 1e3
     meta = {
         "v_token_start": v_start, "v_token_num": v_num, "prefix_len": prefix_len,
         "num_layers": L, "num_heads": H, "head_dim": hd, "probe_heads": 0, "dtype": "float16",
@@ -216,6 +257,21 @@ def write_llava15_packed_store(out_dir: Path, layers, v_start: int, v_num: int, 
         if reserved:
             raise ValueError("extra metadata cannot override writer fields: " + ", ".join(sorted(reserved)))
         meta.update(extra)
+    if original_rows:
+        # after ``extra`` so that nothing describing the importance permutation survives
+        for key in IMPORTANCE_ORDER_KEYS:
+            meta.pop(key, None)
+        meta.update({
+            "row_order": ROW_ORDER_ORIGINAL, "reordered": False,
+            "format": ORIGINAL_META_FORMAT, "store_format": ORIGINAL_STORE_FORMAT,
+            "physical_layout": ORIGINAL_LAYOUT, "layout_method": ORIGINAL_LAYOUT, "global_order_all_layers": False,
+            "layout": "packed: one kv_packed.bin = [L0 K rows][L0 V][L1 K][L1 V]...[L31 V]; no separator sidecar; each block "
+                      "token-major (rows, num_heads, head_dim) fp16; layer l holds its k_l tokens in ascending original "
+                      "image-token index",
+            "stored_original_indices": list(union_idx), "stored_min_keep_count": list(min_keep),
+            "row_semantics": "layer l stores, in this order, every stored_original_indices[j] with "
+                             "stored_min_keep_count[j] <= layer_keep_counts[l]",
+        })
     t0 = time.perf_counter()
     with open(out_dir / META_NAME, "w") as f:
         json.dump(meta, f, indent=1)
@@ -240,6 +296,8 @@ def meta_budget(m: Mapping[str, Any]) -> dict:
 
 def validate_llava15_packed_meta(m: Mapping[str, Any], expected_budget: Mapping[str, Any] | None = None) -> None:
     """Fail-closed check of geometry, vector, counts, mapping and byte table."""
+    if m.get("store_format") == ORIGINAL_STORE_FORMAT or m.get("row_order", ROW_ORDER_IMPORTANCE) != ROW_ORDER_IMPORTANCE:
+        return validate_llava15_packed_original_meta(m, expected_budget)
     if (m.get("format") != META_FORMAT or m.get("storage_policy") != STORAGE_POLICY
             or m.get("store_format") != STORE_FORMAT or m.get("packed_file") != PACKED_NAME
             or m.get("probe_heads") != 0 or m.get("bytes_probe_sidecar") != 0
@@ -280,12 +338,73 @@ def validate_llava15_packed_meta(m: Mapping[str, Any], expected_budget: Mapping[
             or m.get("bytes_visual_kv") != total
             or not isinstance(m.get("packed_sha256"), str) or len(m["packed_sha256"]) != 64):
         raise ValueError("packed byte table disagrees with the row counts")
+    _check_expected_budget(m, ratios, total_ratio, expected_budget)
+
+
+def _check_expected_budget(m, ratios, total_ratio, expected_budget):
     if expected_budget is not None:
         exp = validate_budget(expected_budget)
         if (m["layer_budget_sha256"] != expected_budget["layer_budget_sha256"] or ratios != exp
                 or m["layer_budget_id"] != expected_budget["alloc_id"]
                 or total_ratio != float(expected_budget["total_ratio"])):
             raise ValueError("store was built for a different budget vector")
+
+
+def validate_llava15_packed_original_meta(m: Mapping[str, Any], expected_budget: Mapping[str, Any] | None = None) -> None:
+    """Fail-closed check of an original-order LLaVA-1.5 packed store: format,
+    geometry, budget vector, counts, byte table, and the per-layer index table
+    (ascending, in range, nested, exact counts).  No importance permutation may
+    be present."""
+    if (m.get("format") != ORIGINAL_META_FORMAT or m.get("storage_policy") != STORAGE_POLICY
+            or m.get("store_format") != ORIGINAL_STORE_FORMAT or m.get("packed_file") != PACKED_NAME
+            or m.get("row_order") != ROW_ORDER_ORIGINAL or m.get("reordered") is not False
+            or m.get("physical_layout") != ORIGINAL_LAYOUT
+            or m.get("probe_heads") != 0 or m.get("bytes_probe_sidecar") != 0
+            or m.get("dtype") != "float16" or "payload_rows" in m
+            or m.get("budget_schema") != BUDGET_SCHEMA or m.get("budget_policy") != LB.POLICY):
+        raise ValueError("invalid original-order LLaVA-1.5 packed store format")
+    present = [key for key in IMPORTANCE_ORDER_KEYS if key in m]
+    if present:
+        raise ValueError("original-order store carries importance-order metadata: " + ", ".join(present))
+    vn, L = int(m["v_token_num"]), int(m["num_layers"])
+    if (vn != N_VISUAL or L != NUM_LAYERS or m.get("newline_idx") != []
+            or int(m.get("n_spatial", -1)) != vn or m.get("original_content_count") != vn
+            or int(m["prefix_len"]) != int(m["v_token_start"]) + vn
+            or int(m["num_heads"]) != 32 or int(m["head_dim"]) != 128):
+        raise ValueError("invalid LLaVA-1.5 visual geometry (576 contiguous tokens, no separator)")
+    try:
+        doc = meta_budget(m)
+        ratios = validate_budget(doc)
+        counts = keep_counts(doc, vn)
+    except (TypeError, ValueError, KeyError) as exc:
+        raise ValueError(f"invalid layer budget in store metadata: {exc}") from exc
+    total_ratio = float(doc["total_ratio"])
+    if (m.get("layer_keep_counts") != counts or m.get("payload_rows_per_layer") != counts
+            or m.get("stored_content_count_per_layer") != counts
+            or m.get("stored_content_count_total") != sum(counts)
+            or sum(counts) != L * math.ceil(total_ratio * vn)
+            or m.get("uniform_equivalent_content_count") != math.ceil(total_ratio * vn)
+            or m.get("retention_ratio") != total_ratio or m.get("rounding_policy") != ROUNDING
+            or m.get("padding_rows") != 0):
+        raise ValueError("layer keep counts disagree with the ratio vector")
+    indices = m.get("stored_original_indices")
+    min_keep = m.get("stored_min_keep_count")
+    if (not isinstance(indices, list) or not isinstance(min_keep, list) or len(indices) != len(min_keep)
+            or len(indices) != max(counts) or indices != sorted(set(int(i) for i in indices))
+            or any(not 0 <= int(i) < vn for i in indices)
+            or any(int(t) not in set(counts) for t in min_keep)):
+        raise ValueError("invalid original-order index table")
+    if [len(x) for x in layer_original_indices(m)] != counts:
+        raise ValueError("original-order index table disagrees with the row counts")
+    row_bytes = int(m["num_heads"]) * int(m["head_dim"]) * 2
+    table, sep_offset, sep_bytes, total = packed_layout(counts, row_bytes, L, 0)
+    if (m.get("packed_row_bytes") != row_bytes or m.get("packed_layout") != table
+            or m.get("packed_sep_offset") != sep_offset or m.get("packed_sep_bytes") != 0
+            or m.get("packed_total_bytes") != total or m.get("bytes_separator_sidecar") != 0
+            or m.get("bytes_visual_kv") != total
+            or not isinstance(m.get("packed_sha256"), str) or len(m["packed_sha256"]) != 64):
+        raise ValueError("packed byte table disagrees with the row counts")
+    _check_expected_budget(m, ratios, total_ratio, expected_budget)
 
 
 # ------------------------------------------------------------- persistence
@@ -314,15 +433,24 @@ def token_scores_from_capture(per_crop_scores) -> torch.Tensor:
 @torch.no_grad()
 def persist_captured_llava15_prefix(runner, captured_past_key_values, expanded_input_ids, per_crop_scores, out_dir, *,
                                     budget: Mapping[str, Any], image_id, capture_stats, image_input_sha256=None,
-                                    extra_metadata: Mapping[str, Any] | None = None) -> dict:
+                                    extra_metadata: Mapping[str, Any] | None = None,
+                                    row_order: str = ROW_ORDER_IMPORTANCE) -> dict:
     """Turn-1 piggyback persistence (LLaVA-1.5 counterpart of
     ``mmimpress.piggyback.persist_captured_visual_prefix`` + packed writer).
 
     Never calls the model or the vision tower.  Same capture-provenance
     requirements, staging directory, fsync order, ``RENAME_NOREPLACE``
     publication and receipt layout as the LLaVA-NeXT flow.
+
+    ``row_order="original"`` publishes an original-order store through the same
+    flow (same staging, fsync and publication steps) without the importance
+    artifact ``visionzip_layout.pt``; the question, the decoder state and
+    calibration scores are not inputs of either order.
     """
     from mmimpress import piggyback as pb
+    if row_order not in ROW_ORDERS:
+        raise ValueError(f"row_order must be one of {ROW_ORDERS}, got {row_order!r}")
+    original_rows = row_order == ROW_ORDER_ORIGINAL
     persist_t0 = time.perf_counter()
     destination = Path(out_dir)
     if destination.name in ("", ".", ".."):
@@ -376,15 +504,22 @@ def persist_captured_llava15_prefix(runner, captured_past_key_values, expanded_i
         "separate_vision_forward": False, "separate_prefix_forward": False, "composed_from_store": False,
         "layout_uses_dataset_question": False, "llm_used_for_layout_scoring": False, "calibration_questions": 0,
         "turn1_question_present_in_source_forward": True, "visual_prefix_causally_precedes_question": True,
-        "global_order_all_layers": True, "separator_policy": "none_llava15_has_no_separator", "separator_tail": False,
+        "global_order_all_layers": True, "separator_policy": SEPARATOR_POLICY, "separator_tail": False,
         "probe_heads_required_for_serving": 0,
         "permutation_sha256": permutation_sha256(order), "inverse_permutation_sha256": permutation_sha256(inverse),
         "turn1_capture": capture_document, "capture_provenance_validated": True,
     }
+    if original_rows:
+        # the writer records the per-layer original indices; nothing about the importance permutation is kept
+        del invariant["permutation_sha256"]
+        del invariant["inverse_permutation_sha256"]
+        invariant.update({"physical_layout": ORIGINAL_LAYOUT, "layout_method": ORIGINAL_LAYOUT, "global_order_all_layers": False})
     if image_input_sha256 is not None:
         invariant["image_input_sha256"] = str(image_input_sha256)
     if extra_metadata:
         conflicts = set(extra_metadata) & set(invariant)
+        if original_rows:
+            conflicts |= set(extra_metadata) & set(IMPORTANCE_ORDER_KEYS)
         if conflicts:
             raise ValueError("extra_metadata cannot override invariants: " + ", ".join(sorted(conflicts)))
         invariant.update(dict(extra_metadata))
@@ -394,7 +529,8 @@ def persist_captured_llava15_prefix(runner, captured_past_key_values, expanded_i
     try:
         writer_timing: dict[str, float] = {}
         meta = write_llava15_packed_store(staging, layers, int(v_start), int(v_num), ids[:prefix_len].detach().cpu().tolist(),
-                                          order, budget=budget, extra=invariant, timing_out=writer_timing)
+                                          order, budget=budget, extra=invariant, timing_out=writer_timing,
+                                          **({"row_order": row_order} if original_rows else {}))
         layout_artifact = {
             "schema_version": 2, "image_id": str(image_id), "importance_source": SALIENCY_SOURCE,
             "capture_source": "same_turn1_normal_inference", "token_score_original": token_scores,
@@ -404,9 +540,11 @@ def persist_captured_llava15_prefix(runner, captured_past_key_values, expanded_i
             "layout_uses_dataset_question": False, "llm_used_for_layout_scoring": False, "calibration_questions": 0,
             "separate_vision_forward": False, "separate_prefix_forward": False, "image_input_sha256": image_input_sha256,
         }
-        t0 = time.perf_counter()
-        torch.save(layout_artifact, staging / "visionzip_layout.pt")
-        layout_write_ms = (time.perf_counter() - t0) * 1e3
+        layout_write_ms = 0.0
+        if not original_rows:
+            t0 = time.perf_counter()
+            torch.save(layout_artifact, staging / "visionzip_layout.pt")
+            layout_write_ms = (time.perf_counter() - t0) * 1e3
         file_sizes = pb._store_file_sizes(staging)
         file_fsync_ms, directory_fsync_ms, synced_files, synced_dirs = pb._fsync_staging_tree(staging)
         t0 = time.perf_counter()
@@ -421,7 +559,8 @@ def persist_captured_llava15_prefix(runner, captured_past_key_values, expanded_i
 
         t0 = time.perf_counter()
         sample_hash = pb._sampled_store_sha256(destination, file_sizes)
-        small_hashes = {rel: pb.sha256_file(destination / rel) for rel in ("meta.json", "visionzip_layout.pt")}
+        small_hashes = {rel: pb.sha256_file(destination / rel)
+                        for rel in (("meta.json",) if original_rows else ("meta.json", "visionzip_layout.pt"))}
         hash_ms = (time.perf_counter() - t0) * 1e3
         total = int(sum(file_sizes.values()))
         known = (int(file_sizes.get("sys_kv.pt", 0)) + int(file_sizes.get("visionzip_layout.pt", 0))
@@ -440,6 +579,12 @@ def persist_captured_llava15_prefix(runner, captured_past_key_values, expanded_i
             "durability_ms": float(durability_ms), "persist_ms": float(persist_ms),
             "helper_total_ms": (time.perf_counter() - persist_t0) * 1e3,
         }
+        if original_rows:
+            timing_ms["row_plan_ms"] = float(writer_timing["row_plan_ms"])
+            order_hashes = {}
+        else:
+            order_hashes = {"permutation_sha256": meta["permutation_sha256"],
+                            "inverse_permutation_sha256": meta["inverse_permutation_sha256"]}
         return {
             "store_dir": str(destination.resolve()), "image_id": str(image_id), "meta": meta, "timing_ms": timing_ms,
             "bytes": {"visual_kv": int(meta["bytes_visual_kv"]), "probe_sidecar": 0, "separator_sidecar": 0,
@@ -448,8 +593,7 @@ def persist_captured_llava15_prefix(runner, captured_past_key_values, expanded_i
                       "meta": int(file_sizes.get("meta.json", 0)), "other": total - known, "total": total},
             "file_sizes": file_sizes,
             "hashes": {"files_sha256": small_hashes, "prefix_kv_sample_sha256": sample_hash,
-                       "packed_sha256": meta["packed_sha256"], "permutation_sha256": meta["permutation_sha256"],
-                       "inverse_permutation_sha256": meta["inverse_permutation_sha256"]},
+                       "packed_sha256": meta["packed_sha256"], **order_hashes},
             "durability": {"same_filesystem_staging": True, "atomic_no_clobber": True, "files_fsynced": int(synced_files),
                            "directories_fsynced_before_rename": int(synced_dirs), "parent_fsynced_after_rename": True},
         }

@@ -1,0 +1,24 @@
+{
+  "deletion_scope": "runs/<RUN>/scratch only (exact SHA allowlist after audit+commit; the stores of an interrupted image that cannot be verified on resume; the question-independence stores after their comparison); existing stores never deleted",
+  "expected_ssd_write_bytes": {
+    "dev": 44423249920,
+    "devgate": 28580904960,
+    "gate": 4442324992,
+    "main": 411128676352,
+    "question_independence": 20484980736,
+    "total": 509060136960
+  },
+  "expected_ssd_write_note": "per image: FullLoad store + IMPRESS store (written, then rewritten in the reordered layout) + packed store(s); devgate has no raster FullLoad store; six packed stores per gate/DEV image for the question-independence check; raw rows and evidence not included",
+  "free_bytes_at_freeze": 447577694208,
+  "full_store_bytes": 318464000,
+  "largest_image_bundle_bound_bytes": 2147483648,
+  "maximum_new_payload_bytes": 21474836480,
+  "minimum_reserve_bytes": 32212254720,
+  "packed_store_bytes": 77594624,
+  "peak_working_set_bytes": 4294967296,
+  "per_image_bundle_bytes": 796835840,
+  "policy": "FRESH_IMAGE_STREAMING (image-major): one live image; stores built from the arms' own T1 of the image's first dialogue -> served -> audited -> committed -> run-local scratch deleted by exact SHA256 allowlist",
+  "raw_and_evidence_growth_bound_bytes": 17179869184,
+  "required_free_bytes": 53687091200,
+  "status": "PASS"
+}

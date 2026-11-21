@@ -1,0 +1,16 @@
+{
+ "written_before_any_gpu_measurement_unix": 1795193446.5062199,
+ "free_bytes_at_freeze": 447577694208,
+ "free_gib_at_freeze": 416.8392105102539,
+ "required_free_bytes": 53687091200,
+ "expected_ssd_write_bytes": {
+  "dev": 44423249920,
+  "devgate": 28580904960,
+  "gate": 4442324992,
+  "main": 411128676352,
+  "question_independence": 20484980736,
+  "total": 509060136960
+ },
+ "expected_ssd_write_note": "per image: FullLoad store + IMPRESS store (written, then rewritten in the reordered layout) + packed store(s); devgate has no raster FullLoad store; six packed stores per gate/DEV image for the question-independence check; raw rows and evidence not included",
+ "per_image_bundle_bytes": 796835840
+}

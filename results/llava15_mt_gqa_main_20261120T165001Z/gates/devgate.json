@@ -1,0 +1,119 @@
+{
+ "status": "PASS",
+ "failed": [],
+ "image_count": 40,
+ "execution": {
+  "status": "PASS",
+  "requests": 7938,
+  "expected_requests": 7938,
+  "images": 40,
+  "independent_image_audit": "PASS",
+  "config_sha256": "de3d3afa2f1c485089b841a6890456d5b097339ba0f7993143b1f553acd94dd9",
+  "expected": 7938,
+  "criterion": "every image of the phase committed after its independent audit passed, for this freeze"
+ },
+ "gate3_ours_sync_equals_async": {
+  "arms": [
+   "llava15_kv_PYR-b20_origorder_packed",
+   "llava15_kv_PYR-b20_origorder_packed_async"
+  ],
+  "requests": 1134,
+  "tokens_differ": 0,
+  "tokens_differ_same_prompt": 0,
+  "prompt_differs": 0,
+  "fields_differ": {
+   "ssd_read_bytes": 0,
+   "packed_read_bytes": 0
+  },
+  "missing": 0,
+  "examples": [],
+  "status": "PASS",
+  "criterion": "Ours: generated tokens and bytes read identical between the synchronous and the asynchronous arm, every request"
+ },
+ "gate4_ours_repeat": {
+  "arms": [
+   "llava15_kv_PYR-b20_origorder_packed_async",
+   "llava15_kv_PYR-b20_origorder_packed_async_repeat"
+  ],
+  "requests": 1134,
+  "tokens_differ": 0,
+  "tokens_differ_same_prompt": 0,
+  "prompt_differs": 0,
+  "fields_differ": {},
+  "missing": 0,
+  "examples": [],
+  "status": "PASS",
+  "criterion": "Ours executed twice on the same requests: generated tokens identical, every request"
+ },
+ "gate5_impress": {
+  "retention_100_vs_fullload_loader_on_reordered_store": {
+   "arms": [
+    "impress_official_r100",
+    "fullload_reordered"
+   ],
+   "requests": 1134,
+   "tokens_differ": 0,
+   "tokens_differ_same_prompt": 0,
+   "prompt_differs": 0,
+   "fields_differ": {},
+   "missing": 0,
+   "examples": [],
+   "status": "PASS",
+   "criterion": "IMPRESS at 100 % retention vs the FullLoad loader reading the same reordered store: generated tokens identical, every request"
+  },
+  "sync_vs_async": {
+   "arms": [
+    "impress_official",
+    "impress_official_async"
+   ],
+   "requests": 1134,
+   "tokens_differ": 0,
+   "tokens_differ_same_prompt": 0,
+   "prompt_differs": 0,
+   "fields_differ": {
+    "ssd_read_bytes": 0,
+    "probe_read_bytes": 0,
+    "k_read_bytes": 0,
+    "v_read_bytes": 0,
+    "packed_read_bytes": 0
+   },
+   "missing": 0,
+   "examples": [],
+   "status": "PASS",
+   "criterion": "IMPRESS: generated tokens and bytes read (total and by kind) identical between the synchronous and the asynchronous arm, every request"
+  },
+  "status": "PASS"
+ },
+ "reported_turn1_identity": {
+  "criterion": "none (reported only): turn-1 generated tokens identical across all arms of the phase, per dialogue",
+  "dialogues": 378,
+  "arms": [
+   "impress_official",
+   "impress_official_async",
+   "impress_official_r100",
+   "fullload_reordered",
+   "llava15_kv_PYR-b20_origorder_packed",
+   "llava15_kv_PYR-b20_origorder_packed_async",
+   "llava15_kv_PYR-b20_origorder_packed_async_repeat"
+  ],
+  "mismatch_count": 0,
+  "mismatches": [],
+  "status": "REPORTED"
+ },
+ "reference_sync_vs_async_followup_ttft": {
+  "IMPRESS": {
+   "sync_mean_ms": 233.69767954794779,
+   "async_mean_ms": 231.32409209326383,
+   "paired_mean_difference_ms": -2.3735874546839604,
+   "requests": 756
+  },
+  "Ours": {
+   "sync_mean_ms": 84.34502915947368,
+   "async_mean_ms": 73.17531893828085,
+   "paired_mean_difference_ms": -11.169710221192824,
+   "requests": 756
+  }
+ },
+ "config_sha256": "de3d3afa2f1c485089b841a6890456d5b097339ba0f7993143b1f553acd94dd9",
+ "written_unix": 1795195371.2984886
+}

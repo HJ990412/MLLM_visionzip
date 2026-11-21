@@ -1,0 +1,5 @@
+method,followup_requests,ttft_mean_ms,prefill_mean_ms,read_wait_mean_ms,read_wait_p95_ms,hook_mean_ms,hook_minus_read_wait_mean_ms,gpu_load_mean_ms,gpu_load_source,worker_read_mean_ms,probe_wait_mean_ms
+ReComp,8122,126.06728037317485,119.49277389565255,,,,,,,,
+FullLoad,8122,116.06876130785258,112.05733643981866,5.196928411857031,11.518940422683952,80.99093166430157,75.79400325244454,75.79400325244454,layer hook time minus read wait (host FP16 -> GPU BF16 copy of every row),110.04037216922181,
+IMPRESS,8122,244.83378200840625,241.2967473511373,104.54921538688608,120.5283597111702,204.35682240537832,99.80760701849223,,not separable: the layer hook time also holds the probe scoring and the selection,,1.1284639578421798
+Ours,8122,73.95489796963092,70.04831792436755,0.5475917742311279,2.963360445573926,39.61276506447357,39.06517329024244,38.95231456307997,scatter timer of the packed selector (index write to the GPU cache + mask),26.938378284677288,

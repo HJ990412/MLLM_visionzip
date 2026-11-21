@@ -1,0 +1,38 @@
+{
+ "status": "REPORTED",
+ "execution": {
+  "status": "PASS",
+  "requests": 48732,
+  "expected_requests": 48732,
+  "images": 398,
+  "independent_image_audit": "PASS",
+  "config_sha256": "de3d3afa2f1c485089b841a6890456d5b097339ba0f7993143b1f553acd94dd9",
+  "expected": 48732,
+  "criterion": "every image of the phase committed after its independent audit passed, for this freeze"
+ },
+ "recomp_continuity_main": {
+  "criterion": "ReComp: generated tokens identical to the 2026-11-12 run's record of the same request (same dialogue, same turn)",
+  "reference": "runs/llava15_mt_gqa_20261112T062708Z/main",
+  "requests": 12183,
+  "prompt_equal": 12183,
+  "missing": 0,
+  "mismatch_count": 0,
+  "mismatches": [],
+  "status": "PASS"
+ },
+ "turn1_identity_main": {
+  "criterion": "none (reported only): turn-1 generated tokens identical across all arms of the phase, per dialogue",
+  "dialogues": 4061,
+  "arms": [
+   "recompute",
+   "fullload_async",
+   "impress_official_async",
+   "llava15_kv_PYR-b20_origorder_packed_async"
+  ],
+  "mismatch_count": 0,
+  "mismatches": [],
+  "status": "REPORTED"
+ },
+ "config_sha256": "de3d3afa2f1c485089b841a6890456d5b097339ba0f7993143b1f553acd94dd9",
+ "written_unix": 1795205876.3745708
+}

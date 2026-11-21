@@ -1,0 +1,422 @@
+{
+ "gate": "gate2_question_independent_gate",
+ "status": "PASS",
+ "criterion": "for every image, the Ours stores built from three different questions hold the same selection and layout: per-layer original-index lists, row counts, byte table, file set, the stored prefix ids, and every metadata field except the record of the capturing request and the payload digest; and the index tables equal those of the phase's committed store",
+ "reported_not_judged": "the K/V payload bytes (see payload_summary and each image's reported_payload)",
+ "inputs_of_the_store": "captured Turn-1 visual-prefix K/V, CLIP penultimate-layer CLS-to-patch attention, the frozen PYR-b20 layer budget; no question text, no decoder attention, no calibration score",
+ "payload_summary": {
+  "question_pairs": 12,
+  "equal_prompt_length_pairs": 2,
+  "equal_prompt_length_pairs_with_equal_payload": 2,
+  "different_prompt_length_pairs": 10,
+  "different_prompt_length_pairs_with_equal_payload": 0,
+  "mean_fraction_of_fp16_elements_that_differ_when_lengths_differ": 0.5478154871198866,
+  "max_abs_diff_when_lengths_differ": 0.25,
+  "pairs_where_reordered_store_agrees_with_ours_store_on_equal_or_different": 12,
+  "images_with_all_three_payloads_equal": 0,
+  "images_whose_first_question_payload_equals_committed_store": 4,
+  "images_with_equal_system_kv": 4
+ },
+ "images": [
+  {
+   "image_id": "n229548",
+   "questions": [
+    "What aircraft is military?",
+    "What aircraft is heavy?",
+    "In which part is the large helicopter, the bottom or the top?"
+   ],
+   "suffix_tokens": [
+    30,
+    30,
+    41
+   ],
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "stored_prefix_ids_equal": true,
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "fb2682b3c7ae5c4dd7c2f2fbedc86f1beb45714ddd522126ab8bc5379e092eb0",
+     "fb2682b3c7ae5c4dd7c2f2fbedc86f1beb45714ddd522126ab8bc5379e092eb0",
+     "ac8e7baeab1bf27888a48ae28e7fd19c6307169ce06abeef2474460b9221f66d"
+    ],
+    "committed_packed_sha256": "fb2682b3c7ae5c4dd7c2f2fbedc86f1beb45714ddd522126ab8bc5379e092eb0",
+    "reorder_packed_sha256": [
+     "5b34a04ff1110262bd4da36a11a22a27deacba1ad6c8a31512f8bd4f66c3732e",
+     "5b34a04ff1110262bd4da36a11a22a27deacba1ad6c8a31512f8bd4f66c3732e",
+     "75d100b7c62a1bb9a493c516ecd633825064d7c9289b1eb06aa79763d9c2b038"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       30,
+       30
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 37748736,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       30,
+       41
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 21861093,
+      "fp16_elements": 37748736,
+      "fraction_differ": 0.5791211922963461,
+      "max_abs_diff": 0.25
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       30,
+       41
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 21861093,
+      "fp16_elements": 37748736,
+      "fraction_differ": 0.5791211922963461,
+      "max_abs_diff": 0.25
+     }
+    ]
+   },
+   "payload_bytes": 75497472,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n181355",
+   "questions": [
+    "What piece of furniture is made of wood?",
+    "What piece of furniture is wooden?",
+    "How the piece of furniture that is made of wood is called?"
+   ],
+   "suffix_tokens": [
+    35,
+    33,
+    39
+   ],
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "stored_prefix_ids_equal": true,
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "58d2557abdaef9a7ca2fb71dffe35af84e808942a2185f1ad6b1fa8551e61a5a",
+     "32034bc8649a80888c7bb3a6738cf76146bdc5a022c13a68530fd4a5aea7acfc",
+     "39794def2b9f0d867d7a0926dd4c435057e80e2da36999e7b70c4e340b9d6336"
+    ],
+    "committed_packed_sha256": "58d2557abdaef9a7ca2fb71dffe35af84e808942a2185f1ad6b1fa8551e61a5a",
+    "reorder_packed_sha256": [
+     "489d08ed4f03d6c502400ac60ef5c4f5dfa681dd5dbd931001c20a289b87cc59",
+     "7007779ee253e6572ec7de20667de127f8e16f1b07c905b969c64f0f3e55bfe5",
+     "8e7c2cac52650c74a4d9a23aae043c1083f47a4636f5958b5584e2b5f0115522"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       35,
+       33
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 20622345,
+      "fp16_elements": 37748736,
+      "fraction_differ": 0.5463055769602457,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       35,
+       39
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 20709177,
+      "fp16_elements": 37748736,
+      "fraction_differ": 0.5486058394114176,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       33,
+       39
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 20961629,
+      "fp16_elements": 37748736,
+      "fraction_differ": 0.555293533537123,
+      "max_abs_diff": 0.1875
+     }
+    ]
+   },
+   "payload_bytes": 75497472,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n95369",
+   "questions": [
+    "Are there either pens or dispensers in this photograph?",
+    "What color is the shower that is in the bathroom?",
+    "How big is the bath tub?"
+   ],
+   "suffix_tokens": [
+    37,
+    38,
+    32
+   ],
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "stored_prefix_ids_equal": true,
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "ad5af887c26557e83faa14dcdc40fe7336fa597127e14118fa48ffe75921c6f1",
+     "e26817f837d55e1f6e3cbc17de75d1a2d9706277f3138e3db9d1c5d05a5a9c68",
+     "4481c96e11c232ed57aeee05a16e2dac30bb8806850cb497304136b15417fb70"
+    ],
+    "committed_packed_sha256": "ad5af887c26557e83faa14dcdc40fe7336fa597127e14118fa48ffe75921c6f1",
+    "reorder_packed_sha256": [
+     "9c19990731d8f4cf06378e3d742b6b6c6d131694f5406fe7f2bbb801b84db4a3",
+     "6ef1b5b897b23f35e807f44181085e2a5d8bf8b604497c30d6f40659dbc9abe3",
+     "c99cf118573220f1e39ab8c4aac818c74713b290043e673287b15148a5dd7805"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       37,
+       38
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 19423168,
+      "fp16_elements": 37748736,
+      "fraction_differ": 0.5145382351345487,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       37,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 20757743,
+      "fp16_elements": 37748736,
+      "fraction_differ": 0.5498923990461562,
+      "max_abs_diff": 0.1875
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       38,
+       32
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 20794288,
+      "fp16_elements": 37748736,
+      "fraction_differ": 0.5508605109320747,
+      "max_abs_diff": 0.1875
+     }
+    ]
+   },
+   "payload_bytes": 75497472,
+   "status": "PASS"
+  },
+  {
+   "image_id": "n204894",
+   "questions": [
+    "Who is wearing jeans?",
+    "Does the shirt have the same color as the chair?",
+    "Who is talking on the device that looks black and silver?"
+   ],
+   "suffix_tokens": [
+    32,
+    37,
+    37
+   ],
+   "index_tables_equal": true,
+   "row_counts_equal": true,
+   "byte_table_equal": true,
+   "metadata_equal_outside_request_records_and_payload_digest": true,
+   "metadata_keys_that_differ": [
+    "packed_sha256",
+    "packed_writer_timing_ms",
+    "source_execution_id",
+    "source_logical_request_id",
+    "turn1_capture"
+   ],
+   "stored_prefix_ids_equal": true,
+   "file_sets_equal_no_importance_artifact": true,
+   "no_question_llm_calibration_flags": true,
+   "index_tables_equal_to_committed_store": true,
+   "reported_payload": {
+    "all_three_payloads_equal": false,
+    "first_question_payload_equals_committed_store": true,
+    "system_kv_equal": true,
+    "packed_sha256": [
+     "9f0d44f32986edf87b7ff9c6f0b97c84c2e22153d0a85f93af759ee5bf0e07b6",
+     "0655e853cb1b2017145d01ef8b0755c8d237244b7b3668173a9c9c66a7e55435",
+     "0655e853cb1b2017145d01ef8b0755c8d237244b7b3668173a9c9c66a7e55435"
+    ],
+    "committed_packed_sha256": "9f0d44f32986edf87b7ff9c6f0b97c84c2e22153d0a85f93af759ee5bf0e07b6",
+    "reorder_packed_sha256": [
+     "8f89985c67bfa13e54c4c4da4a2c36e638446ffac3ef9c06b6ec8323a923aad6",
+     "67fd85f0fe45a6b20b1bd9c74abe22290d05e0bbfc4316ac49658e9514ffb5e2",
+     "67fd85f0fe45a6b20b1bd9c74abe22290d05e0bbfc4316ac49658e9514ffb5e2"
+    ],
+    "pairs": [
+     {
+      "questions": [
+       0,
+       1
+      ],
+      "suffix_tokens": [
+       32,
+       37
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 19901443,
+      "fp16_elements": 37748736,
+      "fraction_differ": 0.5272081957923042,
+      "max_abs_diff": 0.15625
+     },
+     {
+      "questions": [
+       0,
+       2
+      ],
+      "suffix_tokens": [
+       32,
+       37
+      ],
+      "equal_prompt_length": false,
+      "payload_equal": false,
+      "reorder_payload_equal": false,
+      "fp16_elements_differ": 19901443,
+      "fp16_elements": 37748736,
+      "fraction_differ": 0.5272081957923042,
+      "max_abs_diff": 0.15625
+     },
+     {
+      "questions": [
+       1,
+       2
+      ],
+      "suffix_tokens": [
+       37,
+       37
+      ],
+      "equal_prompt_length": true,
+      "payload_equal": true,
+      "reorder_payload_equal": true,
+      "fp16_elements_differ": 0,
+      "fp16_elements": 37748736,
+      "fraction_differ": 0.0,
+      "max_abs_diff": 0.0
+     }
+    ]
+   },
+   "payload_bytes": 75497472,
+   "status": "PASS"
+  }
+ ],
+ "image_count": 4,
+ "pass_count": 4,
+ "config_sha256": "de3d3afa2f1c485089b841a6890456d5b097339ba0f7993143b1f553acd94dd9",
+ "written_unix": 1795193815.408211
+}

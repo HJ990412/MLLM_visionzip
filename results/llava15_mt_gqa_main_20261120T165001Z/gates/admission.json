@@ -1,0 +1,44 @@
+{
+ "status": "PASS",
+ "steps": {
+  "tests": {
+   "status": "PASS",
+   "bound_to_this_freeze": true,
+   "ok": true,
+   "failed": null
+  },
+  "gate": {
+   "status": "PASS",
+   "bound_to_this_freeze": true,
+   "ok": true,
+   "failed": []
+  },
+  "qindep_gate": {
+   "status": "PASS",
+   "bound_to_this_freeze": true,
+   "ok": true,
+   "failed": null
+  },
+  "devgate": {
+   "status": "PASS",
+   "bound_to_this_freeze": true,
+   "ok": true,
+   "failed": []
+  },
+  "qindep_devgate": {
+   "status": "PASS",
+   "bound_to_this_freeze": true,
+   "ok": true,
+   "failed": null
+  },
+  "dev": {
+   "status": "PASS",
+   "bound_to_this_freeze": true,
+   "ok": true,
+   "failed": []
+  }
+ },
+ "rule": "the main phase starts only if gates 1-7 are PASS on the 4 gate images and on the 40 DEV images and the DEV pilot (gate 8) was executed; otherwise the driver records the failure and stops",
+ "config_sha256": "de3d3afa2f1c485089b841a6890456d5b097339ba0f7993143b1f553acd94dd9",
+ "written_unix": 1795196528.846493
+}

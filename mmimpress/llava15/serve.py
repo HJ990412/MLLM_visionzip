@@ -22,6 +22,13 @@ ratio taken from the store's own budget:
   the same per-layer scatter + mask as the synchronous path.  The default
   ``readahead="none"`` is the unchanged synchronous single-``preadv`` path.
 
+Original-order stores (``meta["row_order"] == "original"``, see
+``mmimpress.llava15.store``; contract docs/llava15_mt_gqa_main_contract.md) are
+served by the same classes: the byte ranges, the read order, the pinned buffer
+and the per-layer hooks are identical; a layer's rows go to their ORIGINAL
+token positions of the GPU cache and every position that was not stored is
+masked.  The importance order stays the default.
+
 The reader (``PackedReader``), the dense cache (``PrefixCache``), the mask
 builder (``bias_from_keep`` / ``BIAS``), the decode loop and the syscall trace
 (``PackedReadTrace``) are the existing objects, imported unchanged.
@@ -34,10 +41,11 @@ from pathlib import Path
 import torch
 
 from mmimpress.llava15 import N_VISUAL, NUM_LAYERS
-from mmimpress.llava15.store import (LAYOUT_POLICY, keep_counts, meta_budget, uniform_equivalent,
+from mmimpress.llava15.store import (LAYOUT_POLICY, SEPARATOR_POLICY, keep_counts, meta_budget, uniform_equivalent,
                                      validate_llava15_packed_meta)
 from mmimpress.packed_serve import PackedReadTrace  # noqa: F401  (re-exported for harnesses)
-from mmimpress.packed_store import PackedReader
+from mmimpress.packed_store import (ORIGINAL_LAYOUT, ROW_ORDER_IMPORTANCE, ROW_ORDER_ORIGINAL, PackedReader,
+                                    layer_original_indices)
 from mmimpress.serve import BIAS, IOCounter, PrefixCache, bias_from_keep, suffix_ids_from_prompt
 from mmimpress.store import load_meta
 
@@ -53,6 +61,11 @@ class Llava15PackedContext:
         self.integrity_activation = verify_integrity(self.dir)
         m = self.meta
         self.n_sep = 0
+        self.row_order = m.get("row_order", ROW_ORDER_IMPORTANCE)
+        self.layer_rows = None
+        if self.row_order == ROW_ORDER_ORIGINAL:
+            # stored rows sit at their original token positions
+            self.layer_rows = [torch.tensor(x, dtype=torch.long) for x in layer_original_indices(m)]
         self.reader = PackedReader(self.dir, m, pin=pin)
         sys_kv = torch.load(self.dir / "sys_kv.pt", weights_only=True)
         self.cache = PrefixCache(m, sys_kv, device)
@@ -66,12 +79,14 @@ class Llava15PackedContext:
         """Activation-time permutation / artifact / file-length checks."""
         if self._layout_validated:
             return
+        if self.row_order == ROW_ORDER_ORIGINAL:
+            return self._validate_original_layout()
         from mmimpress.cvpr25 import permutation_sha256, visionzip_repack_order
         m = self.meta
         vn = int(m["v_token_num"])
         assert vn == N_VISUAL and int(m["num_layers"]) == NUM_LAYERS and m["newline_idx"] == []
         assert int(m["prefix_len"]) == int(m["v_token_start"]) + vn
-        assert m.get("physical_layout") == LAYOUT_POLICY and m.get("separator_policy") == "none_llava15_has_no_separator"
+        assert m.get("physical_layout") == LAYOUT_POLICY and m.get("separator_policy") == SEPARATOR_POLICY
         order = [int(x) for x in m["order"]]
         assert sorted(order) == list(range(vn))
         assert m.get("permutation_sha256") == permutation_sha256(order)
@@ -89,6 +104,29 @@ class Llava15PackedContext:
         assert artifact.get("layout_uses_dataset_question") is False
         assert artifact.get("llm_used_for_layout_scoring") is False
         assert int(artifact.get("calibration_questions", -1)) == 0
+        assert (self.dir / m["packed_file"]).stat().st_size == int(m["packed_total_bytes"])
+        self._layout_validated = True
+
+    def _validate_original_layout(self):
+        """Activation-time checks of an original-order store: no importance
+        artifact, per-layer rows ascending / in range / nested, byte table."""
+        m = self.meta
+        vn = int(m["v_token_num"])
+        assert vn == N_VISUAL and int(m["num_layers"]) == NUM_LAYERS and m["newline_idx"] == []
+        assert int(m["prefix_len"]) == int(m["v_token_start"]) + vn
+        assert m.get("physical_layout") == ORIGINAL_LAYOUT and m.get("separator_policy") == SEPARATOR_POLICY
+        assert not (self.dir / "visionzip_layout.pt").exists(), "original-order store must not carry the importance artifact"
+        assert "order" not in m and "full_importance_permutation" not in m and "permutation_sha256" not in m
+        counts = [int(c) for c in m["layer_keep_counts"]]
+        by_count = {}
+        for li, rows in enumerate(self.layer_rows):
+            rows = rows.tolist()
+            assert len(rows) == counts[li] and rows == sorted(set(rows)) and all(0 <= r < vn for r in rows)
+            assert by_count.setdefault(counts[li], rows) == rows       # equal counts -> equal sets
+        nested = [set(by_count[c]) for c in sorted(by_count)]
+        assert all(a <= b for a, b in zip(nested, nested[1:]))
+        assert m.get("layout_uses_dataset_question") is False and m.get("llm_used_for_layout_scoring") is False
+        assert int(m.get("calibration_questions", -1)) == 0
         assert (self.dir / m["packed_file"]).stat().st_size == int(m["packed_total_bytes"])
         self._layout_validated = True
 
@@ -119,8 +157,14 @@ class Llava15PrefixSelector:
         self.k_per_layer = counts
         self.k_max = max(counts)
         self.k_target = uniform_equivalent(self.budget, n_content)
-        self.selected_stored_ids = list(range(self.k_max))
-        self.selected_original_ids = [int(x) for x in m["order"][:self.k_max]]
+        self.original_rows = ctx.row_order == ROW_ORDER_ORIGINAL
+        if self.original_rows:
+            # no global stored-row id: layer l's rows are ctx.layer_rows[l] (ascending original indices)
+            self.selected_stored_ids = None
+            self.selected_original_ids = [int(x) for x in m["stored_original_indices"]]
+        else:
+            self.selected_stored_ids = list(range(self.k_max))
+            self.selected_original_ids = [int(x) for x in m["order"][:self.k_max]]
         self.kept_tokens_per_layer = []
         self.read_bytes = 0
         self.read_calls = 0
@@ -147,17 +191,23 @@ class Llava15PrefixSelector:
 
         Shared verbatim by the synchronous ``prepare`` loop and the
         asynchronous per-layer hook, so both issue the same GPU writes.
+        Original-order stores: the rows go to their original token positions
+        and only those positions are visible.
         """
         ctx, m = self.ctx, self.ctx.meta
         vn = int(m["v_token_num"])
         k = self.k_per_layer[li]
+        rows = ctx.layer_rows[li] if self.original_rows else None      # original token positions of the stored rows
         for kind in ("k", "v"):
             vals = ctx.reader.layer_view(li, kind)
             assert vals.shape[0] == k
             if k:
-                ctx.cache.write(li, kind, torch.arange(k, dtype=torch.long), vals)
+                ctx.cache.write(li, kind, rows if self.original_rows else torch.arange(k, dtype=torch.long), vals)
         keep = torch.zeros(vn, dtype=torch.bool)
-        keep[:k] = True
+        if self.original_rows:
+            keep[rows] = True
+        else:
+            keep[:k] = True
         assert int(keep.sum()) == k
         self.kept_tokens_per_layer.append(int(keep.sum()))
         BIAS[li] = bias_from_keep(keep, m, dev)
@@ -168,6 +218,17 @@ class Llava15PrefixSelector:
         row_bytes = int(m["packed_row_bytes"])
         per_layer_bytes = [2 * k * row_bytes for k in self.k_per_layer]
         assert self.kept_tokens_per_layer == list(self.k_per_layer)
+        if self.original_rows:
+            rule = ("layer l attends the original token indices {selected_original_ids[j] : stored_min_keep_count[j] <= k_per_layer[l]}, "
+                    "each at its original cache position")
+        else:
+            rule = "layer l attends stored rows [0, k_l) = selected_original_ids[:k_per_layer[l]]"
+        st = self._stats(m, L, per_layer_bytes, rule)
+        if self.original_rows:      # the importance path's statistics keep their existing key set
+            st["row_order"] = ROW_ORDER_ORIGINAL
+        return st
+
+    def _stats(self, m, L, per_layer_bytes, rule):
         return {
             "store_format": m["store_format"], "selection_mode": "prefix", "budget_unit": "visual_kv",
             "ratio": float(self.budget["total_ratio"]), "budget_policy": m["budget_policy"],
@@ -177,7 +238,7 @@ class Llava15PrefixSelector:
             "k_total": int(sum(self.k_per_layer)), "k_per_layer": list(self.k_per_layer), "k_max": int(self.k_max),
             "attended_content_kv_count_per_layer": list(self.k_per_layer),
             "selected_stored_ids": self.selected_stored_ids, "selected_original_ids": self.selected_original_ids,
-            "selection_rule": "layer l attends stored rows [0, k_l) = selected_original_ids[:k_per_layer[l]]",
+            "selection_rule": rule,
             "keep_count_per_layer": self.kept_tokens_per_layer,
             "planned_normal_read_bytes_per_layer": per_layer_bytes,
             "planned_packed_read": {"offset_bytes": 0, "length_bytes": int(m["packed_total_bytes"])},
@@ -193,6 +254,10 @@ class Llava15PrefixSelector:
 
 
 READAHEAD_POLICIES = ("none", "layer_stream")
+
+
+def _layout_label(ctx):
+    return "original_order_packed" if ctx.row_order == ROW_ORDER_ORIGINAL else "visionzip_image_only_packed"
 
 
 class Llava15StreamSelector(Llava15PrefixSelector):
@@ -356,7 +421,7 @@ def _request_llava15_packed_stream(server, ctx: Llava15PackedContext, *, suffix_
         "normal_kv_preads": sum(1 for _, ln in sel._plan.values() if ln), "separator_preads": 0,
         "read_calls": int(io_summary.get("preads", 0)),
         "total_actual_pread_bytes": int(io_summary.get("bytes", 0)),
-        "validated_prefix_layout": "visionzip_image_only_packed", "n_raters": 0,
+        "validated_prefix_layout": _layout_label(ctx), "n_raters": 0,
         "core_started_at_s": t0, "first_token_at_s": timing["first_token_at"],
         "model_finished_at_s": timing["finished_at"], "postprocess_finished_at_s": time.perf_counter(),
     })
@@ -412,7 +477,7 @@ def request_llava15_packed(server, ctx: Llava15PackedContext, *, suffix_ids=None
         "normal_kv_read_bytes": int(m["packed_total_bytes"]), "separator_read_bytes": 0,
         "normal_kv_preads": 1, "separator_preads": 0, "read_calls": 1,
         "total_actual_pread_bytes": int(io_summary.get("bytes", 0)),
-        "validated_prefix_layout": "visionzip_image_only_packed", "n_raters": 0,
+        "validated_prefix_layout": _layout_label(ctx), "n_raters": 0,
         "core_started_at_s": t0, "first_token_at_s": timing["first_token_at"],
         "model_finished_at_s": timing["finished_at"], "postprocess_finished_at_s": time.perf_counter(),
     })
