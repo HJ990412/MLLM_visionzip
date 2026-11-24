@@ -1,0 +1,27 @@
+{
+ "schema": "convbench-alignment-judge-v1",
+ "answers": "/home/dblab/hj/mllm_v2/results/convbench_alignment_20261121T083134Z/gen/llava15_final",
+ "cap": 2048,
+ "official_cap_view": 512,
+ "extraction_cap": 512,
+ "judge_model_id": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+ "judge_checkpoint": "/home/dblab/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+ "judge_dtype": "bfloat16",
+ "judge_attention": "sdpa",
+ "judge_decoding": "greedy",
+ "official_commit": "cbaaa30c6a4dec1f4789d391778972d3cb8b19ca",
+ "official_evaluator_sha256": "3b0cc14fc30be860b66c9fd46ea4312455c367f30ce85f48b6584c4d01676976",
+ "official_prompts_sha256": "e7d077225bafc578f2139c06dd09c42bd7a14587a210d012c83c659662c64ec0",
+ "official_pairwise_sha256": "f5b1ce81ccab9ab5635771ae37966ee424d681688efd3d4eff9004565bd85f92",
+ "index_sha256": "629f46957193bdd90db184c98d799785fd2821989454a1e6ebf06be221ee8b91",
+ "judge_turns": [
+  "_first_turn",
+  "_second_turn",
+  "_third_turn"
+ ],
+ "denominator": 577,
+ "first_pass": "official: exactly one of 'response a is better' / 'response b is better' (lower-cased)",
+ "second_pass": "official generate_parsing_answer_request + exactly one 'Final Answer: Response X'",
+ "third_pass": "official extract_rate ('Rating:'); otherwise C = unresolved = zero wins",
+ "conversations": 577
+}

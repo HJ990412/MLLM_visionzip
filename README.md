@@ -1442,3 +1442,66 @@ DEV 40장 참고값: Ours − Ours(재배열) +0.66 pp [0.00, +1.34], TTFT 비�
 [실험 계약](docs/llava15_mt_gqa_main_contract.md),
 코드 `scripts/206_eval_llava15_mt_gqa_main.py`(실행), `207`(gate), `208`(보고서), `scripts/run_llava15_mt_gqa_main.sh`(드라이버),
 테스트 `tests/test_llava15_original_order.py`.
+
+## 46. ConvBench 본실험: ReComp / FullLoad / IMPRESS / Ours (2026-11-24)
+
+ConvBench 577대화 × 3턴에서 LLaVA-NeXT-7b와 LLaVA-1.5-7b의 네 방법을 쟀다(2모델 × 4방법 × 577 × 3 = 13,848요청).
+설정은 11/22 점검 실행(`docs/convbench_baseline_alignment.md`: 원본 LLaVA 토큰열, 생성 상한 1024, 판정기 Llama-3.1-8B-Instruct,
+판정 출력 상한 2048, 공식 2차 추출)에서 동결한 그대로다. 공통: NF4/BF16/eager, FP16 SSD KV, greedy, 모든 방법이 T1을 픽셀부터 계산,
+T2–T3는 자기 방법의 생성 이력, 요청 전 page cache drop, 저장된 KV를 읽는 세 방법은 비동기 읽기.
+FullLoad·IMPRESS는 LLaVA-NeXT 41절, LLaVA-1.5 45절 실행과 같은 구현이고, Ours는 재배열 없는 원래 순서 store(총 KV 25 %;
+LLaVA-NeXT PYR-beta-raw(43–44절), LLaVA-1.5 PYR-b20(45절))다.
+측정 보고이며 판정은 두지 않는다.
+
+gate(4대화 → 파일럿 40대화, 모델마다): 기존 테스트 새 실패 없음, ReComp = 점검 실행, Ours 동기 = 비동기·반복 동일,
+IMPRESS 유지 100% = 같은 store의 FullLoad loader, T1 토큰이 네 방법에서 같음, 판정기가 점검 실행의 판정을 글자까지 재현이
+두 모델 모두 PASS였다. 분리 실행한 드라이버가 재시작 없이 38.6시간 돌았고 실패한 요청은 0건이다.
+ReComp는 점검 실행과 모델마다 1,731/1,731 요청 같았고, T1 생성 토큰은 577/577 대화에서 네 방법이 같았다.
+
+품질(승률 %, 분모 577, 판정 불가는 0승):
+
+| 모델 | 방법 | S1 | S2 | S3 | 평균 |
+|---|---|---:|---:|---:|---:|
+| LLaVA-NeXT | ReComp | 9.19 | 8.49 | 7.63 | 8.43 |
+| | FullLoad | 8.32 | 9.36 | 6.59 | 8.09 |
+| | IMPRESS | 7.45 | 10.40 | 6.24 | 8.03 |
+| | Ours | 7.28 | 9.19 | 5.72 | 7.39 |
+| LLaVA-1.5 | ReComp | 4.85 | 4.16 | 4.51 | 4.51 |
+| | FullLoad | 4.33 | 2.77 | 4.16 | 3.76 |
+| | IMPRESS | 3.99 | 4.33 | 4.51 | 4.27 |
+| | Ours | 3.99 | 3.99 | 4.85 | 4.27 |
+
+평균 점수의 짝지은 차이(대화 단위 bootstrap 95% CI)는 두 모델 모두 모든 비교에서 0을 포함한다.
+LLaVA-NeXT: Ours − ReComp −1.04 pp [−2.37, +0.23], Ours − FullLoad −0.69 [−1.96, +0.52], Ours − IMPRESS −0.64 [−1.91, +0.58],
+FullLoad − ReComp −0.35 [−1.50, +0.81]. LLaVA-1.5: Ours − ReComp −0.23 [−1.21, +0.81], Ours − FullLoad +0.52 [−0.46, +1.50],
+Ours − IMPRESS −0.00 [−0.98, +0.98], FullLoad − ReComp −0.75 [−1.56, +0.06].
+
+시스템(재사용 턴 T2–T3 평균):
+
+| 모델 | 방법 | TTFT 평균 | p50 | p95 | SSD MB/followup | 읽기 호출 수 |
+|---|---|---:|---:|---:|---:|---:|
+| LLaVA-NeXT | ReComp | 608.8 ms | 590.0 | 869.8 | 0.0 | 0 |
+| | FullLoad | 547.1 ms | 541.9 | 762.8 | 1,152.7 | 64.0 |
+| | IMPRESS | 799.2 ms | 795.7 | 1,047.5 | 1,010.2 | 131.5 |
+| | Ours | 219.5 ms | 206.4 | 313.1 | 302.3 | 33.0 |
+| LLaVA-1.5 | ReComp | 161.3 ms | 147.9 | 244.0 | 0.0 | 0 |
+| | FullLoad | 131.9 ms | 123.9 | 166.9 | 302.0 | 64.0 |
+| | IMPRESS | 265.5 ms | 258.8 | 305.0 | 259.3 | 101.0 |
+| | Ours | 92.0 ms | 84.0 | 116.6 | 75.5 | 32.0 |
+
+TTFT 비율은 LLaVA-NeXT Ours/FullLoad 0.401×, Ours/ReComp 0.361×, Ours/IMPRESS 0.275×, IMPRESS/FullLoad 1.461×,
+LLaVA-1.5 0.698×, 0.570×, 0.346×, 2.014×다(CI 폭 ±0.01 이내). IMPRESS는 fallback 47.5 % / 42.5 %, 평균 Jaccard 0.346 / 0.352,
+K·V chunk 읽기 비율 82.3 % / 81.1 %였다. T1 저장은 대화당 LLaVA-NeXT FullLoad 1,262 MB / 1.06 s, IMPRESS 쓰기 2,491 MB / 2.02 s
+(재배치 포함), Ours 321 MB / 0.48 s, LLaVA-1.5 335 MB / 0.32 s, 652 MB / 0.57 s, 94 MB / 0.14 s다. 4096 토큰을 넘는 입력은
+LLaVA-NeXT T3에서 8건(Ours 7건)이었고 모두 정상 처리됐다. 장치 쓰기량은 3.227 TB(예상 3.21 TB), SMART는 권한이 없어 재지 못했다.
+
+0단계(보고만): 11/20–11/21 LLaVA-NeXT의 MT-GQA·MT-VQA 프롬프트는 원본 LLaVA 토큰화와 비교해 `<image>` 직후의 `▁` 한 토큰이
+빠져 있다(표본 120/120). LLaVA-1.5는 불일치가 없다. 고치지 않았고 그 영향은 재지 않았다.
+
+[보고서](results/convbench_main_20261122T103401Z/report.md),
+[실험 계약](docs/convbench_main_contract.md), [점검 실행 설정](docs/convbench_baseline_alignment.md),
+[점검 실행 보고서](results/convbench_alignment_20261121T083134Z/report.md),
+코드 `scripts/216`(0단계), `217`(실행; LLaVA-NeXT는 `209`, LLaVA-1.5는 `206`의 방법 호출을 import), `218`(gate), `219`(판정),
+`220`(보고서), `221` + `scripts/run_convbench_main.sh`(드라이버), `scripts/convbench_main_common.py`,
+점검 실행 `scripts/212`–`215`, 테스트 `tests/test_convbench_main.py`.
+대화별 답(`<model>/<phase>/conversations/`)과 판정문(`judge/<model>/judgments/`)을 함께 올렸고, 판정 cache와 1 MB 넘는 원시 판정 로그는 올리지 않았다.

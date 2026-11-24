@@ -1,0 +1,45 @@
+
+=== 2026-11-21T12:32:03Z attempt 1: /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/213_convbench_recomp_generate.py --out /home/dblab/hj/mllm_v2/results/convbench_alignment_20261121T083134Z/gen/next_3A_cap --model next --cap-policy official_1024 --tokenization sept --reuse-from-sept
+copied 562 conversations from September; 15 to generate
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.26s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.25s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.05s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:06<00:00,  2.11s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[563/577] convbench:37: [1024, 152, 1024] tokens
+Token indices sequence length is longer than the specified maximum sequence length for this model (4465 > 4096). Running this sequence through the model will result in indexing errors
+[564/577] convbench:42: [1024, 1024, 5] tokens
+[565/577] convbench:47: [227, 1024, 219] tokens
+[566/577] convbench:55: [308, 83, 513] tokens
+[567/577] convbench:72: [179, 562, 589] tokens
+[568/577] convbench:84: [1024, 1024, 473] tokens
+[569/577] convbench:110: [98, 1024, 767] tokens
+[570/577] convbench:133: [68, 1024, 1024] tokens
+[571/577] convbench:333: [98, 341, 847] tokens
+[572/577] convbench:379: [1024, 50, 705] tokens
+[573/577] convbench:415: [55, 187, 770] tokens
+[574/577] convbench:418: [1024, 90, 62] tokens
+[575/577] convbench:487: [141, 353, 603] tokens
+[576/577] convbench:494: [1024, 597, 3] tokens
+[577/577] convbench:545: [278, 384, 430] tokens
+{
+ "conversations": 577,
+ "requests": 1731,
+ "generated": 15,
+ "copied_from_september": 562,
+ "cap_reached": {
+  "1": 13,
+  "2": 12,
+  "3": 22
+ },
+ "cap_clamped_by_context": {
+  "1": 0,
+  "2": 0,
+  "3": 0
+ },
+ "input_above_4096": {
+  "1": 0,
+  "2": 1,
+  "3": 6
+ },
+ "max_input_tokens": 5138,
+ "official_token_ids_mismatch": 45,
+ "empty_answers": 0
+}

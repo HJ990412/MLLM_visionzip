@@ -1,0 +1,60 @@
+{
+ "conversation_id": "convbench:130",
+ "source_row_index": 129,
+ "source_id": "130",
+ "index_sha256": "629f46957193bdd90db184c98d799785fd2821989454a1e6ebf06be221ee8b91",
+ "origin": "generated",
+ "rows": [
+  {
+   "turn_id": 1,
+   "method": "ReComp",
+   "question": "How many objects are shown in the image? What color is each of them? What material is each of them? What shape is each of them?",
+   "prediction": "There are three objects shown in the image. One is blue, one is yellow, and one is white. The blue object is a cube, the yellow object is a sphere, and the white object is a ball.",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image>\nHow many objects are shown in the image? What color is each of them? What material is each of them? What shape is each of them? ASSISTANT:",
+   "prompt_sha256": "3badcfd2044cb9d0d91499024c7262b1045846a177f0f4c510a1539fc4a8affe",
+   "input_tokens": 648,
+   "generated_tokens": 45,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 1670
+  },
+  {
+   "turn_id": 2,
+   "method": "ReComp",
+   "question": "Is there anything else that is the same shape as the small brown matte object?",
+   "prediction": "Yes, the small brown matte object is the same shape as the blue cube.",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image>\nHow many objects are shown in the image? What color is each of them? What material is each of them? What shape is each of them? ASSISTANT: There are three objects shown in the image. One is blue, one is yellow, and one is white. The blue object is a cube, the yellow object is a sphere, and the white object is a ball.</s>USER: Is there anything else that is the same shape as the small brown matte object? ASSISTANT:",
+   "prompt_sha256": "3ac1f2bf67c4d345e1d275d016a88a2e967a03f776a84a56cdcd939819adbd9c",
+   "input_tokens": 718,
+   "generated_tokens": 18,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 3869
+  },
+  {
+   "turn_id": 3,
+   "method": "ReComp",
+   "question": "I want to edit the image to add the same shape as the small brown matte object with a red color. Help me to write a prompt for an image editing model. The prompt should be a single sentence in less than 15 words with descriptive words.",
+   "prediction": "\"Add a red object with the same shape as the small brown matte object.\"",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image>\nHow many objects are shown in the image? What color is each of them? What material is each of them? What shape is each of them? ASSISTANT: There are three objects shown in the image. One is blue, one is yellow, and one is white. The blue object is a cube, the yellow object is a sphere, and the white object is a ball.</s>USER: Is there anything else that is the same shape as the small brown matte object? ASSISTANT: Yes, the small brown matte object is the same shape as the blue cube.</s>USER: I want to edit the image to add the same shape as the small brown matte object with a red color. Help me to write a prompt for an image editing model. The prompt should be a single sentence in less than 15 words with descriptive words. ASSISTANT:",
+   "prompt_sha256": "8cc306e12f41a7cd16ca3f972b0a6db244f2275493d2a864548c8362140c1957",
+   "input_tokens": 798,
+   "generated_tokens": 18,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 376
+  }
+ ]
+}

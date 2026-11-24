@@ -1,0 +1,244 @@
+{
+ "written_before_any_gpu_measurement_utc": "2026-11-22T11:23:27Z",
+ "run": "convbench_main_20261122T103401Z",
+ "status": "PASS",
+ "blocking": [],
+ "expected_ssd_write": {
+  "definition": "per conversation, the bytes the three store builds write: FullLoad store + IMPRESS store (written, then rewritten in the reordered layout) + Ours store. LLaVA-NeXT: from each image's AnyRes geometry; LLaVA-1.5: fixed 576 tokens. Request rows, status files and the judge cache are not included (well below 1 % of the total).",
+  "bytes": {
+   "next": {
+    "gate": 16537946984,
+    "pilot": 160359299576,
+    "main": 2351237765888,
+    "overflow_if_run": 8149870938,
+    "total": 2536284883386
+   },
+   "llava15": {
+    "gate": 4330879368,
+    "pilot": 43308793680,
+    "main": 624729348834,
+    "overflow_if_run": 2165439684,
+    "total": 674534461566
+   }
+  },
+  "total_bytes": 3210819344952,
+  "total_tb": 3.210819344952,
+  "per_model_tb": {
+   "next": 2.536284883386,
+   "llava15": 0.674534461566
+  },
+  "per_conversation_mean_bytes": {
+   "next": {
+    "fullload_store": 1261882891.3171577,
+    "impress_store": 1263386674.2079723,
+    "ours_store": 320718010.12478334,
+    "written": 4074935469.476603
+   },
+   "llava15": {
+    "fullload_store": 334167472.0,
+    "impress_store": 334167472.0,
+    "ours_store": 95920898.0,
+    "written": 1082719842.0
+   }
+  },
+  "largest_conversation_bundle_bytes": 3796334662
+ },
+ "expected_duration": {
+  "seconds": {
+   "next": {
+    "per_conversation_4_arms_estimate": 64.87209705372618,
+    "gate": 643.8488734835355,
+    "pilot": 2714.883882149047,
+    "overflow_if_run": 379.4883882149047,
+    "main": 37551.200000000004,
+    "total": 41289.42114384749
+   },
+   "llava15": {
+    "per_conversation_4_arms_estimate": 35.33344887348354,
+    "gate": 423.00103986135184,
+    "pilot": 1533.3379549393417,
+    "overflow_if_run": 261.3337954939342,
+    "main": 20507.4,
+    "total": 22725.07279029463
+   }
+  },
+  "judge_seconds_low": 67137.2,
+  "judge_seconds_high": 103288.0,
+  "total_hours_low": 37.181026092817255,
+  "total_hours_high": 51.66836594935491,
+  "basis": "generation: ReComp-only seconds per conversation of the alignment run (LLaVA-NeXT 13.2 s, LLaVA-1.5 8.1 s) x number of arms + store writing; judging: 3.6 h per fresh answer set (577 x 3 judgments) in the alignment run, 2.6 - 4 fresh answer sets per model. Replaced by the pilot's measured seconds per conversation in status.json when each pilot has finished."
+ },
+ "free_space": {
+  "free_bytes": 442617450496,
+  "free_gib": 412.2196235656738,
+  "largest_conversation_bundle_bytes": 3796334662,
+  "required_free_bytes": 75926693240,
+  "ratio_free_to_bundle": 116.59073551297992,
+  "rule": "do not start when free space < 20 x the largest per-conversation store bundle; rechecked before every conversation",
+  "ok": true
+ },
+ "smart": {
+  "status": "NOT_MEASURED",
+  "at_unix": 1795346607.787323,
+  "at_utc": "2026-11-22T11:23:27Z",
+  "device": "/dev/nvme0",
+  "device_node_mode": "0o600",
+  "reason": "the SMART / health log is an NVMe admin command (root only); this account has no passwordless sudo and no SMART tool is installed",
+  "attempts": [
+   {
+    "command": "nvme smart-log /dev/nvme0",
+    "returncode": 22,
+    "stderr": "r binary.  [  --namespace-id=<NUM>, -n <NUM> ]   --- (optional) desired namespace\n  [  --output-format=<FMT>, -o <FMT> ]  --- Output format: normal|json|binary\n  [  --raw-binary, -b ]                 --- output in binary format\n  [  --human-readable, -H ]             --- show info in readable format"
+   },
+   {
+    "command": "sudo -n nvme smart-log /dev/nvme0",
+    "returncode": 1,
+    "stderr": "sudo: a password is required"
+   }
+  ],
+  "percentage_used": null,
+  "data_units_written": null,
+  "available_without_root": {
+   "hwmon_temperature": {
+    "composite_c": 51.85,
+    "sensors_c": {
+     "temp1": 51.85,
+     "temp2": 45.85,
+     "temp3": 50.85
+    },
+    "source": "/sys/class/nvme/nvme0/hwmon*/temp*_input"
+   },
+   "kernel_counter_since_boot": {
+    "device": "nvme0n1",
+    "sectors_read": 1150376230092,
+    "sectors_written": 267266819346
+   },
+   "boot_id": "4e46c650-1c93-4d00-aa9b-279177002b3f"
+  },
+  "how_to_supply": "sudo nvme smart-log /dev/nvme0 > results/<run name>/smart_manual_<before|after>.txt   (read by the report)"
+ },
+ "ssd_counters_at_prerun": {
+  "device": "nvme0n1",
+  "sectors_read": 1150376230092,
+  "sectors_written": 267266819346
+ },
+ "ssd_temperature_at_prerun": {
+  "composite_c": 51.85,
+  "sensors_c": {
+   "temp1": 51.85,
+   "temp2": 45.85,
+   "temp3": 50.85
+  },
+  "source": "/sys/class/nvme/nvme0/hwmon*/temp*_input"
+ },
+ "store_deletion": "the stores of a conversation are deleted as soon as the conversation is committed (one live conversation at a time)",
+ "alignment_record": {
+  "next": {
+   "recomp_rows": 1731,
+   "expected": 1731,
+   "missing": [],
+   "requests_above_4096": 8,
+   "conversations_by_largest_input": [
+    {
+     "input_tokens": 4613,
+     "ordinal": 559,
+     "conversation_id": "convbench:561"
+    },
+    {
+     "input_tokens": 4560,
+     "ordinal": 416,
+     "conversation_id": "convbench:418"
+    },
+    {
+     "input_tokens": 4468,
+     "ordinal": 41,
+     "conversation_id": "convbench:42"
+    },
+    {
+     "input_tokens": 4381,
+     "ordinal": 414,
+     "conversation_id": "convbench:416"
+    },
+    {
+     "input_tokens": 4283,
+     "ordinal": 83,
+     "conversation_id": "convbench:84"
+    },
+    {
+     "input_tokens": 4212,
+     "ordinal": 492,
+     "conversation_id": "convbench:494"
+    },
+    {
+     "input_tokens": 4107,
+     "ordinal": 377,
+     "conversation_id": "convbench:379"
+    },
+    {
+     "input_tokens": 4101,
+     "ordinal": 28,
+     "conversation_id": "convbench:29"
+    }
+   ],
+   "token_ids_recorded": false,
+   "note": "the alignment rows hold the answer text, the number of generated tokens and the first token id (no token id list)"
+  },
+  "llava15": {
+   "recomp_rows": 1731,
+   "expected": 1731,
+   "missing": [],
+   "requests_above_4096": 0,
+   "conversations_by_largest_input": [
+    {
+     "input_tokens": 2736,
+     "ordinal": 452,
+     "conversation_id": "convbench:454"
+    },
+    {
+     "input_tokens": 2715,
+     "ordinal": 83,
+     "conversation_id": "convbench:84"
+    },
+    {
+     "input_tokens": 2037,
+     "ordinal": 54,
+     "conversation_id": "convbench:55"
+    },
+    {
+     "input_tokens": 1824,
+     "ordinal": 443,
+     "conversation_id": "convbench:445"
+    },
+    {
+     "input_tokens": 1799,
+     "ordinal": 141,
+     "conversation_id": "convbench:143"
+    },
+    {
+     "input_tokens": 1793,
+     "ordinal": 212,
+     "conversation_id": "convbench:214"
+    },
+    {
+     "input_tokens": 1777,
+     "ordinal": 384,
+     "conversation_id": "convbench:386"
+    },
+    {
+     "input_tokens": 1772,
+     "ordinal": 416,
+     "conversation_id": "convbench:418"
+    }
+   ],
+   "token_ids_recorded": false,
+   "note": "the alignment rows hold the answer text, the number of generated tokens and the first token id (no token id list)"
+  }
+ },
+ "llava_next_image_geometry": {
+  "images": 573,
+  "visual_tokens_min": 984,
+  "visual_tokens_max": 2928,
+  "visual_tokens_mean": 2198.523560209424
+ },
+ "seconds": 1.5054757595062256
+}

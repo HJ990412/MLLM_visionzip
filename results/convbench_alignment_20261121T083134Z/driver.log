@@ -1,0 +1,28 @@
+=== 2026-11-21T08:52:53Z DRIVER START pid 2854561 ppid 1 sid 2854561 pgid 2854561 tty ? boot 4e46c650-1c93-4d00-aa9b-279177002b3f
+=== 2026-11-21T08:52:53Z START stage2_judge_sept: 2단계: 9월 ReComp 답 재판정(고친 판정기)
+2026-11-21T08:55:44Z another driver holds results/convbench_alignment_20261121T083134Z/driver.lock (pid 2854561); this one exits
+=== 2026-11-21T08:55:53Z stopped by signal
+=== 2026-11-21T08:56:12Z DRIVER START pid 2856257 ppid 1 sid 2856257 pgid 2856257 tty ? boot 4e46c650-1c93-4d00-aa9b-279177002b3f
+=== 2026-11-21T08:56:12Z START stage2_judge_sept: 2단계: 9월 ReComp 답 재판정(고친 판정기)
+=== 2026-11-21T12:28:23Z END stage2_judge_sept done (212.2 min)
+=== 2026-11-21T12:28:23Z START replay_check: 3단계 사전 검사: 새 생성 스크립트와 9월 답 일치(12대화)
+=== 2026-11-21T12:32:03Z END replay_check done (3.7 min)
+=== 2026-11-21T12:32:03Z START stage3A_gen: 3단계 A 생성: 상한 항상 1024(G1)
+=== 2026-11-21T12:39:44Z END stage3A_gen done (7.7 min)
+=== 2026-11-21T12:39:44Z START stage3A_judge: 3단계 A 판정
+=== 2026-11-21T12:46:44Z END stage3A_judge done (7.0 min)
+=== 2026-11-21T12:46:44Z START stage3B_gen: 3단계 B 생성: G1 + 공식 토큰열(G2), 577대화 x 3턴
+=== 2026-11-21T14:53:51Z END stage3B_gen done (127.1 min)
+=== 2026-11-21T14:53:51Z START stage3B_judge: 3단계 B 판정
+=== 2026-11-21T18:29:03Z END stage3B_judge done (215.2 min)
+=== 2026-11-21T18:29:03Z START stage4_gen: 4단계 생성: LLaVA-1.5 ReComp 577대화 x 3턴
+=== 2026-11-21T19:46:47Z END stage4_gen done (77.7 min)
+=== 2026-11-21T19:46:47Z START stage4_judge: 4단계 판정
+=== 2026-11-21T23:22:39Z END stage4_judge done (215.9 min)
+=== 2026-11-21T23:22:39Z START stage5_freeze: 5단계: 설정 동결 문서와 report.md
+=== 2026-11-21T23:22:39Z END stage5_freeze done
+=== 2026-11-21T23:22:39Z START D1_fp16_gen: 진단 D1 생성: FP16 가중치
+=== 2026-11-21T23:40:00Z END D1_fp16_gen skipped (17.4 min)
+=== 2026-11-21T23:40:00Z START final_report: report.md 최종 갱신
+=== 2026-11-21T23:40:00Z END final_report done
+=== 2026-11-21T23:40:00Z DRIVER DONE

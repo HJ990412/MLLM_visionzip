@@ -1,0 +1,60 @@
+{
+ "conversation_id": "convbench:266",
+ "source_row_index": 265,
+ "source_id": "266",
+ "index_sha256": "629f46957193bdd90db184c98d799785fd2821989454a1e6ebf06be221ee8b91",
+ "origin": "generated",
+ "rows": [
+  {
+   "turn_id": 1,
+   "method": "ReComp",
+   "question": "What kind of plane is shown in the image?",
+   "prediction": "The image shows a large propeller plane, which is a type of aircraft with propellers for propulsion.",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image>\nWhat kind of plane is shown in the image? ASSISTANT:",
+   "prompt_sha256": "8db135da90513f291a8e83a3a2064f136fb5db20824ca6eababde2347e0f334a",
+   "input_tokens": 628,
+   "generated_tokens": 23,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 450
+  },
+  {
+   "turn_id": 2,
+   "method": "ReComp",
+   "question": "Generate a question based on the given image such that it receives the following answer: United States。",
+   "prediction": "What country is the large propeller plane from?",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image>\nWhat kind of plane is shown in the image? ASSISTANT: The image shows a large propeller plane, which is a type of aircraft with propellers for propulsion.</s>USER: Generate a question based on the given image such that it receives the following answer: United States。 ASSISTANT:",
+   "prompt_sha256": "c11ffb2590486541be03ff823924cf9e9d71ad3346a7b7c37977fcad052657cb",
+   "input_tokens": 679,
+   "generated_tokens": 11,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 1724
+  },
+  {
+   "turn_id": 3,
+   "method": "ReComp",
+   "question": "Can you generate a dialogue between the two planes? The dialogue must start with the previously generated question.",
+   "prediction": "Propeller Plane 1: \"Hey, where are you from?\"\nPropeller Plane 2: \"I'm from the United States.\"",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image>\nWhat kind of plane is shown in the image? ASSISTANT: The image shows a large propeller plane, which is a type of aircraft with propellers for propulsion.</s>USER: Generate a question based on the given image such that it receives the following answer: United States。 ASSISTANT: What country is the large propeller plane from?</s>USER: Can you generate a dialogue between the two planes? The dialogue must start with the previously generated question. ASSISTANT:",
+   "prompt_sha256": "28e3d66a8c902318f627705340ea8e48bcf13d8ff9cf2b4d74ec1fed68b0469a",
+   "input_tokens": 721,
+   "generated_tokens": 34,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 18264
+  }
+ ]
+}

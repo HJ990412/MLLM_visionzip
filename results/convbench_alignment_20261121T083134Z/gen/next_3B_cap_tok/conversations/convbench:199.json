@@ -1,0 +1,60 @@
+{
+ "conversation_id": "convbench:199",
+ "source_row_index": 198,
+ "source_id": "199",
+ "index_sha256": "629f46957193bdd90db184c98d799785fd2821989454a1e6ebf06be221ee8b91",
+ "origin": "generated",
+ "rows": [
+  {
+   "turn_id": 1,
+   "method": "ReComp",
+   "question": "What product is shown in the image?",
+   "prediction": "The image shows a hair dryer.",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image> \nWhat product is shown in the image? ASSISTANT:",
+   "prompt_sha256": "cbca08a956453ecd87623f96c8fb854b78d1d02765daaaacb37c602412f6041a",
+   "input_tokens": 2402,
+   "generated_tokens": 9,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 450
+  },
+  {
+   "turn_id": 2,
+   "method": "ReComp",
+   "question": "Generate a question based on the given image such that it receives the following answer: drying hair",
+   "prediction": "\"What is the primary function of a hair dryer?\"",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image> \nWhat product is shown in the image? ASSISTANT: The image shows a hair dryer.</s> USER: Generate a question based on the given image such that it receives the following answer: drying hair ASSISTANT:",
+   "prompt_sha256": "d27d7b96019b1f377664adc3e396876b0c0878a6bfbface8cb7f0ca71cb4b8da",
+   "input_tokens": 2439,
+   "generated_tokens": 13,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 376
+  },
+  {
+   "turn_id": 3,
+   "method": "ReComp",
+   "question": "If the person holding the product in the image is named Bonnie, using her name, can you rework the previous instruction?",
+   "prediction": "\"What is Bonnie holding in the image?\"",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image> \nWhat product is shown in the image? ASSISTANT: The image shows a hair dryer.</s> USER: Generate a question based on the given image such that it receives the following answer: drying hair ASSISTANT: \"What is the primary function of a hair dryer?\"</s> USER: If the person holding the product in the image is named Bonnie, using her name, can you rework the previous instruction? ASSISTANT:",
+   "prompt_sha256": "0f0f3dbd0817953e6bd40abd744c3a09d49a6f6f01b07a667c0cb7eab413a6d4",
+   "input_tokens": 2486,
+   "generated_tokens": 11,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 376
+  }
+ ]
+}

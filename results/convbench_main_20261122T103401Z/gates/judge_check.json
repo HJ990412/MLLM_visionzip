@@ -1,0 +1,49 @@
+{
+ "gate": "gate6_judge_reproduces_alignment_judgments",
+ "models": {
+  "next": {
+   "status": "PASS",
+   "stage_judgments_compared": 24,
+   "same_winner": 24,
+   "same_parse_stage": 24,
+   "identical_text": 24,
+   "differences": [],
+   "conversation_ids": [
+    "convbench:73",
+    "convbench:218",
+    "convbench:362",
+    "convbench:506",
+    "convbench:8",
+    "convbench:22",
+    "convbench:36",
+    "convbench:50"
+   ]
+  },
+  "llava15": {
+   "status": "PASS",
+   "stage_judgments_compared": 24,
+   "same_winner": 24,
+   "same_parse_stage": 24,
+   "identical_text": 24,
+   "differences": [],
+   "conversation_ids": [
+    "convbench:73",
+    "convbench:218",
+    "convbench:362",
+    "convbench:506",
+    "convbench:8",
+    "convbench:22",
+    "convbench:36",
+    "convbench:50"
+   ]
+  }
+ },
+ "conversations_per_model": 8,
+ "criterion": "for every re-judged stage: winner and parse stage equal to the alignment record (view capN); identical judgment text is reported as well",
+ "cache": "empty at the start (nothing read from the alignment cache)",
+ "judged_now": 48,
+ "cache_hits": 0,
+ "status": "PASS",
+ "config_sha256": "4fc1c670d9d2169d99082f6ccbe5597fa4706bec2a69a0e46c1062fb4f8b73f3",
+ "at_utc": "2026-11-22T11:29:42Z"
+}

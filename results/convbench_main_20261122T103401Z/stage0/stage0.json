@@ -1,0 +1,456 @@
+{
+ "transformers": "4.57.6",
+ "per_turn": 20,
+ "cells": [
+  {
+   "model": "LLaVA-NeXT",
+   "dataset": "MT-GQA",
+   "run": "runs/mt_gqa_ours_order_20261120T052725Z",
+   "phase": "main",
+   "sampling": {
+    "committed_images": 398,
+    "stride": 19,
+    "sampled_images": 20
+   },
+   "method_of_rows": [
+    "recompute"
+   ],
+   "turns": {
+    "T1": {
+     "compared": 20,
+     "mismatched": 20,
+     "existing_suffix_equals_recorded_suffix": 20,
+     "prompts_containing_eos": 0
+    },
+    "T2": {
+     "compared": 20,
+     "mismatched": 20,
+     "existing_suffix_equals_recorded_suffix": 20,
+     "prompts_containing_eos": 0
+    },
+    "T3": {
+     "compared": 20,
+     "mismatched": 20,
+     "existing_suffix_equals_recorded_suffix": 20,
+     "prompts_containing_eos": 0
+    }
+   },
+   "examples": [
+    {
+     "turn": 1,
+     "image": "n100552",
+     "dialog_id": "mtgqa_002992",
+     "existing_len": 40,
+     "original_len": 41,
+     "first_difference_position": 6,
+     "image_position": 5,
+     "differences": [
+      {
+       "op": "insert",
+       "existing_position": 6,
+       "existing_tokens": [],
+       "original_position": 6,
+       "original_tokens": [
+        "▁"
+       ]
+      }
+     ],
+     "existing_head": [
+      "<s>",
+      "▁US",
+      "ER",
+      ":",
+      "▁",
+      "<image>",
+      "<0x0A>",
+      "Current",
+      "▁question",
+      "▁Q",
+      "1"
+     ],
+     "original_head": [
+      "<s>",
+      "▁US",
+      "ER",
+      ":",
+      "▁",
+      "<image>",
+      "▁",
+      "<0x0A>",
+      "Current",
+      "▁question",
+      "▁Q",
+      "1"
+     ]
+    },
+    {
+     "turn": 1,
+     "image": "n131634",
+     "dialog_id": "mtgqa_001972",
+     "existing_len": 44,
+     "original_len": 45,
+     "first_difference_position": 6,
+     "image_position": 5,
+     "differences": [
+      {
+       "op": "insert",
+       "existing_position": 6,
+       "existing_tokens": [],
+       "original_position": 6,
+       "original_tokens": [
+        "▁"
+       ]
+      }
+     ],
+     "existing_head": [
+      "<s>",
+      "▁US",
+      "ER",
+      ":",
+      "▁",
+      "<image>",
+      "<0x0A>",
+      "Current",
+      "▁question",
+      "▁Q",
+      "1"
+     ],
+     "original_head": [
+      "<s>",
+      "▁US",
+      "ER",
+      ":",
+      "▁",
+      "<image>",
+      "▁",
+      "<0x0A>",
+      "Current",
+      "▁question",
+      "▁Q",
+      "1"
+     ]
+    },
+    {
+     "turn": 1,
+     "image": "n155555",
+     "dialog_id": "mtgqa_003837",
+     "existing_len": 39,
+     "original_len": 40,
+     "first_difference_position": 6,
+     "image_position": 5,
+     "differences": [
+      {
+       "op": "insert",
+       "existing_position": 6,
+       "existing_tokens": [],
+       "original_position": 6,
+       "original_tokens": [
+        "▁"
+       ]
+      }
+     ],
+     "existing_head": [
+      "<s>",
+      "▁US",
+      "ER",
+      ":",
+      "▁",
+      "<image>",
+      "<0x0A>",
+      "Current",
+      "▁question",
+      "▁Q",
+      "1"
+     ],
+     "original_head": [
+      "<s>",
+      "▁US",
+      "ER",
+      ":",
+      "▁",
+      "<image>",
+      "▁",
+      "<0x0A>",
+      "Current",
+      "▁question",
+      "▁Q",
+      "1"
+     ]
+    }
+   ],
+   "difference_patterns": [
+    {
+     "after": [
+      "<image>"
+     ],
+     "existing": [],
+     "original": [
+      "▁"
+     ],
+     "count": 60
+    }
+   ]
+  },
+  {
+   "model": "LLaVA-NeXT",
+   "dataset": "MT-VQA",
+   "run": "runs/llava_next_mtvqa_main_20261121T063602Z",
+   "phase": "main",
+   "sampling": {
+    "committed_images": 167,
+    "stride": 8,
+    "sampled_images": 20
+   },
+   "method_of_rows": [
+    "fullload_async"
+   ],
+   "turns": {
+    "T1": {
+     "compared": 20,
+     "mismatched": 20,
+     "existing_suffix_equals_recorded_suffix": 20,
+     "prompts_containing_eos": 0
+    },
+    "T2": {
+     "compared": 20,
+     "mismatched": 20,
+     "existing_suffix_equals_recorded_suffix": 20,
+     "prompts_containing_eos": 0
+    },
+    "T3": {
+     "compared": 20,
+     "mismatched": 20,
+     "existing_suffix_equals_recorded_suffix": 20,
+     "prompts_containing_eos": 0
+    }
+   },
+   "examples": [
+    {
+     "turn": 1,
+     "image": "102330",
+     "dialog_id": "mtvqa25k_000111",
+     "existing_len": 37,
+     "original_len": 38,
+     "first_difference_position": 6,
+     "image_position": 5,
+     "differences": [
+      {
+       "op": "insert",
+       "existing_position": 6,
+       "existing_tokens": [],
+       "original_position": 6,
+       "original_tokens": [
+        "▁"
+       ]
+      }
+     ],
+     "existing_head": [
+      "<s>",
+      "▁US",
+      "ER",
+      ":",
+      "▁",
+      "<image>",
+      "<0x0A>",
+      "Current",
+      "▁question",
+      "▁Q",
+      "1"
+     ],
+     "original_head": [
+      "<s>",
+      "▁US",
+      "ER",
+      ":",
+      "▁",
+      "<image>",
+      "▁",
+      "<0x0A>",
+      "Current",
+      "▁question",
+      "▁Q",
+      "1"
+     ]
+    },
+    {
+     "turn": 1,
+     "image": "133648",
+     "dialog_id": "mtvqa25k_000068",
+     "existing_len": 44,
+     "original_len": 45,
+     "first_difference_position": 6,
+     "image_position": 5,
+     "differences": [
+      {
+       "op": "insert",
+       "existing_position": 6,
+       "existing_tokens": [],
+       "original_position": 6,
+       "original_tokens": [
+        "▁"
+       ]
+      }
+     ],
+     "existing_head": [
+      "<s>",
+      "▁US",
+      "ER",
+      ":",
+      "▁",
+      "<image>",
+      "<0x0A>",
+      "Current",
+      "▁question",
+      "▁Q",
+      "1"
+     ],
+     "original_head": [
+      "<s>",
+      "▁US",
+      "ER",
+      ":",
+      "▁",
+      "<image>",
+      "▁",
+      "<0x0A>",
+      "Current",
+      "▁question",
+      "▁Q",
+      "1"
+     ]
+    },
+    {
+     "turn": 1,
+     "image": "145620",
+     "dialog_id": "mtvqa25k_000077",
+     "existing_len": 36,
+     "original_len": 37,
+     "first_difference_position": 6,
+     "image_position": 5,
+     "differences": [
+      {
+       "op": "insert",
+       "existing_position": 6,
+       "existing_tokens": [],
+       "original_position": 6,
+       "original_tokens": [
+        "▁"
+       ]
+      }
+     ],
+     "existing_head": [
+      "<s>",
+      "▁US",
+      "ER",
+      ":",
+      "▁",
+      "<image>",
+      "<0x0A>",
+      "Current",
+      "▁question",
+      "▁Q",
+      "1"
+     ],
+     "original_head": [
+      "<s>",
+      "▁US",
+      "ER",
+      ":",
+      "▁",
+      "<image>",
+      "▁",
+      "<0x0A>",
+      "Current",
+      "▁question",
+      "▁Q",
+      "1"
+     ]
+    }
+   ],
+   "difference_patterns": [
+    {
+     "after": [
+      "<image>"
+     ],
+     "existing": [],
+     "original": [
+      "▁"
+     ],
+     "count": 60
+    }
+   ]
+  },
+  {
+   "model": "LLaVA-1.5",
+   "dataset": "MT-GQA",
+   "run": "runs/llava15_mt_gqa_main_20261120T165001Z",
+   "phase": "main",
+   "sampling": {
+    "committed_images": 398,
+    "stride": 19,
+    "sampled_images": 20
+   },
+   "method_of_rows": [
+    "recompute"
+   ],
+   "turns": {
+    "T1": {
+     "compared": 20,
+     "mismatched": 0,
+     "existing_suffix_equals_recorded_suffix": 20,
+     "prompts_containing_eos": 0
+    },
+    "T2": {
+     "compared": 20,
+     "mismatched": 0,
+     "existing_suffix_equals_recorded_suffix": 20,
+     "prompts_containing_eos": 0
+    },
+    "T3": {
+     "compared": 20,
+     "mismatched": 0,
+     "existing_suffix_equals_recorded_suffix": 20,
+     "prompts_containing_eos": 0
+    }
+   },
+   "examples": [],
+   "difference_patterns": []
+  },
+  {
+   "model": "LLaVA-1.5",
+   "dataset": "MT-VQA",
+   "run": "runs/llava15_mtvqa_impress_code_20261118T053221Z",
+   "phase": "main",
+   "sampling": {
+    "committed_images": 25000,
+    "stride": 1250,
+    "sampled_images": 20
+   },
+   "method_of_rows": [
+    "recompute"
+   ],
+   "turns": {
+    "T1": {
+     "compared": 20,
+     "mismatched": 0,
+     "existing_suffix_equals_recorded_suffix": 20,
+     "prompts_containing_eos": 0
+    },
+    "T2": {
+     "compared": 20,
+     "mismatched": 0,
+     "existing_suffix_equals_recorded_suffix": 20,
+     "prompts_containing_eos": 0
+    },
+    "T3": {
+     "compared": 20,
+     "mismatched": 0,
+     "existing_suffix_equals_recorded_suffix": 20,
+     "prompts_containing_eos": 0
+    }
+   },
+   "examples": [],
+   "difference_patterns": []
+  }
+ ]
+}

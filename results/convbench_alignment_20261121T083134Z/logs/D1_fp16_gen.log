@@ -1,0 +1,117 @@
+
+=== 2026-11-21T23:22:39Z attempt 1: /home/dblab/anaconda3/envs/mllm_ft/bin/python scripts/213_convbench_recomp_generate.py --out /home/dblab/hj/mllm_v2/results/convbench_alignment_20261121T083134Z/gen/next_D1_fp16 --model next --cap-policy official_1024 --tokenization official --precision fp16
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.94it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:00<00:00,  2.01it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  2.20it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  2.14it/s]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[1/577] convbench:1: [74, 113, 23] tokens
+[2/577] convbench:2: [110, 244, 33] tokens
+[3/577] convbench:3: [96, 182, 140] tokens
+Token indices sequence length is longer than the specified maximum sequence length for this model (4145 > 4096). Running this sequence through the model will result in indexing errors
+[4/577] convbench:4: [1024, 89, 496] tokens
+[5/577] convbench:5: [125, 108, 11] tokens
+[6/577] convbench:6: [49, 263, 375] tokens
+[7/577] convbench:7: [195, 151, 615] tokens
+[8/577] convbench:8: [262, 413, 590] tokens
+[9/577] convbench:9: [160, 363, 414] tokens
+[10/577] convbench:10: [60, 154, 109] tokens
+[11/577] convbench:11: [67, 125, 296] tokens
+[12/577] convbench:12: [108, 178, 1024] tokens
+[13/577] convbench:13: [147, 164, 168] tokens
+[14/577] convbench:14: [24, 17, 225] tokens
+[15/577] convbench:15: [76, 512, 527] tokens
+[16/577] convbench:16: [15, 39, 250] tokens
+[17/577] convbench:17: [536, 532, 566] tokens
+[18/577] convbench:18: [91, 15, 417] tokens
+[19/577] convbench:19: [1024, 86, 437] tokens
+[20/577] convbench:20: [159, 381, 106] tokens
+[21/577] convbench:21: [193, 126, 268] tokens
+[22/577] convbench:22: [146, 262, 653] tokens
+[23/577] convbench:23: [90, 118, 224] tokens
+[24/577] convbench:24: [31, 31, 1024] tokens
+[25/577] convbench:25: [106, 121, 16] tokens
+[26/577] convbench:26: [73, 113, 382] tokens
+[27/577] convbench:27: [92, 131, 279] tokens
+[28/577] convbench:28: [19, 71, 213] tokens
+[29/577] convbench:29: [1024, 243, 1024] tokens
+[30/577] convbench:30: [62, 101, 265] tokens
+[31/577] convbench:31: [131, 242, 536] tokens
+[32/577] convbench:32: [11, 59, 68] tokens
+[33/577] convbench:33: [178, 398, 570] tokens
+[34/577] convbench:34: [272, 119, 296] tokens
+[35/577] convbench:35: [174, 112, 830] tokens
+[36/577] convbench:36: [107, 88, 199] tokens
+[37/577] convbench:37: [218, 233, 173] tokens
+[38/577] convbench:38: [32, 67, 195] tokens
+[39/577] convbench:39: [199, 96, 44] tokens
+[40/577] convbench:40: [170, 114, 118] tokens
+[41/577] convbench:41: [72, 392, 278] tokens
+[42/577] convbench:42: [1024, 1024, 12] tokens
+[43/577] convbench:43: [52, 1024, 406] tokens
+[44/577] convbench:44: [126, 235, 266] tokens
+[45/577] convbench:45: [193, 117, 332] tokens
+[46/577] convbench:46: [122, 98, 551] tokens
+[47/577] convbench:47: [210, 392, 353] tokens
+[48/577] convbench:48: [88, 77, 173] tokens
+[49/577] convbench:49: [96, 126, 152] tokens
+[50/577] convbench:50: [76, 115, 633] tokens
+[51/577] convbench:51: [65, 256, 253] tokens
+[52/577] convbench:52: [9, 22, 1024] tokens
+[53/577] convbench:53: [9, 28, 448] tokens
+[54/577] convbench:54: [110, 101, 270] tokens
+Traceback (most recent call last):
+  File "/home/dblab/hj/mllm_v2/scripts/213_convbench_recomp_generate.py", line 356, in <module>
+    main()
+  File "/home/dblab/hj/mllm_v2/scripts/213_convbench_recomp_generate.py", line 292, in main
+    output = runner.model.generate(**enc, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/generation/utils.py", line 2566, in generate
+    result = decoding_method(
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/generation/utils.py", line 2786, in _sample
+    outputs = self(**model_inputs, return_dict=True)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/utils/generic.py", line 918, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/llava_next/modeling_llava_next.py", line 666, in forward
+    outputs = self.model(
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/utils/generic.py", line 918, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/llava_next/modeling_llava_next.py", line 507, in forward
+    outputs = self.language_model(
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/utils/generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 395, in forward
+    hidden_states = decoder_layer(
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 294, in forward
+    hidden_states, _ = self.self_attn(
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 252, in forward
+    attn_output, attn_weights = attention_interface(
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 189, in eager_attention_forward
+    attn_weights = nn.functional.softmax(attn_weights, dim=-1, dtype=torch.float32).to(query.dtype)
+  File "/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/functional.py", line 2142, in softmax
+    ret = input.softmax(dim, dtype=dtype)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.90 GiB. GPU 0 has a total capacity of 23.65 GiB of which 2.14 GiB is free. Including non-PyTorch memory, this process has 21.47 GiB memory in use. Of the allocated memory 16.50 GiB is allocated by PyTorch, and 4.52 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

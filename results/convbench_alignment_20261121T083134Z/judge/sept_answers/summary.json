@@ -1,0 +1,355 @@
+{
+ "conversations": 577,
+ "judgments": 1731,
+ "cap": 2048,
+ "judged_now": 1695,
+ "cache_hits": 42,
+ "extractions_now": 172,
+ "views": {
+  "cap512": {
+   "S1": 7.279029462738301,
+   "S2": 7.105719237435009,
+   "S3": 4.332755632582322,
+   "Avg": 6.239168110918545,
+   "model_wins": {
+    "S1": 42,
+    "S2": 41,
+    "S3": 25
+   },
+   "unresolved": {
+    "S1": 18,
+    "S2": 50,
+    "S3": 92
+   },
+   "unresolved_total": 160,
+   "parse_stages": {
+    "S1": {
+     "first_pass": 559,
+     "second_pass": 0,
+     "rating_fallback": 0,
+     "unresolved": 18
+    },
+    "S2": {
+     "first_pass": 525,
+     "second_pass": 2,
+     "rating_fallback": 0,
+     "unresolved": 50
+    },
+    "S3": {
+     "first_pass": 480,
+     "second_pass": 5,
+     "rating_fallback": 0,
+     "unresolved": 92
+    }
+   }
+  },
+  "capN": {
+   "S1": 7.279029462738301,
+   "S2": 7.625649913344887,
+   "S3": 5.1993067590987865,
+   "Avg": 6.701328711727324,
+   "model_wins": {
+    "S1": 42,
+    "S2": 44,
+    "S3": 30
+   },
+   "unresolved": {
+    "S1": 18,
+    "S2": 27,
+    "S3": 5
+   },
+   "unresolved_total": 50,
+   "parse_stages": {
+    "S1": {
+     "first_pass": 559,
+     "second_pass": 0,
+     "rating_fallback": 0,
+     "unresolved": 18
+    },
+    "S2": {
+     "first_pass": 550,
+     "second_pass": 0,
+     "rating_fallback": 0,
+     "unresolved": 27
+    },
+    "S3": {
+     "first_pass": 571,
+     "second_pass": 1,
+     "rating_fallback": 0,
+     "unresolved": 5
+    }
+   }
+  }
+ },
+ "output_tokens": {
+  "hit_cap_512": {
+   "S1": 3,
+   "S2": 27,
+   "S3": 96
+  },
+  "hit_cap_N": {
+   "S1": 3,
+   "S2": 2,
+   "S3": 3
+  },
+  "max": 2048
+ },
+ "september_comparison": {
+  "records": 1731,
+  "text512_identical_to_september": 1731,
+  "text512_differs": [],
+  "september_resolved": 1592,
+  "cap512": {
+   "same_winner": 1565,
+   "winner_changed": [],
+   "became_unresolved": [
+    [
+     "convbench:26",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:54",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:75",
+     "_first_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:85",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:92",
+     "_first_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:112",
+     "_second_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:134",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:174",
+     "_first_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:192",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:206",
+     "_second_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:213",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:215",
+     "_third_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:240",
+     "_third_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:277",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:304",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:308",
+     "_second_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:311",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:348",
+     "_first_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:380",
+     "_second_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:383",
+     "_first_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:389",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:473",
+     "_second_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:507",
+     "_first_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:516",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:531",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:557",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:568",
+     "_second_turn",
+     "A",
+     "second_pass"
+    ]
+   ],
+   "september_unresolved_now_resolved": 6,
+   "september_unresolved_now_model_win": 1,
+   "september_unresolved_still_unresolved": 133
+  },
+  "capN": {
+   "same_winner": 1580,
+   "winner_changed": [],
+   "became_unresolved": [
+    [
+     "convbench:75",
+     "_first_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:92",
+     "_first_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:112",
+     "_second_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:174",
+     "_first_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:206",
+     "_second_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:308",
+     "_second_turn",
+     "A",
+     "second_pass"
+    ],
+    [
+     "convbench:348",
+     "_first_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:380",
+     "_second_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:383",
+     "_first_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:473",
+     "_second_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:507",
+     "_first_turn",
+     "B",
+     "second_pass"
+    ],
+    [
+     "convbench:531",
+     "_third_turn",
+     "A",
+     "second_pass"
+    ]
+   ],
+   "september_unresolved_now_resolved": 101,
+   "september_unresolved_now_model_win": 8,
+   "september_unresolved_still_unresolved": 38
+  }
+ }
+}

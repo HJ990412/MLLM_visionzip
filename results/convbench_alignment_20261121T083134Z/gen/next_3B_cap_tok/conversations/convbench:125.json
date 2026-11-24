@@ -1,0 +1,60 @@
+{
+ "conversation_id": "convbench:125",
+ "source_row_index": 124,
+ "source_id": "125",
+ "index_sha256": "629f46957193bdd90db184c98d799785fd2821989454a1e6ebf06be221ee8b91",
+ "origin": "generated",
+ "rows": [
+  {
+   "turn_id": 1,
+   "method": "ReComp",
+   "question": "What are the people's outfits?",
+   "prediction": "The person on the left is wearing a dark jacket and light-colored pants, while the person on the right is wearing a dark jacket and blue jeans. Both are smiling and appear to be enjoying themselves.",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image> \nWhat are the people's outfits? ASSISTANT:",
+   "prompt_sha256": "f357f15da76b9629bff5a051d85f644cfd7d945bff98cee9b59f5389f67a76ad",
+   "input_tokens": 2294,
+   "generated_tokens": 51,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 450
+  },
+  {
+   "turn_id": 2,
+   "method": "ReComp",
+   "question": "Generate a question based on the given image such that it receives the following answer: jeans",
+   "prediction": "\"What type of pants are the person on the right wearing?\"",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image> \nWhat are the people's outfits? ASSISTANT: The person on the left is wearing a dark jacket and light-colored pants, while the person on the right is wearing a dark jacket and blue jeans. Both are smiling and appear to be enjoying themselves.</s> USER: Generate a question based on the given image such that it receives the following answer: jeans ASSISTANT:",
+   "prompt_sha256": "b43d138858d26997acbe29e189489e5ab9147686c74f6efb28008fb78ba8c845",
+   "input_tokens": 2372,
+   "generated_tokens": 16,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 376
+  },
+  {
+   "turn_id": 3,
+   "method": "ReComp",
+   "question": "If the person to the left side of the image is named Jack, and the person to the right side of the image is named Tom, using their name, can you rework the previous instruction and describe the image in detail again?",
+   "prediction": "In the image, there are two men standing in front of a window. The man on the left, named Jack, is wearing a dark jacket and light-colored pants. The man on the right, named Tom, is wearing a dark jacket and blue jeans. Both are smiling and appear to be enjoying themselves.",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image> \nWhat are the people's outfits? ASSISTANT: The person on the left is wearing a dark jacket and light-colored pants, while the person on the right is wearing a dark jacket and blue jeans. Both are smiling and appear to be enjoying themselves.</s> USER: Generate a question based on the given image such that it receives the following answer: jeans ASSISTANT: \"What type of pants are the person on the right wearing?\"</s> USER: If the person to the left side of the image is named Jack, and the person to the right side of the image is named Tom, using their name, can you rework the previous instruction and describe the image in detail again? ASSISTANT:",
+   "prompt_sha256": "282efa0a796227a8537ce0b8b66caae503078b5efe0a54ddd1942eeeb1b24633",
+   "input_tokens": 2443,
+   "generated_tokens": 73,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 512
+  }
+ ]
+}

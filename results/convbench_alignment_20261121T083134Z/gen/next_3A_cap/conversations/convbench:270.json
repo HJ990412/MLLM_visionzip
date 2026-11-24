@@ -1,0 +1,54 @@
+{
+ "conversation_id": "convbench:270",
+ "source_row_index": 269,
+ "source_id": "270",
+ "index_sha256": "629f46957193bdd90db184c98d799785fd2821989454a1e6ebf06be221ee8b91",
+ "origin": "copied_from_september",
+ "rows": [
+  {
+   "turn_id": 1,
+   "method": "ReComp",
+   "question": "Describe the chart in detail.",
+   "prediction": "The chart is a line graph titled \"Percent of Adults Smoking.\" The graph shows the percentage of adults smoking from 1960 to 2015. The data points are represented by blue lines, and the x-axis represents the years from 1960 to 2015, while the y-axis represents the percentage of adults smoking. The graph indicates a general downward trend in the percentage of adults smoking, with the highest percentage being in the 1960s and the lowest in 2015. The source of the data is cited as \"Centers for Disease Control and Prevention.\"",
+   "prompt_sha256": "e11d029d0e1ac38e016fe6223ac58f3bc67a5c89b1911670e888eaae113dce46",
+   "input_tokens": 2192,
+   "generated_tokens": 146,
+   "effective_max_new_tokens": 1024,
+   "september_effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "official_token_ids_match": null
+  },
+  {
+   "turn_id": 2,
+   "method": "ReComp",
+   "question": "Is the percentage of adults smoking increasing or decreasing over the period shown on the graph? Use data points from individual years to explain your answer.",
+   "prediction": "The percentage of adults smoking is decreasing over the period shown on the graph. This can be observed by looking at the individual data points for each year. For example, in 1960, the percentage of adults smoking was 45.0%, while in 2015, it was 35.0%. This shows a decrease in the percentage of adults smoking from 45.0% in 1960 to 35.0% in 2015.",
+   "prompt_sha256": "d2b972c27d7766aa81cfac9d6a2a2578762a607af30e9da6520096ab9bce77d4",
+   "input_tokens": 2376,
+   "generated_tokens": 113,
+   "effective_max_new_tokens": 1024,
+   "september_effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "official_token_ids_match": null
+  },
+  {
+   "turn_id": 3,
+   "method": "ReComp",
+   "question": "Can you guide me to create a bar chart based on the pie chart?\n",
+   "prediction": "Certainly! To create a bar chart based on the pie chart, you would need to follow these steps:\n\n1. Determine the data you want to represent in the bar chart. In this case, you would need to determine the percentage of adults smoking for each year from 1960 to 2015.\n2. Create a new spreadsheet or use an existing one where you have the data for each year.\n3. In a new column, enter the percentage of adults smoking for each year.\n4. Create a new column and label it \"Bar Chart Percentage.\"\n5. In this new column, divide the percentage of adults smoking for each year by the total percentage of adults smoking across all years. This will give you the percentage of each year's smoking percentage that corresponds to a bar in the bar chart.\n6. Create a new column and label it \"Bar Chart Percentage (Normalized).\"\n7. In this new column, multiply the percentage of adults smoking for each year by the total percentage of adults smoking across all years. This will give you the actual percentage of each year's smoking percentage that corresponds to a bar in the bar chart.\n8. Create a new column and label it \"Bar Chart Percentage (Normalized) -1.\"\n9. In this new column, subtract the percentage of adults smoking for each year from the total percentage of adults smoking across all years. This will give you the percentage of each year's smoking percentage that corresponds to a bar in the bar chart.\n10. Create a new column and label it \"Bar Chart Percentage (Normalized) +1.\"\n11. In this new column, add the percentage of adults smoking for each year to the total percentage of adults smoking across all years. This will give you the percentage of each year's smoking percentage that corresponds to a bar in the bar chart.\n12. Create a new column and label it \"Bar Chart Percentage (Normalized) +2.\"\n13. In this new column, multiply the percentage of adults smoking for each year by the total percentage of adults smoking across all years. This will give you the actual percentage of each year's smoking percentage that corresponds to a bar in the bar chart.\n14. Create a new column and label it \"Bar Chart Percentage (Normalized) +3.\"\n15. In this new column, subtract the percentage of adults smoking for each year from the total percentage of adults smoking across all years. This will give you the percentage of each year's smoking percentage that corresponds to a bar in the bar chart.\n16. Create a new column and label it \"Bar Chart Percentage (Normalized) +4.\"\n17. In this new column, add the percentage of adults smoking for each year to the total percentage of adults smoking across all years. This will give you the percentage of each year's smoking percentage that corresponds to a bar in the bar chart.\n18. Create a new column and label it \"Bar Chart Percentage (Normalized) +5.\"\n19. In this new column, multiply the percentage of adults smoking for each year by the total percentage of adults smoking across all years. This will give you the actual percentage of each year's smoking percentage that corresponds to a bar in the bar chart.\n20. Create a new column and label it \"Bar Chart Percentage (Normalized) +6.\"\n21. In this new column, subtract the percentage of adults smoking for each year from the total percentage of adults smoking across all years. This will give you the percentage of each year's smoking percentage that corresponds to a bar in the bar chart.\n22. Create a new column and label it \"Bar Chart Percentage (Normalized) +7.\"\n23. In this new column, add the percentage of adults smoking for each year to the total percentage of adults smoking across all years. This will give you the percentage of each year's smoking percentage that corresponds to a bar in the bar chart.\n24. Create a new column and label it \"Bar Chart Percentage (Normalized) +8.\"\n25. In this new column, multiply the percentage of adults smoking for each year by the total percentage of adults smoking across all years. This will give you the actual percentage of each year's smoking percentage that corresponds to a bar in the bar chart.\n26. Create a new column and label it \"Bar Chart Percentage (Normalized) +9.\"\n27.",
+   "prompt_sha256": "e01e66ff0997f2a05a2cabd49ac330a2de7ffb963bff62e289c9ce0cfe2a98a9",
+   "input_tokens": 2512,
+   "generated_tokens": 1024,
+   "effective_max_new_tokens": 1024,
+   "september_effective_max_new_tokens": 1024,
+   "cap_reached": true,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "official_token_ids_match": null
+  }
+ ]
+}

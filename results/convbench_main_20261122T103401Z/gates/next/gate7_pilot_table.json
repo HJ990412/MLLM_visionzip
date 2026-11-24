@@ -1,0 +1,606 @@
+{
+ "system": {
+  "conversations": 40,
+  "roles": {
+   "recomp": {
+    "method": "ReComp",
+    "ttft": {
+     "T2": {
+      "n": 40,
+      "mean": 566.9572744518518,
+      "p50": 580.9629913419485,
+      "p95": 716.9166164938358,
+      "min": 241.91361851990223,
+      "max": 898.8574547693133
+     },
+     "T3": {
+      "n": 40,
+      "mean": 628.5162571584806,
+      "p50": 640.1388724334538,
+      "p95": 882.8698177821932,
+      "min": 274.6708719059825,
+      "max": 979.4230852276087
+     },
+     "T2-T3": {
+      "n": 80,
+      "mean": 597.7367658051662,
+      "p50": 596.5136140584946,
+      "p95": 811.7342338431624,
+      "min": 241.91361851990223,
+      "max": 979.4230852276087
+     }
+    },
+    "t1_ttft": {
+     "n": 40,
+     "mean": 522.439732006751,
+     "p50": 544.76856905967,
+     "p95": 696.1735340300946,
+     "min": 233.65046363323927,
+     "max": 853.6061365157366
+    },
+    "ssd_mb_per_followup": 0.0,
+    "read_calls_per_followup": 0.0,
+    "followup_requests": 80,
+    "requests_ok": 120,
+    "requests_failed": 0,
+    "input_tokens": {
+     "T1": {
+      "n": 40,
+      "mean": 2215.725,
+      "p50": 2389.0,
+      "p95": 2523.8499999999985,
+      "min": 1131.0,
+      "max": 2980.0
+     },
+     "T2": {
+      "n": 40,
+      "mean": 2381.325,
+      "p50": 2482.5,
+      "p95": 2752.499999999999,
+      "min": 1266.0,
+      "max": 3074.0
+     },
+     "T3": {
+      "n": 40,
+      "mean": 2585.025,
+      "p50": 2601.5,
+      "p95": 3169.95,
+      "min": 1362.0,
+      "max": 3487.0
+     }
+    },
+    "requests_above_4096": {
+     "T1": 0,
+     "T2": 0,
+     "T3": 0
+    },
+    "generated_tokens": {
+     "T1": {
+      "n": 40,
+      "mean": 134.075,
+      "p50": 91.5,
+      "p95": 299.5,
+      "min": 9.0,
+      "max": 393.0
+     },
+     "T2": {
+      "n": 40,
+      "mean": 160.0,
+      "p50": 109.0,
+      "p95": 415.39999999999986,
+      "min": 17.0,
+      "max": 489.0
+     },
+     "T3": {
+      "n": 40,
+      "mean": 332.775,
+      "p50": 333.5,
+      "p95": 763.0499999999996,
+      "min": 16.0,
+      "max": 1024.0
+     }
+    },
+    "generated_tokens_mean": 208.95,
+    "cap_reached": {
+     "T1": 0,
+     "T2": 0,
+     "T3": 1
+    },
+    "e2e_ms_followup_mean": 5193.904486775864,
+    "decomposition": {
+     "ttft_mean_ms": 597.7367658051662,
+     "prefill_mean_ms": 558.3215690101497
+    }
+   },
+   "fullload": {
+    "method": "FullLoad",
+    "ttft": {
+     "T2": {
+      "n": 40,
+      "mean": 558.3965442609042,
+      "p50": 570.6323650665581,
+      "p95": 678.7827699445185,
+      "min": 289.1763336956501,
+      "max": 800.8571499958634
+     },
+     "T3": {
+      "n": 40,
+      "mean": 502.9530174797401,
+      "p50": 520.3441390767694,
+      "p95": 625.818578712642,
+      "min": 218.826312571764,
+      "max": 744.3112703040242
+     },
+     "T2-T3": {
+      "n": 80,
+      "mean": 530.6747808703221,
+      "p50": 534.3824690207839,
+      "p95": 675.037754094228,
+      "min": 218.826312571764,
+      "max": 800.8571499958634
+     }
+    },
+    "t1_ttft": {
+     "n": 40,
+     "mean": 524.3925573537126,
+     "p50": 544.8259636759758,
+     "p95": 695.6951430067419,
+     "min": 233.68020728230476,
+     "max": 866.4328753948212
+    },
+    "ssd_mb_per_followup": 1133.8514432,
+    "read_calls_per_followup": 64.0,
+    "followup_requests": 80,
+    "requests_ok": 120,
+    "requests_failed": 0,
+    "input_tokens": {
+     "T1": {
+      "n": 40,
+      "mean": 2215.725,
+      "p50": 2389.0,
+      "p95": 2523.8499999999985,
+      "min": 1131.0,
+      "max": 2980.0
+     },
+     "T2": {
+      "n": 40,
+      "mean": 2381.325,
+      "p50": 2482.5,
+      "p95": 2752.499999999999,
+      "min": 1266.0,
+      "max": 3074.0
+     },
+     "T3": {
+      "n": 40,
+      "mean": 2587.075,
+      "p50": 2598.5,
+      "p95": 3169.5,
+      "min": 1368.0,
+      "max": 3497.0
+     }
+    },
+    "requests_above_4096": {
+     "T1": 0,
+     "T2": 0,
+     "T3": 0
+    },
+    "generated_tokens": {
+     "T1": {
+      "n": 40,
+      "mean": 134.075,
+      "p50": 91.5,
+      "p95": 299.5,
+      "min": 9.0,
+      "max": 393.0
+     },
+     "T2": {
+      "n": 40,
+      "mean": 162.05,
+      "p50": 109.0,
+      "p95": 428.89999999999986,
+      "min": 17.0,
+      "max": 501.0
+     },
+     "T3": {
+      "n": 40,
+      "mean": 355.35,
+      "p50": 368.5,
+      "p95": 733.8999999999993,
+      "min": 16.0,
+      "max": 1024.0
+     }
+    },
+    "generated_tokens_mean": 217.15833333333333,
+    "cap_reached": {
+     "T1": 0,
+     "T2": 0,
+     "T3": 1
+    },
+    "e2e_ms_followup_mean": 5307.697999337688,
+    "decomposition": {
+     "ttft_mean_ms": 530.6747808703221,
+     "prefill_mean_ms": 519.8915411601774,
+     "read_wait_mean_ms": 162.46684832731262,
+     "read_wait_p95_ms": 246.7781721614301,
+     "hook_mean_ms": 474.0704466938041,
+     "text_compute_mean_ms": 45.821094466373324,
+     "outside_prefill_mean_ms": 10.783239710144699,
+     "gpu_load_mean_ms": 311.6035983664915,
+     "gpu_load_source": "layer hook 시간 − 읽기 대기 (모든 행의 host FP16 → GPU BF16 복사)",
+     "worker_read_mean_ms": 515.4242078540847
+    }
+   },
+   "impress": {
+    "method": "IMPRESS",
+    "ttft": {
+     "T2": {
+      "n": 40,
+      "mean": 768.2134032482281,
+      "p50": 796.7543522827327,
+      "p95": 939.4775669556111,
+      "min": 417.4252478405833,
+      "max": 991.2088848650455
+     },
+     "T3": {
+      "n": 40,
+      "mean": 765.198983438313,
+      "p50": 791.561646386981,
+      "p95": 961.0422178171574,
+      "min": 412.8592601045966,
+      "max": 990.1790311560035
+     },
+     "T2-T3": {
+      "n": 80,
+      "mean": 766.7061933432706,
+      "p50": 795.643862336874,
+      "p95": 954.7126406338066,
+      "min": 412.8592601045966,
+      "max": 991.2088848650455
+     }
+    },
+    "t1_ttft": {
+     "n": 40,
+     "mean": 546.8628570437431,
+     "p50": 570.9722433239222,
+     "p95": 732.3508599773048,
+     "min": 241.1459879949689,
+     "max": 892.2791685909033
+    },
+    "ssd_mb_per_followup": 992.5932992,
+    "read_calls_per_followup": 131.525,
+    "followup_requests": 80,
+    "requests_ok": 120,
+    "requests_failed": 0,
+    "input_tokens": {
+     "T1": {
+      "n": 40,
+      "mean": 2215.725,
+      "p50": 2389.0,
+      "p95": 2523.8499999999985,
+      "min": 1131.0,
+      "max": 2980.0
+     },
+     "T2": {
+      "n": 40,
+      "mean": 2381.325,
+      "p50": 2482.5,
+      "p95": 2752.499999999999,
+      "min": 1266.0,
+      "max": 3074.0
+     },
+     "T3": {
+      "n": 40,
+      "mean": 2584.125,
+      "p50": 2604.0,
+      "p95": 3191.2,
+      "min": 1381.0,
+      "max": 3480.0
+     }
+    },
+    "requests_above_4096": {
+     "T1": 0,
+     "T2": 0,
+     "T3": 0
+    },
+    "generated_tokens": {
+     "T1": {
+      "n": 40,
+      "mean": 134.075,
+      "p50": 91.5,
+      "p95": 299.5,
+      "min": 9.0,
+      "max": 393.0
+     },
+     "T2": {
+      "n": 40,
+      "mean": 159.1,
+      "p50": 122.0,
+      "p95": 387.6499999999999,
+      "min": 20.0,
+      "max": 426.0
+     },
+     "T3": {
+      "n": 40,
+      "mean": 384.425,
+      "p50": 362.0,
+      "p95": 1024.0,
+      "min": 15.0,
+      "max": 1024.0
+     }
+    },
+    "generated_tokens_mean": 225.86666666666667,
+    "cap_reached": {
+     "T1": 0,
+     "T2": 0,
+     "T3": 4
+    },
+    "e2e_ms_followup_mean": 5946.366856282111,
+    "decomposition": {
+     "ttft_mean_ms": 766.7061933432706,
+     "prefill_mean_ms": 756.4941337797791,
+     "read_wait_mean_ms": 392.54693255061284,
+     "read_wait_p95_ms": 490.65462728030974,
+     "hook_mean_ms": 706.3563730218448,
+     "text_compute_mean_ms": 50.1377607579343,
+     "outside_prefill_mean_ms": 10.212059563491493,
+     "gpu_load_mean_ms": 313.80944047123194,
+     "gpu_load_source": "layer hook 시간 − 읽기 대기 (GPU 복사에 probe 중요도 계산·선택이 함께 들어 있어 분리되지 않음)"
+    }
+   },
+   "ours": {
+    "method": "Ours",
+    "ttft": {
+     "T2": {
+      "n": 40,
+      "mean": 209.13410163484514,
+      "p50": 204.04244773089886,
+      "p95": 249.48405008763075,
+      "min": 156.38459287583828,
+      "max": 263.39469850063324
+     },
+     "T3": {
+      "n": 40,
+      "mean": 210.807953029871,
+      "p50": 200.80475602298975,
+      "p95": 298.1843199580908,
+      "min": 122.16775957494974,
+      "max": 310.6159148737788
+     },
+     "T2-T3": {
+      "n": 80,
+      "mean": 209.97102733235806,
+      "p50": 201.6508593223989,
+      "p95": 272.0174334477633,
+      "min": 122.16775957494974,
+      "max": 310.6159148737788
+     }
+    },
+    "t1_ttft": {
+     "n": 40,
+     "mean": 527.6094746543095,
+     "p50": 553.0011844821274,
+     "p95": 704.2978681158273,
+     "min": 233.47932379692793,
+     "max": 864.8930704221129
+    },
+    "ssd_mb_per_followup": 297.24508160000005,
+    "read_calls_per_followup": 33.0,
+    "followup_requests": 80,
+    "requests_ok": 120,
+    "requests_failed": 0,
+    "input_tokens": {
+     "T1": {
+      "n": 40,
+      "mean": 2215.725,
+      "p50": 2389.0,
+      "p95": 2523.8499999999985,
+      "min": 1131.0,
+      "max": 2980.0
+     },
+     "T2": {
+      "n": 40,
+      "mean": 2381.325,
+      "p50": 2482.5,
+      "p95": 2752.499999999999,
+      "min": 1266.0,
+      "max": 3074.0
+     },
+     "T3": {
+      "n": 40,
+      "mean": 2582.6,
+      "p50": 2603.5,
+      "p95": 3137.6,
+      "min": 1366.0,
+      "max": 3518.0
+     }
+    },
+    "requests_above_4096": {
+     "T1": 0,
+     "T2": 0,
+     "T3": 0
+    },
+    "generated_tokens": {
+     "T1": {
+      "n": 40,
+      "mean": 134.075,
+      "p50": 91.5,
+      "p95": 299.5,
+      "min": 9.0,
+      "max": 393.0
+     },
+     "T2": {
+      "n": 40,
+      "mean": 157.575,
+      "p50": 117.0,
+      "p95": 397.7499999999999,
+      "min": 17.0,
+      "max": 467.0
+     },
+     "T3": {
+      "n": 40,
+      "mean": 331.275,
+      "p50": 312.0,
+      "p95": 701.949999999999,
+      "min": 16.0,
+      "max": 1024.0
+     }
+    },
+    "generated_tokens_mean": 207.64166666666668,
+    "cap_reached": {
+     "T1": 0,
+     "T2": 0,
+     "T3": 2
+    },
+    "e2e_ms_followup_mean": 4929.010439582635,
+    "decomposition": {
+     "ttft_mean_ms": 209.97102733235806,
+     "prefill_mean_ms": 199.96300974162295,
+     "read_wait_mean_ms": 26.761969609651715,
+     "read_wait_p95_ms": 59.73498690873384,
+     "hook_mean_ms": 165.99744975101203,
+     "text_compute_mean_ms": 33.96555999061093,
+     "outside_prefill_mean_ms": 10.008017590735108,
+     "gpu_load_mean_ms": 139.04748597415164,
+     "gpu_load_source": "적재 호출 구간의 합(읽은 행을 GPU cache의 원래 위치에 쓰고 mask를 만드는 시간)",
+     "worker_read_mean_ms": 122.1772249089554
+    }
+   }
+  },
+  "ttft_pairs": [
+   {
+    "pair": "Ours − FullLoad",
+    "mean": -320.7037535379641,
+    "ci_low": -347.8128189439303,
+    "ci_high": -293.9118268780294,
+    "n": 40
+   },
+   {
+    "pair": "Ours − ReComp",
+    "mean": -387.76573847280815,
+    "ci_low": -423.2463036716217,
+    "ci_high": -351.5309520557639,
+    "n": 40
+   },
+   {
+    "pair": "Ours − IMPRESS",
+    "mean": -556.7351660109125,
+    "ci_low": -590.3017475488014,
+    "ci_high": -520.8781178991194,
+    "n": 40
+   },
+   {
+    "pair": "IMPRESS − FullLoad",
+    "mean": 236.03141247294843,
+    "ci_low": 215.45154571853345,
+    "ci_high": 257.6715535525,
+    "n": 40
+   },
+   {
+    "pair": "FullLoad − ReComp",
+    "mean": -67.06198493484408,
+    "ci_low": -95.66102913056966,
+    "ci_high": -42.7527332137106,
+    "n": 40
+   }
+  ],
+  "ttft_ratios": [
+   {
+    "ratio_name": "Ours / FullLoad",
+    "ratio": 0.3956679964855301,
+    "ci_low": 0.37610406840874316,
+    "ci_high": 0.41666515313975155,
+    "n": 40
+   },
+   {
+    "ratio_name": "Ours / ReComp",
+    "ratio": 0.3512767481343094,
+    "ci_low": 0.3341214884530771,
+    "ci_high": 0.3695695812923018,
+    "n": 40
+   },
+   {
+    "ratio_name": "Ours / IMPRESS",
+    "ratio": 0.27386113371116283,
+    "ci_low": 0.26370683022718205,
+    "ci_high": 0.2849600134466628,
+    "n": 40
+   },
+   {
+    "ratio_name": "IMPRESS / FullLoad",
+    "ratio": 1.4447760115637114,
+    "ci_low": 1.402284376626186,
+    "ci_high": 1.489007447370479,
+    "n": 40
+   }
+  ],
+  "impress": {
+   "followup_requests": 80,
+   "fallback_rate": 0.46171875,
+   "mean_jaccard": 0.3486204779088132,
+   "threshold": 0.3,
+   "kv_chunk_fraction": 0.8210148694790579,
+   "kv_chunk_fraction_non_fallback_layers": 0.6674877110786559,
+   "raster_chunk_fraction_computed": 0.9998052921826626,
+   "raster_chunk_fraction_computed_non_fallback_layers": 0.9996382786557446,
+   "prefix_share": 0.9654897491264685,
+   "requests_with_any_fallback": 1.0,
+   "requests_all_layers_fallback": 0.0,
+   "importance_only_chunk_fraction_computed": 0.8400830272805135
+  },
+  "stores": {
+   "fullload": {
+    "method": "FullLoad",
+    "conversations": 40,
+    "store_mb_mean": 1241.4851547,
+    "store_mb_max": 1674.624508,
+    "store_seconds_mean": 1.0320129780098797,
+    "store_seconds_p95": 1.307292379345745,
+    "impress_reorder_seconds_mean_included": null,
+    "impress_capture_ms_inside_turn1": null,
+    "integrity_hash_seconds_mean_harness": 0.5999213647563011,
+    "written_mb_mean": 1241.4851547,
+    "written_bytes_total": 49659406188,
+    "activation_seconds_mean": 1.2079954856075346
+   },
+   "impress": {
+    "method": "IMPRESS",
+    "conversations": 40,
+    "store_mb_mean": 1242.911585875,
+    "store_mb_max": 1676.568156,
+    "store_seconds_mean": 1.9544554808177055,
+    "store_seconds_p95": 2.4548106611240654,
+    "impress_reorder_seconds_mean_included": 0.9249348238576204,
+    "impress_capture_ms_inside_turn1": 16.84704073704779,
+    "integrity_hash_seconds_mean_harness": 0.5921676009427757,
+    "written_mb_mean": 2450.0378816750003,
+    "written_bytes_total": 98001515267,
+    "activation_seconds_mean": 1.2016470187343657
+   },
+   "ours": {
+    "method": "Ours",
+    "conversations": 40,
+    "store_mb_mean": 315.64247389999997,
+    "store_mb_max": 421.063551,
+    "store_seconds_mean": 0.4726539712166414,
+    "store_seconds_p95": 0.5583694907836616,
+    "impress_reorder_seconds_mean_included": null,
+    "impress_capture_ms_inside_turn1": null,
+    "integrity_hash_seconds_mean_harness": 0.15311249617952855,
+    "written_mb_mean": 315.64247389999997,
+    "written_bytes_total": 12625698956,
+    "activation_seconds_mean": 0.18791842157952487
+   }
+  },
+  "failures": [],
+  "failed_rows": [],
+  "t1_identical_conversations": 40,
+  "conversation_seconds_mean": 63.11118322610855,
+  "conversation_seconds_total": 2524.447329044342
+ },
+ "recomp_vs_alignment": {
+  "requests": 120,
+  "identical": 120,
+  "examples_of_differences": []
+ },
+ "at_utc": "2026-11-22T12:20:53Z"
+}

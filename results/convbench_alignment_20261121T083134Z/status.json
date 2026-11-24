@@ -1,0 +1,170 @@
+{
+ "run": "results/convbench_alignment_20261121T083134Z",
+ "stage": "done",
+ "stage_title": "모든 단계 종료",
+ "progress": null,
+ "eta_utc": null,
+ "last_error": {
+  "stage": "D1_fp16_gen",
+  "error": "GPU 메모리 부족으로 건너뜀",
+  "at_utc": "2026-11-21T23:40:00Z"
+ },
+ "driver_pid": null,
+ "driver_started_utc": "2026-11-21T08:56:12Z",
+ "first_started_utc": "2026-11-21T08:52:53Z",
+ "driver_invocations": 2,
+ "updated_utc": "2026-11-21T23:40:00Z",
+ "steps": [
+  {
+   "id": "stage2_judge_sept",
+   "title": "2단계: 9월 ReComp 답 재판정(고친 판정기)",
+   "started_utc": "2026-11-21T08:56:12Z",
+   "finished_utc": "2026-11-21T12:28:23Z",
+   "seconds": 12911.114198923111,
+   "note": null,
+   "state": "done"
+  },
+  {
+   "id": "replay_check",
+   "title": "3단계 사전 검사: 새 생성 스크립트와 9월 답 일치(12대화)",
+   "started_utc": "2026-11-21T12:28:23Z",
+   "finished_utc": "2026-11-21T12:32:03Z",
+   "seconds": 220.21209239959717,
+   "note": null,
+   "state": "done"
+  },
+  {
+   "id": "stage3A_gen",
+   "title": "3단계 A 생성: 상한 항상 1024(G1)",
+   "started_utc": "2026-11-21T12:32:03Z",
+   "finished_utc": "2026-11-21T12:39:44Z",
+   "seconds": 460.41336488723755,
+   "note": null,
+   "state": "done"
+  },
+  {
+   "id": "stage3A_judge",
+   "title": "3단계 A 판정",
+   "started_utc": "2026-11-21T12:39:44Z",
+   "finished_utc": "2026-11-21T12:46:44Z",
+   "seconds": 420.39850997924805,
+   "note": null,
+   "state": "done"
+  },
+  {
+   "id": "stage3B_gen",
+   "title": "3단계 B 생성: G1 + 공식 토큰열(G2), 577대화 x 3턴",
+   "started_utc": "2026-11-21T12:46:44Z",
+   "finished_utc": "2026-11-21T14:53:51Z",
+   "seconds": 7626.808614015579,
+   "note": null,
+   "state": "done"
+  },
+  {
+   "id": "stage3B_judge",
+   "title": "3단계 B 판정",
+   "started_utc": "2026-11-21T14:53:51Z",
+   "finished_utc": "2026-11-21T18:29:03Z",
+   "seconds": 12911.791613817215,
+   "note": null,
+   "state": "done"
+  },
+  {
+   "id": "stage4_gen",
+   "title": "4단계 생성: LLaVA-1.5 ReComp 577대화 x 3턴",
+   "started_utc": "2026-11-21T18:29:03Z",
+   "finished_utc": "2026-11-21T19:46:47Z",
+   "seconds": 4664.0768575668335,
+   "note": null,
+   "state": "done"
+  },
+  {
+   "id": "stage4_judge",
+   "title": "4단계 판정",
+   "started_utc": "2026-11-21T19:46:47Z",
+   "finished_utc": "2026-11-21T23:22:39Z",
+   "seconds": 12951.87482380867,
+   "note": null,
+   "state": "done"
+  },
+  {
+   "id": "stage5_freeze",
+   "title": "5단계: 설정 동결 문서와 report.md",
+   "started_utc": "2026-11-21T23:22:39Z",
+   "finished_utc": "2026-11-21T23:22:39Z",
+   "seconds": 0.00022172927856445312,
+   "note": null,
+   "state": "done"
+  },
+  {
+   "id": "D1_fp16_gen",
+   "title": "진단 D1 생성: FP16 가중치",
+   "started_utc": "2026-11-21T23:22:39Z",
+   "finished_utc": "2026-11-21T23:40:00Z",
+   "seconds": 1040.9999265670776,
+   "note": "GPU 메모리 부족으로 건너뜀",
+   "state": "skipped"
+  },
+  {
+   "id": "D1_fp16_judge",
+   "title": "진단 D1 판정",
+   "started_utc": null,
+   "finished_utc": null,
+   "seconds": null,
+   "note": "조건에 해당하지 않음",
+   "state": "not_needed"
+  },
+  {
+   "id": "D2_sample_gen",
+   "title": "진단 D2 생성: temperature 0.2 샘플링(LLaVA-NeXT가 범위 밖일 때만)",
+   "started_utc": null,
+   "finished_utc": null,
+   "seconds": null,
+   "note": "조건에 해당하지 않음",
+   "state": "not_needed"
+  },
+  {
+   "id": "D2_sample_judge",
+   "title": "진단 D2 판정",
+   "started_utc": null,
+   "finished_utc": null,
+   "seconds": null,
+   "note": "조건에 해당하지 않음",
+   "state": "not_needed"
+  },
+  {
+   "id": "D3_pad_gen",
+   "title": "진단 D3 생성: LLaVA-1.5 공식 pad 전처리(LLaVA-1.5가 범위 밖일 때만)",
+   "started_utc": null,
+   "finished_utc": null,
+   "seconds": null,
+   "note": "조건에 해당하지 않음",
+   "state": "not_needed"
+  },
+  {
+   "id": "D3_pad_judge",
+   "title": "진단 D3 판정",
+   "started_utc": null,
+   "finished_utc": null,
+   "seconds": null,
+   "note": "조건에 해당하지 않음",
+   "state": "not_needed"
+  },
+  {
+   "id": "final_report",
+   "title": "report.md 최종 갱신",
+   "started_utc": "2026-11-21T23:40:00Z",
+   "finished_utc": "2026-11-21T23:40:00Z",
+   "seconds": 5.245208740234375e-06,
+   "note": null,
+   "state": "done"
+  }
+ ],
+ "commands": {
+  "progress": "cat results/convbench_alignment_20261121T083134Z/status.json",
+  "log": "tail -n 30 results/convbench_alignment_20261121T083134Z/driver.log",
+  "stop": "kill -TERM -- -$(cat results/convbench_alignment_20261121T083134Z/driver.pid)",
+  "continue": "scripts/run_convbench_alignment.sh results/convbench_alignment_20261121T083134Z"
+ },
+ "finished_utc": "2026-11-21T23:40:00Z"
+}

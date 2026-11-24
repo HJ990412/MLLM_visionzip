@@ -1,0 +1,54 @@
+{
+ "conversation_id": "convbench:111",
+ "source_row_index": 110,
+ "source_id": "111",
+ "index_sha256": "629f46957193bdd90db184c98d799785fd2821989454a1e6ebf06be221ee8b91",
+ "origin": "copied_from_september",
+ "rows": [
+  {
+   "turn_id": 1,
+   "method": "ReComp",
+   "question": "What are the words are written shown in the image?",
+   "prediction": "The words written in the image are \"Tom Gates\" and \"Everything's Amazing (Sort of)\" by Liz Pichon.",
+   "prompt_sha256": "d12ea43ab2e3bf98487d249e8e429c2fbcab64d2a8c8469f3f54ed5a79ef5421",
+   "input_tokens": 2404,
+   "generated_tokens": 32,
+   "effective_max_new_tokens": 1024,
+   "september_effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "official_token_ids_match": null
+  },
+  {
+   "turn_id": 2,
+   "method": "ReComp",
+   "question": "What is the title of this book? What is the subtitle of this book called? Who is the author of this book? What prize has the book won?",
+   "prediction": "The title of the book is \"Everything's Amazing (Sort of)\" by Liz Pichon. The subtitle of the book is \"Tom Gates.\" The author of the book is Liz Pichon. The book has won the Roald Dahl Funny Prize.",
+   "prompt_sha256": "1f17837aa84d2540b9d54658ff771592a0334d8dbd2306b1116c11084c991fa0",
+   "input_tokens": 2476,
+   "generated_tokens": 62,
+   "effective_max_new_tokens": 1024,
+   "september_effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "official_token_ids_match": null
+  },
+  {
+   "turn_id": 3,
+   "method": "ReComp",
+   "question": "Rework the previous instruction by returning the information in the following JSON format (node xxx is a placeholder, if the information is not available in the image, put \"N/A\" instead).\n{\"title\": xxx, \"Subtitle\": xxx, \"Author\": xxx, \"Prize\": xxx}",
+   "prediction": "{\n\"title\": \"Everything's Amazing (Sort of)\",\n\"Subtitle\": \"Tom Gates\",\n\"Author\": \"Liz Pichon\",\n\"Prize\": \"Roald Dahl Funny Prize\"\n}",
+   "prompt_sha256": "ce5c81620e8b9358b41c821c3c7490fe58db1f6aee42b996e1124dfc34c5f924",
+   "input_tokens": 2614,
+   "generated_tokens": 55,
+   "effective_max_new_tokens": 1024,
+   "september_effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "official_token_ids_match": null
+  }
+ ]
+}

@@ -1,0 +1,202 @@
+{
+ "requests": 1731,
+ "turns": {
+  "T1": {
+   "requests": 577,
+   "generated_tokens": {
+    "n": 577,
+    "mean": 137.2357019064125,
+    "p50": 98.0,
+    "p90": 263.5999999999999,
+    "p95": 310.0,
+    "p99": 1024.0,
+    "max": 1024
+   },
+   "reference_tokens": {
+    "n": 577,
+    "mean": 176.8786828422877,
+    "p50": 96.0,
+    "p90": 395.79999999999995,
+    "p95": 479.5999999999998,
+    "p99": 657.1200000000001,
+    "max": 9306
+   },
+   "cap_reached_at_1024": 12,
+   "cap_reached_at_context_clamped_cap": 1,
+   "cap_clamped_by_context": 2,
+   "repetition_flag": 5,
+   "numeric_repetition_review_flag": 3,
+   "input_above_4096": 0,
+   "input_tokens": {
+    "n": 577,
+    "mean": 2252.585788561525,
+    "p50": 2287.0,
+    "p90": 2682.4,
+    "p95": 2977.2,
+    "p99": 2988.24,
+    "max": 3222
+   },
+   "cap_reached_and_repetition_flag": 4,
+   "clamped_cap_reached_ids": [
+    [
+     "convbench:494",
+     3222,
+     875
+    ]
+   ]
+  },
+  "T2": {
+   "requests": 577,
+   "generated_tokens": {
+    "n": 577,
+    "mean": 171.2998266897747,
+    "p50": 116.0,
+    "p90": 361.19999999999993,
+    "p95": 471.9999999999983,
+    "p99": 1024.0,
+    "max": 1024
+   },
+   "reference_tokens": {
+    "n": 577,
+    "mean": 185.3466204506066,
+    "p50": 134.0,
+    "p90": 416.19999999999993,
+    "p95": 477.0,
+    "p99": 606.0,
+    "max": 926
+   },
+   "cap_reached_at_1024": 10,
+   "cap_reached_at_context_clamped_cap": 3,
+   "cap_clamped_by_context": 37,
+   "repetition_flag": 2,
+   "numeric_repetition_review_flag": 1,
+   "input_above_4096": 1,
+   "input_tokens": {
+    "n": 577,
+    "mean": 2417.0363951473137,
+    "p50": 2434.0,
+    "p90": 2939.2,
+    "p95": 3086.9999999999995,
+    "p99": 3352.2400000000007,
+    "max": 4137
+   },
+   "cap_reached_and_repetition_flag": 1,
+   "clamped_cap_reached_ids": [
+    [
+     "convbench:42",
+     3414,
+     683
+    ],
+    [
+     "convbench:84",
+     3234,
+     863
+    ],
+    [
+     "convbench:418",
+     4049,
+     48
+    ]
+   ]
+  },
+  "T3": {
+   "requests": 577,
+   "generated_tokens": {
+    "n": 577,
+    "mean": 346.0901213171577,
+    "p50": 322.0,
+    "p90": 619.5999999999999,
+    "p95": 848.3999999999999,
+    "p99": 1024.0,
+    "max": 1024
+   },
+   "reference_tokens": {
+    "n": 577,
+    "mean": 485.9948006932409,
+    "p50": 471.0,
+    "p90": 853.4,
+    "p95": 972.9999999999993,
+    "p99": 1198.16,
+    "max": 1534
+   },
+   "cap_reached_at_1024": 20,
+   "cap_reached_at_context_clamped_cap": 11,
+   "cap_clamped_by_context": 73,
+   "repetition_flag": 4,
+   "numeric_repetition_review_flag": 0,
+   "input_above_4096": 6,
+   "input_tokens": {
+    "n": 577,
+    "mean": 2622.7972270363953,
+    "p50": 2600.0,
+    "p90": 3189.6,
+    "p95": 3340.7999999999997,
+    "p99": 4091.92,
+    "max": 4945
+   },
+   "cap_reached_and_repetition_flag": 2,
+   "clamped_cap_reached_ids": [
+    [
+     "convbench:37",
+     3511,
+     586
+    ],
+    [
+     "convbench:47",
+     4017,
+     80
+    ],
+    [
+     "convbench:55",
+     3665,
+     432
+    ],
+    [
+     "convbench:72",
+     3763,
+     334
+    ],
+    [
+     "convbench:110",
+     3587,
+     510
+    ],
+    [
+     "convbench:133",
+     3534,
+     563
+    ],
+    [
+     "convbench:333",
+     3511,
+     586
+    ],
+    [
+     "convbench:379",
+     4090,
+     7
+    ],
+    [
+     "convbench:415",
+     3463,
+     634
+    ],
+    [
+     "convbench:487",
+     3541,
+     556
+    ],
+    [
+     "convbench:545",
+     3702,
+     395
+    ]
+   ]
+  }
+ },
+ "cap_reached_total": 57,
+ "cap_reached_rate": 0.03292894280762565,
+ "input_above_4096_total": 7,
+ "repetition_flag_total": 11,
+ "conversations_with_any_cap_reached": 45
+}

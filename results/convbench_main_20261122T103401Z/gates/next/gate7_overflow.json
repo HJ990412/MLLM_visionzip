@@ -1,0 +1,256 @@
+{
+ "gate": "gate7_inputs_above_4096",
+ "status": "PASS",
+ "selection": {
+  "needed": true,
+  "reason": "the pilot contains no input above 4096 tokens",
+  "pilot_requests_above_4096": [],
+  "selection_rule": "the conversations with the largest ReComp input in the alignment run",
+  "ordinals": [
+   559,
+   416
+  ],
+  "selected": [
+   {
+    "conversation_id": "convbench:561",
+    "ordinal": 559,
+    "alignment_recomp_largest_input_tokens": 4613,
+    "above_4096_in_alignment": true
+   },
+   {
+    "conversation_id": "convbench:418",
+    "ordinal": 416,
+    "alignment_recomp_largest_input_tokens": 4560,
+    "above_4096_in_alignment": true
+   }
+  ],
+  "note": null,
+  "model": "next",
+  "config_sha256": "4fc1c670d9d2169d99082f6ccbe5597fa4706bec2a69a0e46c1062fb4f8b73f3",
+  "at_utc": "2026-11-22T12:20:54Z"
+ },
+ "requests": 24,
+ "failed_requests": [],
+ "requests_above_4096": 8,
+ "rows": [
+  {
+   "conversation_id": "convbench:561",
+   "method": "Ours",
+   "turn": 1,
+   "status": "ok",
+   "input_tokens": 2506,
+   "generated_tokens": 1024,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "ReComp",
+   "turn": 1,
+   "status": "ok",
+   "input_tokens": 2506,
+   "generated_tokens": 1024,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "FullLoad",
+   "turn": 1,
+   "status": "ok",
+   "input_tokens": 2506,
+   "generated_tokens": 1024,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "IMPRESS",
+   "turn": 1,
+   "status": "ok",
+   "input_tokens": 2506,
+   "generated_tokens": 1024,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "Ours",
+   "turn": 2,
+   "status": "ok",
+   "input_tokens": 3566,
+   "generated_tokens": 1024,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "ReComp",
+   "turn": 2,
+   "status": "ok",
+   "input_tokens": 3566,
+   "generated_tokens": 1024,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "FullLoad",
+   "turn": 2,
+   "status": "ok",
+   "input_tokens": 3566,
+   "generated_tokens": 1024,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "IMPRESS",
+   "turn": 2,
+   "status": "ok",
+   "input_tokens": 3566,
+   "generated_tokens": 1024,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "Ours",
+   "turn": 3,
+   "status": "ok",
+   "input_tokens": 4613,
+   "generated_tokens": 269,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "ReComp",
+   "turn": 3,
+   "status": "ok",
+   "input_tokens": 4613,
+   "generated_tokens": 270,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "FullLoad",
+   "turn": 3,
+   "status": "ok",
+   "input_tokens": 4613,
+   "generated_tokens": 270,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "IMPRESS",
+   "turn": 3,
+   "status": "ok",
+   "input_tokens": 4613,
+   "generated_tokens": 102,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:418",
+   "method": "ReComp",
+   "turn": 1,
+   "status": "ok",
+   "input_tokens": 2995,
+   "generated_tokens": 1024,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:418",
+   "method": "FullLoad",
+   "turn": 1,
+   "status": "ok",
+   "input_tokens": 2995,
+   "generated_tokens": 1024,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:418",
+   "method": "IMPRESS",
+   "turn": 1,
+   "status": "ok",
+   "input_tokens": 2995,
+   "generated_tokens": 1024,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:418",
+   "method": "Ours",
+   "turn": 1,
+   "status": "ok",
+   "input_tokens": 2995,
+   "generated_tokens": 1024,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:418",
+   "method": "ReComp",
+   "turn": 2,
+   "status": "ok",
+   "input_tokens": 4051,
+   "generated_tokens": 486,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:418",
+   "method": "FullLoad",
+   "turn": 2,
+   "status": "ok",
+   "input_tokens": 4051,
+   "generated_tokens": 486,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:418",
+   "method": "IMPRESS",
+   "turn": 2,
+   "status": "ok",
+   "input_tokens": 4051,
+   "generated_tokens": 124,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:418",
+   "method": "Ours",
+   "turn": 2,
+   "status": "ok",
+   "input_tokens": 4051,
+   "generated_tokens": 168,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:418",
+   "method": "ReComp",
+   "turn": 3,
+   "status": "ok",
+   "input_tokens": 4560,
+   "generated_tokens": 13,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:418",
+   "method": "FullLoad",
+   "turn": 3,
+   "status": "ok",
+   "input_tokens": 4560,
+   "generated_tokens": 13,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:418",
+   "method": "IMPRESS",
+   "turn": 3,
+   "status": "ok",
+   "input_tokens": 4198,
+   "generated_tokens": 25,
+   "failure": null
+  },
+  {
+   "conversation_id": "convbench:418",
+   "method": "Ours",
+   "turn": 3,
+   "status": "ok",
+   "input_tokens": 4242,
+   "generated_tokens": 109,
+   "failure": null
+  }
+ ],
+ "note": "recorded; not a condition of the admission (gates 1-6 are)",
+ "config_sha256": "4fc1c670d9d2169d99082f6ccbe5597fa4706bec2a69a0e46c1062fb4f8b73f3",
+ "at_utc": "2026-11-22T12:26:24Z"
+}

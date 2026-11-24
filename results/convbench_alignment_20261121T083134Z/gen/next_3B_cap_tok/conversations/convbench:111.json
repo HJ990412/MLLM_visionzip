@@ -1,0 +1,60 @@
+{
+ "conversation_id": "convbench:111",
+ "source_row_index": 110,
+ "source_id": "111",
+ "index_sha256": "629f46957193bdd90db184c98d799785fd2821989454a1e6ebf06be221ee8b91",
+ "origin": "generated",
+ "rows": [
+  {
+   "turn_id": 1,
+   "method": "ReComp",
+   "question": "What are the words are written shown in the image?",
+   "prediction": "The words written in the image are \"Tom Gates\" and \"Everything's Amazing (Sort of)\" by Liz Pichon.",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image> \nWhat are the words are written shown in the image? ASSISTANT:",
+   "prompt_sha256": "37ecf1ccc316a79167827355b38878eda9c75dabc53fca8af446ed98e649f77d",
+   "input_tokens": 2405,
+   "generated_tokens": 32,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 450
+  },
+  {
+   "turn_id": 2,
+   "method": "ReComp",
+   "question": "What is the title of this book? What is the subtitle of this book called? Who is the author of this book? What prize has the book won?",
+   "prediction": "The title of the book is \"Everything's Amazing (Sort of)\" by Liz Pichon. The subtitle of the book is \"Tom Gates.\" The author of the book is Liz Pichon. The book has won the Roald Dahl Funny Prize.",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image> \nWhat are the words are written shown in the image? ASSISTANT: The words written in the image are \"Tom Gates\" and \"Everything's Amazing (Sort of)\" by Liz Pichon.</s> USER: What is the title of this book? What is the subtitle of this book called? Who is the author of this book? What prize has the book won? ASSISTANT:",
+   "prompt_sha256": "bdda30d721470a4778a4c9426bfbfd0bd836075f7a280cc9b200ff44db36cd98",
+   "input_tokens": 2478,
+   "generated_tokens": 62,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 450
+  },
+  {
+   "turn_id": 3,
+   "method": "ReComp",
+   "question": "Rework the previous instruction by returning the information in the following JSON format (node xxx is a placeholder, if the information is not available in the image, put \"N/A\" instead).\n{\"title\": xxx, \"Subtitle\": xxx, \"Author\": xxx, \"Prize\": xxx}",
+   "prediction": "{\n\"title\": \"Everything's Amazing (Sort of)\",\n\"Subtitle\": \"Tom Gates\",\n\"Author\": \"Liz Pichon\",\n\"Prize\": \"Roald Dahl Funny Prize\"\n}",
+   "prompt": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image> \nWhat are the words are written shown in the image? ASSISTANT: The words written in the image are \"Tom Gates\" and \"Everything's Amazing (Sort of)\" by Liz Pichon.</s> USER: What is the title of this book? What is the subtitle of this book called? Who is the author of this book? What prize has the book won? ASSISTANT: The title of the book is \"Everything's Amazing (Sort of)\" by Liz Pichon. The subtitle of the book is \"Tom Gates.\" The author of the book is Liz Pichon. The book has won the Roald Dahl Funny Prize.</s> USER: Rework the previous instruction by returning the information in the following JSON format (node xxx is a placeholder, if the information is not available in the image, put \"N/A\" instead).\n{\"title\": xxx, \"Subtitle\": xxx, \"Author\": xxx, \"Prize\": xxx} ASSISTANT:",
+   "prompt_sha256": "150739d4105b1b7eee77312ed9ab198db967ab7084423abe4cc3ab821bd8dabe",
+   "input_tokens": 2617,
+   "generated_tokens": 55,
+   "effective_max_new_tokens": 1024,
+   "cap_reached": false,
+   "cap_clamped_by_context": false,
+   "input_above_4096": false,
+   "generation_position_overflow_tokens": 0,
+   "official_token_ids_match": true,
+   "first_token_id": 426
+  }
+ ]
+}

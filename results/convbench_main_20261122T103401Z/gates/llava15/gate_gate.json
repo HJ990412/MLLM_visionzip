@@ -1,0 +1,67 @@
+{
+ "gate": "gates_on_gate",
+ "model": "llava15",
+ "scale": "gate",
+ "conversations": 4,
+ "requests": 108,
+ "failed_requests": [],
+ "gates": {
+  "gate2_recomp_equals_alignment": {
+   "requests": 12,
+   "mismatches": 0,
+   "missing": 0,
+   "examples": [],
+   "input_token_mismatches": 0,
+   "ok": true,
+   "compared": "answer text, number of generated tokens, first token id, number of input tokens"
+  },
+  "gate5_turn1_tokens_identical_across_four_methods": {
+   "conversations": 4,
+   "differing": 0,
+   "examples": [],
+   "ok": true
+  },
+  "gate3_ours": {
+   "sync_vs_async": {
+    "requests": 12,
+    "token_mismatches": 0,
+    "byte_mismatches": 0,
+    "missing": 0,
+    "examples": [],
+    "ok": true
+   },
+   "same_request_twice": {
+    "requests": 12,
+    "token_mismatches": 0,
+    "byte_mismatches": 0,
+    "missing": 0,
+    "examples": [],
+    "ok": true
+   },
+   "ok": true
+  },
+  "gate4_impress": {
+   "retention_100_vs_fullload_loader_on_same_store": {
+    "requests": 12,
+    "token_mismatches": 0,
+    "byte_mismatches": 0,
+    "missing": 0,
+    "examples": [],
+    "ok": true
+   },
+   "sync_vs_async": {
+    "requests": 12,
+    "token_mismatches": 0,
+    "byte_mismatches": 0,
+    "missing": 0,
+    "examples": [],
+    "ok": true
+   },
+   "ok": true
+  }
+ },
+ "no_failed_request": true,
+ "status": "PASS",
+ "config_sha256": "4fc1c670d9d2169d99082f6ccbe5597fa4706bec2a69a0e46c1062fb4f8b73f3",
+ "at_utc": "2026-11-22T23:12:04Z"
+}

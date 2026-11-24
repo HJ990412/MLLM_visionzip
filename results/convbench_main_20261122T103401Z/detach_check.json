@@ -1,0 +1,17 @@
+{
+ "checked_at_utc": "2026-11-22T11:23:58Z",
+ "driver_pid": 3803009,
+ "ppid": 1,
+ "sid": 3803009,
+ "pgid": 3803009,
+ "tty": "?",
+ "launching_shell_sid_differs": true,
+ "stdin": "/dev/null",
+ "stdout": "/home/dblab/hj/mllm_v2/results/convbench_main_20261122T103401Z/driver.log",
+ "stderr": "/home/dblab/hj/mllm_v2/results/convbench_main_20261122T103401Z/driver.log",
+ "lock_fd_9": "/home/dblab/hj/mllm_v2/results/convbench_main_20261122T103401Z/driver.lock",
+ "sighup": "nohup: SIGHUP ignored",
+ "conclusion": "the driver is its own session and process-group leader, its parent is init (PPID 1), it has no controlling terminal, stdin is /dev/null and stdout/stderr go to driver.log: closing the terminal, the SSH connection or this session does not signal it. The launching shell exited right after the launch and the driver kept running (this check ran from a later, separate shell).",
+ "also_tested_in_rehearsal": "results/convbench_main_dev_20261122T110042Z: stop command (kill -TERM of the process group) during a conversation, second launch refused by the lock, same command continued; the interrupted conversation restarted at turn 1",
+ "ok": true
+}
