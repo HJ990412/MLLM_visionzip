@@ -1,0 +1,147 @@
+{
+ "status": "PASS",
+ "failed": [],
+ "images": [
+  "n229548",
+  "n181355",
+  "n95369",
+  "n204894"
+ ],
+ "execution": {
+  "status": "PASS",
+  "requests": 1323,
+  "expected_requests": 1323,
+  "images": 4,
+  "independent_image_audit": "PASS",
+  "config_sha256": "1b58e7c3bc0046c6f9f136f985b9d11c70db4f59d2214ce2537c1315089adecd",
+  "expected": 1323,
+  "criterion": "every image of the phase committed after its independent audit passed, for this freeze"
+ },
+ "gate4_ours": {
+  "sync_vs_async": {
+   "arms": [
+    "ours_origorder_kv25_PYR-beta-raw_packed",
+    "ours_origorder_kv25_PYR-beta-raw_packed_async"
+   ],
+   "requests": 147,
+   "tokens_differ": 0,
+   "tokens_differ_same_prompt": 0,
+   "prompt_differs": 0,
+   "fields_differ": {
+    "ssd_read_bytes": 0,
+    "packed_read_bytes": 0
+   },
+   "missing": 0,
+   "examples": [],
+   "status": "PASS",
+   "criterion": "Ours: generated tokens and bytes read identical between the synchronous and the asynchronous arm, every request"
+  },
+  "executed_twice": {
+   "arms": [
+    "ours_origorder_kv25_PYR-beta-raw_packed_async",
+    "ours_origorder_kv25_PYR-beta-raw_packed_async_repeat"
+   ],
+   "requests": 147,
+   "tokens_differ": 0,
+   "tokens_differ_same_prompt": 0,
+   "prompt_differs": 0,
+   "fields_differ": {},
+   "missing": 0,
+   "examples": [],
+   "status": "PASS",
+   "criterion": "Ours executed twice on the same requests: generated tokens identical, every request"
+  },
+  "status": "PASS"
+ },
+ "gate5_impress": {
+  "retention_100_vs_fullload_loader_on_reordered_store": {
+   "arms": [
+    "impress_official_r100",
+    "fullload_reordered"
+   ],
+   "requests": 147,
+   "tokens_differ": 0,
+   "tokens_differ_same_prompt": 0,
+   "prompt_differs": 0,
+   "fields_differ": {},
+   "missing": 0,
+   "examples": [],
+   "status": "PASS",
+   "criterion": "IMPRESS at 100 % retention vs the FullLoad loader reading the same reordered store: generated tokens identical, every request"
+  },
+  "sync_vs_async": {
+   "arms": [
+    "impress_official",
+    "impress_official_async"
+   ],
+   "requests": 147,
+   "tokens_differ": 0,
+   "tokens_differ_same_prompt": 0,
+   "prompt_differs": 0,
+   "fields_differ": {
+    "ssd_read_bytes": 0,
+    "probe_read_bytes": 0,
+    "k_read_bytes": 0,
+    "v_read_bytes": 0,
+    "packed_read_bytes": 0
+   },
+   "missing": 0,
+   "examples": [],
+   "status": "PASS",
+   "criterion": "IMPRESS: generated tokens and bytes read (total and by kind) identical between the synchronous and the asynchronous arm, every request"
+  },
+  "status": "PASS"
+ },
+ "gate6_turn1_identical_across_methods": {
+  "criterion": "turn-1 generated tokens identical across the four methods (ReComp, FullLoad, IMPRESS, Ours), every dialogue",
+  "dialogues": 49,
+  "arms": [
+   "recompute",
+   "fullload_async",
+   "impress_official_async",
+   "ours_origorder_kv25_PYR-beta-raw_packed_async"
+  ],
+  "mismatch_count": 0,
+  "mismatches": [],
+  "status": "PASS"
+ },
+ "reported_turn1_identity_all_arms": {
+  "criterion": "none (reported only): turn-1 generated tokens identical across every arm of the phase, per dialogue",
+  "dialogues": 49,
+  "arms": [
+   "recompute",
+   "fullload_async",
+   "impress_official",
+   "impress_official_async",
+   "impress_official_r100",
+   "fullload_reordered",
+   "ours_origorder_kv25_PYR-beta-raw_packed",
+   "ours_origorder_kv25_PYR-beta-raw_packed_async",
+   "ours_origorder_kv25_PYR-beta-raw_packed_async_repeat"
+  ],
+  "mismatch_count": 0,
+  "mismatches": [],
+  "status": "REPORTED"
+ },
+ "reported_token_record": {
+  "requests": 1323,
+  "requests_whose_ids_equal_original_llava": 1323,
+  "tokenization": "official"
+ },
+ "reference_sync_vs_async_followup_ttft": {
+  "IMPRESS": {
+   "sync_mean_ms": 790.0684298947453,
+   "async_mean_ms": 758.7634634264574,
+   "paired_mean_difference_ms": -31.304966468287972,
+   "requests": 98
+  },
+  "Ours": {
+   "sync_mean_ms": 221.49414113931815,
+   "async_mean_ms": 152.68463395269853,
+   "paired_mean_difference_ms": -68.8095071866196,
+   "requests": 98
+  }
+ },
+ "config_sha256": "1b58e7c3bc0046c6f9f136f985b9d11c70db4f59d2214ce2537c1315089adecd",
+ "written_unix": 1795498971.3498352
+}

@@ -1,0 +1,52 @@
+{
+ "gate": "gate6_existing_tests",
+ "status": "PASS",
+ "suites": [
+  {
+   "python": "/home/dblab/anaconda3/envs/mllm_ft/bin/python",
+   "python_version": "3.10.20",
+   "transformers": "4.57.6",
+   "torch": "2.5.1+cu121",
+   "ran": 913,
+   "failed": [
+    "setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+    "test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+    "test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+   ],
+   "baseline_failures_for_this_environment": [
+    "setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+    "test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+    "test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+   ],
+   "new_failures": [],
+   "status": "PASS",
+   "tail": "vision_position_ids, cls.core)\nAttributeError: type object 'Glm4vModel' has no attribute 'get_vision_position_ids'\n\n======================================================================\nERROR: test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/tests/test_glm46v_validation.py\", line 106, in test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits\n    from transformers.models.glm4v.modeling_glm4v import apply_rotary_pos_emb\nImportError: cannot import name 'apply_rotary_pos_emb' from 'transformers.models.glm4v.modeling_glm4v' (/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/glm4v/modeling_glm4v.py)\n\n======================================================================\nERROR: test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/tests/test_glm46v_vision.py\", line 140, in _check_actual_native_sdpa_hook_preserves_output_and_qk_score\n    canonical = model(pixels, grid_thw=grid).pooler_output.clone()\nAttributeError: 'Tensor' object has no attribute 'pooler_output'\n\n----------------------------------------------------------------------\nRan 913 tests in 24.743s\n\nFAILED (errors=3)\n"
+  },
+  {
+   "python": "/home/dblab/hj/mllm_v2/.venv-glm46v/bin/python",
+   "python_version": "3.10.20",
+   "transformers": "5.13.1",
+   "torch": "2.5.1+cu121",
+   "ran": 931,
+   "failed": [
+    "test_official_token_check_on_both_tokenizers (test_convbench_main.FrozenSettings)",
+    "test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests)",
+    "test_reference_checks_pass_and_source_is_unchanged (test_convbench_main.ReferenceHarness)",
+    "test_single_stock_forward_capture_equals_dense_visionzip_formula (test_qwen25_vision.StockVisionCaptureTests)"
+   ],
+   "baseline_failures_for_this_environment": [
+    "test_official_token_check_on_both_tokenizers (test_convbench_main.FrozenSettings)",
+    "test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests)",
+    "test_reference_checks_pass_and_source_is_unchanged (test_convbench_main.ReferenceHarness)",
+    "test_single_stock_forward_capture_equals_dense_visionzip_formula (test_qwen25_vision.StockVisionCaptureTests)"
+   ],
+   "new_failures": [],
+   "status": "PASS",
+   "tail": "s.executable) == (\nAssertionError: not the environment of the reference runs\n\n======================================================================\nFAIL: test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/mmimpress/piggyback.py\", line 154, in __init__\n    encoder_layers = self.vision_tower.vision_model.encoder.layers\n  File \"/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1931, in __getattr__\n    raise AttributeError(\nAttributeError: 'CLIPVisionModel' object has no attribute 'vision_model'\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/tests/test_visdial_turn1_piggyback_core.py\", line 186, in test_real_tiny_clip_matches_full_penultimate_attention\n    with VisionSaliencyCapture(runner) as capture:\n  File \"/home/dblab/hj/mllm_v2/mmimpress/piggyback.py\", line 507, in __init__\n    super().__init__(runner, capture_saliency=True)\n  File \"/home/dblab/hj/mllm_v2/mmimpress/piggyback.py\", line 156, in __init__\n    raise AssertionError(\nAssertionError: expected LLaVA-NeXT vision_tower.vision_model.encoder.layers\n\n----------------------------------------------------------------------\nRan 931 tests in 24.686s\n\nFAILED (failures=3, errors=1, skipped=6)\n"
+  }
+ ],
+ "failed": [],
+ "criterion": "no failing test other than the failures that existed before this work (listed per environment in baseline_failures_for_this_environment); tests/test_hyperinfer_v2.py and tests/test_hyperinfer.py are part of both suites",
+ "config_sha256": "0dbde6c221a717f435e276db0e5b0ddbd1f836cfc8fecf712712ce51af0e8773",
+ "written_unix": 1795578161.102466
+}

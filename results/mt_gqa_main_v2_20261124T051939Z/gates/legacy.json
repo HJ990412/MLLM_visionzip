@@ -1,0 +1,94 @@
+{
+ "status": "PASS",
+ "failed": [],
+ "images": [
+  "n229548",
+  "n181355",
+  "n95369",
+  "n204894"
+ ],
+ "execution": {
+  "status": "PASS",
+  "requests": 588,
+  "expected_requests": 588,
+  "images": 4,
+  "independent_image_audit": "PASS",
+  "config_sha256": "1b58e7c3bc0046c6f9f136f985b9d11c70db4f59d2214ce2537c1315089adecd",
+  "expected": 588,
+  "criterion": "every image of the phase committed after its independent audit passed, for this freeze"
+ },
+ "gate3_legacy_path_reproduces_recomp": {
+  "reference": "runs/mt_gqa_ours_order_20261120T052725Z",
+  "requests": 147,
+  "missing": 0,
+  "tokens_differ": 0,
+  "prompt_equal": 147,
+  "suffix_ids_equal": 147,
+  "by_turn_tokens_differ": {
+   "1": 0,
+   "2": 0,
+   "3": 0
+  },
+  "mismatches": [],
+  "status": "PASS",
+  "criterion": "tokenization \"legacy\": ReComp's generated tokens identical to the 2026-11-20 run's record of the same request (same dialogue, same turn), every request of the 4 gate images"
+ },
+ "reported_other_methods_under_legacy": {
+  "fullload_async": {
+   "reference": "runs/mt_gqa_ours_order_20261120T052725Z",
+   "requests": 147,
+   "missing": 0,
+   "tokens_differ": 0,
+   "prompt_equal": 147,
+   "suffix_ids_equal": 147,
+   "by_turn_tokens_differ": {
+    "1": 0,
+    "2": 0,
+    "3": 0
+   },
+   "mismatches": [],
+   "status": "REPORTED",
+   "was": "PASS"
+  },
+  "impress_official_async": {
+   "reference": "runs/mt_gqa_impress_code_20261117T185832Z",
+   "requests": 147,
+   "missing": 0,
+   "tokens_differ": 0,
+   "prompt_equal": 147,
+   "suffix_ids_equal": 147,
+   "by_turn_tokens_differ": {
+    "1": 0,
+    "2": 0,
+    "3": 0
+   },
+   "mismatches": [],
+   "status": "REPORTED",
+   "was": "PASS"
+  },
+  "ours_origorder_kv25_PYR-beta-raw_packed_async": {
+   "reference": "runs/mt_gqa_ours_order_20261120T052725Z",
+   "requests": 147,
+   "missing": 0,
+   "tokens_differ": 0,
+   "prompt_equal": 147,
+   "suffix_ids_equal": 147,
+   "by_turn_tokens_differ": {
+    "1": 0,
+    "2": 0,
+    "3": 0
+   },
+   "mismatches": [],
+   "status": "REPORTED",
+   "was": "PASS"
+  },
+  "criterion": "none (reported only): FullLoad and Ours against the 2026-11-20 run, IMPRESS against the 2026-11-17 run"
+ },
+ "reported_token_record": {
+  "requests": 588,
+  "requests_whose_ids_equal_original_llava": 0,
+  "tokenization": "legacy"
+ },
+ "config_sha256": "1b58e7c3bc0046c6f9f136f985b9d11c70db4f59d2214ce2537c1315089adecd",
+ "written_unix": 1795498101.2777724
+}

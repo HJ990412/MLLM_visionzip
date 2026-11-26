@@ -1,0 +1,14 @@
+{
+ "gate": "admission",
+ "model": "llava15",
+ "status": "PASS",
+ "parts": {
+  "gate7_tests": "PASS",
+  "gates_1_to_5_on_4_conversations": "PASS",
+  "gates_1_5_6_on_pilot_40": "PASS"
+ },
+ "failed_gates": [],
+ "rule": "the model's main phase starts only if gates 1-7 are PASS; the pilot table and the inputs-above-4096 check (gate 8) are recorded, not a condition; TTFT against IMPRESS is not a gate",
+ "config_sha256": "e105ab6886bee697fb2e67f4f7da51802ecd8dfa5acee60cea5a94cb395f943b",
+ "at_utc": "2026-11-25T17:34:59Z"
+}

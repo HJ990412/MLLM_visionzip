@@ -1,0 +1,143 @@
+{
+ "status": "PASS",
+ "model": "next",
+ "phase": "gate",
+ "execution": {
+  "status": "PASS",
+  "requests": 882,
+  "expected_requests": 882,
+  "images": 4,
+  "independent_image_audit": "PASS",
+  "config_sha256": "0dbde6c221a717f435e276db0e5b0ddbd1f836cfc8fecf712712ce51af0e8773",
+  "expected": 882,
+  "criterion": "every image of the phase committed after its per-image audit passed, for this freeze"
+ },
+ "requests": 882,
+ "gates": {
+  "gate1_output_equals_impress": {
+   "a": "hyperinfer_async",
+   "b": "impress_official_async",
+   "requests": 147,
+   "followup_requests": 98,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "compared": [
+    "generated tokens (T1, T2, T3)",
+    "per-layer used set (T2, T3)"
+   ],
+   "status": "PASS",
+   "criterion": "generated tokens (T1-T3) and per-layer used sets (T2-T3) equal the IMPRESS arm executed in the same session, every request"
+  },
+  "gate2_prefetch_off_equals_impress": {
+   "a": "hyperinfer_off",
+   "b": "impress_official_async",
+   "requests": 147,
+   "followup_requests": 98,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "compared": [
+    "generated tokens (T1, T2, T3)",
+    "ssd_read_bytes (T2, T3)",
+    "probe_read_bytes (T2, T3)",
+    "k_read_bytes (T2, T3)",
+    "v_read_bytes (T2, T3)",
+    "ssd_preads (T2, T3)",
+    "pread_calls (T2, T3)",
+    "preadv_calls (T2, T3)"
+   ],
+   "status": "PASS",
+   "also_reported_per_layer_used_set": {
+    "mismatches": 0,
+    "status": "PASS"
+   },
+   "criterion": "prefetch off: generated tokens, read bytes and read call counts equal the IMPRESS arm executed in the same session, every request"
+  },
+  "gate3_unread_rows_not_used": {
+   "requests": 98,
+   "guard_failures": 0,
+   "first_guard_failures": [],
+   "totals": {
+    "unread_rows": 1131792,
+    "used_rows": 4826496,
+    "attention_calls": 8160
+   },
+   "against_impress": {
+    "a": "hyperinfer_async_nan",
+    "b": "impress_official_async",
+    "requests": 147,
+    "followup_requests": 98,
+    "mismatches": 0,
+    "first_mismatches": [],
+    "compared": [
+     "generated tokens (T1, T2, T3)",
+     "per-layer used set (T2, T3)"
+    ],
+    "status": "PASS"
+   },
+   "criterion": "every visual row of the prefix cache holds NaN before the first layer; rows are overwritten only by reads; at masked columns the debug wrapper passes 0 (what an unread row holds in a normal request), nowhere else: the attention output of every layer is finite, the unmasked visual columns equal the layer's used set G_l, every used row was read, and tokens and used sets equal IMPRESS",
+   "status": "PASS"
+  },
+  "gate4_repeat": {
+   "a": "hyperinfer_async_repeat",
+   "b": "hyperinfer_async",
+   "requests": 147,
+   "followup_requests": 98,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "compared": [
+    "generated tokens (T1, T2, T3)"
+   ],
+   "status": "PASS",
+   "criterion": "the same request executed a second time: generated tokens equal, every request (the prefetched amount may differ)",
+   "prefetched_bytes": {
+    "first_mean": 17408501.55102041,
+    "second_mean": 16317126.530612245,
+    "requests_with_a_different_amount": 90,
+    "requests": 98
+   }
+  },
+  "gate5_no_read_started_after_stop": {
+   "arms": {
+    "hyperinfer_async": {
+     "followup_requests": 98,
+     "jobs": 3038,
+     "layers_checked": 3038,
+     "prefetch_reads": 3254,
+     "reads_started_after_stop": 0,
+     "reads_in_flight_at_stop": 2637,
+     "latest_read_call_relative_to_stop_ms": -0.007474794983863831
+    },
+    "hyperinfer_async_repeat": {
+     "followup_requests": 98,
+     "jobs": 3038,
+     "layers_checked": 3038,
+     "prefetch_reads": 3050,
+     "reads_started_after_stop": 0,
+     "reads_in_flight_at_stop": 2452,
+     "latest_read_call_relative_to_stop_ms": -0.00840798020362854
+    },
+    "hyperinfer_async_nan": {
+     "followup_requests": 98,
+     "jobs": 3038,
+     "layers_checked": 3038,
+     "prefetch_reads": 6337,
+     "reads_started_after_stop": 0,
+     "reads_in_flight_at_stop": 2961,
+     "latest_read_call_relative_to_stop_ms": -0.006761401891708374
+    }
+   },
+   "violations": 0,
+   "first_violations": [],
+   "criterion": "reads started after the stop = 0 in every layer (and so at most one read, the one in flight, ends after the stop)",
+   "note": "latest_read_call_relative_to_stop_ms: the largest (time the read call was issued - stop time) over all prefetch reads; a read is allowed under the lock before the stop and issued right after the lock is released, so the value may exceed 0 by that delay",
+   "status": "PASS"
+  }
+ },
+ "failed": [],
+ "turn1_tokens_identical_across_arms": {
+  "dialogues": 49,
+  "identical": 49
+ },
+ "config_sha256": "0dbde6c221a717f435e276db0e5b0ddbd1f836cfc8fecf712712ce51af0e8773",
+ "written_unix": 1795578876.81639
+}

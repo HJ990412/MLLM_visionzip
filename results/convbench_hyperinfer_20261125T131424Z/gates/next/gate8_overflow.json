@@ -1,0 +1,106 @@
+{
+ "gate": "gate8_inputs_above_4096",
+ "status": "PASS",
+ "selection": {
+  "needed": true,
+  "reason": "the pilot contains no HyperInfer input above 4096 tokens",
+  "pilot_requests_above_4096": [],
+  "selection_rule": "the conversations with the largest IMPRESS input in the main experiment's record",
+  "ordinals": [
+   559,
+   41
+  ],
+  "selected": [
+   {
+    "conversation_id": "convbench:561",
+    "ordinal": 559,
+    "recorded_impress_largest_input_tokens": 4613,
+    "above_4096_in_record": true
+   },
+   {
+    "conversation_id": "convbench:42",
+    "ordinal": 41,
+    "recorded_impress_largest_input_tokens": 4468,
+    "above_4096_in_record": true
+   }
+  ],
+  "note": null,
+  "model": "next",
+  "config_sha256": "e105ab6886bee697fb2e67f4f7da51802ecd8dfa5acee60cea5a94cb395f943b",
+  "at_utc": "2026-11-25T13:57:00Z"
+ },
+ "requests": 6,
+ "failed_requests": [],
+ "requests_above_4096": 2,
+ "rows": [
+  {
+   "conversation_id": "convbench:561",
+   "method": "HyperInfer",
+   "turn": 1,
+   "status": "ok",
+   "input_tokens": 2506,
+   "generated_tokens": 1024,
+   "ttft_ms": 876.4610439538956,
+   "failure": null,
+   "tokens_equal_recorded_impress": true
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "HyperInfer",
+   "turn": 2,
+   "status": "ok",
+   "input_tokens": 3566,
+   "generated_tokens": 1024,
+   "ttft_ms": 1070.9477495402098,
+   "failure": null,
+   "tokens_equal_recorded_impress": true
+  },
+  {
+   "conversation_id": "convbench:561",
+   "method": "HyperInfer",
+   "turn": 3,
+   "status": "ok",
+   "input_tokens": 4613,
+   "generated_tokens": 102,
+   "ttft_ms": 1205.4833052679896,
+   "failure": null,
+   "tokens_equal_recorded_impress": true
+  },
+  {
+   "conversation_id": "convbench:42",
+   "method": "HyperInfer",
+   "turn": 1,
+   "status": "ok",
+   "input_tokens": 2367,
+   "generated_tokens": 1024,
+   "ttft_ms": 580.3727209568024,
+   "failure": null,
+   "tokens_equal_recorded_impress": true
+  },
+  {
+   "conversation_id": "convbench:42",
+   "method": "HyperInfer",
+   "turn": 2,
+   "status": "ok",
+   "input_tokens": 3416,
+   "generated_tokens": 1024,
+   "ttft_ms": 832.9104594886303,
+   "failure": null,
+   "tokens_equal_recorded_impress": true
+  },
+  {
+   "conversation_id": "convbench:42",
+   "method": "HyperInfer",
+   "turn": 3,
+   "status": "ok",
+   "input_tokens": 4468,
+   "generated_tokens": 5,
+   "ttft_ms": 1095.4604344442487,
+   "failure": null,
+   "tokens_equal_recorded_impress": true
+  }
+ ],
+ "note": "recorded; not a condition of the admission (gates 1-7 are)",
+ "config_sha256": "e105ab6886bee697fb2e67f4f7da51802ecd8dfa5acee60cea5a94cb395f943b",
+ "at_utc": "2026-11-25T13:58:46Z"
+}

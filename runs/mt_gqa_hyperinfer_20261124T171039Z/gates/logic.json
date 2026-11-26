@@ -1,0 +1,17 @@
+{
+ "gate": "gate1_logic_equals_public_code",
+ "status": "PASS",
+ "failed": [],
+ "ran": 15,
+ "public_comparison_tests": {
+  "test_chunks_cut_and_token_set_match_the_public_code": "ok",
+  "test_public_constants_and_single_worker": "ok"
+ },
+ "skipped": 0,
+ "public_checkout_head": "91df7a2fc12581c6780a6485c5b50e7fd9ef9d0e",
+ "called_directly": "PrefixKVLayer.prefetch_by_chunk and _prefetch_chunks_direct_pinned of my_pcache_fast.py: order conversion, chunk ids, budget cut, half rule, K-then-V order, prefetched token set",
+ "not_callable": "the prediction (flex_opt_fast_pcache.py line 1108) and the missing tokens (lines 1125-1126) are single lines of the 1,300-line layer function, which needs the model and its global state; the same operations are written in the test and compared",
+ "tail": "test_chunks_cut_and_token_set_match_the_public_code (tests.test_hyperinfer.PublicPrefetchTests) ... ok\ntest_public_constants_and_single_worker (tests.test_hyperinfer.PublicPrefetchTests) ... ok\ntest_budget_cut (tests.test_hyperinfer.PureTests) ... ok\ntest_chunk_token_mask_and_missing (tests.test_hyperinfer.PureTests) ... ok\ntest_position_map_moves_a_token_to_its_place_in_the_next_layer (tests.test_hyperinfer.PureTests) ... ok\ntest_predicted_chunks_are_sorted_unique_chunks_of_the_used_tokens (tests.test_hyperinfer.PureTests) ... ok\ntest_state_rejects_bad_constants (tests.test_hyperinfer.PureTests) ... ok\ntest_adjacent_layer_similarity_is_reported_on_image_tokens (tests.test_hyperinfer.SelectorTests) ... ok\ntest_budget_state_carries_into_the_next_request (tests.test_hyperinfer.SelectorTests) ... ok\ntest_constructor_checks (tests.test_hyperinfer.SelectorTests) ... ok\ntest_prefetch_off_is_the_impress_selector (tests.test_hyperinfer.SelectorTests) ... ok\ntest_prefetch_on_selects_masks_and_loads_what_impress_does (tests.test_hyperinfer.SelectorTests) ... ok\ntest_worker_read_is_one_chunk_per_pread_k_then_v (tests.test_hyperinfer.SelectorTests) ... ok\ntest_guard_restores_the_attention_function (tests.test_hyperinfer.UnreadRowGuardTests) ... ok\ntest_masked_unread_rows_do_not_change_the_output_and_used_unread_rows_break_it (tests.test_hyperinfer.UnreadRowGuardTests) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.820s\n\nOK\n",
+ "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+ "written_unix": 1795540405.8821669
+}

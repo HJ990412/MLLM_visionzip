@@ -1,0 +1,28 @@
+{
+ "policy": "FRESH_IMAGE_STREAMING (image-major): one live image; stores built from the arms' own T1 of the image's first dialogue -> served -> audited -> committed -> run-local scratch deleted by exact SHA256 allowlist",
+ "minimum_reserve_bytes": 32212254720,
+ "peak_working_set_bytes": 7614702188,
+ "largest_image_bundle_bound_bytes": 3319734892,
+ "maximum_new_payload_bytes": 21474836480,
+ "raw_and_evidence_growth_bound_bytes": 17179869184,
+ "expected_ssd_write_bytes": {
+  "next": {
+   "gate": 15708688791,
+   "dev": 151387097728,
+   "main": 1007847081226,
+   "total": 1174942867745
+  },
+  "l15": {
+   "gate": 3828432781,
+   "dev": 38284327804,
+   "main": 254049864162,
+   "total": 296162624747
+  }
+ },
+ "expected_ssd_write_total_bytes": 1471105492492,
+ "expected_ssd_write_note": "per image: the IMPRESS-layout store (written, then rewritten in the reordered layout) and, in the gate and dev phases, the FullLoad store; sizes from the earlier main run's disk_usage.json of the same image; rows and evidence not included",
+ "free_bytes_at_freeze": 438707109888,
+ "deletion_scope": "runs/<RUN>/<model>/scratch only (exact SHA allowlist after audit+commit; the stores of an interrupted image that cannot be verified on resume); existing stores never deleted",
+ "required_free_bytes": 57006826092,
+ "status": "PASS"
+}

@@ -1,0 +1,28 @@
+{
+ "needed": true,
+ "reason": "the pilot contains no HyperInfer input above 4096 tokens",
+ "pilot_requests_above_4096": [],
+ "selection_rule": "the conversations with the largest IMPRESS input in the main experiment's record",
+ "ordinals": [
+  559,
+  41
+ ],
+ "selected": [
+  {
+   "conversation_id": "convbench:561",
+   "ordinal": 559,
+   "recorded_impress_largest_input_tokens": 4613,
+   "above_4096_in_record": true
+  },
+  {
+   "conversation_id": "convbench:42",
+   "ordinal": 41,
+   "recorded_impress_largest_input_tokens": 4468,
+   "above_4096_in_record": true
+  }
+ ],
+ "note": null,
+ "model": "next",
+ "config_sha256": "e105ab6886bee697fb2e67f4f7da51802ecd8dfa5acee60cea5a94cb395f943b",
+ "at_utc": "2026-11-25T13:57:00Z"
+}

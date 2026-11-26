@@ -1,0 +1,40 @@
+{
+ "status": "NOT_MEASURED",
+ "at_unix": 1795565237.3121464,
+ "at_utc": "2026-11-25T00:07:17Z",
+ "device": "/dev/nvme0",
+ "device_node_mode": "0o600",
+ "reason": "the SMART / health log is an NVMe admin command (root only); this account has no passwordless sudo and no SMART tool is installed",
+ "attempts": [
+  {
+   "command": "nvme smart-log /dev/nvme0",
+   "returncode": 22,
+   "stderr": "r binary.  [  --namespace-id=<NUM>, -n <NUM> ]   --- (optional) desired namespace\n  [  --output-format=<FMT>, -o <FMT> ]  --- Output format: normal|json|binary\n  [  --raw-binary, -b ]                 --- output in binary format\n  [  --human-readable, -H ]             --- show info in readable format"
+  },
+  {
+   "command": "sudo -n nvme smart-log /dev/nvme0",
+   "returncode": 1,
+   "stderr": "sudo: a password is required"
+  }
+ ],
+ "percentage_used": null,
+ "data_units_written": null,
+ "available_without_root": {
+  "hwmon_temperature": {
+   "composite_c": 50.85,
+   "sensors_c": {
+    "temp1": 50.85,
+    "temp2": 44.85,
+    "temp3": 49.85
+   },
+   "source": "/sys/class/nvme/nvme0/hwmon*/temp*_input"
+  },
+  "kernel_counter_since_boot": {
+   "device": "nvme0n1",
+   "sectors_read": 1252964285994,
+   "sectors_written": 280510387682
+  },
+  "boot_id": "4e46c650-1c93-4d00-aa9b-279177002b3f"
+ },
+ "how_to_supply": "sudo nvme smart-log /dev/nvme0 > results/<run name>/smart_manual_<before|after>.txt   (read by the report)"
+}

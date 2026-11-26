@@ -1,0 +1,21 @@
+{
+  "deletion_scope": "runs/<RUN>/scratch only (exact SHA allowlist after audit+commit; the stores of an interrupted image that cannot be verified on resume); existing stores never deleted",
+  "expected_ssd_write_bytes": {
+    "dev": 163747671972,
+    "devgate": 113324429977,
+    "gate": 16996769199,
+    "legacy": 16996769199,
+    "main": 1634433697579,
+    "total": 1945499337926
+  },
+  "expected_ssd_write_note": "per image: FullLoad store + IMPRESS store (written, then rewritten in the reordered layout) + Ours store; the devgate phase has no FullLoad store; sizes from the 2026-11-17 main run's disk_usage.json of the same image (the Ours store has the size of that run's packed store); raw rows and evidence not included",
+  "free_bytes_at_freeze": 440383905792,
+  "largest_image_bundle_bound_bytes": 3749224246,
+  "maximum_new_payload_bytes": 21474836480,
+  "minimum_reserve_bytes": 32212254720,
+  "peak_working_set_bytes": 8044191542,
+  "policy": "FRESH_IMAGE_STREAMING (image-major): one live image; stores built from the arms' own T1 of the image's first dialogue -> served -> audited -> committed -> run-local scratch deleted by exact SHA256 allowlist",
+  "raw_and_evidence_growth_bound_bytes": 17179869184,
+  "required_free_bytes": 57436315446,
+  "status": "PASS"
+}

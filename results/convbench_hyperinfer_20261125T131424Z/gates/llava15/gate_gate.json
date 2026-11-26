@@ -1,0 +1,142 @@
+{
+ "gate": "gates_on_gate",
+ "model": "llava15",
+ "scale": "gate",
+ "conversations": 4,
+ "requests": 72,
+ "failed_requests": [],
+ "gates": {
+  "gate1_output_equals_impress": {
+   "a": "hyperinfer",
+   "b": "impress",
+   "requests": 12,
+   "followup_requests": 8,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "compared": [
+    "generated tokens (T1, T2, T3)",
+    "per-layer used set (T2, T3)"
+   ],
+   "ok": true,
+   "criterion": "generated tokens (T1-T3) and per-layer used sets (T2-T3) equal the IMPRESS arm executed in the same session, every request"
+  },
+  "gate2_prefetch_off_equals_impress": {
+   "a": "hyperinfer_off",
+   "b": "impress",
+   "requests": 12,
+   "followup_requests": 8,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "compared": [
+    "generated tokens (T1, T2, T3)",
+    "ssd_read_bytes (T2, T3)",
+    "probe_read_bytes (T2, T3)",
+    "k_read_bytes (T2, T3)",
+    "v_read_bytes (T2, T3)",
+    "read_calls (T2, T3)",
+    "pread_calls (T2, T3)",
+    "preadv_calls (T2, T3)"
+   ],
+   "ok": true,
+   "also_reported_per_layer_used_set": {
+    "mismatches": 0,
+    "ok": true
+   },
+   "criterion": "prefetch off: generated tokens, read bytes (total, probe, K, V) and read call counts equal the IMPRESS arm executed in the same session, every request"
+  },
+  "gate3_unread_rows_not_used": {
+   "requests": 8,
+   "guard_failures": 0,
+   "first_guard_failures": [],
+   "totals": {
+    "unread_rows": 21376,
+    "used_rows": 95184,
+    "attention_calls": 60192
+   },
+   "against_impress": {
+    "a": "hyperinfer_nan",
+    "b": "impress",
+    "requests": 12,
+    "followup_requests": 8,
+    "mismatches": 0,
+    "first_mismatches": [],
+    "compared": [
+     "generated tokens (T1, T2, T3)",
+     "per-layer used set (T2, T3)"
+    ],
+    "ok": true
+   },
+   "criterion": "every visual row of the prefix cache holds NaN before the first layer; rows are overwritten only by reads; at masked columns the debug wrapper passes 0 (what an unread row holds in a normal request), nowhere else: the attention output of every layer is finite, the unmasked visual columns equal the layer's used set, every used row was read, and tokens and used sets equal IMPRESS",
+   "ok": true
+  },
+  "gate4_repeat": {
+   "a": "hyperinfer_repeat",
+   "b": "hyperinfer",
+   "requests": 12,
+   "followup_requests": 8,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "compared": [
+    "generated tokens (T1, T2, T3)"
+   ],
+   "ok": true,
+   "prefetched_bytes": {
+    "first_mean": 56885248.0,
+    "second_mean": 52822016.0,
+    "requests_with_a_different_amount": 8,
+    "requests": 8
+   },
+   "criterion": "the same request executed a second time: generated tokens equal, every request (the prefetched amount may differ)"
+  },
+  "gate5_no_read_started_after_stop": {
+   "arms": {
+    "hyperinfer": {
+     "followup_requests": 8,
+     "layers_checked": 248,
+     "prefetch_reads": 868,
+     "reads_started_after_stop": 0,
+     "reads_in_flight_at_stop": 248,
+     "latest_read_call_relative_to_stop_ms": -0.00581890344619751
+    },
+    "hyperinfer_repeat": {
+     "followup_requests": 8,
+     "layers_checked": 248,
+     "prefetch_reads": 806,
+     "reads_started_after_stop": 0,
+     "reads_in_flight_at_stop": 248,
+     "latest_read_call_relative_to_stop_ms": -0.005865469574928284
+    },
+    "hyperinfer_nan": {
+     "followup_requests": 8,
+     "layers_checked": 248,
+     "prefetch_reads": 1004,
+     "reads_started_after_stop": 0,
+     "reads_in_flight_at_stop": 246,
+     "latest_read_call_relative_to_stop_ms": -0.005921348929405212
+    }
+   },
+   "violations": 0,
+   "first_violations": [],
+   "criterion": "reads started after the stop = 0 in every layer (and so at most one read, the one in flight, ends after the stop)",
+   "note": "latest_read_call_relative_to_stop_ms: the largest (time the read call was issued - stop time) over all prefetch reads; a read is allowed under the lock before the stop and issued right after the lock is released, so the value may exceed 0 by that delay",
+   "ok": true
+  }
+ },
+ "no_failed_request": true,
+ "turn1_tokens_identical_across_arms": {
+  "conversations": 4,
+  "identical": 4,
+  "arms": [
+   "fullload",
+   "impress",
+   "hyperinfer_off",
+   "hyperinfer",
+   "hyperinfer_repeat",
+   "hyperinfer_nan"
+  ]
+ },
+ "failed": [],
+ "status": "PASS",
+ "config_sha256": "e105ab6886bee697fb2e67f4f7da51802ecd8dfa5acee60cea5a94cb395f943b",
+ "at_utc": "2026-11-25T17:12:32Z"
+}

@@ -1,0 +1,111 @@
+{
+ "status": "PASS",
+ "model": "l15",
+ "phase": "gate",
+ "execution": {
+  "status": "PASS",
+  "requests": 1029,
+  "expected_requests": 1029,
+  "images": 4,
+  "independent_image_audit": "PASS",
+  "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+  "expected": 1029,
+  "criterion": "every image of the phase committed after its per-image audit passed, for this freeze"
+ },
+ "requests": 1029,
+ "gates": {
+  "gate2_prefetch_off_equals_impress": {
+   "a": "hyperinfer_off",
+   "b": "impress_official_async",
+   "requests": 147,
+   "followup_requests": 98,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "compared": [
+    "generated tokens (T1, T2, T3)",
+    "per-layer used set (T2, T3)",
+    "ssd_read_bytes (T2, T3)",
+    "probe_read_bytes (T2, T3)",
+    "k_read_bytes (T2, T3)",
+    "v_read_bytes (T2, T3)",
+    "ssd_preads (T2, T3)",
+    "pread_calls (T2, T3)",
+    "preadv_calls (T2, T3)"
+   ],
+   "status": "PASS",
+   "criterion": "prefetch off: generated tokens, per-layer used sets, read bytes and read call counts equal the IMPRESS arm executed in the same session, every request"
+  },
+  "gate3_output_equals_impress": {
+   "a": "hyperinfer_async",
+   "b": "impress_official_async",
+   "requests": 147,
+   "followup_requests": 98,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "compared": [
+    "generated tokens (T1, T2, T3)",
+    "per-layer used set (T2, T3)"
+   ],
+   "status": "PASS",
+   "criterion": "prefetch on: generated tokens and per-layer used sets equal IMPRESS, every request"
+  },
+  "gate5_unread_rows_not_used": {
+   "requests": 98,
+   "guard_failures": 0,
+   "first_guard_failures": [],
+   "totals": {
+    "unread_rows": 350784,
+    "used_rows": 1092672,
+    "attention_calls": 8128
+   },
+   "against_impress": {
+    "a": "hyperinfer_async_nan",
+    "b": "impress_official_async",
+    "requests": 147,
+    "followup_requests": 98,
+    "mismatches": 0,
+    "first_mismatches": [],
+    "compared": [
+     "generated tokens (T1, T2, T3)",
+     "per-layer used set (T2, T3)"
+    ],
+    "status": "PASS"
+   },
+   "criterion": "every visual row of the prefix cache holds NaN before the first layer; rows are overwritten only by reads; at masked columns the debug wrapper passes 0 (what an unread row holds in a normal request), nowhere else: the attention output of every layer is finite, the unmasked visual columns equal the layer's used set G_l, every used row was read, and tokens and used sets equal IMPRESS",
+   "status": "PASS"
+  },
+  "gate6_sync_equals_async": {
+   "a": "hyperinfer_sync",
+   "b": "hyperinfer_async",
+   "requests": 147,
+   "followup_requests": 98,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "compared": [
+    "generated tokens (T1, T2, T3)"
+   ],
+   "status": "PASS",
+   "criterion": "prefetch executed on the request thread: generated tokens equal the asynchronous arm, every request"
+  },
+  "gate6_repeat": {
+   "a": "hyperinfer_async_repeat",
+   "b": "hyperinfer_async",
+   "requests": 147,
+   "followup_requests": 98,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "compared": [
+    "generated tokens (T1, T2, T3)"
+   ],
+   "status": "PASS",
+   "criterion": "the same request executed a second time: generated tokens equal, every request"
+  }
+ },
+ "failed": [],
+ "turn1_tokens_identical_across_arms": {
+  "dialogues": 49,
+  "identical": 49
+ },
+ "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+ "written_unix": 1795559534.269027
+}

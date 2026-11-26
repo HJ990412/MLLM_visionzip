@@ -1,0 +1,2558 @@
+{
+ "run": "mt_gqa_hyperinfer_20261124T171039Z",
+ "models": {
+  "next": {
+   "model": "next",
+   "label": "LLaVA-NeXT-7B",
+   "gates": {
+    "tests": {
+     "gate": "gate7_existing_tests",
+     "status": "PASS",
+     "suites": [
+      {
+       "python": "/home/dblab/anaconda3/envs/mllm_ft/bin/python",
+       "python_version": "3.10.20",
+       "transformers": "4.57.6",
+       "torch": "2.5.1+cu121",
+       "ran": 901,
+       "failed": [
+        "setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+        "test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+        "test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+       ],
+       "baseline_failures_for_this_environment": [
+        "setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+        "test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+        "test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+       ],
+       "new_failures": [],
+       "status": "PASS",
+       "tail": "vision_position_ids, cls.core)\nAttributeError: type object 'Glm4vModel' has no attribute 'get_vision_position_ids'\n\n======================================================================\nERROR: test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/tests/test_glm46v_validation.py\", line 106, in test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits\n    from transformers.models.glm4v.modeling_glm4v import apply_rotary_pos_emb\nImportError: cannot import name 'apply_rotary_pos_emb' from 'transformers.models.glm4v.modeling_glm4v' (/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/glm4v/modeling_glm4v.py)\n\n======================================================================\nERROR: test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/tests/test_glm46v_vision.py\", line 140, in _check_actual_native_sdpa_hook_preserves_output_and_qk_score\n    canonical = model(pixels, grid_thw=grid).pooler_output.clone()\nAttributeError: 'Tensor' object has no attribute 'pooler_output'\n\n----------------------------------------------------------------------\nRan 901 tests in 25.625s\n\nFAILED (errors=3)\n"
+      },
+      {
+       "python": "/home/dblab/hj/mllm_v2/.venv-glm46v/bin/python",
+       "python_version": "3.10.20",
+       "transformers": "5.13.1",
+       "torch": "2.5.1+cu121",
+       "ran": 919,
+       "failed": [
+        "test_official_token_check_on_both_tokenizers (test_convbench_main.FrozenSettings)",
+        "test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests)",
+        "test_reference_checks_pass_and_source_is_unchanged (test_convbench_main.ReferenceHarness)",
+        "test_single_stock_forward_capture_equals_dense_visionzip_formula (test_qwen25_vision.StockVisionCaptureTests)"
+       ],
+       "baseline_failures_for_this_environment": [
+        "test_official_token_check_on_both_tokenizers (test_convbench_main.FrozenSettings)",
+        "test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests)",
+        "test_reference_checks_pass_and_source_is_unchanged (test_convbench_main.ReferenceHarness)",
+        "test_single_stock_forward_capture_equals_dense_visionzip_formula (test_qwen25_vision.StockVisionCaptureTests)"
+       ],
+       "new_failures": [],
+       "status": "PASS",
+       "tail": "s.executable) == (\nAssertionError: not the environment of the reference runs\n\n======================================================================\nFAIL: test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/mmimpress/piggyback.py\", line 154, in __init__\n    encoder_layers = self.vision_tower.vision_model.encoder.layers\n  File \"/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1931, in __getattr__\n    raise AttributeError(\nAttributeError: 'CLIPVisionModel' object has no attribute 'vision_model'\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/tests/test_visdial_turn1_piggyback_core.py\", line 186, in test_real_tiny_clip_matches_full_penultimate_attention\n    with VisionSaliencyCapture(runner) as capture:\n  File \"/home/dblab/hj/mllm_v2/mmimpress/piggyback.py\", line 507, in __init__\n    super().__init__(runner, capture_saliency=True)\n  File \"/home/dblab/hj/mllm_v2/mmimpress/piggyback.py\", line 156, in __init__\n    raise AssertionError(\nAssertionError: expected LLaVA-NeXT vision_tower.vision_model.encoder.layers\n\n----------------------------------------------------------------------\nRan 919 tests in 25.876s\n\nFAILED (failures=3, errors=1, skipped=6)\n"
+      }
+     ],
+     "failed": [],
+     "criterion": "no failing test other than the failures that existed before this work (listed per environment in baseline_failures_for_this_environment); tests/test_hyperinfer.py is part of both suites",
+     "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+     "written_unix": 1795540401.3322453
+    },
+    "logic": {
+     "gate": "gate1_logic_equals_public_code",
+     "status": "PASS",
+     "failed": [],
+     "ran": 15,
+     "public_comparison_tests": {
+      "test_chunks_cut_and_token_set_match_the_public_code": "ok",
+      "test_public_constants_and_single_worker": "ok"
+     },
+     "skipped": 0,
+     "public_checkout_head": "91df7a2fc12581c6780a6485c5b50e7fd9ef9d0e",
+     "called_directly": "PrefixKVLayer.prefetch_by_chunk and _prefetch_chunks_direct_pinned of my_pcache_fast.py: order conversion, chunk ids, budget cut, half rule, K-then-V order, prefetched token set",
+     "not_callable": "the prediction (flex_opt_fast_pcache.py line 1108) and the missing tokens (lines 1125-1126) are single lines of the 1,300-line layer function, which needs the model and its global state; the same operations are written in the test and compared",
+     "tail": "test_chunks_cut_and_token_set_match_the_public_code (tests.test_hyperinfer.PublicPrefetchTests) ... ok\ntest_public_constants_and_single_worker (tests.test_hyperinfer.PublicPrefetchTests) ... ok\ntest_budget_cut (tests.test_hyperinfer.PureTests) ... ok\ntest_chunk_token_mask_and_missing (tests.test_hyperinfer.PureTests) ... ok\ntest_position_map_moves_a_token_to_its_place_in_the_next_layer (tests.test_hyperinfer.PureTests) ... ok\ntest_predicted_chunks_are_sorted_unique_chunks_of_the_used_tokens (tests.test_hyperinfer.PureTests) ... ok\ntest_state_rejects_bad_constants (tests.test_hyperinfer.PureTests) ... ok\ntest_adjacent_layer_similarity_is_reported_on_image_tokens (tests.test_hyperinfer.SelectorTests) ... ok\ntest_budget_state_carries_into_the_next_request (tests.test_hyperinfer.SelectorTests) ... ok\ntest_constructor_checks (tests.test_hyperinfer.SelectorTests) ... ok\ntest_prefetch_off_is_the_impress_selector (tests.test_hyperinfer.SelectorTests) ... ok\ntest_prefetch_on_selects_masks_and_loads_what_impress_does (tests.test_hyperinfer.SelectorTests) ... ok\ntest_worker_read_is_one_chunk_per_pread_k_then_v (tests.test_hyperinfer.SelectorTests) ... ok\ntest_guard_restores_the_attention_function (tests.test_hyperinfer.UnreadRowGuardTests) ... ok\ntest_masked_unread_rows_do_not_change_the_output_and_used_unread_rows_break_it (tests.test_hyperinfer.UnreadRowGuardTests) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.820s\n\nOK\n",
+     "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+     "written_unix": 1795540405.8821669
+    },
+    "next_gate": {
+     "status": "PASS",
+     "model": "next",
+     "phase": "gate",
+     "execution": {
+      "status": "PASS",
+      "requests": 1029,
+      "expected_requests": 1029,
+      "images": 4,
+      "independent_image_audit": "PASS",
+      "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+      "expected": 1029,
+      "criterion": "every image of the phase committed after its per-image audit passed, for this freeze"
+     },
+     "requests": 1029,
+     "gates": {
+      "gate2_prefetch_off_equals_impress": {
+       "a": "hyperinfer_off",
+       "b": "impress_official_async",
+       "requests": 147,
+       "followup_requests": 98,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)",
+        "per-layer used set (T2, T3)",
+        "ssd_read_bytes (T2, T3)",
+        "probe_read_bytes (T2, T3)",
+        "k_read_bytes (T2, T3)",
+        "v_read_bytes (T2, T3)",
+        "ssd_preads (T2, T3)",
+        "pread_calls (T2, T3)",
+        "preadv_calls (T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "prefetch off: generated tokens, per-layer used sets, read bytes and read call counts equal the IMPRESS arm executed in the same session, every request"
+      },
+      "gate3_output_equals_impress": {
+       "a": "hyperinfer_async",
+       "b": "impress_official_async",
+       "requests": 147,
+       "followup_requests": 98,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)",
+        "per-layer used set (T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "prefetch on: generated tokens and per-layer used sets equal IMPRESS, every request"
+      },
+      "gate5_unread_rows_not_used": {
+       "requests": 98,
+       "guard_failures": 0,
+       "first_guard_failures": [],
+       "totals": {
+        "unread_rows": 1131792,
+        "used_rows": 4826496,
+        "attention_calls": 8160
+       },
+       "against_impress": {
+        "a": "hyperinfer_async_nan",
+        "b": "impress_official_async",
+        "requests": 147,
+        "followup_requests": 98,
+        "mismatches": 0,
+        "first_mismatches": [],
+        "compared": [
+         "generated tokens (T1, T2, T3)",
+         "per-layer used set (T2, T3)"
+        ],
+        "status": "PASS"
+       },
+       "criterion": "every visual row of the prefix cache holds NaN before the first layer; rows are overwritten only by reads; at masked columns the debug wrapper passes 0 (what an unread row holds in a normal request), nowhere else: the attention output of every layer is finite, the unmasked visual columns equal the layer's used set G_l, every used row was read, and tokens and used sets equal IMPRESS",
+       "status": "PASS"
+      },
+      "gate6_sync_equals_async": {
+       "a": "hyperinfer_sync",
+       "b": "hyperinfer_async",
+       "requests": 147,
+       "followup_requests": 98,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "prefetch executed on the request thread: generated tokens equal the asynchronous arm, every request"
+      },
+      "gate6_repeat": {
+       "a": "hyperinfer_async_repeat",
+       "b": "hyperinfer_async",
+       "requests": 147,
+       "followup_requests": 98,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "the same request executed a second time: generated tokens equal, every request"
+      }
+     },
+     "failed": [],
+     "turn1_tokens_identical_across_arms": {
+      "dialogues": 49,
+      "identical": 49
+     },
+     "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+     "written_unix": 1795541243.5053601
+    },
+    "next_dev": {
+     "status": "PASS",
+     "model": "next",
+     "phase": "dev",
+     "execution": {
+      "status": "PASS",
+      "requests": 7938,
+      "expected_requests": 7938,
+      "images": 40,
+      "independent_image_audit": "PASS",
+      "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+      "expected": 7938,
+      "criterion": "every image of the phase committed after its per-image audit passed, for this freeze"
+     },
+     "requests": 7938,
+     "gates": {
+      "gate2_prefetch_off_equals_impress": {
+       "a": "hyperinfer_off",
+       "b": "impress_official_async",
+       "requests": 1134,
+       "followup_requests": 756,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)",
+        "per-layer used set (T2, T3)",
+        "ssd_read_bytes (T2, T3)",
+        "probe_read_bytes (T2, T3)",
+        "k_read_bytes (T2, T3)",
+        "v_read_bytes (T2, T3)",
+        "ssd_preads (T2, T3)",
+        "pread_calls (T2, T3)",
+        "preadv_calls (T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "prefetch off: generated tokens, per-layer used sets, read bytes and read call counts equal the IMPRESS arm executed in the same session, every request"
+      },
+      "gate3_output_equals_impress": {
+       "a": "hyperinfer_async",
+       "b": "impress_official_async",
+       "requests": 1134,
+       "followup_requests": 756,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)",
+        "per-layer used set (T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "prefetch on: generated tokens and per-layer used sets equal IMPRESS, every request"
+      },
+      "gate5_unread_rows_not_used": {
+       "requests": 756,
+       "guard_failures": 0,
+       "first_guard_failures": [],
+       "totals": {
+        "unread_rows": 8368392,
+        "used_rows": 34825576,
+        "attention_calls": 57568
+       },
+       "against_impress": {
+        "a": "hyperinfer_async_nan",
+        "b": "impress_official_async",
+        "requests": 1134,
+        "followup_requests": 756,
+        "mismatches": 0,
+        "first_mismatches": [],
+        "compared": [
+         "generated tokens (T1, T2, T3)",
+         "per-layer used set (T2, T3)"
+        ],
+        "status": "PASS"
+       },
+       "criterion": "every visual row of the prefix cache holds NaN before the first layer; rows are overwritten only by reads; at masked columns the debug wrapper passes 0 (what an unread row holds in a normal request), nowhere else: the attention output of every layer is finite, the unmasked visual columns equal the layer's used set G_l, every used row was read, and tokens and used sets equal IMPRESS",
+       "status": "PASS"
+      },
+      "gate6_sync_equals_async": {
+       "a": "hyperinfer_sync",
+       "b": "hyperinfer_async",
+       "requests": 1134,
+       "followup_requests": 756,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "prefetch executed on the request thread: generated tokens equal the asynchronous arm, every request"
+      },
+      "gate6_repeat": {
+       "a": "hyperinfer_async_repeat",
+       "b": "hyperinfer_async",
+       "requests": 1134,
+       "followup_requests": 756,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "the same request executed a second time: generated tokens equal, every request"
+      },
+      "gate4_tokens_equal_recorded_impress": {
+       "requests": 1134,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "criterion": "HyperInfer's generated tokens (T1, T2, T3) equal the tokens recorded for IMPRESS in the earlier main run, same dialogue and turn",
+       "status": "PASS"
+      }
+     },
+     "failed": [],
+     "gate8_ttft_continuity": {
+      "status": "REPORTED",
+      "methods": {
+       "fullload_async": {
+        "followup": {
+         "requests": 756,
+         "this_run_mean_ms": 480.23179083047484,
+         "earlier_run_mean_ms": 468.8032259055901,
+         "ratio_of_means": 1.0243781703993355,
+         "this_run_p50_ms": 483.035062905401,
+         "earlier_run_p50_ms": 472.2695630043745,
+         "mean_of_paired_differences_ms": 11.428564924884725
+        },
+        "turn1": {
+         "requests": 378,
+         "this_run_mean_ms": 519.2974559006789,
+         "earlier_run_mean_ms": 518.403216292244,
+         "ratio_of_means": 1.0017249885423758,
+         "this_run_p50_ms": 523.4265103936195,
+         "earlier_run_p50_ms": 522.6118918508291,
+         "mean_of_paired_differences_ms": 0.8942396084349307
+        },
+        "tokens_equal_to_earlier_run": {
+         "requests": 1134,
+         "equal": 1134
+        }
+       },
+       "impress_official_async": {
+        "followup": {
+         "requests": 756,
+         "this_run_mean_ms": 711.1911036310688,
+         "earlier_run_mean_ms": 722.7504316830722,
+         "ratio_of_means": 0.9840064736798771,
+         "this_run_p50_ms": 704.0166016668081,
+         "earlier_run_p50_ms": 726.6965489834547,
+         "mean_of_paired_differences_ms": -11.55932805200339
+        },
+        "turn1": {
+         "requests": 378,
+         "this_run_mean_ms": 520.1138412461631,
+         "earlier_run_mean_ms": 520.6558175591958,
+         "ratio_of_means": 0.9989590506919265,
+         "this_run_p50_ms": 523.7371469847858,
+         "earlier_run_p50_ms": 525.7523404434323,
+         "mean_of_paired_differences_ms": -0.5419763130328011
+        },
+        "tokens_equal_to_earlier_run": {
+         "requests": 1134,
+         "equal": 1134
+        }
+       }
+      },
+      "note": "not a gate; this DEV phase rotates 7 arms, the earlier main run rotated 4 (ReComp, FullLoad, IMPRESS, Ours)"
+     },
+     "turn1_tokens_identical_across_arms": {
+      "dialogues": 378,
+      "identical": 378
+     },
+     "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+     "written_unix": 1795547425.8326724
+    },
+    "next_admission": {
+     "status": "PASS",
+     "model": "next",
+     "steps": {
+      "tests": {
+       "status": "PASS",
+       "bound_to_this_freeze": true,
+       "ok": true,
+       "failed": []
+      },
+      "logic": {
+       "status": "PASS",
+       "bound_to_this_freeze": true,
+       "ok": true,
+       "failed": []
+      },
+      "next_gate": {
+       "status": "PASS",
+       "bound_to_this_freeze": true,
+       "ok": true,
+       "failed": []
+      },
+      "next_dev": {
+       "status": "PASS",
+       "bound_to_this_freeze": true,
+       "ok": true,
+       "failed": []
+      }
+     },
+     "failed": [],
+     "rule": "the model's main phase starts only if gates 1-7 are PASS (gates 2, 3, 5, 6 on the 4 gate images and on the 40 DEV images, gate 4 on the DEV images); TTFT against IMPRESS is not a gate",
+     "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+     "written_unix": 1795547427.9289203
+    }
+   },
+   "main_images": 398,
+   "main_complete": true,
+   "arms": [
+    {
+     "method": "ReComp",
+     "run_date": "2026-11-24",
+     "images": 398,
+     "dialogues": 4061,
+     "followup_requests": 8122,
+     "em_followup": 68.72691455306574,
+     "em_T1": 63.23565624230485,
+     "em_T2": 68.18517606500862,
+     "em_T3": 69.26865304112287,
+     "ttft_mean_ms": 529.1947177983958,
+     "ttft_p50_ms": 532.0290816016495,
+     "ttft_p95_ms": 595.3234420157969,
+     "ssd_mb_per_followup": 0.0,
+     "read_calls_per_followup": 0.0,
+     "t1_ttft_mean_ms": 523.0582795993165
+    },
+    {
+     "method": "FullLoad",
+     "run_date": "2026-11-24",
+     "images": 398,
+     "dialogues": 4061,
+     "followup_requests": 8122,
+     "em_followup": 68.45604530903718,
+     "em_T1": 63.23565624230485,
+     "em_T2": 68.01280472789954,
+     "em_T3": 68.89928589017484,
+     "ttft_mean_ms": 478.10661769615393,
+     "ttft_p50_ms": 481.11262265592813,
+     "ttft_p95_ms": 588.5035594925284,
+     "ssd_mb_per_followup": 1173.9189174370845,
+     "read_calls_per_followup": 64.0,
+     "t1_ttft_mean_ms": 523.1758580485538
+    },
+    {
+     "method": "IMPRESS",
+     "run_date": "2026-11-24",
+     "images": 398,
+     "dialogues": 4061,
+     "followup_requests": 8122,
+     "em_followup": 61.093326766806214,
+     "em_T1": 63.23565624230485,
+     "em_T2": 57.71977345481408,
+     "em_T3": 64.46688007879833,
+     "ttft_mean_ms": 725.3354665826951,
+     "ttft_p50_ms": 729.1260259225965,
+     "ttft_p95_ms": 854.408344067633,
+     "ssd_mb_per_followup": 1052.451573409505,
+     "read_calls_per_followup": 123.92021669539523,
+     "t1_ttft_mean_ms": 525.1385985539501
+    },
+    {
+     "method": "HyperInfer",
+     "run_date": "2026-11-24",
+     "images": 398,
+     "dialogues": 4061,
+     "followup_requests": 8122,
+     "em_followup": 61.093326766806214,
+     "em_T1": 63.23565624230485,
+     "em_T2": 57.71977345481408,
+     "em_T3": 64.46688007879833,
+     "ttft_mean_ms": 776.9706059756146,
+     "ttft_p50_ms": 782.7048460021615,
+     "ttft_p95_ms": 901.1690543498844,
+     "ssd_mb_per_followup": 1052.4537358877124,
+     "read_calls_per_followup": 540.6542723467127,
+     "t1_ttft_mean_ms": 529.7272762868942
+    },
+    {
+     "method": "Ours",
+     "run_date": "2026-11-24",
+     "images": 398,
+     "dialogues": 4061,
+     "followup_requests": 8122,
+     "em_followup": 67.45875400147747,
+     "em_T1": 63.23565624230485,
+     "em_T2": 67.17557251908397,
+     "em_T3": 67.74193548387096,
+     "ttft_mean_ms": 149.49596174347047,
+     "ttft_p50_ms": 149.47477541863918,
+     "ttft_p95_ms": 173.46677142195404,
+     "ssd_mb_per_followup": 308.0497329012558,
+     "read_calls_per_followup": 33.0,
+     "t1_ttft_mean_ms": 523.727084318535
+    }
+   ],
+   "paired": [
+    {
+     "comparison": "Ours − HyperInfer",
+     "em": {
+      "diff": 6.365427234671266,
+      "ci_low": 5.364221928722222,
+      "ci_high": 7.4009116019458165
+     },
+     "ttft": {
+      "diff": -627.4746442321441,
+      "ci_low": -635.4046302257129,
+      "ci_high": -619.4222102599098
+     }
+    },
+    {
+     "comparison": "HyperInfer − IMPRESS",
+     "em": {
+      "diff": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0
+     },
+     "ttft": {
+      "diff": 51.63513939291954,
+      "ci_low": 47.78114516322362,
+      "ci_high": 55.52946569479099
+     }
+    },
+    {
+     "comparison": "HyperInfer − FullLoad",
+     "em": {
+      "diff": -7.362718542230972,
+      "ci_low": -8.419971982950749,
+      "ci_high": -6.322113085195891
+     },
+     "ttft": {
+      "diff": 298.86398827946067,
+      "ci_low": 293.768770672472,
+      "ci_high": 304.14256922869646
+     }
+    },
+    {
+     "comparison": "HyperInfer − ReComp",
+     "em": {
+      "diff": -7.633587786259547,
+      "ci_low": -8.697310022416561,
+      "ci_high": -6.594796018631983
+     },
+     "ttft": {
+      "diff": 247.7758881772188,
+      "ci_low": 244.36218739708386,
+      "ci_high": 251.45774112382327
+     }
+    }
+   ],
+   "ratios": [
+    {
+     "label": "Ours / HyperInfer",
+     "ratio": 0.19240877401758805,
+     "ci_low": 0.19125940155680346,
+     "ci_high": 0.19355974259209824
+    },
+    {
+     "label": "HyperInfer / IMPRESS",
+     "ratio": 1.0711879423685022,
+     "ci_low": 1.0656326669862675,
+     "ci_high": 1.0768502588988522
+    },
+    {
+     "label": "HyperInfer / FullLoad",
+     "ratio": 1.625099041129346,
+     "ci_low": 1.6117239793424356,
+     "ci_high": 1.6384776810874162
+    },
+    {
+     "label": "HyperInfer / ReComp",
+     "ratio": 1.4682130789363104,
+     "ci_low": 1.4597086670478412,
+     "ci_high": 1.4772559991982859
+    }
+   ],
+   "identity": {
+    "requests": 12183,
+    "equal": 12183,
+    "mismatches": [],
+    "mismatch_count": 0
+   },
+   "prefetch": {
+    "requests": 8122,
+    "precision": 0.9529850079865916,
+    "coverage": 0.2724442604979571,
+    "jaccard_consensus_pairs": 0.5619979896197235,
+    "jaccard_all_pairs": 0.6079856770371518,
+    "consensus_pair_share": 0.2771047970069346,
+    "cut_chunk_share": 0.789196108748664,
+    "first_job_chunks_mean": 6.47931543954691,
+    "half_rule_requests": 1,
+    "wasted_mb_per_followup": 0.002162478207338094,
+    "prefetched_mb_per_followup": 218.4900524284659,
+    "sync_mb_per_followup": 778.0764303097759,
+    "chunk_read_fraction": 0.8455090171470603,
+    "io_ratio_pooled": 0.9785799688068784,
+    "io_ratio_request_mean": 0.9768383911188664,
+    "prefetch_wait_ms": 107.89415067106731,
+    "probe_sync_ms": 2.8482178410497303,
+    "select_ms": 32.30954966847495,
+    "sync_read_ms": 284.7817440174852,
+    "copy_ms": 13.886173370178918,
+    "gpu_load_ms": 247.66624916715944,
+    "critical_io_ms": 395.52411252960223,
+    "total_io_ms": 404.1816970889361,
+    "worker_k_ms_per_chunk": 0.2700809706458613,
+    "worker_v_ms_per_chunk": 0.32690272480353744,
+    "worker_probe_ms_per_layer": 1.1782431513011404,
+    "budget_ms_mean": 2.937248462618014,
+    "compute_prev_ms_mean": 1.926126282920575,
+    "per_layer": [
+     {
+      "layer": 0,
+      "fallback_rate": 0.0,
+      "wait_ms": 0.0,
+      "select_ms": 1.1770422391527409,
+      "sync_read_ms": 8.937184519082404,
+      "gpu_load_ms": 2.9928503842183636,
+      "budget_ms": null,
+      "predicted_chunks": 0.0,
+      "prefetched_chunks": 0.0,
+      "needed_chunks": 11.136542723467127,
+      "missing_chunks": 11.136542723467127,
+      "wasted_chunks": 0.0,
+      "precision": null,
+      "coverage": null,
+      "jaccard_next": 0.7158377230174958
+     },
+     {
+      "layer": 1,
+      "fallback_rate": 0.0,
+      "wait_ms": 3.8486002694207206,
+      "select_ms": 1.0664853179307663,
+      "sync_read_ms": 2.3822220420977205,
+      "gpu_load_ms": 3.151847245673906,
+      "budget_ms": 2.8693549298538903,
+      "predicted_chunks": 15.401132725929575,
+      "prefetched_chunks": 6.47931543954691,
+      "needed_chunks": 12.023885742427973,
+      "missing_chunks": 5.545062792415661,
+      "wasted_chunks": 0.0004924895345973898,
+      "precision": 0.9961074821852731,
+      "coverage": 0.7030146592268304,
+      "jaccard_next": 0.426532024526844
+     },
+     {
+      "layer": 2,
+      "fallback_rate": 0.0,
+      "wait_ms": 4.08206467143595,
+      "select_ms": 1.056425712362383,
+      "sync_read_ms": 3.4298734382580167,
+      "gpu_load_ms": 4.018599587490122,
+      "budget_ms": 3.1280641715099398,
+      "predicted_chunks": 31.943856193055897,
+      "prefetched_chunks": 7.236764343757695,
+      "needed_chunks": 15.391898547155874,
+      "missing_chunks": 8.156734794385619,
+      "wasted_chunks": 0.0016005909874415168,
+      "precision": 0.9643978592725865,
+      "coverage": 0.7602000189432515,
+      "jaccard_next": 0.5904178328643773
+     },
+     {
+      "layer": 3,
+      "fallback_rate": 0.057375030780595915,
+      "wait_ms": 3.51135284249799,
+      "select_ms": 1.0600262787078394,
+      "sync_read_ms": 7.273401580113395,
+      "gpu_load_ms": 6.336336711990814,
+      "budget_ms": 2.7745991741848077,
+      "predicted_chunks": 25.705121891159813,
+      "prefetched_chunks": 6.292169416399902,
+      "needed_chunks": 23.731100714109825,
+      "missing_chunks": 17.438931297709924,
+      "wasted_chunks": 0.0,
+      "precision": 0.9471535319440368,
+      "coverage": 0.5575209357806222,
+      "jaccard_next": 0.3284654294763572
+     },
+     {
+      "layer": 4,
+      "fallback_rate": 0.8526225067717311,
+      "wait_ms": 3.4251992803546734,
+      "select_ms": 0.9575402244881467,
+      "sync_read_ms": 10.627797155759584,
+      "gpu_load_ms": 8.568881297077203,
+      "budget_ms": 2.8102219609758796,
+      "predicted_chunks": 27.45247475991135,
+      "prefetched_chunks": 6.351514405318887,
+      "needed_chunks": 33.09369613395715,
+      "missing_chunks": 26.742181728638265,
+      "wasted_chunks": 0.0,
+      "precision": 0.9976262793920949,
+      "coverage": 0.20391230336704413,
+      "jaccard_next": 0.5014892535545254
+     },
+     {
+      "layer": 5,
+      "fallback_rate": 0.2861364196010835,
+      "wait_ms": 3.63988280298619,
+      "select_ms": 1.0575797874136486,
+      "sync_read_ms": 7.851362349252209,
+      "gpu_load_ms": 6.8387276910628865,
+      "budget_ms": 2.941876269392605,
+      "predicted_chunks": 34.259788229500124,
+      "prefetched_chunks": 6.758680128047279,
+      "needed_chunks": 26.050357054912585,
+      "missing_chunks": 19.291676926865303,
+      "wasted_chunks": 0.0,
+      "precision": 0.9803220183444457,
+      "coverage": 0.39959695515386434,
+      "jaccard_next": 0.5404142244956324
+     },
+     {
+      "layer": 6,
+      "fallback_rate": 0.0,
+      "wait_ms": 3.496497576059606,
+      "select_ms": 1.0889270799259736,
+      "sync_read_ms": 7.59021446924786,
+      "gpu_load_ms": 6.843979789319773,
+      "budget_ms": 2.907917293018417,
+      "predicted_chunks": 27.912829352376264,
+      "prefetched_chunks": 6.612533858655503,
+      "needed_chunks": 25.571164737749324,
+      "missing_chunks": 18.958630879093818,
+      "wasted_chunks": 0.0,
+      "precision": 0.9085407861172659,
+      "coverage": 0.6543971394013764,
+      "jaccard_next": 0.356760979639019
+     },
+     {
+      "layer": 7,
+      "fallback_rate": 0.7272839202166954,
+      "wait_ms": 3.6662243845799423,
+      "select_ms": 0.9746047750948333,
+      "sync_read_ms": 9.592739172482565,
+      "gpu_load_ms": 8.241323661770075,
+      "budget_ms": 3.0448025910514485,
+      "predicted_chunks": 24.212632356562423,
+      "prefetched_chunks": 7.028195025855701,
+      "needed_chunks": 31.853361241073628,
+      "missing_chunks": 24.825166215217926,
+      "wasted_chunks": 0.0,
+      "precision": 0.9772907433036105,
+      "coverage": 0.24871329537655704,
+      "jaccard_next": 0.4391163775459278
+     },
+     {
+      "layer": 8,
+      "fallback_rate": 0.24021177049987688,
+      "wait_ms": 3.645310634887041,
+      "select_ms": 1.0600732900871928,
+      "sync_read_ms": 8.262001102062333,
+      "gpu_load_ms": 7.438331257278543,
+      "budget_ms": 2.99838641339652,
+      "predicted_chunks": 34.20339817778872,
+      "prefetched_chunks": 6.958630879093819,
+      "needed_chunks": 28.192809652794878,
+      "missing_chunks": 21.23417877370106,
+      "wasted_chunks": 0.0,
+      "precision": 0.8941343908135462,
+      "coverage": 0.4045953096157031,
+      "jaccard_next": 0.46361879425240315
+     },
+     {
+      "layer": 9,
+      "fallback_rate": 0.7802265451859148,
+      "wait_ms": 3.5171186539067683,
+      "select_ms": 0.9715931450618338,
+      "sync_read_ms": 10.380050080868044,
+      "gpu_load_ms": 8.69213655954275,
+      "budget_ms": 2.9108949055827784,
+      "predicted_chunks": 29.2829352376262,
+      "prefetched_chunks": 6.6223836493474515,
+      "needed_chunks": 33.69564146761881,
+      "missing_chunks": 27.07325781827136,
+      "wasted_chunks": 0.0,
+      "precision": 0.9753323874728094,
+      "coverage": 0.2215622884157761,
+      "jaccard_next": 0.8341855782545443
+     },
+     {
+      "layer": 10,
+      "fallback_rate": 0.9948288598867274,
+      "wait_ms": 3.627574297410753,
+      "select_ms": 0.9489110907197101,
+      "sync_read_ms": 10.8521745594783,
+      "gpu_load_ms": 9.039066136580505,
+      "budget_ms": 2.9737158284936083,
+      "predicted_chunks": 34.688007879832554,
+      "prefetched_chunks": 6.870475252400887,
+      "needed_chunks": 35.36394976606747,
+      "missing_chunks": 28.493474513666584,
+      "wasted_chunks": 0.0,
+      "precision": 0.9996875112003154,
+      "coverage": 0.19705570991589477,
+      "jaccard_next": 0.9961216449150455
+     },
+     {
+      "layer": 11,
+      "fallback_rate": 1.0,
+      "wait_ms": 3.515588740201984,
+      "select_ms": 0.9532981702167613,
+      "sync_read_ms": 10.862588422747669,
+      "gpu_load_ms": 9.04016452778394,
+      "budget_ms": 2.9203325172446393,
+      "predicted_chunks": 35.380571287860135,
+      "prefetched_chunks": 6.662767791184438,
+      "needed_chunks": 35.41122876138882,
+      "missing_chunks": 28.748460970204384,
+      "wasted_chunks": 0.0,
+      "precision": 1.0,
+      "coverage": 0.19044363751218812,
+      "jaccard_next": 1.0
+     },
+     {
+      "layer": 12,
+      "fallback_rate": 1.0,
+      "wait_ms": 3.4813205698930227,
+      "select_ms": 0.9526984754200347,
+      "sync_read_ms": 10.914250591284086,
+      "gpu_load_ms": 9.032314182533195,
+      "budget_ms": 2.9027004315953806,
+      "predicted_chunks": 35.41122876138882,
+      "prefetched_chunks": 6.591356808667816,
+      "needed_chunks": 35.41122876138882,
+      "missing_chunks": 28.819871952721005,
+      "wasted_chunks": 0.0,
+      "precision": 1.0,
+      "coverage": 0.18840247868825633,
+      "jaccard_next": 0.7936161044077813
+     },
+     {
+      "layer": 13,
+      "fallback_rate": 0.7248214725437084,
+      "wait_ms": 3.494609119216926,
+      "select_ms": 0.9938696776813722,
+      "sync_read_ms": 10.270982747840172,
+      "gpu_load_ms": 8.713443102500829,
+      "budget_ms": 2.907072997160533,
+      "predicted_chunks": 35.41122876138882,
+      "prefetched_chunks": 6.609825166215218,
+      "needed_chunks": 33.786136419601085,
+      "missing_chunks": 27.176311253385865,
+      "wasted_chunks": 0.0,
+      "precision": 0.9635716447797337,
+      "coverage": 0.22813916533325615,
+      "jaccard_next": 0.7936161044077813
+     },
+     {
+      "layer": 14,
+      "fallback_rate": 1.0,
+      "wait_ms": 3.4313538575916933,
+      "select_ms": 0.9455048782777108,
+      "sync_read_ms": 10.753551464687462,
+      "gpu_load_ms": 9.024650255565358,
+      "budget_ms": 2.910967168394303,
+      "predicted_chunks": 34.95469096281704,
+      "prefetched_chunks": 6.6300172371337105,
+      "needed_chunks": 35.41122876138882,
+      "missing_chunks": 28.78121152425511,
+      "wasted_chunks": 0.0,
+      "precision": 1.0,
+      "coverage": 0.18950751984466077,
+      "jaccard_next": 0.9881802511696627
+     },
+     {
+      "layer": 15,
+      "fallback_rate": 0.9842403348928835,
+      "wait_ms": 3.4926711660538055,
+      "select_ms": 0.9539613535325462,
+      "sync_read_ms": 10.557979436137646,
+      "gpu_load_ms": 8.988991164852543,
+      "budget_ms": 2.9432797998032143,
+      "predicted_chunks": 35.41122876138882,
+      "prefetched_chunks": 6.739349913814332,
+      "needed_chunks": 35.27911844373307,
+      "missing_chunks": 28.53976852991874,
+      "wasted_chunks": 0.0,
+      "precision": 0.9982110478287082,
+      "coverage": 0.1942584206771028,
+      "jaccard_next": 0.879451612593907
+     },
+     {
+      "layer": 16,
+      "fallback_rate": 0.8425264713124846,
+      "wait_ms": 3.357631151262387,
+      "select_ms": 0.9709749080936065,
+      "sync_read_ms": 10.228195533613228,
+      "gpu_load_ms": 8.76104733288633,
+      "budget_ms": 2.8968219159364086,
+      "predicted_chunks": 35.31359271115489,
+      "prefetched_chunks": 6.572642206353115,
+      "needed_chunks": 34.2078305836001,
+      "missing_chunks": 27.635188377246983,
+      "wasted_chunks": 0.0,
+      "precision": 0.9817462956371878,
+      "coverage": 0.20842657432173628,
+      "jaccard_next": 0.8025045001932032
+     },
+     {
+      "layer": 17,
+      "fallback_rate": 0.8356316178281211,
+      "wait_ms": 3.384834147986998,
+      "select_ms": 0.9705541142631975,
+      "sync_read_ms": 9.96399539385456,
+      "gpu_load_ms": 8.589528833223083,
+      "budget_ms": 2.900671108371957,
+      "predicted_chunks": 34.69970450627924,
+      "prefetched_chunks": 6.5803989165230234,
+      "needed_chunks": 33.608593942378725,
+      "missing_chunks": 27.0281950258557,
+      "wasted_chunks": 0.0,
+      "precision": 0.9817102191932043,
+      "coverage": 0.2089696734804318,
+      "jaccard_next": 0.8714759480341994
+     },
+     {
+      "layer": 18,
+      "fallback_rate": 0.9848559468111303,
+      "wait_ms": 3.391330924350195,
+      "select_ms": 0.9489210797907228,
+      "sync_read_ms": 10.474019768636154,
+      "gpu_load_ms": 8.962074574816956,
+      "budget_ms": 2.908671701685185,
+      "predicted_chunks": 34.42526471312485,
+      "prefetched_chunks": 6.6154887958630875,
+      "needed_chunks": 35.21965033243043,
+      "missing_chunks": 28.604161536567347,
+      "wasted_chunks": 0.0,
+      "precision": 0.9991831414825706,
+      "coverage": 0.19111849855859114,
+      "jaccard_next": 0.9886419601083477
+     },
+     {
+      "layer": 19,
+      "fallback_rate": 1.0,
+      "wait_ms": 3.3463862235204935,
+      "select_ms": 0.9474545680316717,
+      "sync_read_ms": 10.499248114510603,
+      "gpu_load_ms": 9.002256571464066,
+      "budget_ms": 2.904766090388546,
+      "predicted_chunks": 35.26077320856932,
+      "prefetched_chunks": 6.595419847328245,
+      "needed_chunks": 35.41122876138882,
+      "missing_chunks": 28.815808914060575,
+      "wasted_chunks": 0.0,
+      "precision": 1.0,
+      "coverage": 0.18851861358685934,
+      "jaccard_next": 0.6492858901748337
+     },
+     {
+      "layer": 20,
+      "fallback_rate": 0.5323811868997784,
+      "wait_ms": 3.3737399449768737,
+      "select_ms": 1.0183581167809543,
+      "sync_read_ms": 8.249876909375345,
+      "gpu_load_ms": 7.355091649359213,
+      "budget_ms": 2.9102881126907536,
+      "predicted_chunks": 35.41122876138882,
+      "prefetched_chunks": 6.599852253139621,
+      "needed_chunks": 28.58914060576213,
+      "missing_chunks": 21.989288352622506,
+      "wasted_chunks": 0.0,
+      "precision": 0.9820369631930453,
+      "coverage": 0.2861257385780913,
+      "jaccard_next": 0.5220964822042816
+     },
+     {
+      "layer": 21,
+      "fallback_rate": 0.5807682836739719,
+      "wait_ms": 3.323797071070521,
+      "select_ms": 0.9962587322185733,
+      "sync_read_ms": 9.778466684309405,
+      "gpu_load_ms": 8.678306328264386,
+      "budget_ms": 2.9026384230788427,
+      "predicted_chunks": 31.745136665845852,
+      "prefetched_chunks": 6.593326766806205,
+      "needed_chunks": 33.56020684560453,
+      "missing_chunks": 26.966880078798326,
+      "wasted_chunks": 0.0,
+      "precision": 0.9079446462250939,
+      "coverage": 0.24793770750010596,
+      "jaccard_next": 0.37923012275765516
+     },
+     {
+      "layer": 22,
+      "fallback_rate": 0.0895099729130756,
+      "wait_ms": 3.3991568506486867,
+      "select_ms": 1.0731482209362102,
+      "sync_read_ms": 9.69752833089862,
+      "gpu_load_ms": 8.660136993788228,
+      "budget_ms": 2.926243733999046,
+      "predicted_chunks": 35.057005663629646,
+      "prefetched_chunks": 6.686161044077814,
+      "needed_chunks": 33.17766559960601,
+      "missing_chunks": 26.491504555528195,
+      "wasted_chunks": 0.0,
+      "precision": 0.801343108369395,
+      "coverage": 0.46826865199861456,
+      "jaccard_next": 0.31728446652251174
+     },
+     {
+      "layer": 23,
+      "fallback_rate": 0.9991381433144546,
+      "wait_ms": 3.327754681975354,
+      "select_ms": 0.9322587513736142,
+      "sync_read_ms": 10.404688486638136,
+      "gpu_load_ms": 9.002341636234325,
+      "budget_ms": 2.938081125199714,
+      "predicted_chunks": 32.84782073380941,
+      "prefetched_chunks": 6.704383156857917,
+      "needed_chunks": 35.39312977099237,
+      "missing_chunks": 28.68874661413445,
+      "wasted_chunks": 0.0,
+      "precision": 0.9999819224836097,
+      "coverage": 0.1917891335401286,
+      "jaccard_next": 0.25025064098188576
+     },
+     {
+      "layer": 24,
+      "fallback_rate": 0.0,
+      "wait_ms": 3.4808446828627257,
+      "select_ms": 1.0945758287196556,
+      "sync_read_ms": 7.811966358930078,
+      "gpu_load_ms": 7.340783422904094,
+      "budget_ms": 3.0411503559110993,
+      "predicted_chunks": 35.40605762127555,
+      "prefetched_chunks": 7.057128786013298,
+      "needed_chunks": 27.63789706968727,
+      "missing_chunks": 20.580768283673972,
+      "wasted_chunks": 0.0,
+      "precision": 0.8192081893994906,
+      "coverage": 0.6297256497493372,
+      "jaccard_next": 0.5594872829284329
+     },
+     {
+      "layer": 25,
+      "fallback_rate": 0.0,
+      "wait_ms": 3.297076271252917,
+      "select_ms": 1.0745412708145223,
+      "sync_read_ms": 7.480564542578906,
+      "gpu_load_ms": 7.082923801537402,
+      "budget_ms": 2.9281360880173404,
+      "predicted_chunks": 27.865304112287614,
+      "prefetched_chunks": 6.661536567347944,
+      "needed_chunks": 26.763112533858656,
+      "missing_chunks": 20.101575966510712,
+      "wasted_chunks": 0.0,
+      "precision": 0.8600366186119582,
+      "coverage": 0.6240514753523989,
+      "jaccard_next": 0.5613638605388737
+     },
+     {
+      "layer": 26,
+      "fallback_rate": 0.0017237133710908644,
+      "wait_ms": 3.4666859143021673,
+      "select_ms": 1.0708676183509565,
+      "sync_read_ms": 7.546308235974184,
+      "gpu_load_ms": 6.993548444301859,
+      "budget_ms": 3.034888758449991,
+      "predicted_chunks": 29.36813592711155,
+      "prefetched_chunks": 7.075966510711647,
+      "needed_chunks": 26.462693917754248,
+      "missing_chunks": 19.3867274070426,
+      "wasted_chunks": 0.0,
+      "precision": 0.8669443066938108,
+      "coverage": 0.6648290154576197,
+      "jaccard_next": 0.3037067924081247
+     },
+     {
+      "layer": 27,
+      "fallback_rate": 0.8126077320856931,
+      "wait_ms": 3.3597100893715734,
+      "select_ms": 0.9537857826005661,
+      "sync_read_ms": 10.015918489346522,
+      "gpu_load_ms": 8.853414922455457,
+      "budget_ms": 2.988259864288087,
+      "predicted_chunks": 30.89066732331938,
+      "prefetched_chunks": 6.924156611672002,
+      "needed_chunks": 34.5753508987934,
+      "missing_chunks": 27.6511942871214,
+      "wasted_chunks": 0.0,
+      "precision": 0.9655940489526654,
+      "coverage": 0.2223245544677077,
+      "jaccard_next": 0.33298659205869807
+     },
+     {
+      "layer": 28,
+      "fallback_rate": 0.06094557990642699,
+      "wait_ms": 3.5019785083685417,
+      "select_ms": 1.078986083596534,
+      "sync_read_ms": 7.813270415787852,
+      "gpu_load_ms": 7.074588253278614,
+      "budget_ms": 2.9940752725799635,
+      "predicted_chunks": 34.858655503570546,
+      "prefetched_chunks": 6.946934252647131,
+      "needed_chunks": 26.926126569810393,
+      "missing_chunks": 19.97919231716326,
+      "wasted_chunks": 0.0,
+      "precision": 0.890014654927955,
+      "coverage": 0.5745616293280188,
+      "jaccard_next": 0.5197344311348614
+     },
+     {
+      "layer": 29,
+      "fallback_rate": 0.0017237133710908644,
+      "wait_ms": 3.1778466914374746,
+      "select_ms": 1.071607513773826,
+      "sync_read_ms": 7.03948367262299,
+      "gpu_load_ms": 6.6683772056735275,
+      "budget_ms": 2.8797298092124453,
+      "predicted_chunks": 30.115488795863087,
+      "prefetched_chunks": 6.512435360748584,
+      "needed_chunks": 25.263112533858656,
+      "missing_chunks": 18.75067717311007,
+      "wasted_chunks": 0.0,
+      "precision": 0.909435321113926,
+      "coverage": 0.6418717188522916,
+      "jaccard_next": 0.25129278502831814
+     },
+     {
+      "layer": 30,
+      "fallback_rate": 1.0,
+      "wait_ms": 3.4614604430186486,
+      "select_ms": 0.9243788083657949,
+      "sync_read_ms": 10.227760758362866,
+      "gpu_load_ms": 8.986080462345567,
+      "budget_ms": 2.9898637753668913,
+      "predicted_chunks": 28.13937453829106,
+      "prefetched_chunks": 6.936345727653287,
+      "needed_chunks": 35.41122876138882,
+      "missing_chunks": 28.474883033735534,
+      "wasted_chunks": 0.0,
+      "precision": 1.0,
+      "coverage": 0.19826338735145785,
+      "jaccard_next": 0.8903902979561684
+     },
+     {
+      "layer": 31,
+      "fallback_rate": 0.8538537306082246,
+      "wait_ms": 3.3685482081646874,
+      "select_ms": 0.9643367746910477,
+      "sync_read_ms": 9.860297031696025,
+      "gpu_load_ms": 8.694105179385506,
+      "budget_ms": 2.9662297543241922,
+      "predicted_chunks": 35.41122876138882,
+      "prefetched_chunks": 6.86222605269638,
+      "needed_chunks": 34.18197488303374,
+      "missing_chunks": 27.319748830337357,
+      "wasted_chunks": 0.0,
+      "precision": 0.9894887637929488,
+      "coverage": 0.217727251977995,
+      "jaccard_next": null
+     }
+    ]
+   },
+   "bytes_vs_impress": {
+    "hyperinfer_mb": 1052.4537358877124,
+    "impress_mb": 1052.451573409505,
+    "ratio": 1.0000020547056625
+   },
+   "selection": {
+    "hyperinfer": {
+     "fallback_rate": 0.5388566547648362,
+     "mean_jaccard": 0.3381616449970214,
+     "kv_chunk_read_fraction": 0.8455090171470603,
+     "kv_chunk_needed_fraction": 0.8455072241366571
+    },
+    "impress": {
+     "fallback_rate": 0.5388566547648362,
+     "mean_jaccard": 0.3381616449970214,
+     "k_chunk_read_fraction": 0.8455072241366571,
+     "v_chunk_read_fraction": 0.8455072241366571
+    }
+   },
+   "decomposition": {
+    "HyperInfer": {
+     "read_wait_ms": 413.55439434729277,
+     "prefetch_wait_ms": 107.89415067106731,
+     "sync_read_ms": 284.7817440174852,
+     "probe_sync_ms": 2.8482178410497303,
+     "host_copy_ms": 13.886173370178918,
+     "gpu_load_ms": 247.66624916715944,
+     "select_ms": 32.30954966847495,
+     "hook_ms": 720.0841081780018,
+     "ttft_ms": 776.9706059756146
+    },
+    "IMPRESS": {
+     "read_wait_ms": 383.42250294651313,
+     "hook_ms": 670.7297272637818,
+     "probe_wait_ms": 0.8289536752028731,
+     "ttft_ms": 725.3354665826951
+    },
+    "FullLoad": {
+     "read_wait_ms": 105.95371625694632,
+     "ttft_ms": 478.10661769615393
+    },
+    "Ours": {
+     "read_wait_ms": 9.419115254510084,
+     "ttft_ms": 149.49596174347047
+    }
+   },
+   "t1_store": {
+    "images": 398,
+    "persist_ms_mean": 2673.7708437944475,
+    "write_mb_mean": 2511.6747856105526,
+    "store_mb_mean": 1266.1395082839197,
+    "write_gb_total": 999.646564673
+   },
+   "dev": {
+    "images": 40,
+    "followups": 756,
+    "impress": {
+     "ttft_ms": 711.1911036310688,
+     "io_ratio": 1.0864288090024734,
+     "read_wait_ms": 374.13943838451314,
+     "io_ms": 344.37547613270385,
+     "em": 61.37566137566137
+    },
+    "hyperinfer": {
+     "ttft_ms": 770.7395162408748,
+     "read_wait_ms": 408.91022538327707,
+     "io_ms": 400.3645673864792,
+     "em": 61.37566137566137,
+     "summary": {
+      "requests": 756,
+      "precision": 0.9534411661285682,
+      "coverage": 0.27759138183764165,
+      "jaccard_consensus_pairs": 0.5628200524129869,
+      "jaccard_all_pairs": 0.6030297185999688,
+      "consensus_pair_share": 0.29723502304147464,
+      "cut_chunk_share": 0.7884382587054583,
+      "first_job_chunks_mean": 6.494708994708994,
+      "half_rule_requests": 1,
+      "wasted_mb_per_followup": 0.0,
+      "prefetched_mb_per_followup": 216.9484325925926,
+      "sync_mb_per_followup": 768.6129696507936,
+      "chunk_read_fraction": 0.8410443577988892,
+      "io_ratio_pooled": 0.9763721190677386,
+      "io_ratio_request_mean": 0.9747853491011307,
+      "prefetch_wait_ms": 110.47916381407983,
+      "probe_sync_ms": 1.5381799343106135,
+      "select_ms": 32.06899339978696,
+      "sync_read_ms": 278.8874573103847,
+      "copy_ms": 13.844085859735964,
+      "gpu_load_ms": 246.84965509980444,
+      "critical_io_ms": 390.90480105877515,
+      "total_io_ms": 400.3645673864792,
+      "worker_k_ms_per_chunk": 0.2711326649632043,
+      "worker_v_ms_per_chunk": 0.3395230772426068,
+      "worker_probe_ms_per_layer": 1.1863305383552782,
+      "budget_ms_mean": 2.9143985241008084,
+      "compute_prev_ms_mean": 1.9110500958213592
+     },
+     "io_ratio": 0.9763721190677386
+    },
+    "fullload": {
+     "ttft_ms": 480.23179083047484,
+     "em": 69.17989417989418
+    },
+    "ttft_ratio_hyperinfer_over_impress": 1.083730536427937
+   },
+   "execution": {
+    "gate": {
+     "process_starts": 1,
+     "complete": true,
+     "wall_hours": 0.22894327772988213,
+     "half_rule_note": [
+      false
+     ]
+    },
+    "dev": {
+     "process_starts": 1,
+     "complete": true,
+     "wall_hours": 1.7123645281129414,
+     "half_rule_note": [
+      false
+     ]
+    },
+    "main": {
+     "process_starts": 1,
+     "complete": true,
+     "wall_hours": 3.2832281244463393,
+     "half_rule_note": [
+      false
+     ]
+    }
+   },
+   "resume_events": []
+  },
+  "l15": {
+   "model": "l15",
+   "label": "LLaVA-1.5-7B",
+   "gates": {
+    "tests": {
+     "gate": "gate7_existing_tests",
+     "status": "PASS",
+     "suites": [
+      {
+       "python": "/home/dblab/anaconda3/envs/mllm_ft/bin/python",
+       "python_version": "3.10.20",
+       "transformers": "4.57.6",
+       "torch": "2.5.1+cu121",
+       "ran": 901,
+       "failed": [
+        "setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+        "test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+        "test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+       ],
+       "baseline_failures_for_this_environment": [
+        "setUpClass (test_glm46v_runner.NativeProcessorRunnerTests)",
+        "test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)",
+        "test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)"
+       ],
+       "new_failures": [],
+       "status": "PASS",
+       "tail": "vision_position_ids, cls.core)\nAttributeError: type object 'Glm4vModel' has no attribute 'get_vision_position_ids'\n\n======================================================================\nERROR: test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits (test_glm46v_validation.GlmValidationTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/tests/test_glm46v_validation.py\", line 106, in test_actual_native_adjacent_pair_partial_rope_keeps_tail_bits\n    from transformers.models.glm4v.modeling_glm4v import apply_rotary_pos_emb\nImportError: cannot import name 'apply_rotary_pos_emb' from 'transformers.models.glm4v.modeling_glm4v' (/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/transformers/models/glm4v/modeling_glm4v.py)\n\n======================================================================\nERROR: test_actual_native_sdpa_hook_preserves_output_and_qk_score (test_glm46v_vision.GlmVisionTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/tests/test_glm46v_vision.py\", line 140, in _check_actual_native_sdpa_hook_preserves_output_and_qk_score\n    canonical = model(pixels, grid_thw=grid).pooler_output.clone()\nAttributeError: 'Tensor' object has no attribute 'pooler_output'\n\n----------------------------------------------------------------------\nRan 901 tests in 25.625s\n\nFAILED (errors=3)\n"
+      },
+      {
+       "python": "/home/dblab/hj/mllm_v2/.venv-glm46v/bin/python",
+       "python_version": "3.10.20",
+       "transformers": "5.13.1",
+       "torch": "2.5.1+cu121",
+       "ran": 919,
+       "failed": [
+        "test_official_token_check_on_both_tokenizers (test_convbench_main.FrozenSettings)",
+        "test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests)",
+        "test_reference_checks_pass_and_source_is_unchanged (test_convbench_main.ReferenceHarness)",
+        "test_single_stock_forward_capture_equals_dense_visionzip_formula (test_qwen25_vision.StockVisionCaptureTests)"
+       ],
+       "baseline_failures_for_this_environment": [
+        "test_official_token_check_on_both_tokenizers (test_convbench_main.FrozenSettings)",
+        "test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests)",
+        "test_reference_checks_pass_and_source_is_unchanged (test_convbench_main.ReferenceHarness)",
+        "test_single_stock_forward_capture_equals_dense_visionzip_formula (test_qwen25_vision.StockVisionCaptureTests)"
+       ],
+       "new_failures": [],
+       "status": "PASS",
+       "tail": "s.executable) == (\nAssertionError: not the environment of the reference runs\n\n======================================================================\nFAIL: test_real_tiny_clip_matches_full_penultimate_attention (test_visdial_turn1_piggyback_core.VisionForwardCaptureTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/mmimpress/piggyback.py\", line 154, in __init__\n    encoder_layers = self.vision_tower.vision_model.encoder.layers\n  File \"/home/dblab/anaconda3/envs/mllm_ft/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1931, in __getattr__\n    raise AttributeError(\nAttributeError: 'CLIPVisionModel' object has no attribute 'vision_model'\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/dblab/hj/mllm_v2/tests/test_visdial_turn1_piggyback_core.py\", line 186, in test_real_tiny_clip_matches_full_penultimate_attention\n    with VisionSaliencyCapture(runner) as capture:\n  File \"/home/dblab/hj/mllm_v2/mmimpress/piggyback.py\", line 507, in __init__\n    super().__init__(runner, capture_saliency=True)\n  File \"/home/dblab/hj/mllm_v2/mmimpress/piggyback.py\", line 156, in __init__\n    raise AssertionError(\nAssertionError: expected LLaVA-NeXT vision_tower.vision_model.encoder.layers\n\n----------------------------------------------------------------------\nRan 919 tests in 25.876s\n\nFAILED (failures=3, errors=1, skipped=6)\n"
+      }
+     ],
+     "failed": [],
+     "criterion": "no failing test other than the failures that existed before this work (listed per environment in baseline_failures_for_this_environment); tests/test_hyperinfer.py is part of both suites",
+     "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+     "written_unix": 1795540401.3322453
+    },
+    "logic": {
+     "gate": "gate1_logic_equals_public_code",
+     "status": "PASS",
+     "failed": [],
+     "ran": 15,
+     "public_comparison_tests": {
+      "test_chunks_cut_and_token_set_match_the_public_code": "ok",
+      "test_public_constants_and_single_worker": "ok"
+     },
+     "skipped": 0,
+     "public_checkout_head": "91df7a2fc12581c6780a6485c5b50e7fd9ef9d0e",
+     "called_directly": "PrefixKVLayer.prefetch_by_chunk and _prefetch_chunks_direct_pinned of my_pcache_fast.py: order conversion, chunk ids, budget cut, half rule, K-then-V order, prefetched token set",
+     "not_callable": "the prediction (flex_opt_fast_pcache.py line 1108) and the missing tokens (lines 1125-1126) are single lines of the 1,300-line layer function, which needs the model and its global state; the same operations are written in the test and compared",
+     "tail": "test_chunks_cut_and_token_set_match_the_public_code (tests.test_hyperinfer.PublicPrefetchTests) ... ok\ntest_public_constants_and_single_worker (tests.test_hyperinfer.PublicPrefetchTests) ... ok\ntest_budget_cut (tests.test_hyperinfer.PureTests) ... ok\ntest_chunk_token_mask_and_missing (tests.test_hyperinfer.PureTests) ... ok\ntest_position_map_moves_a_token_to_its_place_in_the_next_layer (tests.test_hyperinfer.PureTests) ... ok\ntest_predicted_chunks_are_sorted_unique_chunks_of_the_used_tokens (tests.test_hyperinfer.PureTests) ... ok\ntest_state_rejects_bad_constants (tests.test_hyperinfer.PureTests) ... ok\ntest_adjacent_layer_similarity_is_reported_on_image_tokens (tests.test_hyperinfer.SelectorTests) ... ok\ntest_budget_state_carries_into_the_next_request (tests.test_hyperinfer.SelectorTests) ... ok\ntest_constructor_checks (tests.test_hyperinfer.SelectorTests) ... ok\ntest_prefetch_off_is_the_impress_selector (tests.test_hyperinfer.SelectorTests) ... ok\ntest_prefetch_on_selects_masks_and_loads_what_impress_does (tests.test_hyperinfer.SelectorTests) ... ok\ntest_worker_read_is_one_chunk_per_pread_k_then_v (tests.test_hyperinfer.SelectorTests) ... ok\ntest_guard_restores_the_attention_function (tests.test_hyperinfer.UnreadRowGuardTests) ... ok\ntest_masked_unread_rows_do_not_change_the_output_and_used_unread_rows_break_it (tests.test_hyperinfer.UnreadRowGuardTests) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.820s\n\nOK\n",
+     "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+     "written_unix": 1795540405.8821669
+    },
+    "l15_gate": {
+     "status": "PASS",
+     "model": "l15",
+     "phase": "gate",
+     "execution": {
+      "status": "PASS",
+      "requests": 1029,
+      "expected_requests": 1029,
+      "images": 4,
+      "independent_image_audit": "PASS",
+      "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+      "expected": 1029,
+      "criterion": "every image of the phase committed after its per-image audit passed, for this freeze"
+     },
+     "requests": 1029,
+     "gates": {
+      "gate2_prefetch_off_equals_impress": {
+       "a": "hyperinfer_off",
+       "b": "impress_official_async",
+       "requests": 147,
+       "followup_requests": 98,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)",
+        "per-layer used set (T2, T3)",
+        "ssd_read_bytes (T2, T3)",
+        "probe_read_bytes (T2, T3)",
+        "k_read_bytes (T2, T3)",
+        "v_read_bytes (T2, T3)",
+        "ssd_preads (T2, T3)",
+        "pread_calls (T2, T3)",
+        "preadv_calls (T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "prefetch off: generated tokens, per-layer used sets, read bytes and read call counts equal the IMPRESS arm executed in the same session, every request"
+      },
+      "gate3_output_equals_impress": {
+       "a": "hyperinfer_async",
+       "b": "impress_official_async",
+       "requests": 147,
+       "followup_requests": 98,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)",
+        "per-layer used set (T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "prefetch on: generated tokens and per-layer used sets equal IMPRESS, every request"
+      },
+      "gate5_unread_rows_not_used": {
+       "requests": 98,
+       "guard_failures": 0,
+       "first_guard_failures": [],
+       "totals": {
+        "unread_rows": 350784,
+        "used_rows": 1092672,
+        "attention_calls": 8128
+       },
+       "against_impress": {
+        "a": "hyperinfer_async_nan",
+        "b": "impress_official_async",
+        "requests": 147,
+        "followup_requests": 98,
+        "mismatches": 0,
+        "first_mismatches": [],
+        "compared": [
+         "generated tokens (T1, T2, T3)",
+         "per-layer used set (T2, T3)"
+        ],
+        "status": "PASS"
+       },
+       "criterion": "every visual row of the prefix cache holds NaN before the first layer; rows are overwritten only by reads; at masked columns the debug wrapper passes 0 (what an unread row holds in a normal request), nowhere else: the attention output of every layer is finite, the unmasked visual columns equal the layer's used set G_l, every used row was read, and tokens and used sets equal IMPRESS",
+       "status": "PASS"
+      },
+      "gate6_sync_equals_async": {
+       "a": "hyperinfer_sync",
+       "b": "hyperinfer_async",
+       "requests": 147,
+       "followup_requests": 98,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "prefetch executed on the request thread: generated tokens equal the asynchronous arm, every request"
+      },
+      "gate6_repeat": {
+       "a": "hyperinfer_async_repeat",
+       "b": "hyperinfer_async",
+       "requests": 147,
+       "followup_requests": 98,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "the same request executed a second time: generated tokens equal, every request"
+      }
+     },
+     "failed": [],
+     "turn1_tokens_identical_across_arms": {
+      "dialogues": 49,
+      "identical": 49
+     },
+     "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+     "written_unix": 1795559534.269027
+    },
+    "l15_dev": {
+     "status": "PASS",
+     "model": "l15",
+     "phase": "dev",
+     "execution": {
+      "status": "PASS",
+      "requests": 7938,
+      "expected_requests": 7938,
+      "images": 40,
+      "independent_image_audit": "PASS",
+      "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+      "expected": 7938,
+      "criterion": "every image of the phase committed after its per-image audit passed, for this freeze"
+     },
+     "requests": 7938,
+     "gates": {
+      "gate2_prefetch_off_equals_impress": {
+       "a": "hyperinfer_off",
+       "b": "impress_official_async",
+       "requests": 1134,
+       "followup_requests": 756,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)",
+        "per-layer used set (T2, T3)",
+        "ssd_read_bytes (T2, T3)",
+        "probe_read_bytes (T2, T3)",
+        "k_read_bytes (T2, T3)",
+        "v_read_bytes (T2, T3)",
+        "ssd_preads (T2, T3)",
+        "pread_calls (T2, T3)",
+        "preadv_calls (T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "prefetch off: generated tokens, per-layer used sets, read bytes and read call counts equal the IMPRESS arm executed in the same session, every request"
+      },
+      "gate3_output_equals_impress": {
+       "a": "hyperinfer_async",
+       "b": "impress_official_async",
+       "requests": 1134,
+       "followup_requests": 756,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)",
+        "per-layer used set (T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "prefetch on: generated tokens and per-layer used sets equal IMPRESS, every request"
+      },
+      "gate5_unread_rows_not_used": {
+       "requests": 756,
+       "guard_failures": 0,
+       "first_guard_failures": [],
+       "totals": {
+        "unread_rows": 2272000,
+        "used_rows": 8878464,
+        "attention_calls": 57728
+       },
+       "against_impress": {
+        "a": "hyperinfer_async_nan",
+        "b": "impress_official_async",
+        "requests": 1134,
+        "followup_requests": 756,
+        "mismatches": 0,
+        "first_mismatches": [],
+        "compared": [
+         "generated tokens (T1, T2, T3)",
+         "per-layer used set (T2, T3)"
+        ],
+        "status": "PASS"
+       },
+       "criterion": "every visual row of the prefix cache holds NaN before the first layer; rows are overwritten only by reads; at masked columns the debug wrapper passes 0 (what an unread row holds in a normal request), nowhere else: the attention output of every layer is finite, the unmasked visual columns equal the layer's used set G_l, every used row was read, and tokens and used sets equal IMPRESS",
+       "status": "PASS"
+      },
+      "gate6_sync_equals_async": {
+       "a": "hyperinfer_sync",
+       "b": "hyperinfer_async",
+       "requests": 1134,
+       "followup_requests": 756,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "prefetch executed on the request thread: generated tokens equal the asynchronous arm, every request"
+      },
+      "gate6_repeat": {
+       "a": "hyperinfer_async_repeat",
+       "b": "hyperinfer_async",
+       "requests": 1134,
+       "followup_requests": 756,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "compared": [
+        "generated tokens (T1, T2, T3)"
+       ],
+       "status": "PASS",
+       "criterion": "the same request executed a second time: generated tokens equal, every request"
+      },
+      "gate4_tokens_equal_recorded_impress": {
+       "requests": 1134,
+       "mismatches": 0,
+       "first_mismatches": [],
+       "criterion": "HyperInfer's generated tokens (T1, T2, T3) equal the tokens recorded for IMPRESS in the earlier main run, same dialogue and turn",
+       "status": "PASS"
+      }
+     },
+     "failed": [],
+     "gate8_ttft_continuity": {
+      "status": "REPORTED",
+      "methods": {
+       "fullload_async": {
+        "followup": {
+         "requests": 756,
+         "this_run_mean_ms": 115.51178194134047,
+         "earlier_run_mean_ms": 115.4130622572093,
+         "ratio_of_means": 1.0008553597157934,
+         "this_run_p50_ms": 114.8313651792705,
+         "earlier_run_p50_ms": 114.95391838252544,
+         "mean_of_paired_differences_ms": 0.09871968413116755
+        },
+        "turn1": {
+         "requests": 378,
+         "this_run_mean_ms": 108.8927612915911,
+         "earlier_run_mean_ms": 108.14355249718699,
+         "ratio_of_means": 1.006927909959529,
+         "this_run_p50_ms": 108.16486459225416,
+         "earlier_run_p50_ms": 108.13985904678702,
+         "mean_of_paired_differences_ms": 0.7492087944041169
+        },
+        "tokens_equal_to_earlier_run": {
+         "requests": 1134,
+         "equal": 1134
+        }
+       },
+       "impress_official_async": {
+        "followup": {
+         "requests": 756,
+         "this_run_mean_ms": 237.96680989606236,
+         "earlier_run_mean_ms": 245.35345937810325,
+         "ratio_of_means": 0.9698938441676599,
+         "this_run_p50_ms": 237.69485391676426,
+         "earlier_run_p50_ms": 244.25628036260605,
+         "mean_of_paired_differences_ms": -7.3866494820408874
+        },
+        "turn1": {
+         "requests": 378,
+         "this_run_mean_ms": 109.04021790773464,
+         "earlier_run_mean_ms": 108.64831602555655,
+         "ratio_of_means": 1.0036070681674063,
+         "this_run_p50_ms": 108.18543238565326,
+         "earlier_run_p50_ms": 108.17043762654066,
+         "mean_of_paired_differences_ms": 0.3919018821780959
+        },
+        "tokens_equal_to_earlier_run": {
+         "requests": 1134,
+         "equal": 1134
+        }
+       }
+      },
+      "note": "not a gate; this DEV phase rotates 7 arms, the earlier main run rotated 4 (ReComp, FullLoad, IMPRESS, Ours)"
+     },
+     "turn1_tokens_identical_across_arms": {
+      "dialogues": 378,
+      "identical": 378
+     },
+     "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+     "written_unix": 1795561538.9869611
+    },
+    "l15_admission": {
+     "status": "PASS",
+     "model": "l15",
+     "steps": {
+      "tests": {
+       "status": "PASS",
+       "bound_to_this_freeze": true,
+       "ok": true,
+       "failed": []
+      },
+      "logic": {
+       "status": "PASS",
+       "bound_to_this_freeze": true,
+       "ok": true,
+       "failed": []
+      },
+      "l15_gate": {
+       "status": "PASS",
+       "bound_to_this_freeze": true,
+       "ok": true,
+       "failed": []
+      },
+      "l15_dev": {
+       "status": "PASS",
+       "bound_to_this_freeze": true,
+       "ok": true,
+       "failed": []
+      }
+     },
+     "failed": [],
+     "rule": "the model's main phase starts only if gates 1-7 are PASS (gates 2, 3, 5, 6 on the 4 gate images and on the 40 DEV images, gate 4 on the DEV images); TTFT against IMPRESS is not a gate",
+     "config_sha256": "7ac1a060bde7afa4a3a456b60a2a86351a623fd947797bdd1c060809995fc9fe",
+     "written_unix": 1795561541.102868
+    }
+   },
+   "main_images": 398,
+   "main_complete": true,
+   "arms": [
+    {
+     "method": "ReComp",
+     "run_date": "2026-11-21",
+     "images": 398,
+     "dialogues": 4061,
+     "followup_requests": 8122,
+     "em_followup": 65.27948781088402,
+     "em_T1": 59.39423787244521,
+     "em_T2": 64.86087170647625,
+     "em_T3": 65.69810391529181,
+     "ttft_mean_ms": 126.06728037317485,
+     "ttft_p50_ms": 134.50506562367082,
+     "ttft_p95_ms": 136.7047694977373,
+     "ssd_mb_per_followup": 0.0,
+     "read_calls_per_followup": 0.0,
+     "t1_ttft_mean_ms": 108.35160750907664
+    },
+    {
+     "method": "FullLoad",
+     "run_date": "2026-11-21",
+     "images": 398,
+     "dialogues": 4061,
+     "followup_requests": 8122,
+     "em_followup": 65.36567347943856,
+     "em_T1": 59.39423787244521,
+     "em_T2": 64.83624722974636,
+     "em_T3": 65.89509972913076,
+     "ttft_mean_ms": 116.06876130785258,
+     "ttft_p50_ms": 115.4308426193893,
+     "ttft_p95_ms": 123.1719153933227,
+     "ssd_mb_per_followup": 301.989888,
+     "read_calls_per_followup": 64.0,
+     "t1_ttft_mean_ms": 108.25350382465047
+    },
+    {
+     "method": "IMPRESS",
+     "run_date": "2026-11-21",
+     "images": 398,
+     "dialogues": 4061,
+     "followup_requests": 8122,
+     "em_followup": 64.51612903225806,
+     "em_T1": 59.39423787244521,
+     "em_T2": 63.60502339325289,
+     "em_T3": 65.42723467126324,
+     "ttft_mean_ms": 244.83378200840625,
+     "ttft_p50_ms": 243.81887214258313,
+     "ttft_p95_ms": 260.92146332375705,
+     "ssd_mb_per_followup": 267.61606839694656,
+     "read_calls_per_followup": 98.99803004186161,
+     "t1_ttft_mean_ms": 108.68183494222389
+    },
+    {
+     "method": "HyperInfer",
+     "run_date": "2026-11-24",
+     "images": 398,
+     "dialogues": 4061,
+     "followup_requests": 8122,
+     "em_followup": 64.51612903225806,
+     "em_T1": 59.39423787244521,
+     "em_T2": 63.60502339325289,
+     "em_T3": 65.42723467126324,
+     "ttft_mean_ms": 254.91141212076258,
+     "ttft_p50_ms": 254.97936131432652,
+     "ttft_p95_ms": 267.2833356074989,
+     "ssd_mb_per_followup": 269.2174641989658,
+     "read_calls_per_followup": 349.201181974883,
+     "t1_ttft_mean_ms": 108.82310730691131
+    },
+    {
+     "method": "Ours",
+     "run_date": "2026-11-21",
+     "images": 398,
+     "dialogues": 4061,
+     "followup_requests": 8122,
+     "em_followup": 63.45727653287368,
+     "em_T1": 59.39423787244521,
+     "em_T2": 63.137158335385365,
+     "em_T3": 63.77739473036198,
+     "ttft_mean_ms": 73.95489796963092,
+     "ttft_p50_ms": 73.51379515603185,
+     "ttft_p95_ms": 79.74528768099844,
+     "ssd_mb_per_followup": 75.497472,
+     "read_calls_per_followup": 32.0,
+     "t1_ttft_mean_ms": 108.41040930999004
+    }
+   ],
+   "paired": [
+    {
+     "comparison": "Ours − HyperInfer",
+     "em": {
+      "diff": -1.0588524993843862,
+      "ci_low": -1.8037031965357948,
+      "ci_high": -0.3356447431317499
+     },
+     "ttft": {
+      "diff": -180.95651415113167,
+      "ci_low": -181.60887113284042,
+      "ci_high": -180.28191295188472
+     }
+    },
+    {
+     "comparison": "HyperInfer − IMPRESS",
+     "em": {
+      "diff": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0
+     },
+     "ttft": {
+      "diff": 10.077630112356331,
+      "ci_low": 9.537926896717472,
+      "ci_high": 10.605018417061391
+     }
+    },
+    {
+     "comparison": "HyperInfer − FullLoad",
+     "em": {
+      "diff": -0.8495444471804916,
+      "ci_low": -1.4484154283617758,
+      "ci_high": -0.2615014392748562
+     },
+     "ttft": {
+      "diff": 138.84265081291,
+      "ci_low": 138.08867026465484,
+      "ci_high": 139.5773379063996
+     }
+    },
+    {
+     "comparison": "HyperInfer − ReComp",
+     "em": {
+      "diff": -0.7633587786259568,
+      "ci_low": -1.3687020549509128,
+      "ci_high": -0.18660778857584548
+     },
+     "ttft": {
+      "diff": 128.8441317475877,
+      "ci_low": 128.2123788070804,
+      "ci_high": 129.4621107180045
+     }
+    }
+   ],
+   "ratios": [
+    {
+     "label": "Ours / HyperInfer",
+     "ratio": 0.2901199964111269,
+     "ci_low": 0.2892861677911915,
+     "ci_high": 0.2909837004295807
+    },
+    {
+     "label": "HyperInfer / IMPRESS",
+     "ratio": 1.0411611095073894,
+     "ci_low": 1.038927277063801,
+     "ci_high": 1.0433466380540957
+    },
+    {
+     "label": "HyperInfer / FullLoad",
+     "ratio": 2.1962103260898385,
+     "ci_low": 2.1877473503037104,
+     "ci_high": 2.204522133895711
+    },
+    {
+     "label": "HyperInfer / ReComp",
+     "ratio": 2.022026741325688,
+     "ci_low": 2.0164040311534173,
+     "ci_high": 2.027536388170986
+    }
+   ],
+   "identity": {
+    "requests": 12183,
+    "equal": 12183,
+    "mismatches": [],
+    "mismatch_count": 0
+   },
+   "prefetch": {
+    "requests": 8122,
+    "precision": 0.7667845315439688,
+    "coverage": 0.54243662333308,
+    "jaccard_consensus_pairs": 0.5397970761158232,
+    "jaccard_all_pairs": 0.5603118974659479,
+    "consensus_pair_share": 0.27361765336680144,
+    "cut_chunk_share": 0.4821464043137581,
+    "first_job_chunks_mean": 3.668677665599606,
+    "half_rule_requests": 1,
+    "wasted_mb_per_followup": 1.601395802019207,
+    "prefetched_mb_per_followup": 134.2909295011081,
+    "sync_mb_per_followup": 120.54957469785768,
+    "chunk_read_fraction": 0.8438709848422665,
+    "io_ratio_pooled": 0.7095623563476738,
+    "io_ratio_request_mean": 0.7093441462549009,
+    "prefetch_wait_ms": 41.92151046433499,
+    "probe_sync_ms": 0.5300430807096269,
+    "select_ms": 17.734279522864476,
+    "sync_read_ms": 53.67928084487825,
+    "copy_ms": 6.620778473210148,
+    "gpu_load_ms": 63.06208846485162,
+    "critical_io_ms": 96.13083438992288,
+    "total_io_ms": 135.4790506147149,
+    "worker_k_ms_per_chunk": 0.32141817383778665,
+    "worker_v_ms_per_chunk": 0.26332174855754453,
+    "worker_probe_ms_per_layer": 0.4754692299173407,
+    "budget_ms_mean": 2.2039278401904583,
+    "compute_prev_ms_mean": 1.6484856934068248,
+    "per_layer": [
+     {
+      "layer": 0,
+      "fallback_rate": 0.0,
+      "wait_ms": 0.0,
+      "select_ms": 0.7155490751343608,
+      "sync_read_ms": 2.6207406683147276,
+      "gpu_load_ms": 0.9183053746434217,
+      "budget_ms": null,
+      "predicted_chunks": 0.0,
+      "prefetched_chunks": 0.0,
+      "needed_chunks": 3.0,
+      "missing_chunks": 3.0,
+      "wasted_chunks": 0.0,
+      "precision": null,
+      "coverage": null,
+      "jaccard_next": 0.7553390639695026
+     },
+     {
+      "layer": 1,
+      "fallback_rate": 0.0,
+      "wait_ms": 1.4525321882141984,
+      "select_ms": 0.5973455122548411,
+      "sync_read_ms": 0.01473465236763859,
+      "gpu_load_ms": 0.8940536655417748,
+      "budget_ms": 2.167690905488475,
+      "predicted_chunks": 3.6785274562915538,
+      "prefetched_chunks": 3.668677665599606,
+      "needed_chunks": 3.1177049987687764,
+      "missing_chunks": 0.025240088648116228,
+      "wasted_chunks": 0.5762127554789461,
+      "precision": 0.613143730912508,
+      "coverage": 0.9997452050671701,
+      "jaccard_next": 0.38865363972141065
+     },
+     {
+      "layer": 2,
+      "fallback_rate": 0.0,
+      "wait_ms": 2.045178067992214,
+      "select_ms": 0.5833630221195261,
+      "sync_read_ms": 0.022677943198529994,
+      "gpu_load_ms": 1.1506500056279951,
+      "budget_ms": 2.437471822514209,
+      "predicted_chunks": 7.877123861117951,
+      "prefetched_chunks": 4.910982516621522,
+      "needed_chunks": 4.121275547894607,
+      "missing_chunks": 0.03915291800049249,
+      "wasted_chunks": 0.8288598867274071,
+      "precision": 0.45799657469852334,
+      "coverage": 0.9996502982297737,
+      "jaccard_next": 0.497919064373488
+     },
+     {
+      "layer": 3,
+      "fallback_rate": 0.2104161536567348,
+      "wait_ms": 1.521250093390175,
+      "select_ms": 0.5548844228383283,
+      "sync_read_ms": 0.9925534777394643,
+      "gpu_load_ms": 1.6408663117380689,
+      "budget_ms": 2.174548984786628,
+      "predicted_chunks": 5.1445456784043335,
+      "prefetched_chunks": 4.105269638020192,
+      "needed_chunks": 6.064393006648609,
+      "missing_chunks": 1.9844865796601823,
+      "wasted_chunks": 0.025363211031765576,
+      "precision": 0.6306500802267343,
+      "coverage": 0.7053870942041748,
+      "jaccard_next": 0.4322031593715633
+     },
+     {
+      "layer": 4,
+      "fallback_rate": 0.5615611918246737,
+      "wait_ms": 1.363902480603622,
+      "select_ms": 0.5297806979462273,
+      "sync_read_ms": 1.3693713906870792,
+      "gpu_load_ms": 1.8879619654753295,
+      "budget_ms": 2.1633704175048423,
+      "predicted_chunks": 7.280226545185915,
+      "prefetched_chunks": 4.133710908643192,
+      "needed_chunks": 7.111672001969958,
+      "missing_chunks": 3.0150209308052203,
+      "wasted_chunks": 0.03705983747845358,
+      "precision": 0.7978160183475308,
+      "coverage": 0.5459680501414049,
+      "jaccard_next": 0.4427863250688071
+     },
+     {
+      "layer": 5,
+      "fallback_rate": 0.007879832553558237,
+      "wait_ms": 1.4776784538620946,
+      "select_ms": 0.5984525674414206,
+      "sync_read_ms": 0.9436019986631232,
+      "gpu_load_ms": 1.5901374386160707,
+      "budget_ms": 2.161209053563803,
+      "predicted_chunks": 7.472543708446196,
+      "prefetched_chunks": 4.072272839202167,
+      "needed_chunks": 5.906550110810145,
+      "missing_chunks": 1.840187146023147,
+      "wasted_chunks": 0.005909874415168678,
+      "precision": 0.5333366402116402,
+      "coverage": 0.9429935784353032,
+      "jaccard_next": 0.6149355632283433
+     },
+     {
+      "layer": 6,
+      "fallback_rate": 0.0,
+      "wait_ms": 1.2752750670141524,
+      "select_ms": 0.5915264095179966,
+      "sync_read_ms": 0.7725742847833675,
+      "gpu_load_ms": 1.4889535070570106,
+      "budget_ms": 2.1517190229577903,
+      "predicted_chunks": 6.195272100467865,
+      "prefetched_chunks": 4.057990642698843,
+      "needed_chunks": 5.546294016252155,
+      "missing_chunks": 1.4991381433144546,
+      "wasted_chunks": 0.010834769761142575,
+      "precision": 0.5394552701841682,
+      "coverage": 0.9729353060275246,
+      "jaccard_next": 0.30573453527035155
+     },
+     {
+      "layer": 7,
+      "fallback_rate": 0.8366165968973159,
+      "wait_ms": 1.359391748828126,
+      "select_ms": 0.5071087875897677,
+      "sync_read_ms": 1.888192810780513,
+      "gpu_load_ms": 2.1874648361767024,
+      "budget_ms": 2.224665000182534,
+      "predicted_chunks": 6.852130017237133,
+      "prefetched_chunks": 4.122999261265698,
+      "needed_chunks": 8.298818025116967,
+      "missing_chunks": 4.183206106870229,
+      "wasted_chunks": 0.007387343018960847,
+      "precision": 0.9252289134589542,
+      "coverage": 0.4830492413169475,
+      "jaccard_next": 0.6373467888044463
+     },
+     {
+      "layer": 8,
+      "fallback_rate": 0.5723959615858163,
+      "wait_ms": 1.4185296065189867,
+      "select_ms": 0.5522683084862363,
+      "sync_read_ms": 1.7337139933930774,
+      "gpu_load_ms": 2.0882588012221484,
+      "budget_ms": 2.3004000126302784,
+      "predicted_chunks": 8.443117458754001,
+      "prefetched_chunks": 4.315808914060576,
+      "needed_chunks": 8.004555528195025,
+      "missing_chunks": 3.694163999015021,
+      "wasted_chunks": 0.005417384880571288,
+      "precision": 0.785229242147605,
+      "coverage": 0.5543148131365767,
+      "jaccard_next": 0.6715000006709014
+     },
+     {
+      "layer": 9,
+      "fallback_rate": 0.9202166953952229,
+      "wait_ms": 1.471597529769795,
+      "select_ms": 0.5120808790476634,
+      "sync_read_ms": 2.195602536065712,
+      "gpu_load_ms": 2.2774967183793553,
+      "budget_ms": 2.1574271910949325,
+      "predicted_chunks": 8.129770992366412,
+      "prefetched_chunks": 4.062792415661167,
+      "needed_chunks": 8.815932036444226,
+      "missing_chunks": 4.753139620783059,
+      "wasted_chunks": 0.0,
+      "precision": 0.9613286221892235,
+      "coverage": 0.4615843355305279,
+      "jaccard_next": 0.8070322095516894
+     },
+     {
+      "layer": 10,
+      "fallback_rate": 0.7701305097266683,
+      "wait_ms": 1.2748726137712638,
+      "select_ms": 0.5322139087777307,
+      "sync_read_ms": 1.8548622034348838,
+      "gpu_load_ms": 2.148041792550578,
+      "budget_ms": 2.190603685194461,
+      "predicted_chunks": 8.831691701551343,
+      "prefetched_chunks": 4.090002462447673,
+      "needed_chunks": 8.327382418123614,
+      "missing_chunks": 4.238980546663384,
+      "wasted_chunks": 0.0016005909874415168,
+      "precision": 0.8908775851169511,
+      "coverage": 0.48919242260819973,
+      "jaccard_next": 0.8280854498186614
+     },
+     {
+      "layer": 11,
+      "fallback_rate": 0.9768529918739227,
+      "wait_ms": 1.3213924704932778,
+      "select_ms": 0.5048684143098711,
+      "sync_read_ms": 2.1287188729937734,
+      "gpu_load_ms": 2.2824676159280357,
+      "budget_ms": 2.1835164130522946,
+      "predicted_chunks": 8.364565377985718,
+      "prefetched_chunks": 4.096035459246491,
+      "needed_chunks": 8.917754247722236,
+      "missing_chunks": 4.821841910859394,
+      "wasted_chunks": 0.00012312238364934746,
+      "precision": 0.9890153450763497,
+      "coverage": 0.45806794609419593,
+      "jaccard_next": 0.9826397439054421
+     },
+     {
+      "layer": 12,
+      "fallback_rate": 1.0,
+      "wait_ms": 1.3295952607945205,
+      "select_ms": 0.5045802315490215,
+      "sync_read_ms": 2.1088800588666263,
+      "gpu_load_ms": 2.28950145673415,
+      "budget_ms": 2.1622342720758048,
+      "predicted_chunks": 8.929820241319872,
+      "prefetched_chunks": 4.074119674956907,
+      "needed_chunks": 9.0,
+      "missing_chunks": 4.925880325043093,
+      "wasted_chunks": 0.0,
+      "precision": 1.0,
+      "coverage": 0.4526799638841008,
+      "jaccard_next": 0.30097266683082985
+     },
+     {
+      "layer": 13,
+      "fallback_rate": 0.0679635557744398,
+      "wait_ms": 1.2453773776305497,
+      "select_ms": 0.6063040826360497,
+      "sync_read_ms": 1.7194341570258185,
+      "gpu_load_ms": 1.970230566639966,
+      "budget_ms": 2.1601714470396924,
+      "predicted_chunks": 9.0,
+      "prefetched_chunks": 4.067717311007141,
+      "needed_chunks": 7.441886234917508,
+      "missing_chunks": 3.3754001477468605,
+      "wasted_chunks": 0.0012312238364934746,
+      "precision": 0.5452055209153096,
+      "coverage": 0.818731392468353,
+      "jaccard_next": 0.3340445956152173
+     },
+     {
+      "layer": 14,
+      "fallback_rate": 0.7952474759911352,
+      "wait_ms": 1.2887065799719255,
+      "select_ms": 0.5208286626470394,
+      "sync_read_ms": 2.0256099701423094,
+      "gpu_load_ms": 2.185568044329513,
+      "budget_ms": 2.1255648206681843,
+      "predicted_chunks": 8.189977837970943,
+      "prefetched_chunks": 4.060083723220882,
+      "needed_chunks": 8.41701551342034,
+      "missing_chunks": 4.357178034966757,
+      "wasted_chunks": 0.0002462447672986949,
+      "precision": 0.9029535685043668,
+      "coverage": 0.4812424997272628,
+      "jaccard_next": 0.8315825632863232
+     },
+     {
+      "layer": 15,
+      "fallback_rate": 0.9242797340556513,
+      "wait_ms": 1.2564150511262615,
+      "select_ms": 0.5160084487794656,
+      "sync_read_ms": 2.022006125591844,
+      "gpu_load_ms": 2.244396971933575,
+      "budget_ms": 2.2691725408101107,
+      "predicted_chunks": 8.652548633341542,
+      "prefetched_chunks": 4.175695641467619,
+      "needed_chunks": 8.772962324550603,
+      "missing_chunks": 4.597636050233932,
+      "wasted_chunks": 0.00036936715094804237,
+      "precision": 0.9643562030075188,
+      "coverage": 0.4743681264889208,
+      "jaccard_next": 0.47372123321742904
+     },
+     {
+      "layer": 16,
+      "fallback_rate": 0.30448165476483624,
+      "wait_ms": 1.212527641874725,
+      "select_ms": 0.5797782568391747,
+      "sync_read_ms": 1.6066656374331032,
+      "gpu_load_ms": 1.9181276953897726,
+      "budget_ms": 2.1754091829602733,
+      "predicted_chunks": 8.799187392267914,
+      "prefetched_chunks": 4.0723959615858165,
+      "needed_chunks": 7.307313469588771,
+      "missing_chunks": 3.2361487318394486,
+      "wasted_chunks": 0.0012312238364934746,
+      "precision": 0.6658132029265933,
+      "coverage": 0.6298018145550479,
+      "jaccard_next": 0.49101083304911886
+     },
+     {
+      "layer": 17,
+      "fallback_rate": 0.4163999015020931,
+      "wait_ms": 1.2173565228214422,
+      "select_ms": 0.5607570355725505,
+      "sync_read_ms": 1.602728334566263,
+      "gpu_load_ms": 1.9617265057551674,
+      "budget_ms": 2.1467416303457516,
+      "predicted_chunks": 8.5187146023147,
+      "prefetched_chunks": 4.060822457522778,
+      "needed_chunks": 7.506279241566117,
+      "missing_chunks": 3.446564885496183,
+      "wasted_chunks": 0.001108101452844127,
+      "precision": 0.7251535875629131,
+      "coverage": 0.581880048293312,
+      "jaccard_next": 0.5442084029947952
+     },
+     {
+      "layer": 18,
+      "fallback_rate": 0.8888204875646393,
+      "wait_ms": 1.3516053070750649,
+      "select_ms": 0.5122980594128642,
+      "sync_read_ms": 2.0359100298522597,
+      "gpu_load_ms": 2.236881822199033,
+      "budget_ms": 2.2313023854998333,
+      "predicted_chunks": 7.6106870229007635,
+      "prefetched_chunks": 4.1509480423541,
+      "needed_chunks": 8.669416399901502,
+      "missing_chunks": 4.521053927604038,
+      "wasted_chunks": 0.0025855700566362965,
+      "precision": 0.947512068428546,
+      "coverage": 0.47676284742044167,
+      "jaccard_next": 0.9166153656734795
+     },
+     {
+      "layer": 19,
+      "fallback_rate": 1.0,
+      "wait_ms": 1.3245617092706996,
+      "select_ms": 0.5063659733271869,
+      "sync_read_ms": 2.21133979708892,
+      "gpu_load_ms": 2.287636610787803,
+      "budget_ms": 2.200982393501971,
+      "predicted_chunks": 8.712509234178773,
+      "prefetched_chunks": 4.093203644422556,
+      "needed_chunks": 9.0,
+      "missing_chunks": 4.906796355577444,
+      "wasted_chunks": 0.0,
+      "precision": 1.0,
+      "coverage": 0.45480040493583956,
+      "jaccard_next": 0.4478884511204137
+     },
+     {
+      "layer": 20,
+      "fallback_rate": 0.2638512681605516,
+      "wait_ms": 1.264983600996686,
+      "select_ms": 0.5839982499340739,
+      "sync_read_ms": 1.1534317740810471,
+      "gpu_load_ms": 1.714926532602015,
+      "budget_ms": 2.1577885173072193,
+      "predicted_chunks": 9.0,
+      "prefetched_chunks": 4.0667323319379465,
+      "needed_chunks": 6.511819748830337,
+      "missing_chunks": 2.4495198227037673,
+      "wasted_chunks": 0.004432405811376508,
+      "precision": 0.6600637677868604,
+      "coverage": 0.6659154773631442,
+      "jaccard_next": 0.4024765498438354
+     },
+     {
+      "layer": 21,
+      "fallback_rate": 0.42514159074119673,
+      "wait_ms": 1.313360622145806,
+      "select_ms": 0.5545975037040205,
+      "sync_read_ms": 1.9589964612516695,
+      "gpu_load_ms": 2.152794163891524,
+      "budget_ms": 2.1333772185946795,
+      "predicted_chunks": 7.202043831568579,
+      "prefetched_chunks": 4.055651317409505,
+      "needed_chunks": 8.251046540261019,
+      "missing_chunks": 4.195887712386112,
+      "wasted_chunks": 0.0004924895345973898,
+      "precision": 0.6735333181542198,
+      "coverage": 0.5335494712287093,
+      "jaccard_next": 0.47274307934893794
+     },
+     {
+      "layer": 22,
+      "fallback_rate": 0.4271115488795863,
+      "wait_ms": 1.3015032292964481,
+      "select_ms": 0.5639116373807522,
+      "sync_read_ms": 2.1496498217676416,
+      "gpu_load_ms": 2.286475301073253,
+      "budget_ms": 2.2194547873615074,
+      "predicted_chunks": 8.666215217926618,
+      "prefetched_chunks": 4.122753016498399,
+      "needed_chunks": 8.824550603299679,
+      "missing_chunks": 4.702043831568579,
+      "wasted_chunks": 0.0002462447672986949,
+      "precision": 0.6240112177094221,
+      "coverage": 0.5011966976691192,
+      "jaccard_next": 0.5703336616596897
+     },
+     {
+      "layer": 23,
+      "fallback_rate": 1.0,
+      "wait_ms": 1.3025530444940185,
+      "select_ms": 0.5029706523827777,
+      "sync_read_ms": 2.215994746836828,
+      "gpu_load_ms": 2.288237434592418,
+      "budget_ms": 2.214905151712523,
+      "predicted_chunks": 8.464417631125338,
+      "prefetched_chunks": 4.13026348190101,
+      "needed_chunks": 9.0,
+      "missing_chunks": 4.86973651809899,
+      "wasted_chunks": 0.0,
+      "precision": 1.0,
+      "coverage": 0.45891816465566776,
+      "jaccard_next": 0.433113765082492
+     },
+     {
+      "layer": 24,
+      "fallback_rate": 0.244151686776656,
+      "wait_ms": 1.3181117831802052,
+      "select_ms": 0.5863807234079255,
+      "sync_read_ms": 1.7984431654139639,
+      "gpu_load_ms": 2.03365026391828,
+      "budget_ms": 2.217231407335931,
+      "predicted_chunks": 9.0,
+      "prefetched_chunks": 4.134449642945087,
+      "needed_chunks": 7.7776409751292785,
+      "missing_chunks": 3.6436838217187884,
+      "wasted_chunks": 0.0004924895345973898,
+      "precision": 0.6145910884455033,
+      "coverage": 0.6518677105788896,
+      "jaccard_next": 0.4677429680651709
+     },
+     {
+      "layer": 25,
+      "fallback_rate": 0.23159320364442257,
+      "wait_ms": 1.3027309448791018,
+      "select_ms": 0.5819867960182178,
+      "sync_read_ms": 1.8219008935834204,
+      "gpu_load_ms": 2.0651135164111434,
+      "budget_ms": 2.1323919604947283,
+      "predicted_chunks": 7.912583107608963,
+      "prefetched_chunks": 4.057498153164246,
+      "needed_chunks": 7.894730361979808,
+      "missing_chunks": 3.8376015759665107,
+      "wasted_chunks": 0.00036936715094804237,
+      "precision": 0.6002868494917312,
+      "coverage": 0.6387360253460871,
+      "jaccard_next": 0.4742668946347438
+     },
+     {
+      "layer": 26,
+      "fallback_rate": 0.06931790199458261,
+      "wait_ms": 1.3339181622819152,
+      "select_ms": 0.5988165807521085,
+      "sync_read_ms": 1.5547009552119182,
+      "gpu_load_ms": 1.9299111094411092,
+      "budget_ms": 2.2513850366642134,
+      "predicted_chunks": 8.045432159566609,
+      "prefetched_chunks": 4.203151933021423,
+      "needed_chunks": 7.347451366658459,
+      "missing_chunks": 3.1457769022408275,
+      "wasted_chunks": 0.0014774686037921695,
+      "precision": 0.5091910956998067,
+      "coverage": 0.7874501693110907,
+      "jaccard_next": 0.32682235356968686
+     },
+     {
+      "layer": 27,
+      "fallback_rate": 0.8494213247968481,
+      "wait_ms": 1.341343353044015,
+      "select_ms": 0.5159606338161915,
+      "sync_read_ms": 2.0608236216058198,
+      "gpu_load_ms": 2.315538160790036,
+      "budget_ms": 2.251909678007025,
+      "predicted_chunks": 8.305220389066733,
+      "prefetched_chunks": 4.1868997783797095,
+      "needed_chunks": 8.939177542477223,
+      "missing_chunks": 4.752277764097513,
+      "wasted_chunks": 0.0,
+      "precision": 0.9177677284890902,
+      "coverage": 0.4813122419237309,
+      "jaccard_next": 0.6002782732712771
+     },
+     {
+      "layer": 28,
+      "fallback_rate": 0.5583600098497907,
+      "wait_ms": 1.2974056875761126,
+      "select_ms": 0.5601716494544097,
+      "sync_read_ms": 2.0843117778336024,
+      "gpu_load_ms": 2.265145326098824,
+      "budget_ms": 2.263611416490434,
+      "predicted_chunks": 8.847574489042108,
+      "prefetched_chunks": 4.182467372568333,
+      "needed_chunks": 8.829229253878355,
+      "missing_chunks": 4.647008126077321,
+      "wasted_chunks": 0.0002462447672986949,
+      "precision": 0.740419855755078,
+      "coverage": 0.5145070393724143,
+      "jaccard_next": 0.5104801588117696
+     },
+     {
+      "layer": 29,
+      "fallback_rate": 0.40691947796109335,
+      "wait_ms": 1.3789236499696083,
+      "select_ms": 0.5676562965972998,
+      "sync_read_ms": 1.54836225600643,
+      "gpu_load_ms": 1.9424465011114544,
+      "budget_ms": 2.2763438355173053,
+      "predicted_chunks": 8.715833538537305,
+      "prefetched_chunks": 4.271484855946811,
+      "needed_chunks": 7.47734548140852,
+      "missing_chunks": 3.2180497414429943,
+      "wasted_chunks": 0.012189115981285397,
+      "precision": 0.7064384385899173,
+      "coverage": 0.6039060141807273,
+      "jaccard_next": 0.5604501928462883
+     },
+     {
+      "layer": 30,
+      "fallback_rate": 0.8502831814823935,
+      "wait_ms": 1.3029396103278108,
+      "select_ms": 0.5161559659408851,
+      "sync_read_ms": 2.01368089584137,
+      "gpu_load_ms": 2.2068573469266286,
+      "budget_ms": 2.2084006046194276,
+      "predicted_chunks": 7.847697611425757,
+      "prefetched_chunks": 4.146761881310022,
+      "needed_chunks": 8.600960354592464,
+      "missing_chunks": 4.455306574735287,
+      "wasted_chunks": 0.001108101452844127,
+      "precision": 0.9280595865498812,
+      "coverage": 0.4816928166897827,
+      "jaccard_next": 0.8467412687682787
+     },
+     {
+      "layer": 31,
+      "fallback_rate": 0.9077813346466388,
+      "wait_ms": 1.2559910051201737,
+      "select_ms": 0.5153100772484921,
+      "sync_read_ms": 1.9791086131651334,
+      "gpu_load_ms": 2.2122651012694634,
+      "budget_ms": 2.2107622499273374,
+      "predicted_chunks": 8.618936222605269,
+      "prefetched_chunks": 4.120167446441763,
+      "needed_chunks": 8.706476237379956,
+      "missing_chunks": 4.5869244028564395,
+      "wasted_chunks": 0.0006156119182467373,
+      "precision": 0.9570135070523548,
+      "coverage": 0.470670796453674,
+      "jaccard_next": null
+     }
+    ]
+   },
+   "bytes_vs_impress": {
+    "hyperinfer_mb": 269.2174641989658,
+    "impress_mb": 267.61606839694656,
+    "ratio": 1.005983929932204
+   },
+   "selection": {
+    "hyperinfer": {
+     "fallback_rate": 0.5152248522531396,
+     "mean_jaccard": 0.336750741944014,
+     "kv_chunk_read_fraction": 0.8438709848422665,
+     "kv_chunk_needed_fraction": 0.8385681721798134
+    },
+    "impress": {
+     "fallback_rate": 0.5152248522531396,
+     "mean_jaccard": 0.336750741944014,
+     "k_chunk_read_fraction": 0.8385681721798134,
+     "v_chunk_read_fraction": 0.8385681721798134
+    }
+   },
+   "decomposition": {
+    "HyperInfer": {
+     "read_wait_ms": 104.6106951126388,
+     "prefetch_wait_ms": 41.92151046433499,
+     "sync_read_ms": 53.67928084487825,
+     "probe_sync_ms": 0.5300430807096269,
+     "host_copy_ms": 6.620778473210148,
+     "gpu_load_ms": 63.06208846485162,
+     "select_ms": 17.734279522864476,
+     "hook_ms": 210.44114653612317,
+     "ttft_ms": 254.91141212076258
+    },
+    "IMPRESS": {
+     "read_wait_ms": 104.54921538688608,
+     "hook_ms": 204.35682240537832,
+     "probe_wait_ms": 0.4700348849874563,
+     "ttft_ms": 244.83378200840625
+    },
+    "FullLoad": {
+     "read_wait_ms": 5.196928411857031,
+     "ttft_ms": 116.06876130785258
+    },
+    "Ours": {
+     "read_wait_ms": 0.5475917742311279,
+     "ttft_ms": 73.95489796963092
+    }
+   },
+   "t1_store": {
+    "images": 398,
+    "persist_ms_mean": 677.1221161005673,
+    "write_mb_mean": 635.759125419598,
+    "store_mb_mean": 319.1580778065327,
+    "write_gb_total": 253.032131917
+   },
+   "dev": {
+    "images": 40,
+    "followups": 756,
+    "impress": {
+     "ttft_ms": 237.96680989606236,
+     "io_ratio": 1.008230166356767,
+     "read_wait_ms": 99.64386325837089,
+     "io_ms": 98.83047203242621,
+     "em": 66.26984126984127
+    },
+    "hyperinfer": {
+     "ttft_ms": 255.10956099128754,
+     "read_wait_ms": 104.5194656684226,
+     "io_ms": 135.4339682699117,
+     "em": 66.26984126984127,
+     "summary": {
+      "requests": 756,
+      "precision": 0.7680812540463883,
+      "coverage": 0.545456805327495,
+      "jaccard_consensus_pairs": 0.5355148217731438,
+      "jaccard_all_pairs": 0.5615354336309737,
+      "consensus_pair_share": 0.27470558115719407,
+      "cut_chunk_share": 0.47883114726880294,
+      "first_job_chunks_mean": 3.7063492063492065,
+      "half_rule_requests": 1,
+      "wasted_mb_per_followup": 1.715725544973545,
+      "prefetched_mb_per_followup": 134.96809786243386,
+      "sync_mb_per_followup": 119.49882785185186,
+      "chunk_read_fraction": 0.8426339285714285,
+      "io_ratio_pooled": 0.7071992717112494,
+      "io_ratio_request_mean": 0.7068299494733898,
+      "prefetch_wait_ms": 42.97162112706001,
+      "probe_sync_ms": 0.5461571728268628,
+      "select_ms": 17.67721544906852,
+      "sync_read_ms": 52.261025425559154,
+      "copy_ms": 6.9303484079206275,
+      "gpu_load_ms": 62.98168456408555,
+      "critical_io_ms": 95.77880372544602,
+      "total_io_ms": 135.4339682699117,
+      "worker_k_ms_per_chunk": 0.3165034042435556,
+      "worker_v_ms_per_chunk": 0.2746839675468553,
+      "worker_probe_ms_per_layer": 0.47996895806458567,
+      "budget_ms_mean": 2.2129828779859477,
+      "compute_prev_ms_mean": 1.6593585429987487
+     },
+     "io_ratio": 0.7071992717112494
+    },
+    "fullload": {
+     "ttft_ms": 115.51178194134047,
+     "em": 67.32804232804233
+    },
+    "ttft_ratio_hyperinfer_over_impress": 1.072038412006753
+   },
+   "execution": {
+    "gate": {
+     "process_starts": 1,
+     "complete": true,
+     "wall_hours": 0.07317497803105248,
+     "half_rule_note": [
+      false
+     ]
+    },
+    "dev": {
+     "process_starts": 1,
+     "complete": true,
+     "wall_hours": 0.5523701369100147,
+     "half_rule_note": [
+      false
+     ]
+    },
+    "main": {
+     "process_starts": 1,
+     "complete": true,
+     "wall_hours": 1.0130005319250954,
+     "half_rule_note": [
+      false
+     ]
+    }
+   },
+   "resume_events": []
+  }
+ },
+ "errors": {}
+}

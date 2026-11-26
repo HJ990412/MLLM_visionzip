@@ -1505,3 +1505,101 @@ LLaVA-NeXT T3에서 8건(Ours 7건)이었고 모두 정상 처리됐다. 장치 
 `220`(보고서), `221` + `scripts/run_convbench_main.sh`(드라이버), `scripts/convbench_main_common.py`,
 점검 실행 `scripts/212`–`215`, 테스트 `tests/test_convbench_main.py`.
 대화별 답(`<model>/<phase>/conversations/`)과 판정문(`judge/<model>/judgments/`)을 함께 올렸고, 판정 cache와 1 MB 넘는 원시 판정 로그는 올리지 않았다.
+
+## 47. LLaVA-NeXT × MT-GQA 본실험 v2: 원본 LLaVA 토큰열 (2026-11-24)
+
+46절 0단계에서 찾은 토큰 차이(`<image>` 직후 `▁` 한 토큰 누락)를 LLaVA-NeXT MT-GQA 경로에서 고치고(`mmimpress/mt_gqa_tokens.py`,
+`tokenization="official"`; 기존 경로는 `"legacy"` 옵션으로 남김) 네 방법을 한 실행에서 다시 쟀다. 398장, followup T2–T3,
+48,732요청. 이 실행이 LLaVA-NeXT × MT-GQA의 기준 행이 된다. 측정 보고이며 판정은 두지 않는다.
+
+gate: 기존 본실험이 보낸 프롬프트 48,732개가 고친 경로에서 원본 LLaVA 토큰 ID와 모두 같음(기존 경로 0개), LLaVA-1.5 경로 불변,
+기존 경로 옵션으로 11/20 ReComp 재현(147/147), Ours 동기 = 비동기·반복 동일, IMPRESS 유지 100% = FullLoad loader,
+T1 토큰이 네 방법에서 같음, 기존 테스트 새 실패 없음이 모두 PASS였다. 본실험 요청마다 확인한 토큰 ID도 48,732/48,732 일치했다.
+
+| 방법 | Followup EM | TTFT 평균 | p50 | p95 | SSD MB/followup | 읽기 호출 수 |
+|---|---:|---:|---:|---:|---:|---:|
+| ReComp | 68.73% | 529.2 ms | 532.0 | 595.3 | 0.0 | 0 |
+| FullLoad | 68.46% | 478.1 ms | 481.1 | 588.5 | 1,173.9 | 64.0 |
+| IMPRESS | 61.09% | 725.3 ms | 729.1 | 854.4 | 1,052.5 | 123.9 |
+| Ours | 67.46% | 149.5 ms | 149.5 | 173.5 | 308.0 | 33.0 |
+
+짝지은 정답률 차이(이미지 단위 bootstrap 95% CI): Ours − IMPRESS +6.37 pp [+5.36, +7.40], Ours − FullLoad −1.00 [−1.60, −0.39],
+Ours − ReComp −1.27 [−1.87, −0.68], IMPRESS − FullLoad −7.36 [−8.42, −6.32], FullLoad − ReComp −0.27 [−0.49, −0.06].
+TTFT 비율은 Ours/FullLoad 0.313×, Ours/ReComp 0.282×, Ours/IMPRESS 0.206×, IMPRESS/FullLoad 1.517×다.
+
+[보고서](results/mt_gqa_main_v2_20261124T051939Z/report.md), [실험 계약](docs/mt_gqa_main_v2_contract.md),
+코드 `mmimpress/mt_gqa_tokens.py`, `scripts/222`(실행; `209`의 방법 호출을 import), `223`(gate), `224`(보고서),
+`scripts/run_mt_gqa_main_v2.sh`(드라이버), 테스트 `tests/test_mt_gqa_main_v2.py`.
+
+## 48. HyperInfer 이식과 MT-GQA 측정: 공개 코드의 시간 예산 (2026-11-25)
+
+비교 기준을 IMPRESS에서 HyperInfer(IEEE TC 2026, 공개 코드 ISCS-ZJU/HyperInfer `91df7a2`)로 바꾸기 위해,
+IMPRESS 이식 위에 HyperInfer의 다음 layer KV prefetch를 옮겼다(`mmimpress/hyperinfer.py`; 출처 대조표
+`docs/hyperinfer_port_contract.md`의 v1 사본은 실행 디렉터리의 `PORT_TABLE.md`). layer l 계산 중에 worker가 layer l+1의
+probe key와 예측 chunk(K → V, chunk 번호 순)를 읽고, 공개 코드의 시간 예산(chunk당 읽기 시간 상수, 첫 요청의 절반 규칙)으로
+멈춘다. 선택은 IMPRESS와 같고 빠진 KV만 동기로 읽는다. HyperInfer만 두 모델에서 쟀고 나머지 네 방법은 47절·45절 기록과 짝지었다.
+
+gate(4장 → DEV 40장): 공개 코드 로직 대조, prefetch 끔 ≡ IMPRESS, 출력 = IMPRESS, 기존 IMPRESS 기록과 일치,
+읽지 않은 KV를 쓰지 않음(NaN 주입), 동기 ≡ 비동기, 반복 동일, 기존 테스트 새 실패 없음이 두 모델 모두 PASS였다.
+본실험 생성 토큰은 두 모델 모두 기존 IMPRESS 기록과 12,183/12,183 같았다(EM = IMPRESS).
+
+| 모델 | HyperInfer EM | HyperInfer TTFT | IMPRESS TTFT | HyperInfer / IMPRESS (같은 실행 DEV) | Ours / HyperInfer | prefetch 대기 / 요청 | prefetch로 채운 비율 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| LLaVA-NeXT | 61.09% | 777.0 ms | 725.3 ms | 1.071 (1.084) | 0.192 | 107.9 ms | 27.2% |
+| LLaVA-1.5 | 64.52% | 254.9 ms | 244.8 ms | 1.041 (1.072) | 0.290 | 41.9 ms | 54.2% |
+
+HyperInfer가 IMPRESS보다 느렸다. layer당 GPU 계산 시간(≈ 1.6–1.9 ms)보다 worker 작업(probe key 읽기 + chunk 읽기)이 길어
+예산 안에서도 매 layer가 다음 선택 전에 prefetch를 기다렸다.
+
+[보고서](results/mt_gqa_hyperinfer_20261124T171039Z/report.md), [실험 계약](docs/mt_gqa_hyperinfer_contract.md),
+상수 `docs/mt_gqa_hyperinfer_chunk_times.json`, 코드 `mmimpress/hyperinfer.py`, `scripts/225`(실행), `226`(gate), `227`(보고서),
+`scripts/run_mt_gqa_hyperinfer.sh`(드라이버), 테스트 `tests/test_hyperinfer.py`.
+
+## 49. HyperInfer MT-GQA 재측정: 계산이 끝나면 prefetch를 멈춤 (2026-11-25)
+
+48절에서 prefetch 멈춤 방식만 논문 IV-C / Fig. 10(c)대로 바꿨다(`mmimpress/hyperinfer_v2.py`). layer l의 GPU 계산이 끝나면
+(다음 layer hook 첫머리의 `torch.cuda.synchronize()` 반환) worker는 새 읽기를 시작하지 않고 진행 중이던 읽기 하나만 끝낸다.
+시간 예산·chunk 시간 상수·절반 규칙은 쓰지 않는다. 출처 대조표 `docs/hyperinfer_port_contract.md`는 이 구현에 맞게 고쳤다.
+HyperInfer만 다시 쟀고 나머지는 48절과 같이 짝지었다.
+
+gate(4장 → DEV 40장): 출력 = IMPRESS, prefetch 끔 ≡ IMPRESS, 읽지 않은 KV를 쓰지 않음, 반복 동일, 멈춤 확인(계산 종료 뒤 시작된
+prefetch 읽기 0건), 기존 테스트 새 실패 없음이 두 모델 모두 PASS였다. 본실험 생성 토큰은 두 모델 모두 기존 IMPRESS 기록과 12,183/12,183 같았다.
+
+| 모델 | HyperInfer TTFT (48절) | HyperInfer / IMPRESS [95% CI] (같은 실행 DEV) | Ours / HyperInfer | prefetch 대기 / 요청 | prefetch로 채운 비율 | layer당 계산 시간 | 창 안에 끝난 읽기 / layer |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| LLaVA-NeXT | 727.6 ms (777.0) | 1.003 [0.998, 1.009] (0.990) | 0.205 | 0.63 ms | 1.6% | 1.90 ms | 0.39 |
+| LLaVA-1.5 | 235.4 ms (254.9) | 0.961 (0.974) | 0.314 | 0.21 ms | 19.4% | 1.64 ms | 2.02 |
+
+기다림은 사라졌지만, layer당 계산 시간 안에서 probe key 읽기(NeXT 1.25 ms, 1.5 0.50 ms)가 대부분을 차지해 미리 읽히는 KV가
+적다. 그래서 HyperInfer는 IMPRESS와 거의 같다(LLaVA-1.5에서 4% 빠름).
+
+[보고서](results/mt_gqa_hyperinfer_v2_20261125T034057Z/report.md), [실험 계약](docs/mt_gqa_hyperinfer_v2_contract.md),
+[출처 대조표](docs/hyperinfer_port_contract.md), 코드 `mmimpress/hyperinfer_v2.py`, `scripts/228`(실행), `229`(gate), `230`(보고서),
+`scripts/run_mt_gqa_hyperinfer_v2.sh`(드라이버), 테스트 `tests/test_hyperinfer_v2.py`.
+
+## 50. ConvBench에서 HyperInfer 측정 (2026-11-25)
+
+49절의 HyperInfer 구현과 설정을 그대로 46절 ConvBench 실행기에 연결해 HyperInfer만 두 모델에서 쟀다
+(모델당 577대화 × 3턴 = 1,731요청). ReComp·FullLoad·IMPRESS·Ours는 46절 기록과 같은 대화·같은 턴끼리 짝지었다.
+ConvBench는 이미지 뒤 텍스트가 길어 layer당 계산 시간이 MT-GQA보다 길다. 측정 보고이며 판정은 두지 않는다.
+
+gate(4대화 → 파일럿 40대화, 모델마다): 출력 = 같은 세션의 IMPRESS(생성 토큰과 layer별 선택 집합), prefetch 끔 ≡ IMPRESS
+(토큰·읽기 바이트·읽기 호출 수), 읽지 않은 KV를 쓰지 않음, 반복 동일, 멈춤 확인, 파일럿 토큰 = 기존 IMPRESS 기록, 기존 테스트
+새 실패 없음이 두 모델 모두 PASS였다. 드라이버는 재시작 없이 6.0시간 돌았고 실패한 요청은 0건, 장치 쓰기량은 2.037 TB(예상 2.026 TB)다.
+본실험 생성 토큰이 두 모델 모두 기존 IMPRESS 기록과 1,731/1,731 같아서, 품질 점수는 IMPRESS의 판정을 그대로 썼다
+(LLaVA-NeXT 평균 8.03, LLaVA-1.5 4.27).
+
+| 모델 | HyperInfer TTFT (T2–T3) | HyperInfer / IMPRESS [95% CI] | 같은 실행 파일럿 | Ours / HyperInfer | HyperInfer / FullLoad | layer당 계산 시간 (MT-GQA) | prefetch로 채운 비율 (MT-GQA) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| LLaVA-NeXT | 741.7 ms | 0.928 [0.923, 0.933] | 0.948 [0.932, 0.963] | 0.296 | 1.356 | 3.35 ms (1.90) | 12.6% (1.6%) |
+| LLaVA-1.5 | 250.7 ms | 0.944 [0.940, 0.948] | 0.945 [0.927, 0.964] | 0.367 | 1.901 | 1.98 ms (1.64) | 26.4% (19.4%) |
+
+이미지 뒤 텍스트가 길수록 prefetch로 채우는 비율이 늘었다. LLaVA-NeXT에서 텍스트 길이 사분위 Q1(평균 97토큰)은
+HyperInfer/IMPRESS 0.955, Q4(평균 654토큰)는 채운 비율 31.2%, 0.886이었다. 총 읽기 바이트는 IMPRESS 대비 ×1.0006 / ×1.0018이고
+읽기 호출 수는 2.5배 / 2.1배다. 4096 토큰을 넘는 입력은 LLaVA-NeXT T3에서 8건이었고 모두 정상 처리됐다.
+HyperInfer는 11/25, 나머지 네 방법은 11/22–24 실행이라 날짜 간 변동이 섞인다. 파일럿에서 다시 잰 IMPRESS는 기존 대비 1.004 / 0.979였다.
+
+[보고서](results/convbench_hyperinfer_20261125T131424Z/report.md), [실험 계약](docs/convbench_hyperinfer_contract.md),
+코드 `scripts/convbench_hyperinfer_common.py`, `scripts/231`(실행; `217` 실행기에 `228`·`225`의 HyperInfer 요청 함수를 연결),
+`232`(gate), `233`(보고서), `234` + `scripts/run_convbench_hyperinfer.sh`(드라이버), `235`(판정; 이번에는 쓰지 않음),
+테스트 `tests/test_convbench_hyperinfer.py`. 대화별 답(`<model>/<phase>/conversations/`)을 함께 올렸다.

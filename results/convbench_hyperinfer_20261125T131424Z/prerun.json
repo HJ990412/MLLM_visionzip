@@ -1,0 +1,135 @@
+{
+ "written_before_any_gpu_measurement_utc": "2026-11-25T13:15:12Z",
+ "run": "convbench_hyperinfer_20261125T131424Z",
+ "status": "PASS",
+ "blocking": [],
+ "rehearsal_limit": null,
+ "expected_ssd_write": {
+  "definition": "per conversation, the bytes the store builds wrote in the main experiment for the same conversation: the IMPRESS-layout store (written, then rewritten in the reordered layout) and, in the gate and pilot phases, the FullLoad store. Request rows and status files are not included (well below 1 % of the total).",
+  "bytes": {
+   "next": {
+    "gate": 15225135969,
+    "pilot": 147660921275,
+    "main": 1437072445402,
+    "overflow_if_run": 5316435226,
+    "total": 1605274937872
+   },
+   "llava15": {
+    "gate": 3944037984,
+    "pilot": 39440377592,
+    "main": 375908923615,
+    "overflow_if_run": 1302977300,
+    "total": 420596316491
+   }
+  },
+  "total_bytes": 2025871254363,
+  "total_tb": 2.025871254363,
+  "per_model_tb": {
+   "next": 1.605274937872,
+   "llava15": 0.420596316491
+  }
+ },
+ "expected_duration": {
+  "seconds": {
+   "next": {
+    "gate": 479.6824047360569,
+    "pilot": 2154.1810781741515,
+    "main": 11386.704267826863,
+    "overflow_if_run": 214.3525666675996,
+    "total": 14234.92031740467
+   },
+   "llava15": {
+    "gate": 372.3626418663189,
+    "pilot": 1315.2396961299237,
+    "main": 6180.79766955832,
+    "overflow_if_run": 243.41309823235497,
+    "total": 8111.813105786918
+   }
+  },
+  "fixed_seconds": 900,
+  "total_hours": 6.457425950886552,
+  "judge_hours_per_model_if_needed": 3.586388888888889,
+  "basis": "per conversation: the recorded seconds of the IMPRESS requests (x number of IMPRESS-format arms) and of the FullLoad requests, the recorded store writing and activation seconds, and the main experiment's remaining seconds per request; judging is needed only if a generated token differs from the recorded IMPRESS tokens (3.6 h per model, not included in the total)"
+ },
+ "free_space": {
+  "free_bytes": 434656735232,
+  "free_gib": 404.8056297302246,
+  "required_free_bytes": 67023854220,
+  "rule": "do not start when free space < 20 x the largest per-conversation store bundle; rechecked before every conversation",
+  "ok": true
+ },
+ "smart": {
+  "status": "NOT_MEASURED",
+  "at_unix": 1795612469.3387659,
+  "at_utc": "2026-11-25T13:14:29Z",
+  "device": "/dev/nvme0",
+  "device_node_mode": "0o600",
+  "reason": "the SMART / health log is an NVMe admin command (root only); this account has no passwordless sudo and no SMART tool is installed",
+  "attempts": [
+   {
+    "command": "nvme smart-log /dev/nvme0",
+    "returncode": 22,
+    "stderr": "r binary.  [  --namespace-id=<NUM>, -n <NUM> ]   --- (optional) desired namespace\n  [  --output-format=<FMT>, -o <FMT> ]  --- Output format: normal|json|binary\n  [  --raw-binary, -b ]                 --- output in binary format\n  [  --human-readable, -H ]             --- show info in readable format"
+   },
+   {
+    "command": "sudo -n nvme smart-log /dev/nvme0",
+    "returncode": 1,
+    "stderr": "sudo: a password is required"
+   }
+  ],
+  "percentage_used": null,
+  "data_units_written": null,
+  "available_without_root": {
+   "hwmon_temperature": {
+    "composite_c": 46.85,
+    "sensors_c": {
+     "temp1": 46.85,
+     "temp2": 40.85,
+     "temp3": 44.85
+    },
+    "source": "/sys/class/nvme/nvme0/hwmon*/temp*_input"
+   },
+   "kernel_counter_since_boot": {
+    "device": "nvme0n1",
+    "sectors_read": 1289242595706,
+    "sectors_written": 283514136122
+   },
+   "boot_id": "4e46c650-1c93-4d00-aa9b-279177002b3f"
+  },
+  "how_to_supply": "sudo nvme smart-log /dev/nvme0 > results/<run name>/smart_manual_<before|after>.txt   (read by the report)"
+ },
+ "ssd_counters_at_prerun": {
+  "device": "nvme0n1",
+  "sectors_read": 1289242595706,
+  "sectors_written": 283514155122
+ },
+ "ssd_temperature_at_prerun": {
+  "composite_c": 45.85,
+  "sensors_c": {
+   "temp1": 45.85,
+   "temp2": 39.85,
+   "temp3": 44.85
+  },
+  "source": "/sys/class/nvme/nvme0/hwmon*/temp*_input"
+ },
+ "recorded_main_experiment": {
+  "next": {
+   "conversations": 577,
+   "impress_requests_above_4096": 8,
+   "impress_store_write_gb_mean": 2.490593492897747,
+   "impress_seconds_per_conversation_mean": 19.32676038452855
+  },
+  "llava15": {
+   "conversations": 577,
+   "impress_requests_above_4096": 0,
+   "impress_store_write_gb_mean": 0.6514886024523396,
+   "impress_seconds_per_conversation_mean": 10.411972901188289
+  }
+ },
+ "protection_inventory": {
+  "file": "protection_before.json",
+  "files": 3183789,
+  "sha256": "382d1e364bac9e4aeaf41875dc43da01f3dc70bb1acf2c6581026ae92d851f95"
+ },
+ "seconds": 44.746373891830444
+}

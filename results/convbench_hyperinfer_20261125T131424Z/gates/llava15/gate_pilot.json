@@ -1,0 +1,182 @@
+{
+ "gate": "gates_on_pilot",
+ "model": "llava15",
+ "scale": "pilot",
+ "conversations": 40,
+ "requests": 360,
+ "failed_requests": [],
+ "gates": {
+  "gate1_output_equals_impress": {
+   "a": "hyperinfer",
+   "b": "impress",
+   "requests": 120,
+   "followup_requests": 80,
+   "mismatches": 0,
+   "first_mismatches": [],
+   "compared": [
+    "generated tokens (T1, T2, T3)",
+    "per-layer used set (T2, T3)"
+   ],
+   "ok": true,
+   "criterion": "generated tokens (T1-T3) and per-layer used sets (T2-T3) equal the IMPRESS arm executed in the same session, every request"
+  },
+  "gate5_no_read_started_after_stop": {
+   "arms": {
+    "hyperinfer": {
+     "followup_requests": 80,
+     "layers_checked": 2480,
+     "prefetch_reads": 9869,
+     "reads_started_after_stop": 0,
+     "reads_in_flight_at_stop": 2448,
+     "latest_read_call_relative_to_stop_ms": -0.005408190190792084
+    }
+   },
+   "violations": 0,
+   "first_violations": [],
+   "criterion": "reads started after the stop = 0 in every layer (and so at most one read, the one in flight, ends after the stop)",
+   "note": "latest_read_call_relative_to_stop_ms: the largest (time the read call was issued - stop time) over all prefetch reads; a read is allowed under the lock before the stop and issued right after the lock is released, so the value may exceed 0 by that delay",
+   "ok": true
+  },
+  "gate6_tokens_equal_recorded_impress": {
+   "requests": 120,
+   "equal": 120,
+   "mismatches": 0,
+   "equal_per_turn": {
+    "T1": [
+     40,
+     40
+    ],
+    "T2": [
+     40,
+     40
+    ],
+    "T3": [
+     40,
+     40
+    ]
+   },
+   "ok": true,
+   "first_mismatches": [],
+   "criterion": "HyperInfer's generated tokens (T1, T2, T3) equal the tokens the main experiment recorded for IMPRESS, same conversation and turn, every request of the pilot"
+  }
+ },
+ "gate8_pilot_table": {
+  "status": "REPORTED",
+  "conversations": 40,
+  "methods": {
+   "fullload": {
+    "method": "FullLoad",
+    "followup_requests": 80,
+    "failed_requests": 0,
+    "ttft_mean_ms": 133.52623265236616,
+    "ttft_p50_ms": 127.09843972697854,
+    "ttft_p95_ms": 159.12091615609822,
+    "ttft_mean_by_turn_ms": {
+     "T2": 140.26707836892456,
+     "T3": 126.78538693580776
+    },
+    "ssd_mb_per_followup": 301.989888,
+    "read_calls_per_followup": 64.0,
+    "requests_above_4096": 0
+   },
+   "impress": {
+    "method": "IMPRESS",
+    "followup_requests": 80,
+    "failed_requests": 0,
+    "ttft_mean_ms": 261.5026106010191,
+    "ttft_p50_ms": 256.30978867411613,
+    "ttft_p95_ms": 297.95835767872626,
+    "ttft_mean_by_turn_ms": {
+     "T2": 256.0235712910071,
+     "T3": 266.9816499110311
+    },
+    "ssd_mb_per_followup": 257.30580480000003,
+    "read_calls_per_followup": 100.75,
+    "requests_above_4096": 0
+   },
+   "hyperinfer": {
+    "method": "HyperInfer",
+    "followup_requests": 80,
+    "failed_requests": 0,
+    "ttft_mean_ms": 247.20721582416445,
+    "ttft_p50_ms": 242.9679431952536,
+    "ttft_p95_ms": 272.1571879927069,
+    "ttft_mean_by_turn_ms": {
+     "T2": 243.07143823243678,
+     "T3": 251.34299341589212
+    },
+    "ssd_mb_per_followup": 257.6596992,
+    "read_calls_per_followup": 223.2375,
+    "requests_above_4096": 0
+   }
+  },
+  "hyperinfer_over_impress_same_run": {
+   "ratio": 0.9453336441116242,
+   "ci_low": 0.9272495452301762,
+   "ci_high": 0.9640494574581043,
+   "n": 40,
+   "diff_ms": -14.295394776854664,
+   "diff_ci_low": -19.406758114055265,
+   "diff_ci_high": -9.200092479877645
+  },
+  "hyperinfer_over_fullload_same_run": {
+   "ratio": 1.8513756504144416,
+   "ci_low": 1.7930598951645056,
+   "ci_high": 1.90958130606381,
+   "n": 40,
+   "diff_ms": 113.68098317179829,
+   "diff_ci_low": 108.13315619219793,
+   "diff_ci_high": 119.359720388602
+  },
+  "continuity_with_main_experiment": {
+   "fullload": {
+    "method": "FullLoad",
+    "conversations": 40,
+    "this_run_mean_ms": 133.52623265236616,
+    "main_experiment_mean_ms": 131.1368649592623,
+    "ratio": 1.0182204118868186,
+    "ci_low": 0.9804584841223611,
+    "ci_high": 1.0569779936834895,
+    "n": 40,
+    "diff_ms": 2.38936769310385,
+    "diff_ci_low": -2.6127788759185933,
+    "diff_ci_high": 7.327496105572208,
+    "tokens_equal_to_main_experiment": {
+     "requests": 120,
+     "equal": 120
+    }
+   },
+   "impress": {
+    "method": "IMPRESS",
+    "conversations": 40,
+    "this_run_mean_ms": 261.5026106010191,
+    "main_experiment_mean_ms": 267.079776909668,
+    "ratio": 0.9791179760100848,
+    "ci_low": 0.9642912903667432,
+    "ci_high": 0.9946359206519557,
+    "n": 40,
+    "diff_ms": -5.577166308648884,
+    "diff_ci_low": -9.513597906625364,
+    "diff_ci_high": -1.4217465248657393,
+    "tokens_equal_to_main_experiment": {
+     "requests": 120,
+     "equal": 120
+    }
+   }
+  },
+  "note": "not a gate; this pilot rotates 3 arms (FullLoad, IMPRESS, HyperInfer), the main experiment rotated 4 (ReComp, FullLoad, IMPRESS, Ours)"
+ },
+ "turn1_tokens_identical_across_arms": {
+  "conversations": 40,
+  "identical": 40,
+  "arms": [
+   "fullload",
+   "impress",
+   "hyperinfer"
+  ]
+ },
+ "failed": [],
+ "status": "PASS",
+ "config_sha256": "e105ab6886bee697fb2e67f4f7da51802ecd8dfa5acee60cea5a94cb395f943b",
+ "at_utc": "2026-11-25T17:32:46Z"
+}

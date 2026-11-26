@@ -1,0 +1,37 @@
+{
+ "status": "PASS",
+ "failed": [],
+ "image_count": 40,
+ "execution": {
+  "status": "PASS",
+  "requests": 4536,
+  "expected_requests": 4536,
+  "images": 40,
+  "independent_image_audit": "PASS",
+  "config_sha256": "1b58e7c3bc0046c6f9f136f985b9d11c70db4f59d2214ce2537c1315089adecd",
+  "expected": 4536,
+  "criterion": "every image of the phase committed after its independent audit passed, for this freeze",
+  "gate": "gate8_dev_pilot_executed"
+ },
+ "gate6_turn1_identical_across_methods": {
+  "criterion": "turn-1 generated tokens identical across the four methods (ReComp, FullLoad, IMPRESS, Ours), every dialogue",
+  "dialogues": 378,
+  "arms": [
+   "recompute",
+   "fullload_async",
+   "impress_official_async",
+   "ours_origorder_kv25_PYR-beta-raw_packed_async"
+  ],
+  "mismatch_count": 0,
+  "mismatches": [],
+  "status": "PASS"
+ },
+ "reported_token_record": {
+  "requests": 4536,
+  "requests_whose_ids_equal_original_llava": 4536,
+  "tokenization": "official"
+ },
+ "pilot_seconds_per_request": 0.6472079117882609,
+ "config_sha256": "1b58e7c3bc0046c6f9f136f985b9d11c70db4f59d2214ce2537c1315089adecd",
+ "written_unix": 1795506834.8588235
+}

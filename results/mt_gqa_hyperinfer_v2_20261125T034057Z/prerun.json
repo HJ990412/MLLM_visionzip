@@ -1,0 +1,117 @@
+{
+ "written_before_any_measurement_utc": "2026-11-25T03:41:43Z",
+ "run": "mt_gqa_hyperinfer_v2_20261125T034057Z",
+ "expected_requests": {
+  "next": {
+   "gate": 882,
+   "dev": 6804,
+   "main": 12183
+  },
+  "l15": {
+   "gate": 882,
+   "dev": 6804,
+   "main": 12183
+  }
+ },
+ "expected_requests_total": 39738,
+ "expected_ssd_write": {
+  "bytes": {
+   "next": {
+    "gate": 15708688791,
+    "dev": 151387097728,
+    "main": 1007847081226,
+    "total": 1174942867745
+   },
+   "l15": {
+    "gate": 3828432781,
+    "dev": 38284327804,
+    "main": 254049864162,
+    "total": 296162624747
+   }
+  },
+  "total_tb": 1.471105492492,
+  "note": "per image: the IMPRESS-layout store (written, then rewritten in the reordered layout) and, in the gate and dev phases, the FullLoad store; sizes from the earlier main run's disk_usage.json of the same image; rows and evidence not included"
+ },
+ "expected_duration": {
+  "seconds_per_request_prior": {
+   "next": {
+    "gate": 0.85,
+    "dev": 0.78,
+    "main": 0.97
+   },
+   "l15": {
+    "gate": 0.28,
+    "dev": 0.25,
+    "main": 0.3
+   }
+  },
+  "phase_hours": {
+   "next": {
+    "gate": 0.20825,
+    "dev": 1.4742,
+    "main": 3.2826416666666667
+   },
+   "l15": {
+    "gate": 0.06860000000000001,
+    "dev": 0.4725,
+    "main": 1.01525
+   }
+  },
+  "total_hours": 7.021441666666667,
+  "basis": "seconds per request of the earlier HyperInfer run's phases; unit tests, gate checks and the report add about 30 min"
+ },
+ "free_space": {
+  "free_bytes": 436767076352,
+  "free_gib": 406.7710380554199,
+  "required_free_bytes": 57006826092
+ },
+ "smart": {
+  "status": "NOT_MEASURED",
+  "at_unix": 1795578103.2906587,
+  "at_utc": "2026-11-25T03:41:43Z",
+  "device": "/dev/nvme0",
+  "device_node_mode": "0o600",
+  "reason": "the SMART / health log is an NVMe admin command (root only); this account has no passwordless sudo and no SMART tool is installed",
+  "attempts": [
+   {
+    "command": "nvme smart-log /dev/nvme0",
+    "returncode": 22,
+    "stderr": "r binary.  [  --namespace-id=<NUM>, -n <NUM> ]   --- (optional) desired namespace\n  [  --output-format=<FMT>, -o <FMT> ]  --- Output format: normal|json|binary\n  [  --raw-binary, -b ]                 --- output in binary format\n  [  --human-readable, -H ]             --- show info in readable format"
+   },
+   {
+    "command": "sudo -n nvme smart-log /dev/nvme0",
+    "returncode": 1,
+    "stderr": "sudo: a password is required"
+   }
+  ],
+  "percentage_used": null,
+  "data_units_written": null,
+  "available_without_root": {
+   "hwmon_temperature": {
+    "composite_c": 43.85,
+    "sensors_c": {
+     "temp1": 43.85,
+     "temp2": 37.85,
+     "temp3": 42.85
+    },
+    "source": "/sys/class/nvme/nvme0/hwmon*/temp*_input"
+   },
+   "kernel_counter_since_boot": {
+    "device": "nvme0n1",
+    "sectors_read": 1254051720842,
+    "sectors_written": 280567521650
+   },
+   "boot_id": "4e46c650-1c93-4d00-aa9b-279177002b3f"
+  },
+  "how_to_supply": "sudo nvme smart-log /dev/nvme0 > results/<run name>/smart_manual_<before|after>.txt   (read by the report)"
+ },
+ "ssd_temperature_at_freeze": {
+  "composite_c": 43.85,
+  "sensors_c": {
+   "temp1": 43.85,
+   "temp2": 37.85,
+   "temp3": 42.85
+  },
+  "source": "/sys/class/nvme/nvme0/hwmon*/temp*_input"
+ }
+}
